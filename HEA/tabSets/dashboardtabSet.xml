@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+	<tab id="LC" label="Lifecycle Event Manager" color="#AAAAAA">        
+		<tab id="LCmain2" label="Main" form="/../fil/home/configs/HEA/forms/actions.xfrm"/>    
+	</tab> 
+	
+	<tab id="Comms" label="Communications">
+		<tab id="Letters" label="Letters" form="/../fil/home/configs/HEA/forms/gatheredComms.xfrm"/>
+		<tab id="coms" label="Comments" form="/../fil/home/configs/HEA/forms/dshbrd_commsMan.xfrm" when="seeComments"/>
+	</tab>
+	<tab id="1" label="HEA Summary" form="/../fil/home/configs/HEA/forms/coiSummaryView.xfrm" printlabel="HEA Summary" sourceXML="/summary.xml" formType="general" formName="summary"/>
+
+	<tab id="18" label="Attachments" form="/../fil/home/configs/HEA/forms/dshbrdAttachmentsView.xfrm"/>
+
+	<switches>    	
+		
+	</switches>
+</tabs>
+
+
+
+
+
+
+
+
+

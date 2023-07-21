@@ -1,0 +1,553 @@
+<irbcats>
+  <!-- AB 01/11/2019 below used for printing and building baseChange -->
+  <formsFolder>
+    <type id="main" name="/configs/forms/MASTER_FORMS"/>		
+  </formsFolder>
+  <printTabSet>
+    <type id="main" name="createTabs.xml"/>
+    <type id="problems" name="unantiProbTabs.xml"/>
+    <type id="renewals" name="renewalTabs.xml"/>
+    <type id="finalreps" name="finalReportTabs.xml"/>
+    <type id="progressreps" name="progressReportTabs.xml"/>
+    <type id="amendments" name="amendmentTabs.xml"/>
+  </printTabSet>	
+  <!-- AB 01/11/2019 below used for printing and building baseChange -->
+
+
+<docTypes>  
+  <type id='manual' name='Manual Attachment'/>  
+</docTypes>
+<statusTypes>
+    <type id="inDev" name="In Development"/>
+    <type id="active" name="Active"/>
+    <type id="expired" name="Expired"/>
+    <type id="expsus" name="Expired/Suspended"/>
+    <type id="suspended" name="Suspended"/>
+    <type id="terminated" name="Terminated"/>
+    <type id="rejected" name="Disapproved"/>
+    <type id="withdrawn" name="Withdrawn"/>
+    <type id="closed" name="Completed"/>
+    <type id="deptReview" name="Dept Review"/>
+    <type id="intakeReview" name="Intake Review"/>
+    <type id="adminReview" name="Admin Review"/>
+    <type id="directorReview" name="Director Review"/>
+    <type id="boardReview" name="Under Review"/>
+    <type id="notHuman" name="Not Human Subjects"/>
+    <type id="notRsrch" name="Not Research"/>
+  </statusTypes>
+  <riskTypes>
+    <type id="greater" conversionType="existing" conversionValue="GTMIN" name=" &gt; Minimal"/>
+    <type id="min" conversionType="existing" conversionValue="MIN" name="Minimal"/>
+  </riskTypes>
+<personnelRoleTypesPI>
+  <type id='PI' name='Principal Investigator'/>
+</personnelRoleTypesPI>
+
+<allRoles>
+  <type id="COPI" name="Co-Principal Investigator"/>
+  <type id="ADV" name="Advisor/Supervisor"/>
+  <type id='nonProtocol' name='Non-Protocol'/>
+  <type id='co' name='Co-Investigator'/>
+  <type id='rc' name='Research Coordinator'/>
+  <type id='lt' name='Lab Technician'/>
+  <type id='fa' name='Faculty Advisor'/>
+</allRoles>
+
+<accessTypes>
+  <type id="EDIT" name="Edit Access"/>
+  <type id="READONLY" name="Read-only Access"/>
+  <type id="SIGNAUTH" name="Signature Authority"/>
+</accessTypes>
+
+<personnelRoleTypesAll>
+  <type id='PI' name='Principal Investigator'/>
+  <type id="COPI" name="Co-Principal Investigator"/>
+  <type id="ADV" name="Advisor/Supervisor"/>
+  <type id='co' name='Co-Investigator'/>
+  <type id='rc' name='Research Coordinator'/>
+  <type id='lt' name='Lab Technician'/>
+  <type id='fa' name='Faculty Advisor'/>
+</personnelRoleTypesAll>
+
+<personnelRoleTypes>
+  <type id="COPI" name="Co-Principal Investigator"/>
+  <type id="ADV" name="Advisor/Supervisor"/>
+  <type id='co' name='Co-Investigator'/>
+  <type id='rc' name='Research Coordinator'/>
+  <type id='lt' name='Lab Technician'/>
+  <type id='fa' name='Faculty Advisor'/>
+</personnelRoleTypes>
+  
+<submissionTypes>
+  <type id='init' name='Initial Review'/>
+  <type id='renew' name='Renewal'/>
+  <type id='amend' name='Amendment'/>    
+  <type id='incidentrep' name='Incident Report'/>
+  <type id='finalrep' name='Final Report'/>
+</submissionTypes>
+
+<decisionTypes>
+  <type id='apr' name='Approved'/>
+  <type id='ack' name='Acknowledged'/>
+  <type id='mod' name='Modifications Required'/>
+  <type id='def' name='Deferred'/>
+  <type id="NOTHUMAN" name="Not Human Subjects"/>
+  <type id="NOTRSRCH" name="Not Research"/>
+  <type id="REFCONV" name="Referred to Full Committee Review"/>
+  <type id='closed' name='Closed'/>
+  <type id="TABLED" name="Tabled"/>
+  <type id="sus" name="Suspended"/>
+  <type id="TERM" name="Terminated"/>
+</decisionTypes>
+ 
+  <reviewProcessTypes>
+    <type id="admin" name="Administrative Review"/>		
+    <type id="exempt" name="Exempt Review"/>
+    <type id="expedited" name="Expedited Review"/>
+    <type id="full" name="Full Committee Review"/>
+  </reviewProcessTypes>
+
+  <reviewTypes>
+    <type id="PRE" name="Administrative Review"/>
+    <type id="mem" name="Member Review"/>
+    <type id="board" name="Meeting Review"/>
+  </reviewTypes>
+  <expeditedTypes>
+    <type id="1a" name="(1)(a) Research on drugs for which an investigational new drug application (21 CFR Part 312) is not required. (Note: Research on marketed drugs that significantly increases the risks or decreases the acceptability of the risks associated with the use of the product is not eligible for expedited review.)"/>
+    <type id="1b" name="(1)(b) Research on medical devices for which (i) an investigational device exemption application (21 CFR Part 812) is not required; or (ii) the medical device is cleared/approved for marketing and the medical device is being used in accordance with its cleared/approved labeling."/>
+    <type id="2a" name="(2)(a) Collection of blood samples by finger stick, heel stick, ear stick, or venipuncture from healthy, nonpregnant adults who weigh at least 110 pounds. For these subjects, the amounts drawn may not exceed 550 ml in an 8 week period and collection may not occur more frequently than 2 times per week"/>
+    <type id="2b" name="(2)(b) Collection of blood samples by finger stick, heel stick, ear stick, or venipuncture from other adults and children, considering the age, weight, and health of the subjects, the collection procedure, the amount of blood to be collected, and the frequency with which it will be collected. For these subjects, the amount drawn may not exceed the lesser of 50 ml or 3 ml per kg in an 8 week period and collection may not occur more frequently than 2 times per week."/>
+    <type id="3" name="(3) Prospective collection of biological specimens for research purposes by noninvasive means. Examples: (a) hair and nail clippings in a nondisfiguring manner; (b) deciduous teeth at time of exfoliation or if routine patient care indicates a need for extraction; (c) permanent teeth if routine patient care indicates a need for extraction; (d) excreta and external secretions (including sweat); (e) uncannulated saliva collected either in an unstimulated fashion or stimulated by chewing gumbase or wax or by applying a dilute citric solution to the tongue; (f) placenta removed at delivery; (g) amniotic fluid obtained at the time of rupture of the membrane prior to or during labor; (h) supra- and subgingival dental plaque and calculus, provided the collection procedure is not more invasive than routine prophylactic scaling of the teeth and the process is accomplished in accordance with accepted prophylactic techniques; (i) mucosal and skin cells collected by buccal scraping or swab, skin swab, or mouth washings; (j) sputum collected after saline mist nebulization."/>
+    <type id="4" name="(4) Collection of data through noninvasive procedures (not involving general anesthesia or sedation) routinely employed in clinical practice, excluding procedures involving x-rays or microwaves. Where medical devices are employed, they must be cleared/approved for marketing. (Studies intended to evaluate the safety and effectiveness of the medical device are not generally eligible for expedited review, including studies of cleared medical devices for new indications.) Examples: (a) physical sensors that are applied either to the surface of the body or at a distance and do not involve input of significant amounts of energy into the subject or an invasion of the subject's privacy; (b) weighing or testing sensory acuity; (c) magnetic resonance imaging; (d) electrocardiography, electroencephalography, thermography, detection of naturally occurring radioactivity, electroretinography, ultrasound, diagnostic infrared imaging, doppler blood flow, and echocardiography; (e) moderate exercise, muscular strength testing, body composition assessment, and flexibility testing where appropriate given the age, weight, and health of the individual."/>
+    <type id="5" name="(5) Research involving materials (data, documents, records, or specimens) that have been collected, or will be collected solely for nonresearch purposes (such as medical treatment or diagnosis). (NOTE: Some research in this category may be exempt from the HHS regulations for the protection of human subjects. 45 CFR 46.101(b)(4). This listing refers only to research that is not exempt.)"/>
+    <type id="6" name="(6) Collection of data from voice, video, digital, or image recordings made for research purposes."/>
+    <type id="7" name="(7) Research on individual or group characteristics or behavior (including, but not limited to, research on perception, cognition, motivation, identity, language, communication, cultural beliefs or practices, and social behavior) or research employing survey, interview, oral history, focus group, program evaluation, human factors evaluation, or quality assurance methodologies. (NOTE: Some research in this category may be exempt from the HHS regulations for the protection of human subjects. 45 CFR 46.101(b)(2) and (b)(3). This listing refers only to research that is not exempt.)"/>
+    <type id="8a" name="(8)(a) Continuing review of research previously approved by the convened IRB where (i) the research is permanently closed to the enrollment of new subjects; (ii) all subjects have completed all research-related interventions; and (iii) the research remains active only for long-term follow-up of subjects."/>
+    <type id="8b" name="(8)(b) Continuing review of research previously approved by the convened IRB where no subjects have been enrolled and no additional risks have been identified."/>
+    <type id="8c" name="(8)(c) Continuing review of research previously approved by the convened IRB where the remaining research activities are limited to data analysis."/>
+    <type id="9" name="(9) Continuing review of research, not conducted under an investigational new drug application or investigational device exemption where categories two (2) through eight (8) do not apply but the IRB has determined and documented at a convened meeting that the research involves no greater than minimal risk and no additional risks have been identified."/>
+    <type id="10" name="(10) No greater than minimal risk but categories 1-9 do not apply."/>
+  </expeditedTypes>
+  <expeditedTypesForCR>
+    <type id="8a" name="(8)(a) Continuing review of research previously approved by the convened IRB where (i) the research is permanently closed to the enrollment of new subjects; (ii) all subjects have completed all research-related interventions; and (iii) the research remains active only for long-term follow-up of subjects."/>
+    <type id="8b" name="(8)(b) Continuing review of research previously approved by the convened IRB where no subjects have been enrolled and no additional risks have been identified."/>
+    <type id="8c" name="(8)(c) Continuing review of research previously approved by the convened IRB where the remaining research activities are limited to data analysis."/>
+    <type id="9" name="(9) Continuing review of research, not conducted under an investigational new drug application or investigational device exemption where categories two (2) through eight (8) do not apply but the IRB has determined and documented at a convened meeting that the research involves no greater than minimal risk and no additional risks have been identified."/>
+  </expeditedTypesForCR> 
+  <exemptionTypes>
+    <type id="1" name="(1) Research, conducted in established or commonly accepted educational settings, that specifically involves normal educational practices that are not likely to adversely impact students’ opportunity to learn required educational content or the assessment of educators who provide instruction. This includes most research on regular and special education instructional strategies, and research on the effectiveness of or the comparison among instructional techniques, curricula, or classroom management methods."/>
+    <type id="2" name="(2) Research that only includes interactions involving educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures, or observation of public behavior (including visual or auditory recording) if at least one of the following criteria is met:    (i)    The information obtained is recorded by the investigator in such a manner that the identity of the human subjects cannot readily be ascertained, directly or through identifiers linked to the subjects;    (ii)    Any disclosure of the human subjects’ responses outside the research would not reasonably place the subjects at risk of criminal or civil liability or be damaging to the subjects’ financial standing, employability, educational advancement, or reputation; or    (iii) The information obtained is recorded by the investigator in such a manner that the identity of the human subjects can readily be ascertained, directly or through identifiers linked to the subjects, and an IRB conducts a limited IRB review to make the determination required by §46.111(a)(7)."/>
+    <type id="3" name="(3)(i) Research involving benign behavioral interventions in conjunction with the collection of information from an adult subject through verbal or written responses (including data entry) or audiovisual recording if the subject prospectively agrees to the intervention and information collection and at least one of the following criteria is met:    (A)    The information obtained is recorded by the investigator in such a manner that the identity of the human subjects cannot readily be ascertained, directly or through identifiers linked to the subjects;    (B)    Any disclosure of the human subjects’ responses outside the research would not reasonably place the subjects at risk of criminal or civil liability or be damaging to the subjects’ financial standing, employability, educational advancement, or reputation; or    (C)    The information obtained is recorded by the investigator in such a manner that the identity of the human subjects can readily be ascertained, directly or through identifiers linked to the subjects, and an IRB conducts a limited IRB review to make the determination required by §46.111(a)(7).    (ii) For the purpose of this provision, benign behavioral interventions are brief in duration, harmless, painless, not physically invasive, not likely to have a significant adverse lasting impact on the subjects, and the investigator has no reason to think the subjects will find the interventions offensive or embarrassing. Provided all such criteria are met, examples of such benign behavioral interventions would include having the subjects play an online game, having them solve puzzles under various noise conditions, or having them decide how to allocate a nominal amount of received cash between themselves and someone else. (iii) If the research involves deceiving the subjects regarding the nature or purposes of the research, this exemption is not applicable unless the subject authorizes the deception through a prospective agreement to participate in research in circumstances in which the subject is informed that he or she will be unaware of or misled regarding the nature or purposes of the research."/>
+    <type id="4" name="(4) Secondary research for which consent is not required: Secondary research uses of identifiable private information or identifiable biospecimens, if at least one of the following criteria is met:    (i)    The identifiable private information or identifiable biospecimens are publicly available;    (ii)    Information, which may include information about biospecimens, is recorded by the investigator in such a manner that the identity of the human subjects cannot readily be ascertained directly or through identifiers linked to the subjects, the investigator does not contact the subjects, and the investigator will not re-identify subjects;    (iii) The research involves only information collection and analysis involving the investigator’s use of identifiable health information when that use is regulated under 45 CFR parts 160 and 164, subparts A and E, for the purposes of 'health care operations' or 'research' as those terms are defined at 45 CFR    164.501 or for 'public health activities and purposes' as described under 45 CFR 164.512(b); or    (iv) The research is conducted by, or on behalf of, a Federal department or agency using government-generated or government-collected information obtained for nonresearch activities, if the research generates identifiable private information that is or will be maintained on information technology that is subject to and in compliance with section 208(b) of the E-Government Act of 2002, 44 U.S.C. 3501 note, if all of the identifiable private information collected, used, or generated as part of the activity will be maintained in systems of records subject to the Privacy Act of 1974, 5 U.S.C. 552a, and, if applicable, the information used in the research was collected subject to the Paperwork Reduction Act of 1995, 44 U.S.C. 3501 et seq."/>
+    <type id="5" name="(5)    Research and demonstration projects that are conducted or supported by a Federal department or agency, or otherwise subject to the approval of department or agency heads (or the approval of the heads of bureaus or other subordinate agencies that have been delegated authority to conduct the research and demonstration projects), and that are designed to study, evaluate, improve, or otherwise examine public benefit or service programs, including procedures for obtaining benefits or services under those programs, possible changes in or alternatives to those programs or procedures, or possible changes in methods or levels of payment for benefits or services under those programs. Such projects include, but are not limited to, internal studies by Federal employees, and studies under contracts or consulting arrangements, cooperative agreements, or grants. Exempt projects also include waivers of otherwise mandatory requirements using authorities such as sections 1115 and 1115A of the Social Security Act, as amended.    (i)    Each Federal department or agency conducting or supporting the research and demonstration projects must establish, on a publicly accessible Federal Web site or in such other manner as the department or agency head may determine, a list of the research and demonstration projects that the Federal department or agency conducts or supports under this provision. The research or demonstration project must be published on this list prior to commencing the research involving human subjects.    (ii)    [Reserved]"/>
+    <type id="6" name="(6)    Taste and food quality evaluation and consumer acceptance studies:    (i)    If wholesome foods without additives are consumed, or    (ii)    If a food is consumed that contains a food ingredient at or below the level and for a use found to be safe, or agricultural chemical or environmental contaminant at or below the level found to be safe, by the Food and Drug Administration or approved by the Environmental Protection Agency or the Food Safety and Inspection Service of the U.S. Department of Agriculture."/>
+    <type id="7" name="(7)    Storage or maintenance for secondary research for which broad consent is required: Storage or maintenance of identifiable private information or identifiable biospecimens for potential secondary research use if an IRB conducts a limited IRB review and makes the determinations required by §46.111(a)(8)."/>
+    <type id="8" name="(8) Secondary research for which broad consent is required: Research involving the use of identifiable private information or identifiable biospecimens for secondary research use, if the following criteria are met:    (i)    Broad consent for the storage, maintenance, and secondary research use of the identifiable private information or identifiable biospecimens was obtained in accordance with §46.116(a)(1) through (4), (a)(6), and (d);    (ii)    Documentation of informed consent or waiver of documentation of consent was obtained in accordance with §46.117;    (iii) An IRB conducts a limited IRB review and makes the determination required by §46.111(a)(7) and makes the determination that the research to be conducted is within the scope of the broad consent referenced in paragraph (d)(8)(i) of this section; and(iv) The investigator does not include returning individual research results to subjects as part of the study plan. This provision does not prevent an investigator from abiding by any legal requirements to return individual research results."/>
+  </exemptionTypes>
+  <reviewActionRules>
+    <!-- Convened -->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="apr" decisionTypesname="Approved"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="dis" decisionTypesname="Disapproved"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="DEF" decisionTypesname="Deferred"/> 
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TABLED" decisionTypesname="Tabled"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="apr" decisionTypesname="Approved"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="DEF" decisionTypesname="Deferred"/> 
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TABLED" decisionTypesname="Tabled"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="dis" decisionTypesname="Disapproved"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="sus" decisionTypesname="Suspended"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TERM" decisionTypesname="Terminated"/> 
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="apr" decisionTypesname="Approved"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="DEF" decisionTypesname="Deferred"/> 
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TABLED" decisionTypesname="Tabled"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="dis" decisionTypesname="Disapproved"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="sus" decisionTypesname="Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TERM" decisionTypesname="Terminated"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="ack" decisionTypesname="Acknowledged"/> 
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="DEF" decisionTypesname="Deferred"/> 
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TABLED" decisionTypesname="Tabled"/>
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="DEF" decisionTypesname="Deferred"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TABLED" decisionTypesname="Tabled"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="sus" decisionTypesname="Suspended"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" decisionTypes="TERM" decisionTypesname="Terminated"/>
+    
+    
+    <!-- Expedited -->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="apr" decisionTypesname="Approved"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="REFCONV" decisionTypesname="Referred to Full Committee Review"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>		
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="apr" decisionTypesname="Approved"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="REFCONV" decisionTypesname="Referred to Full Committee Review"/>    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="apr" decisionTypesname="Approved"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="REFCONV" decisionTypesname="Referred to Full Committee Review"/>    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="REFCONV" decisionTypesname="Referred to Full Committee Review"/>  
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="ack" decisionTypesname="Acknowledged"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="mod" decisionTypesname="Revisions Required"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="sus" decisionTypesname="Suspended"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" decisionTypes="TERM" decisionTypesname="Terminated"/> <!--ADDED on 12/15/15-->
+    
+    <!-- Administrative -->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    
+    <!-- Exempt -->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="NOTRSRCH" decisionTypesname="Not Research"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required"/>
+    
+  </reviewActionRules>
+  <protocolStatusRules>
+    <!-- Initial Applications -->
+    
+    <!-- Convened, Full Committee Review-->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/> 
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="intakeReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/> 
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="rejected" newstatusTypesname="Disapproved"/>
+    <!-- Convened, Full Committee Review-->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="rejected" newstatusTypesname="Disapproved"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" newstatusTypes="notHuman" newstatusTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" newstatusTypes="notRsrch" newstatusTypesname="Not Research"/>
+    
+    <!-- Expedited,Non-Committee Review -->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" newstatusTypes="notHuman" newstatusTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited Review" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" newstatusTypes="notRsrch" newstatusTypesname="Not Research"/>
+    
+    <!-- Exempt,Non-Committee Review -->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt Review" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt Review" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" newstatusTypes="notHuman" newstatusTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt Review" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" newstatusTypes="notRsrch" newstatusTypesname="Not Research"/>
+    
+    <!--Administrative VV/04/27-->
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" newstatusTypes="notHuman" newstatusTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" newstatusTypes="notRsrch" newstatusTypesname="Not Research"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" newstatusTypes="notHuman" newstatusTypesname="Not Human Subjects"/>
+    <rule submissionTypes="INIT" submissionTypesname="Initial Application" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="adminReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" newstatusTypes="notRsrch" newstatusTypesname="Not Research"/>
+    
+    <!-- Convened, Full Committee Review-->
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="suspended" newstatusTypesname="Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <!--VV04/30/2015: Added line below-->
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="terminated" newstatusTypesname="Terminated"/><!-- confirm  with PPHS-->
+    
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!-- confirm  with PPHS-->
+    
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="suspended" newstatusTypesname="Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!-- confirm  with PPHS-->
+    
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!-- confirm  with PPHS-->
+    
+    
+    <!-- Expedited -->
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    
+    
+    <!--Administrative VV/04/27-->
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="CONT" submissionTypesname="Continuation" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    <!-- Unanticipated Problems -->
+    <!-- Convened -->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="suspended" newstatusTypesname="Suspended"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="TERM" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="TERM" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="sus" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    
+    
+    
+    <!-- Expedited -->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="active" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="suspended" newstatusTypesname="Suspended"/>
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    
+    <!-- Admin -->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="advers" submissionTypesname="New Information" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/> <!--ADDED on 12/15/15-->
+    
+    
+    
+    
+    
+    <!-- Final Reports -->
+    <!-- Convened -->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> 
+    
+    
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> 
+    
+    
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> 
+    
+    
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/> 
+    
+    <!-- Expedited -->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    
+    <!--Admin-->
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/> <!--ADDED on 12/15/15-->
+    
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="closee" decisionTypesname="Closed" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    <!--DON 01_04_2021 Added Exempt section for Final Reports		-->
+    <!--Exempt-->
+    <rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="active" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged" newstatusTypes="closed" newstatusTypesname="Completed"/>
+    
+    <!-- Amendments -->
+    <!-- Convened -->
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="sus" decisionTypesname="Suspended" newstatusTypes="suspended" newstatusTypesname="Suspended"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="TERM" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="rejected" newstatusTypesname="Disapproved"/>
+    
+    
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="rejected" newstatusTypesname="Disapproved"/>		
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="rejected" newstatusTypesname="Disapproved"/>
+    
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="full" reviewProcessTypesname="Full Committee Review" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="dis" decisionTypesname="Disapproved" newstatusTypes="rejected" newstatusTypesname="Disapproved"/>
+    
+    <!-- Expedited -->
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="expsus" newstatusTypesname="Expired/Suspended"/>
+    
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated" newstatusTypes="terminated" newstatusTypesname="Terminated"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="expedited" reviewProcessTypesname="Non-Committee Review" statusTypes="active" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended" newstatusTypes="suspended" newstatusTypesname="Suspended"/>
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="active" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    
+    <rule submissionTypes="AMEND" submissionTypesname="Modification" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved" newstatusTypes="active" newstatusTypesname="Active"/>
+    
+    
+    
+    
+    
+  </protocolStatusRules>
+</irbcats>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

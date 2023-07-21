@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+    
+	<!--<tab id="1A" label="Amendment Summary" form="/home/configs/COI/forms/modificationCommRO.xfrm"/>-->
+	<tab id="1" label="COI Summary" form="/home/configs/COI/forms/coiSummaryCommRO.xfrm" printlabel="COI Summary" sourceXML="/coiSummary.xml" formType="general" formName="coiSummary"/>	
+	<tab id="18" label="Attachments" form="/home/configs/COI/forms/attachmentsREN.xfrm"/>
+	<!--<tab id="Diff" color="silver" label="Comments" form="/home/configs/COI/forms/commDiffs.xfrm"/>-->
+    
+    <switches>
+    	
+    </switches>
+</tabs>

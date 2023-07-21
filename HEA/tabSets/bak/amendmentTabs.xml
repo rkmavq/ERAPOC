@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+	
+    <!--<tab id="1A" label="Summary of changes" form="/home/configs/COI/forms/modificationView.xfrm" printlabel="Summary of changes" sourceXML="/modification.xml" formType="general" formName="modificationView"/>-->	
+    <tab id="1" label="COI Summary" form="/home/configs/COI/forms/coiSummaryAMDComm.xfrm" printlabel="COI Summary" sourceXML="/coiSummary.xml" formType="general" formName="coiSummary"/>	
+    <tab id="22" label="Submit" form="/home/configs/COI/forms/amd_coisubmit.xfrm" printlabel="Submit" sourceXML="/submit.xml" formType="general" formName="submit"/>
+    
+    <switches>
+    	
+    </switches>
+</tabs>
+
+

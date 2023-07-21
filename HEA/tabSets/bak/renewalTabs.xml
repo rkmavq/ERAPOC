@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+	<!--<tab id="1A" label="Amendment Summary" form="/home/configs/COI/forms/modification.xfrm" sourceXML="/modification_DONOTREBUILD_EVER.xml" formType="general" formName="Modification" mode=""/>-->
+    <tab id="1" label="COI Summary" form="/home/configs/COI/forms/coiSummaryAMDComm.xfrm" printlabel="COI Summary" sourceXML="/coiSummary.xml" formType="general" formName="coiSummary"/>	
+    <tab id="22" label="Submit" form="/home/configs/COI/forms/ren_coisubmit.xfrm" printlabel="Submit" sourceXML="/ren_submit.xml" formType="general" formName="ren_submit"/>
+    
+    <switches>
+    	
+    </switches>
+</tabs>
+
+

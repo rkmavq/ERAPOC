@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <!-- Summary/Base entity -->
+    <id8ID/>
+    <title/>
+    <createDate/>
+    <PIName/>
+    <contextGroup/>
+    <status>inDev</status>
+    <riskLevel/>
+    <assignedBoard/>
+    <approvalStart/>
+    <approvalEnd/>
+    <revFreq/>
+    <orgApprovalDate/>
+    <laysummary/>
+    <uri/>
+    <!-- Signoff -->
+    <submissionNotes/>
+    <signOff signedWhen="" signedBy=""/>
+    <subType>init</subType>
+    <protocolUnique/>        
+</data>

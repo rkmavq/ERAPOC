@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>
+	<e type="direct" toptab="1" tab="1" err="title" message="Required"
+		xpath="count(instance('ins')/title[. = ''  ])" xpathSS="count(title[. = ''  ])"/>
+	<e type="direct" toptab="1" tab="1" err="Person[role='PI']" message="Required"
+		xpath="count(instance('ins')/Person[role='PI'][. = ''  ])"
+		xpathSS="count(Person[role='PI'][. = ''  ])"/>
+	
+	<e type="direct" toptab="1" tab="1" err="contextGroup" message="Required"
+		xpath="count(instance('ins')/contextGroup[. = ''  ])"
+		xpathSS="count(contextGroup[. = ''  ])"/>
+	
+	<e type="direct" toptab="1" tab="1" err="Person[invitation/@status='author']/name"
+		message="Required"
+		xpath="count(instance('ins')/Person[invitation/@status='author']/name[. = ''  ])"
+		xpathSS="count(Person[invitation/@status='author']/name[. = ''  ])"/>
+	<e type="direct" toptab="1" tab="1" err="title" 
+		message="Required" 
+		xpath="count(instance('ins')/title[. = ''  ])" 
+		xpathSS="count(title[. = ''  ])"/>
+	<e type="direct" toptab="1" tab="1" err="Person[role='PI']" 
+		message="Required" 
+		xpath="count(instance('ins')/Person[role='PI'][. = ''  ])" 
+		xpathSS="count(Person[role='PI'][. = ''  ])"/>
+	<e type="direct" toptab="1" tab="1" err="Person[role='PI']/phone" 
+		message="Required" 
+		xpath="count(instance('ins')/Person[role='PI']/phone[. = ''  ])" 
+		xpathSS="count(Person[role='PI']/phone[. = ''  ])"/>
+	<e type="direct" toptab="1" tab="1" err="Person[role='PI']/email/email[1]" 
+		message="Required" 
+		xpath="count(instance('ins')/Person[role='PI']/email/email[1][. = ''  ])" 
+		xpathSS="count(Person[role='PI']/email/email[1][. = ''  ])"/>
+	
+	<e type="direct" toptab="1" tab="1" err="Person[invitation/@status='author']/role" 
+		message="Required" 
+		xpath="count(instance('ins')/Person[invitation/@status='author']/role[. = '' and (Person[role='PI']/creatorIsPI = '0') ])" 
+		xpathSS="count(Person[invitation/@status='author']/role[. = '' and (Person[role='PI']/creatorIsPI = '0') ])"/>
+	
+</validations>
+
+
+
+
+
+
+
+
+

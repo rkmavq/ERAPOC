@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routing>
+    <!-- Dount -->
+    <!-- Here we defiend uri as HEA_createNew but we are pointing to createNewHEA -->
+    <fragment id="createNew" type="create" title="Create Human Ethics Protocol" uri="HEA_createNew"
+        launcherRole="creator" instruction="" description="">
+        <route type="conditional" fragment="reassign" condition="data.getValue('passFail') == '0'"/>
+        <route type="conditional" fragment="sendToCoord" condition="data.getValue('passFail') == '1'"/>
+    </fragment>
+    <!--  setupFunction="this.passReview()" updateReceiptDate="1" createVersion="1"-->
+    <fragment id="reassign" type="continuation" title="Reassign Human Ethics Protocol" uri="HEA_createNewResume"
+        description="Submission Reassigned" newStage="proposal" newStatus="adminReview"
+        descriptionLast="Human Ethics Protocol Reassigned"
+        descriptionNext="Create Human Ethics Protocol"
+        userAssignmentFunction="this.reassignPerson()" >
+        <route type="conditional" fragment="reassign" condition="data.getValue('passFail') == '0'"/>
+        <route type="conditional" fragment="sendToCoord" condition="data.getValue('passFail') == '1'"/>
+    </fragment>
+    
+    <fragment id="sendToCOPI" type="continuation" title="Create Human Ethics Protocol"
+        uri="HEA_createNewResume" tabset="createTabs.xml" userAssignmentFunction="this.assignToNextUser('COPI');" 
+        setupFunction="this.genReviewTeam();" 
+        tabsetContainer="createTabs.xfrm" instruction="" description="">
+        
+        <route type="conditional" fragment="sendToCOPI" condition="this.checkSignoffs('COPI');"/>
+        <route type="conditional" fragment="sendToADV" condition="this.checkSignoffs('ADV');"/>
+        <route type="conditional" fragment="sendToCoord" condition="this.checkSignoffs();"/>
+    </fragment>
+    
+    <fragment id="sendToADV" type="continuation" title="Create Human Ethics Protocol"
+        uri="HEA_createNewResume" tabset="createTabs.xml" userAssignmentFunction="this.assignToNextUser('ADV');"  
+        tabsetContainer="createTabs.xfrm" launcherRole="admin" continuationRole="pi" continuationUserType="pi"
+        continuationUser="dynamic" instruction="" description="">
+        
+        <route type="conditional" fragment="sendToCOPI" condition="this.checkSignoffs('COPI');"/>
+        <route type="conditional" fragment="sendToADV" condition="this.checkSignoffs('ADV');"/>
+        <route type="conditional" fragment="sendToCoord" condition="this.checkSignoffs();"/>
+    </fragment>
+    
+    <fragment id="sendToCoord" type="continuation" title="Review Human Ethics Protocol" uri="HEA_review"
+        description="Under Review" newStage="proposal" newStatus="adminReview"
+        descriptionLast="Human Ethics Protocol Sent for Review"
+        descriptionNext="Human Ethics Protocol Being Processed"
+        userAssignmentFunction="this.assignAnalyst()" setupFunction="this.passReview()"
+        updateReceiptDate="1" createVersion="1">
+        <generation stepInstruction="Under Review" confirmText="Are you sure?"
+            mainForm="reviewTabs.xfrm" tabSet="coordSet" validations="review"/>
+        <route type="conditional" fragment="reviseCoord"
+            condition="data.getValue('passFail') == '0'"/>
+        <route type="conditional" fragment="sendToCoord"
+            condition="data.getValue('passFail') == '1'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="approveCase"
+            condition="data.getValue('passFail') == 'ack'"/>
+        <route type="conditional" fragment="reviseCoordRMN"
+            condition="data.getValue('passFail') == 'rmn'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="rejectCase"
+            condition="data.getValue('passFail') == 'declined'"/>
+    </fragment>
+    
+    
+    <fragment id="reviseCoord" type="continuation" title="Revise Human Ethics Protocol" uri="HEA_revise"
+        description="Under Revision" newStage="proposal" newStatus="revisions"
+        descriptionLast="Human Ethics Protocol Requires Revision"
+        userAssignmentFunction="this.assignToOwner()" setupFunction="this.genRevise();">
+        <generation stepInstruction="Under Revision" confirmText="Are you sure?"
+            mainForm="reviseTabsRS.xfrm" tabSet="RSSet" validations="revise"/>
+        <route type="conditional" fragment="reassign" condition="data.getValue('passFail') == '0'"/>
+        <route type="conditional" fragment="sendToCoord" condition="data.getValue('passFail') == '1'"/>
+    </fragment>
+    
+    <fragment id="returnToCoord" type="continuation" title="Review Human Ethics Protocol" uri="HEA_review"
+        description="Under Review" newStage="proposal" newStatus="adminReview"
+        descriptionLast="Human Ethics Protocol Returned for Review"
+        userAssignmentFunction="this.assignAnalyst()" setupFunction="this.passRevise()"
+        createVersion="1">
+        <generation stepInstruction="Under Review" confirmText="Are you sure?"
+            mainForm="reviewTabs.xfrm" tabSet="coordSet" validations="review"/>
+        <!-- Routes are the conditional next steps of the workflow if either A) they push the submit button on a submit tab  or  B) they push the submit 'action' on the left -->
+        <route type="conditional" fragment="reviseCoord"
+            condition="data.getValue('passFail') == '0'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="approveCase"
+            condition="data.getValue('passFail') == 'ack'"/>
+        <route type="conditional" fragment="reviseCoordRMN"
+            condition="data.getValue('passFail') == 'rmn'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="rejectCase"
+            condition="data.getValue('passFail') == 'declined'"/>
+        <!-- if the decision was 'declined' -->
+        <!--<route type="conditional" fragment="1F2" condition="data.getValue('passFail') == 'reassigned'"/>-->
+        <!-- if the decision was 'reassigned' -->
+    </fragment>
+    
+    
+    <LiveListActions>        
+        <!--<action id="updateCOI" role="showAddDocuments" statusList="|approved|rmn|"/>-->
+        <action id="amendCOI" role="isCOIPerson" statusList="|active|"/>
+        <action id="renewCOI" role="isCOIPerson" statusList="|active|expired|"/>
+        <!--<action id="closeCOI" role="isCOIPerson" statusList="|active|expired|"/>-->
+       <!-- <action id="deleteCOI" role="showDeleteCOI" statusList="|inDev|"/>
+        <action id="withdrawCOI" role="showWithdrawCOI" statusList="|adminReview|revisions|"/>-->
+    </LiveListActions>
+    <action name="Update COI Disclosure" id="amendCOI">
+        var thisUri = model.getValue("instance('ins')/uri");
+        var res = callSharedService("caseManagement", {"op":"startOperation", "app":"COI", "operationID":"amendCOI", "uri":thisUri}, "text");
+        eval(res);
+    </action>
+    <action name="Renew COI Disclosure" id="renewCOI">
+        var thisUri = model.getValue("instance('ins')/uri");
+        var res = callSharedService("caseManagement", {"op":"startOperation", "app":"COI", "operationID":"renewCOI", "uri":thisUri}, "text");
+        eval(res);
+    </action>
+    <!--<action name="Close COI Disclosure" id="closeCOI">
+        var thisUri = model.getValue("instance('ins')/uri");
+        var res = callSharedService("caseManagement", {"op":"startOperation", "app":"COI", "operationID":"closeCOI", "uri":thisUri}, "text");
+        eval(res);
+    </action>-->
+    <action name="Approve" id="accept">model.USA.updatePassFailAndSubmit("accepted");</action>
+        
+    <!-- Stage List -->
+    <stage id="proposal" label="In Progress"/>
+    <stage id="active" label="COI Disclosure"/>
+    <stage id="approved" label="COI Disclosure"/>
+    <stage id="archived" label="Closed"/>
+    
+    <status id='active' label='Active'/>
+    <status id='inDev' label='In Development'/>
+    <status id="revisions" label="Revisions"/>
+    <status id="piReview" label="Owner Review"/>
+    <status id='adminReview' label='Pending Review'/>
+    <status id='approved' label='Approved'/>
+    <status id='rmn' label='Resolution Memo Needed'/>
+    <status id='expired' label='Expired'/>
+    <status id='withdrawn' label='Withdrawn'/>
+    <status id='closed' label='Closed'/>
+    
+    <decision id='ack' label='Acknowledged'/>
+    <decision id='apr' label='Acknowledged'/>
+    <decision id='mod' label='Modifications Required'/>
+    <decision id='def' label='Deferred'/>
+    <decision id='rmn' label='Resolution Memo Needed'/>
+    <decision id='closed' label='Closed'/>
+    <decision id='with' label='Withdrawn'/>
+    <decision id='pending' label='Pending'/>
+    
+    <!-- This is the first step definition - basically what are the status and stage when a new case is created -->
+    <start stage="proposal" status="inDev" message="New COI Disclosure Created"/>
+
+    <!-- Start routing here -->
+    <!-- This is the required first step, This is what you need to use to start the process, ties this in as the first step in what you're building below -->
+    
+    
+    
+
+    
+    
+    <fragment id="reviseCoordRMN" type="continuation" title="Revise COI Disclosure" uri="COI_revise"
+        description="Under Revision" newStage="proposal" newStatus="revisions"
+        descriptionLast="COI Disclosure Requires Resolution Memo"
+        userAssignmentFunction="this.assignToOwner()" setupFunction="this.genRMNRevise();">
+        <generation stepInstruction="Under Revision" confirmText="Are you sure?"
+            mainForm="reviseTabsRS.xfrm" tabSet="uploadResolutionMemo" validations="revise"/>
+        <!-- This makes sure the parts are in place for the step -->
+        <route type="conditional" fragment="returnToCoord" condition="true"/>
+        <!-- if Creator is PI it goes to admin for review -->
+    </fragment>
+    
+    
+
+    <fragment id="approveCase" type="end" title="COI Disclosure Acknowledged" uri="COI_APPROVED"
+        description="COI Disclosure Approved" newStage="active" newStatus="approved"
+        descriptionLast="Process Complete" userAssignmentFunction="" setupFunction="this.approve()"/>
+    
+   <!-- <fragment id="resolutionMemo" type="end" title="Resolution Memo Needed" uri="COI_APPROVED"
+        description="COI Disclosure - Resolution Memo Needed" newStage="active" newStatus="rmn"
+        descriptionLast="Process Complete" userAssignmentFunction="" setupFunction="this.resolutionMemoNeeded()"/>-->
+
+    <fragment id="rejectCase" type="end" title="COI Disclosure Rejected" uri="COI_REJECTED"
+        description="COI Disclosure Rejected" newStage="closed" newStatus="rejected"
+        descriptionLast="Process Complete" userAssignmentFunction="" setupFunction="this.reject()"/>
+    
+    <fragment id="1X" type="continuation" title="Under Development" uri="COI_1X" description="" newStage="" newStatus="" setupFunction="" userAssignmentFunction="this.me()">
+        <generation stepInstruction="Add Documents" confirmText="Are you sure?" mainForm="createTabs.xfrm" tabSet="addDocs" validations="review"/> 
+        <route type="conditional" fragment="COI_ENDRMN" condition="this.dummyOp()"/> 
+    </fragment>
+        
+
+    <!-- Operations -->
+    <Operation id="amendCOI" type="amendment" title="Amendment" uri="amendments" 
+        description="Update COI Disclosure" newStage="" newStatus="" op="amendmentOp"
+        setupFunction="this.createAmendCOI(this.OperationUri);">
+        <route type="conditional" fragment="AMD" condition="this.dummyOp()"/>
+    </Operation>
+    <fragment id="AMD" type="continuation" title="Update COI Disclosure" uri="COI_AMD" op="amendmentOp"
+        description="" newStage="" newStatus="" setupFunction="" userAssignmentFunction="this.me()">
+        <generation stepInstruction="Update COI Disclosure" confirmText="Are you sure?" 
+            mainForm="amendmentTabs.xfrm" tabSet="amendmentTabs" validations="validate"/> 
+        <route type="conditional" fragment="amd_sendToCoord" condition="this.userIsPI()"/>
+    </fragment>
+    
+    <fragment id="amd_sendToCoord" type="continuation" title="Review COI Disclosure Update" uri="COI_review" op="amendmentOp"
+        description="Under Review" newStage="proposal" newStatus="adminReview"
+        descriptionLast="COI Disclosure Update Sent for Review"
+        descriptionNext="COI Disclosure Update Being Processed"
+        userAssignmentFunction="this.assignAnalyst()" setupFunction="this.passReview(this.OperationUri)"
+        updateReceiptDate="1" createVersion="1">
+        <generation stepInstruction="Under Review" confirmText="Are you sure?"
+            mainForm="AMDReviewTabs.xfrm" tabSet="coordSetAMD" validations="review"/>
+        <route type="conditional" fragment="amd_reviseCoord"
+            condition="data.getValue('passFail') == 'revise'"/>
+        <route type="conditional" fragment="amd_sendToCoord"
+            condition="data.getValue('passFail') == 'reassign'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="amd_approveCase"
+            condition="data.getValue('passFail') == 'ack'"/>
+        <route type="conditional" fragment="amd_reviseCoordRMN"
+            condition="data.getValue('passFail') == 'rmn'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="amd_rejectCase"
+            condition="data.getValue('passFail') == 'declined'"/>
+        
+    </fragment>
+    
+    <fragment id="amd_reviseCoord" type="continuation" title="Revise COI Disclosure Update" uri="COI_revise" op="amendmentOp"
+        description="Under Revision" newStage="proposal" newStatus="revisions"
+        descriptionLast="COI Disclosure Update Requires Revision"
+        userAssignmentFunction="this.assignToOwner()" setupFunction="this.genRevise(this.OperationUri);">
+        <generation stepInstruction="Under Revision" confirmText="Are you sure?"
+            mainForm="amd_reviseTabsRS.xfrm" tabSet="RSSet" validations="revise"/>
+        <!-- This makes sure the parts are in place for the step -->
+        <route type="conditional" fragment="amd_returnToCoord" condition="true"/>
+        <!-- if Creator is PI it goes to admin for review -->
+    </fragment>
+    
+    <fragment id="amd_reviseCoordRMN" type="continuation" title="Revise COI Disclosure Update" uri="COI_revise" op="amendmentOp"
+        description="Under Revision" newStage="proposal" newStatus="revisions"
+        descriptionLast="COI Disclosure Update Requires Resolution Memo"
+        userAssignmentFunction="this.assignToOwner()" setupFunction="this.genRMNRevise(this.OperationUri);">
+        <generation stepInstruction="Under Revision" confirmText="Are you sure?"
+            mainForm="amd_reviseTabsRS.xfrm" tabSet="uploadResolutionMemoAMD" validations="revise"/>
+        <!-- This makes sure the parts are in place for the step -->
+        <route type="conditional" fragment="amd_returnToCoord" condition="true"/>
+        <!-- if Creator is PI it goes to admin for review -->
+    </fragment>
+    
+    <fragment id="amd_returnToCoord" type="continuation" title="Review COI Disclosure Update" uri="COI_review"
+        description="Under Review" newStage="proposal" newStatus="adminReview"
+        descriptionLast="COI Disclosure Update Returned for Review"
+        userAssignmentFunction="this.assignAnalyst()" setupFunction="this.passRevise(this.OperationUri)"
+        createVersion="1">
+        <generation stepInstruction="Under Review" confirmText="Are you sure?"
+            mainForm="AMDReviewTabs.xfrm" tabSet="coordSetAMD" validations="review"/>
+        <!-- Routes are the conditional next steps of the workflow if either A) they push the submit button on a submit tab  or  B) they push the submit 'action' on the left -->
+        <route type="conditional" fragment="amd_reviseCoord"
+            condition="data.getValue('passFail') == 'revise'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="amd_approveCase"
+            condition="data.getValue('passFail') == 'ack'"/>
+        <route type="conditional" fragment="amd_reviseCoordRMN"
+            condition="data.getValue('passFail') == 'rmn'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="amd_rejectCase"
+            condition="data.getValue('passFail') == 'declined'"/>
+    </fragment>
+    
+    <fragment id="amd_approveCase" type="end" title="COI Disclosure Update Acknowledged" uri="COI_APPROVED"
+        description="COI Disclosure Update Approved" newStage="active" newStatus="approved"
+        descriptionLast="Process Complete" userAssignmentFunction="" setupFunction="this.approveAmendment(this.OperationUri)"/>
+    
+    <Operation id="renewCOI" type="renewal" title="Renewal" uri="renewals" 
+        description="Renew COI Disclosure" newStage="" newStatus="" op="renewalOp"
+        setupFunction="this.createRenewalCOI(this.OperationUri);">
+        <route type="conditional" fragment="REN" condition="this.dummyOp()"/>
+    </Operation>
+    <fragment id="REN" type="continuation" title="Renew COI Disclosure" uri="COI_REN" op="renewalOp"
+        description="" newStage="" newStatus="" setupFunction="" userAssignmentFunction="this.me()">
+        <generation stepInstruction="Renew COI Disclosure" confirmText="Are you sure?" 
+            mainForm="renewalTabs.xfrm" tabSet="renewalTabs" validations="validate"/> 
+        <route type="conditional" fragment="ren_sendToCoord" condition="this.userIsPI()"/>
+    </fragment>
+    
+    <fragment id="ren_sendToCoord" type="continuation" title="Review COI Disclosure Renewal" uri="COI_review" op="renewalOp"
+        description="Under Review" newStage="proposal" newStatus="adminReview"
+        descriptionLast="COI Disclosure Renewal Sent for Review"
+        descriptionNext="COI Disclosure Renewal Being Processed"
+        userAssignmentFunction="this.assignAnalyst()" setupFunction="this.passReview(this.OperationUri)"
+        updateReceiptDate="1" createVersion="1">
+        <generation stepInstruction="Under Review" confirmText="Are you sure?"
+            mainForm="AMDReviewTabs.xfrm" tabSet="coordSetAMD" validations="review"/>
+        <route type="conditional" fragment="ren_reviseCoord"
+            condition="data.getValue('passFail') == 'revise'"/>
+        <route type="conditional" fragment="ren_sendToCoord"
+            condition="data.getValue('passFail') == 'reassign'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="ren_approveCase"
+            condition="data.getValue('passFail') == 'ack'"/>
+        <route type="conditional" fragment="ren_reviseCoordRMN"
+            condition="data.getValue('passFail') == 'rmn'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="ren_rejectCase"
+            condition="data.getValue('passFail') == 'declined'"/>
+    </fragment>
+    
+    <fragment id="ren_reviseCoord" type="continuation" title="Revise COI Disclosure Renewal" uri="COI_revise" op="renewalOp"
+        description="Under Revision" newStage="proposal" newStatus="revisions"
+        descriptionLast="COI Disclosure Renewal Requires Revision"
+        userAssignmentFunction="this.assignToOwner()" setupFunction="this.genRevise(this.OperationUri);">
+        <generation stepInstruction="Under Revision" confirmText="Are you sure?"
+            mainForm="ren_reviseTabsRS.xfrm" tabSet="RSSetREN" validations="revise"/>
+        <!-- This makes sure the parts are in place for the step -->
+        <route type="conditional" fragment="ren_returnToCoord" condition="true"/>
+        <!-- if Creator is PI it goes to admin for review -->
+    </fragment>
+    
+    <fragment id="ren_reviseCoordRMN" type="continuation" title="Revise COI Disclosure Renewal" uri="COI_revise" op="renewalOp"
+        description="Under Revision" newStage="proposal" newStatus="revisions"
+        descriptionLast="COI Disclosure Renewal Requires Resolution Memo"
+        userAssignmentFunction="this.assignToOwner()" setupFunction="this.genRMNRevise(this.OperationUri);">
+        <generation stepInstruction="Under Revision" confirmText="Are you sure?"
+            mainForm="ren_reviseTabsRS.xfrm" tabSet="uploadResolutionMemoREN" validations="revise"/>
+        <!-- This makes sure the parts are in place for the step -->
+        <route type="conditional" fragment="ren_returnToCoord" condition="true"/>
+        <!-- if Creator is PI it goes to admin for review -->
+    </fragment>
+    
+    <fragment id="ren_returnToCoord" type="continuation" title="Review COI Disclosure Renewal" uri="COI_review"
+        description="Under Review" newStage="proposal" newStatus="adminReview"
+        descriptionLast="COI Disclosure Renewal Returned for Review"
+        userAssignmentFunction="this.assignAnalyst()" setupFunction="this.passRevise(this.OperationUri)"
+        createVersion="1">
+        <generation stepInstruction="Under Review" confirmText="Are you sure?"
+            mainForm="RENReviewTabs.xfrm" tabSet="coordSetREN" validations="review"/>
+        <!-- Routes are the conditional next steps of the workflow if either A) they push the submit button on a submit tab  or  B) they push the submit 'action' on the left -->
+        <route type="conditional" fragment="ren_reviseCoord"
+            condition="data.getValue('passFail') == 'revise'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="ren_approveCase"
+            condition="data.getValue('passFail') == 'ack'"/>
+        <route type="conditional" fragment="ren_reviseCoordRMN"
+            condition="data.getValue('passFail') == 'rmn'"/>
+        <route type="conditional" fragment="ren_sendToCoord"
+            condition="data.getValue('passFail') == 'reassign'"/>
+        <!-- if the decision was 'accepted' -->
+        <route type="conditional" fragment="ren_rejectCase"
+            condition="data.getValue('passFail') == 'declined'"/>
+    </fragment>
+    
+    <fragment id="ren_approveCase" type="end" title="COI Disclosure Renewal Acknowledged" uri="COI_APPROVED"
+        description="COI Disclosure Renewal Approved" newStage="active" newStatus="approved"
+        descriptionLast="Process Complete" userAssignmentFunction="" setupFunction="this.approveAmendment(this.OperationUri);"/>
+      
+    <!--<fragment id="5A" type="end" title="Withdrawn" uri="COI_WITHDRAW" description="Withdrawn" 
+        newStage="closed" newStatus="withdraw" descriptionLast="Withdrawn" userAssignmentFunction="" 
+        setupFunction="this.updateCase()"/>-->
+    
+    
+
+</routing>

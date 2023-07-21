@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+
+  <!--
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    *
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009
+    * @version 1.0.0
+    */
+  -->
+
+
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+
+      <xf:instance id="form">
+        <data xmlns="">
+          <departments/>
+          <currency></currency>
+          <version/>
+          <departments/>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+          <!--AB 01/05/2021 determine if meeting is in the future-->
+          <future>0</future>
+          <!-- AB 06/02/2022 IDHHI-20 determine if meeting is active -->
+          <active>0</active>
+        </data>
+      </xf:instance>
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+    <xf:instance id="agenda"><data xmlns=""/></xf:instance>
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        model.__XformSet.getRoot().targetURI = model.getValue("primeEntityURI");
+        
+        if(model.getValue("commFor")=="STAFFAGENDA" || model.getValue("commFor")=="AGENDA" || model.getValue("commFor")=="STAFFMINUTES" || model.getValue("commFor")=="MINUTES"){
+          var lead = model.getValue("primeEntityURI").split("/agenda.xml")[0];      
+          //AB: 03/18/2019 only use meeting.xml
+          var meetingItemsURI = lead + "/meeting.xml";              
+          model.setInstanceIdSrc("dat", "/fil" + meetingItemsURI);
+          //AB 01/05/2021 determine if meeting is in the future
+          var resY = callSharedService("protocolRouting",{"op":"isMeetingInFuture", "meetingURI":meetingItemsURI}, "text");          
+          model.setValue("instance('form')/future", resY);
+        
+        //AB 06/02/2022 IDHHI-20 determine if meeting was cancelled
+          var resZ = callSharedService("protocolRouting",{"op":"isMeetingActive", "meetingURI":meetingItemsURI}, "text");          
+          model.setValue("instance('form')/active", resZ);
+        }
+        //loadInstance(model, "dat", "");
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>
+
+      <script ev:event="xforms-ready">
+
+      </script>
+
+    <script ev:event="ix-activity-save">
+      model.submit("submitins");
+      //alert("saved");
+    </script>
+
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>
+
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+        <script>;</script>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+
+  </xf:model>
+
+ <style>
+   div.diagXf table.xfctrl td{
+    vertical-align:top;
+    padding-bottom:8px;
+    padding-left:3px;
+   }
+ </style>
+
+  <style>
+     div.formFrame table.fullColLayout table.budgetTool td .xftext{ background-color:white; }
+     div.formFrame table.budgetTool td .xftext{ background-color:white; } div.formFrame
+     table.fullColLayout div.headerselect{ background:none; } div.formFrame table.fullColLayout
+     div.headerselect table.headerselect{ background:none; border:none; } div.formFrame
+     table.fullColLayout div.headerselect table.headerselect tr{ background:none; border:none;
+     color:white; } div.formFrame table.fullColLayout div.headerselect table.headerselect tr td{
+     border:none; padding:none; vertical-align:middle; } div.formFrame table.fullColLayout
+     tr.periodbreak td{ border-bottom: medium solid black; } div.formFrame table.optionsheader
+     div.xfctrl{ } div.questions div.xfctrl{ background:none; width:auto; } div.questions
+     table.selection div.xfctrl{ background:none; width:450px; } div.questions div.xfctrl input{
+     width:500px;; font-size:12px; } div.questions div.xfctrl textarea{ width:500px;; font-size:11px;
+     } .wikiView div.questions div.xfctrl label{ width:200px; padding-right:5px; font-size:11px; }
+     .wikiView div.questions div.viewOnly table{ font-size:11px; } .wikiView div.questions
+     div.viewOnly table td.label{ width:200px; padding-right:5px; font-weight:bold;
+     vertical-align:top; padding-bottom:15px; } .wikiView div.questions div.viewOnly table td.value{
+     width:500px; vertical-align:top; padding-bottom:15px; }
+
+     .wikiView div.repeater table td{
+
+     }
+
+     .wikiView div.repeater table td div.xfctrl{
+     padding:0px;
+     }
+
+     .wikiView div.repeater table.small td div.xfctrl{
+     padding:0px;
+     }
+
+     .wikiView div.repeater table.small td div.xfctrl input{
+     width:80px;
+     }
+
+     .wikiView div.xfctrl input {
+     margin-top:0px;
+     }
+
+     .wikiView div.xfctrl textarea {
+     margin-top:0px;
+     }
+
+     .wikiView div.repeater table.small td.thin div.xfctrl input{
+     width:40px;
+     }
+
+     .wikiView div.repeater table.small tr.member{
+     padding-top:10px;
+     }
+
+     table.easyLayout th {
+     text-align:left;
+     }
+
+     table.easyLayout th.tight {
+     width:60px;
+     text-align:center;
+     }
+
+     table.easyLayout th.medium {
+     width:200px;
+     }
+
+     table.easyLayout th.wide {
+     width:300px;
+     }
+
+     table.easyLayout td.tight {
+     width:60px;
+     text-align:center;
+     }
+
+     table.easyLayout td.medium {
+     width:200px;
+     }
+
+     table.easyLayout td.wide {
+     width:300px;
+     }
+
+     table.easyLayout tr.odd td {
+     background-color: #FAF0E6;
+     }
+
+     table.easyLayout tr.odd td.complete {
+     background-color: white;
+     }
+
+     .wikiView table.easyLayout div.xfctrl{
+     background:none;
+     }
+
+     //AB new style sheet -  START
+
+     body
+     {
+     line-height: 1.6em;
+     }
+
+     table.one-column-emphasis
+     {
+     font-family: Arial, Sans-Serif;
+     font-size: 12px;
+     margin: 15px;
+     width: 680px;
+     text-align: left;
+     border-collapse: collapse;
+     }
+     table.one-column-emphasis th
+     {
+     font-size: 12px;
+     font-weight: bold;
+     padding: 12px 15px;
+     color: #039;
+     background: #eff2ff;
+     }
+
+     //table.one-column-emphasis tbody.tr
+     //{
+     //border-top: 1px solid #d0dafd;
+     //}
+
+     .trBottom
+     {
+     border-bottom: 1px solid #d0dafd;
+     }
+
+     table.one-column-emphasis td
+     {
+     padding: 5px 10px;
+     color: #669;
+     //border-top: 1px solid #e8edff;
+     border-top: 0px solid #eff2ff;
+     }
+     .oce-first
+     {
+     background: #eff2ff;
+     border-right:0px solid transparent;
+     border-left: 0px solid transparent;
+     }
+     table.one-column-emphasis tr:hover td
+     {
+     //color: #339;
+     //background: #eff2ff;
+     color: #039;
+     background: #d0dafd;
+     }
+
+     .wikiView div.xfctrl{
+     background:none;
+     }
+
+     //AB new style sheet -  END
+   </style>
+
+  <!--<xf:trigger>
+    <xf:label>Save</xf:label>
+    <script ev:event="DOMActivate">
+      model.submit("submitins");
+    </script>
+  </xf:trigger>-->
+  <div class="formFrame">    
+   <h1><xf:output value="subject"/></h1>    
+   <br/>
+   <table> <!--width="100%">-->
+     <!--<tr style="vertical-align:top" valign="top"><ix:attr name="style" value="if(commFor='RSNotification' or commFor='', '', 'display:none')"/>
+       <td style="vertical-align:top"><b>From:  </b></td>
+       <td style="vertical-align:top"><xf:output value="from"/><br/><br/></td>
+     </tr>-->
+     
+     <!-- Inject some HTML from an XML document into the XFORM - non-natural move -->
+     <tr style="vertical-align:top" valign="top">
+       <ix:attr name="style" value="if(commFor='RSNotification' or commFor='MINUTES' or commFor='AGENDA' or commFor='' or commFor='STAFFAGENDA' or commFor='STAFFMINUTES', '', 'display:none')"/>
+       <!--<td><b>Message:  </b></td>-->
+       <td><span id="tempSpot"></span><br/><br/></td>
+     </tr>
+     <script>
+       var tempSpot = model.getUiElementById("tempSpot"); //Gets the place with the id = tempSpot in this case a span up above
+       var html = model.getValue("message", contextNode); //Reset its inner HTML to whatever was read from the rules.xml file
+       tempSpot.innerHTML = html;
+     </script>
+     
+     <tr><ix:attr name="style" value="if(commFor='CERTIFICATION' or commFor='INVOICE' or commFor='RSNotification' or commFor='' or commFor='MINUTES' or commFor='AGENDA' or commFor='STAFFAGENDA' or commFor='STAFFMINUTES', 'display:none', '')"/>
+       <td style="vertical-align:top"><b>Message:</b></td>
+       <td style="vertical-align:top"><xf:output value="message"/><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='CERTIFICATION', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2">IF YOU HAVE RECENTLY RENEWED YOUR TRAINING, THANK YOU AND PLEASE DISREGARD THIS E-MAIL.<p/></td>
+     </tr> 
+     <tr><ix:attr name="style" value="if(commFor='CERTIFICATION' or commFor='INVOICE', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><b><xf:output value="message"/></b><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='CERTIFICATION', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2">
+         <ol>
+           <li>Please go to the website <a href='http://www.citiprogram.org/'>http://www.citiprogram.org/</a><br/>
+            If you do not remember the username and password that you registered with last year, please give me a call at 815-4073.</li>
+           <li>You are now at the Learner's Menu page.  Read the information in the 1st bullet concerning your e-mail address.  If your e-mail address is not a UMC Outlook address, you must change it.  You do this by clicking the link in the 1st bullet that reads "edit or change your address". In the middle of the page you will see a red line that reads "STATUS- INCOMPLETE - RE-ENTER HERE".  Please click the link.</li>
+           <li>You should now be at the GRADE BOOK page with the titles of each module listed.</li>
+           <li>After you've completed the last module, please  print the COMPLETION REPORT and keep it for your records.  This is the only proof of completion that you will receive. Education certificates are not generated in our office.  When you print the report, I will receive notification from CITI that you have completed the course and our records will be updated. This may take up to 24 hours.</li>
+           <li>If you have any problems, call me 815-4073.</li>
+         </ol>
+         <b>FYI: <p/>
+         If your account with CITI has been active long enough that you've completed the Basic Course and 3-4 Refresher Courses, please know that CITI will automatically enroll you in the BASIC COURSE again and not the REFRESHER COURSE.  This is their requirement.
+         </b><br/><p/>Thank you,<br/>
+         Melanie Fowler<br/>
+         IRB Education Specialist
+       </td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='WITHDRAWL', '', 'display:none')"/>
+       <td style="vertical-align:top"><nobr><b>Protocol Number:</b></nobr></td>
+       <td style="vertical-align:top"><xf:output value="id8ID"/><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='WITHDRAWL', '', 'display:none')"/>
+       <td style="vertical-align:top"><nobr><b>Title:</b></nobr></td>
+       <td style="vertical-align:top"><xf:output value="title"/><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='WITHDRAWL', '', 'display:none')"/>
+       <td style="vertical-align:top"><nobr><b><xf:output value="descLabel"/>:</b></nobr></td>
+       <td style="vertical-align:top"><xf:output value="laySummary"/><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='' and attachment!='', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><b>
+         <span><ix:attr name="style" value="if(attachment!='', '', 'display:none')"/>
+           Download Document: <a target="_blank_"><ix:attr name="href" value="concat('../fil', attachment)"/>here</a>
+         </span></b><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='INVOICE', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><b>
+         <span><ix:attr name="style" value="if(attachment!='', '', 'display:none')"/>
+           Download Document: <a target="_blank_"><ix:attr name="href" value="concat('../fil', attachment)"/>here</a>
+         </span></b><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='AGENDA' or commFor='MINUTES' or commFor='STAFFAGENDA' or commFor='STAFFMINUTES', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><b>
+         <span><ix:attr name="style" value="if(attachment!='', '', 'display:none')"/>
+           Download Document: <a target="_blank_"><ix:attr name="href" value="concat('../fil', attachment)"/>here</a>
+         </span></b><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(commFor='AGENDA' or commFor='STAFFAGENDA', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><b>
+         <span><ix:attr name="style" value="if(attachment!='', '', 'display:none')"/>
+           Access Submissions: <u style="cursor:pointer"><a target="_blank_"><ix:action ev:event="click"><script>
+             tui = model.getValue("primeEntityURI");
+             meetingFile = model.getValue("primeEntityURI");
+             splts = meetingFile.split("/");
+             spx = "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/" + splts[6] + "/" + splts[7] + "/" + splts[8];
+             boardURI =  "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5];
+             meetingURI =  "/" + splts[6] + "/" + splts[7] + "/" + splts[8];
+             xfrmURI = "/configs/IRB/forms/viewMeetingAlone.xfrm";
+             launchXformWindow(xfrmURI, boardURI, meetingURI, "memberview", 900, 600);
+           </script></ix:action>here</a></u>
+         </span></b><br/><br/></td>
+     </tr>
+   </table>
+    <!-- AB 06/02/2022 IDHHI-20 added section to display the buttons if there is no meeting.xml. Below section will fail because instance('dat') will be null -->
+    <div><ix:attr name="style" value="if(instance('form')/active='0', '', 'display:none')"/>
+      <br/><br/>
+      <a title="Submit" href="#" class="submit1"><xf:action ev:event="click"><script>model.submit("submitins");location.href = "..";
+      </script></xf:action><div class="cap"/>Close</a>
+      <br/><br/>
+      <!--//AB 01/05/2021 removed the delete in the chart.flow so it can be added below and conditions could be applied.
+    //AB 01/05/2021 members and staff should not be able to delete their agenda task if the meeting has not yet occurred-->
+      <div><ix:attr name="style" value="if(instance('form')/future='0' and commFor='AGENDA', '', 'display:none')"/>
+        <a title="Submit" href="#" class="submit1"><xf:action ev:event="click">
+          <script>
+            if(!confirm("Are you sure you wish to delete the task?"))return;
+            var resX = callSharedService("protocolRouting",{"op":"deleteTask", "taskID":model.getValue("processID")}, "text");
+            window.location="../home"; return;
+          </script></xf:action><div class="cap"/>Delete</a>
+        <br/>
+      </div>
+      <div><ix:attr name="style" value="if(instance('form')/future='0' and commFor='STAFFAGENDA', '', 'display:none')"/>
+        <a title="Submit" href="#" class="submit1"><xf:action ev:event="click">
+          <script>
+            if(!confirm("Are you sure you wish to delete the task?"))return;
+            var resX = callSharedService("protocolRouting",{"op":"deleteTask", "taskID":model.getValue("processID")}, "text");
+            window.location="../home"; return;
+          </script></xf:action><div class="cap"/>Delete</a>
+        <br/>
+      </div>
+      <!--//AB 01/05/2021 for the case it is not an agenda always provide the delete button-->
+      <div><ix:attr name="style" value="if((commFor!='AGENDA' and commFor!='STAFFAGENDA'), '', 'display:none')"/>
+        <a title="Submit" href="#" class="submit1"><xf:action ev:event="click">
+          <script>
+            if(!confirm("Are you sure you wish to delete the task?"))return;
+            var resX = callSharedService("protocolRouting",{"op":"deleteTask", "taskID":model.getValue("processID")}, "text");
+            window.location="../home"; return;
+          </script></xf:action><div class="cap"/>Delete</a>
+        <br/>
+      </div>
+    </div>
+    <table>
+     <tr><ix:attr name="style" value="if(instance('form')/active='1' and (commFor='AGENDA' or commFor='STAFFAGENDA'), '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><ix:attr name="style" value="if(count(instance('dat')/attach[@agenda='1'])>0, '', 'display:none')"/>
+         <span>
+           <b>Download Other Attachments:</b>
+         </span><br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(instance('form')/active='1' and (commFor='AGENDA' or commFor='STAFFAGENDA'), '', 'display:none')"/>
+       <td colspan="2"><ix:attr name="style" value="if(count(instance('dat')/attach[@agenda='1'])>0, '', 'display:none')"/>
+       <table>
+         <xf:repeat nodeset="instance('dat')/attach[@agenda='1']">
+           <tr>
+             <td><xf:label style="background-color:none"><xf:output value="@name"/></xf:label></td>
+             <td><a target="_blank_"><ix:attr name="href" value="concat('..', @uri)"/>Download</a></td>
+           </tr>
+         </xf:repeat>
+       </table>
+         <br/><br/></td>
+     </tr>
+     <tr><ix:attr name="style" value="if(instance('form')/active='1' and (commFor='STAFFMINUTES' or commFor='MINUTES'), '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><ix:attr name="style" value="if(count(instance('dat')/attach[@minutes='1'])>0, '', 'display:none')"/>
+         <span>
+           <b>Download Other Attachments:</b> 
+         </span><br/><br/></td>
+     </tr>  
+     <tr><ix:attr name="style" value="if(instance('form')/active='1' and (commFor='STAFFMINUTES' or commFor='MINUTES'), '', 'display:none')"/>
+       <td colspan="2"><ix:attr name="style" value="if(count(instance('dat')/attach[@minutes='1'])>0, '', 'display:none')"/>
+         <table>
+           <xf:repeat nodeset="instance('dat')/attach[@minutes='1']">
+             <tr>
+               <td><xf:label style="background-color:none"><xf:output value="@name"/></xf:label></td>
+               <td><a target="_blank_"><ix:attr name="href" value="concat('..', @uri)"/>Download</a></td>
+             </tr>
+           </xf:repeat>
+         </table>
+         <br/><br/></td>
+     </tr>
+     
+     
+     <tr><!--<ix:attr name="style" value="if(commFor='AGENDA' or commFor='MINUTES', '', 'display:none')"/>-->
+       <ix:attr name="style" value="if(commFor='AGENDA', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><b>Please specify your response in the section below:</b></td>
+     </tr>
+     <tr><!--<ix:attr name="style" value="if(commFor='AGENDA' or commFor='MINUTES', '', 'display:none')"/>-->
+       <ix:attr name="style" value="if(commFor='AGENDA', '', 'display:none')"/>
+       <td style="vertical-align:top"><b>Response:</b></td>
+       <td style="vertical-align:top"><ix:attr name="style" value="if(commFor='AGENDA', '', 'display:none')"/>
+         <xf:select1 ref="agendaResponse">
+         <xf:item>
+           <xf:label>-Select-</xf:label>
+           <xf:value>noresp</xf:value>
+         </xf:item>
+         <xf:item>
+           <xf:label>Yes, I will attend</xf:label>
+           <xf:value>yes</xf:value>
+         </xf:item>
+         <xf:item>
+           <xf:label>No, I cannot attend</xf:label>
+           <xf:value>no</xf:value>
+         </xf:item>
+         </xf:select1>
+         <br/><br/></td>
+       <!--<td style="vertical-align:top"><ix:attr name="style" value="if(commFor='MINUTES', '', 'display:none')"/>
+         <xf:select1 ref="minutesResponse">
+           <xf:item>
+             <xf:label>-Select-</xf:label>
+             <xf:value>noresp</xf:value>
+           </xf:item>
+           <xf:item>
+             <xf:label>Approved</xf:label>
+             <xf:value>apr</xf:value>
+           </xf:item>
+           <xf:item>
+             <xf:label>Modifications Required</xf:label>
+             <xf:value>mod</xf:value>
+           </xf:item>
+         </xf:select1>
+         <br/><br/></td>  -->
+     </tr>
+     <tr><!--AB 01/07/2021 only show below for members<ix:attr name="style" value="if(commFor='AGENDA' or commFor='STAFFAGENDA', '', 'display:none')"/>-->
+       <ix:attr name="style" value="if(commFor='AGENDA', '', 'display:none')"/>
+       <td style="vertical-align:top"><b>Comments:</b></td>
+       <td style="vertical-align:top"><xf:textarea style="height:150px;width:300px;" ref="agendacomments"></xf:textarea><br/><br/></td>
+     </tr>
+     <!--<tr><ix:attr name="style" value="if(commFor='MINUTES', '', 'display:none')"/>
+       <td style="vertical-align:top"><b>Comments:</b></td>
+       <td style="vertical-align:top"><xf:textarea style="height:150px;width:300px;" ref="minutescomments"></xf:textarea><br/><br/></td>
+     </tr> -->
+   </table>
+  <div>
+    <br/><br/>
+    <a title="Submit" href="#" class="submit1"><xf:action ev:event="click"><script>model.submit("submitins");location.href = "..";
+    </script></xf:action><div class="cap"/>Close</a>
+    <br/><br/>
+    <!--//AB 01/05/2021 removed the delete in the chart.flow so it can be added below and conditions could be applied.
+    //AB 01/05/2021 members and staff should not be able to delete their agenda task if the meeting has not yet occurred-->
+    <div><ix:attr name="style" value="if(instance('form')/future='0' and commFor='AGENDA', '', 'display:none')"/>
+      <a title="Submit" href="#" class="submit1"><xf:action ev:event="click">
+        <script>
+          if(!confirm("Are you sure you wish to delete the task?"))return;
+          var resX = callSharedService("protocolRouting",{"op":"deleteTask", "taskID":model.getValue("processID")}, "text");
+          window.location="../home"; return;
+        </script></xf:action><div class="cap"/>Delete</a>
+      <br/>
+    </div>
+    <div><ix:attr name="style" value="if(instance('form')/future='0' and commFor='STAFFAGENDA', '', 'display:none')"/>
+      <a title="Submit" href="#" class="submit1"><xf:action ev:event="click">
+        <script>
+          if(!confirm("Are you sure you wish to delete the task?"))return;
+          var resX = callSharedService("protocolRouting",{"op":"deleteTask", "taskID":model.getValue("processID")}, "text");
+          window.location="../home"; return;
+        </script></xf:action><div class="cap"/>Delete</a>
+      <br/>
+    </div>
+    <!--//AB 01/05/2021 for the case it is not an agenda always provide the delete button-->
+    <div><ix:attr name="style" value="if((commFor!='AGENDA' and commFor!='STAFFAGENDA'), '', 'display:none')"/>
+      <a title="Submit" href="#" class="submit1"><xf:action ev:event="click">
+        <script>
+          if(!confirm("Are you sure you wish to delete the task?"))return;
+          var resX = callSharedService("protocolRouting",{"op":"deleteTask", "taskID":model.getValue("processID")}, "text");
+          window.location="../home"; return;
+        </script></xf:action><div class="cap"/>Delete</a>
+      <br/>
+    </div>
+  </div>
+
+  </div>
+
+</form>

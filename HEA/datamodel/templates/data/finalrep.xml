@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Final Report Details -->
+<data>
+	<communicationComplete/>
+	<summaryOfOutcome/>
+	<problemsEncountered/>
+	<problemDescription/>
+	<problemsReportedToREB/>
+	<whyNotReported/>
+
+	<!-- Signoff-->
+	<submissionNotes/>
+	<signOff signedWhen="" signedBy=""/>
+	<signOffAdvisors signedWhen="" signedBy=""/>
+	<signOffProxy signedWhen="" signedBy=""/>
+	<signOffStudent signedWhen="" signedBy=""/>
+	<subType>rinal</subType>
+	<protocolContentsComplete/>
+	<agreeEthicalGuidelines/>
+	<ensureStudyApproved/>
+	<ensureOrgApproved/>
+	<ensureTeamTrained/>
+	<ensureTeamQualified/>
+	<notifyRebChanges/>
+	<submitChangesStudy/>
+	<submitAnnualRequest/>
+	<submitStudyClosure/>
+	<providingSignatureAttestation/>
+	<advisorReviewedProtocolContents/>
+	<advisorWillMonitor/>
+	<advisorAgreeNotifyReb/>
+	<advisorSignatureConfirmation/>	
+</data>

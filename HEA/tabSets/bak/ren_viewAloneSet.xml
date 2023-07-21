@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0">
+    <!--PIVIEW is a reserved tabset id. If you set a tab to this id, the Review Dashboard will show up in limited view (no checkboxes)-->
+    <tab id="PIVIEW" color="gray" label="Review Dashboard" form="/home/configs/COI/forms/totallyGreatReviewsCoor.xfrm"/>
+    <tab id="4b" label="Research Personnel" form="/home/configs/COI/forms/ren_personnelAMDView.xfrm" printlabel="Research Personnel" sourceXML="/ren_personnel.xml" formType="drillIn" formName="ren_personnel"/>
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/COI/forms/sincelastapprovalView.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapproval.xml" formType="general" formName="sincelastapproval"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/COI/forms/enrollmentstatusView.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatus.xml" formType="general" formName="enrollmentstatus" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/COI/forms/protocolstatusView.xfrm" printlabel="Protocol Status" sourceXML="/protocolstatus.xml" formType="general" formName="protocolstatus"/>
+		
+	<tab id="18" label="Attachments" form="/home/configs/COI/forms/attachmentsRENView.xfrm"/>
+    
+    <switches>
+        <full>1</full>
+        <notfull>0</notfull>
+        <enrollment>0</enrollment>
+    </switches>
+</tabs>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+	<tab id="Diff" color="silver" label="Comments &amp; Changes" form="/home/configs/COI/forms/commDiffsExamine.xfrm"/>
+	<tab id="1A" label="Amendment Summary" form="/home/configs/COI/forms/modificationRebufRO.xfrm"/>
+    <tab id="1" label="Summary">
+        <tab id="1a" label="Title" form="/home/configs/COI/forms/coisummaryRebufRO.xfrm" printlabel="Summary - Title" sourceXML="/summary.xml" formType="general" formName="summary" mode=""/>
+		<tab id="1c" label="Setup" form="/home/configs/COI/forms/setupRebufRO.xfrm" printlabel="Summary - Setup" sourceXML="/setup.xml" formType="general" formName="setup" mode=""/>
+        <tab id="1b" label="Background" form="/home/configs/COI/forms/templateMainRebufRO.xfrm" printlabel="Summary - Background" sourceXML="/templateMain.xml" formType="general" formName="templateMain" when="relyonMountSinaiIRB" mode=""/>
+    </tab>
+	
+    <tab id="4b" label="Research Personnel" form="/home/configs/COI/forms/personnelRebufRO.xfrm" printlabel="Research Personnel" sourceXML="/personnel.xml" formType="drillIn" formName="personnel" mode=""/>
+	<!--<tab id="4" label="Personnel">
+        <tab id="4b" label="Research Personnel" form="/home/configs/COI/forms/personnelRebufRO.xfrm" printlabel="Research Personnel" sourceXML="/personnel.xml" formType="drillIn" formName="personnel" mode=""/> <!{1}**when="pimatch"**{1}>
+        <tab id="4c" label="Other Personnel" form="/home/configs/COI/forms/personnelOtherRebufRO.xfrm" printlabel="Other Personnel" sourceXML="/personnelOther.xml" formType="drillIn" formName="personnelOther" mode=""/>
+    </tab>-->
+	
+	<tab id="5" label="Compassionate Single Patient IND" form="/home/configs/COI/forms/singlePatientINDRebufRO.xfrm" printlabel="Compassionate Single Patient IND" sourceXML="/singlePatientIND.xml" formType="general" formName="singlePatientIND" mode="" when="singlePatientIND"/>
+	<tab id="6X" label="Sites" form="/home/configs/COI/forms/externalSitesRebufRO.xfrm" printlabel="Sites" sourceXML="/externalSites.xml" formType="drillIn" formName="externalSites" when="external" mode=""/>
+	
+	<tab id="3" label="Exemption" when="requestIRBExemption">
+		<tab id="3a" label="Summary" form="/home/configs/COI/forms/exempSummaryRebufRO.xfrm" printlabel="Exemption - Summary" sourceXML="/exempSummary.xml" formType="general" formName="exempSummary" when="requestIRBExemption" mode=""/>		
+		<tab id="3b" label="Category" form="/home/configs/COI/forms/exempCategoryRebufRO.xfrm" printlabel="Exemption - Category" sourceXML="/exempCategory.xml" formType="general" formName="exempCategory" when="requestIRBExemption" mode=""/>
+    </tab>
+	
+	<tab id="4" label="External IRB" form="/home/configs/COI/forms/externalIRBRebufRO.xfrm" printlabel="External IRB" sourceXML="/externalIRB.xml" formType="general" formName="externalIRB" when="otherExternalIRB" mode=""/>
+	
+    <!--<tab id="2" label="Application Setup">-->
+        <!--<tab id="2a" label="Main Protocol" form="/home/configs/COI/forms/researchDesignRebufRO.xfrm" printlabel="Application Setup - Main Protocol" sourceXML="/researchDesign.xml" formType="general" formName="researchDesign" mode=""/>-->
+        <!--<tab id="2b" label="Cancer" form="/home/configs/COI/forms/instApprovalsRebufRO.xfrm" printlabel="Application Setup - Cancer" sourceXML="/instApprovals.xml" formType="general" formName="instApprovals" when="notRetroCharts" mode=""/>-->
+		<!--<tab id="2c" label="Drugs / Biologics" form="/home/configs/COI/forms/drugsbiologicsRebufRO.xfrm" printlabel="Application Setup - Drugs / Biologics" sourceXML="/drugsbiologics.xml" formType="general" formName="drugsbiologics" when="notRetroCharts" mode=""/>-->
+		<!--<tab id="2d" label="Radiation Safety" form="/home/configs/COI/forms/radiationsafetyRebufRO.xfrm" printlabel="Application Setup - Radiation Safety" sourceXML="/radiationsafety.xml" formType="general" formName="radiationsafety" when="notRetroCharts" mode=""/>-->
+		<!--<tab id="2e" label="Biosafety" form="/home/configs/COI/forms/biosafetyRebufRO.xfrm" printlabel="Application Setup - Biosafety" sourceXML="/biosafety.xml" formType="general" formName="biosafety" when="notRetroCharts" mode=""/>
+		<tab id="2f" label="Clinical Research Unit" form="/home/configs/COI/forms/cruRebufRO.xfrm" printlabel="Application Setup - Clinical Research Unit" sourceXML="/cru.xml" formType="general" formName="cru" when="notRetroCharts" mode=""/>
+		<tab id="2g" label="Financial Administration" form="/home/configs/COI/forms/financialRebufRO.xfrm" printlabel="Application Setup - Financial Administration" sourceXML="/financial.xml" formType="general" formName="financial" when="notRetroCharts" mode=""/>-->
+    <!--</tab> -->
+	
+	<tab id="11A" label="Subjects" when="subjectsSpecial">
+		<tab id="11B" label="Setting &amp; Resources" form="/home/configs/COI/forms/settingsRebufRO.xfrm" printlabel="Subjects - Setting &amp; Resources" sourceXML="/settings.xml" formType="general" formName="settings" when="subjects" mode=""/>
+		<tab id="11" label="Populations" form="/home/configs/COI/forms/subjectsRebufRO.xfrm" printlabel="Subjects - Populations" sourceXML="/subjects.xml" formType="general" formName="subjects" when="subjects" mode=""/>
+		<tab id="17" label="Participation" form="/home/configs/COI/forms/enrollRebufRO.xfrm" printlabel="Subjects - Participation" sourceXML="/enroll.xml" formType="general" formName="enroll" when="subjects" mode=""/>
+		<tab id="0d" label="Risk &amp; Benefits" form="/home/configs/COI/forms/templateSubjectsRebufRO.xfrm" printlabel="Subjects - Risk &amp; Benefits" sourceXML="/templateSubjects.xml" formType="general" formName="templateSubjects" when="subjectsSpecial" mode=""/>
+		<tab id="31a" label="Children" form="/home/configs/COI/forms/childrenRebufRO.xfrm" printlabel="Subjects - Children" sourceXML="/children.xml" formType="general" formName="children" when="vsChild" mode=""/>
+		<tab id="31b" label="Pregnant Women" form="/home/configs/COI/forms/pregnantRebufRO.xfrm" printlabel="Subjects - Pregnant Women" sourceXML="/pregnant.xml" formType="general" formName="pregnant" when="vsPregnant" mode=""/>
+		<tab id="31c" label="Prisoners" form="/home/configs/COI/forms/prisonersRebufRO.xfrm" printlabel="Subjects - Prisoners" sourceXML="/prisoners.xml" formType="general" formName="prisoners" when="vsPrisoners" mode=""/>
+        <tab id="31d" label="Adults Without Capacity" form="/home/configs/COI/forms/withoutcapacityRebufRO.xfrm" printlabel="Subjects - Adults Without Capacity" sourceXML="/withoutcapacity.xml" formType="general" formName="withoutcapacity" when="vsAWS" mode=""/>
+    </tab>
+	
+	<!--<tab id="31" label="Vulnerable Subjects" when="vsPopulation">-->
+        <!--<tab id="31a" label="Children" form="/home/configs/COI/forms/childrenRebufRO.xfrm" printlabel="Vulnerable Subjects - Children" sourceXML="/children.xml" formType="general" formName="children" when="vsChild" mode=""/>-->
+		<!--<tab id="31b" label="Pregnant Women" form="/home/configs/COI/forms/pregnantRebufRO.xfrm" printlabel="Vulnerable Subjects - Pregnant Women" sourceXML="/pregnant.xml" formType="general" formName="pregnant" when="vsPregnant" mode=""/>-->
+        <!--<tab id="31c" label="Prisoners" form="/home/configs/COI/forms/prisonersRebufRO.xfrm" printlabel="Vulnerable Subjects - Prisoners" sourceXML="/prisoners.xml" formType="general" formName="prisoners" when="vsPrisoners" mode=""/>
+        <tab id="31d" label="Adults Without Capacity" form="/home/configs/COI/forms/withoutcapacityRebufRO.xfrm" printlabel="Vulnerable Subjects - Adults Without Capacity" sourceXML="/withoutcapacity.xml" formType="general" formName="withoutcapacity" when="vsAWS" mode=""/>-->
+    <!--</tab>-->
+	
+	<tab id="32" label="Procedures" when="procedures">
+		<!--<tab id="32v" label="Narrative -" form="/home/configs/COI/forms/narrativeAMDView.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative"/>
+		<tab id="32ac" label="Narrative -" form="/home/configs/COI/forms/narrativeAMDViewRebuf.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative"/>-->
+		<!--<tab id="32ax" label="Narrative 0" form="/home/configs/COI/forms/narrativeAMDComm.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative" mode=""/>
+		<tab id="32axs" label="Narrative 1" form="/home/configs/COI/forms/narrativeAMDCommRO.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative" mode=""/>-->
+		<tab id="32a" label="Narrative" form="/home/configs/COI/forms/narrativeRebufRO.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative" mode=""/>
+		<tab id="32b" label="Genetic Testing" form="/home/configs/COI/forms/geneticRebufRO.xfrm" printlabel="Procedures - Pregnant Women" sourceXML="/genetic.xml" formType="general" formName="genetic" when="geneticTesting" mode=""/>
+		<tab id="32c" label="Details" form="/home/configs/COI/forms/templateStudyDesignRebufRO.xfrm" printlabel="Procedures - Details" sourceXML="/templateStudyDesign.xml" formType="general" formName="templateStudyDesign" when="details" mode=""/>
+        <tab id="32d" label="Instruments" form="/home/configs/COI/forms/instrumentsRebufRO.xfrm" printlabel="Procedures - Instruments" sourceXML="/instruments.xml" formType="general" formName="instruments" when="instruments" mode=""/>
+		<tab id="32e" label="Compensation" form="/home/configs/COI/forms/compensationRebufRO.xfrm" printlabel="Procedures - Compensation" sourceXML="/compensation.xml" formType="general" formName="compensation" when="compensation" mode=""/>
+    </tab>
+	
+	<tab id="33" label="Consent" when="consentingParticipants">
+        <tab id="33a" label="Obtaining Consent" form="/home/configs/COI/forms/consentRebufRO.xfrm" printlabel="Consent - Obtaining Consent" sourceXML="/consent.xml" formType="general" formName="consent" when="obtainingConsent" mode=""/>
+		<tab id="33b" label="Parental Permission" form="/home/configs/COI/forms/parentalPermissionRebufRO.xfrm" printlabel="Consent - Parental Permission" sourceXML="/parentalPermission.xml" formType="general" formName="parentalPermission" when="parental" mode=""/>
+		<tab id="33c" label="Legally Authorized Representative" form="/home/configs/COI/forms/legallyAuthorizedRebufRO.xfrm" printlabel="Consent - Legally Authorized Representative" sourceXML="/legallyAuthorized.xml" formType="general" formName="legallyAuthorized" when="lar" mode=""/>
+		<tab id="33d" label="Waiver of Informed Consent" form="/home/configs/COI/forms/informedWaiverRebufRO.xfrm" printlabel="Consent - Waiver of Informed Consent" sourceXML="/informedWaiver.xml" formType="general" formName="informedWaiver" when="informedWaiver" mode=""/>
+		<tab id="33e" label="Waiver of Signed Consent" form="/home/configs/COI/forms/signedConsentRebufRO.xfrm" printlabel="Consent - Waiver of Signed Consent" sourceXML="/signedConsent.xml" formType="general" formName="signedConsent" when="signed" mode=""/>
+		<tab id="33f" label="Documents" form="/home/configs/COI/forms/consentDocsRebufRO.xfrm" printlabel="Consent - Documents" sourceXML="/consentDocs.xml" formType="general" formName="consentDocs" when="consentDocuments" mode=""/>
+    </tab>
+    
+    <tab id="0" label="Data" when="dataSpecial">
+    	<tab id="0p" label="Collection" form="/home/configs/COI/forms/collectionRebufRO.xfrm" printlabel="Data - Collection" sourceXML="/collection.xml" formType="general" formName="collection" when="data" mode=""/>
+        <tab id="0q" label="HIPAA" form="/home/configs/COI/forms/hippaRebufRO.xfrm" printlabel="Data - HIPAA" sourceXML="/hippa.xml" formType="general" formName="hippa" when="hippa" mode=""/>
+		<tab id="0r" label="HIV/AIDS" form="/home/configs/COI/forms/hivRebufRO.xfrm" printlabel="Data - HIV/AIDS" sourceXML="/hiv.xml" formType="drillIn" formName="hiv" when="hiv" mode=""/>
+    	<tab id="0c" label="Storage" form="/home/configs/COI/forms/templateDataManRebufRO.xfrm" printlabel="Data - Storage" sourceXML="/templateDataMan.xml" formType="general" formName="templateDataMan" when="data" mode=""/>
+		<tab id="0s" label="Safety Monitoring" form="/home/configs/COI/forms/monitoringRebufRO.xfrm" printlabel="Data - Safety Monitoring" sourceXML="/monitoring.xml" formType="general" formName="monitoring" when="safetyMonitoring" mode=""/>
+		<tab id="0h" label="Retrospective Review" form="/home/configs/COI/forms/retrochartreviewsRebufRO.xfrm" printlabel="Data - Retrospective Review" sourceXML="/retrochartreviews.xml" formType="general" formName="retrochartreviews" when="retrospectiveReview" mode=""/>
+    </tab>
+    
+	<tab id="9" label="Devices" when="devices">
+		<tab id="9a" label="Investigational Devices" form="/home/configs/COI/forms/investigationalDevicesRebufRO.xfrm" printlabel="Devices - Investigational Devices" sourceXML="/investigationalDevices.xml" formType="general" formName="investigationalDevices" when="invDevices" mode=""/>
+		<tab id="9b" label="Humanitarian Use Devices" form="/home/configs/COI/forms/humanDevicesRebufRO.xfrm" printlabel="Devices - Humanitarian Use Devices" sourceXML="/humanDevices.xml" formType="general" formName="humanDevices" when="useHUD" mode=""/>
+    </tab>
+	
+	<tab id="34" label="Specimen Banking" form="/home/configs/COI/forms/specimenBankingRebufRO.xfrm" printlabel="Specimen Banking" sourceXML="/specimenBanking.xml" formType="general" formName="specimenBanking" when="specimen" mode=""/>
+		
+	<!--<tab id="6X" label="External Sites" form="/home/configs/COI/forms/externalSitesRebufRO.xfrm" printlabel="External Sites" sourceXML="/externalSites.xml" formType="general" formName="externalSites" when="external" mode=""/>-->
+	
+	<tab id="7" label="Funding" form="/home/configs/COI/forms/fundingRebufRO.xfrm" printlabel="Funding" sourceXML="/funding.xml" formType="general" formName="funding" when="funding" mode=""/>
+	
+	<tab id="2b" label="Cancer" form="/home/configs/COI/forms/instApprovalsRebufRO.xfrm" printlabel="Cancer" sourceXML="/instApprovals.xml" formType="general" formName="instApprovals" when="cancer" mode=""/>
+	
+	<tab id="2d" label="Radiation Safety" form="/home/configs/COI/forms/radiationsafetyRebufRO.xfrm" printlabel="Radiation Safety" sourceXML="/radiationsafety.xml" formType="general" formName="radiationsafety" when="radiationSafety" mode=""/>
+	
+	<tab id="8" label="Drugs / Biologics" form="/home/configs/COI/forms/mssmDrugsRebufRO.xfrm" printlabel="Drugs / Biologics" sourceXML="/mssmDrugs.xml" formType="general" formName="mssmDrugs" when="drugsBiologics" mode=""/> 
+	
+	<tab id="37" label="Biosafety" form="/home/configs/COI/forms/biosafetyRebufRO.xfrm" printlabel="Biosafety" sourceXML="/biosafety.xml" formType="general" formName="biosafety" when="biosafety" mode=""/> 
+	
+	<tab id="35" label="Clinical Research Unit" when="cru">
+		<tab id="35a" label="Summary" form="/home/configs/COI/forms/cruSummaryRebufRO.xfrm" printlabel="Clinical Research Unit - Summary" sourceXML="/cruSummary.xml" formType="general" formName="cruSummary" when="cru" mode=""/>
+		<tab id="35b" label="Requirements" form="/home/configs/COI/forms/cruRequirementsRebufRO.xfrm" printlabel="Clinical Research Unit - Requirements" sourceXML="/cruRequirements.xml" formType="general" formName="cruRequirements" when="cru" mode=""/>
+		<tab id="35c" label="Costs" form="/home/configs/COI/forms/cruCostsRebufRO.xfrm" printlabel="Clinical Research Unit - Costs" sourceXML="/cruCosts.xml" formType="general" formName="cruCosts" when="cru" mode=""/>
+    </tab>
+	
+	<tab id="36" label="Financial Administration" form="/home/configs/COI/forms/financialAdminRebufRO.xfrm" printlabel="Financial Administration" sourceXML="/financialAdmin.xml" formType="general" formName="financialAdmin" when="finance" mode=""/> 
+	<tab id="18" label="Attachments" form="/home/configs/COI/forms/attachmentsManRevise.xfrm"/>
+    
+    
+    <switches>
+    	<singlePatientIND>0</singlePatientIND>
+        <retroCharts>0</retroCharts>
+        <notRetroCharts>0</notRetroCharts>
+		<vsPopulation>0</vsPopulation>
+		<vsChild>0</vsChild>
+		<vsPregnant>0</vsPregnant>
+		<vsPrisoners>0</vsPrisoners>
+		<vsAWS>0</vsAWS>
+		<instruments>0</instruments>
+		<instType>0</instType>
+		<retroyn>0</retroyn>
+		<retroReview>0</retroReview>
+		<hippa>0</hippa>
+		<hiv>0</hiv>
+		<retroChartsStudy>0</retroChartsStudy>
+		<devices>0</devices>
+		<invDevices>0</invDevices>
+        <useHUD>0</useHUD>
+		<specimen>0</specimen>
+		<external>0</external>
+		<funding>0</funding>
+		<drugs>0</drugs>
+		<cru>0</cru>
+		<finance>0</finance>
+		<parental>0</parental>
+		<lar>0</lar>
+		<signed>0</signed>
+		<!--MSSM Addition-->
+		
+		<invoiced>0</invoiced>
+        <comp>0</comp>
+        <radio>0</radio>
+        <phi>0</phi>
+        <!--<techSession>0</techSession>-->
+        <instApproval>0</instApproval> <!--MSSM Addition-->
+        <extSites>0</extSites> <!--MSSM Addition-->
+         
+        <useHUDNeg>0</useHUDNeg><!--MSSM Addition-->
+        <useProtComp>0</useProtComp><!--MSSM Addition-->
+        <pregnantCheck>0</pregnantCheck> <!--MSSM Addition-->
+        <prisonCheck>0</prisonCheck> <!--MSSM Addition-->
+         
+        <neaf>0</neaf>
+        
+        <consentObt>0</consentObt>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        
+        
+        <biologics>1</biologics>
+        <biological>1</biological>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+		<relyonMountSinaiIRB>0</relyonMountSinaiIRB>
+		<requestIRBExemption>0</requestIRBExemption>
+		<otherExternalIRB>0</otherExternalIRB>
+		<subjects>0</subjects><subjectsSpecial>0</subjectsSpecial>
+		<consentingParticipants>0</consentingParticipants>
+		<obtainingConsent>0</obtainingConsent>
+		<informedWaiver>0</informedWaiver>
+		<consentDocuments>0</consentDocuments>
+		<data>0</data><dataSpecial>0</dataSpecial>
+		<safetyMonitoring>0</safetyMonitoring>
+		<retrospectiveReview>0</retrospectiveReview>
+		<cancer>0</cancer>
+		<radiationSafety>0</radiationSafety>
+		<drugsBiologics>0</drugsBiologics>
+		<biosafety>0</biosafety>
+		<procedures>0</procedures>
+		<compensation>0</compensation>
+		
+		<narrative>0</narrative>
+		<geneticTesting>0</geneticTesting>
+		<details></details>
+    </switches>
+</tabs>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<naming-scheme>
+    <!--
+    <pre-fix>PROJ</pre-fix> <!-\- Pad added to the front of each number -\->
+    <incriment>1</incriment>    <!-\- Increment ammount, next number = last number + increment -\->
+    <digits>5</digits>          <!-\- If set, determines the minimum # of digits that should be displayed (adds leading zeros) -\->
+    <lastNum>0</lastNum>      <!-\- Determins the next number in the sequence -\->
+    <format>#</format>-->
+    <format>PRE-YY-#</format> <!-- Either:  #, PRE-# (default),  PRE-YY-#, PRE-YYYY-#, PRE-YYYY-MM-#, PRE-YY-MM-#, YY-#, YYYY-#, YYYY-MM-#, YY-MM-# -->
+    <year>calendar</year>       <!-- Either: calendar (default), fiscal (determines year to quote if YY or YYYY is selected above)-->
+    <fiscalMonth>12</fiscalMonth> <!-- If the above is fiscal, the ## (make sure the leading 0 is include!) of the month where the pivot occurs -->
+    <pre-fix>HEA</pre-fix>     <!-- Pad added to the front of each number (If PRE- above)-->
+    <incriment>1</incriment>    <!-- Increment ammount, next number = last number + increment -->
+    <digits>5</digits>          <!-- If set, determines the minimum # of digits that should be displayed (adds leading zeros) -->
+    <lastNum>100</lastNum>      <!-- Determins the next number in the sequence -->
+    <lastYear>2023</lastYear>
+    <resetYear>1</resetYear>
+</naming-scheme>

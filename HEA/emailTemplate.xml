@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data> 
+    <email id="protocolClosed">
+        <subject>HEA CLOSURE RECEIVED</subject> 
+        <body>__header__<p/><p/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA ID:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Sponsor:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>            
+            The HEA Closure notice for the above-mentioned project has been received and the status of your Disclosure has now been changed to <b>Complete.</b>  
+            Please ensure your project records are retained in accordance with all legal and regulatory requirements.            
+            <br/><br/>Please login to the __url__ to access any task or view your HEA Disclosure. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="thirtyDay">
+        <subject>30 DAY REMINDER TO RENEW OR CLOSE HEA Disclosure- __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA ID:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Sponsor:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">30 DAY REMINDER TO RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            <b>ACTION REQUIRED</b> <br/><br/>
+            <b>HEA Disclosure Renewal: </b><br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>HEA Renewal</b> to our office a <b>minimum of two weeks before the expiry date</b>. 
+            <b>Failure to submit the form prior to expiration will result in suspension of your study related activities.</b><br/><br/>  
+            <b>HEA Closure:</b> <br/><br/>
+            If your HEA has concluded, please initiate a <b>HEA Closure</b> prior to the expiration date.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>   <br/> 
+            Please login to the __url__ to access any task or view your HEA Disclosure. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ex">
+        <subject>EXPIRATION NOTIFICATION - PLEASE RENEW OR CLOSE HEA Disclosure - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA ID:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Sponsor:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">EXPIRATION NOTIFICATION - PLEASE RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            The HEA above <b>EXPIRED</b> on __rulesField1__.<br/><br/> 
+            <b>All study related research activity must cease until new approval is granted. Activity includes all advertising, recruitment, screening, enrollment of new study participants, continued data collection, and any communication with participants. </b><br/><br/>
+            <b>ACTION REQUIRED</b> <br/><br/>
+            <b>HEA Disclosure Renewal: </b><br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>HEA Renewal</b> to our office a <b>minimum of two weeks before the expiry date</b>. 
+            <b>Failure to submit the form prior to expiration will result in suspension of your study related activities.</b><br/><br/>  
+            <b>HEA Closure:</b> <br/><br/>
+            If your HEA has concluded, please initiate a <b>HEA Closure</b> prior to the expiration date.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>   <br/> 
+            Please login to the __url__ to access any task or view your HEA Disclosure. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.             
+        </body>
+    </email>
+    <email id="sendToCoord">
+        <subject>REVIEW HEA AND PROCESS- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>Please review the Initial HEA Application Submission (__id8ID__): Process Initial HEA Application.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="returnToCoord">
+        <subject>REVIEW HEA REVISIONS AND PROCESS- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>Please review the HEA Application Submission revisions (__id8ID__) and process.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="reviseCoord">
+        <subject>REVISE HEA DISCLOSURE - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>             
+            The above HEA Disclosure Application Submission has been pre-reviewed and requires your attention.  <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="reviseCoordRMN">
+        <subject>RESOLUTION MEMO NEEDED - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>             
+            The above HEA Disclosure Application Submission has been reviewed and requires the upload of a signed Resolution Memo in order to be approved.  <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="approveCase">
+        <subject>HEA DISCLOSURE APPROVED- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>The HEA Application Submission (__id8ID__) has been approved.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!-- Amendnments -->
+    <email id="amd_sendToCoord">
+        <subject>REVIEW HEA AMENDMENT AND PROCESS- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>Please review the HEA Amendment Application Submission (__id8ID__) and process.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amd_returnToCoord">
+        <subject>REVIEW HEA AMENDMENT REVISIONS AND PROCESS- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>Please review the HEA Amendment Application Submission revisions (__id8ID__) and process.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amd_reviseCoord">
+        <subject>REVISE HEA DISCLOSURE AMENDMENT - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>             
+            The above HEA Disclosure Amendment Application Submission has been pre-reviewed and requires your attention.  <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="amd_reviseCoordRMN">
+        <subject>RESOLUTION MEMO NEEDED - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>             
+            The above HEA Disclosure Amendment Application Submission has been reviewed and requires the upload of a signed Resolution Memo in order to be approved.  <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="amd_approveCase">
+        <subject>HEA DISCLOSURE AMENDMENT APPROVED- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>The HEA Application Amendment Submission (__id8ID__) has been approved.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!-- Renewals -->
+    <email id="ren_sendToCoord">
+        <subject>REVIEW HEA RENEWAL AND PROCESS- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>Please review the HEA Renewal Application Submission (__id8ID__) and process.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ren_returnToCoord">
+        <subject>REVIEW HEA RENEWAL REVISIONS AND PROCESS- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>Please review the HEA Renewal Application Submission revisions (__id8ID__) and process.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ren_reviseCoord">
+        <subject>REVISE HEA DISCLOSURE RENEWAL - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>             
+            The above HEA Disclosure Renewal Application Submission has been pre-reviewed and requires your attention.  <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="ren_reviseCoordRMN">
+        <subject>RESOLUTION MEMO NEEDED - __id8ID__ - __coiSponsor__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>                
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>               
+            </table><br/>             
+            The above HEA Disclosure Renewal Application Submission has been reviewed and requires the upload of a signed Resolution Memo in order to be approved.  <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    
+    
+    
+    <email id="ren_approveCase">
+        <subject>HEA DISCLOSURE RENEWAL APPROVED- __id8ID__ - __coiSponsor__</subject>  
+        <body>
+            <br/>The HEA Application Renewal Submission (__id8ID__) has been approved.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>HEA Title:</b></td><td style='color:black;vertical-align:top'>__coiSponsor__<br/></td></tr>                               
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@honorhealth.com<br/><br/>            
+            Please login to the __url__ to access any task or view your HEA Disclosure Application Submission. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+</data>

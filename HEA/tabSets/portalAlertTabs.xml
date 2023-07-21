@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="">     
+    <tab id="NoteRem" label="Notifications Log" form="/../fil/system/resources/services/caseManagement/forms/remindersList.xfrm"/>
+    <!--<tab id="NoteConfig" label="Configuration" form="/../fil/system/resources/services/protocolRouting/forms/remindersConfig.xfrm"/>-->
+</tabs>

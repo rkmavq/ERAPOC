@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+    
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalFRCommRO.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusFRCommRO.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusFRCommRO.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+ 
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReviewSugg.xfrm"/>
+    
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subCommDiffs.xfrm"/>
+    <!--<tab id="LC" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/>-->
+    
+    <tab id="DI" color="light purple" label="Deferrable Issues Communications" form="/home/configs/IRB/forms/deferrableIssues.xfrm" when="defissues"/>
+    <tab id="LC" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm" when="offmicro"/>
+    <tab id="LC2" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm" when="onmicro"/>
+    <switches>
+        <!-- Sprint 10B Start -->
+        <defissues>0</defissues>
+        <!-- Sprint 10B End -->
+        <offmicro>1</offmicro>
+        <onmicro>0</onmicro>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+    </switches>
+</tabs>

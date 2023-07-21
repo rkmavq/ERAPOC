@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+    <name>HEA</name>
+    <id>HEA</id>
+    <humanName>Human Ethics Application</humanName>
+    <configsPath>/configs/HEA</configsPath>
+    <resourcesPath>/system/resources/applications/HEA</resourcesPath>
+    <resourcePath>/system/resources/applications/HEA</resourcePath>
+    <version>1.0.0</version>
+    <author>abhatt</author>
+    <domainauthor></domainauthor>
+    <copywrite>Maverick Quantum Inc.</copywrite>
+    <description>Human Ethics Application</description>
+    <dataMartEntity>HEA</dataMartEntity>
+    <dataMartTemplateEntity></dataMartTemplateEntity>
+    <region>us</region>
+    <formMetaDataURI>data/updates.xml</formMetaDataURI>
+</application>

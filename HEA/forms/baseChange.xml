@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="baseChange.xml">
+	<tab toptab="1" id="1" label="COI Summary" flabel=""/>
+	<tab toptab="22" id="22" label="Submit" flabel=""/>
+	<form tabID="1" formType="general" formName="coiSummary" printlabel="COI Disclosure"
+		src="/system/resources/applications/COI/configs/forms/MASTER_FORMS/coiSummary.xml">
+		<el comp="" typ="" component="bigbox" xml="title" cmp="1">Protocol Title</el>
+		<el comp=""  typ="" component="field" xml="coiSponsor" cmp="1">Select the Sponsor</el>
+		<el comp=""  typ="" component="field" xml="Person[role=&amp;apos;PI&amp;apos;]/phone" cmp="1" >Phone</el>
+		<el comp=""  typ="" component="field" xml="Person[role=&amp;apos;PI&amp;apos;]/email/email[1]" cmp="1">Email</el>
+		<el comp=""  typ="" component="field" xml="contextGroup" cmp="1">Primary Department</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="workedForSponsor" cmp="1" lookup="" label="" value="">Within the last 12 months, have you or, to the best of your knowledge, has any member of your Family performed any work for the Sponsor or a Financially Interested Company? </el>
+		<el comp="" message="   [View Page]" component="entryTable" xml="ET_workedForSponsor" cmp="1" xmlset="ET_workedForSponsor" ident="" >Within the last 12 months, have you or, to the best of your knowledge, has any member of your Family performed any work for the Sponsor or a Financially Interested Company? - Details</el>
+		<col typ="decode" component="dropdown" xml="ET_workedForSponsor_who" elxml="ET_workedForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="decode" component="dropdown" xml="ET_workedForSponsor_specify" elxml="ET_workedForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="" component="textarea" xml="ET_workedForSponsor_define" elxml="ET_workedForSponsor" cmp="1">Define</col>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="recievedGiftsFromSponsor" cmp="1" lookup="" label="" value="">Within the last 12 months, have you or, to the best of your knowledge, has any member of your Family received compensation (not directly related to the costs of conducting research), financial interests, or gifts of any kind from the Sponsor or a Financially Interested Company? </el>
+		<el comp="" typ="" message="[View Page]" component="entryTable" xml="ET_recievedGiftsFromSponsor" cmp="1">Within the last 12 months, have you or, to the best of your knowledge, has any member of your Family received compensation (not directly related to the costs of conducting research), financial interests, or gifts of any kind from the Sponsor or a Financially Interested Company?  - Details</el>
+		<col typ="decode" component="dropdown" xml="ET_recievedGiftsFromSponsor_who" elxml="ET_recievedGiftsFromSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="decode" component="dropdown" xml="ET_recievedGiftsFromSponsor_specify" elxml="ET_recievedGiftsFromSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="" component="textarea" xml="ET_recievedGiftsFromSponsor_amount" elxml="ET_recievedGiftsFromSponsor" cmp="1">provide amount here</col>
+		<col typ="decode" component="dropdown" xml="ET_recievedGiftsFromSponsor_specify2" elxml="ET_recievedGiftsFromSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="" component="textarea" xml="ET_recievedGiftsFromSponsor_define" elxml="ET_recievedGiftsFromSponsor" cmp="1">Define</col>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="performedWorkForSponsor" cmp="1" lookup="" label="" value="">Within the next 12 months, do you or, to the best of your knowledge, does any member of your Family anticipate performing any work and/or receiving any compensation (not directly related to the costs of conducting research), financial interest, or gifts from the Sponsor or a Financially Interested Company?</el>
+		<el comp="" typ="" message="[View Page]" component="entryTable" xml="ET_performedWorkForSponsor" cmp="1">Within the next 12 months, do you or, to the best of your knowledge, does any member of your Family anticipate performing any work and/or receiving any compensation (not directly related to the costs of conducting research), financial interest, or gifts from the Sponsor or a Financially Interested Company? - Details</el>
+		<col typ="decode" component="dropdown" xml="ET_performedWorkForSponsor_who" elxml="ET_performedWorkForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="decode" component="dropdown" xml="ET_performedWorkForSponsor_specify" elxml="ET_performedWorkForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="" component="textarea" xml="ET_performedWorkForSponsor_amount" elxml="ET_performedWorkForSponsor" cmp="1">provide amount here</col>
+		<col typ="decode" component="dropdown" xml="ET_performedWorkForSponsor_specify2" elxml="ET_performedWorkForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="" component="textarea" xml="ET_performedWorkForSponsor_define" elxml="ET_performedWorkForSponsor" cmp="1">Define</col>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="stockForSponsor" cmp="1" lookup="" label="" value="">Do you or, to the best of your knowledge, does any member of your Family own stock, stock options or other forms of ownership in the Sponsor or a Financially Interested Company or have any intellectual property rights (e.g., named as an inventor in an issued patent or patent application, license fees, current or future royalties from patents and copyrights)?</el>
+		<el comp="" typ="" message="[View Page]" component="entryTable" xml="ET_stockForSponsor" cmp="1">Do you or, to the best of your knowledge, does any member of your Family own stock, stock options or other forms of ownership in the Sponsor or a Financially Interested Company or have any intellectual property rights (e.g., named as an inventor in an issued patent or patent application, license fees, current or future royalties from patents and copyrights)? - Details</el>
+		<col typ="decode" component="dropdown" xml="ET_stockForSponsor_who" elxml="ET_stockForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="decode" component="dropdown" xml="ET_stockForSponsor_type" elxml="ET_stockForSponsor" cmp="1" lookup="" label="" value=""/>
+		<col typ="" component="textarea" xml="ET_stockForSponsor_value" elxml="ET_stockForSponsor" cmp="1">Value or % Share?</col>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="voluntarilyDisclose" cmp="1" lookup="" label="" value="">Do you want to voluntarily disclose any additional compensation?</el>
+		<el comp="" typ="" component="bigbox" xml="voluntarilyDiscloseSpecify" cmp="1">Please provide details:</el>
+	</form>
+	<form tabID="" formType="general" formName="submit" printlabel="Submit"
+		src="/system/resources/applications/COI/configs/forms/MASTER_FORMS/submit.xml"/>
+	<form>
+		<el comp="" message="[View Page]" xml="document" cmp="18"/>
+	</form>
+</map>

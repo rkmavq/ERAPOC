@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="1" label="HEA Summary" form="/home/configs/HEA/forms/built/summary.xfrm" printlabel="HEA Summary" sourceXML="/summary.xml" formType="general" formName="summary"/>
+    <tab id="4b" label="Research Personnel" form="/home/configs/HEA/forms/built/personnel.xfrm" printlabel="Research Personnel" sourceXML="/printPersonnel.xml" formType="personnelCrossTab" formName="printPersonnel" mode=""/>
+    <tab id="18" label="Attachments" form="/home/configs/HEA/forms/attachments.xfrm" printlabel="Attachments" sourceXML="/printAttachments.xml" formType="crossTab" formName="printAttachments" mode=""/>    
+    <tab id="22" label="Submit" form="/home/configs/HEA/forms/built/submit.xfrm" printlabel="Submit" sourceXML="/submit.xml" formType="general" formName="submit" mode=""/>
+    <switches>
+    </switches>
+</tabs>

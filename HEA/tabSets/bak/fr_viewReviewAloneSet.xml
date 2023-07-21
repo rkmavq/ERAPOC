@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+  
+    <!--<tab id="1" label="Review Dashboard" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>-->
+    <tab id="LC" color="gray" label="Review Dashboard" form="/home/configs/COI/forms/totallyGreatReviewsCoor.xfrm"/>
+    <tab id="ADMINVIEWDI" color="light purple" label="Deferrable Issues Communications" form="/home/configs/COI/forms/deferrableIssues.xfrm" when="defissues"/>
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/COI/forms/sincelastapprovalFRView.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/COI/forms/enrollmentstatusFRView.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/COI/forms/protocolstatusFRView.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+  
+ 
+    <tab id="18" label="Attachments" form="/home/configs/COI/forms/attachmentsFRView.xfrm"/>
+ 
+   <!-- <tab id="COV" label="Update Protocol Case" form="/home/configs/IRB/forms/returnsubmitView.xfrm"/>-->
+    
+    
+    <switches>
+        <defissues>0</defissues>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+    </switches>
+</tabs>

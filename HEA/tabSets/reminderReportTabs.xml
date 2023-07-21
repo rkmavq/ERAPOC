@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+    <tab id="1" label="Payment Reminders" form="/home/configs/ExpenseReport/forms/allRemindersSent_View.xfrm"/>   
+</tabs>

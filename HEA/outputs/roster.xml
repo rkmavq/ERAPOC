@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<outputs num="1">
+
+	<!-- the ones below are reminders and expiration notices -->
+	<output id="rem" name="Continuation Reminder" type="notif" uri="/ideate/configs/COI/outputs/continuationReminders.xsl" routines="addPDFBasics,addInstructionsToInvestigator,addSetupApproval,addMeetingDate"/>	
+	<output id="exnot" name="Expiration of COI Disclosure" type="notif" uri="/ideate/configs/COI/outputs/ExpirationOfApproval.xsl" routines="addPDFBasics,addInstructionsToInvestigator,addSetupApproval,addMeetingDate"/>
+
+</outputs>

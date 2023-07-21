@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflowRoles created="Fri Jul 04 2014 15:56:13 GMT+0100 (BST)">
+  <!--@position = '3': Department Admin
+        @position = '2': HOD/HOF based on hierarchy
+        @position = '7': DVC of Research
+        @position = '4'/'5'/'6': RSS Pool
+        @position = '8': RSS Deputy Director
+        @position = '9': RSS Director
+        @position = '10': RDM
+        @position = '11': GCA Pool 
+        @position = '12': Head of Research
+        @position = '13': Department Administrator Assistant
+        @position = '14': Research Administrator
+        @position = '15': GCA Pool (duplicate)
+        @position = '16': RSS Finance Administrator
+        @position = '17': Central Administrator
+        @position = '18': System Adminstrator
+        
+        @position = '20': Department level LiveList > People access
+        @position = '21': All profiles LiveList > People > View Access
+        @position = '22': All profiles LiveList > People > Edit Access
+  -->
+      
+      <role gUid="" eUri="/ideate/entity/People/records/006040" position="18"/>
+      <role gUid="" eUri="/ideate/entity/People/records/000408" position="18"/>
+      <role gUid="3NwPlWcBAPYtxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="3"></role>
+      
+      
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/000418" position="4"/>
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/000417" position="4"/>
+      
+      <role gUid="3WkXlWcBAEguxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="4"/>
+      <role gUid="kNAWlWcBADsuxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="4"/>
+      
+      <role gUid="WuKYzS0BAAj4wKkAvTxq" eUri="/ideate/entity/People/records/006040" position="4"/>
+      <role gUid="WuKYzS0BAAj4wKkAvTxq" eUri="/ideate/entity/People/records/006040" position="3"/>
+      <role gUid="WuKYzS0BAAj4wKkAvTxq" eUri="/ideate/entity/People/records/006040" position="2"/>
+      
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="6"/>
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="6"/>
+      
+      
+      <role gUid="3WkXlWcBAEguxmXHTXtG" eUri="/ideate/entity/People/records/000406" position="3"/>
+      <role gUid="3WkXlWcBAEguxmXHTXtG" eUri="/ideate/entity/People/records/000405" position="2"/>
+      
+      <role gUid="kNAWlWcBADsuxmXHTXtG" eUri="/ideate/entity/People/records/000406" position="3"/>
+      <role gUid="kNAWlWcBADsuxmXHTXtG" eUri="/ideate/entity/People/records/000407" position="2"/>
+      
+      <role gUid="3WkXlWcBAEguxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="10"/>
+      <role gUid="kNAWlWcBADsuxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="10"/>
+      <role gUid="WuKYzS0BAAj4wKkAvTxq" eUri="/ideate/entity/People/records/006040" position="10"/>
+      <role gUid="3WkXlWcBAEguxmXHTXtG" eUri="/ideate/entity/People/records/000408" position="4"/>
+      
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/006040" position="6"/>
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/000407" position="6"/>
+      
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/000408" position="8"/>
+      <role gUid="Ku4QlWcBAAMuxmXHTXtG" eUri="/ideate/entity/People/records/000408" position="9"/>
+</workflowRoles>
