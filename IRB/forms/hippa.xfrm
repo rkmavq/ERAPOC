@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="form"><data><tabID>0q</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "hippa");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '0q')
+          //model.USA.registerChangeLog('ins', '0q')
+          model.USA.registerChangeLog('comments', '0q')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="yesnobuttons"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/obtainingHIPAAAuthorization" appearance="full" class="selectYes" id="obtainingHIPAAAuthorization"><xf:label>Obtaining HIPAA Authorization</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/obtainingHIPAAAuthorization" appearance="full" id="obtainingHIPAAAuthorization"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+            if(x != "0"){
+				model.setValue("instance('ins')/requestingWaiverAlteration", "");
+                model.setValue("instance('ins')/explanationWhyNotWOWaiverAlteration", "");
+				model.setValue("instance('ins')/researchCouldBeConductedWithoutPHI", "");
+				
+            }
+			model.refresh();
+			model.recalculate();
+		</script></xf:select1></td></tr></table></td></tr><tr class="radiobuttons"><ix:attr value="if(instance('ins')/obtainingHIPAAAuthorization = '0', '', 'display:none')" name="style"/><td class="component   widestLabel"><xf:select1 ref="instance('ins')/requestingWaiverAlteration" appearance="full" id="requestingWaiverAlteration"><xf:label>Requesting Waiver or Alteration</xf:label><xf:repeat nodeset="instance('cats')/requestingWaiverAlteration/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/obtainingHIPAAAuthorization = '0', '', 'display:none')" name="style"/><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/researchCouldBeConductedWithoutPHI" appearance="full" class="selectYes" id="researchCouldBeConductedWithoutPHI"><xf:label>Research Could Not Be Conducted Without Access to and Use of Protected Health Information (PHI)</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/researchCouldBeConductedWithoutPHI" appearance="full" id="researchCouldBeConductedWithoutPHI"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "0"){
+            model.setValue("instance('ins')/explanationWhyNotWOPHI", "");
+            }
+            model.refresh();
+            model.recalculate();
+        </script></xf:select1></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/researchCouldBeConductedWithoutPHI = '1', '', 'display:none')" name="style"/><td colspan="4"><span><h4><font size="2"><component type="instructions">
+        <visible whenComponent="researchCouldBeConductedWithoutPHI" hasValue="1"/>
+        <font size="2" style="color:red;">If research can be conducted without access and use of PHI, this submission does not require a HIPAA waiver or alteration as no PHI is involved.  Please navigate back to the previous subtab (Collection) and confirm your responses.</font>
+        <option type="widestLabel"/>
+    </component></font></h4></span></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/researchCouldBeConductedWithoutPHI = '0', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/explanationWhyNotWOPHI"><xf:label>Explanation Why Research Could Not Be Practicably Conducted Without Access to and Use of PHI</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>Please explain your response and be sure to include why de-identified data or a limited data set couldn’t be used, instead of asking for a waiver or alteration.</help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/obtainingHIPAAAuthorization = '0', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/explanationWhyNotWOWaiverAlteration"><xf:label>Explanation Why Research Could Not Be Practicably Conducted Without a Waiver or Alteration of Authorization</xf:label></xf:textarea></td><td class="options"/></tr><tr class="bigbox"><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/howPHIProtected"><xf:label>How PHI Will Be Protected from Improper Use or Disclosure</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>If a linking code is being used describe security measures to safeguard the code.</help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/PHIDestroyed" appearance="full" class="selectYes" id="PHIDestroyed"><xf:label>PHI Will Be Destroyed at the Earliest Opportunity Consistent with the Research</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/PHIDestroyed" appearance="full" id="PHIDestroyed"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+            if(x != "1"){
+				model.setValue("instance('ins')/WhenHowPHIDestroyed", "");
+            } else if(x != "0") {
+				model.setValue("instance('ins')/justificationRetainingPHI", "");
+			}
+			model.refresh();
+			model.recalculate();
+		</script></xf:select1></td></tr></table></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/PHIDestroyed = '1', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/WhenHowPHIDestroyed"><xf:label>When and How PHI Will Be Destroyed </xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>E.g., at the end of subject participation, after FDA approval, after specimen processing, after data analysis, etc.</help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/PHIDestroyed = '0', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/justificationRetainingPHI"><xf:label>Justification for Retaining PHI Indefinitely</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>E.g., indefinite longitudinal studies, specific legal or regulatory requirements, etc.</help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/PHIShared" appearance="full" class="selectYes" id="PHIShared"><xf:label>PHI Will Be Shared</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/PHIShared" appearance="full" id="PHIShared"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+            if(x != "1"){
+                //AB Sprint 4 Item - Add the following the following under PHI Will Be Shared
+                model.setValue("instance('ins')/haveCopyOfDUA", "");
+                
+				model.setValue("instance('ins')/PHISharedDescription", "");
+				model.setValue("instance('ins')/PHISharedJustification", "");
+				model.setValue("instance('ins')/PHISharedWithWhom", "");
+				model.setValue("instance('ins')/PHIObtainedBy", "");
+            }
+			model.refresh();
+			model.recalculate();
+		</script></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/PHIShared = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table style="margin-left:-3px;  width:550px"><tr class="top"><td style=""><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/haveCopyOfDUA" appearance="full" class="selectYes" style="width:450px;" id="haveCopyOfDUA"><xf:label>Do you have a copy of the Data User Agreement?</xf:label><xf:hint>For information on DUA, please contact HonorHealth Legal Counsel</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/haveCopyOfDUA" appearance="full" id="haveCopyOfDUA"><xf:label/><xf:hint>For information on DUA, please contact HonorHealth Legal Counsel</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>For information on DUA, please contact HonorHealth Legal Counsel</help></span></p></div></span></td></tr></table></td></tr><tr class="document"><ix:attr value="if(instance('ins')/haveCopyOfDUA = '1', '', 'display:none')" name="style"/><xf:switch><xf:case id="show-copyOfDUA"><td class="component   widestLabel"><table class="oneToManyBox"><tr><td class="label">Upload Data User Agreement</td><td class=""><span><ix:attr value="if(instance('ins')/copyOfDUA != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/copyOfDUA/@uri" name="href"/><xf:output class="" value="instance('ins')/copyOfDUA"/></a></span><span class="clickable"><ix:attr value="if(instance('ins')/copyOfDUA != '', 'display:none', '')" name="style"/><script ev:event="click">
+                            model.Frm.DOC_NEW_STATUS = "New";            /////////
+                            model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                            model.Frm.DOC_REFRESHSECTION= "copyOfDUA";
+                            //////////////////////////////////////////////////////
+                            model.Frm.docUpload.manualLabel = "Data User Agreement";
+                          
+                          model.Frm.configureDocUpload("replaceValue", "instance('ins')/copyOfDUA", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                          model.Frm.executeDocUpload();
+                        </script> 
+                        Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td class="control"><span class="remove clickable">X
+                          <ix:attr value="if(instance('ins')/copyOfDUA != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="instance('ins')/copyOfDUA"/><xf:setvalue ref="instance('ins')/copyOfDUA/@uri"/><script>
+                                    toDel = model.getValue("instance('ins')/copyOfDUA/@docLink");
+                                    model.Frm.deleteDocumentRef(toDel);
+                                  </script><xf:setvalue ref="instance('ins')/copyOfDUA/@docLink"/></xf:action></span></td></tr></table></td><td class="options"/></xf:case><xf:case id="hide-copyOfDUA"/></xf:switch></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/PHIShared = '1', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/PHISharedDescription"><xf:label>Description of PHI that Will Be Shared</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+			* Name <br/>
+			* Social Security Number <br/>
+			* Medical Record Number <br/>
+			* Address by Street Location <br/>
+			* Telephone Number <br/>
+			* Fax Number <br/>
+			* Web Uniform Resource Locators (URLs) <br/>
+			* Internet Protocol (IP) Address <br/>
+			* Health Plan Beneficiary Number <br/>
+			* Account Number <br/>
+			* Certificate <br/>
+			* License Number <br/>
+			* Vehicle Identification Number (Including License Plate Numbers) <br/>
+			* Full-Face Photographic Images <br/>
+			* Biometric Identifiers (Finger and Voice Prints) <br/>
+			* Geographical Subdivisions Smaller Than a State <br/>
+			* All Elements of Dates for Dates Directly Related to an Individual (i.e., Birth Date, Admission Date, Discharge Date) <br/>
+		</help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/PHIShared = '1', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/PHISharedJustification"><xf:label>Justification for Sharing PHI</xf:label></xf:textarea></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/PHIShared = '1', '', 'display:none')" name="style"/><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/PHISharedWithWhom"><xf:label>With Whom Directly PHI Will Be Shared</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>Indicate any persons other than the primary investigator who will receive protected health information (PHI). Only the minimum necessary information, if any, should be shared.</help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="checkboxes"><ix:attr value="if(instance('ins')/PHIShared = '1', '', 'display:none')" name="style"/><td class="component  widestLabel "><xf:select ref="instance('ins')/PHIObtainedBy" appearance="full" id="PHIObtainedBy"><xf:label>PHI Can Be Obtained By</xf:label><xf:repeat nodeset="instance('cats')/PHIObtainedBy/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		PI must attest to the following.<br/>
+		* I assure that the protected health information (PHI) will not be disclosed to any other person or entity not listed on this form except where required by law or for the authorized oversight of this research project. If at any time I want to reuse this PHI for other purposes or disclose it to other individuals or entities I will seek approval from the IRB. <br/>
+		<option type="widestLabel"/>
+	</component></font></h4></span></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

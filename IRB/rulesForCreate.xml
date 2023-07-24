@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule-data>
+    <!-- Object Context -->
+    <id8ID/>
+    <application>IRB</application>
+    
+    <!-- Data Mart Context -->
+    <primeEntity>IRB</primeEntity>
+    <primeEntityID/>
+    <primeEntityURI/>
+    
+    <!-- Process Context -->
+    <fragementName>createNew</fragementName>
+    <fragementType>create</fragementType>
+    <focus>project</focus>
+    <view>project</view>
+    <lastPage></lastPage>
+    <processID></processID>
+    <processURI/>
+    <formConf>createTabs</formConf>
+    
+    
+    <link name="original" title="" uri="" state="" id=""/>
+    <link name="template" title="" uri="" state="" id=""/>
+    
+    <!-- Process Specific Variables -->
+    <mode>new</mode>
+    <projectType/>
+    <startPoint>new</startPoint>
+    <currentView>internal</currentView>
+    <currentTarget>Project</currentTarget>
+    <newName></newName>
+    <newDept></newDept>
+    <copyEntityURI/>
+    <seedID></seedID>
+    <title/>
+    <linkedOpURI/>    
+    <errs>0</errs>
+</rule-data>
+

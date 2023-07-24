@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <!-- The data model consists of:
+        ins - process data
+        proDat - project data
+        form - form specific data
+        bootstrap - bootstraping data (pointers to aux files to attach
+        config - config data
+      -->
+      <xf:instance id="ins"><data xmlns="">
+         <primeEntityURI></primeEntityURI>
+         <reviewID></reviewID>
+         <linkedOpURI></linkedOpURI>
+         <application>IRB</application>
+         <lastPage></lastPage>
+         <formConf>up_viewReviewAloneSet</formConf>
+        </data>
+      </xf:instance>
+      <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+    <xf:instance id="proMap"><data xmlns=""/></xf:instance>
+    <xf:instance id="comments"><data xmlns=""/></xf:instance>
+    <xf:instance id="proReviews"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <subTitle></subTitle>
+          <currency></currency>
+          <version/>
+          <departments/>
+          <!--<versions>
+            <options>
+            <option label="Version 1" value="1"/>
+            <option label="Version X" value="2"/>
+            </options>
+            </versions>-->
+          <views>
+            <options>
+              <option label="Project" value="project"/>
+              <option label="Task 0" value="task0"/>
+            </options>
+          </views>
+          <focus/>
+          <withDrawn></withDrawn>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+      <!--<xf:bind nodeset="instance('proDat')/version" readonly="true()" relevant="false()"/>-->
+    <xf:bind nodeset="instance('ins')/comments" readonly="true()" relevant="false()"/>
+      
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        model.setValue("instance('ins')/reviewID", document.__refName);
+        model.setValue("instance('ins')/linkedOpURI", document.__refUri);
+        splts = document.__refUri.split("/");
+        spx = "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5];
+        model.setValue("instance('ins')/primeEntityURI", spx);       
+        
+        bootstrapSharedXfrm(model);
+        model.__XformSet.getRoot().__revMode = "out";
+        model.TS = new appTabSet(model, 'projectTabs');
+        model.TS.loadAppFile('proDat', "/data/irb.xml");
+        model.TS.loadAppFile('insx', "/data/irb.xml");
+        model.TS.loadOpFile('proReviews', "/reviews.xml");
+        model.TS.loadAppFile('ent', "/data.xml");
+        model.TS.loadAppFile('cats', "/data/catagories.xml");
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+        
+        model.setValue("instance('form')/subTitle", model.USA.determinSubmissionName(document.__refUri));
+        
+        
+        model.USA.rebuildTabsStart();
+        model.setValue("instance('ins')/passfail", "");
+        
+        model.TS.formSet.getRoot().__REVURI = "/data/reviews/" + model.getValue("instance('ins')/reviewID") + ".xml";        
+        model.TS.formSet.getRoot().__COMPREVURI = "/reviews/" + model.getValue("instance('ins')/reviewID") + ".xml";
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>    
+
+      <script ev:event="xforms-ready">
+       
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      //model.TS.saveAll();      
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+  </xf:model>
+  
+  <div class="wikiView">
+  
+  <table>
+    <tr>
+      <!--<td style="width:300px;vertical-align:top;margin-right:20px;margin-top:20px;padding-right:10px;padding-top:10px;">
+        <xf:group ref="." class="headerreview" style="width:300px;">
+          <xf:label>
+            <h1><xf:output value="instance('proReviews')/review[@num=instance('ins')/reviewID]/@name"></xf:output></h1>
+          </xf:label>
+          <i style="padding:10px;">Please revise your IRB per the comments below and resubmit.</i>
+          
+          <hr/>
+          
+          <div>
+            <xf:textarea ref="instance('ins')/comments" style="height:300px;width:98%">
+              <xf:label>Comments</xf:label>
+              <script ev:event="xforms-value-changed">
+                model.submit('submit1');
+              </script>
+            </xf:textarea>
+          </div>  
+          
+        </xf:group>
+        
+      </td>-->
+      <td style="vertical-align:top">
+      
+        <div class="tabSet">
+          
+          <!-- Consistant Header -->
+          <div class="header">
+            <table class="infoLine">
+              <tr>
+                <td style="text-align:left;">Protocol Number: <xf:output value="instance('proDat')/id8ID"/></td>
+                <td style="text-align:center;"><xf:output value="instance('proDat')/title"/></td>
+                <td style="text-align:right;"><xf:output value="instance('form')/subTitle"/></td>
+              </tr>
+            </table>      
+            <xf:switch>
+              <xf:case id="show-tabHeader" exf:if="1">
+                <table class="infoBox">
+                  <tr>
+                    <td style="width:33%">
+                      <table class="infoGroup">
+                        <tr><td class="label"><b>Principal Investigator:</b></td><td class="text"><xf:output value="instance('proDat')/Person[role='PI']/name"/></td></tr>
+                      </table>
+                    </td>
+                    <td style="width:33%">
+                      <!--<table class="infoGroup">
+                        <exf:variable name="boardName" value="instance('proDat')/Board/name"/>
+                        <tr><td class="label"><b>Board:</b></td><td class="text"><xf:output value="if($boardName !='', $boardName, 'Pending')"/></td></tr>        
+                      </table>-->
+                    </td>
+                    <td style="width:33%">
+                      <!--<table class="infoGroup">
+                        <tr><td class="label"><b>Status:</b></td><td class="text">Submission Review</td></tr>    
+                      </table>-->
+                    </td>
+                  </tr>
+                </table>
+              </xf:case>
+              <xf:case id="hide-tabHeader">
+              </xf:case>
+            </xf:switch>
+          </div>
+          
+          <!--<xf:switch>
+            <xf:case id="show-workscreen" exf:if="1">
+              <ix:subform form="{tabControl}" src="" id="projectTabs"/>
+            </xf:case>
+            <xf:case id="hide-workscreen">
+            </xf:case>
+          </xf:switch>-->
+          <!--<ix:subform form="{tabContainer}" src="" id="projectTabs"/>-->
+          <ix:subform form="readonlyReviewsCoorbak.xfrm" src="" id="projectTabs"/>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+</form>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="form"><data><tabID>9b</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "humanDevices");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '9b')
+          //model.USA.registerChangeLog('ins', '9b')
+          model.USA.registerChangeLog('comments', '9b')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/dataHUD/manufacturer"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="box"><td class="component textarea    widestLabel"><xf:textarea class="" ref="instance('ins')/dataHUD"><xf:label>Humanitarian Use Device (HUD) Name</xf:label></xf:textarea></td><td class="options"/></tr><tr class="box"><td class="component textarea    widestLabel"><xf:textarea class="" ref="instance('ins')/manufacturer"><xf:label>Manufacturer</xf:label></xf:textarea></td><td class="options"/></tr><tr class="field"><td class="component   widestLabel"><xf:input class="wide" ref="instance('ins')/hudNum"><xf:label>Humanitarian Device Exemption (HDE) Number</xf:label></xf:input></td><td class="options"/></tr><tr class="bigbox"><td class="component textarea   widestLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/hudFDA"><xf:label>FDA Approval Indication</xf:label></xf:textarea></td><td class="options"/></tr><tr class="document"><xf:switch><xf:case id="show-hudApprovalDoc"><td class="component stretchLabel  widestLabel"><table class="oneToManyBox"><tr><td class="label">FDA HDE Approval</td><td class=""><span><ix:attr value="if(instance('ins')/hudApprovalDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudApprovalDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudApprovalDoc"/></a></span><span class="clickable"><ix:attr value="if(instance('ins')/hudApprovalDoc != '', 'display:none', '')" name="style"/><script ev:event="click">
+                            model.Frm.DOC_NEW_STATUS = "New";            /////////
+                            model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                            model.Frm.DOC_REFRESHSECTION= "hudApprovalDoc";
+                            //////////////////////////////////////////////////////
+                            model.Frm.docUpload.manualLabel = "FDA Determination";
+                          
+                          model.Frm.configureDocUpload("replaceValue", "instance('ins')/hudApprovalDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                          model.Frm.executeDocUpload();
+                        </script> 
+                        Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td class="control"><span class="remove clickable">X
+                          <ix:attr value="if(instance('ins')/hudApprovalDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="instance('ins')/hudApprovalDoc"/><xf:setvalue ref="instance('ins')/hudApprovalDoc/@uri"/><script>
+                                    toDel = model.getValue("instance('ins')/hudApprovalDoc/@docLink");
+                                    model.Frm.deleteDocumentRef(toDel);
+                                  </script><xf:setvalue ref="instance('ins')/hudApprovalDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudApprovalDoc"/></xf:switch></tr><tr class="document"><xf:switch><xf:case id="show-hudUseDoc"><td class="component stretchLabel  widestLabel"><table class="oneToManyBox"><tr><td class="label">HUD Use Summary</td><td class=""><span><ix:attr value="if(instance('ins')/hudUseDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudUseDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudUseDoc"/></a></span><span class="clickable"><ix:attr value="if(instance('ins')/hudUseDoc != '', 'display:none', '')" name="style"/><script ev:event="click">
+                            model.Frm.DOC_NEW_STATUS = "New";            /////////
+                            model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                            model.Frm.DOC_REFRESHSECTION= "hudUseDoc";
+                            //////////////////////////////////////////////////////
+                            model.Frm.docUpload.manualLabel = "HUD Use Summary";
+                          
+                          model.Frm.configureDocUpload("replaceValue", "instance('ins')/hudUseDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                          model.Frm.executeDocUpload();
+                        </script> 
+                        Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td class="control"><span class="remove clickable">X
+                          <ix:attr value="if(instance('ins')/hudUseDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="instance('ins')/hudUseDoc"/><xf:setvalue ref="instance('ins')/hudUseDoc/@uri"/><script>
+                                    toDel = model.getValue("instance('ins')/hudUseDoc/@docLink");
+                                    model.Frm.deleteDocumentRef(toDel);
+                                  </script><xf:setvalue ref="instance('ins')/hudUseDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudUseDoc"/></xf:switch></tr><tr class="document"><xf:switch><xf:case id="show-hudProductDoc"><td class="component stretchLabel  widestLabel"><table class="oneToManyBox"><tr><td class="label">Product Labeling</td><td class=""><span><ix:attr value="if(instance('ins')/hudProductDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudProductDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudProductDoc"/></a></span><span class="clickable"><ix:attr value="if(instance('ins')/hudProductDoc != '', 'display:none', '')" name="style"/><script ev:event="click">
+                            model.Frm.DOC_NEW_STATUS = "New";            /////////
+                            model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                            model.Frm.DOC_REFRESHSECTION= "hudProductDoc";
+                            //////////////////////////////////////////////////////
+                            model.Frm.docUpload.manualLabel = "Product Labeling";
+                          
+                          model.Frm.configureDocUpload("replaceValue", "instance('ins')/hudProductDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                          model.Frm.executeDocUpload();
+                        </script> 
+                        Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td class="control"><span class="remove clickable">X
+                          <ix:attr value="if(instance('ins')/hudProductDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="instance('ins')/hudProductDoc"/><xf:setvalue ref="instance('ins')/hudProductDoc/@uri"/><script>
+                                    toDel = model.getValue("instance('ins')/hudProductDoc/@docLink");
+                                    model.Frm.deleteDocumentRef(toDel);
+                                  </script><xf:setvalue ref="instance('ins')/hudProductDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudProductDoc"/></xf:switch></tr><tr class="document"><xf:switch><xf:case id="show-hudPatientDoc"><td class="component stretchLabel  widestLabel"><table class="oneToManyBox"><tr><td class="label">Patient Information Packet</td><td class=""><span><ix:attr value="if(instance('ins')/hudPatientDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudPatientDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudPatientDoc"/></a></span><span class="clickable"><ix:attr value="if(instance('ins')/hudPatientDoc != '', 'display:none', '')" name="style"/><script ev:event="click">
+                            model.Frm.DOC_NEW_STATUS = "New";            /////////
+                            model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                            model.Frm.DOC_REFRESHSECTION= "hudPatientDoc";
+                            //////////////////////////////////////////////////////
+                            model.Frm.docUpload.manualLabel = "Patient Information Packet";
+                          
+                          model.Frm.configureDocUpload("replaceValue", "instance('ins')/hudPatientDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                          model.Frm.executeDocUpload();
+                        </script> 
+                        Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td class="control"><span class="remove clickable">X
+                          <ix:attr value="if(instance('ins')/hudPatientDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="instance('ins')/hudPatientDoc"/><xf:setvalue ref="instance('ins')/hudPatientDoc/@uri"/><script>
+                                    toDel = model.getValue("instance('ins')/hudPatientDoc/@docLink");
+                                    model.Frm.deleteDocumentRef(toDel);
+                                  </script><xf:setvalue ref="instance('ins')/hudPatientDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudPatientDoc"/></xf:switch></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

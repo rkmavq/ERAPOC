@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+  
+  <xf:model id="fmodel">
+    <!-- The data model consists of:
+      ins - process data
+      proDat - project data
+      form - form specific data
+      bootstrap - bootstraping data (pointers to aux files to attach
+      config - config data
+    -->
+    <xf:instance id="ins"><data xmlns="">
+      <primeEntityURI></primeEntityURI>
+      <reviewID></reviewID>
+      <linkedOpURI></linkedOpURI>
+      <application>IRB</application>
+      <lastPage></lastPage>
+      <formConf>detailTabsOTEU</formConf>
+    </data>
+    </xf:instance>
+    <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+    <xf:instance id="mDat"><data xmlns=""/></xf:instance>
+    <xf:instance id="insX"><data xmlns=""/></xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <currency></currency>
+        <version/>
+        <departments/>
+        <views>
+        </views>
+        <focus/>
+        <searchText></searchText>
+        <responses>0</responses>
+        <btn>Submit</btn>
+      </data> 
+    </xf:instance>     
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <!--<js>/resources/services/appForms/main.js</js>-->
+        <css>/resources/applications/USProject/css/main.css</css>
+        <!--<js>/resources/services/appTabSet/appTabSet.js</js>--> <!-- Bootstrap only loads on source -->
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    
+    <!-- JS Setup -->
+    <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        
+        model.setValue("instance('ins')/primeEntityURI", document.__refUri);
+        
+        //splts = document.__refUri.split("/");
+        //spx = "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5];
+        //model.setValue("instance('ins')/primeEntityURI", spx);
+        
+        
+        includeSharedJS("/resources/services/appTabSet/appTabSet.js");        
+        includeSharedJS("/resources/services/appForms/main.js");      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");        
+        
+        model.TS = new appTabSet(model, 'projectTabs');
+        //The next two lines must be present and exact for the detection and redirect of these tabs from the case proper to the save submission
+        model.TS.loadAppFile('mDat', "/data.xml");
+        model.__XformSet.getRoot().CHECK_REDIRECT_TO_SUBMISSION = model.getValue("instance('mDat')/status");
+        model.TS.loadAppFile('proDat', "/data/irb.xml");
+        model.TS.loadAppFile('insx', "/data/irb.xml");
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        
+        model.Frm = new appForm(model, "view");
+        model.USA = new irbProtocol(model);
+        model.USA.rebuildTabsStart();
+        
+        //You can add this to any of the popups to disable "Form Updated" code.
+        model.TS.formSet.getRoot().__UPDATES_DISABLED = true;
+        
+        model.rebuild();
+        model.recalculate();
+        model.refresh();        
+        
+        
+      </script>    
+    
+    
+    <script ev:event="xforms-ready">
+      
+    </script>
+    
+    <script ev:event="ix-activity-save">
+      //model.TS.saveAll();     
+      //model.submit('submitproDat');
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission method="put" replace="none" id="submitproDat" instance="proDat">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+  </xf:model>
+  
+  <div class="wikiView">
+    
+    <table>
+      <tr>
+        <td style="vertical-align:top">
+          
+          <div class="tabSet">
+            
+            <!-- Consistant Header -->
+            <div class="header">
+              <table class="infoLine">
+                <tr>
+                  <td style="text-align:left;"><h2>Protocol: <xf:output value="instance('proDat')/id8ID"/></h2></td>
+                  <td style="text-align:left;"><h2>Submission Type: One Time Emergency Use</h2></td>
+                  <td style="width:33%;text-align:right;">
+                    <u style="cursor:pointer;color:blue">Print<ix:action ev:event="click">
+                      <script>
+                        
+                        model.__waiting = new waitingBox();
+                        
+                        var holdIRB = model.USA;
+                        baseURI = model.TS.formSet.getRoot().model.TS.appURI;
+                        splts = baseURI.split("/");
+                        holdIRB.printURI =  splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/print.xml";	  
+                        holdIRB.print('protocol');
+                        
+                        projId = "Protocol: " + model.getValue("instance('proDat')/id8ID");
+                        
+                        s = model.getValue("instance('mDat')/status");
+                        watermark = "Initial Draft";
+                        if(s=="inDev"){
+                        watermark = "Initial Draft";}
+                        if(s=="active" || s=="ACT" || s=="closed" || s=="TRANS" || s=="withdrawn" || s=="terminated"){
+                        watermark = "FINAL";}
+                        if(s=="revisions"){
+                        watermark = "Revisions";}
+                        if(s=="revisions"){
+                        watermark = "Revisions";}
+                        if(s=="deptReview" || s=="intakeReview" || s=="adminReview" || s=="directorReview" || s=="boardReview"){
+                        watermark = "Under Review";}
+                        window.open(REPORTING_URL_NEW + "/pentaho/content/reporting/reportviewer/report.html?outputType=pdf&amp;solution=Ideate&amp;path=&amp;name=PrintTabSet.prpt&amp;filterParam=" + holdIRB.printURI + "&amp;Stamp=" + watermark + "&amp;footer=" + projId + "&amp;userid=id8user&amp;password=id8pass");
+                        
+                        model.__waiting.stop();
+                      </script>
+                    </ix:action></u>
+                    <!--<table class="infoGroup">
+                      <tr><td class="label"><b>Status:</b></td><td class="text">Initial Draft</td></tr>    
+                      </table>-->
+                  </td>
+                </tr>
+              </table>
+              <hr/>
+            </div>
+            
+            <xf:switch>
+              <xf:case id="show-workscreen" exf:if="1">
+                <ix:subform form="{tabControl}" src="" id="projectTabs"/>
+              </xf:case>
+              <xf:case id="hide-workscreen">
+              </xf:case>
+            </xf:switch>
+            <ix:subform form="{tabContainer}" src="" id="projectTabs"/>
+          </div>
+        </td>
+      </tr>
+    </table>
+    
+    
+  </div>
+</form>

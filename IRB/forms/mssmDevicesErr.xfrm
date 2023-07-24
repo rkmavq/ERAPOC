@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "mssmDevices");
+      model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//@*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//@*"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><script ev:event="xforms-value-changed">model.USA.updateErrs('ins', 'recordTable');</script><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="repeaterTitle"><td><h1/></td></tr><tr class="repeater"><td class="repeatedSection" colspan="3"><xf:switch><xf:case exf:if="1" id="show-main2"><exf:variable value="instance('ins')/Device" name="nsmain2"/><h3><ix:attr value="if(count($nsmain2) = 0, 'margin-left:10px;color:red;', 'display:none')" name="style"/>At least one Device must be specified.</h3><xf:repeat nodeset="$nsmain2"><exf:variable value="@ref" name="nsXMLKEYmain2"/><table><tr><td><table class="basicColLayout"><tr class="entity"><td class="component subcomponent structure person"><xf:repeat nodeset="mssmDevice[1]"><xf:input class="fullLine" ref="name"><xf:label class="">Investigational Device Name</xf:label></xf:input><xf:input class="fullLine" ref="manufacturer"><xf:label>Manufacturer</xf:label></xf:input></xf:repeat><div><ix:attr name="style" value="if(mssmDevice[1], 'display:none', '')"/><table class="addLine"><tr><td class="boldlabel">Device</td><td style="vertical-align:bottom;" class="addArea"><span class="clickable"><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Specify Device" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                    var key = model.getValue("@ref", contextNode);
+                    model.Frm.configureQuickSearch("Device", "replaceEntity", "instance('ins')/Device[@ref='" + key + "']/mssmDevice[1]", "/applications/IRB/js/addDeviceDetail", "main2", "Name", "Type", "", "1", "", 'model.USA.rebuildTabs();model.USA.refreshArea("main2");', '1');
+                    model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                  </script></xf:action>            
+                Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td></tr></table></div></td><td class="options"><ix:attr name="style" value="if(mssmDevice[1], '', 'display:none')"/><div class="clickable">
+    replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Specify Device" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+            var key = model.getValue("@ref", contextNode);
+            model.Frm.configureQuickSearch("Device", "replaceEntity", "instance('ins')/Device[@ref='" + key + "']/mssmDevice[1]", "/applications/IRB/js/addDeviceDetail", "main2", "Name", "Type","", "1", "", 'model.USA.rebuildTabs();model.USA.refreshArea("main2");', '1');
+            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+            </script></xf:action></div></td></tr><tr class="box"><td class="subcomponent component textarea   widenLabel"><xf:textarea class="" ref="deviceDescribe"><xf:label>Description of Device:</xf:label></xf:textarea></td><td class="errors"><div><ix:attr value="if(deviceDescribe = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="ideStudy" appearance="full"><xf:label>Is this study being done under an IDE?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="ideStudy" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+                model.recalculate();
+                
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(ideStudy = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><ix:attr value="if(ideStudy = '0', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="fdaApproval" appearance="full"><xf:label>Is this device FDA approved?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="fdaApproval" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+            
+                model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(fdaApproval = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="document"><ix:attr value="if((ideStudy='0' and fdaApproval='1'), '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel"><table class="oneToManyBox"><tr><td class="label">Device Brochure</td><td class=""><span><ix:attr value="if(deviceBrochureDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="deviceBrochureDoc/@uri" name="href"/><xf:output class="" value="deviceBrochureDoc"/></a></span><span class="clickable"><ix:attr value="if(deviceBrochureDoc != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "deviceBrochureDoc";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Devices/Brochure Document";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Device[@ref='" + key + "']/deviceBrochureDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(deviceBrochureDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="deviceBrochureDoc"/><xf:setvalue ref="deviceBrochureDoc/@uri"/><script>
+                      toDel = model.getValue("deviceBrochureDoc/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="deviceBrochureDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="errors"><div><ix:attr value="if(deviceBrochureDoc = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><ix:attr value="if((ideStudy='0' and fdaApproval='1'), '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="pmaApproval" appearance="full"><xf:label>Is this device to be used in accordance with its PMA or 510(k) approval letter?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="pmaApproval" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+            
+                model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(pmaApproval = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><ix:attr value="if((ideStudy != '1') and (fdaApproval!='1' or pmaApproval!='1'), '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="diagDevice" appearance="full"><xf:label>Is this a diagnostic device AND is noninvasive?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="diagDevice" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+            
+                Is this a diagnostic device AND is noninvasive and does not require an invasive sampling procedure that presents significant risk and 
+                does not by design or intention introduce energy into a subject; and is not used as a diagnostic procedure without confirmation by 
+                another medically established diagnostic product or procedure?  
+            
+            
+                model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(diagDevice = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="instructions"><ix:attr value="if((ideStudy != '1') and (fdaApproval!='1' or pmaApproval!='1'), '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+            <visible xpath="(ideStudy != '1') and (fdaApproval!='1' or pmaApproval!='1')"/>
+            The FDA defines the term noninvasive as the use of a diagnostic device or procedure that does not by design or intention: 
+            (1) Penetrate or pierce the skin or mucous membranes of the body, the ocular cavity, or the urethra, or 
+            (2) enter the ear beyond the external auditory canal, the nose beyond the nares, the mouth beyond the pharynx, the anal canal beyond the rectum, 
+            or the vagina beyond the cervical os. For purposes of this part, blood sampling that involves simple venipuncture is considered noninvasive, 
+            and the use of surplus samples of body fluids or tissues that are left over from samples taken for non-investigational purposes is also considered noninvasive.
+        </subcomponent></div></td></tr><tr class="yesnobuttons"><ix:attr value="if((ideStudy != '1') and (fdaApproval!='1' or pmaApproval!='1'), '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="deviceTest" appearance="full"><xf:label>Is this device test limited to consumer preference testing?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="deviceTest" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+                Is this device test limited to consumer preference testing, or testing of a modification, or testing of a combination of devices 
+                if the device(s) are legally marketed device(s) AND the testing is not for the purpose of determining safety or effectiveness 
+                AND does not put subjects at risk?
+            
+            
+            
+                model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(deviceTest = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><ix:attr value="if((ideStudy != '1') and (fdaApproval!='1' or pmaApproval!='1') and (diagDevice != '1' and deviceTest != '1'), '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="sigRisk" appearance="full"><xf:label>Is the sponsor claiming that this device is not a significant risk device?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="sigRisk" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+            
+                model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(sigRisk = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><ix:attr value="if((ideStudy != '1') and (fdaApproval!='1' or pmaApproval!='1') and (diagDevice != '1' and deviceTest != '1'), '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="justSigRisk" appearance="full"><xf:label>Does the protocol include a justification as to why the device is not a significant risk device?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="justSigRisk" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+            
+                model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(justSigRisk = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="field"><ix:attr value="if((ideStudy = '1') or ((ideStudy!='1') and diagDevice!='1' and deviceTest!='1') or ((ideStudy!='1') and (sigRisk='0' or justSigRisk='0')) , '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel"><xf:input class="wide" ref="deviceIDE"><xf:label>If the device has an approved IDE, please provide the IDE #:</xf:label></xf:input></td><td class="errors"><div><ix:attr value="if(deviceIDE = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="radiobuttons"><ix:attr value="if((ideStudy = '1') or (ideStudy!='1' and diagDevice!='1' and deviceTest!='1') or ((ideStudy!='1') and (sigRisk='0' or justSigRisk='0')) , '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><xf:select1 ref="deviceSponsor" appearance="full"><xf:label>Identify the Sponsor (Holder of the IDE):</xf:label><xf:item><xf:label>MSSM Investigator</xf:label><xf:value>1</xf:value></xf:item><xf:item><xf:label>Manufacturer</xf:label><xf:value>2</xf:value></xf:item><xf:item><xf:label>Other</xf:label><xf:value>3</xf:value></xf:item></xf:select1></td><td class="errors"><div><ix:attr value="if(deviceSponsor = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="field"><ix:attr value="if((ideStudy = '1') or (ideStudy='0' and diagDevice!='1' and deviceTest!='1') or (ideStudy='0' and (sigRisk='0' or justSigRisk='0')) , '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel"><xf:input class="wide" ref="deviceSponsorName"><xf:label>Provide specific name:</xf:label></xf:input></td><td class="errors"><div><ix:attr value="if(deviceSponsorName = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><ix:attr value="if((ideStudy = '1') or ((ideStudy!='1') and diagDevice!='1' and deviceTest!='1') or ((ideStudy!='1') and (sigRisk='0' or justSigRisk='0')) , '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="invManufactured" appearance="full"><xf:label>Is this device Investigator Manufactured?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="invManufactured" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+            
+            
+                model.recalculate();
+                
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(invManufactured = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="bigbox"><ix:attr value="if(invManufactured = '1', '', 'display:none')" name="style"/>
+            
+            
+            
+                If the device is Investigator-Manufactured, explain what arrangements and precautions have been taken to ensure proper manufacturing of the device 
+                and compliance with 21 CFR 812, 21 CFR 814 and Good Manufacturing Practice.  
+            
+            <ix:attr value="if(invManufactured = '1', '', 'display:none')" name="style"/>
+            
+                model.recalculate();
+                
+        </tr><tr class="bigbox"><ix:attr value="if(invManufactured = '1', '', 'display:none')" name="style"/>
+            
+            
+            
+                Describe the policies and procedures for storage, handling and control of distribution of the investigational device 
+                so that the device will only be administered by authorized investigators and will only be used in subjects that have agreed to take part in the research.
+            
+            <ix:attr value="if(invManufactured = '1', '', 'display:none')" name="style"/>
+            
+                model.recalculate();
+                
+        </tr><tr class="yesnobuttons"><td class="subcomponent component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="noCost" appearance="full"><xf:label>Will the sponsor provide the device at no cost for the research subjects?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="noCost" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+            
+            
+                Will the sponsor provide the device at no cost for the research subjects (this does not include the hospital covering the costs of the device)?
+            
+            
+            
+                model.recalculate();
+                
+        </script></xf:select1></td></tr></table></td><td class="errors"><div><ix:attr value="if(noCost = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="bigbox"><ix:attr value="if(noCost = '0', '', 'display:none')" name="style"/>
+            
+            
+            <ix:attr value="if(noCost = '0', '', 'display:none')" name="style"/>
+            
+                model.recalculate();
+                
+        </tr><tr class="instructions"><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+            If applicable, please attach the following:
+        </subcomponent></div></td></tr><tr class="document"><td class="component subcomponent  widenLabel"><table class="oneToManyBox"><tr><td class="label">IDE application/ FDA's device risk assessment or notification</td><td class=""><span><ix:attr value="if(riskAssessDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="riskAssessDoc/@uri" name="href"/><xf:output class="" value="riskAssessDoc"/></a></span><span class="clickable"><ix:attr value="if(riskAssessDoc != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "riskAssessDoc";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Devices/IDE Document";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Device[@ref='" + key + "']/riskAssessDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(riskAssessDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="riskAssessDoc"/><xf:setvalue ref="riskAssessDoc/@uri"/><script>
+                      toDel = model.getValue("riskAssessDoc/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="riskAssessDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="errors"><div><ix:attr value="if(riskAssessDoc = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="document"><td class="component subcomponent  widenLabel"><table class="oneToManyBox"><tr><td class="label">Documentation that the device meets criteria to be Exempt from the regulations</td><td class=""><span><ix:attr value="if(exemptDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="exemptDoc/@uri" name="href"/><xf:output class="" value="exemptDoc"/></a></span><span class="clickable"><ix:attr value="if(exemptDoc != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "exemptDoc";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Devices/Exemption Criteria Document";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Device[@ref='" + key + "']/exemptDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(exemptDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="exemptDoc"/><xf:setvalue ref="exemptDoc/@uri"/><script>
+                      toDel = model.getValue("exemptDoc/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="exemptDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="errors"><div><ix:attr value="if(exemptDoc = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="document"><td class="component subcomponent  widenLabel"><table class="oneToManyBox"><tr><td class="label">Non-significant risk supporting documentation</td><td class=""><span><ix:attr value="if(lowRiskDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="lowRiskDoc/@uri" name="href"/><xf:output class="" value="lowRiskDoc"/></a></span><span class="clickable"><ix:attr value="if(lowRiskDoc != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "lowRiskDoc";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Devices/Non-significant risk supporting documentation";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Device[@ref='" + key + "']/lowRiskDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(lowRiskDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="lowRiskDoc"/><xf:setvalue ref="lowRiskDoc/@uri"/><script>
+                      toDel = model.getValue("lowRiskDoc/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="lowRiskDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="errors"><div><ix:attr value="if(lowRiskDoc = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="document"><td class="component subcomponent  widenLabel"><table class="oneToManyBox"><tr><td class="label">Determinations made by other IRBs</td><td class=""><span><ix:attr value="if(irbDetDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="irbDetDoc/@uri" name="href"/><xf:output class="" value="irbDetDoc"/></a></span><span class="clickable"><ix:attr value="if(irbDetDoc != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "irbDetDoc";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Devices/Determinations made by other IRBs";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Device[@ref='" + key + "']/irbDetDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(irbDetDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="irbDetDoc"/><xf:setvalue ref="irbDetDoc/@uri"/><script>
+                      toDel = model.getValue("irbDetDoc/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="irbDetDoc/@docLink"/></xf:action></span></td></tr></table></td><td class="errors"><div><ix:attr value="if(irbDetDoc = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="break"><td><br/></td></tr><tr class="repeaterDeleteLine"><td colspan="3"><u class="clickable">Delete Record<xf:action exf:if="script('confirm(&quot;Are you sure you want to delete this funding source?&quot;)')" ev:event="click"><xf:destroy ref="."/><script>model.USA.removeMSSMDevice(["main2"], model.getValue("@ref", contextNode));</script></xf:action></u></td></tr></table></td><td class="errors custError"/></tr></table></xf:repeat></xf:case><xf:case id="hide-main2"/></xf:switch></td></tr><tr class="repeaterButton button"><td class="component"><xf:trigger><xf:label>Add New Device</xf:label><script ev:event="DOMActivate">
+            model.USA.addMSSMDevice(["main2"]);
+        </script></xf:trigger></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

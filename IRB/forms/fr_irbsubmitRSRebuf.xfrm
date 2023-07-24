@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="irb"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="review"><data/></xf:instance><xf:instance id="form"><data><tabID>?</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "fr_submit");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      
+		resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:model.Frm.linkedOpType,linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI:model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI}, "json");
+		model.recalculate();
+		model.rebuild();
+		model.refresh();
+	
+        //model.Frm.loadAppFile('ins', "/finalrep.xml", "1");
+        
+        
+        
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('irb', "/data/irb.xml", "0");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '?')
+          //model.USA.registerChangeLog('ins', '?')
+          model.USA.registerChangeLog('comments', '?')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(irb)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:setvalue ev:event="xforms-model-construct-done" ref="instance('ins')/signOff"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:none;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:none;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:none;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1>Final Report Submission</h1><table class="basicColLayout"><tr class="box"><td class="component textarea    "><exf:variable value="instance('ins')/submissionNotes/@revIndex" name="revIndex"/><exf:variable value="(instance('ins')/amendmentNodes/submissionNotes[@revIndex=$revIndex])" name="amdNodeNeedle"/><exf:variable value="(instance('ins')/submissionNotes[@revIndex=$revIndex])" name="thisNodeNeedle"/><exf:variable value="instance('ins')/submissionNotes" name="thisNode"/><exf:variable value="(instance('ins')/original/submissionNotes[@revIndex=$revIndex])" name="orgNode"/><exf:variable value="(instance('ins')/suggestions/submissionNotes[@revIndex=$revIndex])" name="sugNodeSet"/><exf:variable value="(instance('ins')/suggestions/submissionNotes[@revIndex=$revIndex])" name="sugNode"/><exf:variable value="instance('ins')/previous/review/submissionNotes/@revIndex" name="revIndexO"/><exf:variable value="(instance('ins')/previous/review/submissionNotes[@revIndex=$revIndexO])" name="thisNodeNeedleOld"/><exf:variable value="instance('ins')/previous/review/submissionNotes" name="thisNodeOld"/><exf:variable value="(instance('ins')/previous/review/original/submissionNotes[@revIndex=$revIndexO])" name="orgNodeOld"/><exf:variable value="(instance('ins')/previous/review/suggestions/submissionNotes[@revIndex=$revIndexO])" name="sugNodeSetOld"/><exf:variable value="(instance('ins')/previous/review/suggestions/submissionNotes[@revIndex=$revIndexO])" name="sugNodeOld"/><xf:textarea class="" ref="instance('ins')/submissionNotes"><xf:label>Optional Submission Notes</xf:label><xf:action exf:if="$thisNodeNeedle/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...X");</script><xf:setvalue ref="$thisNodeNeedle/@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedle/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedle/@req = 'change' or $thisNodeNeedle/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">
+                
+                Change <xf:output value="if($thisNodeNeedle/@req = 'change', 'Required', 'Suggested')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p><span><ix:attr value="if($sugNode != $thisNode, '', 'display:none')" name="style"/><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedle/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                   // model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedle/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedle/@justification='', 'color:red', 'color:green')" name="style"/>Justification <xf:output value="if($thisNodeNeedle/@justification='', '(Required)', '')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedle/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                    //model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></div></span></div><div><ix:attr value="if($thisNodeNeedle/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p></div></span></div><div><ix:attr value="if(not($thisNodeNeedle/@req) and $thisNodeNeedle/@addcomment = '1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p></div></span></div><div><ix:attr value="if(concat($thisNode,'') != concat($orgNode,''), 'color:red', 'display:none')" name="style"/>Using New Value</div></td></tr><tr class="line"><td><hr/></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+        <font size="2">Your signature below will serve as your attestation that:</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+        <font size="2">
+			* All statements herein are true, complete and accurate to the best of my knowledge.
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/researchInvolves = '2' or instance('irb')/researchInvolves = '3', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/researchInvolves = '2' or instance('irb')/researchInvolves = '3', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/researchInvolves = '2' or instance('irb')/researchInvolves = '3'"/>
+        <font size="2">
+			* Process is adequately described to ensure that all persons assisting with the trial are adequately informed about the protocol, the investigational product(s), and their trial-related duties and functions.
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(contains(instance('irb')/population,'PREGNANT'), '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(contains(instance('irb')/population,'PREGNANT'), '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="contains(instance('irb')/population,'PREGNANT')"/>
+        <font size="2">
+			* No inducements, monetary or otherwise, will be offered to terminate a pregnancy. <br/>
+			* Individuals engaged in the research will have no part in any decisions as to the timing, method, or procedures used to terminate a pregnancy. <br/>
+			* Individuals engaged in the research will have no part in determining the viability of a neonate. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(contains(instance('irb')/population,'PRISPRIM'), '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(contains(instance('irb')/population,'PRISPRIM'), '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="contains(instance('irb')/population,'PRISPRIM')"/>
+        <font size="2">
+			* Any possible advantages accruing to the prisoner through his or her participation in the research, when compared to the general living conditions, medical care, quality of food, amenities and opportunity for earnings in the prison, are not of such a magnitude that his or her ability to weigh the risks of the research against the value of such advantages in the limited choice environment of the prison is impaired.  <br/>
+			* The risks involved in the research are commensurate with risks that would be accepted by non-prisoner volunteers.  <br/>
+			* Procedures for the selection of subjects within the prison are fair to all prisoners and immune from arbitrary intervention by prison authorities or prisoners. Unless the principal investigator provides to the Board justification in writing for following some other procedures, control subjects must be selected randomly from the group of available prisoners who meet the characteristics needed for that particular research project.  <br/>
+			* The information is presented in language which is understandable to the subject population.  <br/>
+			* Adequate assurance exists that parole boards will not take into account a prisoner’s participation in the research in making decisions regarding parole, and each prisoner is clearly informed in advance that participation in the research will have no effect on his or her parole.  <br/>
+			* If the IRB finds there may be a need for follow-up examination or care of subjects after the end of their participation, adequate provision has been made for such examination or care, taking into account the varying lengths of individual prisoners’ sentences, and for informing subjects of this fact.  <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/population[(contains(.,'MNTLCOMP') or contains(.,'DESCIMP'))] and (instance('irb')/directBenefitToSubjects = '1'), '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/population[(contains(.,'MNTLCOMP') or contains(.,'DESCIMP'))] and (instance('irb')/directBenefitToSubjects = '1'), '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/population[(contains(.,'MNTLCOMP') or contains(.,'DESCIMP'))] and (instance('irb')/directBenefitToSubjects = '1')"/>
+        <font size="2">
+			* The risk is justified by the anticipated benefit to the subjects. <br/>
+			* The relation of the anticipated benefit to the risk is at least as favorable to the subjects as that presented by available alternative approaches. <br/>
+			* The proposed plan for the assessment of the capacity to consent is adequate (and the PI states he/she will comply with institutional policies A3-113.9 and A3-113). <br/>
+			* The assessment of the capacity to consent will be performed by a qualified attending physician with appropriate training, licensing and certification, with special attention paid to qualifications re: assessing incapacity due to mental illness, mental retardation or developmental disability. <br/>
+			* The proposed plan for the assessment of capacity includes the assessment of the cause and extent of the incapacity and likelihood that the subject will regain capacity. <br/>
+			* The PI has indicated that he/she will document this determination with the above details of the assessment appropriately (eg. In the medical record when applicable and in research record). <br/>
+			* The consent document includes a signature line for a legally authorized representative. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/population[(contains(.,'MNTLCOMP') or contains(.,'DESCIMP'))] and (instance('irb')/directBenefitToSubjects = '0'), '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/population[(contains(.,'MNTLCOMP') or contains(.,'DESCIMP'))] and (instance('irb')/directBenefitToSubjects = '0'), '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/population[(contains(.,'MNTLCOMP') or contains(.,'DESCIMP'))] and (instance('irb')/directBenefitToSubjects = '0')"/>
+        <font size="2">
+			* The proposed plan for the assessment of the capacity to consent is adequate. <br/>
+			* The objectives of the trial cannot be met by means of study of subjects who can give consent personally. <br/>
+			* The foreseeable risks to the subjects are low.  <br/>
+			* The negative impact on the subject’s well-being is minimized and low. <br/>
+			* The trial is not prohibited by law. <br/>
+			* Subjects have a disease or condition for which the procedures involved in the research are intended. <br/>
+			* Subjects will be particularly closely monitored. <br/>
+			* Subjects will be withdrawn if they appear to be unduly distressed. <br/>
+			* The proposed plan for the assessment of the capacity to consent is adequate (and complies with institutional policies A3-113.9 and A3-113). <br/>
+			* The assessment of the capacity to consent will be performed by a qualified attending physician with appropriate training, licensing and certification, with special attention paid to qualifications re: assessing incapacity due to mental illness, mental retardation or developmental disability. <br/>
+			* The proposed plan for the assessment of capacity includes the assessment of the cause and extent of the incapacity and likelihood that the subject will regain capacity. <br/>
+			* The PI has indicated that he/she will document this determination with the above details of the assessment appropriately (eg. In the medical record when applicable and in research record). <br/>
+			* The consent document includes a signature line for a legally authorized representative. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/compParticipation = '1', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/compParticipation = '1', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/compParticipation = '1'"/>
+        <font size="2">
+			* Credit for payment accrues as the study progresses. <br/>
+			* Payment is not contingent upon completing the entire study. <br/>
+			* The amount of payment and the proposed method and timing of disbursement is neither coercive nor presented undue influence. <br/>
+			* Any amount paid as a bonus for completion is reasonable and not so large as to unduly induce subjects to stay in the study when they would otherwise have withdrawn. <br/>
+			* All information concerning payment, including the amount and schedule of payments, is in the informed consent document. <br/>
+			* Compensation does not include a coupon good for a discount on the purchase price of the product once it has been approved. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/consentWritten = '2', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/consentWritten = '2', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/consentWritten = '2'"/>
+        <font size="2">
+			* Each subject will be asked whether the subject wants documentation linking the subject with the research, and the subject’s wishes will govern. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/dataRecord = '1', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/dataRecord = '1', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/dataRecord = '1'"/>
+        <font size="2">
+			* I assure that the protected health information (PHI) will not be disclosed to any other person or entity not listed on this form except where required by law or for the authorized oversight of this research project. If at any time I want to reuse this PHI for other purposes or disclose it to other individuals or entities I will seek approval from the IRB.<br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/invDrugs = '1', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/invDrugs = '1', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/invDrugs = '1'"/>
+        <font size="2">
+			* I assure that the plan for the control of the research drugs and biologics involved in this Human Research is accurately described and appropriate.  I will conduct the Human Research in accordance with this plan, as well as with applicable regulations and organizational policies and procedures. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/fundingSourceComp/Organization/fundingCat='Industry' or instance('irb')/invDrugs='1' or instance('irb')/invDevs='1' or instance('irb')/clinicalTrial='1', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/fundingSourceComp/Organization/fundingCat='Industry' or instance('irb')/invDrugs='1' or instance('irb')/invDevs='1' or instance('irb')/clinicalTrial='1', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/fundingSourceComp/Organization/fundingCat='Industry' or instance('irb')/invDrugs='1' or instance('irb')/invDevs='1' or instance('irb')/clinicalTrial='1'"/>
+        <font size="2">
+			* Following your review of the clinical trial protocol, all clinical services you expect to perform have been identified and labeled as either clinical trial/research-related or routine care. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('irb')/appType='4', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('irb')/appType='4', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('irb')/appType='4'"/>
+        <font size="2">
+			* Selection of subjects is equitable. <br/>
+			* Research Information Sheet will be provided to subjects. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/protocolTransfer='0', '', 'display:none')" name="style"/><td colspan="4"><span><ix:attr value="if(instance('ins')/protocolTransfer='0', '', 'display:none')" name="style"/><h4><font size="2"><component type="instructions">
+		<visible xpath="instance('ins')/protocolTransfer='0'"/>
+		<font size="2">
+			* The research is permanently closed to enrollment. <br/>
+			* All subjects have completed all research-related interventions (all medical and psychological procedures done for research purposes, including filling out questionnaires). <br/>   
+			* Collection of private identifiable information is completed. <br/>
+			* Analysis of private identifiable information is completed. <br/>
+		</font>
+    </component></font></h4></span></td></tr><tr class="signature"><td class="component"><xf:select ref="instance('ins')/signOff" appearance="full"><xf:item><xf:label>I Agree<span><ix:attr value="if(instance('ins')/signOff = '1', 'font-weight:normal', 'display:none')" name="style"/> (signed <xf:output value="instance('ins')/signOff/@signedWhen"/> by <xf:output value="instance('ins')/signOff/@signedBy"/>)</span></xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+        
+        model.submit("submitins");model.Frm.captureSignature("instance('ins')/signOff");
+      </script></xf:select></td></tr><tr class="break"><td><br/></td></tr><tr class="submit"><ix:attr value="if(instance('ins')/signOff = '1', '', 'display:none')" name="style"/><td><a title="Submit" href="#" class="submit1"><xf:action ev:event="click"><script>
+        if(model.SUBMITTED) return;
+        
+          if(!confirm("Are you sure you're ready to submit this final report?"))return;
+        
+        //ActivityTree.__waiting = new waitingBox();
+        //if(model.USA){ if(!model.USA.queuePrint()){return;};};
+        model.SUBMITTED = true;
+        model.Frm.saveAll();
+        try{ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);}
+        catch(e){model.model.SUBMITTED = false; return;};
+        </script></xf:action><div class="cap"/>Send for Review</a></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"/></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

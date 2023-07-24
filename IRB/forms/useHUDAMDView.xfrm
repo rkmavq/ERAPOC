@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "useHUD");
+      model.Frm.loadOpFile('ins', '/amd.xml', "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//@*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//@*"/><xf:bind readonly="true()" nodeset="instance('ins')/@*"/><xf:bind readonly="true()" nodeset="instance('ins')/*"/><xf:bind readonly="true()" nodeset="instance('ins')/*/*"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 150 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="html"><td><h3>HUD</h3></td></tr><tr class="entity"><xf:switch><xf:case exf:if="1" id="show-dataHUD"><td class="component structure person  "><xf:repeat nodeset="instance('ins')/dataHUD[1]"><xf:input class="wide top" ref="name"><xf:label>HUD Name</xf:label></xf:input><xf:input class="fullLine" ref="manufacturer"><xf:label>Manufacturer</xf:label></xf:input></xf:repeat><div><ix:attr name="style" value="if(instance('ins')/dataHUD[1], 'display:none', '')"/><table class="addLine"><tr><td class="boldlabel">HUD Name</td><td style="vertical-align:bottom;" class="addArea"><span class="clickable"><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Find HUD Device" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                    model.Frm.configureQuickSearch("Device", "replaceEntity", "instance('ins')/dataHUD[1]", "/applications/IRB/js/addHUD", "dataHUD", "Name", "ID","Department", "1", "researcher",  '', '1');
+                    model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                  </script></xf:action>            
+                Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td></tr></table></div></td><td class="options"><ix:attr name="style" value="if(instance('ins')/dataHUD[1], '', 'display:none')"/></td></xf:case><xf:case id="hide-dataHUD"/></xf:switch></tr><tr class="field"><td class="component stretchLabel "><exf:variable value="instance('ins')/hudNum/@revIndex" name="revIndexhudNum"/><exf:variable value="(instance('ins')/hudNum[@revIndex=$revIndexhudNum])" name="thisNodeNeedlehudNum"/><exf:variable value="instance('ins')/hudNum" name="thisNodehudNum"/><exf:variable value="(instance('ins')/original/hudNum[@revIndex=$revIndexhudNum])" name="orgNodehudNum"/><exf:variable value="(instance('ins')/suggestions/hudNum[@revIndex=$revIndexhudNum])" name="sugNodeSethudNum"/><exf:variable value="(instance('ins')/suggestions/hudNum[@revIndex=$revIndexhudNum])" name="sugNodehudNum"/><exf:variable value="instance('ins')/previous/review/hudNum/@revIndex" name="revIndexOhudNum"/><exf:variable value="(instance('ins')/previous/review/hudNum[@revIndex=$revIndexOhudNum])" name="thisNodeNeedleOldhudNum"/><exf:variable value="instance('ins')/previous/review/hudNum" name="thisNodeOldhudNum"/><exf:variable value="(instance('ins')/previous/review/original/hudNum[@revIndex=$revIndexOhudNum])" name="orgNodeOldhudNum"/><exf:variable value="(instance('ins')/previous/review/suggestions/hudNum[@revIndex=$revIndexOhudNum])" name="sugNodeSetOldhudNum"/><exf:variable value="(instance('ins')/previous/review/suggestions/hudNum[@revIndex=$revIndexOhudNum])" name="sugNodeOldhudNum"/><xf:input class="wide" ref="instance('ins')/hudNum"><xf:label>HUD Number</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlehudNum/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlehudNum/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodehudNum != $thisNodehudNum, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+              Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlehudNum/@amdcomment"/></span></span></div></span></div></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/hudFDA/@revIndex" name="revIndexhudFDA"/><exf:variable value="(instance('ins')/hudFDA[@revIndex=$revIndexhudFDA])" name="thisNodeNeedlehudFDA"/><exf:variable value="instance('ins')/hudFDA" name="thisNodehudFDA"/><exf:variable value="(instance('ins')/original/hudFDA[@revIndex=$revIndexhudFDA])" name="orgNodehudFDA"/><exf:variable value="(instance('ins')/suggestions/hudFDA[@revIndex=$revIndexhudFDA])" name="sugNodeSethudFDA"/><exf:variable value="(instance('ins')/suggestions/hudFDA[@revIndex=$revIndexhudFDA])" name="sugNodehudFDA"/><exf:variable value="instance('ins')/previous/review/hudFDA/@revIndex" name="revIndexOhudFDA"/><exf:variable value="(instance('ins')/previous/review/hudFDA[@revIndex=$revIndexOhudFDA])" name="thisNodeNeedleOldhudFDA"/><exf:variable value="instance('ins')/previous/review/hudFDA" name="thisNodeOldhudFDA"/><exf:variable value="(instance('ins')/previous/review/original/hudFDA[@revIndex=$revIndexOhudFDA])" name="orgNodeOldhudFDA"/><exf:variable value="(instance('ins')/previous/review/suggestions/hudFDA[@revIndex=$revIndexOhudFDA])" name="sugNodeSetOldhudFDA"/><exf:variable value="(instance('ins')/previous/review/suggestions/hudFDA[@revIndex=$revIndexOhudFDA])" name="sugNodeOldhudFDA"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/hudFDA"><xf:label>FDA Approval Indication</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlehudFDA/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlehudFDA/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodehudFDA != $thisNodehudFDA, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+            Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlehudFDA/@amdcomment"/></span></span></div></span></div></td></tr><tr class="document"><xf:switch><xf:case id="show-hudApprovalDoc"><td class="component stretchLabel "><table class="oneToManyBox"><tr><td class="label">FDA HDE Approval</td><td class=""><span><ix:attr value="if(instance('ins')/hudApprovalDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudApprovalDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudApprovalDoc"/></a></span></td><td classs="control"/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudApprovalDoc"/></xf:switch></tr><tr class="document"><xf:switch><xf:case id="show-hudUseDoc"><td class="component stretchLabel "><table class="oneToManyBox"><tr><td class="label">HUD Use Summary</td><td class=""><span><ix:attr value="if(instance('ins')/hudUseDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudUseDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudUseDoc"/></a></span></td><td classs="control"/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudUseDoc"/></xf:switch></tr><tr class="document"><xf:switch><xf:case id="show-hudProductDoc"><td class="component stretchLabel "><table class="oneToManyBox"><tr><td class="label">Product Labeling</td><td class=""><span><ix:attr value="if(instance('ins')/hudProductDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudProductDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudProductDoc"/></a></span></td><td classs="control"/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudProductDoc"/></xf:switch></tr><tr class="document"><xf:switch><xf:case id="show-hudPatientDoc"><td class="component stretchLabel "><table class="oneToManyBox"><tr><td class="label">Patient Information Packet</td><td class=""><span><ix:attr value="if(instance('ins')/hudPatientDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/hudPatientDoc/@uri" name="href"/><xf:output class="" value="instance('ins')/hudPatientDoc"/></a></span></td><td classs="control"/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-hudPatientDoc"/></xf:switch></tr></table></div></div></form>

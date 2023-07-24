@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+    
+    <tab id="1" label="Summary">
+        <tab id="1a" label="Title" form="/home/configs/IRB/forms/irbsummaryAMDComm.xfrm" printlabel="Summary - Title" sourceXML="/summary.xml" formType="general" formName="summary"/>
+		<tab id="1c" label="Setup" form="/home/configs/IRB/forms/setupAMDComm.xfrm" printlabel="Summary - Setup" sourceXML="/setup.xml" formType="general" formName="setup"/>
+        <tab id="1b" label="Background" form="/home/configs/IRB/forms/templateMainAMDComm.xfrm" printlabel="Summary - Background" sourceXML="/templateMain.xml" formType="general" formName="templateMain" when="relyonMountSinaiIRB"/>
+    </tab>
+	<tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/personnelAMDComm.xfrm" printlabel="Research Personnel" sourceXML="/personnel.xml" formType="drillIn" formName="personnel"/>
+	
+	<tab id="5" label="Compassionate Single Patient IND" form="/home/configs/IRB/forms/singlePatientINDAMDComm.xfrm" printlabel="Compassionate Single Patient IND" sourceXML="/singlePatientIND.xml" formType="general" formName="singlePatientIND" mode="" when="singlePatientIND"/>
+	
+	<tab id="6X" label="Sites" form="/home/configs/IRB/forms/externalSitesAMDComm.xfrm" printlabel="Sites" sourceXML="/externalSites.xml" formType="drillIn" formName="externalSites" when="external"/>
+	
+	<tab id="3" label="Exemption" when="requestIRBExemption">
+        <tab id="3a" label="Summary" form="/home/configs/IRB/forms/exempSummaryAMDComm.xfrm" printlabel="Exemption - Summary" sourceXML="/exempSummary.xml" formType="general" formName="exempSummary" when="requestIRBExemption"/>		
+		<tab id="3b" label="Category" form="/home/configs/IRB/forms/exempCategoryAMDComm.xfrm" printlabel="Exemption - Category" sourceXML="/exempCategory.xml" formType="general" formName="exempCategory" when="requestIRBExemption"/>
+    </tab>
+	
+	<tab id="4" label="External IRB" form="/home/configs/IRB/forms/externalIRBAMDComm.xfrm" printlabel="External IRB" sourceXML="/externalIRB.xml" formType="general" formName="externalIRB" when="otherExternalIRB"/>
+	
+	<tab id="11A" label="Subjects" when="subjectsSpecial">
+		<tab id="11B" label="Setting &amp; Resources" form="/home/configs/IRB/forms/settingsAMDComm.xfrm" printlabel="Subjects - Setting &amp; Resources" sourceXML="/settings.xml" formType="general" formName="settings" when="subjects"/>
+		<tab id="11" label="Populations" form="/home/configs/IRB/forms/subjectsAMDComm.xfrm" printlabel="Subjects - Populations" sourceXML="/subjects.xml" formType="general" formName="subjects" when="subjects"/>
+        <tab id="17" label="Participation" form="/home/configs/IRB/forms/enrollAMDComm.xfrm" printlabel="Subjects - Participation" sourceXML="/enroll.xml" formType="general" formName="enroll" when="subjects"/>
+        <tab id="0d" label="Risk &amp; Benefits" form="/home/configs/IRB/forms/templateSubjectsAMDComm.xfrm" printlabel="Subjects - Risk &amp; Benefits" sourceXML="/templateSubjects.xml" formType="general" formName="templateSubjects" when="subjectsSpecial"/>
+		<tab id="31a" label="Children" form="/home/configs/IRB/forms/childrenAMDComm.xfrm" printlabel="Subjects - Children" sourceXML="/children.xml" formType="general" formName="children" when="vsChild"/>
+		<tab id="31b" label="Pregnant Women" form="/home/configs/IRB/forms/pregnantAMDComm.xfrm" printlabel="Subjects - Pregnant Women" sourceXML="/pregnant.xml" formType="general" formName="pregnant" when="vsPregnant"/>
+		<tab id="31c" label="Prisoners" form="/home/configs/IRB/forms/prisonersAMDComm.xfrm" printlabel="Subjects - Prisoners" sourceXML="/prisoners.xml" formType="general" formName="prisoners" when="vsPrisoners"/>
+        <tab id="31d" label="Adults Without Capacity" form="/home/configs/IRB/forms/withoutcapacityAMDComm.xfrm" printlabel="Subjects - Adults Without Capacity" sourceXML="/withoutcapacity.xml" formType="general" formName="withoutcapacity" when="vsAWS"/>
+    </tab>
+	
+	<tab id="32" label="Procedures" when="procedures">
+		<tab id="32a" label="Narrative" form="/home/configs/IRB/forms/narrativeAMDComm.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative"/>
+		<tab id="32b" label="Genetic Testing" form="/home/configs/IRB/forms/geneticAMDComm.xfrm" printlabel="Procedures - Pregnant Women" sourceXML="/genetic.xml" formType="general" formName="genetic" when="geneticTesting"/>
+		<tab id="32c" label="Details" form="/home/configs/IRB/forms/templateStudyDesignAMDComm.xfrm" printlabel="Procedures - Details" sourceXML="/templateStudyDesign.xml" formType="general" formName="templateStudyDesign" when="details"/>
+        <tab id="32d" label="Instruments" form="/home/configs/IRB/forms/instrumentsAMDComm.xfrm" printlabel="Procedures - Instruments" sourceXML="/instruments.xml" formType="general" formName="instruments" when="instruments"/>
+		<tab id="32e" label="Compensation" form="/home/configs/IRB/forms/compensationAMDComm.xfrm" printlabel="Procedures - Compensation" sourceXML="/compensation.xml" formType="general" formName="compensation" when="compensation"/>
+    </tab>
+	
+	<tab id="33" label="Consent" when="consentingParticipants">
+        <tab id="33a" label="Obtaining Consent" form="/home/configs/IRB/forms/consentAMDComm.xfrm" printlabel="Consent - Obtaining Consent" sourceXML="/consent.xml" formType="general" formName="consent" when="obtainingConsent"/>
+		<tab id="33b" label="Parental Permission" form="/home/configs/IRB/forms/parentalPermissionAMDComm.xfrm" printlabel="Consent - Parental Permission" sourceXML="/parentalPermission.xml" formType="general" formName="parentalPermission" when="parental"/>
+		<tab id="33c" label="Legally Authorized Representative" form="/home/configs/IRB/forms/legallyAuthorizedAMDComm.xfrm" printlabel="Consent - Legally Authorized Representative" sourceXML="/legallyAuthorized.xml" formType="general" formName="legallyAuthorized" when="lar"/>
+		<tab id="33d" label="Waiver of Informed Consent" form="/home/configs/IRB/forms/informedWaiverAMDComm.xfrm" printlabel="Consent - Waiver of Informed Consent" sourceXML="/informedWaiver.xml" formType="general" formName="informedWaiver" when="informedWaiver"/>
+		<tab id="33e" label="Waiver of Signed Consent" form="/home/configs/IRB/forms/signedConsentAMDComm.xfrm" printlabel="Consent - Waiver of Signed Consent" sourceXML="/signedConsent.xml" formType="general" formName="signedConsent" when="signed"/>
+		<tab id="33f" label="Documents" form="/home/configs/IRB/forms/consentDocsAMDComm.xfrm" printlabel="Consent - Documents" sourceXML="/consentDocs.xml" formType="general" formName="consentDocs" when="consentDocuments"/>
+    </tab>
+    
+    <tab id="0" label="Data" when="dataSpecial">
+        <tab id="0p" label="Collection" form="/home/configs/IRB/forms/collectionAMDComm.xfrm" printlabel="Data - Collection" sourceXML="/collection.xml" formType="general" formName="collection" when="data"/>
+        <tab id="0q" label="HIPAA" form="/home/configs/IRB/forms/hippaAMDComm.xfrm" printlabel="Data - HIPAA" sourceXML="/hippa.xml" formType="general" formName="hippa" when="hippa"/>
+		<tab id="0r" label="HIV/AIDS" form="/home/configs/IRB/forms/hivAMDComm.xfrm" printlabel="Data - HIV/AIDS" sourceXML="/hiv.xml" formType="drillIn" formName="hiv" when="hiv"/>
+		<tab id="0c" label="Storage" form="/home/configs/IRB/forms/templateDataManAMDComm.xfrm" printlabel="Data - Storage" sourceXML="/templateDataMan.xml" formType="general" formName="templateDataMan" when="data"/>
+		<tab id="0s" label="Safety Monitoring" form="/home/configs/IRB/forms/monitoringAMDComm.xfrm" printlabel="Data - Safety Monitoring" sourceXML="/monitoring.xml" formType="general" formName="monitoring" when="safetyMonitoring"/>
+		<tab id="0h" label="Retrospective Review" form="/home/configs/IRB/forms/retrochartreviewsAMDComm.xfrm" printlabel="Data - Retrospective Review" sourceXML="/retrochartreviews.xml" formType="general" formName="retrochartreviews" when="retrospectiveReview"/>
+    </tab>
+	
+	<tab id="9" label="Devices" when="devices">
+		<tab id="9a" label="Investigational Devices" form="/home/configs/IRB/forms/investigationalDevicesAMDComm.xfrm" printlabel="Devices - Investigational Devices" sourceXML="/investigationalDevices.xml" formType="general" formName="investigationalDevices" when="invDevices"/>
+		<tab id="9b" label="Humanitarian Use Devices" form="/home/configs/IRB/forms/humanDevicesAMDComm.xfrm" printlabel="Devices - Humanitarian Use Devices" sourceXML="/humanDevices.xml" formType="general" formName="humanDevices" when="useHUD"/>
+    </tab>
+	
+	<tab id="34" label="Specimen Banking" form="/home/configs/IRB/forms/specimenBankingAMDComm.xfrm" printlabel="Specimen Banking" sourceXML="/specimenBanking.xml" formType="general" formName="specimenBanking" when="specimen"/>
+	
+	<tab id="7" label="Funding" form="/home/configs/IRB/forms/fundingAMDComm.xfrm" printlabel="Funding" sourceXML="/funding.xml" formType="general" formName="funding" when="funding"/>
+	
+	<tab id="2b" label="Cancer" form="/home/configs/IRB/forms/instApprovalsAMDComm.xfrm" printlabel="Cancer" sourceXML="/instApprovals.xml" formType="general" formName="instApprovals" when="cancer"/>
+	
+	<tab id="2d" label="Radiation Safety" form="/home/configs/IRB/forms/radiationsafetyAMDComm.xfrm" printlabel="Radiation Safety" sourceXML="/radiationsafety.xml" formType="general" formName="radiationsafety" when="radiationSafety"/>
+	
+	<tab id="8" label="Drugs / Biologics" form="/home/configs/IRB/forms/mssmDrugsAMDComm.xfrm" printlabel="Drugs / Biologics" sourceXML="/mssmDrugs.xml" formType="general" formName="mssmDrugs" when="drugsBiologics"/> 
+	
+	<tab id="37" label="Biosafety" form="/home/configs/IRB/forms/biosafetyAMDComm.xfrm" printlabel="Biosafety" sourceXML="/biosafety.xml" formType="general" formName="biosafety" when="biosafety"/> 
+	
+	<tab id="35" label="Clinical Research Unit" when="cru">
+		<tab id="35a" label="Summary" form="/home/configs/IRB/forms/cruSummaryAMDComm.xfrm" printlabel="Clinical Research Unit - Summary" sourceXML="/cruSummary.xml" formType="general" formName="cruSummary" when="cru"/>
+		<tab id="35b" label="Requirements" form="/home/configs/IRB/forms/cruRequirementsAMDComm.xfrm" printlabel="Clinical Research Unit - Requirements" sourceXML="/cruRequirements.xml" formType="general" formName="cruRequirements" when="cru"/>
+		<tab id="35c" label="Costs" form="/home/configs/IRB/forms/cruCostsAMDComm.xfrm" printlabel="Clinical Research Unit - Costs" sourceXML="/cruCosts.xml" formType="general" formName="cruCosts" when="cru"/>
+    </tab>
+	
+	<tab id="36" label="Financial Administration" form="/home/configs/IRB/forms/financialAdminAMDComm.xfrm" printlabel="Financial Administration" sourceXML="/financialAdmin.xml" formType="general" formName="financialAdmin" when="finance"/> 
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm"/>
+    
+    <switches>
+    	<singlePatientIND>0</singlePatientIND>
+        <retroCharts>0</retroCharts>
+        <notRetroCharts>0</notRetroCharts>
+		<vsPopulation>0</vsPopulation>
+		<vsChild>0</vsChild>
+		<vsPregnant>0</vsPregnant>
+		<vsPrisoners>0</vsPrisoners>
+		<vsAWS>0</vsAWS>
+		<instruments>0</instruments>
+		<instType>0</instType>
+		<retroyn>0</retroyn>
+		<retroReview>0</retroReview>
+		<hippa>0</hippa>
+		<hiv>0</hiv>
+		<retroChartsStudy>0</retroChartsStudy>
+		<devices>0</devices>
+		<invDevices>0</invDevices>
+        <useHUD>0</useHUD>
+		<specimen>0</specimen>
+		<external>0</external>
+		<funding>0</funding>
+		<drugs>0</drugs>
+		<cru>0</cru>
+		<finance>0</finance>
+		<parental>0</parental>
+		<lar>0</lar>
+		<signed>0</signed>
+		<!--MSSM Addition-->
+		
+		<invoiced>0</invoiced>
+        <comp>0</comp>
+        <radio>0</radio>
+        <phi>0</phi>
+        <!--<techSession>0</techSession>-->
+        <instApproval>0</instApproval> <!--MSSM Addition-->
+        <extSites>0</extSites> <!--MSSM Addition-->
+         
+        <useHUDNeg>0</useHUDNeg><!--MSSM Addition-->
+        <useProtComp>0</useProtComp><!--MSSM Addition-->
+        <pregnantCheck>0</pregnantCheck> <!--MSSM Addition-->
+        <prisonCheck>0</prisonCheck> <!--MSSM Addition-->
+         
+        <neaf>0</neaf>
+        
+        <consentObt>0</consentObt>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        
+        
+        <biologics>1</biologics>
+        <biological>1</biological>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+		<relyonMountSinaiIRB>0</relyonMountSinaiIRB>
+		<requestIRBExemption>0</requestIRBExemption>
+		<otherExternalIRB>0</otherExternalIRB>
+		<subjects>0</subjects><subjectsSpecial>0</subjectsSpecial>
+		<consentingParticipants>0</consentingParticipants>
+		<obtainingConsent>0</obtainingConsent>
+		<informedWaiver>0</informedWaiver>
+		<consentDocuments>0</consentDocuments>
+		<data>0</data><dataSpecial>0</dataSpecial>
+		<safetyMonitoring>0</safetyMonitoring>
+		<retrospectiveReview>0</retrospectiveReview>
+		<cancer>0</cancer>
+		<radiationSafety>0</radiationSafety>
+		<drugsBiologics>0</drugsBiologics>
+		<biosafety>0</biosafety>
+		<procedures>0</procedures>
+		<compensation>0</compensation>
+    	
+    	<narrative>0</narrative>
+    	<geneticTesting>0</geneticTesting>
+    	<details></details>
+    </switches>
+</tabs>

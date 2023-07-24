@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subCommDiffsRS.xfrm"/>
+    <tab id="7" label="New Information" form="/home/configs/IRB/forms/newInformationCommRO.xfrm" sourceXML="/newInformation.xml" formType="general" formName="newInformation"/>
+    
+<!--    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/up_attachments.xfrm"/>
+-->    
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReviewSuggRS.xfrm"/>
+    
+    
+    <tab id="LC" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/>
+    
+    <switches>
+        <participant>0</participant> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <violation>0</violation>
+        <!--<violation2>0</violation2>-->
+        <submit>1</submit>
+    </switches>
+</tabs>

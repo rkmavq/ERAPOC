@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+	<style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+
+    div.formFrame table.fullColLayout tr td.errors{
+		<!-- color:blue;-->
+    background-color:white;
+	}
+	div.formFrame table.basicColLayout tr.yesnobuttons td.component.widenLabel div.xfctrl label {
+		width: 240px;
+	}
+	</style>
+	<xf:model id="fmodel">
+		<xf:instance id="cats">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="form">
+			<data xmlns="">
+				<form updatedBy="" updated="" createdBy="" created=""/>
+				<tempRevIndex>-1</tempRevIndex>
+				<tempSugIndex>1</tempSugIndex>
+				<searchText/>
+				<records/>
+				<revURI></revURI>
+				<fullSearchText/>
+				<fullSearchRecords/>
+				<col1/>
+				<col2/>
+				<document id="" uri=""/>
+			</data> 
+		</xf:instance>    
+		<xf:instance id="review">
+			<data xmlns=""/>
+		</xf:instance>
+		<!--    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document/>        
+      </data>
+    </xf:instance>-->
+		<xf:instance id="errs">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="diffs">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="bootstrap">
+			<data xmlns="">
+				<js>/resources/services/appForms/main.js</js>
+			</data>
+		</xf:instance>
+		<xf:instance id="config">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="dat">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="dat2">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="ins">
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="revHist"><data xmlns=""/></xf:instance>		
+		<script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+
+      //ARCHITA: You'll have to load the appropriate datafile here that you want to attach the XML to as usual (change this to match wherever you're working)
+
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+
+resX=callSharedService("protocolRouting",{op:"findLastReview",targetSubmission:model.Frm.linkedOpURI}, "text");
+			if(resX == ""){ 
+			 needle = model.Frm.linkedOpURI + "/amd.xml";
+			 model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + "/amd.xml");   
+		   }else{   
+			 needle = model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI;
+			 model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI);
+			 model.setValue("instance('form')/revNum", "0");
+			 model.setValue("instance('form')/metaNum", "0");
+			 //get last review that was of type res and review num is less than current one and last one
+			 lastMetaRSRevNum = model.getValue("instance('proReviews')/metaReview[((@action='Response Submission' or @action='Created Response Submission' or @action='Returned to PI'))][last()]/@num");     
+			 if(lastMetaRSRevNum &amp;&amp; lastMetaRSRevNum!=""){
+				 lastRSRevNum = model.getValue("instance('proReviews')/review[@parent="+lastMetaRSRevNum+"]/@num");     
+				 if(lastRSRevNum &amp;&amp; lastRSRevNum!=""){
+					model.setValue("instance('form')/revNum",lastRSRevNum);
+					model.setValue("instance('form')/metaNum",lastMetaRSRevNum);      
+				 }
+			 }
+			 
+		   }
+		   model.USA.formSet.getRoot().model.__currentControllerForm.model.reloadInstanceId('comments');
+		   model.USA.formSet.getRoot().model.__currentControllerForm.refreshAll(); 
+		   model.Frm.loadOpFile('dat2', "/amd.xml", "1");	   
+		   
+		   resX=callSharedService("protocolRouting",{op:"generateAmendmentDiffsDynamic",linkedOp:model.Frm.linkedOpType,"trackChanges":"yes",app:"IRB",linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI: needle}, "json");        
+		   model.Frm.loadOpFile('revHist', "/revHIST.xml", "0");
+		   
+		   
+		   model.Frm.reloadInst('revHist');      
+
+
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+
+		</script>
+		<script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+      model.USA.registerChangeLog('comments', '1X')
+		</script>
+
+		<xf:submission instance="dat" id="submitdat" replace="none" method="put">
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Saved</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem saving</xf:message>
+			</xf:action>
+		</xf:submission>
+
+		<xf:submission instance="review" id="submitreview" replace="none" method="put">
+			<xf:action ev:event="xforms-submit-done"/>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem saving (review)</xf:message>
+			</xf:action>
+		</xf:submission>
+		<xf:submission instance="dat2" id="submitdat2" replace="none" method="put">
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Saved</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem saving</xf:message>
+			</xf:action>
+		</xf:submission>
+
+		<!-- ARCHITA: This bind is required -->
+		<xf:bind nodeset="instance('form')/document" type="ix:file"/>
+	</xf:model>
+
+
+	<div class="formFrame">
+		<!-- Modified Document Drop -->
+		<div style="display:none;">
+			<xf:input id="documentDrop" ref="instance('form')/document">
+				<xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+					<script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+					</script>
+				</xf:action>
+			</xf:input>    
+		</div>
+		<!--<table class="formMetaLine">
+      <tr>
+        <td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>,
+            <xf:output value="instance('form')/form/@createdBy"/></td>
+        <td class="updated"><ix:attr
+            value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+          Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output
+            value="instance('form')/form/@updatedBy"/></td>
+      </tr>
+    </table>-->
+
+
+
+		<br/>
+		<div class="body">
+
+			<br/>
+
+			<table class="basicColLayout">
+				<tr class="bigbox">
+					<td class="component textarea   widenLabel">
+						<table style="margin-left:-3px;">
+							<tr class="top">
+								<td>
+									<xf:textarea style="height:10em;" class="" ref="instance('dat2')/modificationSummary">
+										<xf:label>Summary of the Modification Request</xf:label>
+									</xf:textarea>
+								</td>
+								<td>
+									<span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;">
+										<img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/>
+										<div style="width:200px">
+											<p>
+												<span style="color:black">
+													<help>What is changing?</help>
+												</span>
+											</p>
+										</div>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="options"/>
+				</tr>
+
+
+
+				<tr class="bigbox">
+					<td class="component textarea   widenLabel">
+						<table style="margin-left:-3px;">
+							<tr class="top">
+								<td>
+									<xf:textarea style="height:10em;" class="" ref="instance('dat2')/modificationJustification">
+										<xf:label>Justification for the Modification</xf:label>
+									</xf:textarea>
+								</td>
+								<td>
+									<span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;">
+										<img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/>
+										<div style="width:200px">
+											<p>
+												<span style="color:black">
+													<help>What are the reasons for the change?</help>
+												</span>
+											</p>
+										</div>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="options"/>
+				</tr>
+
+				<tr class="yesnobuttons">
+					<td class="component  widenLabel ">
+						<table class="horizontalSelects">
+							<tr>
+								<td class="yesBox">
+									<xf:select1 ref="instance('dat2')/modificationChangesConsent" appearance="full" id="modificationChangesConsent">
+										<xf:label>This Modification Changes the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</xf:label>
+										<xf:item>
+											<xf:label>Yes</xf:label>
+											<xf:value>1</xf:value>
+										</xf:item>
+									</xf:select1>
+								</td>
+								<td class="noBox">
+									<xf:select1 ref="instance('dat2')/modificationChangesConsent" appearance="full" id="modificationChangesConsent">
+										<xf:label/>
+										<xf:item>
+											<xf:label>No</xf:label>
+											<xf:value>0</xf:value>
+										</xf:item>
+										<script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+										</script>
+										<script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+            if(x != "1"){
+				model.setValue("instance('dat2')/modificationChangesConsentDescription", "");				
+            }
+			model.refresh();
+			model.recalculate();
+										</script>
+									</xf:select1>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+
+				<tr class="box">
+					<ix:attr value="if(instance('dat2')/willInform ='0', '', 'display:none')"
+            name="style"/>
+					<td class="component textarea   widenLabel">
+						<xf:textarea class="" ref="instance('dat2')/noNessReason">
+							<xf:label>Please explain why it is not necessary</xf:label>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+
+				</tr>
+				<tr class="bigbox">
+					<ix:attr value="if(instance('dat2')/modificationChangesConsent = '1', '', 'display:none')" name="style"/>
+					<td class="component textarea   widenLabel">
+						<xf:textarea style="height:10em;" class="" ref="instance('dat2')/modificationChangesConsentDescription">
+							<xf:label>Description of Changes in the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</xf:label>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+				</tr>
+				<tr class="yesnobuttons">
+					<td class="component  widenLabel ">
+						<table class="horizontalSelects">
+							<tr>
+								<td class="yesBox">
+									<xf:select1 ref="instance('dat2')/modificationReConsent" appearance="full" id="modificationReConsent">
+										<xf:label>Subjects Will Be Re-Consented or Provided with the New Information</xf:label>
+										<xf:item>
+											<xf:label>Yes</xf:label>
+											<xf:value>1</xf:value>
+										</xf:item>
+									</xf:select1>
+								</td>
+								<td class="noBox">
+									<xf:select1 ref="instance('dat2')/modificationReConsent" appearance="full" id="modificationReConsent">
+										<xf:label/>
+										<xf:item>
+											<xf:label>No</xf:label>
+											<xf:value>0</xf:value>
+										</xf:item>
+										<script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+										</script>
+										<script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+            if(x != "0"){								
+				model.setValue("instance('dat2')/modificationReConsentNotNecesary", "");
+            }
+			if(x != '1') {
+				model.setValue("instance('dat2')/modificationReConsentPlan", "");
+			}
+			model.refresh();
+			model.recalculate();
+										</script>
+									</xf:select1>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="bigbox">
+					<ix:attr value="if(instance('dat2')/modificationReConsent = '1', '', 'display:none')" name="style"/>
+					<td class="component textarea   widenLabel">
+						<table style="margin-left:-3px;">
+							<tr class="top">
+								<td>
+									<xf:textarea style="height:10em;" class="" ref="instance('dat2')/modificationReConsentPlan">
+										<xf:label>Proposed Plan to Re-Consent Subjects or to Provide Them with the New Information</xf:label>
+									</xf:textarea>
+								</td>
+								<td>
+									<span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;">
+										<img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/>
+										<div style="width:200px">
+											<p>
+												<span style="color:black">
+													<help>Include a brief summary of the status of current subjects, including the number of subjects in each study phase (on study drug, in follow-up, no more study interaction, phone interviews, etc.).</help>
+												</span>
+											</p>
+										</div>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="options"/>
+				</tr>
+
+				<tr class="bigbox">
+					<ix:attr value="if(instance('dat2')/modificationReConsent = '0', '', 'display:none')" name="style"/>
+					<td class="component textarea   widenLabel">
+						<table style="margin-left:-3px;">
+							<tr class="top">
+								<td>
+									<xf:textarea style="height:10em;" class="" ref="instance('dat2')/modificationReConsentNotNecesary">
+										<xf:label>Explanation Why Re-Consenting or Providing Subjects with the New Information is Not Necessary</xf:label>
+									</xf:textarea>
+								</td>
+								<td>
+									<span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;">
+										<img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/>
+										<div style="width:200px">
+											<p>
+												<span style="color:black">
+													<help>Include a brief summary of the status of current subjects, including the number of subjects in each study phase (on study drug, in follow-up, no more study interaction, phone interviews, etc.).</help>
+												</span>
+											</p>
+										</div>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="options"/>
+				</tr>
+
+
+
+			</table>
+
+
+			<br/>
+			<br/>
+			<hr/>
+			<br/>
+			<h4>Summary of Changes:</h4>
+			<div>
+        
+        <br/>
+       <exf:variable value="instance('revHist')/amendmentDiffs[@uri=instance('form')/revURI]/analysis/el" name="sec1"/>
+        <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>
+        
+        <i>No Changes</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+        <tr class="top">
+          <th class="out text large left" style="width:200px;text-align:left">Location</th>
+          <th class="in text large left" style="text-align:left">Field</th>
+          <th class="in text large left" style="text-align:left">Original Value</th>
+          <th class="in text large left" style="text-align:left">New Value</th>
+		  <th class="in text large left" style="text-align:left">Action</th>
+          <th class="in text large left" style="text-align:left">Justification</th>
+		  
+        </tr>
+             
+      <xf:switch>
+       
+        <xf:repeat nodeset="$sec1">
+          <exf:variable value="@cmp" name="needle"/>
+          <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+          
+          <tr valign="top">
+            <td class="out text alrge left" style="width:250px;">
+              <span><ix:attr name="style" value="if(not(compId) or compId='', 'display:none', 'color:black')"/><xf:output value="compName"/> >> <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                spec = model.getValue("compId", contextNode);
+                lnk = model.getValue("@cmp", contextNode);
+                model.USA.formSet.getRoot().model.setValue("instance('ins')/focus", spec);
+                model.USA.formSet.getRoot().model.refresh();
+                model.USA.formSet.getRoot().model.recalculate();
+                model.USA.formSet.getRoot().model.rebuild();
+                
+                var target = "xf_0projectTabs_control";
+                var receiver = model.Frm.formSet.getRoot().getChild(target);
+                if(receiver){
+                receiver.model.SF.switchTab(lnk);
+                }
+                
+              </script><xf:output value="$source/@label"/></u></span>
+              <span><ix:attr name="style" value="if(not(compId) or compId='', 'color:black', 'display:none')"/><xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                lnk = model.getValue("@cmp", contextNode);
+                var target = "xf_0projectTabs_control";
+                var receiver = model.Frm.formSet.getRoot().getChild(target);
+                if(receiver){
+                receiver.model.SF.switchTab(lnk);
+                }
+              </script><xf:output value="$source/@label"/></u></span>
+            </td>
+			<td class="out text large left">
+			  <xf:output value="label"/>
+			</td>
+			<td class="out text large left">
+			  <span><ix:attr name="style" value="if(orgValue='MISSING', 'color:black', 'display:none')"/>None</span>
+			  <span><ix:attr name="style" value="if(orgValue!='MISSING', 'color:black', 'display:none')"/><xf:output value="orgValue"/></span>  
+			</td> 
+			<td class="out text large left">
+			  <xf:output value="thisVal"/>
+			</td> 
+			<td class="out text large left">
+			  <nobr><span><ix:attr name="style" value="if(@RSaction!='' and @interpretation='', 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+			  <span><ix:attr name="style" value="if(@interpretation='Using New Value', 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+			  <span><ix:attr name="style" value="if(@interpretation!='Using New Value', 'color:purple', 'display:none')"/><xf:output value="@interpretation"/></span>
+			  </nobr>
+			</td>        
+			<td class="out text large left">
+			  <xf:output value="AMDjustification"/>
+			</td>
+          </tr>
+          
+        </xf:repeat>
+        
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>
+			<br/>         
+		</div>             
+	</div>       
+
+
+	<div class="bottomNav">
+		<table>
+			<tr>
+				<td class="back">
+					<div class="nav" style="float:right">
+						<script ev:event="click"> model.Frm.navigateTo("previousTab"); </script>
+						<div style="float:left" class="command">previous</div>
+						<img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/>
+					</div>
+				</td>
+				<td class="next">
+					<div class="nav" style="float:left">
+						<script ev:event="click"> model.Frm.navigateTo("nextTab"); </script>
+						<img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/>
+						<div style="float:right" class="command">next</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div>
+	</div>
+</form>

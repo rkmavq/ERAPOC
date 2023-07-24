@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    color:blue;
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document id="" uri=""></document>
+        <documentNew id="" uri=""></documentNew>
+        <myTabId></myTabId>
+        <reviewer></reviewer>
+        <pi></pi>
+        <reviewercanmake></reviewercanmake>
+        <newStatus></newStatus>
+        <caseuri></caseuri>
+        <loggedInUser></loggedInUser>
+        <newType></newType>
+        <private></private>
+      </data> 
+    </xf:instance>    
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <xf:instance id="ent"><data xmlns=""/></xf:instance>
+    <xf:instance id="lc"><data xmlns=""/></xf:instance>
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+      
+      //ARCHITA: You'll have to load the appropriate datafile here that you want to attach the XML to as usual (change this to match wherever you're working)
+      //model.Frm.loadAppFile('dat', "/data/irb.xml", "1");
+      loadInstance(model, "dat", "/data/allcomms.xml");
+      loadInstance(model, "ins", "/data/irb.xml");
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      
+      //ARCHITA: This next lines are required, they identify the main 'data' instance where the documents list, and what status/decision a new doc is born with
+      model.Frm.DOC_INS = "dat";
+      model.Frm.DOC_NEW_STATUS = "New";
+      model.Frm.DOC_NEW_DECISION = "pen";
+      model.Frm.DOC_NEW_UPLOAD_OP = "newVersion";
+      tab = model.__XformSet.getRoot().model.getValue("instance('ins')/lastPage[last()]", "");
+      
+      model.setValue("instance('form')/myTabId", tab);
+      
+      //Grab Security
+      model.USA = new irbProtocol(model); 
+      model.USA.caseSecurity = model.__XformSet.getRoot().model.TS.caseSecurity; 
+      SH.print("is coord = " + model.USA.hasToken("canReview"));
+      //Identify Administrator
+      if((model.USA.hasToken("isDirector") || model.USA.hasToken("canReview"))&amp;&amp; !model.USA.hasToken("canMake")){
+      model.setValue("instance('form')/reviewer", "1");
+      SH.print("isReviewer");
+      }
+
+
+    model.reloadInstanceId("dat");
+      
+      model.recalculate();
+      model.rebuild();
+      SH.print("tab=" + tab);
+    </script>
+    <script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+    </script>
+    
+    <script ev:event="ix-activity-save">
+      model.submit("submit1");
+    </script>
+    <xf:submission id="submit1" instance="dat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Submit done.</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem submitting...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <!-- ARCHITA: This bind is required -->
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('form')/documentNew" type="ix:file"/>
+  </xf:model>
+
+  
+  <div class="formFrame">
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); 
+          //if(n != ""){ model.USA.dashboardManualAdminReuploadExecute(n);}
+          var n = model.getValue(".", contextNode); if(n != ""){ model.USA.dashboardManualAdminReuploadExecute(n);}
+          n="";
+          model.refresh();
+          model.recalculate();
+          model.rebuild();
+          
+          model.Frm.reloadInst("dat");
+          model.activateCase("hide-docs");
+          model.activateCase("show-docs");          
+        </script>
+      </xf:action>
+    </xf:input>    
+      <xf:input id="documentDrop2" ref="instance('form')/documentNew">
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/documentNew != ''">
+          <script>
+            var n = model.getValue(".", contextNode); 
+            if(n != ""){ model.USA.dashboardManualAdminUploadExecute(n);}  
+            n="";
+            model.refresh();
+            model.recalculate();
+            model.rebuild();
+            
+            model.Frm.reloadInst("dat");
+            model.activateCase("hide-docs");
+            model.activateCase("show-docs");
+            model.activateCase("hide-dialog");            
+            model.activateCase("show-dialog");
+            model.activateCase("hide-docs");
+            model.activateCase("show-docs");
+          </script>
+        </xf:action>
+      </xf:input>
+    </div>
+    <!-- <ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/> -->
+    <div class="body">
+      <div>
+        <h3>Administrative Attachments / Document Store</h3>
+        <br/>
+     <table class="fullColLayout" border='0'>
+        <tr class="top">
+          <th class="small delete center"><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/></th>
+          <th class="out text large left">Type</th>
+          <th class="in text large left">Name</th>
+          <th class="in text large left">Private</th>          
+          <th class="in text large left">File name/<br/>Uploaded Date</th>
+          <th class="out text small left"><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>Replace</th>          
+        </tr>
+      <xf:switch>
+        <xf:case id="show-docs">
+                   
+          <!--Was <exf:variable value="(instance('dat')/document[@status='approved' and @active='1'])" name="sec2"/>-->
+          
+          <exf:variable value="(instance('dat')/document[@active='1'])" name="sec2"/>
+          <exf:variable value="(instance('dat')/document[@active='0'])" name="sec1"/>
+          <xf:repeat nodeset="$sec1">
+              <exf:variable name="dindx" value="@uid"/>
+              <exf:variable name="docDecision" value="@decision"/>
+            <tr>
+              <td class="small delete center"><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                <span>
+                  <b style="cursor:pointer;color:red;">X<xf:action ev:event="click">
+                    <script>
+                      model.USA.dashboardManualRemoveAdmin(contextNode);
+                      //model.submit('submit1');
+                      model.Frm.reloadInst("dat");
+                      model.refresh();
+                      model.recalculate();
+                      model.rebuild();
+                      
+                      model.activateCase("hide-docs");
+                      model.activateCase("show-docs");
+                    </script>
+                  </xf:action></b>
+                </span>
+              </td>
+              <td class="out text large left">
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', 'display:none', '')"/>
+                  <exf:variable value="@label" name="docTypeLabel"/>
+                  <xf:output value="instance('cats')/docTypes/type[@id=$docTypeLabel]/@name"/>
+                </span>     
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <xf:select1 class="catSelection" ref="@label"><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/docTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat>
+                    <script ev:event="xforms-value-changed">                      
+                      model.submit('submit1');
+                      model.Frm.reloadInst("dat");
+                      model.refresh();
+                      model.recalculate();
+                      model.rebuild();
+                      
+                      model.activateCase("hide-docs");
+                      model.activateCase("show-docs");
+                    </script></xf:select1>
+                </span>
+              </td>
+              <td class="in text large left">
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', 'display:none', '')"/>
+                  <xf:output value="@name"/>
+                </span>
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <xf:input ref="@name">
+                    <script ev:event="xforms-value-changed">                      
+                    model.submit('submit1');
+                    model.Frm.reloadInst("dat");
+                    model.refresh();
+                    model.recalculate();
+                    model.rebuild();
+                    
+                    model.activateCase("hide-docs");
+                    model.activateCase("show-docs");
+                  </script></xf:input>
+                </span>
+              </td>        
+              <td class="in text large left">
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', 'display:none', '')"/>
+                  <xf:output value="if(@active='1','Yes','No')"/>
+                </span>
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <xf:select1 ref="@active" class="xfctrl">
+                    <!--<xf:label style="width:45px">Private</xf:label>-->
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed">                      
+                      model.submit('submit1');
+                      model.Frm.reloadInst("dat");
+                      model.refresh();
+                      model.recalculate();
+                      model.rebuild();
+                      
+                      model.activateCase("hide-docs");
+                      model.activateCase("show-docs");
+                    </script>
+                  </xf:select1>
+                </span>
+              </td>  
+              <td class="doc medium">                
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    <xf:output class="" value="@fileName"/>
+                  </a>
+                </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>                
+              </td>
+              <td class="out text small left">
+                <ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                <!--<ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                <span style="color:blue;cursor:pointer">Replace
+                  <script ev:event="click">model.USA.dashboardManualReuploadAdmin(contextNode, event);</script>
+                </span>-->
+                <span>
+                  <ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <span style="color:blue;cursor:pointer">
+                    <u class="clickable">                    
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.OldDocStatus = model.getValue("@status",contextNode);
+                        model.Frm.OldDocId = model.getValue("@uid",contextNode);
+                        model.Frm.DOC_NEW_UPLOAD_OP = "newVersion"; //THIS FORCES THE UPLOAD TO ADD A NEW VERSION
+                        model.USA.dashboardManualReuploadAdmin(contextNode, event);
+                        model.submit('submit1');
+                        model.Frm.reloadInst("dat");
+                        model.refresh();
+                        model.recalculate();
+                        model.rebuild();
+                        
+                        model.activateCase("hide-docs");
+                        model.activateCase("show-docs");
+                      </script>Replace</u>
+                  </span>
+                </span>
+              </td>              
+            </tr>
+          </xf:repeat>                 
+          <xf:repeat nodeset="$sec2">
+            <exf:variable name="dindx" value="@uid"/>
+            <exf:variable name="docDecision" value="@decision"/>
+            <tr><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+              <td class="small delete center"><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                <span>
+                  <b style="cursor:pointer;color:red;">X<xf:action ev:event="click">
+                    <script>
+                      model.USA.dashboardManualRemoveAdmin(contextNode);
+                      //model.submit('submit1');
+                      model.Frm.reloadInst("dat");
+                      model.refresh();
+                      model.recalculate();
+                      model.rebuild();
+                      
+                      model.activateCase("hide-docs");
+                      model.activateCase("show-docs");
+                    </script>
+                  </xf:action></b>
+                </span>
+              </td>              
+              <td class="out text large left">
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', 'display:none', '')"/>
+                  <exf:variable value="@label" name="docTypeLabel"/>
+                  <xf:output value="instance('cats')/docTypes/type[@id=$docTypeLabel]/@name"/>
+                </span>     
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                <xf:select1 class="catSelection" ref="@label"><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/docTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat>
+                  <script ev:event="xforms-value-changed">                      
+                    model.submit('submit1');
+                    model.Frm.reloadInst("dat");
+                    model.refresh();
+                    model.recalculate();
+                    model.rebuild();
+                    
+                    model.activateCase("hide-docs");
+                    model.activateCase("show-docs");
+                  </script>
+                </xf:select1>
+                </span>
+              </td>
+              <td class="in text large left">
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', 'display:none', '')"/>
+                  <xf:output value="@name"/>
+                </span>
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <xf:input ref="@name">
+                    <script ev:event="xforms-value-changed">                      
+                      model.submit('submit1');
+                      model.Frm.reloadInst("dat");
+                      model.refresh();
+                      model.recalculate();
+                      model.rebuild();
+                      
+                      model.activateCase("hide-docs");
+                      model.activateCase("show-docs");
+                    </script>
+                  </xf:input>
+                </span>
+              </td>        
+              <td class="in text large left">
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', 'display:none', '')"/>
+                  <xf:output value="if(@active='1','Yes','No')"/>
+                </span>
+                <span><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <xf:select1 ref="@active" class="xfctrl">
+                    <!--<xf:label style="width:45px">Private</xf:label>-->
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed">                      
+                      model.submit('submit1');
+                      model.Frm.reloadInst("dat");
+                      model.refresh();
+                      model.recalculate();
+                      model.rebuild();
+                      
+                      model.activateCase("hide-docs");
+                      model.activateCase("show-docs");
+                    </script>
+                  </xf:select1>
+                </span>
+              </td>  
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                  <ix:attr value="concat('/fil', @uri)" name="href"/>
+                  <xf:output class="" value="@fileName"/>
+                  </a>
+                  </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>
+              </td>
+              <td class="out text small left"><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                <!--<span style="color:blue;cursor:pointer">Replace
+                <script ev:event="click">model.USA.dashboardManualReuploadAdmin(contextNode, event);
+                model.submit('submit1');
+                model.Frm.reloadInst("dat");
+                model.refresh();
+                model.recalculate();
+                model.rebuild();
+                
+                model.activateCase("hide-docs");
+                model.activateCase("show-docs");
+                </script>
+                </span>-->
+                <span>
+                  <ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+                  <span style="color:blue;cursor:pointer">
+                    <u class="clickable">                    
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.OldDocStatus = model.getValue("@status",contextNode);
+                        model.Frm.OldDocId = model.getValue("@uid",contextNode);
+                        model.Frm.DOC_NEW_UPLOAD_OP = "newVersion"; //THIS FORCES THE UPLOAD TO ADD A NEW VERSION
+                        model.USA.dashboardManualReuploadAdmin(contextNode, event);
+                        model.submit('submit1');
+                        model.Frm.reloadInst("dat");
+                        model.refresh();
+                        model.recalculate();
+                        model.rebuild();
+                        
+                        model.activateCase("hide-docs");
+                        model.activateCase("show-docs");
+                      </script>Replace</u>
+                  </span>
+                </span>
+              </td>              
+            </tr>
+          </xf:repeat>                 
+        </xf:case>
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div> 
+      
+      <br/><br/>
+      <div>
+        <xf:switch>
+          <xf:case id="show-dialog">
+      <table class="addButtons"><ix:attr name="style" value="if(instance('form')/reviewer='1', '', 'display:none')"/>
+        <tr>
+          <td>    
+            <!--<xf:trigger>
+                <xf:label>Add New Document</xf:label>
+                <xf:action ev:event="DOMActivate">
+                  <script> 
+                    params={targuri:""}; if(params){ SH.print("params"); }
+                    model.USA.addNewDocument(params); </script>
+                </xf:action>
+              </xf:trigger>-->        
+            <xf:trigger style="">
+              
+              <xf:label style="">Add New Document</xf:label>
+              <xf:action ev:event="DOMActivate">
+                <ix:dialog style="height:200px;width:450px;" id="uploadDoc" title="Upload Document">
+                      <table width="100%">
+                        <tr>              							      
+                          <td width="33%"><xf:select1 ref="instance('form')/newType" class="shortenDate">
+                            <xf:item>
+                              <xf:label>-Select Type-</xf:label>
+                              <xf:value></xf:value>
+                            </xf:item>
+                            <xf:repeat nodeset="instance('cats')/docTypes/type">
+                              <xf:item>
+                                <xf:label><xf:output value="@name"/></xf:label>
+                                <xf:value><xf:output value="@id"/></xf:value>
+                              </xf:item>
+                            </xf:repeat>
+                          </xf:select1>
+                          </td>
+                          <td width="33%">
+                            <xf:select1 ref="instance('form')/private" class="xfctrl">
+                              <xf:label style="width:45px">Private</xf:label>
+                              <xf:item>
+                                <xf:label>Yes</xf:label>
+                                <xf:value>1</xf:value>
+                              </xf:item>
+                              <xf:item>
+                                <xf:label>No</xf:label>
+                                <xf:value>0</xf:value>
+                              </xf:item>
+                            </xf:select1>
+                          </td>
+                          <td width="33%">
+                            <u class="clickable"><!--<script ev:event="click">model.USA.dashboardManualAdminUploadExecute(contextNode, event);</script>-->
+                              <script ev:event="click">model.USA.dashboardManualNewuploadAdmin(contextNode, event);
+                              </script>Upload</u>
+                          </td>
+                          
+                        </tr>	     											
+                      </table>
+                </ix:dialog> 
+              </xf:action>
+            </xf:trigger>
+          </td>
+        </tr>
+      </table>
+      </xf:case>
+          <xf:case id="hide-dialog"/>
+        </xf:switch> 
+      </div>
+    </div>             
+  </div>       
+  
+</form>

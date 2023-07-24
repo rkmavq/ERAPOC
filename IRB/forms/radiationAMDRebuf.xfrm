@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "radiation");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '17a')
+          //model.USA.registerChangeLog('ins', '17a')
+          model.USA.registerChangeLog('comments', '17a')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="html"><td><h3>Clinical Exposure to Diagnostic Radiation</h3></td></tr><tr class="dropdownlist"><xf:switch><xf:case exf:if="1" id="show-radiationEquipment"><td class="component  widenLabel"><exf:variable value="instance('ins')/radiationEquipment" name="nsradiationEquipment"/><exf:variable value="instance('ins')/radiationEquipment" name="nsradiationEquipment"/><exf:variable value="instance('ins')/radiationEquipment[1]/@revIndex" name="revIndexradiationEquipment"/><exf:variable value="(instance('ins')/radiationEquipment[@revIndex=$revIndexradiationEquipment])" name="thisNodeNeedleradiationEquipment"/><exf:variable value="(instance('ins')/radiationEquipment)" name="thisNodeNeedleVradiationEquipment"/><exf:variable value="concat(if(instance('ins')/radiationEquipment[1],  instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[1])]/@name, ''),             if(instance('ins')/radiationEquipment[2], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[2])]/@name), ''),             if(instance('ins')/radiationEquipment[3], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[3])]/@name), ''),             if(instance('ins')/radiationEquipment[4], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[4])]/@name), ''),             if(instance('ins')/radiationEquipment[5], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[5])]/@name), ''),             if(instance('ins')/radiationEquipment[6], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[6])]/@name), ''),             if(instance('ins')/radiationEquipment[7], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[7])]/@name), ''),             if(instance('ins')/radiationEquipment[8], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[8])]/@name), '')             )" name="thisNoderadiationEquipment"/><exf:variable value="concat(if((instance('ins')/original/radiationEquipment)[1],  instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[1])]/@name, ''),               if((instance('ins')/original/radiationEquipment)[2], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[2])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[3], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[3])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[4], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[4])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[5], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[5])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[6], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[6])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[7], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[7])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[8], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[8])]/@name), '')               )" name="orgNoderadiationEquipment"/><exf:variable value="(instance('ins')/suggestions/radiationEquipment)" name="sugNodeSetradiationEquipment"/><exf:variable value="concat(if((instance('ins')/suggestions/radiationEquipment)[1],  instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[1])]/@name, ''),               if((instance('ins')/suggestions/radiationEquipment)[2], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[2])]/@name), ''),               if((instance('ins')/suggestions/radiationEquipment)[3], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[3])]/@name), ''),               if((instance('ins')/suggestions/radiationEquipment)[4], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[4])]/@name), ''),               if((instance('ins')/suggestions/radiationEquipment)[5], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[5])]/@name), ''),               if((instance('ins')/suggestions/radiationEquipment)[6], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[6])]/@name), ''),               if((instance('ins')/suggestions/radiationEquipment)[7], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[7])]/@name), ''),               if((instance('ins')/suggestions/radiationEquipment)[8], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/suggestions/radiationEquipment)[8])]/@name), '')               )" name="sugNoderadiationEquipment"/><exf:variable value="instance('ins')/previous/review/radiationEquipment/@revIndex" name="revIndexOradiationEquipment"/><exf:variable value="(instance('ins')/radiationEquipment[@revIndex=$revIndexradiationEquipment])" name="thisNodeNeedleOldradiationEquipment"/><exf:variable value="(instance('ins')/radiationEquipment)" name="thisNodeNeedleVOldradiationEquipment"/><exf:variable value="concat(if(instance('ins')/radiationEquipment[1],  instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[1])]/@name, ''),               if(instance('ins')/radiationEquipment[2], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[2])]/@name), ''),               if(instance('ins')/radiationEquipment[3], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[3])]/@name), ''),               if(instance('ins')/radiationEquipment[4], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[4])]/@name), ''),               if(instance('ins')/radiationEquipment[5], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[5])]/@name), ''),               if(instance('ins')/radiationEquipment[6], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[6])]/@name), ''),               if(instance('ins')/radiationEquipment[7], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[7])]/@name), ''),               if(instance('ins')/radiationEquipment[8], concat( ' / ', instance('cats')/radiationEquipment/type[@id=(instance('ins')/radiationEquipment[8])]/@name), '')               )" name="thisNodeOldradiationEquipment"/><exf:variable value="concat(if((instance('ins')/original/radiationEquipment)[1],  instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[1])]/@name, ''),               if((instance('ins')/original/radiationEquipment)[2], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[2])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[3], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[3])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[4], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[4])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[5], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[5])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[6], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[6])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[7], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[7])]/@name), ''),               if((instance('ins')/original/radiationEquipment)[8], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/original/radiationEquipment)[8])]/@name), '')               )" name="orgNodeOldradiationEquipment"/><exf:variable value="(instance('ins')/suggestions/radiationEquipment)" name="sugNodeSetOldradiationEquipment"/><exf:variable value="concat(if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[1],  instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[1])]/@name, ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[2], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[2])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[3], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[3])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[4], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[4])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[5], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[5])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[6], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[6])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[7], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[7])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[8], concat( ' / ', instance('cats')/radiationEquipment/type[@id=((instance('ins')/previous/review/suggestions/radiationEquipment[@revIndex=$revIndexOradiationEquipment])[8])]/@name), '')               )" name="sugNodeOldradiationEquipment"/><table class="oneToManyBox multidropdowns"><xf:repeat nodeset="$nsradiationEquipment"><tr><td class="label"><xf:output value="if(position() = 1, 'Radiation Emitting Equipment', '')"/></td><td class="value"><xf:select1 style="width:200px;" ref="."><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><exf:variable value="." name="nsradiationEquipmentP"/><xf:repeat nodeset="instance('cats')/radiationEquipment/type[@id=$nsradiationEquipmentP or not(@id=(instance('ins')/radiationEquipment))]"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><script ev:event="xforms-value-changed">
+                            model.USA.checkMutation("ins", "radiationEquipment", "-");
+                          
+                          if(model.DUPFREEZE || model.LOCKED){
+                            return;
+                          }
+                          //model.activateCase("hide-" + 'radiationEquipment');
+                          model.USA.rebuildArea('radiationEquipment');
+                        </script></xf:select1></td><td classs="control"><ix:attr value="if(position() = 1, 'display:none', '')" name="style"/><span class="remove clickable">X
+                    <xf:action ev:event="click"><script>
+                              //model.USA.refreshArea('radiationEquipment');
+                              model.DUPFREEZE = true;
+                            </script><script>
+                          var nl = model.selectNodeList(".", contextNode);
+                          if (nl.length &gt;= 1){
+                            nl[0].parentNode.removeChild(nl[0]);
+                            model.USA.checkMutation("ins", "radiationEquipment", "radiationEquipment");
+                            model.USA.rebuildArea('radiationEquipment');
+                          }
+                          </script><script>
+                              
+                              //model.USA.refreshArea('radiationEquipment');
+                              model.DUPFREEZE = false;
+                            </script></xf:action></span></td></tr></xf:repeat><tr><td class="label"/><td class="value addline"><span class="clickable"><xf:action ev:event="click"><script>SH.print("adding...");</script><script>
+                        //model.USA.refreshArea('radiationEquipment');
+                        model.DUPFREEZE = true;
+                      </script><script>
+                      
+                        var n1 = model.selectNodeList("instance('ins')/radiationEquipment[last()]", null)[0];
+                        var n2 = n1.cloneNode(true);
+                        n1.parentNode.appendChild(n2);
+                      
+                                            
+                      model.rebuild(); model.recalculate(); model.refresh();
+                      model.setValue("instance('ins')/radiationEquipment[last()]", "");
+                                            
+                      lead = "instance('ins')/radiationEquipment[last()]/@";
+                      
+                                            
+                    model.rebuild(); model.recalculate(); model.refresh();
+                    
+                      
+                        model.USA.refreshArea('radiationEquipment');
+                        
+                    </script><script>
+                        //model.USA.refreshArea('radiationEquipment');
+                        model.DUPFREEZE = false;
+                      </script></xf:action>
+                  Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td/></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNoderadiationEquipment != $sugNoderadiationEquipment, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleradiationEquipment/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleradiationEquipment/@acceptjust='-1', '(Denied)', if($thisNodeNeedleradiationEquipment/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleradiationEquipment/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleradiationEquipment/@justification!='', $thisNodeNeedleradiationEquipment/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Accept / Decline:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Reject (use prior value)</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleradiationEquipment/@revIndex" ref="instance('form')/tempRevIndex"/><xf:setvalue ref="$thisNodeNeedleradiationEquipment/@acceptjust">-1</xf:setvalue><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/radiationEquipment", "", tempRevIndex, "swap", 'org', "", "radiationEquipment", "true");
+                          </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNoderadiationEquipment"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Allow (use new value)
+                        <xf:action ev:event="click"><xf:setvalue ref="$thisNodeNeedleradiationEquipment/@acceptjust">1</xf:setvalue><xf:setvalue value="$thisNodeNeedleradiationEquipment/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/radiationEquipment", "", tempRevIndex, "swap", 'sug', "", "radiationEquipment", "true");
+                          </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNoderadiationEquipment"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleradiationEquipment/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></xf:case><xf:case id="hide-radiationEquipment"/></xf:switch></tr><tr class="line"><td><hr/></td></tr><tr class="dropdownlist"><xf:switch><xf:case exf:if="1" id="show-radioactiveMaterials"><td class="component  widenLabel"><exf:variable value="instance('ins')/radioactiveMaterials" name="nsradioactiveMaterials"/><exf:variable value="instance('ins')/radioactiveMaterials" name="nsradioactiveMaterials"/><exf:variable value="instance('ins')/radioactiveMaterials[1]/@revIndex" name="revIndexradioactiveMaterials"/><exf:variable value="(instance('ins')/radioactiveMaterials[@revIndex=$revIndexradioactiveMaterials])" name="thisNodeNeedleradioactiveMaterials"/><exf:variable value="(instance('ins')/radioactiveMaterials)" name="thisNodeNeedleVradioactiveMaterials"/><exf:variable value="concat(if(instance('ins')/radioactiveMaterials[1],  instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[1])]/@name, ''),             if(instance('ins')/radioactiveMaterials[2], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[2])]/@name), ''),             if(instance('ins')/radioactiveMaterials[3], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[3])]/@name), ''),             if(instance('ins')/radioactiveMaterials[4], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[4])]/@name), ''),             if(instance('ins')/radioactiveMaterials[5], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[5])]/@name), ''),             if(instance('ins')/radioactiveMaterials[6], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[6])]/@name), ''),             if(instance('ins')/radioactiveMaterials[7], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[7])]/@name), ''),             if(instance('ins')/radioactiveMaterials[8], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[8])]/@name), '')             )" name="thisNoderadioactiveMaterials"/><exf:variable value="concat(if((instance('ins')/original/radioactiveMaterials)[1],  instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[1])]/@name, ''),               if((instance('ins')/original/radioactiveMaterials)[2], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[2])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[3], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[3])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[4], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[4])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[5], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[5])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[6], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[6])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[7], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[7])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[8], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[8])]/@name), '')               )" name="orgNoderadioactiveMaterials"/><exf:variable value="(instance('ins')/suggestions/radioactiveMaterials)" name="sugNodeSetradioactiveMaterials"/><exf:variable value="concat(if((instance('ins')/suggestions/radioactiveMaterials)[1],  instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[1])]/@name, ''),               if((instance('ins')/suggestions/radioactiveMaterials)[2], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[2])]/@name), ''),               if((instance('ins')/suggestions/radioactiveMaterials)[3], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[3])]/@name), ''),               if((instance('ins')/suggestions/radioactiveMaterials)[4], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[4])]/@name), ''),               if((instance('ins')/suggestions/radioactiveMaterials)[5], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[5])]/@name), ''),               if((instance('ins')/suggestions/radioactiveMaterials)[6], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[6])]/@name), ''),               if((instance('ins')/suggestions/radioactiveMaterials)[7], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[7])]/@name), ''),               if((instance('ins')/suggestions/radioactiveMaterials)[8], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/suggestions/radioactiveMaterials)[8])]/@name), '')               )" name="sugNoderadioactiveMaterials"/><exf:variable value="instance('ins')/previous/review/radioactiveMaterials/@revIndex" name="revIndexOradioactiveMaterials"/><exf:variable value="(instance('ins')/radioactiveMaterials[@revIndex=$revIndexradioactiveMaterials])" name="thisNodeNeedleOldradioactiveMaterials"/><exf:variable value="(instance('ins')/radioactiveMaterials)" name="thisNodeNeedleVOldradioactiveMaterials"/><exf:variable value="concat(if(instance('ins')/radioactiveMaterials[1],  instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[1])]/@name, ''),               if(instance('ins')/radioactiveMaterials[2], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[2])]/@name), ''),               if(instance('ins')/radioactiveMaterials[3], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[3])]/@name), ''),               if(instance('ins')/radioactiveMaterials[4], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[4])]/@name), ''),               if(instance('ins')/radioactiveMaterials[5], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[5])]/@name), ''),               if(instance('ins')/radioactiveMaterials[6], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[6])]/@name), ''),               if(instance('ins')/radioactiveMaterials[7], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[7])]/@name), ''),               if(instance('ins')/radioactiveMaterials[8], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=(instance('ins')/radioactiveMaterials[8])]/@name), '')               )" name="thisNodeOldradioactiveMaterials"/><exf:variable value="concat(if((instance('ins')/original/radioactiveMaterials)[1],  instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[1])]/@name, ''),               if((instance('ins')/original/radioactiveMaterials)[2], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[2])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[3], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[3])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[4], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[4])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[5], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[5])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[6], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[6])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[7], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[7])]/@name), ''),               if((instance('ins')/original/radioactiveMaterials)[8], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/original/radioactiveMaterials)[8])]/@name), '')               )" name="orgNodeOldradioactiveMaterials"/><exf:variable value="(instance('ins')/suggestions/radioactiveMaterials)" name="sugNodeSetOldradioactiveMaterials"/><exf:variable value="concat(if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[1],  instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[1])]/@name, ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[2], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[2])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[3], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[3])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[4], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[4])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[5], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[5])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[6], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[6])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[7], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[7])]/@name), ''),               if((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[8], concat( ' / ', instance('cats')/radioactiveMaterials/type[@id=((instance('ins')/previous/review/suggestions/radioactiveMaterials[@revIndex=$revIndexOradioactiveMaterials])[8])]/@name), '')               )" name="sugNodeOldradioactiveMaterials"/><table class="oneToManyBox multidropdowns"><xf:repeat nodeset="$nsradioactiveMaterials"><tr><td class="label"><xf:output value="if(position() = 1, 'Radioactive Materials', '')"/></td><td class="value"><xf:select1 style="width:200px;" ref="."><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><exf:variable value="." name="nsradioactiveMaterialsP"/><xf:repeat nodeset="instance('cats')/radioactiveMaterials/type[@id=$nsradioactiveMaterialsP or not(@id=(instance('ins')/radioactiveMaterials))]"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><script ev:event="xforms-value-changed">
+                            model.USA.checkMutation("ins", "radioactiveMaterials", "-");
+                          
+                          if(model.DUPFREEZE || model.LOCKED){
+                            return;
+                          }
+                          //model.activateCase("hide-" + 'radioactiveMaterials');
+                          model.USA.rebuildArea('radioactiveMaterials');
+                        </script></xf:select1></td><td classs="control"><ix:attr value="if(position() = 1, 'display:none', '')" name="style"/><span class="remove clickable">X
+                    <xf:action ev:event="click"><script>
+                              //model.USA.refreshArea('radioactiveMaterials');
+                              model.DUPFREEZE = true;
+                            </script><script>
+                          var nl = model.selectNodeList(".", contextNode);
+                          if (nl.length &gt;= 1){
+                            nl[0].parentNode.removeChild(nl[0]);
+                            model.USA.checkMutation("ins", "radioactiveMaterials", "radioactiveMaterials");
+                            model.USA.rebuildArea('radioactiveMaterials');
+                          }
+                          </script><script>
+                              
+                              //model.USA.refreshArea('radioactiveMaterials');
+                              model.DUPFREEZE = false;
+                            </script></xf:action></span></td></tr></xf:repeat><tr><td class="label"/><td class="value addline"><span class="clickable"><xf:action ev:event="click"><script>SH.print("adding...");</script><script>
+                        //model.USA.refreshArea('radioactiveMaterials');
+                        model.DUPFREEZE = true;
+                      </script><script>
+                      
+                        var n1 = model.selectNodeList("instance('ins')/radioactiveMaterials[last()]", null)[0];
+                        var n2 = n1.cloneNode(true);
+                        n1.parentNode.appendChild(n2);
+                      
+                                            
+                      model.rebuild(); model.recalculate(); model.refresh();
+                      model.setValue("instance('ins')/radioactiveMaterials[last()]", "");
+                                            
+                      lead = "instance('ins')/radioactiveMaterials[last()]/@";
+                      
+                                            
+                    model.rebuild(); model.recalculate(); model.refresh();
+                    
+                      
+                        model.USA.refreshArea('radioactiveMaterials');
+                        
+                    </script><script>
+                        //model.USA.refreshArea('radioactiveMaterials');
+                        model.DUPFREEZE = false;
+                      </script></xf:action>
+                  Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td/></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNoderadioactiveMaterials != $sugNoderadioactiveMaterials, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleradioactiveMaterials/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleradioactiveMaterials/@acceptjust='-1', '(Denied)', if($thisNodeNeedleradioactiveMaterials/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleradioactiveMaterials/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleradioactiveMaterials/@justification!='', $thisNodeNeedleradioactiveMaterials/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Accept / Decline:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Reject (use prior value)</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleradioactiveMaterials/@revIndex" ref="instance('form')/tempRevIndex"/><xf:setvalue ref="$thisNodeNeedleradioactiveMaterials/@acceptjust">-1</xf:setvalue><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/radioactiveMaterials", "", tempRevIndex, "swap", 'org', "", "radioactiveMaterials", "true");
+                          </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNoderadioactiveMaterials"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Allow (use new value)
+                        <xf:action ev:event="click"><xf:setvalue ref="$thisNodeNeedleradioactiveMaterials/@acceptjust">1</xf:setvalue><xf:setvalue value="$thisNodeNeedleradioactiveMaterials/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/radioactiveMaterials", "", tempRevIndex, "swap", 'sug', "", "radioactiveMaterials", "true");
+                          </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNoderadioactiveMaterials"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleradioactiveMaterials/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></xf:case><xf:case id="hide-radioactiveMaterials"/></xf:switch></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/otherProcedures/@revIndex" name="revIndexotherProcedures"/><exf:variable value="(instance('ins')/otherProcedures[@revIndex=$revIndexotherProcedures])" name="thisNodeNeedleotherProcedures"/><exf:variable value="instance('ins')/otherProcedures" name="thisNodeVotherProcedures"/><exf:variable value="if($thisNodeVotherProcedures='1', 'Yes', if($thisNodeVotherProcedures='0', 'No', ''))" name="thisNodeotherProcedures"/><exf:variable value="(instance('ins')/original/otherProcedures[@revIndex=$revIndexotherProcedures])" name="orgNodeVotherProcedures"/><exf:variable value="if($orgNodeVotherProcedures='1', 'Yes', if($orgNodeVotherProcedures='0', 'No', ''))" name="orgNodeotherProcedures"/><exf:variable value="(instance('ins')/suggestions/otherProcedures[@revIndex=$revIndexotherProcedures])" name="sugNodeSetotherProcedures"/><exf:variable value="(instance('ins')/suggestions/otherProcedures[@revIndex=$revIndexotherProcedures])" name="sugNodeVotherProcedures"/><exf:variable value="if($sugNodeVotherProcedures='1', 'Yes', if($sugNodeVotherProcedures='0', 'No', ''))" name="sugNodeotherProcedures"/><exf:variable value="instance('ins')/previous/review/otherProcedures/@revIndex" name="revIndexOotherProcedures"/><exf:variable value="(instance('ins')/previous/review/otherProcedures[@revIndex=$revIndexOotherProcedures])" name="thisNodeNeedleOldotherProcedures"/><exf:variable value="instance('ins')/previous/review/otherProcedures" name="thisNodeVOldotherProcedures"/><exf:variable value="if($thisNodeVOldotherProcedures='1', 'Yes', if($thisNodeVOldotherProcedures='0', 'No', ''))" name="thisNodeOldotherProcedures"/><exf:variable value="(instance('ins')/previous/review/original/otherProcedures[@revIndex=$revIndexOotherProcedures])" name="orgNodeVOldotherProcedures"/><exf:variable value="if($orgNodeVOldotherProcedures='1', 'Yes', if($orgNodeVOldotherProcedures='0', 'No', ''))" name="orgNodeOldotherProcedures"/><exf:variable value="(instance('ins')/previous/review/suggestions/otherProcedures[@revIndex=$revIndexOotherProcedures])" name="sugNodeSetOldotherProcedures"/><exf:variable value="(instance('ins')/previous/review/suggestions/otherProcedures[@revIndex=$revIndexOotherProcedures])" name="sugNodeVOldotherProcedures"/><exf:variable value="if($sugNodeVOldotherProcedures='1', 'Yes', if($sugNodeVOldotherProcedures='0', 'No', ''))" name="sugNodeOldotherProcedures"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/otherProcedures" appearance="full" id="otherProcedures"><xf:label>Other Procedures</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/otherProcedures" appearance="full" id="otherProcedures"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleotherProcedures/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeotherProcedures != $sugNodeotherProcedures, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleotherProcedures/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleotherProcedures/@acceptjust='-1', '(Denied)', if($thisNodeNeedleotherProcedures/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleotherProcedures/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleotherProcedures/@justification!='', $thisNodeNeedleotherProcedures/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Accept / Decline:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Reject (use prior value)</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleotherProcedures/@revIndex" ref="instance('form')/tempRevIndex"/><xf:setvalue ref="$thisNodeNeedleotherProcedures/@acceptjust">-1</xf:setvalue><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/otherProcedures", "", tempRevIndex, "fill", 'org', "", "otherProcedures", "false");
+                          </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeotherProcedures"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Allow (use new value)
+                        <xf:action ev:event="click"><xf:setvalue ref="$thisNodeNeedleotherProcedures/@acceptjust">1</xf:setvalue><xf:setvalue value="$thisNodeNeedleotherProcedures/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/otherProcedures", "", tempRevIndex, "fill", 'sug', "", "otherProcedures", "false");
+                          </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeotherProcedures"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleotherProcedures/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></tr><tr class="entryTable"><ix:attr value="if(instance('ins')/otherProcedures = '1', '', 'display:none')" name="style"/><xf:switch><xf:case exf:if="1" id="show-otherProceduresDesc"><td class="component  "><exf:variable value="instance('ins')/otherProceduresDesc" name="nsotherProceduresDesc"/><exf:variable value="instance('ins')/otherProceduresDesc[1]/@revIndex" name="revIndexotherProceduresDesc"/><exf:variable value="(instance('ins')/otherProceduresDesc[@revIndex=$revIndexotherProceduresDesc])" name="thisNodeNeedleotherProceduresDesc"/><exf:variable value="concat(
+          if(instance('ins')/otherProceduresDesc[1], concat('(' 
+          ,
+            instance('ins')/otherProceduresDesc[1]/describe,' / ',
+            instance('ins')/otherProceduresDesc[1]/procedure,' / ',
+            instance('ins')/otherProceduresDesc[1]/perYearSOC,' / ',
+            instance('ins')/otherProceduresDesc[1]/perYearResearch,' / ',
+            instance('ins')/otherProceduresDesc[1]/totalProcedures,' / ',
+            instance('ins')/otherProceduresDesc[1]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/otherProceduresDesc[2], concat(', (' 
+          ,
+            instance('ins')/otherProceduresDesc[2]/describe,' / ',
+            instance('ins')/otherProceduresDesc[2]/procedure,' / ',
+            instance('ins')/otherProceduresDesc[2]/perYearSOC,' / ',
+            instance('ins')/otherProceduresDesc[2]/perYearResearch,' / ',
+            instance('ins')/otherProceduresDesc[2]/totalProcedures,' / ',
+            instance('ins')/otherProceduresDesc[2]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/otherProceduresDesc[3], concat(', (' 
+          ,
+            instance('ins')/otherProceduresDesc[3]/describe,' / ',
+            instance('ins')/otherProceduresDesc[3]/procedure,' / ',
+            instance('ins')/otherProceduresDesc[3]/perYearSOC,' / ',
+            instance('ins')/otherProceduresDesc[3]/perYearResearch,' / ',
+            instance('ins')/otherProceduresDesc[3]/totalProcedures,' / ',
+            instance('ins')/otherProceduresDesc[3]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/otherProceduresDesc[4], concat(', (' 
+          ,
+            instance('ins')/otherProceduresDesc[4]/describe,' / ',
+            instance('ins')/otherProceduresDesc[4]/procedure,' / ',
+            instance('ins')/otherProceduresDesc[4]/perYearSOC,' / ',
+            instance('ins')/otherProceduresDesc[4]/perYearResearch,' / ',
+            instance('ins')/otherProceduresDesc[4]/totalProcedures,' / ',
+            instance('ins')/otherProceduresDesc[4]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/otherProceduresDesc[5], concat(', (' 
+          ,
+            instance('ins')/otherProceduresDesc[5]/describe,' / ',
+            instance('ins')/otherProceduresDesc[5]/procedure,' / ',
+            instance('ins')/otherProceduresDesc[5]/perYearSOC,' / ',
+            instance('ins')/otherProceduresDesc[5]/perYearResearch,' / ',
+            instance('ins')/otherProceduresDesc[5]/totalProcedures,' / ',
+            instance('ins')/otherProceduresDesc[5]/totalProceduresRes , ')'), '')
+          )" name="thisNodeotherProceduresDesc"/><exf:variable value="concat(
+          if(instance('ins')/original/otherProceduresDesc[1], concat('(' 
+          ,
+            instance('ins')/original/otherProceduresDesc[1]/describe,' / ',
+            instance('ins')/original/otherProceduresDesc[1]/procedure,' / ',
+            instance('ins')/original/otherProceduresDesc[1]/perYearSOC,' / ',
+            instance('ins')/original/otherProceduresDesc[1]/perYearResearch,' / ',
+            instance('ins')/original/otherProceduresDesc[1]/totalProcedures,' / ',
+            instance('ins')/original/otherProceduresDesc[1]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/original/otherProceduresDesc[2], concat(', (' 
+          ,
+            instance('ins')/original/otherProceduresDesc[2]/describe,' / ',
+            instance('ins')/original/otherProceduresDesc[2]/procedure,' / ',
+            instance('ins')/original/otherProceduresDesc[2]/perYearSOC,' / ',
+            instance('ins')/original/otherProceduresDesc[2]/perYearResearch,' / ',
+            instance('ins')/original/otherProceduresDesc[2]/totalProcedures,' / ',
+            instance('ins')/original/otherProceduresDesc[2]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/original/otherProceduresDesc[3], concat(', (' 
+          ,
+            instance('ins')/original/otherProceduresDesc[3]/describe,' / ',
+            instance('ins')/original/otherProceduresDesc[3]/procedure,' / ',
+            instance('ins')/original/otherProceduresDesc[3]/perYearSOC,' / ',
+            instance('ins')/original/otherProceduresDesc[3]/perYearResearch,' / ',
+            instance('ins')/original/otherProceduresDesc[3]/totalProcedures,' / ',
+            instance('ins')/original/otherProceduresDesc[3]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/original/otherProceduresDesc[4], concat(', (' 
+          ,
+            instance('ins')/original/otherProceduresDesc[4]/describe,' / ',
+            instance('ins')/original/otherProceduresDesc[4]/procedure,' / ',
+            instance('ins')/original/otherProceduresDesc[4]/perYearSOC,' / ',
+            instance('ins')/original/otherProceduresDesc[4]/perYearResearch,' / ',
+            instance('ins')/original/otherProceduresDesc[4]/totalProcedures,' / ',
+            instance('ins')/original/otherProceduresDesc[4]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/original/otherProceduresDesc[5], concat(', (' 
+          ,
+            instance('ins')/original/otherProceduresDesc[5]/describe,' / ',
+            instance('ins')/original/otherProceduresDesc[5]/procedure,' / ',
+            instance('ins')/original/otherProceduresDesc[5]/perYearSOC,' / ',
+            instance('ins')/original/otherProceduresDesc[5]/perYearResearch,' / ',
+            instance('ins')/original/otherProceduresDesc[5]/totalProcedures,' / ',
+            instance('ins')/original/otherProceduresDesc[5]/totalProceduresRes , ')'), '')
+          )" name="orgNodeotherProceduresDesc"/><exf:variable value="(instance('ins')/suggestions/otherProceduresDesc[@revIndex=$revIndexotherProceduresDesc])" name="sugNodeSetotherProceduresDesc"/><exf:variable value="concat(
+          if(instance('ins')/suggestions/otherProceduresDesc[1], concat('(' 
+          ,
+            instance('ins')/suggestions/otherProceduresDesc[1]/describe,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[1]/procedure,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[1]/perYearSOC,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[1]/perYearResearch,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[1]/totalProcedures,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[1]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/suggestions/otherProceduresDesc[2], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherProceduresDesc[2]/describe,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[2]/procedure,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[2]/perYearSOC,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[2]/perYearResearch,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[2]/totalProcedures,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[2]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/suggestions/otherProceduresDesc[3], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherProceduresDesc[3]/describe,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[3]/procedure,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[3]/perYearSOC,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[3]/perYearResearch,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[3]/totalProcedures,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[3]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/suggestions/otherProceduresDesc[4], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherProceduresDesc[4]/describe,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[4]/procedure,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[4]/perYearSOC,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[4]/perYearResearch,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[4]/totalProcedures,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[4]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/suggestions/otherProceduresDesc[5], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherProceduresDesc[5]/describe,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[5]/procedure,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[5]/perYearSOC,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[5]/perYearResearch,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[5]/totalProcedures,' / ',
+            instance('ins')/suggestions/otherProceduresDesc[5]/totalProceduresRes , ')'), '')
+          )" name="sugNodeotherProceduresDesc"/><exf:variable value="instance('ins')/previous/review/otherProceduresDesc/@revIndex" name="revIndexOotherProceduresDesc"/><exf:variable value="(instance('ins')/otherProceduresDesc[@revIndex=$revIndexotherProceduresDesc])" name="thisNodeNeedleOldotherProceduresDesc"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/otherProceduresDesc[1], concat('(' 
+          ,
+            instance('ins')/previous/review/otherProceduresDesc[1]/describe,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[1]/procedure,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[1]/perYearSOC,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[1]/perYearResearch,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[1]/totalProcedures,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[1]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/previous/review/otherProceduresDesc[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/otherProceduresDesc[2]/describe,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[2]/procedure,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[2]/perYearSOC,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[2]/perYearResearch,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[2]/totalProcedures,' / ',
+            instance('ins')/previous/review/otherProceduresDesc[2]/totalProceduresRes , ')'), '')
+          )" name="thisNodeOldotherProceduresDesc"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/original/otherProceduresDesc[1], concat('(' 
+          ,
+            instance('ins')/previous/review/original/otherProceduresDesc[1]/describe,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[1]/procedure,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[1]/perYearSOC,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[1]/perYearResearch,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[1]/totalProcedures,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[1]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/previous/review/original/otherProceduresDesc[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/original/otherProceduresDesc[2]/describe,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[2]/procedure,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[2]/perYearSOC,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[2]/perYearResearch,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[2]/totalProcedures,' / ',
+            instance('ins')/previous/review/original/otherProceduresDesc[2]/totalProceduresRes , ')'), '')
+          )" name="orgNodeOldotherProceduresDesc"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/suggestions/otherProceduresDesc[1], concat('(' 
+          ,
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[1]/describe,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[1]/procedure,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[1]/perYearSOC,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[1]/perYearResearch,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[1]/totalProcedures,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[1]/totalProceduresRes , ')'), ''),
+          if(instance('ins')/previous/review/suggestions/otherProceduresDesc[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[2]/describe,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[2]/procedure,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[2]/perYearSOC,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[2]/perYearResearch,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[2]/totalProcedures,' / ',
+            instance('ins')/previous/review/suggestions/otherProceduresDesc[2]/totalProceduresRes , ')'), '')
+          )" name="sugNodeOldotherProceduresDesc"/><h5>Describe Other Procedures</h5><table class="ideatetable entrytable"><ix:attr value="if(count($nsotherProceduresDesc) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th/><th style="text-align:center;">Description</th><th style="text-align:center;">Procedure</th><th style="text-align:center;"># per year for standard of care</th><th style="text-align:center;"># per year for Research</th><th style="text-align:center;">Total # participant will receive if he/she completes the study (standard care + research)</th><th style="text-align:center;">Total # participants will receive for research purposes only if he/she completes the study</th></tr><xf:repeat nodeset="$nsotherProceduresDesc"><tr><td classs="control"><b style="color:red;cursor:pointer;">X<xf:destroy ev:event="click" ref="."/></b></td><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class="out textarea wide left"><span><span><xf:output value="if(string-length(describe) &gt; 40, concat(substring(describe, 1, 40), '...'), describe)"/></span>[<u style="cursor:pointer;color:blue"><xf:action ev:event="click"><ix:dialog style="width:300px" width="300" title="Edit Description" class="editDialogBox"><xf:group style="border:none;" ref="describe"><xf:textarea style="width:300px;height:200px;" ref="."><script ev:event="xforms-value-changed">
+                                    model.USA.checkMutation("ins", "otherProceduresDesc", "otherProceduresDesc");
+                                  </script></xf:textarea></xf:group><xf:trigger style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;"><xf:label>Close</xf:label><xf:close ev:event="DOMActivate"/></xf:trigger></ix:dialog></xf:action>Edit</u>]</span></td><td class="in text medium left"><span><xf:input ref="procedure"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherProceduresDesc", "otherProceduresDesc");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="perYearSOC"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherProceduresDesc", "otherProceduresDesc");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="perYearResearch"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherProceduresDesc", "otherProceduresDesc");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="totalProcedures"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherProceduresDesc", "otherProceduresDesc");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="totalProceduresRes"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherProceduresDesc", "otherProceduresDesc");
+                            </script></xf:input></span></td></tr></xf:repeat></table><br/><table class="addButtons"><tr><td><xf:trigger class="" style=""><xf:label style="">Add</xf:label><xf:action ev:event="DOMActivate"><script>
+              params={revIndex:""};
+              
+              
+                  var ndID = model.getValue("instance('ins')/*[last()]/@revIndex", null) * 1;
+                  params.revIndex = ndID + 1;
+                  params.amend='1'
+              
+              var xmlDoc = model.Frm.processDoc("", "/applications/IRB/js/addRadiationOtherProcs", params, "script", "xml");
+              var n = model.selectNodeList("instance('ins')", null);
+              n[0].appendChild(xmlDoc.documentElement);
+              model.refresh();
+              model.rebuild();
+              model.recalculate();
+              model.activateCase("hide-otherProceduresDesc");
+              model.activateCase("show-otherProceduresDesc");   
+              </script></xf:action></xf:trigger></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeotherProceduresDesc != $sugNodeotherProceduresDesc, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleotherProceduresDesc/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleotherProceduresDesc/@acceptjust='-1', '(Denied)', if($thisNodeNeedleotherProceduresDesc/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleotherProceduresDesc/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleotherProceduresDesc/@justification!='', $thisNodeNeedleotherProceduresDesc/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Accept / Decline:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Reject (use prior value)</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleotherProceduresDesc/@revIndex" ref="instance('form')/tempRevIndex"/><xf:setvalue ref="$thisNodeNeedleotherProceduresDesc/@acceptjust">-1</xf:setvalue><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/otherProceduresDesc", "", tempRevIndex, "swap", 'org', "", "otherProceduresDesc", "true");
+                          </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeotherProceduresDesc"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Allow (use new value)
+                        <xf:action ev:event="click"><xf:setvalue ref="$thisNodeNeedleotherProceduresDesc/@acceptjust">1</xf:setvalue><xf:setvalue value="$thisNodeNeedleotherProceduresDesc/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/otherProceduresDesc", "", tempRevIndex, "swap", 'sug', "", "otherProceduresDesc", "true");
+                          </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeotherProceduresDesc"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleotherProceduresDesc/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></xf:case><xf:case id="hide-otherProceduresDesc"/></xf:switch></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/radOncology/@revIndex" name="revIndexradOncology"/><exf:variable value="(instance('ins')/radOncology[@revIndex=$revIndexradOncology])" name="thisNodeNeedleradOncology"/><exf:variable value="instance('ins')/radOncology" name="thisNodeVradOncology"/><exf:variable value="if($thisNodeVradOncology='1', 'Yes', if($thisNodeVradOncology='0', 'No', ''))" name="thisNoderadOncology"/><exf:variable value="(instance('ins')/original/radOncology[@revIndex=$revIndexradOncology])" name="orgNodeVradOncology"/><exf:variable value="if($orgNodeVradOncology='1', 'Yes', if($orgNodeVradOncology='0', 'No', ''))" name="orgNoderadOncology"/><exf:variable value="(instance('ins')/suggestions/radOncology[@revIndex=$revIndexradOncology])" name="sugNodeSetradOncology"/><exf:variable value="(instance('ins')/suggestions/radOncology[@revIndex=$revIndexradOncology])" name="sugNodeVradOncology"/><exf:variable value="if($sugNodeVradOncology='1', 'Yes', if($sugNodeVradOncology='0', 'No', ''))" name="sugNoderadOncology"/><exf:variable value="instance('ins')/previous/review/radOncology/@revIndex" name="revIndexOradOncology"/><exf:variable value="(instance('ins')/previous/review/radOncology[@revIndex=$revIndexOradOncology])" name="thisNodeNeedleOldradOncology"/><exf:variable value="instance('ins')/previous/review/radOncology" name="thisNodeVOldradOncology"/><exf:variable value="if($thisNodeVOldradOncology='1', 'Yes', if($thisNodeVOldradOncology='0', 'No', ''))" name="thisNodeOldradOncology"/><exf:variable value="(instance('ins')/previous/review/original/radOncology[@revIndex=$revIndexOradOncology])" name="orgNodeVOldradOncology"/><exf:variable value="if($orgNodeVOldradOncology='1', 'Yes', if($orgNodeVOldradOncology='0', 'No', ''))" name="orgNodeOldradOncology"/><exf:variable value="(instance('ins')/previous/review/suggestions/radOncology[@revIndex=$revIndexOradOncology])" name="sugNodeSetOldradOncology"/><exf:variable value="(instance('ins')/previous/review/suggestions/radOncology[@revIndex=$revIndexOradOncology])" name="sugNodeVOldradOncology"/><exf:variable value="if($sugNodeVOldradOncology='1', 'Yes', if($sugNodeVOldradOncology='0', 'No', ''))" name="sugNodeOldradOncology"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/radOncology" appearance="full" id="radOncology"><xf:label>Radiation Oncology</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/radOncology" appearance="full" id="radOncology"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleradOncology/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNoderadOncology != $sugNoderadOncology, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleradOncology/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleradOncology/@acceptjust='-1', '(Denied)', if($thisNodeNeedleradOncology/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleradOncology/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleradOncology/@justification!='', $thisNodeNeedleradOncology/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Accept / Decline:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Reject (use prior value)</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleradOncology/@revIndex" ref="instance('form')/tempRevIndex"/><xf:setvalue ref="$thisNodeNeedleradOncology/@acceptjust">-1</xf:setvalue><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/radOncology", "", tempRevIndex, "fill", 'org', "", "radOncology", "false");
+                          </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNoderadOncology"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Allow (use new value)
+                        <xf:action ev:event="click"><xf:setvalue ref="$thisNodeNeedleradOncology/@acceptjust">1</xf:setvalue><xf:setvalue value="$thisNodeNeedleradOncology/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/radOncology", "", tempRevIndex, "fill", 'sug', "", "radOncology", "false");
+                          </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNoderadOncology"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleradOncology/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></tr><tr class="entryTable"><ix:attr value="if(instance('ins')/radOncology = '1', '', 'display:none')" name="style"/><xf:switch><xf:case exf:if="1" id="show-otherRadioactiveTreatment"><td class="component  "><exf:variable value="instance('ins')/otherRadioactiveTreatment" name="nsotherRadioactiveTreatment"/><exf:variable value="instance('ins')/otherRadioactiveTreatment[1]/@revIndex" name="revIndexotherRadioactiveTreatment"/><exf:variable value="(instance('ins')/otherRadioactiveTreatment[@revIndex=$revIndexotherRadioactiveTreatment])" name="thisNodeNeedleotherRadioactiveTreatment"/><exf:variable value="concat(
+          if(instance('ins')/otherRadioactiveTreatment[1], concat('(' 
+          ,
+            instance('ins')/otherRadioactiveTreatment[1]/treated,' / ',
+            instance('ins')/otherRadioactiveTreatment[1]/dose,' / ',
+            instance('ins')/otherRadioactiveTreatment[1]/treatment,' / ',
+            instance('ins')/otherRadioactiveTreatment[1]/frequency,' / ',
+            instance('ins')/otherRadioactiveTreatment[1]/number,' / ',
+            instance('ins')/otherRadioactiveTreatment[1]/numberWithout , ')'), ''),
+          if(instance('ins')/otherRadioactiveTreatment[2], concat(', (' 
+          ,
+            instance('ins')/otherRadioactiveTreatment[2]/treated,' / ',
+            instance('ins')/otherRadioactiveTreatment[2]/dose,' / ',
+            instance('ins')/otherRadioactiveTreatment[2]/treatment,' / ',
+            instance('ins')/otherRadioactiveTreatment[2]/frequency,' / ',
+            instance('ins')/otherRadioactiveTreatment[2]/number,' / ',
+            instance('ins')/otherRadioactiveTreatment[2]/numberWithout , ')'), ''),
+          if(instance('ins')/otherRadioactiveTreatment[3], concat(', (' 
+          ,
+            instance('ins')/otherRadioactiveTreatment[3]/treated,' / ',
+            instance('ins')/otherRadioactiveTreatment[3]/dose,' / ',
+            instance('ins')/otherRadioactiveTreatment[3]/treatment,' / ',
+            instance('ins')/otherRadioactiveTreatment[3]/frequency,' / ',
+            instance('ins')/otherRadioactiveTreatment[3]/number,' / ',
+            instance('ins')/otherRadioactiveTreatment[3]/numberWithout , ')'), ''),
+          if(instance('ins')/otherRadioactiveTreatment[4], concat(', (' 
+          ,
+            instance('ins')/otherRadioactiveTreatment[4]/treated,' / ',
+            instance('ins')/otherRadioactiveTreatment[4]/dose,' / ',
+            instance('ins')/otherRadioactiveTreatment[4]/treatment,' / ',
+            instance('ins')/otherRadioactiveTreatment[4]/frequency,' / ',
+            instance('ins')/otherRadioactiveTreatment[4]/number,' / ',
+            instance('ins')/otherRadioactiveTreatment[4]/numberWithout , ')'), ''),
+          if(instance('ins')/otherRadioactiveTreatment[5], concat(', (' 
+          ,
+            instance('ins')/otherRadioactiveTreatment[5]/treated,' / ',
+            instance('ins')/otherRadioactiveTreatment[5]/dose,' / ',
+            instance('ins')/otherRadioactiveTreatment[5]/treatment,' / ',
+            instance('ins')/otherRadioactiveTreatment[5]/frequency,' / ',
+            instance('ins')/otherRadioactiveTreatment[5]/number,' / ',
+            instance('ins')/otherRadioactiveTreatment[5]/numberWithout , ')'), '')
+          )" name="thisNodeotherRadioactiveTreatment"/><exf:variable value="concat(
+          if(instance('ins')/original/otherRadioactiveTreatment[1], concat('(' 
+          ,
+            instance('ins')/original/otherRadioactiveTreatment[1]/treated,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[1]/dose,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[1]/treatment,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[1]/frequency,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[1]/number,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[1]/numberWithout , ')'), ''),
+          if(instance('ins')/original/otherRadioactiveTreatment[2], concat(', (' 
+          ,
+            instance('ins')/original/otherRadioactiveTreatment[2]/treated,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[2]/dose,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[2]/treatment,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[2]/frequency,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[2]/number,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[2]/numberWithout , ')'), ''),
+          if(instance('ins')/original/otherRadioactiveTreatment[3], concat(', (' 
+          ,
+            instance('ins')/original/otherRadioactiveTreatment[3]/treated,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[3]/dose,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[3]/treatment,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[3]/frequency,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[3]/number,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[3]/numberWithout , ')'), ''),
+          if(instance('ins')/original/otherRadioactiveTreatment[4], concat(', (' 
+          ,
+            instance('ins')/original/otherRadioactiveTreatment[4]/treated,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[4]/dose,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[4]/treatment,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[4]/frequency,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[4]/number,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[4]/numberWithout , ')'), ''),
+          if(instance('ins')/original/otherRadioactiveTreatment[5], concat(', (' 
+          ,
+            instance('ins')/original/otherRadioactiveTreatment[5]/treated,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[5]/dose,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[5]/treatment,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[5]/frequency,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[5]/number,' / ',
+            instance('ins')/original/otherRadioactiveTreatment[5]/numberWithout , ')'), '')
+          )" name="orgNodeotherRadioactiveTreatment"/><exf:variable value="(instance('ins')/suggestions/otherRadioactiveTreatment[@revIndex=$revIndexotherRadioactiveTreatment])" name="sugNodeSetotherRadioactiveTreatment"/><exf:variable value="concat(
+          if(instance('ins')/suggestions/otherRadioactiveTreatment[1], concat('(' 
+          ,
+            instance('ins')/suggestions/otherRadioactiveTreatment[1]/treated,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[1]/dose,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[1]/treatment,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[1]/frequency,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[1]/number,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[1]/numberWithout , ')'), ''),
+          if(instance('ins')/suggestions/otherRadioactiveTreatment[2], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherRadioactiveTreatment[2]/treated,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[2]/dose,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[2]/treatment,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[2]/frequency,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[2]/number,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[2]/numberWithout , ')'), ''),
+          if(instance('ins')/suggestions/otherRadioactiveTreatment[3], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherRadioactiveTreatment[3]/treated,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[3]/dose,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[3]/treatment,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[3]/frequency,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[3]/number,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[3]/numberWithout , ')'), ''),
+          if(instance('ins')/suggestions/otherRadioactiveTreatment[4], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherRadioactiveTreatment[4]/treated,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[4]/dose,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[4]/treatment,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[4]/frequency,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[4]/number,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[4]/numberWithout , ')'), ''),
+          if(instance('ins')/suggestions/otherRadioactiveTreatment[5], concat(', (' 
+          ,
+            instance('ins')/suggestions/otherRadioactiveTreatment[5]/treated,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[5]/dose,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[5]/treatment,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[5]/frequency,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[5]/number,' / ',
+            instance('ins')/suggestions/otherRadioactiveTreatment[5]/numberWithout , ')'), '')
+          )" name="sugNodeotherRadioactiveTreatment"/><exf:variable value="instance('ins')/previous/review/otherRadioactiveTreatment/@revIndex" name="revIndexOotherRadioactiveTreatment"/><exf:variable value="(instance('ins')/otherRadioactiveTreatment[@revIndex=$revIndexotherRadioactiveTreatment])" name="thisNodeNeedleOldotherRadioactiveTreatment"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/otherRadioactiveTreatment[1], concat('(' 
+          ,
+            instance('ins')/previous/review/otherRadioactiveTreatment[1]/treated,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[1]/dose,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[1]/treatment,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[1]/frequency,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[1]/number,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[1]/numberWithout , ')'), ''),
+          if(instance('ins')/previous/review/otherRadioactiveTreatment[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/otherRadioactiveTreatment[2]/treated,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[2]/dose,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[2]/treatment,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[2]/frequency,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[2]/number,' / ',
+            instance('ins')/previous/review/otherRadioactiveTreatment[2]/numberWithout , ')'), '')
+          )" name="thisNodeOldotherRadioactiveTreatment"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/original/otherRadioactiveTreatment[1], concat('(' 
+          ,
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[1]/treated,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[1]/dose,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[1]/treatment,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[1]/frequency,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[1]/number,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[1]/numberWithout , ')'), ''),
+          if(instance('ins')/previous/review/original/otherRadioactiveTreatment[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[2]/treated,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[2]/dose,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[2]/treatment,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[2]/frequency,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[2]/number,' / ',
+            instance('ins')/previous/review/original/otherRadioactiveTreatment[2]/numberWithout , ')'), '')
+          )" name="orgNodeOldotherRadioactiveTreatment"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1], concat('(' 
+          ,
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1]/treated,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1]/dose,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1]/treatment,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1]/frequency,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1]/number,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[1]/numberWithout , ')'), ''),
+          if(instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2]/treated,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2]/dose,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2]/treatment,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2]/frequency,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2]/number,' / ',
+            instance('ins')/previous/review/suggestions/otherRadioactiveTreatment[2]/numberWithout , ')'), '')
+          )" name="sugNodeOldotherRadioactiveTreatment"/><h5>Sites to be treated</h5><table class="ideatetable entrytable"><ix:attr value="if(count($nsotherRadioactiveTreatment) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th/><th style="text-align:center;">Site(s) to be treated</th><th style="text-align:center;">Dose</th><th style="text-align:center;">Dose/Treatment</th><th style="text-align:center;">Frequency of Treatment</th><th style="text-align:center;">Number of Treatments</th><th style="text-align:center;">With/Without Chemotherapy</th></tr><xf:repeat nodeset="$nsotherRadioactiveTreatment"><tr><td classs="control"><b style="color:red;cursor:pointer;">X<xf:destroy ev:event="click" ref="."/></b></td><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class="in text medium left"><span><xf:input ref="treated"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherRadioactiveTreatment", "otherRadioactiveTreatment");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="dose"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherRadioactiveTreatment", "otherRadioactiveTreatment");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="treatment"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherRadioactiveTreatment", "otherRadioactiveTreatment");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="frequency"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherRadioactiveTreatment", "otherRadioactiveTreatment");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="number"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherRadioactiveTreatment", "otherRadioactiveTreatment");
+                            </script></xf:input></span></td><td class="in text medium left"><span><xf:input ref="numberWithout"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "otherRadioactiveTreatment", "otherRadioactiveTreatment");
+                            </script></xf:input></span></td></tr></xf:repeat></table><br/><table class="addButtons"><tr><td><xf:trigger class="" style=""><xf:label style="">Add</xf:label><xf:action ev:event="DOMActivate"><script>
+              params={revIndex:""};
+              
+              
+                  var ndID = model.getValue("instance('ins')/*[last()]/@revIndex", null) * 1;
+                  params.revIndex = ndID + 1;
+                  params.amend='1'
+              
+              var xmlDoc = model.Frm.processDoc("", "/applications/IRB/js/addRadiationTreatment", params, "script", "xml");
+              var n = model.selectNodeList("instance('ins')", null);
+              n[0].appendChild(xmlDoc.documentElement);
+              model.refresh();
+              model.rebuild();
+              model.recalculate();
+              model.activateCase("hide-otherRadioactiveTreatment");
+              model.activateCase("show-otherRadioactiveTreatment");   
+              </script></xf:action></xf:trigger></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeotherRadioactiveTreatment != $sugNodeotherRadioactiveTreatment, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleotherRadioactiveTreatment/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleotherRadioactiveTreatment/@acceptjust='-1', '(Denied)', if($thisNodeNeedleotherRadioactiveTreatment/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleotherRadioactiveTreatment/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleotherRadioactiveTreatment/@justification!='', $thisNodeNeedleotherRadioactiveTreatment/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Accept / Decline:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Reject (use prior value)</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleotherRadioactiveTreatment/@revIndex" ref="instance('form')/tempRevIndex"/><xf:setvalue ref="$thisNodeNeedleotherRadioactiveTreatment/@acceptjust">-1</xf:setvalue><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/otherRadioactiveTreatment", "", tempRevIndex, "swap", 'org', "", "otherRadioactiveTreatment", "true");
+                          </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeotherRadioactiveTreatment"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Allow (use new value)
+                        <xf:action ev:event="click"><xf:setvalue ref="$thisNodeNeedleotherRadioactiveTreatment/@acceptjust">1</xf:setvalue><xf:setvalue value="$thisNodeNeedleotherRadioactiveTreatment/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                            tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                            model.USA.writeOverTagExplicit("instance('ins')/otherRadioactiveTreatment", "", tempRevIndex, "swap", 'sug', "", "otherRadioactiveTreatment", "true");
+                          </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeotherRadioactiveTreatment"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleotherRadioactiveTreatment/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></xf:case><xf:case id="hide-otherRadioactiveTreatment"/></xf:switch></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

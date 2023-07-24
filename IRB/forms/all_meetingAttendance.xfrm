@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms">
+  <xf:model id="fmodel">
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="meta">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="proDat">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="rulesDat">
+      <data xmlns=""/>
+    </xf:instance>    
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="boards" src="../../../../../entity/recordList?entity=IRB%20Board"/>
+    <xf:instance id="reviews">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <col3/>
+        <document/>
+        <viewBy>year</viewBy>
+        <focus/>
+        <focus2/>
+        <lastFocus/>
+        <temp/>
+        <comp uri=""/>
+        <READONLY></READONLY>
+      	<commTo></commTo>
+      	<commCC></commCC>
+      	<commSubject></commSubject>
+      	<commLetter>none</commLetter>
+      	<commMessage>none</commMessage>
+      	<reviewType></reviewType>
+      	<reviewMeth></reviewMeth>
+      	<myTabID></myTabID>
+        <processURI_form></processURI_form>
+      </data>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <script ev:event="xforms-model-construct-done"> 
+//Initialize Form
+bootstrapSharedXfrm(model);         
+model.setValue("instance('ins')/primeEntityURI", document.__refUri);       
+
+//This is another place where tabSet could be a problem, lets see
+//Need to manually load appTabSet object (usually you only have one or other (it's either a set of tabs, or a form inside the set (a single tap/appForm)))
+includeSharedJS("/resources/services/appTabSet/appTabSet.js");        
+includeSharedJS("/resources/services/appForms/main.js");      
+includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+
+//AB 03/05/2019 always use meeting.xml
+model.setInstanceIdSrc("proDat", "/fil" + document.__refUri + document.__refName);      
+model.Frm = new appForm(model, "reviews");
+model.Frm.loadAppFile('reviews', document.__refName, "1");
+model.Frm.loadAppFile('ins', "/data.xml", "1");            
+model.setInstanceIdSrc("cats", "/fil/home/configs/IRB/datamodel/templates/data/catagories.xml");
+
+//Load Form Logic
+boardURI =  document.__refUri + "/data.xml";	
+meetingURI =  document.__refUri + document.__refName;
+
+boardURI =  document.__refUri + document.__refName;	
+resY=callSharedService("protocolRouting",{"op":"setMemberApptTypes", "boardURI":boardURI, "trg":"attendance/"}, "json");
+
+//synch members
+resY = callSharedServiceInf("protocolRouting",{"op":"syncBoardMemberAttendanceInMeeting", "board":boardURI, "meetingURI":meetingURI }, "text");
+if(model.Frm.formSet.getRoot().READONLY) model.setValue("instance('form')/READONLY", "1");
+
+model.reloadInstanceId("proDat");
+model.Frm.reloadAndRepaint("proDat","members");
+model.refresh(); 
+model.rebuild(); 
+model.recalculate(); 
+
+    </script>
+    
+    <script xmlns="" ev:event="xforms-ready"/>
+    <xf:submission instance="proDat" id="submitproDat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved!</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (proDat)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>	
+    <xf:submission instance="reviews" id="submitreviews" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (reviews)</xf:message>
+      </xf:action>
+    </xf:submission>
+
+
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>   
+   </xf:model>
+  
+  <style>
+    div.formFrame table.fullColLayout table.budgetTool td .xftext{ background-color:white; }
+    div.formFrame table.budgetTool td .xftext{ background-color:white; } div.formFrame
+    table.fullColLayout div.headerselect{ background:none; } div.formFrame table.fullColLayout
+    div.headerselect table.headerselect{ background:none; border:none; } div.formFrame
+    table.fullColLayout div.headerselect table.headerselect tr{ background:none; border:none;
+    color:white; } div.formFrame table.fullColLayout div.headerselect table.headerselect tr td{
+    border:none; padding:none; vertical-align:middle; } div.formFrame table.fullColLayout
+    tr.periodbreak td{ border-bottom: medium solid black; } div.formFrame table.optionsheader
+    div.xfctrl{ } div.questions div.xfctrl{ background:none; width:auto; } div.questions
+    table.selection div.xfctrl{ background:none; width:450px; } div.questions div.xfctrl input{
+    width:500px;; font-size:12px; } div.questions div.xfctrl textarea{ width:500px;; font-size:11px;
+    } .wikiView div.questions div.xfctrl label{ width:200px; padding-right:5px; font-size:11px; }
+    .wikiView div.questions div.viewOnly table{ font-size:11px; } .wikiView div.questions
+    div.viewOnly table td.label{ width:200px; padding-right:5px; font-weight:bold;
+    vertical-align:top; padding-bottom:15px; } .wikiView div.questions div.viewOnly table td.value{
+    width:500px; vertical-align:top; padding-bottom:15px; } 
+    
+    
+    .wikiView div.repeater table td{
+      
+    }
+    
+    .wikiView div.repeater table td div.xfctrl{
+    padding:0px;
+    }
+    
+    .wikiView div.repeater table.small td div.xfctrl{
+    padding:0px;
+    }
+    
+    .wikiView div.repeater table.small td div.xfctrl input{
+    width:80px;
+    }
+    
+    .wikiView div.xfctrl input {
+    margin-top:0px;
+    }
+    
+    .wikiView div.xfctrl textarea {
+    margin-top:0px;
+    }
+    
+    .wikiView div.repeater table.small td.thin div.xfctrl input{
+    width:40px;
+    }
+    
+    .wikiView div.repeater table.small tr.member{
+    padding-top:10px;
+    }
+
+	table.easyLayout th {
+		text-align:left;	
+	}
+
+	table.easyLayout th.tight {
+		width:60px;
+		text-align:center;
+	}
+	
+	table.easyLayout th.medium {
+		width:200px;
+	}
+	
+	table.easyLayout th.wide {
+		width:300px;
+	}
+
+	table.easyLayout td.tight {
+		width:60px;
+		text-align:center;
+	}
+	
+	table.easyLayout td.medium {
+		width:200px;
+	}
+	
+	table.easyLayout td.wide {
+		width:300px;
+	}
+	
+	table.easyLayout tr.odd td {
+	background-color: #FAF0E6; 
+	}
+
+	table.easyLayout tr.odd td.complete {
+		background-color: white;
+	}
+
+	.wikiView table.easyLayout div.xfctrl{
+		background:none;
+	}
+
+   //AB new style sheet -  START
+   
+   body
+   {
+   line-height: 1.6em;
+   }
+   
+   table.one-column-emphasis
+   {
+   font-family: Arial, Sans-Serif;
+   font-size: 12px;
+   margin: 15px;
+   width: 680px;
+   text-align: left;
+   border-collapse: collapse;
+   }
+   table.one-column-emphasis th
+   {
+   font-size: 12px;
+   font-weight: bold;
+   padding: 12px 15px;
+   color: #039;
+   background: #eff2ff;
+   }
+   
+   //table.one-column-emphasis tbody.tr
+   //{
+   //border-top: 1px solid #d0dafd;
+   //}     
+   
+   .trBottom
+   {
+   border-bottom: 1px solid #d0dafd;
+   }  
+   
+   table.one-column-emphasis td
+   {
+   padding: 5px 10px;
+   color: #669;
+   //border-top: 1px solid #e8edff;
+   border-top: 0px solid #eff2ff;
+   }
+   .oce-first
+   {
+   background: #eff2ff;
+   border-right:0px solid transparent;
+   border-left: 0px solid transparent;
+   }
+   table.one-column-emphasis tr:hover td
+   {
+   //color: #339;
+   //background: #eff2ff;
+   color: #039;
+   background: #d0dafd;
+   }
+   
+   .wikiView div.xfctrl{
+   background:none;
+   }
+   
+   //AB new style sheet -  END
+  </style>
+    
+  <div class="formFrame">
+    <div style="display:none;">
+      <xf:input id="documentDrop" ref="instance('form')/document">
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+          <script> var n = model.getValue(".", contextNode); if(n != "") model.Frm.linkFile(n);
+          </script>
+        </xf:action>
+      </xf:input>
+    </div>
+    
+    <exf:variable name="nx" value="instance('proDat')/attendance/member[@apptType='current' and @member!='alternate']"/>
+    <exf:variable name="atlx" value="instance('proDat')/attendance/member[@apptType='current' and @member ='alternate']"/>
+    <xf:switch>
+      <xf:case exf:if="1" id="show-members">  
+    <table class="one-column-emphasis" summary="Attendance">
+      <colgroup>
+        <col class="oce-first" />
+      </colgroup>
+      <thead>
+        <tr class="trBottom">
+          <th class="value addline">
+            <span class="clickable"><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>
+              <xf:trigger>
+                <xf:label>Save</xf:label>
+                <script ev:event="DOMActivate">
+                  model.submit("submitproDat");
+                </script>
+              </xf:trigger>
+            </span>
+          </th>
+          <th scope="col" style="text-align:center;" colspan="3"><span><h3>Member Attendance</h3></span></th>
+          <th class="value addline">
+            
+          </th>
+        </tr>
+        <tr>
+          <th scope="col" style="text-align:center;">Member</th>
+          <th scope="col" style="text-align:center;">Board Role</th>
+          <th scope="col" style="text-align:center;">Type</th>
+          <th scope="col" style="text-align:center;">Appointment Period</th>
+          <th scope="col" style="text-align:center;">Expertise</th>
+        </tr>
+      </thead>
+      
+         <tbody> 
+        <xf:repeat nodeset="$nx">
+        <exf:variable name="px" value="position()"/>
+        <exf:variable name="urix" value="@uri"/>
+
+          <tr>
+            <td>
+              <xf:select appearance='full' ref="@attendance" style="background-color:none;">
+                <xf:item  style="background-color:none">
+                  <xf:label style="background-color:none"><xf:output value="../@name"/></xf:label>
+                  <xf:value>1</xf:value>
+                </xf:item>
+              </xf:select>          
+          </td>
+            <td>
+              <xf:output value="if(@chair='vicechair', 'Vice-Chair',
+                if(@chair='chair', 'Chair',
+                if(@chair='member', 'Member',
+                if(@chair='', 'Unknown',
+                ''))))"/>
+            </td>
+            <td>
+              <xf:output value="if(instance('ins')/member[@uri=$urix]/@member='primary', 'Primary', '')"/>  
+              <xf:output value="if(instance('ins')/member[@uri=$urix]/@member='alternate', 'Alternate', '')"/>  
+              <xf:output value="if(instance('ins')/member[@uri=$urix]/@member='', 'None selected', '')"/> 
+            </td>
+            <td><xf:output value="concat(substring(instance('ins')/member[@uri=$urix]/@apptStart, 6, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptStart, 9, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptStart, 1, 4))"/> - <xf:output value="concat(substring(instance('ins')/member[@uri=$urix]/@apptEnd, 6, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptEnd, 9, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptEnd, 1, 4))"/></td>
+            <td>
+              <exf:variable name="expert" value="instance('ins')/member[@uri=$urix]/expertise"/>
+              
+              <xf:repeat nodeset="instance('cats')/boardMemberExpertise/type[contains($expert, @id)]">
+                <xf:output value="concat(if(position()=1, '', ', '), @name)"/>  
+              </xf:repeat>
+            </td>
+          </tr>
+        </xf:repeat>
+         <thead>
+             <tr class="trBottom">
+     
+               <th scope="col" style="text-align:center;" colspan="4"><span><h3>Alternates</h3></span></th>
+               <th class="value addline">
+                 
+               </th>
+             </tr>
+      
+           </thead>
+           <xf:repeat nodeset="$atlx">
+             <exf:variable name="px" value="position()"/>
+             <exf:variable name="urix" value="@uri"/>
+             
+             <tr>
+               <td>
+                 <xf:select appearance='full' ref="@attendance" style="background-color:none;">
+                   <xf:item  style="background-color:none">
+                     <xf:label style="background-color:none"><xf:output value="../@name"/></xf:label>
+                     <xf:value>1</xf:value>
+                   </xf:item>
+                 </xf:select>          
+               </td>
+               <td>
+                 <xf:output value="if(@chair='vicechair', 'Vice-Chair',
+                   if(@chair='chair', 'Chair',
+                   if(@chair='member', 'Member',
+                   if(@chair='', 'Unknown',
+                   ''))))"/>
+               </td>
+               <td>
+                 <xf:output value="if(instance('ins')/member[@uri=$urix]/@member='primary', 'Primary', '')"/>  
+                 <xf:output value="if(instance('ins')/member[@uri=$urix]/@member='alternate', 'Alternate', '')"/>  
+				 <xf:output value="if(instance('ins')/member[@uri=$urix]/@member='', 'None selected', '')"/> 
+               </td>
+               <td><xf:output value="concat(substring(instance('ins')/member[@uri=$urix]/@apptStart, 6, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptStart, 9, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptStart, 1, 4))"/> - <xf:output value="concat(substring(instance('ins')/member[@uri=$urix]/@apptEnd, 6, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptEnd, 9, 2), '/', substring(instance('ins')/member[@uri=$urix]/@apptEnd, 1, 4))"/></td>
+               <td>
+                 <exf:variable name="expert" value="instance('ins')/member[@uri=$urix]/expertise"/>
+                 
+                 <xf:repeat nodeset="instance('cats')/boardMemberExpertise/type[contains($expert, @id)]">
+                   <xf:output value="concat(if(position()=1, '', ', '), @name)"/>  
+                 </xf:repeat>
+               </td>
+             </tr>
+           </xf:repeat>  
+         </tbody>
+    </table>     
+      </xf:case>
+      <xf:case id="hide-members"/>
+    </xf:switch>
+<!--    <exf:variable name="nx2" value="instance('proDat')/attendance/member"/>
+    <table class="one-column-emphasis" summary="AttendanceResponse">
+      <colgroup>
+        <col class="oce-first" />
+      </colgroup>
+      <thead>
+        <tr class="trBottom">
+          <th scope="col" style="text-align:center;"> </th>
+          <th scope="col" style="text-align:center;"><span><h3>Member Agenda Response</h3></span></th>
+          <th scope="col" style="text-align:center;"> </th>
+        </tr>
+        <tr>
+          <th scope="col" style="text-align:left;">Member</th>
+          <th scope="col" style="text-align:left;">Response</th>
+          <th scope="col" style="text-align:left;">Comments</th>
+        </tr>
+      </thead>
+      
+      <tbody> 
+        <xf:repeat nodeset="$nx2">
+          <exf:variable name="px" value="position()"/>
+          <exf:variable name="procurix" value="@processURI"/>
+          <script>            
+            processURI = model.getValue("@processURI", contextNode);            
+            model.setInstanceIdSrc("proc", "/fil" + processURI);
+            model.reloadInstanceId('proc');           
+            model.setValue("instance('form')/processURI_form", processURI);
+            model.refresh();
+            model.refresh();
+            model.rebuild();
+            model.recalculate();
+          </script>
+          <tr>
+            <td style="text-align:left;">      
+              <xf:label style="background-color:none"><xf:output value="@name"/></xf:label>
+            </td>
+            <td style="text-align:left;">      
+              <xf:label style="background-color:none">
+                <xf:output value="if(instance('proc')/agendaResponse='yes', 'Yes, will attend', '')"/>  
+                <xf:output value="if(instance('proc')/agendaResponse='no', 'No, cannot attend', '')"/>  
+                <xf:output value="if(instance('proc')/agendaResponse='noresp' or instance('proc')/agendaResponse='', 'No Response', '')"/></xf:label>
+            </td>
+            <td style="text-align:left;">      
+              <xf:label style="background-color:none"><xf:output value="instance('proc')/agendacomments"/></xf:label>
+            </td>
+          </tr>
+          
+   
+        </xf:repeat>
+      </tbody>
+    </table>     -->
+    <div style="position:static;text-align:center; top: 400px;">© <xf:output value="script('copywrite(2012)')"/></div>
+  </div>
+</form>

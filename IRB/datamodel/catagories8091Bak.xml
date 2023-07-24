@@ -1,0 +1,1627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<irbcats version="1">
+	
+	<masterStatusRules>
+		<rule childStatusType="ACT" childStatusTypeName="Active" masterStatusType="active" masterStatusTypeName="Active" />
+		<rule childStatusType="active" childStatusTypeName="Active" masterStatusType="active" masterStatusTypeName="Active" />
+		<rule childStatusType="closed" childStatusTypeName="Closed" masterStatusType="retired" masterStatusTypeName="Retired" />
+		<rule childStatusType="deptReview" childStatusTypeName="Under Review" masterStatusType="review" masterStatusTypeName="Under Review" />
+		<rule childStatusType="intakeReview" childStatusTypeName="Under Review" masterStatusType="review" masterStatusTypeName="Under Review" />
+		<rule childStatusType="adminReview" childStatusTypeName="Under Review" masterStatusType="review" masterStatusTypeName="Under Review" />
+		<rule childStatusType="directorReview" childStatusTypeName="Under Review" masterStatusType="review" masterStatusTypeName="Under Review" />
+		<rule childStatusType="boardReview" childStatusTypeName="Under Review" masterStatusType="review" masterStatusTypeName="Under Review" />    
+	</masterStatusRules>
+	<!--Added by Nividous for sprint 6: starts here-->
+	<appType>
+		<type id='1' name='Request to Rely on Mount Sinai IRB'/>
+		<type id='2' name='Request to Rely on BRANY IRB'/>
+		<type id='3' name='Request to Rely on Other External IRB'/>
+		<type id='4' name='Request for IRB Exemption'/>
+	</appType>
+	<researchInvolves>
+		<type id='1' name='Retrospective Data / Retrospective Specimen Review ONLY'/>
+		<type id='2' name='Retrospective Data / Retrospective Specimen Review in Addition to Prospective Study'/>
+		<type id='3' name='Prospective Study ONLY'/>
+	</researchInvolves>
+	<externalIRBName>
+		<type id='1' name='Quorum'/>
+		<type id='2' name='Western IRB (WIRB) / Copernicus'/>
+		<type id='3' name='Shulman Associates'/>
+		<type id='4' name='National Cancer Institute Central IRB (NCI CIRB)'/>
+		<type id='5' name='Other IRB'/>
+	</externalIRBName>
+	<deviceExemptionCategory>
+		<type id='1' name='Category 1'/>
+		<type id='2' name='Category 2'/>
+		<type id='3' name='Category 3'/>
+		<type id='4' name='Category 4'/>
+	</deviceExemptionCategory>
+	<siteName>
+		<type id='1' name='Icahn School of Medicine at Mount Sinai'/>
+		<type id='2' name='Mount Sinai Hospital'/>
+		<type id='3' name='Queens Hospital Center'/>
+		<type id='4' name='Elmhurst Hospital Center'/>
+		<type id='5' name='Bronx Veterans Administration'/>
+		<type id='6' name='New York Eye and Ear Infirmary of Mount Sinai'/>
+		<type id='7' name='Mount Sinai Beth Israel'/>
+		<type id='8' name='Mount Sinai Beth Israel Brooklyn'/>
+		<type id='9' name='Mount Sinai St. Luke&apos;s'/>
+		<type id='10' name='Mount Sinai Roosevelt'/>
+		<type id='Other' name='Other External Site'/>		
+	</siteName>
+	<researchReviewBy>
+		<type id='1' name='Site IRB'/>
+		<type id='2' name='Mount Sinai IRB'/>
+		<type id='3' name='Other IRB'/>
+	</researchReviewBy>
+	<typeINDHolder>
+		<type id='1' name='ISM Investigator'/>
+		<type id='2' name='Other Institution/Investigator'/>
+		<type id='3' name='Agency/Institute/Center'/>
+		<type id='4' name='Industry'/>
+	</typeINDHolder>
+	<drugExemptionCategory>
+		<type id='1' name='Category 1'/>
+		<type id='2' name='Category 2'/>
+		<type id='3' name='Category 3'/>
+	</drugExemptionCategory>
+	<biosafetyLevel>
+		<type id='1' name='BSL - 1'/>
+		<type id='2' name='BSL - 2'/>
+		<type id='3' name='BSL - 3'/>
+	</biosafetyLevel>
+	<riskGroup>
+		<type id='1' name='RG - 1'/>
+		<type id='2' name='RG - 2'/>
+		<type id='3' name='RG - 3'/>
+	</riskGroup>
+	<fractionWildVirusPresentInVector>
+		<type id='1' name='x &gt; 2/3'/>
+		<type id='2' name='1/2 &lt; x &lt; 2/3'/>
+		<type id='3' name='x &lt; 1/2'/>
+	</fractionWildVirusPresentInVector>
+	<locationOfPreparation>
+		<type id='1' name='Annenberg'/>
+		<type id='2' name='Atran'/>
+		<type id='3' name='Bronx VA'/>
+		<type id='4' name='Icahn'/>
+		<type id='5' name='CSM / Hess Center'/>
+		<type id='6' name='BSL3'/>
+	</locationOfPreparation>
+	
+	<!--Added by Nividous for sprint 6: ends here-->
+	<dataRecord>
+		<type id='1' name='Name'/>
+		<type id='2' name='Social Security Number'/>
+		<type id='3' name='Medical Record Number'/>
+		<type id='4' name='Address by street location'/>
+		<type id='5' name='Telephone number'/>
+		<type id='6' name='Fax number'/>
+		<!--<type id='7' name='Email address'/>-->
+		<type id='8' name='Web Uniform Resource Locators (URLs)'/>
+		<type id='9' name='Internet Protocol (IP) Address'/>
+		<type id='10' name='Health Plan Beneficiary Number'/>
+		<type id='11' name='Account Number'/>
+		<type id='12' name='Certificate'/>
+		<type id='13' name='License Number'/>
+		<type id='14' name='Vehicle Identification Number (Including License Plate Numbers)'/>
+		<!--<type id='15' name='Medical Device Identifiers and serial numbers'/>-->
+		<type id='16' name='Full-Face Photographic Images'/>
+		<type id='17' name='Biometric Identifiers (Finger and Voice Prints)'/>
+		<type id='18' name='Geographical Subdivisions Smaller Than a State'/>
+		<type id='19' name='All Elements of Dates for Dates Directly Related to an Individual (i.e., Birth Date, Admission Date, Discharge Date)'/>
+	</dataRecord>
+	
+	<monitorType>
+		<type id='1' name='PI'/>
+		<type id='2' name='Team Member'/>
+		<type id='3' name='Independent'/>
+	</monitorType>
+	<!--AB: dropDowns used for printing-->
+	<mediReimbursement>
+		<type id='A' name='Category A'/>
+		<type id='B' name='Category B'/>
+	</mediReimbursement>
+	<fadExemption>
+		<type id='IDE' name='IDE'/>
+		<type id='exemption' name='Exemption'/>
+	</fadExemption>
+	<routeToMarket>
+		<type id='pma' name='PMA'/>
+		<type id='510k' name='510k'/>
+		<type id='hud' name='HUD'/>
+		<type id='exempt' name='Exempt'/>
+	</routeToMarket>
+	<fdaClass>
+		<type id='I' name='Class I'/>
+		<type id='II' name='Class II'/>
+		<type id='III' name='Class III'/>
+	</fdaClass>
+	<!--AB: dropDowns used for printing-->
+
+	<docTypesAssent>
+		<type id='childassent' name='Child Assent Document'/>
+		<type id='adolesassent' name='Adolescent Assent Document'/>
+		<type id='combassent' name='Combined Assent Document (Child and Adolescent)'/>
+		<type id='otherassent' name='Other Consent/Assent Document'/>
+	</docTypesAssent>
+
+	<terminatedBy>
+		<type id="1" name="Sponsor"/>
+		<type id="2" name="Principal Investigator"/>
+	</terminatedBy>
+
+	<publicationType>
+		<type id ="1" name="Presentation"/>
+		<type id ="2" name="Publication"/>
+		<type id ="3" name="Abstract"/>
+	</publicationType>
+
+
+
+	<docTypesFixed>
+		<type id='coi' name='COI Statement'/>
+		<type id='510k' name='510k Approval Letter'/>
+		<type id='PMA' name='PMA Approval Letter'/>
+	</docTypesFixed>
+
+	<oteuTypes>
+		<type id='Drug' name='Drug'/>
+		<type id='Biologic' name='Biologic'/>
+		<type id='Device' name='Device'/>
+	</oteuTypes>
+
+	<oteuDispense>
+		<type id='Pharmacy' name='Pharmacy'/>
+		<type id='Nursing' name='Nursing'/>
+		<type id='Physician' name='Physician'/>
+	</oteuDispense>
+
+	<oteuConsent>
+		<type id='has' name='has been obtained'/>
+		<type id='will' name='will be obtained before emergency use'/>
+		<type id='cant' name='cannot be obtained before emergency use'/>
+	</oteuConsent>
+
+	<!-- From the site... -->
+	<docTypes>
+		<type id='bbn' name='Bulletin Board Notices Notes' stamped='1'/>
+		<type id='flyers' name='Flyers' stamped='1'/>
+		<type id='radioad' name='Radio Advertisements' stamped='1'/>
+		<type id='recemail' name='Recruitment E-Mails' stamped='1'/>
+		<type id='recletters' name='Recruitment Letters' stamped='1'/>
+		<type id='tvad' name='Television Advertisements' stamped='1'/>
+		<type id='newsad' name='Newspaper Advertisements' stamped='1'/>
+		<type id='email' name='E-mails' stamped='0'/>
+		<type id='intranet' name='Intranet Screen Saver' stamped='1'/>
+		<type id='letters' name='Letters' stamped='0'/>
+		<type id='bphonescript' name='Phone Scripts' stamped='0'/>
+		<type id='url' name='URLs' stamped='0'/>
+		<type id='otherads' name='Other Advertising Material' stamped='1'/>
+		<type id='ibcapp' name='IBC Approval' stamped='0'/>
+		<type id='otherbio' name='Other Biohazard Material' stamped='0'/>
+		<type id='coicomrec' name='Conflict of Interest Committee Recommendation' stamped='0'/>
+		<type id='othercoi' name='Other Conflict of Interest Material' stamped='0'/>
+		<type id='certofcon' name='Certificate of Confidentiality' stamped='0'/>
+		<type id='birbwaivdocic' name='IRB Waiver of Documentation of Informed Consent' stamped='0'/>
+		<type id='irbwaivic' name='IRB Waiver of Informed Consent' stamped='0'/>
+		<type id='irbwavauth' name='IRB Waiver of Authorization' stamped='0'/>
+		<type id='datauseagree' name='Data Use Agreement' stamped='0'/>
+		<type id='otherconfmat' name='Other Confidentiality/PHI Materials' stamped='0'/>
+		<type id='screenconsentdoc' name='Screening Consent Document' stamped='1'/>
+		<type id='consentdoc' name='Consent Document' stamped='1'/>
+		<type id='childassent' name='Child Assent Document' stamped='1'/>
+		<type id='adolesassent' name='Adolescent Assent Document' stamped='1'/>
+		<type id='combassent' name='Combined Assent Document (Child and Adolescent)' stamped='1'/>
+		<type id='otherassent' name='Other Consent/Assent Document' stamped='1'/>
+		<type id='partentalperm' name='Parental Permission Document' stamped='1'/>
+		<type id='fdadrugapp' name='FDA Approval of Drug' stamped='0'/>
+		<type id='investbro' name='Investigator Brochure' stamped='0'/>
+		<type id='otherdrugmat' name='Other Drug Material' stamped='0'/>
+		<type id='fdahud' name='FDA HUD Letter' stamped='0'/>
+		<type id='fdaide' name='FDA IDE Letter' stamped='0'/>
+		<type id='510k' name='FDA 510k Letter' stamped='0'/>
+		<type id='PMA' name='FDA PMA Letter' stamped='0'/>
+		<type id='detofdevicerisk' name='Determination of Device Risk by Another IRB' stamped='0'/>
+		<type id='otherdevmat' name='Other Device Material' stamped='0'/>
+		<type id='researchprot' name='Research Protocol' stamped='0'/>
+		<type id='ltrofsupp' name='Letter of co-operation/support for non-UMC site' stamped='0'/>
+		<type id='studydisapp' name='Study Disapproval by Other IRB' stamped='0'/>
+		<type id='performsiteapp' name='Performance Site Approval' stamped='0'/>
+		<type id='othermat' name='Other Material' stamped='0'/>
+		<type id='partedumat' name='Participant Educational Materials' stamped='0'/>
+		<type id='fundprop' name='Funding proposal/Grant application/Contract' stamped='0'/>
+	</docTypes>
+
+
+
+	<!--<docTypes>
+  <type id='bbn' name='Bulletin Board Notices'/>
+  <type id='flyers' name='Flyers'/>
+  <type id='radioad' name='Radio Advertisements'/>
+  <type id='tvad' name='Television Advertisements'/>
+  <type id='bbn' name='Newspaper Advertisements'/>
+  <type id='bbn' name='E-mails'/>
+  <type id='bbn' name='Intranet Screen Saver'/>
+  <type id='bbn' name='Letters'/>
+  <type id='bbn' name='Phone Scripts'/>
+  <type id='bbn' name='URLs'/>
+  <type id='bbn' name='Other Advertising Material'/>
+  <type id='bbn' name='IBC Approval'/>
+  <type id='bbn' name='Other Biohazard Material'/>
+  <type id='bbn' name='Conflict of Interest Committee Recommendation'/>
+  <type id='bbn' name='Other Conflict of Interest Material'/>
+  <type id='bbn' name='Certificate of Confidentiality'/>
+  <type id='bbn' name='IRB Waiver of Documentation of Informed Consent'/>
+  <type id='bbn' name='IRB Waiver of Informed Consent'/>
+  <type id='bbn' name='IRB Waiver of Authorization'/>
+  <type id='bbn' name='Data Use Agreement'/>
+  <type id='bbn' name='Other Confidentiality/PHI Materials'/>
+  <type id='bbn' name='Screening Consent Document'/>
+  <type id='bbn' name='Consent Document'/>
+  <type id='bbn' name='Child Assent Document'/>
+  <type id='bbn' name='Adolescent Assent Document'/>
+  <type id='bbn' name='Combined Assent Document (Child and Adolescent)'/>
+  <type id='bbn' name='Other Consent/Assent Document'/>
+  <type id='bbn' name='Parental Permission Document'/>
+  <type id='bbn' name='FDA Approval of Drug'/>
+  <type id='bbn' name='Investigator Brochure'/>
+  <type id='bbn' name='Other Drug Material'/>
+  <type id='bbn' name='FDA HUD Letter'/>
+  <type id='bbn' name='FDA IDE Letter'/> 
+  <type id='510k' name='FDA 510k Letter'/>
+  <type id='PMA' name='FDA PMA Letter'/>
+  <type id='bbn' name='Determination of Device Risk by Another IRB'/>
+  <type id='bbn' name='Other Device Material'/>
+  <type id='bbn' name='Research Protocol'/>
+  <type id='bbn' name='Letter of co-operation/support for non-UMC site'/>
+  <type id='bbn' name='Study Disapproval by Other IRB'/>
+  <type id='bbn' name='Performance Site Approval'/>
+  <type id='bbn' name='Other Material'/>
+  <type id='bbn' name='Participant Educational Materials'/>
+  <type id='bbn' name='Funding proposal/Grant application'/>
+</docTypes>-->
+
+	<!--Updated for UMMC 
+
+RiSC Protocol Statuses
+
+DEVONLY             2
+EXPSUSP             2
+EXP                10
+REV                48
+TRANS              64
+REJ                80
+WD                164
+TERM              241
+ACT               635
+COMP             1412  -->
+
+
+	<!-- Lets use the conversion approach below : Only flag ones that already where in our system with conversionType="existing" -->
+	<statusTypes>
+		<type id="inDev" name="In Development"/>
+		<type id="ACT" name="Active"/>
+		<type id="expired" conversionType="existing" conversionValue="EXP" name="Expired"/>
+		<type id="expsus" conversionType="existing" conversionValue="EXPSUSP" name="Expired/Suspended"/>
+		<type id="suspended" conversionType="existing" conversionValue="SUSP" name="Suspended"/>
+		<type id="terminated" conversionType="existing" conversionValue="TERM" name="Terminated"/>
+		<type id="rejected" conversionType="existing" conversionValue="REJ" name="Rejected"/>
+		<type id="withdrawn" conversionType="existing" conversionValue="WD" name="Withdrawn"/>
+		<type id="closed" conversionType="existing" conversionValue="COMP" name="Completed"/>
+		<type id="DEVONLY" name="Development Only"/>
+		<type id="TRANS" name="Trans to l/tf/u study"/>
+		<type id="deptReview" name="Dept Review"/>
+		<type id="intakeReview" name="Intake Review"/>
+		<type id="piReview" name="PI Review"/>
+		<type id="adminReview" name="Admin Review"/>
+		<type id="directorReview" name="Director Review"/>
+		<type id="boardReview" conversionType="existing" conversionValue="REV" name="Under Review"/>
+	</statusTypes>
+
+	<!--Updated for UMMC -->
+
+	<!-- Lets use the conversion approach below :   conversionType = [existing|new] -->
+	<riskTypes>
+		<type id="greater" conversionType="existing" conversionValue="GTMIN" name=" &gt; Minimal"/>
+		<type id="min" conversionType="existing" conversionValue="MIN" name="Minimal"/>
+	</riskTypes>
+
+	<!--Updated for UMMC -->
+	<researchTypes>
+		<type id="biomed" conversionType="existing" conversionValue="BIOM" name="Biomedical"/>
+		<type id="soc" conversionType="existing" conversionValue="BEHAV" name="Behavioral"/>
+	</researchTypes>
+
+	<!--Updated for UMMC
+
+RiSC uses separate columns for each of these values-->
+
+	<!-- Lets use the conversion approach below :   conversionType = [existing|new] -->
+	<phaseTypes>
+		<type id="i" name="Phase I"/>
+		<type id="ii" name="Phase II"/>
+		<type id="iii" name="Phase III"/>
+		<type id="iv" name="Phase IV"/>
+	</phaseTypes>
+
+	<!--Updated for UMMC -->
+
+
+	<!-- Lets use the conversion approach below :   conversionType = [existing|new] -->
+	<personnelRoleTypesPI>
+		<type id="PI" name="Principal Investigator"/>
+	</personnelRoleTypesPI>
+
+	<!--Updated for UMMC -->
+
+	<allRoles>
+		<type id="PI" name="Principal Investigator"/>
+		<type id="CI" conversionType="existing" conversionValue="CI" name="Co-Investigator"/>
+		<type id="ARC" conversionType="existing" conversionValue="ARC" name="Study Coordinator"/>
+		<type id="ALT" conversionType="existing" conversionValue="ALT" name="Lab Technician"/>
+		<type id="FS" conversionType="existing" conversionValue="FS"  inactive="true" name="Faculty Sponsor"/>
+		<type id="BPD" name="Project Director"/>
+		<type id="ARA" name="Research Assistant"/>
+		<type id="RN" name="Research Nurse"/>
+	</allRoles>
+
+	<!--Updated for UMMC -->
+
+	<personnelRoleTypesAll>
+		<type id="PI" name="Principal Investigator"/>
+		<type id="CI" conversionType="existing" conversionValue="CI" name="Co-Investigator"/>
+		<type id="ARC" conversionType="existing" conversionValue="ARC" name="Study Coordinator"/>
+		<type id="ALT" conversionType="existing" conversionValue="ALT" name="Lab Technician"/>
+		<type id="FS" conversionType="existing" conversionValue="FS"  inactive="true" name="Faculty Sponsor"/>
+		<type id="BPD" name="Project Director"/>
+		<type id="ARA" name="Research Assistant"/>
+		<type id="RN" name="Research Nurse"/>
+	</personnelRoleTypesAll>
+
+	<!--Updated for UMMC -->
+
+	<personnelRoleTypes>
+		<type id="CI" conversionType="existing" conversionValue="CI" name="Co-Investigator"/>
+		<type id="ARC" conversionType="existing" conversionValue="ARC" name="Study Coordinator"/>
+		<type id="ALT" conversionType="existing" conversionValue="ALT" name="Lab Technician"/>
+		<type id="FS" conversionType="existing" conversionValue="FS"  inactive="true" name="Faculty Sponsor"/>
+		<type id="BPD" name="Project Director"/>
+		<type id="ARA" name="Research Assistant"/>
+		<type id="RN" name="Research Nurse"/>
+	</personnelRoleTypes>
+
+	<initatedByTypes>
+		<type id="sponsor" name="Sponsor"/>
+		<type id="investigator" name="Investigator"/>
+	</initatedByTypes>
+
+	<!--Updated for UMMC -->
+
+	<sponsorTypes>
+		<type id="USFed" conversionType="existing" conversionValue="1" name="Federal/State"/>
+		<type id="NonFed" conversionType="existing" conversionValue="7" name="Foundation"/>
+		<type id="Industry" conversionType="existing" conversionValue="6" name="Industry"/>
+		<type id="8" name="Other"/>
+		<type id="10" name="Department"/>
+	</sponsorTypes>
+
+	<!--Updated for UMMC -->
+
+	<FDATypes>
+		<type id="investigational" name="Investigational"/>
+		<!--<type id="approved" name="Approved"/>-->
+		<type id="exempt" name="Exempt"/>
+		<!--<type id="waiver" name="Waiver"/>
+    <type id="notapplicable" name="Not Applicable"/>-->
+	</FDATypes>
+
+	<!--Updated for UMMC 
+New functions added: Inactive and Sort Order
+These are values specific to UMMC to allow for data conversion-->
+
+	<ageRangeTypes>
+		<type id="NEWTO8" name="Newborn to 8 Years" sortorder="1"/>
+		<type id="9TO17" name="9 to 17 Years" sortorder="2"/>
+		<type id="18TO64" name="18 to 64 Years" sortorder="3"/>
+		<type id="65OVER" name="65 Years and Over" sortorder="4"/>
+		<type id="OTH" name="Other" inactive="true" sortorder="5"/>
+		
+		<type id="NEWTO6" name="Newborn to 6 Years" inactive="true" sortorder="5"/>
+		<type id="7TO17" name="7 to 17 Years" inactive="true" sortorder="6"/>
+		<type id="7TO20" name="7 to 20 Years" inactive="true" sortorder="7"/>
+		<type id="21TO64" name="21 to 64 Years" inactive="true" sortorder="8"/>
+	</ageRangeTypes>
+
+	<!--Updated for UMMC 
+These are values specific to UMMC to allow for data conversion-->
+
+	<populationTypes>
+		<type id="ADHLTHY" name="Adults - Healthy Controls" sortorder="1"/>
+		<type id="ADPTNTS" name="Adults - Patients " sortorder="2"/>
+		<type id="MNTLCOMP" name="Impaired Mental Capacity" sortorder="3"/>
+		<type id="DESCIMP" name="Decisionally Impaired" sortorder="4"/>
+		<type id="MINORS" name="Children" sortorder="5"/>
+		<type id="K12STUD" name="K-12 Students" sortorder="6"/>
+		<type id="UICSTUD" name="ISMMS Students" sortorder="7"/>
+		<type id="resFellow" name="Residents/Fellows" sortorder="8"/>
+		<type id="FETUS" name="Fetuses" sortorder="9"/>
+		<type id="PREGNANT" name="Pregnant Women" sortorder="10"/>
+		<type id="ER" name="Critically Ill (ER/ICU/CCU)" sortorder="11"/>
+		<type id="UICEMP" name="MSSM Employees" sortorder="12"/>
+		<type id="PAR" name="Parent/Teacher/Caregiver" sortorder="13"/>
+		<type id="PRISPRIM" name="Prisoners" sortorder="14"/>
+		<type id="OTH" name="Other" inactive="true" sortorder="15"/>
+		<type id="WARDS" name="Wards of the State" sortorder="16"/>
+	</populationTypes>
+	<!--Updated for UMMC -->
+
+	<ethnicCategoryTypes>
+		<type id="HISPLAT" conversionType="existing" conversionValue="HISPLAT" name="Hispanic or Latino" sortorder="1"/>
+		<type id="NHISPLAT" conversionType="existing" conversionValue="NHISPLAT" name="Non-Hispanic or Latino" sortorder="2"/>
+		<type id="UNKNOWN" conversionType="existing" conversionValue="UNKNOWN" name="Unknown or not reported" sortorder="3"/>
+	</ethnicCategoryTypes>
+
+	<!--Updated for UMMC -->
+
+	<raceTypes>
+		<type id="INDALA" conversionType="existing" conversionValue="INDALA" name="American Indian/Alaskan Native" sortorder="1"/>
+		<type conversionType="existing" conversionValue="ASIAN" id="ASIAN" name="Asian" sortorder="2"/>
+		<type id="HAWPAC" conversionType="existing" conversionValue="HAWPAC" name="Native Hawaiian or Other Pacific Islander" sortorder="3"/>
+		<type conversionType="existing" conversionValue="BLACK" id="BLACK" name="Black or African American" sortorder="4"/>
+		<type conversionType="existing" conversionValue="WHITE" id="WHITE" name="White" sortorder="5"/>
+		<type id="MORERAC" conversionType="existing" conversionValue="MORERAC" name="More than one race" sortorder="6"/>
+		<type id="UNKNREP" conversionType="existing" conversionValue="UNKNREP" name="Unknown or not reported" sortorder="7"/>
+	</raceTypes>
+
+	<!--Updated for UMMC -->
+
+	<methodTypes>
+		<type id="clinpract" conversionType="existing" conversionValue="CLPRC" name="Clinical Practice"/>
+		<type id="reg" conversionType="existing" conversionValue="RGBNK" name="Registry/Bank"/>
+		<type id="ADVFL" inactive="true" name="Advertisement/Flyers/Radio Scripts/TV Ads"/>
+		<type id="CRAIG" name="Craigslist"/>
+		<type id="FB" name="Facebook"/>
+		<type id="TWIT" name="Twitter"/>
+		<type id="GRPWSE" inactive="true" name="Targeted email"/>
+		<type id="NONE" inactive="true" name="No recruitment"/>
+		<type id="WEBAD" name="Other Website"/>
+		<type id="RECRD" name="Records (e.g. Medical, Employment, School)"/>
+		<type id="PHYRF" name="Information Letter/Pamphlets"/>
+		<type id="INLPM" name="Physician Referral"/>
+		<type id="PRTE" name="Printed/Radio/TV/email Media"/>
+		<type id="MATCH" name="Research Match"/>
+		<type id="OTHER" name="Other"/>
+	</methodTypes>
+
+	<!--Updated for UMMC -->
+
+	<advertTypes>
+		<type id="print" name="Print Advertisement"/>
+		<type id="radio" name="Radio Advertisement"/>
+		<type id="telev" name="Television Advertisement"/>
+		<type id="inter" name="Internet"/>
+		<type id="infoSheet" name="Information Sheets"/>
+		<type id="email" name="E-Mail"/>
+		<type id="massmail" name="Mass Mailing"/>
+		<type id="physlet" name="Physician Letter"/>
+		<type id="patlet" name="Patient Letter"/>
+		<type id="telescript" name="Telephone Script"/>
+		<type id="bro" name="Brochure"/>
+		<type id="flyer" name="Flyer"/>
+		<type id="none" name="None"/>
+	</advertTypes>
+
+	<contactTypes>
+		<type id="1" name="Study Personnel"/>
+		<type id="2" name="Member of Primary Care Team"/>
+		<type id="3" name="Treating Physician"/>
+		<type id="4" name="Clinic Personnel"/>
+	</contactTypes>
+
+	<!--Updated for UMMC -->
+
+	<compensationTypes>
+		<type id="mon" name="Cash"/>
+		<type id="non" name="Check"/>
+		<type id="gift" name="Gift Card"/>
+		<type id="other" name="Other"/>
+		<!--<type id="both" name="Both"/>-->
+	</compensationTypes>
+
+	<!--Updated for UMMC -->
+
+	<justificationTypes>
+		<type id="time" name="Time"/>
+		<type id="trav" name="Estimated Expenses"/>
+		<!--<type id="both" name="Time &amp; Travel Expenses"/>-->
+	</justificationTypes>
+
+	<!--Updated for UMMC -->
+
+	<processTypes> 
+		<type id="PWIC" name="Prospective Written Consent" inactive="true" rcrType='0' sortorder="1"/>
+		<type id="ADULT" name="Adult Consent" rcrType='0' sortorder="2"/>
+		<type id="PARPERM" name="Parental Permission / Child Assent" rcrType='0' sortorder="3"/>
+		<type id="LAR" name="Legally Authorized Representative (LAR) Permission" rcrType='0' sortorder="4"/>
+		<type id="WRTASNT" name="Assent" rcrType='0' inactive="true" sortorder="5"/>
+		<type id="ALTERIC" name="Waiver" rcrType='0' inactive="true" sortorder="6"/>
+		<type id="SHRTFRM" name="Prospective Written Short Form" rcrType='0' inactive="true" sortorder="7"/>
+		<type id="ICORL" name="Informed Consent - Oral" rcrType='0' inactive="true" sortorder="8"/>
+		<type id="VERASNT" name="Assent - Oral" rcrType='0' inactive="true"  sortorder="9"/>
+		<type id="ALTCNSNT" name="Alteration" rcrType='0' inactive="true" sortorder="10"/>
+		<!--Vamshi added this because of its reference in the spreadsheet-->
+		<type id="HIPAWAIV" name="HIPAA Waiver" inactive="true" rcrType='1' sortorder="11"/>
+		<type id="CONSWAIV" name="Consent Waiver" inactive="true" rcrType='1' sortorder="12"/>
+	</processTypes>
+
+	<!--Added for UMMC -->
+
+	<HIPAAMethod>
+		<type id="HIPAAWRT" name="HIPAA - Authorization" sortorder="1"/>
+		<type id="HIPAAWV" name="HIPAA - Waiver" sortorder="2"/>
+		<type id="HIPAALDS" name="Limited Data Set" sortorder="3"/>
+	</HIPAAMethod>
+
+	<!--Updated for UMMC
+
+RiSC data references: 
+
+HIPAAWRT            1
+ICORL               1
+ALTERIC            11
+WVPROSCSNT         11
+WVIC-DOC           79
+PARPERM           107
+WRTASNT           133
+HIPAAWV           391
+WVIC              473
+PWIC             1456
+-->
+
+	<waiverTypes>
+		<type id="WVIC-DOC" name="Waiver of Signed Consent Document" sortorder="1"/>
+		<type id="WVIC" name="Waiver of Consent" sortorder="2"/>
+		<type id="WVPARCONS" name="Waiver of Parental Permission - 45 CFR 46.408(c)" sortorder="3"/>
+		<type id="WVPARCONS2" name="Waiver of Parental Permission - 45 CFR 46.116(d)" sortorder="4"/>
+		<type id="WVCHLDAA" name="Waiver of Assent 45 CFR 46.408(a)" sortorder="5"/>
+		<type id="WVCHLDAD" name="Waiver of Assent 45 CFR 46.116(d)" sortorder="6"/>
+		<type id="WVPROSCSNT" name="Waiver of Prospective Consent for Emergency Research - 21 CFR 50.24" sortorder="7"/>
+	</waiverTypes>
+
+	<!--Updated for UMMC 
+NOTE: addition of fees are included
+Data conversion needs to address the 3 response submissions-->
+
+	<submissionTypes>
+		<type id="INIT" name="Initial Review" fee="2500"/>
+		<type id="comReport" conversionType="existing" conversionValue="OTURPRT" name="One Time Use Report" fee="0"/>
+		<type id="comRequest" conversionType="existing" conversionValue="OTURQST" name="One Time Use Request" fee="0"/>
+		<type id="CONT" name="Continuing Review" fee="750"/>
+		<type id="AMEND" name="Amendment" fee="500"/>
+		<type id="advers" conversionType="existing" conversionValue="ADVERSE" name="Unanticipated Problem" fee="0"/>
+		<type id="REINST" name="Reinstatement" fee="0"/>
+		<type id="rinal" conversionType="existing" conversionValue="FINAL" name="Final Report" fee="0"/>
+		<type id="REINST" name="Reinstatement" fee="0"/>
+		<type id="DEFER" name="Response To Tabled" inactive="true" fee="0"/>
+		<type id="MODS" name="Response To Revisions" inactive="true" fee="0"/>
+		<type id="PIRESP" name="Response From PI" inactive="true" fee="0"/>
+		<type id="EXCOMP" name="Exempt Study Completion Report" inactive="true" fee="0"/>
+	</submissionTypes>
+
+	<!--Why is this listed as reviewtypes? there are two of these is this redundant? -->
+
+	<reviewTypess>
+		<type id="prot" name="Protocol"/>
+		<type id="con" name="Consent"/>
+		<type id="let" name="Letter of Support"/>
+		<type id="bros" name="Investigational Drug Brochure"/>
+		<type id="materials" name="Recruitment/Advertisement Materials"/>
+	</reviewTypess>
+
+	<!--Updated for UMMC 
+Need to review with Nancy to see if any of these need to be inactivated
+
+Review Records:
+
+APPSITE             1
+DEVONLY             3
+TERM                3
+TBLD                4
+NOQRM              16
+INCORRECT          24
+NOTHUMAN           27
+DISAPP             32
+NOTRSRCH           37
+MODCONV            58
+REFCONV           116
+                  161
+DEF               268
+RETURN            339
+REFIRB           1698
+NOREC            4004
+MODREQ           5695
+ACK              6098
+APP             12417
+NOTATION        15309
+
+Reviewers:
+
+APPSITE             1
+DISAPP              2
+DEVONLY             3
+DEF                 4
+INCORRECT          21
+NOTHUMAN           28
+NOTRSRCH           36
+MODCONV            58
+REFCONV           118
+                  129
+RETURN            338
+REFIRB           1698
+MODREQ           2798
+NOREC            4841
+ACK              6049
+APP              9505-->
+
+	<decisionTypes>
+		<type id="ack" name="Acknowledged"/>
+		<type id="apr" conversionType="existing" conversionValue="APP" name="Approved"/>
+		<type id="mod" conversionType="existing" conversionValue="MODREQ" name="Revisions Required"/>
+		<type id="DEF" name="Deferred"/>
+		<type id="sus" conversionType="existing" conversionValue="SUSP" name="Suspended"/>
+		<type id="TERM" name="Terminated"/>
+		<type id="WITH" name="Withdrawn"/>
+		<type id="dis" conversionType="existing" conversionValue="DISAPP" name="Disapproved"/>
+		<type id="APPDEF" name="Approved/Tabled" inactive="true"/>
+		<type id="APPEXT" name="Approved For External Review" inactive="true"/>
+		<type id="APPMODS" name="Approved/Revisions Required" inactive="true"/>
+		<type id="APPPOP" name="Approved For Specific Population"/>
+		<type id="APPSITE" name="Approved For Specific Performance Site"/>
+		<type id="DEVONLY" name="Development Only"/>
+		<type id="INCORRECT" name="Incorrect Process" inactive="true"/>
+		<type id="MODCONV" name="Referred To Convened With Revisions" inactive="true"/>
+		<type id="NOQRM" name="Tabled - No Quorum"/>
+		<type id="NOREC" name="No Recommendation"/>
+		<type id="NOTATION" name="Notation" inactive="true"/>
+		<type id="NOTHUMAN" name="Not Human Subjects"/>
+		<type id="NOTRSRCH" name="Not Research"/>
+		<type id="REFCONV" name="Referred To Convened"/>
+		<type id="REFIRB" name="Referred To IRB Chair"/>
+		<type id="RETURN" name="Returned To PI"/>
+		<type id="TBLD" name="Rescheduled"/>
+		<type id="closee" name="Closed" inactive="true"/>
+	</decisionTypes>
+
+	<!--Updated for UMMC 
+Need to review with Nancy to see if any of these need to be inactivated
+Does Nancy want the Administrative option-->
+
+	<reviewProcessTypes>
+		<type id="admin" name="Administrative"/>
+		<type id="exempt" conversionType="existing" conversionValue="EXMPT" name="Exempt"/>
+		<type id="expedited" conversionType="existing" conversionValue="EXP" name="Expedited"/>
+		<type id="full" conversionType="existing" conversionValue="CONV" name="Convened"/>
+		<type id="OTH" name="Other"/>
+	</reviewProcessTypes>
+
+	<!--Updated for UMMC 
+RiSC shows no reviews entered for Expert or OHRP There are 2 for Adhoc-->
+
+	<reviewTypes>
+		<type id="PRE" name="Pre-Review"/>
+		<type id="mem" conversionType="existing" conversionValue="MEMBR" name="IRB Member Review"/>
+		<type id="board" conversionType="existing" conversionValue="MTG" name="IRB Meeting Review"/>
+		<type id="ADHOC" name="Ad Hoc Consultant External Review"/>
+		<type id="EXPRT" name="Expert Panel External Review"/>
+		<type id="OHRP" name="OHRP External Review"/>
+	</reviewTypes>
+
+	<!--Notes for Don: I've added a new attribute called longDesc here and added the long text to it. This needs to be done for:
+1. HHSChildrensTypes
+2. FDAChildrensTypes
+3. PrisonerTypes
+4. expeditedTypes
+5. expeditedTypesForCR
+For expeditedTypes and expeditedTypesForCR, you might want to move the existing text to "longDesc", and add an abbreviated text to "name"
+-->
+	<HHSChildrensTypes>
+		<type id="i" name="45 CFR 46.404"
+		  longDesc="Research not involving greater than minimal risk to the children. To approve this category of research, the IRB must make the following determinations:
+      - the research presents no greater than minimal risk to the children; and
+      - adequate provisions are made for soliciting the assent of the children and the permission of their parents or guardians, as set forth in HHS regulations at 45 CFR 46.408."/>
+		<type id="ii" name="45 CFR 46.405"
+		  longDesc="
+      Research involving greater than minimal risk but presenting the prospect of direct benefit to the individual child subjects involved in the research. To approve research in this category, the IRB must make the following determinations:
+      - the risk is justified by the anticipated benefits to the subjects;
+      - the relation of the anticipated benefit to the risk presented by the study is at least as favorable to the subjects as that provided by available alternative approaches; and
+      - adequate provisions are made for soliciting the assent of the children and the permission of their parents or guardians, as set forth in HHS regulations at 45 CFR 46.408."/>
+		<type id="iii" name="45 CFR 46.406"
+		  longDesc="Research involving greater than minimal risk and no prospect of direct benefit to the individual child subjects involved in the research, but likely to yield generalizable knowledge about the subject's disorder or condition. In order to approve research in this category, the IRB must make the following determinations: 
+      - the risk of the research represents a minor increase over minimal risk;
+      - the intervention or procedure presents experiences to the child subjects that are reasonably commensurate with those inherent in their actual, or expected medical, dental, psychological, social, or educational situations;
+      - the intervention or procedure is likely to yield generalizable knowledge about the subject's disorder or condition which is of vital importance for the understanding or amelioration of the disorder or condition; and
+      - adequate provisions are made for soliciting the assent of the children and the permission of their parents or guardians, as set forth in HHS regulations at 45 CFR 46.408."/>
+		<type id="iv" name="45 CFR 46.407"
+		  longDesc="Research that the IRB believes does not meet the conditions of 45 CFR 46.404, 46.405, or 46.406, but finds that the research presents a reasonable opportunity to further the understanding, prevention, or alleviation of a serious problem affecting the health or welfare of children.
+      
+      If the IRB believes that the research does not meet the requirements of 45 CFR 46.404, 46.405, or 46.406, but finds that it presents a reasonable opportunity to further the understanding, prevention, or alleviation of a serious problem affecting the health or welfare of children, it may refer the protocol to HHS for review. The research may proceed only if the Secretary, HHS, or his or her designee, after consulting with a panel of experts in pertinent disciplines (e.g., science, medicine, education, ethics, law) and following an opportunity for public review and comment, determines either: (1) that the research in fact satisfies the conditions of 45 CFR 46.404, 46.405, or 46.406, or (2) the following:
+      - the research presents a reasonable opportunity to further the understanding, prevention, or alleviation of a serious problem affecting the health or welfare of children;
+      - the research will be conducted in accordance with sound ethical principles; and
+      - adequate provisions are made for soliciting the assent of children and the permission of their parents or guardians, as set forth in HHS regulations at 45 CFR 46.408."
+    />
+	</HHSChildrensTypes>
+
+	<FDAChildrensTypes>
+		<type id="i" name="21 CFR 50.51"
+		  longDesc="Clinical investigations not involving greater than minimal risk.
+      Any clinical investigation within the scope described in 50.1 and 56.101 of this chapter in which no greater than minimal risk to children is presented may involve children as subjects only if the IRB finds and documents that adequate provisions are made for soliciting the assent of the children and the permission of their parents or guardians as set forth in 50.55."/>
+		<type id="ii" name="21 CFR 50.52"
+		  longDesc="Clinical investigations involving greater than minimal risk but presenting the prospect of direct benefit to individual subjects.
+      Any clinical investigation within the scope described in 50.1 and 56.101 of this chapter in which more than minimal risk to children is presented by an intervention or procedure that holds out the prospect of direct benefit for the individual subject, or by a monitoring procedure that is likely to contribute to the subject's well-being, may involve children as subjects only if the IRB finds and documents that:
+      (a) The risk is justified by the anticipated benefit to the subjects;
+      (b) The relation of the anticipated benefit to the risk is at least as favorable to the subjects as that presented by available alternative approaches; and
+      (c) Adequate provisions are made for soliciting the assent of the children and permission of their parents or guardians as set forth in 50.55."/>
+		<type id="iii" name="21 CFR 50.53"
+		  longDesc="Clinical investigations involving greater than minimal risk and no prospect of direct benefit to individual subjects, but likely to yield generalizable knowledge about the subjects' disorder or condition.
+      Any clinical investigation within the scope described in 50.1 and56.101 of this chapter in which more than minimal risk to children is presented by an intervention or procedure that does not hold out the prospect of direct benefit for the individual subject, or by a monitoring procedure that is not likely to contribute to the well-being of the subject, may involve children as subjects only if the IRB finds and documents that:
+      (a) The risk represents a minor increase over minimal risk;
+      (b) The intervention or procedure presents experiences to subjects that are reasonably commensurate with those inherent in their actual or expected medical, dental, psychological, social, or educational situations;
+      (c) The intervention or procedure is likely to yield generalizable knowledge about the subjects' disorder or condition that is of vital importance for the understanding or amelioration of the subjects' disorder or condition; and
+      (d) Adequate provisions are made for soliciting the assent of the children and permission of their parents or guardians as set forth in 50.55."/>
+		<type id="iv" name="21 CFR 50.54"
+		  longDesc="Clinical investigations not otherwise approvable that present an opportunity to understand, prevent, or alleviate a serious problem affecting the health or welfare of children.
+      If an IRB does not believe that a clinical investigation within the scope described in 50.1 and 56.101 of this chapter and involving children as subjects meets the requirements of 50.51, 50.52, or 50.53, the clinical investigation may proceed only if:
+      (a) The IRB finds and documents that the clinical investigation presents a reasonable opportunity to further the understanding, prevention, or alleviation of a serious problem affecting the health or welfare of children; and
+      (b) The Commissioner of Food and Drugs, after consultation with a panel of experts in pertinent disciplines (for example: science, medicine, education, ethics, law) and following opportunity for public review and comment, determines either:
+      (1) That the clinical investigation in fact satisfies the conditions of 50.51, 50.52, or 50.53, as applicable, or
+      (2) That the following conditions are met:
+      (i) The clinical investigation presents a reasonable opportunity to further the understanding, prevention, or alleviation of a serious problem affecting the health or welfare of children;
+      (ii) The clinical investigation will be conducted in accordance with sound ethical principles; and
+      (iii) Adequate provisions are made for soliciting the assent of children and the permission of their parents or guardians as set forth in 50.55."
+    />
+	</FDAChildrensTypes>
+
+	<PrisonerTypes>
+		<type id="i" name="45 CFR 46.306(a)(2)(i)"
+		  longDesc="Study of the possible causes, effects, and processes of incarceration, and of criminal behavior, provided that the study presents no more than minimal risk and no more than inconvenience to the subjects;"/>
+		<type id="ii" name="45 CFR 46.306(a)(2)(ii)"
+		  longDesc="Study of prisons as institutional structures or of prisoners asincarcerated persons, provided that the study presents no more than minimal risk and no more than inconvenience to the subjects;"/>
+		<type id="iii" name="45 CFR 46.306(a)(2)(iii)"
+		  longDesc="Research on conditions particularly affecting prisoners as a class (for example, vaccine trials and other research on hepatitis which is much more prevalent in prisons than elsewhere; and research on social and psychological problems such as alcoholism, drug addiction, and sexual assaults) provided that the study may proceed only after the Secretary has consulted with appropriate experts including experts in penology, medicine, and ethics, and published notice, in the FEDERAL REGISTER, of his intent to approve such research;"/>
+		<type id="iv" name="45 CFR 46.306(a)(2)(iv)"
+		  longDesc="Research on practices, both innovative and accepted, which have the intent and reasonable probability of improving the health or well-being of the subject. In cases in which those studies require the assignment of prisoners in a manner consistent with protocols approved by the IRB to control groups which may not benefit from the research, the study may proceed only after the Secretary has consulted with appropriate experts, including experts in penology, medicine, and ethics, and published notice, in the FEDERAL REGISTER, of the intent to approve such research."
+    />
+	</PrisonerTypes>
+
+	<!--These are the Expedited categories but is labeled as Exemption categories
+    Changed to reflect that they are the Expedited values -->
+
+	<expeditedTypes>
+		<type id="1"
+		  name="(1) Clinical studies of drugs and medical devices only when condition (a) or (b) is met. (a) Research on drugs for which an investigational new drug application (21 CFR Part 312) is not required. (Note: Research on marketed drugs that significantly increases the risks or decreases the acceptability of the risks associated with the use of the product is not eligible for expedited review.) (b) Research on medical devices for which (i) an investigational device exemption application (21 CFR Part 812) is not required; or (ii) the medical device is cleared/approved for marketing and the medical device is being used in accordance with its cleared/approved labeling."/>
+		<type id="2"
+		  name="(2) Collection of blood samples by finger stick, heel stick, ear stick, or venipuncture as follows: (a) from healthy, nonpregnant adults who weigh at least 110 pounds. For these subjects, the amounts drawn may not exceed 550 ml in an 8 week period and collection may not occur more frequently than 2 times per week; or (b) from other adults and children2, considering the age, weight, and health of the subjects, the collection procedure, the amount of blood to be collected, and the frequency with which it will be collected. For these subjects, the amount drawn may not exceed the lesser of 50 ml or 3 ml per kg in an 8 week period and collection may not occur more frequently than 2 times per week."/>
+		<type id="3"
+		  name="(3) Prospective collection of biological specimens for research purposes by noninvasive means. Examples: (a) hair and nail clippings in a nondisfiguring manner; (b) deciduous teeth at time of exfoliation or if routine patient care indicates a need for extraction; (c) permanent teeth if routine patient care indicates a need for extraction; (d) excreta and external secretions (including sweat); (e) uncannulated saliva collected either in an unstimulated fashion or stimulated by chewing gumbase or wax or by applying a dilute citric solution to the tongue; (f) placenta removed at delivery; (g) amniotic fluid obtained at the time of rupture of the membrane prior to or during labor; (h) supra- and subgingival dental plaque and calculus, provided the collection procedure is not more invasive than routine prophylactic scaling of the teeth and the process is accomplished in accordance with accepted prophylactic techniques; (i) mucosal and skin cells collected by buccal scraping or swab, skin swab, or mouth washings; (j) sputum collected after saline mist nebulization."/>
+		<type id="4"
+		  name="(4) Collection of data through noninvasive procedures (not involving general anesthesia or sedation) routinely employed in clinical practice, excluding procedures involving x-rays or microwaves. Where medical devices are employed, they must be cleared/approved for marketing. (Studies intended to evaluate the safety and effectiveness of the medical device are not generally eligible for expedited review, including studies of cleared medical devices for new indications.) Examples: (a) physical sensors that are applied either to the surface of the body or at a distance and do not involve input of significant amounts of energy into the subject or an invasion of the subject=s privacy; (b) weighing or testing sensory acuity; (c) magnetic resonance imaging; (d) electrocardiography, electroencephalography, thermography, detection of naturally occurring radioactivity, electroretinography, ultrasound, diagnostic infrared imaging, doppler blood flow, and echocardiography; (e) moderate exercise, muscular strength testing, body composition assessment, and flexibility testing where appropriate given the age, weight, and health of the individual."/>
+		<type id="5"
+		  name="(5) Research involving materials (data, documents, records, or specimens) that have been collected, or will be collected solely for nonresearch purposes (such as medical treatment or diagnosis). (NOTE: Some research in this category may be exempt from the HHS regulations for the protection of human subjects. 45 CFR 46.101(b)(4). This listing refers only to research that is not exempt.)"/>
+		<type id="6"
+		  name="(6) Collection of data from voice, video, digital, or image recordings made for research purposes."/>
+		<type id="7"
+		  name="(7) Research on individual or group characteristics or behavior (including, but not limited to, research on perception, cognition, motivation, identity, language, communication, cultural beliefs or practices, and social behavior) or research employing survey, interview, oral history, focus group, program evaluation, human factors evaluation, or quality assurance methodologies. (NOTE: Some research in this category may be exempt from the HHS regulations for the protection of human subjects. 45 CFR 46.101(b)(2) and (b)(3). This listing refers only to research that is not exempt.)"
+    />
+		<type id="10"
+		  name="(10) Minimal risk, but does not meet categories 1-9 for expedited review"
+    />
+	</expeditedTypes>
+
+	<!--Section to provide for the Expedited categories for Continuing Reviews that has been added -->
+
+	<expeditedTypesForCR>
+		<type id="8a"
+		  name="(8a) Continuing review of research previously approved by the convened IRB where (i) the research is permanently closed to the enrollment of new subjects; (ii) all subjects have completed all research-related interventions; and (iii) the research remains active only for long-term follow-up of subjects."
+    />
+		<type id="8b"
+		  name="(8b) Continuing review of research previously approved by the convened IRB where no subjects have been enrolled and no additional risks have been identified."
+    />
+		<type id="8c"
+		  name="(8c) Continuing review of research previously approved by the convened IRB where the remaining research activities are limited to data analysis."
+    />
+		<type id="9"
+		  name="(9) Continuing review of research, not conducted under an investigational new drug application or investigational device exemption where categories two (2) through eight (8) do not apply but the IRB has determined and documented at a convened meeting that the research involves no greater than minimal risk and no additional risks have been identified."
+    />
+	</expeditedTypesForCR>
+
+	<!-- Renamed the section to Exemption Types -->
+
+	<exemptionTypes>
+		<type id="1"
+		  name="(1) Research conducted in established or commonly accepted educational settings, involving normal educational practices, such as (i) research on regular and special education instructional strategies, or (ii) research on the effectiveness of or the comparison among instructional techniques, curricula, or classroom management methods."/>
+		<type id="2"
+		  name="(2) Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures or observation of public behavior, unless: (i) information obtained is recorded in such a manner that human subjects can be identified, directly or through identifiers linked to the subjects; and (ii) any disclosure of the human subjects' responses outside the research could reasonably place the subjects at risk of criminal or civil liability or be damaging to the subjects' financial standing, employability, or reputation."/>
+		<type id="3"
+		  name="(3) Research involving the use of educational tests (cognitive, diagnostic, aptitude, achievement), survey procedures, interview procedures, or observation of public behavior that is not exempt under paragraph (b)(2) of this section, if: (i) the human subjects are elected or appointed public officials or candidates for public office; or (ii) federal statute(s) require(s) without exception that the confidentiality of the personally identifiable information will be maintained throughout the research and thereafter."/>
+		<type id="4"
+		  name="(4) Research involving the collection or study of existing data, documents, records, pathological specimens, or diagnostic specimens, if these sources are publicly available or if the information is recorded by the investigator in such a manner that subjects cannot be identified, directly or through identifiers linked to the subjects."/>
+		<type id="5"
+		  name="(5) Research and demonstration projects which are conducted by or subject to the approval of department or agency heads, and which are designed to study, evaluate, or otherwise examine: (i) Public benefit or service programs; (ii) procedures for obtaining benefits or services under those programs; (iii) possible changes in or alternatives to those programs or procedures; or (iv) possible changes in methods or levels of payment for benefits or services under those programs."/>
+		<type id="6"
+		  name="(6) Taste and food quality evaluation and consumer acceptance studies, (i) if wholesome foods without additives are consumed or (ii) if a food is consumed that contains a food ingredient at or below the level and for a use found to be safe, or agricultural chemical or environmental contaminant at or below the level found to be safe, by the Food and Drug Administration or approved by the Environmental Protection Agency or the Food Safety and Inspection Service of the U.S. Department of Agriculture."
+    />
+	</exemptionTypes>
+
+	<!--Updated for UMMC -->
+
+	<subjectResearchStatus>
+		<type id="STOPRESINT" name="Stopped research intervention" sortorder="1"/>
+		<type id="1" conversionType="existing" conversionValue="CRINT" name="Continued research intervention/interaction" sortorder="2"/>
+		<type id="2" conversionType="existing" conversionValue="CRFOLLUP" name="Continued research - follow-up only" sortorder="3"/>
+		<type id="COMPRES" name="Already completed research" sortorder="4"/>
+		<type id="5" conversionType="existing" conversionValue="SUBWITH" name="Participant withdrew from further participation" sortorder="5"/>
+		<type id="6" conversionType="existing" conversionValue="INVWITHSUB" name="Investigator withdrew participant from further participation" sortorder="6"/>
+		<type id="UNKNOWN" name="Off-site event - outcome not reported or unknown" sortorder="7"/>
+	</subjectResearchStatus>
+
+	<violationType>
+		<type id="1" name="Unintentional"/>
+		<type id="2" name="Intentional"/>
+	</violationType>
+
+	<violationResult>
+		<type id="1" name="Yes - Increased Risks"/>
+		<type id="2" name="Yes - Decreased Benefits"/>
+		<type id="3" name="No"/>
+	</violationResult>
+
+	<unantiProbType>
+		<type id="1" name="Adverse Event"/>
+		<type id="2" name="Protocol Deviation/Violation"/>
+		<type id="3" name="Noncompliance"/>
+		<type id="4" name="Breach of Confidentiality"/>
+		<type id="5" name="Complaint"/>
+	</unantiProbType>
+
+	<correctiveActions>
+		<type id="1" name="Changes to the research protocol initiated by the investigator prior to obtaining IRB approval to eliminate apparent immediate hazards to participants"/>
+		<type id="2" name="Modification of inclusion or exclusion criteria to mitigate the newly identified risks"/>
+		<type id="3" name="Implementation of additional procedures for monitoring participants"/>
+		<type id="4" name="Suspension of enrollment of new participants"/>
+		<type id="5" name="Suspension of research procedures in currently enrolled participants"/>
+		<type id="6" name="Modification of informed consent documents to include a description of newly recognized risks"/>
+		<type id="7" name="Provision of additional information about newly recognized risks to previously enrolled participants"/>
+	</correctiveActions>
+
+	<reportUnantiProb>
+		<type id="1" name="Food and Drug Administration (FDA)"/>
+		<type id="2" name="Sponsor"/>
+		<type id="3" name="DSMB/DMC"/>
+		<type id="4" name="Clinical Research Center (CRC)"/>
+		<type id="5" name="Cancer Center - Protocol Review Committee"/>
+		<type id="6" name="Radiation Safety Office (RSC)"/>
+		<type id="7" name="Institutional Biosafety Committee (IBC)"/>
+		<type id="oth" name="Other"/>
+	</reportUnantiProb>
+
+	<!--Updated for UMMC -->
+
+	<!--<boardMemberExpertise>
+  <type id="1" conversionType="existing" conversionValue= "PREGNANT" name="Pregnant Women/Human Fetuses"/>
+  <type id="2" conversionType="existing" conversionValue= "CHILDREN" name="Children"/>
+  <type id="3" name="Anesthesiology" inactive="true"/>
+  <type id="4" conversionType="existing" conversionValue= "PRISONER" name="Prisoner Advocate"/>
+  <type id="5" name="Neonates"/>
+  <type id="EDUCATION" name="Education"/>
+  <type id="MNTLCOMP" name="Mentally Disabled"/>
+</boardMemberExpertise>-->
+
+	<boardMemberExpertise>
+		<type id="1" name="Pregnant Women/Human Fetuses"/>
+		<type id="2" name="Neonates"/>
+		<type id="3" name="Prisoners"/>
+		<type id="4" name="Children"/>
+		<type id="5" name="Mental Health"/>
+	</boardMemberExpertise>
+
+	<!-- New categories for UMMC Data Conversion -->
+
+	<adverseEventType>
+		<type id="EXTRL" name="External"/>
+		<type id="INTRL" name="Internal"/>
+	</adverseEventType>
+
+	<AeDescriptionType>
+		<type id="LIFETHEXP" name="Life threatening experience" sortorder="1"/>
+		<type id="REQINPAT" name="Required in-patient hospitalization" sortorder="2"/>
+		<type id="PROCURR" name="Prolonged current hospitalization" sortorder="3"/>
+		<type id="CONANOMALY" name="Congenital anomaly/birth defect" sortorder="4"/>
+		<type id="PERSDIS" name="Persistent or significant disability/incapacity" sortorder="5"/>
+		<type id="NEWDIS" name="New disease or problem" sortorder="6"/>
+		<type id="DEATHUNDER" name="Death - underlying/progressive disease" sortorder="7"/>
+		<type id="DEATHRR" name="Death - research related" sortorder="8"/>
+		<type id="PSYHARM" name="Psychological harm or injury" sortorder="9"/>
+		<type id="SOCHARM" name="Social harm or injury" sortorder="10"/>
+		<type id="ECOHARM" name="Economic harm" sortorder="11"/>
+		<type id="BREACHCON" name="Breach of confidentiality" sortorder="12"/>
+		<type id="DRUG" name="Drug" sortorder="13"/>
+		<type id="DEVICE" name="Device" sortorder="14"/>
+		<type id="BIOLOGICAL" name="Biological" sortorder="15"/>
+		<type id="SER DEV" name="Serious Protocol Deviation" sortorder="16"/>
+		<type id="DEV" name="Minor Protocol Deviation" sortorder="17"/>
+		<type id="OTHER" name="Other" sortorder="18"/>
+	</AeDescriptionType>
+
+	<aeRelationship>
+		<type id="DEF" name="Definite - clearly related to the research"/>
+		<type id="NOTREL" name="Unrelated - clearly not related to the research"/>
+		<type id="POSSREL" name="Possible - may be related to the research"/>
+		<type id="PROBREL" name="Probable - likely related to the research"/>
+		<type id="UNLIKE" name="Unlikely - doubtfully related to the research"/>
+	</aeRelationship>
+
+	<amendmentInitiatedBy>
+		<type id="AUD" name="Audit Findings"/>
+		<type id="PI" name="PI"/>
+		<type id="SP" name="Sponsor"/>
+	</amendmentInitiatedBy>
+
+	<AmendmentType>
+		<type id="PROT" name="Protocol Amendment" sortorder="1"/>
+		<type id="TITLE" name="Research Protocol Title" sortorder="2"/>
+		<type id="RICDOC" name="Revised Informed Consent Document" sortorder="3"/>
+		<type id="AUDRES" name="Audit response" sortorder="4"/>
+		<type id="RECRUIT" name="Recruiting Materials" sortorder="5"/>
+		<type id="INVSTGTR" name="Investigator" sortorder="6"/>
+		<type id="INVBRUPD" name="Investigator Brochure Update" sortorder="7"/>
+		<type id="PERFSITE" name="Performance Site(s)" sortorder="8"/>
+		<type id="SPONSOR" name="Sponsor" sortorder="9"/>
+		<type id="SUPPORT" name="Support Source" sortorder="10"/>
+		<type id="SUBENROLL" name="participant Enrollment" sortorder="11"/>
+		<type id="OTHER" name="Other" sortorder="12"/>
+		<type id="HIPAAADD" name="Addition of HIPAA Research Authorization" sortorder="13"/>
+		<type id="HIPAAADDH" name="Addition of Appendix H" sortorder="14"/>
+		<type id="HIPAAINCLH" name="Inclusion of Appendix H" sortorder="15"/>
+		<type id="HIPAAREV" name="Revised HIPAA Research Authorization" sortorder="16"/>
+	</AmendmentType>
+
+	<auditType>
+		<type id="EXT" name="External"/>
+		<type id="INT" name="Internal"/>
+	</auditType>
+
+	<fdaStatus>
+		<type id="EXMPT" name="Exempt"/>
+		<type id="INVEST" name="Investigational"/>
+	</fdaStatus>
+
+	<formOfCommunication>
+		<type id="EMAIL" name="E-Mail"/>
+		<type id="LETTER" name="Letter"/>
+		<type id="LTRMAIL" name="Letter/E-Mail"/>
+		<type id="MEETING" name="In-person meeting"/>
+		<type id="PHONE" name="Phone"/>
+	</formOfCommunication>
+
+	<IRBMemberStatus>
+		<type id="NS" name="Non-Scientist"/>
+		<type id="OS" name="Other Scientist"/>
+		<type id="PS" name="Physician Scientist"/>
+		<type id="SS" name="Social Scientist"/>
+	</IRBMemberStatus>
+
+	<NotificationStatus>
+		<type id="AP" name="Approved"/>
+		<type id="IP" name="In-Progress"/>
+		<type id="RR" name="Ready for Review"/>
+		<type id="ST" name="Sent"/>
+	</NotificationStatus>
+
+	<OTUOutcomes>
+		<type id="INTCOMP" name="Intervention Completed"/>
+		<type id="INTCONT" name="Intervention Continues"/>
+		<type id="INTDISCON" name="Intervention discontinued prior to completion"/>
+	</OTUOutcomes>
+
+	<PaymentMethods>
+		<type id="CASH" name="Cash"/>
+		<type id="CCARD" name="Credit Card"/>
+		<type id="CHECK" name="Check"/>
+	</PaymentMethods>
+
+	<PerformanceSiteCertification>
+		<type id="APRVD" name="Approved"/>
+		<type id="LOS" name="Letter of Support"/>
+		<type id="N/A" name="N/A"/>
+		<type id="PNDG" name="Pending"/>
+	</PerformanceSiteCertification>
+
+	<RecruitmentMethods>
+		<type id="ADVFL" name="Advertisement/Flyers/Radio Scripts/TV Ads"/>
+		<type id="CLPRC" name="Clinical Practice"/>
+		<type id="GRPWSE" name="Targeted email"/>
+		<type id="INLPM" name="Physician Referral"/>
+		<type id="NONE" name="No recruitment"/>
+		<type id="OTHER" name="Other"/>
+		<type id="PHYRF" name="Information Letter/Pamphlets"/>
+		<type id="RECRD" name="Records (e.g. Medical, Employment, School)"/>
+		<type id="RGBNK" name="Registry/Bank"/>
+		<type id="WEBAD" name="Website Ad/Form"/>
+	</RecruitmentMethods>
+
+	<RepositoryNames>
+		<type id="DATABASES" name="Databases"/>
+		<type id="DOCUMENTS" name="Documents"/>
+		<type id="RECEMP" name="Records - Employement"/>
+		<type id="RECINS" name="Records - Insurance"/>
+		<type id="RECMED" name="Records - Medical"/>
+		<type id="RECOTH" name="Records - Other"/>
+		<type id="RECRES" name="Records - Research"/>
+		<type id="RECSCH" name="Records - School"/>
+		<type id="RECSTU" name="Records - Student"/>
+		<type id="SPECDIAG" name="Specimens - Diagnostic"/>
+		<type id="SPECPATH" name="Specimens - Pathological"/>
+	</RepositoryNames>
+
+	<SetupTypes>
+		<type id="BOTH" name="Existing/Prospective"/>
+		<type id="EXISTING" name="Existing"/>
+		<type id="PROSPECT" name="Prospective"/>
+	</SetupTypes>
+
+	<SubjectCategories>
+		<type id="AGE" name="Age Range"/>
+		<type id="ETH" name="Gender and Ethnicity"/>
+		<type id="RACE" name="Race"/>
+		<type id="SOURCE" name="Source/Type"/>
+	</SubjectCategories>
+
+	<SuspendedTerminatedBy>
+		<type id="EP" name="Expert panel"/>
+		<type id="FDA" name="FDA"/>
+		<type id="INCOMM" name="Investigation/Inquiry Committee"/>
+		<type id="INSTITU" name="Institution"/>
+		<type id="IRB" name="IRB"/>
+		<type id="IRBCHAIR" name="IRB Chair"/>
+		<type id="OHRP" name="OHRP"/>
+		<type id="PI" name="Principal Investigator"/>
+		<type id="PS" name="Project Sponsor"/>
+	</SuspendedTerminatedBy>
+
+	<SuspensionTerminationReason>
+		<type id="EDREQ" name="Education requirement not met"/>
+		<type id="EXPAPP" name="Approval Expired/Non-renewal"/>
+		<type id="NONCOMP" name="Non-Compliance"/>
+		<type id="OTHER" name="Other"/>
+		<type id="PLNDANL" name="Planned Analysis"/>
+		<type id="RESPER" name="Research discontinued"/>
+		<type id="SFCON" name="Safety Concerns"/>
+		<type id="SUPIS" name="Support Issues"/>
+	</SuspensionTerminationReason>
+
+	<UniversityStatus>
+		<type id="FACULTY" name="Faculty"/>
+		<type id="FELLOW" name="Fellow"/>
+		<type id="NON_AFF" name="Non-affiliated"/>
+		<type id="RESIDENT" name="Resident"/>
+		<type id="STAFF" name="Staff (non MD)"/>
+		<type id="STUDENT" name="Student"/>
+	</UniversityStatus>
+
+	<ibcStatus>
+		<type id="1" name="Under Review"/>
+		<type id="2" name="Approved"/>
+		<type id="3" name="Disapproved"/>
+	</ibcStatus>
+
+	<escroStatus>
+		<type id="1" name="Under Review"/>
+		<type id="2" name="Approved"/>
+		<type id="3" name="Disapproved"/>
+	</escroStatus>
+
+	<dataMonitoringType>
+		<type id="DSMBDMC" name= "DSMB/DMC"/>
+		<type id="DSMP" name="DSMP"/>
+	</dataMonitoringType>
+
+	<standardOfCareMethod>
+		<type id="DRUG" name="Drug"/>
+		<type id="PROCEDURE" name="Procedure"/>
+		<type id="OTHER" name="Other"/>
+	</standardOfCareMethod>
+
+	<restrictionTypes>
+		<type id="MALE" name="Male"/>
+		<type id="FEMALE" name="Female"/>
+		<type id="PREGNANT" name="Pregnant Women"/>
+		<type id="CHILDBEARING" name="Childbearing Potential"/>
+		<type id="RACE" name="Race"/>
+		<!--<type id="ETHNICORIGIN" name="Ethnic Origin"/>-->
+	</restrictionTypes>
+
+	<phiTypes>
+		<type id="PHYSCLINIC" name="Physician/Clinic Records"/>
+		<type id="LABRADIO" name="Lab, Pathology or Radiology Results"/>
+		<type id="BIO" name="Biological Samples"/>
+		<type id="INTERVIEW" name="Interviews/Questionaires"/>
+		<type id="MEDREC" name="Hospital/Medical Records (In or Out Patient)"/>
+		<type id="BILLING" name="Billing Records"/>
+		<type id="PREVCOLLECTED" name="PHI Previously Collected for Research"/>
+		<type id="OTHER" name="Other"/>
+	</phiTypes>
+
+	<phiShareTypes>
+		<type id="STAT" name="Statistician"/>
+		<type id="COLLEAGUE" name="Colleagues/Collaborators"/>
+		<type id="RSCHLAB" name="Off-site Research Laboratory(s)"/>
+		<type id="DATACOORDCTR" name="Study Data Coordinating Center"/>
+		<type id="CONSULTANTS" name="Consultants"/>
+		<type id="BANKS" name="Data, Tissue, Specimen Registry(s)/Bank(s)"/>
+		<type id="STUDYPERS" name="Study Personnel"/>
+		<type id="OTHER" name="Other"/>
+	</phiShareTypes>
+
+	<phiShareMethod>
+		<type id="WITHOUTIDENT" name="Without Identifiers"/>
+		<type id="LINKEDCODE" name="With a linked code. (May require Authorization)"/>
+		<type id="WITHIDENT" name="With Identifiers. (Requires Authorization)"/>
+		<type id="LTDSET" name="As a Limited Data Set. (Requires a Data Use Agreement)"/>
+	</phiShareMethod>
+
+	<projectInitiatedBy>
+		<type id="SPONSOR" name="Sponsor"/>
+		<type id="PI" name="Investigator"/>
+	</projectInitiatedBy>
+
+	<biologicType>
+		<type id="1" name="Blood"/>
+		<type id="2" name="Bone Marrow"/>
+		<type id="3" name="Tissue"/>
+		<type id="4" name="Saliva"/>
+		<type id="5" name="Hair"/>
+		<type id="6" name="Finger or Toe Nails"/>
+		<type id="7" name="Teeth"/>
+		<type id="8" name="Urine"/>
+		<type id="9" name="Feces"/>
+	</biologicType>
+
+	<sampleIdentification>
+		<type id="3" name="Identified"/>
+		<type id="2" name="Coded"/>
+		<type id="1" name="Anonymous"/>
+	</sampleIdentification>
+
+	<auditedBy>
+		<type id="1" name="FDA"/>
+		<type id="2" name="OHRP"/>
+		<type id="3" name="Sponsor"/>
+	</auditedBy>
+	<radiationEquipment>
+		<type id="1" name="Fluoroscopy"/>
+		<type id="2" name="X-ray"/>
+		<type id="3" name="CT Scan"/>
+		<type id="4" name="DEXA"/>
+	</radiationEquipment>
+	<radioactiveMaterials>
+		<type id="1" name="Nuclear Medicine Scans"/>
+		<type id="2" name="MUGA"/>
+		<type id="3" name="Gastric Emptying"/>
+	</radioactiveMaterials>
+
+	<riskDetermination>
+		<type id="1" name="Significant"/>
+		<type id="2" name="Non-Significant"/>
+	</riskDetermination>
+	<riskDeterminer>
+		<type id="1" name="FDA"/>
+		<type id="2" name="Sponsor/Manufacturer"/>
+		<type id="3" name="Principal Investigator"/>
+	</riskDeterminer>
+	<amendNotificationMethods>
+		<type id="letter" name="Informational Letter"/>
+		<type id="reconsent" name="Reconsent"/>
+	</amendNotificationMethods>
+
+	<reviewActionRules>
+		<!-- Convened -->
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEVONLY" decisionTypesname="Development Only" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TBLD" decisionTypesname="Rescheduled" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="sus" decisionTypesname="Suspended" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TERM" decisionTypesname="Terminated" />
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="sus" decisionTypesname="Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TERM" decisionTypesname="Terminated" />
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TBLD" decisionTypesname="Rescheduled" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TBLD" decisionTypesname="Rescheduled" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="sus" decisionTypesname="Suspended" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TERM" decisionTypesname="Terminated" />
+
+		<!-- Expedited -->
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="DEVONLY" decisionTypesname="Development Only" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="sus" decisionTypesname="Suspended" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="TERM" decisionTypesname="Terminated" />
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="sus" decisionTypesname="Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="TERM" decisionTypesname="Terminated" />
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="sus" decisionTypesname="Suspended" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="TERM" decisionTypesname="Terminated" />
+
+		<!-- Exempt -->
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="DEVONLY" decisionTypesname="Development Only" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="NOTRSRCH" decisionTypesname="Not Research" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+
+		<!-- Administrative -->
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<!-- OTEUs -->
+
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TBLD" decisionTypesname="Rescheduled" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="dis" decisionTypesname="Disapproved" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="TBLD" decisionTypesname="Rescheduled" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="mod" decisionTypesname="Revisions Required" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="DEF" decisionTypesname="Tabled - More Information" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="full" reviewProcessTypesname="Convened" decisionTypes="NOQRM" decisionTypesname="Tabled - No Quorum" />
+
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Use Request" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="ack" decisionTypesname="Acknowledged" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="apr" decisionTypesname="Approved" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="REFCONV" decisionTypesname="Referred to Convened" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="REFIRB" decisionTypesname="Referred To IRB Chair" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Use Report" reviewProcessTypes="admin" reviewProcessTypesname="Administrative" decisionTypes="mod" decisionTypesname="Revisions Required" />
+
+
+	</reviewActionRules>
+
+	<protocolStatusRules>
+		<!-- Initial Applications -->
+		<!-- Convened -->
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="ACT" newstatusTypesname="Active" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="DEVONLY" decisionTypesname="Development Only"  newstatusTypes="DEVONLY" newstatusTypesname="Development Only" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="dis" decisionTypesname="Disapproved"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="ACT" newstatusTypesname="Active" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="DEVONLY" decisionTypesname="Development Only"  newstatusTypes="DEVONLY" newstatusTypesname="Development Only" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+
+		<!-- Exempt -->
+
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="ACT" newstatusTypesname="Active" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="DEVONLY" decisionTypesname="Development Only"  newstatusTypes="DEVONLY" newstatusTypesname="Development Only" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTHUMAN" decisionTypesname="Not Human Subjects"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="NOTRSRCH" decisionTypesname="Not Research"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+
+		<!-- Continuing Reviews -->
+
+		<!-- Convened -->
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="ACT" newstatusTypesname="Active" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="ACT" newstatusTypesname="Active" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="ACT" newstatusTypesname="Active" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="expsus" newstatusTypesname="Expired/Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+		<!-- Exempt -->
+
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<!--<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />--> <!-- This was completely wrong -->
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="ACT" newstatusTypesname="Active" />
+
+		<!-- Unanticipated Problems -->
+
+		<!-- Convened -->
+
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="expsus" newstatusTypesname="Expired/Suspended" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="advers" submissionTypesname="Unanticipated Problem" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="expsus" newstatusTypesname="Expired/Suspended" />
+
+		<!-- Final Reports -->
+
+		<!-- Convened -->
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+
+		<!-- Exempt -->
+
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="rinal" submissionTypesname="Final Report" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+
+		<!-- Amendments -->
+
+		<!-- Convened -->
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="expsus" newstatusTypesname="Expired/Suspended" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="expired" newstatusTypesname="Expired" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="suspended" statusTypesname="Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="ACT" newstatusTypesname="Active" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="expsus" newstatusTypesname="Expired/Suspended" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expired" statusTypesname="Expired" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="expired" newstatusTypesname="Expired" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="expsus" statusTypesname="Expired/Suspended" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="suspended" decisionTypesname="Suspended"  newstatusTypes="suspended" newstatusTypesname="Suspended" />
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+		<!-- Exempt -->
+
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" reviewProcessTypes="exempt" reviewProcessTypesname="Exempt" statusTypes="ACT" statusTypesname="Active" decisionTypes="terminated" decisionTypesname="Terminated"  newstatusTypes="terminated" newstatusTypesname="Terminated" />
+
+		<!-- One Time Emergency Use -->
+		<!--DON: I provided the same logic for both codes to account for any exiting that were converted and for new ones created in the system -->
+
+		<!-- Convened -->
+
+		<rule submissionTypes="comReport" submissionTypesname="One Time Emergency Use" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Emergency Use" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="comReport" submissionTypesname="One Time Emergency Use" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="dis" decisionTypesname="Disapproved"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="comReport" submissionTypesname="One Time Emergency Use" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+
+		<!-- Convened -->
+
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Emergency Use" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="apr" decisionTypesname="Approved"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Emergency Use" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Emergency Use" reviewProcessTypes="full" reviewProcessTypesname="Convened" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="dis" decisionTypesname="Disapproved"  newstatusTypes="rejected" newstatusTypesname="Rejected" />
+
+		<!-- Expedited -->
+
+		<rule submissionTypes="comRequest" submissionTypesname="One Time Emergency Use" reviewProcessTypes="expedited" reviewProcessTypesname="Expedited" statusTypes="boardReview" statusTypesname="Under Review" decisionTypes="ack" decisionTypesname="Acknowledged"  newstatusTypes="closed" newstatusTypesname="Completed" />
+
+	</protocolStatusRules>
+	
+	<documentStampingRules>
+		<!-- Initial Applications -->
+		<rule submissionTypes="INIT" submissionTypesname="Initial Review" decisionTypes="apr" decisionTypesname="Approved" stamp="1"/>
+		
+		<!-- Continuing Reviews -->
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" decisionTypes="apr" decisionTypesname="Approved" stamp="1"/>
+		<rule submissionTypes="CONT" submissionTypesname="Continuing Review" decisionTypes="ack" decisionTypesname="Acknowledged" stamp="1"/>
+		
+		<!-- Amendments -->
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" decisionTypes="apr" decisionTypesname="Approved" stamp="1"/>
+		<rule submissionTypes="AMEND" submissionTypesname="Amendment" decisionTypes="ack" decisionTypesname="Acknowledged" stamp="1"/>
+	</documentStampingRules>
+	
+	<OTEUSex>
+		<type id='m' name='Male'/>
+		<type id='f' name='Female'/>
+	</OTEUSex>
+	
+	<!-- MSSM New Changes by Zubin -->
+	<accessTypes>
+		<type id='EDIT' name='Edit Access'/>
+		<type id='READONLY' name='Read-only Access'/>
+		<type id='SIGNAUTH' name='Signature Authority'/>
+	</accessTypes>
+	
+	<FACTSCriteriaTypes>
+		<type id='INDUSTRY' name='Industry Sponsored Study'/>
+		<type id='CLINICAL' name='Clinical Trial'/>
+		<type id='DRUG' name='Drug Study'/>
+		<type id='DEVICE' name='Device Study'/>
+		<type id='NONE' name='None of the Above'/>
+	</FACTSCriteriaTypes>
+	
+	<settingResearch>
+		<type id='1' name='Faculty Practice Associates'/>
+		<type id='2' name='Clinical Research Unit (CRU)'/>
+		<type id='3' name='Adolescent Health Center'/>
+		<type id='4' name='Emergency Department'/>
+		<type id='5' name='Internal Medicine Associates'/>
+		<type id='6' name='Ruttenberg Treatment Center (RTC)'/>
+		<type id='X' name='Other'/>
+	</settingResearch>
+	
+	<compensationPayeeTypes>
+		<type id='1' name='Investigator Grant'/>
+		<type id='2' name='Internal Fund'/>
+		<type id='3' name='CRU'/>
+		<type id='4' name='Other'/>
+	</compensationPayeeTypes>
+	
+	<dataCollectionSourceTypes>
+		<type id='1' name='Participant'/>
+		<type id='2' name='Medical Chart (Paper or Electronic)'/>
+		<type id='3' name='Data Warehouse'/>
+		<type id='4' name='External Site'/>
+		<type id='5' name='Other Research Study'/>
+		<type id='6' name='Pathology'/>
+		<type id='7' name='Clinical Database'/>
+	</dataCollectionSourceTypes>
+	
+	<CostTypes>
+		<type id='1' name='CBC'/>
+		<type id='2' name='Liver Profile'/>
+		<type id='3' name='MRI'/>
+		<type id='4' name='Nutrient Analysis'/>
+		<type id='5' name='Anthropometrics'/>
+		<type id='oth' name='Other'/>
+	</CostTypes>
+	
+	<AnalysisSiteTypes>
+		<type id='1' name='Clinical Labs'/>
+		<type id='2' name='Investigator Lab'/>
+		<type id='3' name='Radiology'/>
+		<type id='oth' name='Other'/>
+	</AnalysisSiteTypes>
+	
+	<CostPayeeTypes>
+		<type id='1' name='Investigator Grant'/>
+		<type id='2' name='Internal Fund'/>
+		<type id='3' name='Patient Insurance'/>
+		<type id='4' name='CRU'/>
+		<type id='5' name='No Charge'/>
+		<type id='oth' name='Other'/>
+	</CostPayeeTypes>
+	<!-- End MSSM New Changes by Zubin -->
+</irbcats>

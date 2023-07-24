@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>
+    <e type="direct" toptab="1" tab="1" err="ptitle" 
+        xpath="count(instance('ins')/title[. = ''])" xpathSS="count(title[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="stitle" 
+        xpath="count(instance('ins')/shortTitle[string-length(.) &gt; 50])" xpathSS="count(shortTitle[string-length(.) &gt; 50])"/>
+    <e type="direct" toptab="1" tab="1" err="rt" 
+        xpath="count(instance('ins')/researchType[. = ''])" xpathSS="count(researchType[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="lay" 
+        xpath="count(instance('ins')/laysummary[. = ''])" xpathSS="count(laysummary[. = ''])"/>
+    
+    
+</validations>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+  
+    <!--<tab id="1" label="Review Dashboard" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>-->
+    <tab id="LC" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/>
+    <tab id="ADMINVIEWDI" color="light purple" label="Deferrable Issues Communications" form="/home/configs/IRB/forms/deferrableIssues.xfrm" when="defissues"/>
+    <tab id="7" label="New Information" form="/home/configs/IRB/forms/newInformationView.xfrm" sourceXML="/newInformation.xml" formType="general" formName="newInformation"/>
+    
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/up_attachmentsView.xfrm"/>
+   <!-- <tab id="COV" label="Update Protocol Case" form="/home/configs/IRB/forms/returnsubmitView.xfrm"/>-->
+    
+    
+    <switches>
+        <defissues>0</defissues>
+        <participant>0</participant> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <violation>0</violation>
+        <changeToProtocol>0</changeToProtocol>
+        <!--<violation2>0</violation2>-->
+        <subject>0</subject> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <bios>0</bios>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <board>1</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

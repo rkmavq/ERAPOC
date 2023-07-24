@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "cruCosts");
+      model.setValue("instance('form')/AMD", "1"); model.__AMD = true;
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '35c')
+          //model.USA.registerChangeLog('ins', '35c')
+          model.USA.registerChangeLog('comments', '35c')
+        </script></script><script ev:event="xforms-ready">document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);', 300);</script><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind nodeset="instance('ins')/totalCosts" type="xsd:integer"/><xf:bind nodeset="instance('ins')/totalCRUCosts" type="xsd:integer"/><xf:bind nodeset="instance('ins')/compTotalCRU" type="xsd:integer"/><xf:bind nodeset="instance('ins')/totalCRU" type="xsd:integer"/><xf:bind type="xsd:integer" nodeset="instance('ins')/Cost/costsPerTest"/><xf:bind type="xsd:integer" nodeset="instance('ins')/Cost/costsNumTests"/><xf:bind type="xsd:integer" readonly="true()" relevant="false()" nodeset="instance('ins')/Cost/costsLineTotal" calculate="../costsPerTest * ../costsNumTests"/><xf:bind type="xsd:integer" readonly="true()" relevant="false()" nodeset="instance('ins')/totalCosts" calculate="sum(instance('ins')/Cost/costsLineTotal)"/><xf:bind type="xsd:integer" readonly="true()" relevant="false()" nodeset="instance('ins')/totalCRUCosts" calculate="sum(instance('ins')/Cost[costsWhoWillPay='4']/costsLineTotal)"/><xf:bind type="xsd:integer" readonly="true()" relevant="false()" nodeset="instance('ins')/compTotalCRU" calculate="instance('ins')/compTotalCRU"/><xf:bind type="xsd:integer" readonly="true()" relevant="false()" nodeset="instance('ins')/totalCRU" calculate="instance('ins')/totalCRUCosts + instance('ins')/compTotalCRU"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@comment"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@addcomment"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="instructions"><td colspan="4"><span><div><component type="instructions">
+		Please list ALL laboratory tests (blood, urine, etc.) and procedures (EKG, fMRI, etc.) to be performed at the CRU, by the CRU staff or at the Imaging Core as part of this study.
+		<option type="widestLabel"/>
+	</component></div></span></td></tr><tr class="entryTable"><xf:switch><xf:case exf:if="1" id="show-Cost"><td class="fullColLayout"><exf:variable value="instance('ins')/Cost" name="nsCost"/><h5/><table class="fullColLayout"><ix:attr value="if(count($nsCost) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th class=" in dropdown large left">Type of Test</th><th class="costsTypeOther in manual medium center"><ix:attr value="if(count(instance('ins')/Cost/costsType[.='oth']) &gt; 0, '', 'display:none')" name="style"/>Specify Other Type of Test</th><th class=" in dropdown large left">Site of Analysis</th><th class="costsSiteAnalysisOther in manual medium center"><ix:attr value="if(count(instance('ins')/Cost/costsSiteAnalysis[.='oth']) &gt; 0, '', 'display:none')" name="style"/>Specify Other Site of Analysis</th><th class=" in text medium center">Cost Per Test</th><th class=" in text medium center"># of Tests</th><th class=" in text medium center">Line Total</th><th class=" in dropdown large left">Who Will Pay</th><th class="costsWhoWillPayOther in manual medium center"><ix:attr value="if(count(instance('ins')/Cost/costsWhoWillPay[.='oth']) &gt; 0, '', 'display:none')" name="style"/>Specify Who Will Pay</th><td bgcolor="white"/></tr><xf:repeat nodeset="$nsCost"><exf:variable value="@id" name="nsXMLKEYCost"/><exf:variable value="@id" name="nsXMLKEY"/><tr valign="top"><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class=" in dropdown large left"><span style="vertical-align:top;"><xf:select1 ref="costsType"><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/CostTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></span></td><td class="costsTypeOther in manual medium center"><ix:attr value="if(count(instance('ins')/Cost/costsType[.='oth']) &gt; 0, '', 'display:none')" name="style"/><span style="vertical-align:top;"><ix:attr value="if(count(instance('ins')/Cost/costsType[.='oth']) &gt; 0, '', 'display:none')" name="style"/><script>
+                            model.__readonly = true;
+                          </script><span><div style="width:105px;">
+				<ix:attr name="style" value="if(costsType='oth', '', 'display:none')"/>
+				<xf:input style="width:70px;" ref="costsTypeOther"/>
+			</div></span><span style="display:none"><xf:input ref="costsTypeOther"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in dropdown large left"><span style="vertical-align:top;"><xf:select1 ref="costsSiteAnalysis"><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/AnalysisSiteTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></span></td><td class="costsSiteAnalysisOther in manual medium center"><ix:attr value="if(count(instance('ins')/Cost/costsSiteAnalysis[.='oth']) &gt; 0, '', 'display:none')" name="style"/><span style="vertical-align:top;"><ix:attr value="if(count(instance('ins')/Cost/costsSiteAnalysis[.='oth']) &gt; 0, '', 'display:none')" name="style"/><script>
+                            model.__readonly = true;
+                          </script><span><div style="width:105px;">
+				<ix:attr name="style" value="if(costsSiteAnalysis='oth', '', 'display:none')"/>
+				<xf:input style="width:70px;" ref="costsSiteAnalysisOther"/>
+			</div></span><span style="display:none"><xf:input ref="costsSiteAnalysisOther"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in text medium center"><span style="vertical-align:top;"><xf:input ref="costsPerTest"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></td><td class=" in text medium center"><span style="vertical-align:top;"><xf:input ref="costsNumTests"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></td><td class=" in text medium center"><span style="vertical-align:top;"><xf:input ref="costsLineTotal"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></td><td class=" in dropdown large left"><span style="vertical-align:top;"><xf:select1 ref="costsWhoWillPay"><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/CostPayeeTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></span></td><td class="costsWhoWillPayOther in manual medium center"><ix:attr value="if(count(instance('ins')/Cost/costsWhoWillPay[.='oth']) &gt; 0, '', 'display:none')" name="style"/><span style="vertical-align:top;"><ix:attr value="if(count(instance('ins')/Cost/costsWhoWillPay[.='oth']) &gt; 0, '', 'display:none')" name="style"/><script>
+                            model.__readonly = true;
+                          </script><span><div style="width:105px;">
+				<ix:attr name="style" value="if(costsWhoWillPay='oth', '', 'display:none')"/>
+				<xf:input style="width:70px;" ref="costsWhoWillPayOther"/>
+			</div></span><span style="display:none"><xf:input ref="costsWhoWillPayOther"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Cost');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><exf:variable value="@id" name="rowIndex"/><exf:variable value="concat(.,'')" name="theCurrentValue"/><exf:variable value="@id" name="nsXMLKEY"/><exf:variable value="concat(instance('ins')/original/Cost[@id=$nsXMLKEY]/.,'')" name="thePreviousValue"/><exf:variable value="concat(instance('ins')/previous/review/original/Cost[@id=$nsXMLKEY]/.,'')" name="thePreviousOrgValue"/><exf:variable value="concat(instance('ins')/suggestions/Cost[@id=$nsXMLKEY]/.,'')" name="theSuggestedValue"/><exf:variable value="instance('ins')/Cost[1]/@revIndex" name="revIndexCost"/><exf:variable value="(instance('ins')/Cost[@revIndex=$revIndexCost])" name="thisNodeNeedleCost"/><exf:variable value="concat(
+          if(instance('ins')/Cost[1], concat('(' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/Cost)[1]/costsType]/@name,' / ',
+            instance('ins')/Cost[1]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/Cost)[1]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/Cost[1]/costsSiteAnalysisOther,' / ',
+            instance('ins')/Cost[1]/costsPerTest,' / ',
+            instance('ins')/Cost[1]/costsNumTests,' / ',
+            instance('ins')/Cost[1]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/Cost)[1]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/Cost[1]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/Cost[2], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/Cost)[2]/costsType]/@name,' / ',
+            instance('ins')/Cost[2]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/Cost)[2]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/Cost[2]/costsSiteAnalysisOther,' / ',
+            instance('ins')/Cost[2]/costsPerTest,' / ',
+            instance('ins')/Cost[2]/costsNumTests,' / ',
+            instance('ins')/Cost[2]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/Cost)[2]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/Cost[2]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/Cost[3], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/Cost)[3]/costsType]/@name,' / ',
+            instance('ins')/Cost[3]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/Cost)[3]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/Cost[3]/costsSiteAnalysisOther,' / ',
+            instance('ins')/Cost[3]/costsPerTest,' / ',
+            instance('ins')/Cost[3]/costsNumTests,' / ',
+            instance('ins')/Cost[3]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/Cost)[3]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/Cost[3]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/Cost[4], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/Cost)[4]/costsType]/@name,' / ',
+            instance('ins')/Cost[4]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/Cost)[4]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/Cost[4]/costsSiteAnalysisOther,' / ',
+            instance('ins')/Cost[4]/costsPerTest,' / ',
+            instance('ins')/Cost[4]/costsNumTests,' / ',
+            instance('ins')/Cost[4]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/Cost)[4]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/Cost[4]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/Cost[5], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/Cost)[5]/costsType]/@name,' / ',
+            instance('ins')/Cost[5]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/Cost)[5]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/Cost[5]/costsSiteAnalysisOther,' / ',
+            instance('ins')/Cost[5]/costsPerTest,' / ',
+            instance('ins')/Cost[5]/costsNumTests,' / ',
+            instance('ins')/Cost[5]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/Cost)[5]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/Cost[5]/costsWhoWillPayOther , ')'), '')
+          )" name="thisNodeCost"/><exf:variable value="concat(
+          if(instance('ins')/original/Cost[1], concat('(' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/original/Cost)[1]/costsType]/@name,' / ',
+            instance('ins')/original/Cost[1]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/original/Cost)[1]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/original/Cost[1]/costsSiteAnalysisOther,' / ',
+            instance('ins')/original/Cost[1]/costsPerTest,' / ',
+            instance('ins')/original/Cost[1]/costsNumTests,' / ',
+            instance('ins')/original/Cost[1]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/original/Cost)[1]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/original/Cost[1]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/original/Cost[2], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/original/Cost)[2]/costsType]/@name,' / ',
+            instance('ins')/original/Cost[2]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/original/Cost)[2]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/original/Cost[2]/costsSiteAnalysisOther,' / ',
+            instance('ins')/original/Cost[2]/costsPerTest,' / ',
+            instance('ins')/original/Cost[2]/costsNumTests,' / ',
+            instance('ins')/original/Cost[2]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/original/Cost)[2]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/original/Cost[2]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/original/Cost[3], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/original/Cost)[3]/costsType]/@name,' / ',
+            instance('ins')/original/Cost[3]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/original/Cost)[3]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/original/Cost[3]/costsSiteAnalysisOther,' / ',
+            instance('ins')/original/Cost[3]/costsPerTest,' / ',
+            instance('ins')/original/Cost[3]/costsNumTests,' / ',
+            instance('ins')/original/Cost[3]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/original/Cost)[3]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/original/Cost[3]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/original/Cost[4], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/original/Cost)[4]/costsType]/@name,' / ',
+            instance('ins')/original/Cost[4]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/original/Cost)[4]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/original/Cost[4]/costsSiteAnalysisOther,' / ',
+            instance('ins')/original/Cost[4]/costsPerTest,' / ',
+            instance('ins')/original/Cost[4]/costsNumTests,' / ',
+            instance('ins')/original/Cost[4]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/original/Cost)[4]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/original/Cost[4]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/original/Cost[5], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/original/Cost)[5]/costsType]/@name,' / ',
+            instance('ins')/original/Cost[5]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/original/Cost)[5]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/original/Cost[5]/costsSiteAnalysisOther,' / ',
+            instance('ins')/original/Cost[5]/costsPerTest,' / ',
+            instance('ins')/original/Cost[5]/costsNumTests,' / ',
+            instance('ins')/original/Cost[5]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/original/Cost)[5]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/original/Cost[5]/costsWhoWillPayOther , ')'), '')
+          )" name="orgNodeCost"/><exf:variable value="(instance('ins')/suggestions/Cost[@revIndex=$revIndexCost])" name="sugNodeSetCost"/><exf:variable value="concat(
+          if(instance('ins')/suggestions/Cost[1], concat('(' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/suggestions/Cost)[1]/costsType]/@name,' / ',
+            instance('ins')/suggestions/Cost[1]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/suggestions/Cost)[1]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/suggestions/Cost[1]/costsSiteAnalysisOther,' / ',
+            instance('ins')/suggestions/Cost[1]/costsPerTest,' / ',
+            instance('ins')/suggestions/Cost[1]/costsNumTests,' / ',
+            instance('ins')/suggestions/Cost[1]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/suggestions/Cost)[1]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/suggestions/Cost[1]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/suggestions/Cost[2], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/suggestions/Cost)[2]/costsType]/@name,' / ',
+            instance('ins')/suggestions/Cost[2]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/suggestions/Cost)[2]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/suggestions/Cost[2]/costsSiteAnalysisOther,' / ',
+            instance('ins')/suggestions/Cost[2]/costsPerTest,' / ',
+            instance('ins')/suggestions/Cost[2]/costsNumTests,' / ',
+            instance('ins')/suggestions/Cost[2]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/suggestions/Cost)[2]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/suggestions/Cost[2]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/suggestions/Cost[3], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/suggestions/Cost)[3]/costsType]/@name,' / ',
+            instance('ins')/suggestions/Cost[3]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/suggestions/Cost)[3]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/suggestions/Cost[3]/costsSiteAnalysisOther,' / ',
+            instance('ins')/suggestions/Cost[3]/costsPerTest,' / ',
+            instance('ins')/suggestions/Cost[3]/costsNumTests,' / ',
+            instance('ins')/suggestions/Cost[3]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/suggestions/Cost)[3]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/suggestions/Cost[3]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/suggestions/Cost[4], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/suggestions/Cost)[4]/costsType]/@name,' / ',
+            instance('ins')/suggestions/Cost[4]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/suggestions/Cost)[4]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/suggestions/Cost[4]/costsSiteAnalysisOther,' / ',
+            instance('ins')/suggestions/Cost[4]/costsPerTest,' / ',
+            instance('ins')/suggestions/Cost[4]/costsNumTests,' / ',
+            instance('ins')/suggestions/Cost[4]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/suggestions/Cost)[4]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/suggestions/Cost[4]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/suggestions/Cost[5], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/suggestions/Cost)[5]/costsType]/@name,' / ',
+            instance('ins')/suggestions/Cost[5]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/suggestions/Cost)[5]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/suggestions/Cost[5]/costsSiteAnalysisOther,' / ',
+            instance('ins')/suggestions/Cost[5]/costsPerTest,' / ',
+            instance('ins')/suggestions/Cost[5]/costsNumTests,' / ',
+            instance('ins')/suggestions/Cost[5]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/suggestions/Cost)[5]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/suggestions/Cost[5]/costsWhoWillPayOther , ')'), '')
+          )" name="sugNodeCost"/><exf:variable value="(instance('ins')/previous/review/Cost[@revIndex=$revIndexCost])" name="revIndexOCost"/><exf:variable value="instance('ins')/previous/review/Cost[@id=$nsXMLKEY]" name="thisNodeNeedleOldCost"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/Cost[1], concat('(' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/previous/review/Cost)[1]/costsType]/@name,' / ',
+            instance('ins')/previous/review/Cost[1]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/previous/review/Cost)[1]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/previous/review/Cost[1]/costsSiteAnalysisOther,' / ',
+            instance('ins')/previous/review/Cost[1]/costsPerTest,' / ',
+            instance('ins')/previous/review/Cost[1]/costsNumTests,' / ',
+            instance('ins')/previous/review/Cost[1]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/previous/review/Cost)[1]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/previous/review/Cost[1]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/previous/review/Cost[2], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/previous/review/Cost)[2]/costsType]/@name,' / ',
+            instance('ins')/previous/review/Cost[2]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/previous/review/Cost)[2]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/previous/review/Cost[2]/costsSiteAnalysisOther,' / ',
+            instance('ins')/previous/review/Cost[2]/costsPerTest,' / ',
+            instance('ins')/previous/review/Cost[2]/costsNumTests,' / ',
+            instance('ins')/previous/review/Cost[2]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/previous/review/Cost)[2]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/previous/review/Cost[2]/costsWhoWillPayOther , ')'), '')
+          )" name="thisNodeOldCost"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/original/Cost[1], concat('(' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/previous/review/original/Cost)[1]/costsType]/@name,' / ',
+            instance('ins')/previous/review/original/Cost[1]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/previous/review/original/Cost)[1]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/previous/review/original/Cost[1]/costsSiteAnalysisOther,' / ',
+            instance('ins')/previous/review/original/Cost[1]/costsPerTest,' / ',
+            instance('ins')/previous/review/original/Cost[1]/costsNumTests,' / ',
+            instance('ins')/previous/review/original/Cost[1]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/previous/review/original/Cost)[1]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/previous/review/original/Cost[1]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/previous/review/original/Cost[2], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/previous/review/original/Cost)[2]/costsType]/@name,' / ',
+            instance('ins')/previous/review/original/Cost[2]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/previous/review/original/Cost)[2]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/previous/review/original/Cost[2]/costsSiteAnalysisOther,' / ',
+            instance('ins')/previous/review/original/Cost[2]/costsPerTest,' / ',
+            instance('ins')/previous/review/original/Cost[2]/costsNumTests,' / ',
+            instance('ins')/previous/review/original/Cost[2]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/previous/review/original/Cost)[2]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/previous/review/original/Cost[2]/costsWhoWillPayOther , ')'), '')
+          )" name="orgNodeOldCost"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/suggestions/Cost[1], concat('(' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/previous/review/suggestions/Cost)[1]/costsType]/@name,' / ',
+            instance('ins')/previous/review/suggestions/Cost[1]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/previous/review/suggestions/Cost)[1]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/previous/review/suggestions/Cost[1]/costsSiteAnalysisOther,' / ',
+            instance('ins')/previous/review/suggestions/Cost[1]/costsPerTest,' / ',
+            instance('ins')/previous/review/suggestions/Cost[1]/costsNumTests,' / ',
+            instance('ins')/previous/review/suggestions/Cost[1]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/previous/review/suggestions/Cost)[1]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/previous/review/suggestions/Cost[1]/costsWhoWillPayOther , ')'), ''),
+          if(instance('ins')/previous/review/suggestions/Cost[2], concat(', (' 
+          ,
+            (instance('cats')/CostTypes/type)[@id=(instance('ins')/previous/review/suggestions/Cost)[2]/costsType]/@name,' / ',
+            instance('ins')/previous/review/suggestions/Cost[2]/costsTypeOther,' / ',
+            (instance('cats')/AnalysisSiteTypes/type)[@id=(instance('ins')/previous/review/suggestions/Cost)[2]/costsSiteAnalysis]/@name,' / ',
+            instance('ins')/previous/review/suggestions/Cost[2]/costsSiteAnalysisOther,' / ',
+            instance('ins')/previous/review/suggestions/Cost[2]/costsPerTest,' / ',
+            instance('ins')/previous/review/suggestions/Cost[2]/costsNumTests,' / ',
+            instance('ins')/previous/review/suggestions/Cost[2]/costsLineTotal,' / ',
+            (instance('cats')/CostPayeeTypes/type)[@id=(instance('ins')/previous/review/suggestions/Cost)[2]/costsWhoWillPay]/@name,' / ',
+            instance('ins')/previous/review/suggestions/Cost[2]/costsWhoWillPayOther , ')'), '')
+          )" name="sugNodeOldCost"/><td bgcolor="white" class="errors custError"><div><ix:attr value="if(@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Comments:</h5><span style="color:black"><xf:output value="@comment"/></span></p></div></span></div></td></tr></xf:repeat></table><br/></td></xf:case><xf:case id="hide-Cost"/></xf:switch></tr><tr class="number"><td class="component number stretchLabel  widestLabel"><exf:variable value="instance('ins')/totalCosts/@revIndex" name="revIndextotalCosts"/><exf:variable value="(instance('ins')/totalCosts[@revIndex=$revIndextotalCosts])" name="thisNodeNeedletotalCosts"/><exf:variable value="instance('ins')/totalCosts" name="thisNodetotalCosts"/><exf:variable value="(instance('ins')/original/totalCosts[@revIndex=$revIndextotalCosts])" name="orgNodetotalCosts"/><exf:variable value="(instance('ins')/suggestions/totalCosts[@revIndex=$revIndextotalCosts])" name="sugNodeSettotalCosts"/><exf:variable value="(instance('ins')/suggestions/totalCosts[@revIndex=$revIndextotalCosts])" name="sugNodetotalCosts"/><exf:variable value="instance('ins')/previous/review/totalCosts/@revIndex" name="revIndexOtotalCosts"/><exf:variable value="(instance('ins')/previous/review/totalCosts[@revIndex=$revIndexOtotalCosts])" name="thisNodeNeedleOldtotalCosts"/><exf:variable value="instance('ins')/previous/review/totalCosts" name="thisNodeOldtotalCosts"/><exf:variable value="(instance('ins')/previous/review/original/totalCosts[@revIndex=$revIndexOtotalCosts])" name="orgNodeOldtotalCosts"/><exf:variable value="(instance('ins')/previous/review/suggestions/totalCosts[@revIndex=$revIndexOtotalCosts])" name="sugNodeSetOldtotalCosts"/><exf:variable value="(instance('ins')/previous/review/suggestions/totalCosts[@revIndex=$revIndexOtotalCosts])" name="sugNodeOldtotalCosts"/><xf:input style="width:80px" ref="instance('ins')/totalCosts"><xf:label>Total Costs</xf:label></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodetotalCosts != $sugNodetotalCosts or $thisNodeNeedletotalCosts/@amdcomment!='' or $thisNodeNeedletotalCosts/@amdchanged='1', '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+              Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedletotalCosts/@amdcomment!='', $thisNodeNeedletotalCosts/@amdcomment, 'None provided')"/></span></span></div></span></div><div><ix:attr value="if($sugNodetotalCosts = $orgNodetotalCosts or $thisNodeNeedletotalCosts/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodetotalCosts != $orgNodetotalCosts and $sugNodetotalCosts = $orgNodetotalCosts, 'color:red', 'color:blue')" name="style"/><xf:output value="if(concat($thisNodetotalCosts,'') != concat($orgNodetotalCosts,''), 'Using New Value', '')"/><xf:output value="if($thisNodeNeedletotalCosts/@comment !='' and ($thisNodetotalCosts = $orgNodetotalCosts or not($orgNodetotalCosts)) and ($thisNodetotalCosts = $sugNodetotalCosts or not($sugNodetotalCosts) or $sugNodetotalCosts='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedletotalCosts/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedletotalCosts/@comment"/></span></p><span><ix:attr value="if($thisNodetotalCosts != $orgNodetotalCosts, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCosts/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCosts", "", tempRevIndex, "fill", 'org', "", "totalCosts", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodetotalCosts"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodetotalCosts!='' and $sugNodetotalCosts!='//' and $sugNodetotalCosts != $orgNodetotalCosts, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodetotalCosts != $thisNodetotalCosts, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodetotalCosts = $sugNodetotalCosts, 'Using Suggested Change', if($thisNodetotalCosts = $orgNodetotalCosts, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedletotalCosts/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedletotalCosts/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCosts/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCosts", "", tempRevIndex, "fill", 'org', "", "totalCosts", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodetotalCosts"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCosts/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCosts", "", tempRevIndex, "fill", 'sug', "", "totalCosts", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodetotalCosts"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="number"><td class="component number stretchLabel  widestLabel"><exf:variable value="instance('ins')/totalCRUCosts/@revIndex" name="revIndextotalCRUCosts"/><exf:variable value="(instance('ins')/totalCRUCosts[@revIndex=$revIndextotalCRUCosts])" name="thisNodeNeedletotalCRUCosts"/><exf:variable value="instance('ins')/totalCRUCosts" name="thisNodetotalCRUCosts"/><exf:variable value="(instance('ins')/original/totalCRUCosts[@revIndex=$revIndextotalCRUCosts])" name="orgNodetotalCRUCosts"/><exf:variable value="(instance('ins')/suggestions/totalCRUCosts[@revIndex=$revIndextotalCRUCosts])" name="sugNodeSettotalCRUCosts"/><exf:variable value="(instance('ins')/suggestions/totalCRUCosts[@revIndex=$revIndextotalCRUCosts])" name="sugNodetotalCRUCosts"/><exf:variable value="instance('ins')/previous/review/totalCRUCosts/@revIndex" name="revIndexOtotalCRUCosts"/><exf:variable value="(instance('ins')/previous/review/totalCRUCosts[@revIndex=$revIndexOtotalCRUCosts])" name="thisNodeNeedleOldtotalCRUCosts"/><exf:variable value="instance('ins')/previous/review/totalCRUCosts" name="thisNodeOldtotalCRUCosts"/><exf:variable value="(instance('ins')/previous/review/original/totalCRUCosts[@revIndex=$revIndexOtotalCRUCosts])" name="orgNodeOldtotalCRUCosts"/><exf:variable value="(instance('ins')/previous/review/suggestions/totalCRUCosts[@revIndex=$revIndexOtotalCRUCosts])" name="sugNodeSetOldtotalCRUCosts"/><exf:variable value="(instance('ins')/previous/review/suggestions/totalCRUCosts[@revIndex=$revIndexOtotalCRUCosts])" name="sugNodeOldtotalCRUCosts"/><xf:input style="width:80px" ref="instance('ins')/totalCRUCosts"><xf:label>Total Costs Paid by CRU</xf:label></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodetotalCRUCosts != $sugNodetotalCRUCosts or $thisNodeNeedletotalCRUCosts/@amdcomment!='' or $thisNodeNeedletotalCRUCosts/@amdchanged='1', '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+              Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedletotalCRUCosts/@amdcomment!='', $thisNodeNeedletotalCRUCosts/@amdcomment, 'None provided')"/></span></span></div></span></div><div><ix:attr value="if($sugNodetotalCRUCosts = $orgNodetotalCRUCosts or $thisNodeNeedletotalCRUCosts/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodetotalCRUCosts != $orgNodetotalCRUCosts and $sugNodetotalCRUCosts = $orgNodetotalCRUCosts, 'color:red', 'color:blue')" name="style"/><xf:output value="if(concat($thisNodetotalCRUCosts,'') != concat($orgNodetotalCRUCosts,''), 'Using New Value', '')"/><xf:output value="if($thisNodeNeedletotalCRUCosts/@comment !='' and ($thisNodetotalCRUCosts = $orgNodetotalCRUCosts or not($orgNodetotalCRUCosts)) and ($thisNodetotalCRUCosts = $sugNodetotalCRUCosts or not($sugNodetotalCRUCosts) or $sugNodetotalCRUCosts='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedletotalCRUCosts/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedletotalCRUCosts/@comment"/></span></p><span><ix:attr value="if($thisNodetotalCRUCosts != $orgNodetotalCRUCosts, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCRUCosts/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCRUCosts", "", tempRevIndex, "fill", 'org', "", "totalCRUCosts", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodetotalCRUCosts"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodetotalCRUCosts!='' and $sugNodetotalCRUCosts!='//' and $sugNodetotalCRUCosts != $orgNodetotalCRUCosts, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodetotalCRUCosts != $thisNodetotalCRUCosts, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodetotalCRUCosts = $sugNodetotalCRUCosts, 'Using Suggested Change', if($thisNodetotalCRUCosts = $orgNodetotalCRUCosts, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedletotalCRUCosts/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedletotalCRUCosts/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCRUCosts/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCRUCosts", "", tempRevIndex, "fill", 'org', "", "totalCRUCosts", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodetotalCRUCosts"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCRUCosts/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCRUCosts", "", tempRevIndex, "fill", 'sug', "", "totalCRUCosts", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodetotalCRUCosts"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="line"><td><hr/></td></tr><tr class="number"><td class="component number stretchLabel  widestLabel"><exf:variable value="instance('ins')/compTotalCRU/@revIndex" name="revIndexcompTotalCRU"/><exf:variable value="(instance('ins')/compTotalCRU[@revIndex=$revIndexcompTotalCRU])" name="thisNodeNeedlecompTotalCRU"/><exf:variable value="instance('ins')/compTotalCRU" name="thisNodecompTotalCRU"/><exf:variable value="(instance('ins')/original/compTotalCRU[@revIndex=$revIndexcompTotalCRU])" name="orgNodecompTotalCRU"/><exf:variable value="(instance('ins')/suggestions/compTotalCRU[@revIndex=$revIndexcompTotalCRU])" name="sugNodeSetcompTotalCRU"/><exf:variable value="(instance('ins')/suggestions/compTotalCRU[@revIndex=$revIndexcompTotalCRU])" name="sugNodecompTotalCRU"/><exf:variable value="instance('ins')/previous/review/compTotalCRU/@revIndex" name="revIndexOcompTotalCRU"/><exf:variable value="(instance('ins')/previous/review/compTotalCRU[@revIndex=$revIndexOcompTotalCRU])" name="thisNodeNeedleOldcompTotalCRU"/><exf:variable value="instance('ins')/previous/review/compTotalCRU" name="thisNodeOldcompTotalCRU"/><exf:variable value="(instance('ins')/previous/review/original/compTotalCRU[@revIndex=$revIndexOcompTotalCRU])" name="orgNodeOldcompTotalCRU"/><exf:variable value="(instance('ins')/previous/review/suggestions/compTotalCRU[@revIndex=$revIndexOcompTotalCRU])" name="sugNodeSetOldcompTotalCRU"/><exf:variable value="(instance('ins')/previous/review/suggestions/compTotalCRU[@revIndex=$revIndexOcompTotalCRU])" name="sugNodeOldcompTotalCRU"/><xf:input style="width:80px" ref="instance('ins')/compTotalCRU"><xf:hint>This value is copied from Procedures &gt; Compensation.</xf:hint><xf:label>Total Compensation Paid by CRU</xf:label></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodecompTotalCRU != $sugNodecompTotalCRU or $thisNodeNeedlecompTotalCRU/@amdcomment!='' or $thisNodeNeedlecompTotalCRU/@amdchanged='1', '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+              Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedlecompTotalCRU/@amdcomment!='', $thisNodeNeedlecompTotalCRU/@amdcomment, 'None provided')"/></span></span></div></span></div><div><ix:attr value="if($sugNodecompTotalCRU = $orgNodecompTotalCRU or $thisNodeNeedlecompTotalCRU/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodecompTotalCRU != $orgNodecompTotalCRU and $sugNodecompTotalCRU = $orgNodecompTotalCRU, 'color:red', 'color:blue')" name="style"/><xf:output value="if(concat($thisNodecompTotalCRU,'') != concat($orgNodecompTotalCRU,''), 'Using New Value', '')"/><xf:output value="if($thisNodeNeedlecompTotalCRU/@comment !='' and ($thisNodecompTotalCRU = $orgNodecompTotalCRU or not($orgNodecompTotalCRU)) and ($thisNodecompTotalCRU = $sugNodecompTotalCRU or not($sugNodecompTotalCRU) or $sugNodecompTotalCRU='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedlecompTotalCRU/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedlecompTotalCRU/@comment"/></span></p><span><ix:attr value="if($thisNodecompTotalCRU != $orgNodecompTotalCRU, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlecompTotalCRU/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/compTotalCRU", "", tempRevIndex, "fill", 'org', "", "compTotalCRU", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodecompTotalCRU"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodecompTotalCRU!='' and $sugNodecompTotalCRU!='//' and $sugNodecompTotalCRU != $orgNodecompTotalCRU, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodecompTotalCRU != $thisNodecompTotalCRU, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodecompTotalCRU = $sugNodecompTotalCRU, 'Using Suggested Change', if($thisNodecompTotalCRU = $orgNodecompTotalCRU, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedlecompTotalCRU/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedlecompTotalCRU/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlecompTotalCRU/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/compTotalCRU", "", tempRevIndex, "fill", 'org', "", "compTotalCRU", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodecompTotalCRU"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlecompTotalCRU/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/compTotalCRU", "", tempRevIndex, "fill", 'sug', "", "compTotalCRU", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodecompTotalCRU"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="number"><td class="component number stretchLabel  widestLabel"><exf:variable value="instance('ins')/totalCRU/@revIndex" name="revIndextotalCRU"/><exf:variable value="(instance('ins')/totalCRU[@revIndex=$revIndextotalCRU])" name="thisNodeNeedletotalCRU"/><exf:variable value="instance('ins')/totalCRU" name="thisNodetotalCRU"/><exf:variable value="(instance('ins')/original/totalCRU[@revIndex=$revIndextotalCRU])" name="orgNodetotalCRU"/><exf:variable value="(instance('ins')/suggestions/totalCRU[@revIndex=$revIndextotalCRU])" name="sugNodeSettotalCRU"/><exf:variable value="(instance('ins')/suggestions/totalCRU[@revIndex=$revIndextotalCRU])" name="sugNodetotalCRU"/><exf:variable value="instance('ins')/previous/review/totalCRU/@revIndex" name="revIndexOtotalCRU"/><exf:variable value="(instance('ins')/previous/review/totalCRU[@revIndex=$revIndexOtotalCRU])" name="thisNodeNeedleOldtotalCRU"/><exf:variable value="instance('ins')/previous/review/totalCRU" name="thisNodeOldtotalCRU"/><exf:variable value="(instance('ins')/previous/review/original/totalCRU[@revIndex=$revIndexOtotalCRU])" name="orgNodeOldtotalCRU"/><exf:variable value="(instance('ins')/previous/review/suggestions/totalCRU[@revIndex=$revIndexOtotalCRU])" name="sugNodeSetOldtotalCRU"/><exf:variable value="(instance('ins')/previous/review/suggestions/totalCRU[@revIndex=$revIndexOtotalCRU])" name="sugNodeOldtotalCRU"/><xf:input style="width:80px" ref="instance('ins')/totalCRU"><xf:label>Total Costs &amp; Compensation Paid by CRU</xf:label></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodetotalCRU != $sugNodetotalCRU or $thisNodeNeedletotalCRU/@amdcomment!='' or $thisNodeNeedletotalCRU/@amdchanged='1', '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+              Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedletotalCRU/@amdcomment!='', $thisNodeNeedletotalCRU/@amdcomment, 'None provided')"/></span></span></div></span></div><div><ix:attr value="if($sugNodetotalCRU = $orgNodetotalCRU or $thisNodeNeedletotalCRU/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodetotalCRU != $orgNodetotalCRU and $sugNodetotalCRU = $orgNodetotalCRU, 'color:red', 'color:blue')" name="style"/><xf:output value="if(concat($thisNodetotalCRU,'') != concat($orgNodetotalCRU,''), 'Using New Value', '')"/><xf:output value="if($thisNodeNeedletotalCRU/@comment !='' and ($thisNodetotalCRU = $orgNodetotalCRU or not($orgNodetotalCRU)) and ($thisNodetotalCRU = $sugNodetotalCRU or not($sugNodetotalCRU) or $sugNodetotalCRU='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedletotalCRU/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedletotalCRU/@comment"/></span></p><span><ix:attr value="if($thisNodetotalCRU != $orgNodetotalCRU, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCRU/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCRU", "", tempRevIndex, "fill", 'org', "", "totalCRU", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodetotalCRU"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodetotalCRU!='' and $sugNodetotalCRU!='//' and $sugNodetotalCRU != $orgNodetotalCRU, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodetotalCRU != $thisNodetotalCRU, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodetotalCRU = $sugNodetotalCRU, 'Using Suggested Change', if($thisNodetotalCRU = $orgNodetotalCRU, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedletotalCRU/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedletotalCRU/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCRU/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCRU", "", tempRevIndex, "fill", 'org', "", "totalCRU", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodetotalCRU"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedletotalCRU/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/totalCRU", "", tempRevIndex, "fill", 'sug', "", "totalCRU", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodetotalCRU"/></span><br/></td></tr></table></p></div></span></div></td></tr></table></div></div></form>

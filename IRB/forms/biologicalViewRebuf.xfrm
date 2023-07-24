@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><AMD/><form updatedBy="" updated="" createdBy="" created=""/><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><viewBy>year</viewBy><focus/><lastFocus/><temp/><comp uri=""/><dummy/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "biological");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+            if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+            }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+            }
+          model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '10')
+          //model.USA.registerChangeLog('ins', '10')
+          model.USA.registerChangeLog('comments', '10')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind nodeset="instance('ins')/Biological/biologicType"/><xf:bind nodeset="instance('ins')/Biological/amount"/><xf:bind nodeset="instance('ins')/Biological/frequency"/><xf:bind nodeset="instance('ins')/Biological/futureResearch"/><xf:bind nodeset="instance('ins')/Biological/outsideUMMC"/><xf:bind type="xsd:date" nodeset="instance('ins')/Biologic/fdaDate"/></xf:model><style>
+        div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+        }
+        
+        div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+        }
+
+      div.formFrame div.commentBox div.xfctrl label{
+        width:100px;
+       }
+
+div.formFrame div.commentBox div.xfctrl textarea{
+       width:390px;
+       }
+        
+        
+        div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+        }
+        
+        div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+        }
+
+       div.formFrame td.custError div.xfctrl tr td{
+        background-color:white;
+       }
+
+        div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+        }
+        
+        div.formFrame td.custError div{
+          background-color:white;
+        }
+        
+        div.formFrame td.custError .xfctrl{
+          background:none;
+        }
+        
+        div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+        }
+        
+        .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+          position:static;
+          border-color:white;
+        }
+        div.formFrame tr td.custError div.xfctrl{
+          position:static;
+          border-color:white;
+        }          
+        
+        .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea{
+          position:static;
+        
+        }
+        
+        .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+          margin-top:10px;
+        }
+        
+        .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+        }
+        
+      </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                  
+                  <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                model.Frm.addFromQuickSearch();
+                              </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 150 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                        var indx = model.getValue("@id", contextNode);
+                        var val = model.getValue("@name", contextNode);
+                        if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                        model.Frm.quickSearchSelect(indx, val);
+                        var code = model.Frm.quickSearch.code;
+                        if(code) eval(code);
+                        if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                        event.stopPropagation();
+                      </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat><tr><ix:attr value="if(instance('form')/searchAddNew='1', '', 'display:none')" name="style"/><td colspan="3"><br/><hr/><u style="cursor:pointer;color:blue">request<xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                  model.Frm.addFromQuickSearch();
+                                </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u> the addition of this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> to the system.
+                </td></tr></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><xf:switch><xf:case exf:if="1" id="show-recordTable"><exf:variable value="instance('ins')/Biological[position() = instance('form')/focus or instance('form')/focus = '']" name="recs"/><h1/><table class="fullColLayout"><ix:attr value="if(count($recs) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th class="small delete center"/><th class="biologicType in dropdown medium left">Type</th><th class="amount in text medium left">Amount<span class="helpdialogOverTable" style="cursor:help;color:blue">  [?]
+          <div style="width:200px"><p><span style="color:black"><help>The Amount per collection</help></span></p></div></span></th><th class="frequency in text medium left">Frequency</th><th class="futureResearch in checkbox tiny center">Samples will be stored for future research</th><th class="purpose in manual mediumsmall center"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/>Purpose</th><th class="describe in manual large center"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/>Describe</th><th class="storagelength in manual medium left"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/>Length of time samples will be stored</th><th class="sampleIdentification in manual medium left"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/>Form of sample identification</th><th class="outsideUMMC in checkbox tiny center">Samples will be sent outside of MSSM</th><th class="outsideRecipient in manual large center"><ix:attr value="if(count(instance('ins')/Biological/outsideUMMC[.='1']) &gt; 0, '', 'display:none')" name="style"/>Identify the recipient</th></tr><xf:repeat nodeset="$recs"><exf:variable value="(.)" name="this"/><exf:variable value="position()" name="indx"/><exf:variable value="@revIndex" name="revIndex"/><exf:variable value="position()" name="pos"/><exf:variable value="instance('ins')/previous/review/Biological[$pos]" name="srcOld"/><exf:variable value="$srcOld/@revIndex" name="revIndexOld"/><exf:variable value="instance('ins')/original/Biological[@revIndex=$revIndex]" name="org"/><exf:variable value="instance('ins')/previous/review/original/Biological[@revIndex=$revIndexOld]" name="orgOld"/><exf:variable value="instance('ins')/suggestions/Biological[@revIndex=$revIndex]" name="sug"/><exf:variable value="instance('ins')/previous/review/suggestions/Biological[@revIndex=$revIndexOld]" name="sugOld"/><exf:variable name="biologicType" value="biologicType"/><exf:variable name="sampleIdentification" value="sampleIdentification"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$biologicType]/@name, ' / ', amount, ' / ', frequency, ' / ', if(futureResearch='1' , concat(' / Samples stored for future research: ', if(purpose='studyRelated', 'Study Related', 'Other'), ' (', describe, ' / ', storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$sampleIdentification]/@name, ')', if(outsideUMMC='1', concat(' / Samples sent outside UMMC: ', outsideRecipient), '')), ''))" name="srcVal"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$org/biologicType]/@name, ' / ', $org/amount, ' / ', $org/frequency, ' / ', if($org/futureResearch='1' , concat(' / Samples stored for future research: ', if($org/purpose='studyRelated', 'Study Related', 'Other'), ' (', $org/describe, ' / ', $org/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$org/sampleIdentification]/@name, ')', if($org/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $org/outsideRecipient), '')), ''))" name="orgVal"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$srcOld/biologicType]/@name, ' / ', $srcOld/amount, ' / ', $srcOld/frequency, ' / ', if($srcOld/futureResearch='1' , concat(' / Samples stored for future research: ', if($srcOld/purpose='studyRelated', 'Study Related', 'Other'), ' (', $srcOld/describe, ' / ', $srcOld/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$srcOld/sampleIdentification]/@name, ')', if($srcOld/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $srcOld/outsideRecipient), '')), ''))" name="srcValOld"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$orgOld/biologicType]/@name, ' / ', $orgOld/amount, ' / ', $orgOld/frequency, ' / ', if($orgOld/futureResearch='1' , concat(' / Samples stored for future research: ', if($orgOld/purpose='studyRelated', 'Study Related', 'Other'), ' (', $orgOld/describe, ' / ', $orgOld/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$orgOld/sampleIdentification]/@name, ')', if($orgOld/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $orgOld/outsideRecipient), '')), ''))" name="orgValOld"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$sug/biologicType]/@name, ' / ', $sug/amount, ' / ', $sug/frequency, ' / ', if($sug/futureResearch='1' , concat(' / Samples stored for future research: ', if($sug/purpose='studyRelated', 'Study Related', 'Other'), ' (', $sug/describe, ' / ', $sug/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$sug/sampleIdentification]/@name, ')', if($sug/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $sug/outsideRecipient), '')), ''))" name="sugVal"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$sugOld/biologicType]/@name, ' / ', $sugOld/amount, ' / ', $sugOld/frequency, ' / ', if($sugOld/futureResearch='1' , concat(' / Samples stored for future research: ', if($sugOld/purpose='studyRelated', 'Study Related', 'Other'), ' (', $sugOld/describe, ' / ', $sugOld/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$sugOld/sampleIdentification]/@name, ')', if($sugOld/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $sugOld/outsideRecipient), '')), ''))" name="sugValOld"/><exf:variable value="(instance('ins')/suggestions/Biological[@revIndex=$revIndex])" name="sugNodeSet"/><div style="display:none"><xf:input style="display:none;" ref="@purpose"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="describe"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="storagelength"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="sampleIdentification"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="outsideRecipient"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></div><tr><td class="small delete center"><u class="clickable">X<xf:action exf:if="script('confirm(&quot;Are you sure you want to delete this biological sample?&quot;)')" ev:event="click"><script>model.Frm.tagDeletion(contextNode, "reviewer");</script><script/><xf:destroy ref="."/></xf:action></u></td><td class="in dropdown medium left biologicType"><xf:select1 ref="biologicType"><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/biologicType/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td><td class="in text medium left amount"><xf:input ref="amount"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="in text medium left frequency"><xf:input ref="frequency"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="in checkbox tiny center futureResearch"><xf:select ref="futureResearch" appearance="full"><xf:item><xf:label/><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                                    model.USA.refreshArea('recordTable');
+                                  </script><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select></td><td class="purpose in manual mediumsmall center"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><div style="width:105px;"><ix:attr name="style" value="if(futureResearch='1', 'width:105px', 'display:none')"/>
+            <xf:select1 ref="@purpose">
+                <xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item>
+                <xf:item><xf:label>Study Related</xf:label><xf:value>studyRelated</xf:value></xf:item>
+                <xf:item><xf:label>Other</xf:label><xf:value>other</xf:value></xf:item>
+            </xf:select1>
+        </div></td><td class="describe in manual large center"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><print type="text" nodeset="" evaluate="1" condition="futureResearch='1'"/><div style="width:105px;"><ix:attr name="style" value="if(futureResearch='1', 'width:105px', 'display:none')"/>
+            <xf:textarea ref="describe" style="margin-top:0px;"/>
+        </div></td><td class="storagelength in manual medium left"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><print type="text" nodeset="" evaluate="1" condition="futureResearch='1'"/><div><ix:attr name="style" value="if(futureResearch='1', '', 'display:none')"/>
+            <xf:input style="width:70px;" ref="storagelength"/>
+        </div></td><td class="sampleIdentification in manual medium left"><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/Biological/futureResearch[.='1']) &gt; 0, '', 'display:none')" name="style"/><print type="dropdown" nodeset="sampleIdentification/type" evaluate="1" condition="futureResearch='1'"/><div><ix:attr name="style" value="if(futureResearch='1', '', 'display:none')"/>
+            <xf:select1 ref="sampleIdentification">
+                <xf:label/>
+                <xf:item>
+                    <xf:label>-Select-</xf:label>
+                    <xf:value/>
+                </xf:item>
+                <xf:repeat nodeset="instance('cats')/sampleIdentification/type">
+                    <xf:item>
+                        <xf:label><xf:output value="@name"/></xf:label>
+                        <xf:value><xf:output value="@id"/></xf:value>
+                    </xf:item>
+                </xf:repeat>
+            </xf:select1>
+        </div></td><td class="in checkbox tiny center outsideUMMC"><xf:select ref="outsideUMMC" appearance="full"><xf:item><xf:label/><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                                    model.USA.refreshArea('recordTable');
+                                  </script><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select></td><td class="outsideRecipient in manual large center"><ix:attr value="if(count(instance('ins')/Biological/outsideUMMC[.='1']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/Biological/outsideUMMC[.='1']) &gt; 0, '', 'display:none')" name="style"/><print type="text" nodeset="" evaluate="1" condition="outsideUMMC='1'"/><div style="width:105px;"><ix:attr name="style" value="if(outsideUMMC='1', 'width:105px', 'display:none')"/>
+            <xf:textarea ref="outsideRecipient" style="margin-top:0px;"/>
+        </div></td><td class="errors custError"><div><ix:attr value="if($sugValOld = $orgValOld and $srcValOld = $orgValOld and $srcOld/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Previous Comments</u><div style="width:300px;"><p><h5>History:</h5><xf:output value="$srcOld/@comment"/></p></div></span><br/></div><div><ix:attr value="if($sugValOld != $orgValOld, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugValOld != $srcValOld, 'color:red', 'color:green')" name="style"/><xf:output value="if($srcValOld = $sugValOld, 'Revision Accepted', if($srcValOld= $orgValOld, 'Suggestion Ignored', 'New Value Provided'))"/></u><div style="width:300px;"><p><h5>History:</h5><span style=""><ix:attr value="if($srcOld/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$srcOld/@comment"/><br/><br/></span><hr/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><span style="color:red">Prior Value</span></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$srcValOld"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b>Previous Suggestion</b></td><td style="background-color:white;vertical-align:top;color:black"><span><span><xf:output value="if($orgOld/@delBy='reviewer', '[Delete]', $srcValOld)"/></span></span><br/></td></tr></table></p></div><div><ix:attr value="if($srcValOld != $orgValOld and $sugValOld = $orgValOld, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugValOld != $srcValOld, 'color:red', 'color:green')" name="style"/><xf:output value="if($srcValOld  = $sugValOld , 'Revision Accepted', if($srcValOld = $orgValOld , 'Suggestion Ignored', 'New Value Provided'))"/></u><div style="width:300px;"><p><h5>History:</h5><span style=""><ix:attr value="if($srcOld/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$srcOld/@comment"/><br/><br/></span><hr/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><span style="color:red">Prior Value</span></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$srcValOld"/></span><br/></td></tr></table></p></div></span></div></span><br/><br/></div><div><ix:attr value="if($srcValOld != $orgValOld and $sugValOld = $orgValOld, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">New Value Provided</u><div style="width:300px;"><p><h5>History:</h5><span style=""><ix:attr value="if($srcOld/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$srcOld/@comment"/><br/><br/></span><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><span style="color:red">Prior Value</span></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$srcValOld"/></span><br/></td></tr></table></p></div></span><br/><br/></div><div><ix:attr value="if($srcVal != $orgVal, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="@addcomment"><xf:item><xf:label>Add New Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                cnged = model.getValue("../@changed", contextNode);
+                com = model.getValue(".", contextNode);
+                if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                if(!cnged &amp;&amp; com) model.USA.addChange();
+                model.recalculate();
+              </script></xf:select><div><ix:attr value="if((.)/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="(.)/@comment"/></div></div></td></tr></xf:repeat></table><table class="addButtons"><ix:attr value="if(instance('form')/focus = '', '', 'display:none')" name="style"/><tr><td><xf:trigger><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                          model.Frm.revewMode = null;
+                          model.Frm.revewMode = 1;
+        var xmlDoc = model.Frm.processDoc("", "/applications/IRB/js/addBiological", {}, "script", "xml");
+        
+        if(model.Frm.revewMode){
+            nextId = model.getValue("instance('ins')/*[@revIndex][last()]/@revIndex") * 1;
+            nextId = nextId &lt; 0 ? (-1 * nextId) + 1 : nextId + 1;
+            nextId = nextId * -1; //this.revewMode;
+            SH.print(" *** nextId = " + nextId);
+            if(nextId &lt; 0){
+                xmlDoc.documentElement.setAttribute("addedBy", "reviewer");    
+            }else{
+                xmlDoc.documentElement.setAttribute("addedBy", "PI");
+            }
+            xmlDoc.documentElement.setAttribute("revIndex", nextId);
+            if(model.Frm.revewAmend == "1"){
+            xmlDoc.documentElement.setAttribute("amdaddcomment", "");
+            xmlDoc.documentElement.setAttribute("amdcomment", "");
+            xmlDoc.documentElement.setAttribute("amdchanged", "1");
+            
+                
+            }else{
+            xmlDoc.documentElement.setAttribute("changed", "1");
+            xmlDoc.documentElement.setAttribute("addcomment", "");
+            xmlDoc.documentElement.setAttribute("comment", "");
+            xmlDoc.documentElement.setAttribute("accept", "");
+            }
+            
+        }
+        var n = model.selectNodeList("instance('ins')", null);
+        n[0].appendChild(xmlDoc.documentElement);
+        model.refresh();
+        model.rebuild();
+        model.recalculate();
+        if ("recordTable") {
+        model.activateCase("hide-" + "recordTable");
+        model.activateCase("show-" + "recordTable");
+        }   
+    </script></xf:action></xf:trigger></td></tr></table><exf:variable name="recsOld" value="instance('ins')/original/Biological[not(contains(script('sm=&quot;,&quot;;cnt=&quot;count(instance(\&quot;ins\&quot;)/Biological)&quot;; xs=model.getValue(cnt)*1; for(m=1;m!=xs+1;m++){{sm+=model.getValue(&quot;instance(\&quot;ins\&quot;)/Biological[&quot;+m+&quot;]/@revIndex&quot;)+&quot;,&quot;}};sm;'), concat(',', @revIndex, ',')))]"/><div><ix:attr value="if(count($recsOld)=0, 'display:none', '')" name="style"/><hr/><br/><h5>Deleted Items (<xf:output value="count($recsOld)"/>):</h5><table><xf:repeat nodeset="$recsOld"><exf:variable value="(.)" name="this"/><exf:variable value="position()" name="indx"/><exf:variable value="@revIndex" name="revIndex"/><exf:variable value="position()" name="pos"/><exf:variable value="instance('ins')/previous/review/Biological[$pos]" name="srcOld"/><exf:variable value="$srcOld/@revIndex" name="revIndexOld"/><exf:variable value="instance('ins')/original/Biological[@revIndex=$revIndex]" name="org"/><exf:variable value="instance('ins')/previous/review/original/Biological[@revIndex=$revIndexOld]" name="orgOld"/><exf:variable value="instance('ins')/suggestions/Biological[@revIndex=$revIndex]" name="sug"/><exf:variable value="instance('ins')/previous/review/suggestions/Biological[@revIndex=$revIndexOld]" name="sugOld"/><exf:variable name="biologicType" value="biologicType"/><exf:variable name="sampleIdentification" value="sampleIdentification"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$biologicType]/@name, ' / ', amount, ' / ', frequency, ' / ', if(futureResearch='1' , concat(' / Samples stored for future research: ', if(purpose='studyRelated', 'Study Related', 'Other'), ' (', describe, ' / ', storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$sampleIdentification]/@name, ')', if(outsideUMMC='1', concat(' / Samples sent outside UMMC: ', outsideRecipient), '')), ''))" name="srcVal"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$org/biologicType]/@name, ' / ', $org/amount, ' / ', $org/frequency, ' / ', if($org/futureResearch='1' , concat(' / Samples stored for future research: ', if($org/purpose='studyRelated', 'Study Related', 'Other'), ' (', $org/describe, ' / ', $org/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$org/sampleIdentification]/@name, ')', if($org/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $org/outsideRecipient), '')), ''))" name="orgVal"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$srcOld/biologicType]/@name, ' / ', $srcOld/amount, ' / ', $srcOld/frequency, ' / ', if($srcOld/futureResearch='1' , concat(' / Samples stored for future research: ', if($srcOld/purpose='studyRelated', 'Study Related', 'Other'), ' (', $srcOld/describe, ' / ', $srcOld/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$srcOld/sampleIdentification]/@name, ')', if($srcOld/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $srcOld/outsideRecipient), '')), ''))" name="srcValOld"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$orgOld/biologicType]/@name, ' / ', $orgOld/amount, ' / ', $orgOld/frequency, ' / ', if($orgOld/futureResearch='1' , concat(' / Samples stored for future research: ', if($orgOld/purpose='studyRelated', 'Study Related', 'Other'), ' (', $orgOld/describe, ' / ', $orgOld/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$orgOld/sampleIdentification]/@name, ')', if($orgOld/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $orgOld/outsideRecipient), '')), ''))" name="orgValOld"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$sug/biologicType]/@name, ' / ', $sug/amount, ' / ', $sug/frequency, ' / ', if($sug/futureResearch='1' , concat(' / Samples stored for future research: ', if($sug/purpose='studyRelated', 'Study Related', 'Other'), ' (', $sug/describe, ' / ', $sug/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$sug/sampleIdentification]/@name, ')', if($sug/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $sug/outsideRecipient), '')), ''))" name="sugVal"/><exf:variable value="concat(instance('cats')/biologicType/type[@id=$sugOld/biologicType]/@name, ' / ', $sugOld/amount, ' / ', $sugOld/frequency, ' / ', if($sugOld/futureResearch='1' , concat(' / Samples stored for future research: ', if($sugOld/purpose='studyRelated', 'Study Related', 'Other'), ' (', $sugOld/describe, ' / ', $sugOld/storagelength, ' / ', instance('cats')/sampleIdentification/type[@id=$sugOld/sampleIdentification]/@name, ')', if($sugOld/outsideUMMC='1', concat(' / Samples sent outside UMMC: ', $sugOld/outsideRecipient), '')), ''))" name="sugValOld"/><exf:variable value="(instance('ins')/suggestions/Biological[@revIndex=$revIndex])" name="sugNodeSet"/><div style="display:none"><xf:input style="display:none;" ref="@purpose"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="describe"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="storagelength"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="sampleIdentification"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input><xf:input style="display:none;" ref="outsideRecipient"><script/><xf:action ev:event="xforms-value-changed"><script/><xf:setvalue ref="$this/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></div><tr><td style="width:10px;vertical-align:top;"><xf:output value="position()"/></td><td style="width:200px;vertical-align:top;"><exf:variable name="bType" value="biologicType"/><xf:output value="instance('cats')/biologicType/type[@id=$bType]/@name"/></td><td style="width:160px;vertical-align:top;"><span><b style="color:red;">Deletion Suggested</b></span></td><td style="width:100px;vertical-align:top;"><u style="margin-left:10px;cursor:pointer;color:blue">[Restore]<script ev:event="click">
+                          idm = model.getValue("@revIndex", contextNode);
+                          model.USA.insertOldTag("{$recordSet/@xml}", 'org', contextNode, "recordTable");
+                        </script></u></td><td class="errors custError"/></tr></xf:repeat></table></div></xf:case><xf:case id="hide-recordTable"/></xf:switch></div><div/></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

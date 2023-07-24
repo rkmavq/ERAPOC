@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+    <tab id="1" label="All" form="/home/configs/IRB/forms/allWIRBRemindersSent_View.xfrm"/>       
+</tabs>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>    
+    <!-- Validation for New Information starts here -->
+	<e type="direct" tab="7" toptab="7" err="eventType" 	
+		xpath="count(instance('ins')/eventType[. = ''])" xpathSS="count(eventType[. = ''])"/>
+	<e type="direct" tab="7" toptab="7" err="eventDescription" 	
+		xpath="count(instance('ins')/eventDescription[. = '' and instance('ins')/eventDescription='other'])" xpathSS="count(eventDescription[. = '' and ../eventDescription='other'])"/>
+	
+	<e type="direct" tab="7" toptab="7" err="newInfoOccurence" 	
+		xpath="count(instance('ins')/newInfoOccurence[. = ''])" xpathSS="count(newInfoOccurence[. = '' and (../eventType='1' or ../eventType='2')])"/>			
+	<e type="direct" tab="7" toptab="7" err="newInfoDateAware" 	
+			xpath="count(instance('ins')/newInfoDateAware[. = '' and (instance('ins')/newInfoOccurence='1' or instance('ins')/newInfoOccurence='2')])" 
+			xpathSS="count(newInfoDateAware[. = '' and (../newInfoOccurence='1' or ../newInfoOccurence='2')])"/>
+	<e type="direct" tab="7" toptab="7" err="newInfoIncidentDescription" 	
+		xpath="count(instance('ins')/newInfoIncidentDescription[. = '' and (instance('ins')/newInfoOccurence='1' or instance('ins')/newInfoOccurence='2'])" 
+		xpathSS="count(newInfoIncidentDescription[. = '' and (../newInfoOccurence='1' or ../newInfoOccurence='2')])"/>
+	<e type="direct" tab="7" toptab="7" err="newInfoPossibleDescription" 	
+		xpath="count(instance('ins')/newInfoPossibleDescription[. = '' and (instance('ins')/newInfoOccurence='1' or instance('ins')/newInfoOccurence='2'])" 
+		xpathSS="count(newInfoPossibleDescription[. = '' and (../newInfoOccurence='1' or ../newInfoOccurence='2')])"/>
+	<e type="direct" tab="7" toptab="7" err="newInfoActualDescription" 	
+		xpath="count(instance('ins')/newInfoActualDescription[. = '' and (instance('ins')/newInfoOccurence='1' or instance('ins')/newInfoOccurence='2'])" 
+		xpathSS="count(newInfoActualDescription[. = '' and (../newInfoOccurence='1' or ../newInfoOccurence='2')])"/>
+	
+	<e type="direct" tab="7" toptab="7" err="newInfoPreviousReportDate" 	
+			xpath="count(instance('ins')/newInfoPreviousReportDate[. = '' and instance('ins')/newInfoOccurence='3'])" xpathSS="count(newInfoPreviousReportDate[. = '' and ../newInfoOccurence='3'])"/>
+	
+	<e type="direct" tab="7" toptab="7" err="newInfoCAP" 	
+			xpath="count(instance('ins')/newInfoCAP[. = ''])" xpathSS="count(newInfoCAP[. = ''])"/>
+	<e type="direct" tab="7" toptab="7" err="newInfoCAPDescription" 	
+			xpath="count(instance('ins')/newInfoCAPDescription[. = '' and instance('ins')/newInfoCAP='1'])" xpathSS="count(newInfoCAPDescription[. = '' and ../newInfoCAP='1'])"/>
+	<e type="direct" tab="7" toptab="7" err="newInfoCAPNotNeededExplanation" 	
+			xpath="count(instance('ins')/newInfoCAPNotNeededExplanation[. = '' and instance('ins')/newInfoCAP='0'])" xpathSS="count(newInfoCAPNotNeededExplanation[. = '' and ../newInfoCAP='0'])"/>
+	<e type="direct" tab="7" toptab="7" err="newInfoCategory" 	
+			xpath="count(instance('ins')/newInfoCategory[. = ''])" xpathSS="count(newInfoCategory[. = ''])"/>
+	
+	<!-- Validation for Modification ends here -->
+</validations>

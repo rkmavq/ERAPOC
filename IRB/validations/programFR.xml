@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>    
+
+	<!-- Validation for Modification starts here -->
+	
+	<e type="direct" tab="4" toptab="4" err="protocolTransfer" 	
+			xpath="count(instance('ins')/protocolTransfer[. = ''])" xpathSS="count(protocolTransfer[. = ''])"/>		
+	<e type="direct" tab="4" toptab="4" err="protocolTransferDate" 	
+			xpath="count(instance('ins')/protocolTransferDate[. = '' and instance('ins')/protocolTransfer='1'])" xpathSS="count(protocolTransferDate[. = '' and ../protocolTransfer='1'])"/>
+			
+	<!-- Validation for Modification ends here -->
+	
+	<!-- Validation for Since Last Annual Approval starts here -->
+	<e type="direct" tab="6" toptab="6" err="laysummary" 	
+		xpath="count(instance('ins')/laysummary[. = ''])" xpathSS="count(laysummary[. = ''])"/>
+	<e type="direct" tab="6" toptab="6" err="SubjectsHarm" 	
+			xpath="count(instance('ins')/SubjectsHarm[. = ''])" xpathSS="count(SubjectsHarm[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="SubjectsHarmDescription" 	
+			xpath="count(instance('ins')/SubjectsHarmDescription[. = '' and instance('ins')/SubjectsHarm='1'])" xpathSS="count(SubjectsHarmDescription[. = '' and ../SubjectsHarm='1'])"/>		
+	<e type="direct" tab="6" toptab="6" err="SubjectsBenefit" 	
+			xpath="count(instance('ins')/SubjectsBenefit[. = ''])" xpathSS="count(SubjectsBenefit[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="SubjectsBenefitDescription" 	
+			xpath="count(instance('ins')/SubjectsBenefitDescription[. = '' and instance('ins')/SubjectsBenefit='1'])" xpathSS="count(SubjectsBenefitDescription[. = '' and ../SubjectsBenefit='1'])"/>	
+	<e type="direct" tab="6" toptab="6" err="SubjectsProblems" 	
+			xpath="count(instance('ins')/SubjectsProblems[. = ''])" xpathSS="count(SubjectsProblems[. = ''])"/>	
+				
+	<e type="direct" tab="6" toptab="6" err="SubjectsWithdrawn" 	
+			xpath="count(instance('ins')/SubjectsWithdrawn[. = ''])" xpathSS="count(SubjectsWithdrawn[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="SubjectsWithdrawnExplanation" 	
+			xpath="count(instance('ins')/SubjectsWithdrawnExplanation[. = '' and instance('ins')/SubjectsWithdrawn='1'])" xpathSS="count(SubjectsWithdrawnExplanation[. = '' and ../SubjectsWithdrawn='1'])"/>
+	<e type="direct" tab="6" toptab="6" err="SubjectsComplained" 	
+			xpath="count(instance('ins')/SubjectsComplained[. = ''])" xpathSS="count(SubjectsComplained[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="SubjectsComplainedDescription" 	
+			xpath="count(instance('ins')/SubjectsComplainedDescription[. = '' and instance('ins')/SubjectsComplained='1'])" xpathSS="count(SubjectsComplainedDescription[. = '' and ../SubjectsComplained='1'])"/>
+	<e type="direct" tab="6" toptab="6" err="Publications" 	
+			xpath="count(instance('ins')/Publications[. = ''])" xpathSS="count(Publications[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="Findings" 	
+			xpath="count(instance('ins')/Findings[. = ''])" xpathSS="count(Findings[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="MultiCenterReports" 	
+			xpath="count(instance('ins')/MultiCenterReports[. = ''])" xpathSS="count(MultiCenterReports[. = ''])"/>	
+	<e type="direct" tab="6" toptab="6" err="DSMBReports" 	
+			xpath="count(instance('ins')/DSMBReports[. = ''])" xpathSS="count(DSMBReports[. = ''])"/>	
+		
+	<!-- Validation for Since Last Annual Approval ends here -->
+	
+	<!-- Validation for Enrollment Status starts here -->
+	
+	<e type="direct" tab="7" toptab="7" err="siteScreeningFailures" 	
+			xpath="count(instance('ins')/externalSiteApprovals/siteScreeningFailures[. = ''])" xpathSS="count(externalSiteApprovals/siteScreeningFailures[. = ''])"/>		
+	<e type="direct" tab="7" toptab="7" err="siteScreeningSuccesses" 	
+			xpath="count(instance('ins')/externalSiteApprovals/siteScreeningSuccesses[. = ''])" xpathSS="count(externalSiteApprovals/siteScreeningSuccesses[. = ''])"/>			
+			
+	<!-- Validation for Enrollment Status ends here -->
+	
+</validations>

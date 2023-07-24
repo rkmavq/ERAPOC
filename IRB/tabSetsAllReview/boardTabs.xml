@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    <tab id="1" label="All">
+        <tab id="1a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="1b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="1c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+    </tab> 
+    <tab id="2" label="Initial Reviews">
+        <tab id="2a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="2b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="2c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+    </tab> 
+    <tab id="3" label="Continuing Reviews">
+        <tab id="3a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="3b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="3c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+    </tab> 
+    <tab id="4" label="Deferrals">
+        <tab id="4a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="4b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="4c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+    <tab id="5" label="Amendments">
+        <tab id="5a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="5b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="5c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+    <!--    <tab id="6" label="Adverse Events">
+        <tab id="6a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="6b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="6c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        </tab> 
+    -->    <tab id="7" label="Unanticipated Problems">
+        <tab id="7a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="7b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="7c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+    </tab> 
+    <tab id="8" label="Final Reports">
+        <tab id="8a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="8b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="8c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+    </tab> 
+    
+    
+    
+<!--    <tab id="1" label="All">
+        <tab id="1a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull.xfrm"/>
+        <tab id="1b" label="Expedited" form="/home/configs/IRB/forms/all_meetingExp.xfrm"/>
+        <tab id="1c" label="Exempt" form="/home/configs/IRB/forms/all_meetingExempt.xfrm"/>
+    </tab> 
+    <tab id="2" label="Initial Reviews">
+        <tab id="2a" label="Convened" form="/home/configs/IRB/forms/meetingFull.xfrm"/>
+        <tab id="2b" label="Expedited" form="/home/configs/IRB/forms/meetingExp.xfrm"/>
+        <tab id="2c" label="Exempt" form="/home/configs/IRB/forms/meetingExempt.xfrm"/>
+    </tab> 
+    <tab id="3" label="Continuing Reviews">
+        <tab id="3a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="3b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="3c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+    <tab id="4" label="Deferrals">
+        <tab id="4a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="4b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="4c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+    <tab id="5" label="Amendments">
+        <tab id="5a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="5b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="5c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+<!-\-    <tab id="6" label="Adverse Events">
+        <tab id="6a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="6b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="6c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+-\->    <tab id="7" label="Unanticipated Problems">
+        <tab id="7a" label="Convened" form="/home/configs/IRB/forms/up_meetingFull.xfrm"/>
+        <tab id="7b" label="Expedited" form="/home/configs/IRB/forms/up_meetingExp.xfrm"/>
+        <tab id="7c" label="Exempt" form="/home/configs/IRB/forms/up_meetingExempt.xfrm"/>
+    </tab> 
+    <tab id="8" label="Final Reports">
+        <tab id="8a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="8b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="8c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> -->
+</tabs>

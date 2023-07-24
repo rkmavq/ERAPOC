@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<security>
+  <!--<token id="canMake" if='isPI('/>
+  <token id="canMake" if='canSign('/>
+  <token id="mailTo" if='shouldCC('/>
+  <token id="canAccess" if='hasAccess('/>
+  <token id="isPI" if='isPI('/>
+    <token id="canReview" if='isIntake('/>
+    <token id="canReview" if='isCoord('/>
+    <token id="canReview" if='isDirector('/>
+    <!-\-<token id="canReview" if='isDeptAdmin('/>-\->
+    <token id="isIntake" if='isIntake('/>
+  <token id="isCoord" if='isCoord('/>
+  <token id="isDirector" if='isDirector('/>-->
+  
+ <!-- <token id="canMake" if='isIntake('/>
+  <token id="canMake" if='isCoord('/>
+  <token id="canMake" if='isDirector('/>-->
+  <token id="canMake" if='isPI('/>
+  <token id="canMake" if='canSign('/>
+  <token id="canMake" if='canEdit('/>
+  <token id="isAnalyst" if='isAnalyst('/>
+  <token id="canReview" if='canReview('/>
+  
+  <token id="mailTo" if='shouldCC('/>
+  <token id="canAccess" if='hasAccess('/>
+  <token id="isPI" if='isPI('/>
+  <!--<token id="canReview" if='isIntake('/>
+  <token id="canReview" if='isCoord('/>
+  <token id="canReview" if='isDirector('/>
+  -->
+  <!--<token id="canReview" if='isDeptAdmin('/>-->
+  <token id="isIntake" if='isIntake('/>
+  <token id="isCoord" if='isCoord('/>
+  <token id="isDirector" if='isDirector('/>
+  <token id="canReviewandMake" if='isIntake('/>
+  <token id="canReviewandMake" if='isCoord('/>
+  <token id="canReviewandMake" if='isDirector('/>
+</security>

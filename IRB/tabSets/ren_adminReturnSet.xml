@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+ 
+    <tab id="LC" label="Review Dashboard" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>
+    <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/ren_personnelAMDComm.xfrm" printlabel="Research Personnel" sourceXML="/ren_personnel.xml" formType="drillIn" formName="ren_personnel"/>
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapproval.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapproval.xml" formType="general" formName="sincelastapproval"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatus.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatus.xml" formType="general" formName="enrollmentstatus" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatus.xfrm" printlabel="Protocol Status" sourceXML="/protocolstatus.xml" formType="general" formName="protocolstatus"/>
+	
+    <tab id="COV" label="Update Protocol Case" form="/home/configs/IRB/forms/ren_returnsubmit.xfrm" when="boardrevPending"/>
+    <tab id="RS" label="Prepare Response Submission" form="/home/configs/IRB/forms/ren_returnsubmitRS.xfrm" when="mkRS"/>
+    
+    
+    <switches>
+        <boardrevPending>1</boardrevPending>
+        <mkRS>0</mkRS>
+        <full>1</full>
+        <notfull>0</notfull>
+        <enrollment>0</enrollment>
+    </switches>
+</tabs>

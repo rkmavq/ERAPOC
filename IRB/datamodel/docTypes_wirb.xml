@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <row>
+    <name>(Non-US) Audit Reports</name>
+  </row>
+  <row>
+    <name>(Non-US) Deferral Correspondence - PI</name>
+  </row>
+  <row>
+    <name>(Non-US) Financial Disclosure</name>
+  </row>
+  <row>
+    <name>1572</name>
+  </row>
+  <row>
+    <name>Acknowledgement Letter</name>
+  </row>
+  <row>
+    <name>Acknowledgement of Receipt </name>
+  </row>
+  <row>
+    <name>Ad (Word) or Subject Material (Word)</name>
+  </row>
+  <row>
+    <name>Ad (Word) or Subject Material (Word)(ap)</name>
+  </row>
+  <row>
+    <name>Advertisement</name>
+  </row>
+  <row>
+    <name>Advertisement (Any File Format)</name>
+  </row>
+  <row>
+    <name>Advertisement (Any File Format) (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement (PDF) (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement (Word)</name>
+  </row>
+  <row>
+    <name>Advertisement (Word) (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement - Audio Recording</name>
+  </row>
+  <row>
+    <name>Advertisement - Audio Recording (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement - Audio Script</name>
+  </row>
+  <row>
+    <name>Advertisement - Audio Script (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement - Brochure</name>
+  </row>
+  <row>
+    <name>Advertisement - Brochure (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement - Letter</name>
+  </row>
+  <row>
+    <name>Advertisement - Letter (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement - Other</name>
+  </row>
+  <row>
+    <name>Advertisement - Site Specific</name>
+  </row>
+  <row>
+    <name>Advertisement - Video Recording</name>
+  </row>
+  <row>
+    <name>Advertisement - Video Recording (ap)</name>
+  </row>
+  <row>
+    <name>Advertisement - Video Script</name>
+  </row>
+  <row>
+    <name>Advertisement - Video Script (ap)</name>
+  </row>
+  <row>
+    <name>Agenda Item Summary Report</name>
+  </row>
+  <row>
+    <name>Annual Report</name>
+  </row>
+  <row>
+    <name>Approvable Letter</name>
+  </row>
+  <row>
+    <name>Approval Letter</name>
+  </row>
+  <row>
+    <name>Approval Letter (Generics)</name>
+  </row>
+  <row>
+    <name>Approval Notice</name>
+  </row>
+  <row>
+    <name>Approved Payment Wording</name>
+  </row>
+  <row>
+    <name>Assent Information Sheet</name>
+  </row>
+  <row>
+    <name>Audit Report</name>
+  </row>
+  <row>
+    <name>Authorization to Use and Disclose PHI</name>
+  </row>
+  <row>
+    <name>Billing Verification</name>
+  </row>
+  <row>
+    <name>Board Requirement Letter</name>
+  </row>
+  <row>
+    <name>Board Roster</name>
+  </row>
+  <row>
+    <name>Board Training Material</name>
+  </row>
+  <row>
+    <name>Budget</name>
+  </row>
+  <row>
+    <name>Business Letter</name>
+  </row>
+  <row>
+    <name>Certificate of Action</name>
+  </row>
+  <row>
+    <name>Certificate of Approval (Certificate of Action)</name>
+  </row>
+  <row>
+    <name>Certificate of Confidentiality </name>
+  </row>
+  <row>
+    <name>CGIRB Minutes</name>
+  </row>
+  <row>
+    <name>Change in Research Submission Form</name>
+  </row>
+  <row>
+    <name>CIR &amp; Subject Recruitment Subm. Form</name>
+  </row>
+  <row>
+    <name>Clinical Trails Agreement (CTA)</name>
+  </row>
+  <row>
+    <name>Clinical Trials Agreement (CTA)</name>
+  </row>
+  <row>
+    <name>Closeout Report</name>
+  </row>
+  <row>
+    <name>Closure Report</name>
+  </row>
+  <row>
+    <name>Community Attitude</name>
+  </row>
+  <row>
+    <name>Complaint </name>
+  </row>
+  <row>
+    <name>Confirmation Letter</name>
+  </row>
+  <row>
+    <name>Conflict of Interest Analysis Memo</name>
+  </row>
+  <row>
+    <name>Consent Form - Assent</name>
+  </row>
+  <row>
+    <name>Consent Form - Main</name>
+  </row>
+  <row>
+    <name>Consent Form - Other</name>
+  </row>
+  <row>
+    <name>Consent Form Checklist</name>
+  </row>
+  <row>
+    <name>Consent Form MASTER Redline</name>
+  </row>
+  <row>
+    <name>Consent Form Redline</name>
+  </row>
+  <row>
+    <name>Consent Information Sheet</name>
+  </row>
+  <row>
+    <name>Consent Information Sheet (WORD)</name>
+  </row>
+  <row>
+    <name>Consent-Assent</name>
+  </row>
+  <row>
+    <name>Contact Information Update Form</name>
+  </row>
+  <row>
+    <name>Continuing Review Summary Report - Prot</name>
+  </row>
+  <row>
+    <name>Continuing Review Summary Report - Study</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Assent  Approved</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Assent  Board Mark-Up</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Assent - Approved</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Assent - Redline</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Assent - Submitted</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Main - Approved</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Main - Board Mark-Up</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Main - Redline</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Main - Submitted</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Other - Approved</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Other - Board Mark-Up</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Other - Redline</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Other - Submitted</name>
+  </row>
+  <row>
+    <name>Conversion - CF - Translated</name>
+  </row>
+  <row>
+    <name>Conversion - Education - CITI (UofMiami)</name>
+  </row>
+  <row>
+    <name>Conversion - Education - HSPP</name>
+  </row>
+  <row>
+    <name>Conversion - Education - NIH</name>
+  </row>
+  <row>
+    <name>Conversion - Education - OHRP</name>
+  </row>
+  <row>
+    <name>Conversion - Education - Other</name>
+  </row>
+  <row>
+    <name>Conversion - Education - U of Florida</name>
+  </row>
+  <row>
+    <name>Conversion - Education - WIRB</name>
+  </row>
+  <row>
+    <name>Conversion - License - DEA</name>
+  </row>
+  <row>
+    <name>Conversion - License - MassRes</name>
+  </row>
+  <row>
+    <name>Conversion - License - MED</name>
+  </row>
+  <row>
+    <name>Conversion - License - Other</name>
+  </row>
+  <row>
+    <name>Conversion - PTS Document</name>
+  </row>
+  <row>
+    <name>Conversion - Sub-Investigator Info</name>
+  </row>
+  <row>
+    <name>Correction Letter</name>
+  </row>
+  <row>
+    <name>Correspondence</name>
+  </row>
+  <row>
+    <name>Correspondence Email</name>
+  </row>
+  <row>
+    <name>Country Information (PDF)</name>
+  </row>
+  <row>
+    <name>Country Information (Word)</name>
+  </row>
+  <row>
+    <name>CPU Consent Form Redline</name>
+  </row>
+  <row>
+    <name>Credentialing Visit Report</name>
+  </row>
+  <row>
+    <name>CRRF</name>
+  </row>
+  <row>
+    <name>CRRF - Unflattened</name>
+  </row>
+  <row>
+    <name>CV</name>
+  </row>
+  <row>
+    <name>CV (Word)</name>
+  </row>
+  <row>
+    <name>Dear Investigator Letter</name>
+  </row>
+  <row>
+    <name>Debarment</name>
+  </row>
+  <row>
+    <name>Deferred (Tabled) Letter</name>
+  </row>
+  <row>
+    <name>Disapproval Letter</name>
+  </row>
+  <row>
+    <name>Drug Brochure</name>
+  </row>
+  <row>
+    <name>Drug Brochure (DDP)</name>
+  </row>
+  <row>
+    <name>Drug/Device Brochure</name>
+  </row>
+  <row>
+    <name>Drug/Device Brochure (DDP)</name>
+  </row>
+  <row>
+    <name>DSMB Report</name>
+  </row>
+  <row>
+    <name>Duplicate</name>
+  </row>
+  <row>
+    <name>E-Submission Cover Sheet</name>
+  </row>
+  <row>
+    <name>EPC - Approved Template</name>
+  </row>
+  <row>
+    <name>EPC-Approved Template (active)</name>
+  </row>
+  <row>
+    <name>Exemption Checklist </name>
+  </row>
+  <row>
+    <name>Exemption Determination</name>
+  </row>
+  <row>
+    <name>Exemption Request</name>
+  </row>
+  <row>
+    <name>Exemption Submitted Protocol</name>
+  </row>
+  <row>
+    <name>Exemption Worksheet</name>
+  </row>
+  <row>
+    <name>Exemption-NHSR Letter (Word)</name>
+  </row>
+  <row>
+    <name>Expedited Review Checklist</name>
+  </row>
+  <row>
+    <name>Facility Letter</name>
+  </row>
+  <row>
+    <name>FDA WARNING Letter</name>
+  </row>
+  <row>
+    <name>Final Report</name>
+  </row>
+  <row>
+    <name>Financial Disclosure Form</name>
+  </row>
+  <row>
+    <name>Health Canada NOL (No Objection Letter)</name>
+  </row>
+  <row>
+    <name>HIPAA Waiver Letter</name>
+  </row>
+  <row>
+    <name>HRP Worksheet or Checklist</name>
+  </row>
+  <row>
+    <name>IBC Report</name>
+  </row>
+  <row>
+    <name>Increase in Subjects Request</name>
+  </row>
+  <row>
+    <name>IND Safety Report</name>
+  </row>
+  <row>
+    <name>IND Safety Report Correspondence</name>
+  </row>
+  <row>
+    <name>IND Safety Report Cover Letter</name>
+  </row>
+  <row>
+    <name>Indemnificant Agreement</name>
+  </row>
+  <row>
+    <name>Indemnification Agreement</name>
+  </row>
+  <row>
+    <name>Institution Sign-off</name>
+  </row>
+  <row>
+    <name>Institutional Agreement</name>
+  </row>
+  <row>
+    <name>IRB Authorization Agreement</name>
+  </row>
+  <row>
+    <name>IRB Closure Notice</name>
+  </row>
+  <row>
+    <name>IRB Transfer Form (checklist &amp; summary)</name>
+  </row>
+  <row>
+    <name>IRIS Template</name>
+  </row>
+  <row>
+    <name>Key to User-Defined Tags</name>
+  </row>
+  <row>
+    <name>Lead IRB Minutes</name>
+  </row>
+  <row>
+    <name>Legacy COA/Disapproval Letter</name>
+  </row>
+  <row>
+    <name>License</name>
+  </row>
+  <row>
+    <name>Line Listing</name>
+  </row>
+  <row>
+    <name>Memo to Board</name>
+  </row>
+  <row>
+    <name>Miscellaneous</name>
+  </row>
+  <row>
+    <name>MPA/FWA</name>
+  </row>
+  <row>
+    <name>Mytrus-Style E-consent</name>
+  </row>
+  <row>
+    <name>NIDPOE</name>
+  </row>
+  <row>
+    <name>Non-coercion Statement</name>
+  </row>
+  <row>
+    <name>Non-compliance Determ. Letter</name>
+  </row>
+  <row>
+    <name>Non-Site AE Report Subm Form</name>
+  </row>
+  <row>
+    <name>Notification – Not Reported Correctly</name>
+  </row>
+  <row>
+    <name>Notification Attachment</name>
+  </row>
+  <row>
+    <name>Notification Attachment (WORD)</name>
+  </row>
+  <row>
+    <name>Panel Meeting Agenda</name>
+  </row>
+  <row>
+    <name>Panel Meeting Minutes</name>
+  </row>
+  <row>
+    <name>Panel Packet</name>
+  </row>
+  <row>
+    <name>Panel Report</name>
+  </row>
+  <row>
+    <name>Partial Waiver of Authorization for Recr</name>
+  </row>
+  <row>
+    <name>Past Due CRRF Letter</name>
+  </row>
+  <row>
+    <name>Patient Diary</name>
+  </row>
+  <row>
+    <name>Patient Diary (ap)</name>
+  </row>
+  <row>
+    <name>PDF Panel Meeting Minutes</name>
+  </row>
+  <row>
+    <name>Planned Protocol Variance</name>
+  </row>
+  <row>
+    <name>Promptly Reportable Information Form</name>
+  </row>
+  <row>
+    <name>Proposed Payment Language</name>
+  </row>
+  <row>
+    <name>Protocol Certificate of Action</name>
+  </row>
+  <row>
+    <name>Protocol Certificate of Approval (Action)</name>
+  </row>
+  <row>
+    <name>Protocol Letter</name>
+  </row>
+  <row>
+    <name>Protocol Support Doc (Any File Format)</name>
+  </row>
+  <row>
+    <name>Protocol Support Document</name>
+  </row>
+  <row>
+    <name>Protocol Support Document (PDF)</name>
+  </row>
+  <row>
+    <name>Protocol Support Document (Word)</name>
+  </row>
+  <row>
+    <name>Protocol Variance</name>
+  </row>
+  <row>
+    <name>Protocol/Grant</name>
+  </row>
+  <row>
+    <name>Protocol/Grant/Letter</name>
+  </row>
+  <row>
+    <name>Qualified Investigator Undertaking Form</name>
+  </row>
+  <row>
+    <name>RAC Report</name>
+  </row>
+  <row>
+    <name>Re-open Request</name>
+  </row>
+  <row>
+    <name>REBA Letter</name>
+  </row>
+  <row>
+    <name>REBA-Research Ethics Bd Attestation Form</name>
+  </row>
+  <row>
+    <name>Recruitment Bonus Plan</name>
+  </row>
+  <row>
+    <name>Regulation</name>
+  </row>
+  <row>
+    <name>Reliance Agreement</name>
+  </row>
+  <row>
+    <name>RESTRICTED BLINDED DOC (pdf)</name>
+  </row>
+  <row>
+    <name>RESTRICTED BLINDED DOC (Word)</name>
+  </row>
+  <row>
+    <name>Revised Research Locations</name>
+  </row>
+  <row>
+    <name>Risk List</name>
+  </row>
+  <row>
+    <name>Safety Report</name>
+  </row>
+  <row>
+    <name>Scientific Literature</name>
+  </row>
+  <row>
+    <name>Screening Procedures Info Form</name>
+  </row>
+  <row>
+    <name>Screening Script</name>
+  </row>
+  <row>
+    <name>Screening Script (Any File Format) (ap)</name>
+  </row>
+  <row>
+    <name>Screening Script (Word)</name>
+  </row>
+  <row>
+    <name>Screening Script (Word) (ap)</name>
+  </row>
+  <row>
+    <name>Site Adverse Event Form</name>
+  </row>
+  <row>
+    <name>Site Information</name>
+  </row>
+  <row>
+    <name>Site Visit Report</name>
+  </row>
+  <row>
+    <name>SOP Deviation Form (DOC-201)</name>
+  </row>
+  <row>
+    <name>SPA</name>
+  </row>
+  <row>
+    <name>Study Closure Report</name>
+  </row>
+  <row>
+    <name>Study Closure Request</name>
+  </row>
+  <row>
+    <name>Sub-Investigator Information</name>
+  </row>
+  <row>
+    <name>Subject Material</name>
+  </row>
+  <row>
+    <name>Subject Material (Any File Format)</name>
+  </row>
+  <row>
+    <name>Subject Material (Any File Format) (ap)</name>
+  </row>
+  <row>
+    <name>Subject Material (PDF) (ap)</name>
+  </row>
+  <row>
+    <name>Subject Material (Word)</name>
+  </row>
+  <row>
+    <name>Submission Form</name>
+  </row>
+  <row>
+    <name>Submission Form PI Signature Page</name>
+  </row>
+  <row>
+    <name>Submitted Consent Form</name>
+  </row>
+  <row>
+    <name>Submitted Consent Form (Any File Type)</name>
+  </row>
+  <row>
+    <name>Submitted Consent Form (Word)</name>
+  </row>
+  <row>
+    <name>Submitted Letterhead (Word)</name>
+  </row>
+  <row>
+    <name>Summary of Changes</name>
+  </row>
+  <row>
+    <name>Template Consent Form</name>
+  </row>
+  <row>
+    <name>Template Letter</name>
+  </row>
+  <row>
+    <name>Training Certificate</name>
+  </row>
+  <row>
+    <name>Training Document</name>
+  </row>
+  <row>
+    <name>Translated Consent Form </name>
+  </row>
+  <row>
+    <name>Translated Document (Any file type) (ap)</name>
+  </row>
+  <row>
+    <name>Translated Document (Word)</name>
+  </row>
+  <row>
+    <name>Translation (PDF)</name>
+  </row>
+  <row>
+    <name>Translation (PDF) (ap)</name>
+  </row>
+  <row>
+    <name>Translation Certification</name>
+  </row>
+  <row>
+    <name>Translation Certification (ap)</name>
+  </row>
+  <row>
+    <name>Translation Correspondence</name>
+  </row>
+  <row>
+    <name>Translation Duplicate</name>
+  </row>
+  <row>
+    <name>Translation Letter</name>
+  </row>
+  <row>
+    <name>Translation Miscellaneous</name>
+  </row>
+  <row>
+    <name>Translation Plan</name>
+  </row>
+  <row>
+    <name>Translation Request Submission Form</name>
+  </row>
+  <row>
+    <name>UAD (Unant. Adverse Device Effect)</name>
+  </row>
+  <row>
+    <name>UADE (Unant. Adverse Device Effect)</name>
+  </row>
+  <row>
+    <name>Unant Prob - Adverse Event</name>
+  </row>
+  <row>
+    <name>Unant Prob - Not Adverse Event</name>
+  </row>
+  <row>
+    <name>Unanticipated Problem Determ. Letter</name>
+  </row>
+  <row>
+    <name>Variance Log</name>
+  </row>
+  <row>
+    <name>Waiver for In Vitro Diagnostic Device</name>
+  </row>
+  <row>
+    <name>Waiver of Authorization</name>
+  </row>
+  <row>
+    <name>Waiver of Consent</name>
+  </row>
+  <row>
+    <name>Waiver of Documentation</name>
+  </row>
+  <row>
+    <name>WIRB Letter (Word)</name>
+  </row>
+  <row>
+    <name>WIRB procedure</name>
+  </row>
+  <row>
+    <name>Word document</name>
+  </row>
+  <row>
+    <name>Written Agreement</name>
+  </row>
+  <row>
+    <name>Written Consultation</name>
+  </row>
+  <row>
+    <name>xCheck Off Sheet</name>
+  </row>
+  <row>
+    <name>xDear Investigator Letter</name>
+  </row>
+  <row>
+    <name>xLicense (do not use)</name>
+  </row>
+  <row>
+    <name>xPink Sheet / Check Off Sheet</name>
+  </row>
+</root>

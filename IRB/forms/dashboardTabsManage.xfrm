@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+
+
+  <xf:model id="fmodel">
+    <!-- The data model consists of:
+        ins - process data
+        proDat - project data
+        form - form specific data
+        bootstrap - bootstraping data (pointers to aux files to attach
+        config - config data
+      -->
+    <!--<xf:instance id="ins" src="{activity}/rules.xml"/>-->
+    <xf:instance id="form"><data xmlns="">
+        <target>/ideate/entity/IRB/records/000466</target>
+        <isPI>1</isPI>
+
+        <currency/>
+        <version/>
+        <departments/>
+        <!--<versions>
+            <options>
+            <option label="Version 1" value="1"/>
+            <option label="Version X" value="2"/>
+            </options>
+            </versions>-->
+
+        <focus/>
+        <searchText/>
+        <responses>0</responses>
+        <btn>Submit</btn>
+
+
+        <id8ID>IRB-16-00104</id8ID>
+        <application>IRB</application>
+        <primeEntity>IRB</primeEntity>
+        <primeEntityURI>/ideate/entity/IRB/records/000466</primeEntityURI>
+        <focus>project</focus>
+        <view>project</view>
+        <lastPage/>
+        <formConf>dashboardtabSetManage</formConf>
+        <v>1</v>
+        <title/>
+        <canMake>1</canMake>
+        <mailTo>1</mailTo>
+        <canAccess>1</canAccess>
+        <isCoord>1</isCoord>
+        <switches>
+          <canMake>1</canMake>
+        </switches>
+        <switches>
+          <mailTo>1</mailTo>
+        </switches>
+        <switches>
+          <canAccess>1</canAccess>
+        </switches>
+      <switches><isPI>0</isPI></switches><switches><isIntake>0</isIntake></switches><switches><isCoord>0</isCoord></switches><switches><isDirector>0</isDirector></switches><switches><staticPersonnel>1</staticPersonnel></switches><switches><seeComments>0</seeComments></switches><switches><invoicesPI>0</invoicesPI></switches><switches><invoicesNotPI>0</invoicesNotPI></switches><switches><seeRiscLogs>0</seeRiscLogs></switches><switches><seeSuspTerm/></switches><switches><seeAudits>0</seeAudits></switches><switches><active>0</active></switches><switches><enrollment>0</enrollment></switches><switches><aut_flag>0</aut_flag></switches><switches><aut_flag>0</aut_flag></switches><canReview>1</canReview><switches><isPI>0</isPI></switches><switches><isIntake>0</isIntake></switches><switches><isCoord>0</isCoord></switches><switches><isDirector>0</isDirector></switches><switches><canReview>1</canReview></switches><switches><staticPersonnel>1</staticPersonnel></switches><switches><seeComments>0</seeComments></switches><switches><invoicesPI>0</invoicesPI></switches><switches><invoicesNotPI>0</invoicesNotPI></switches><switches><seeRiscLogs>0</seeRiscLogs></switches><switches><seeSuspTerm/></switches><switches><seeAudits>0</seeAudits></switches><switches><enrollment>0</enrollment></switches><switches><aut_flag>0</aut_flag></switches><switches><aut_flag>0</aut_flag></switches></data></xf:instance>
+    <xf:instance id="proDat" src="/fil/ideate/entity/IRB/records/000466/data/irb.xml"><data xmlns=""><justifyRestrictions/><primarySecondaryEndpoints>Primary endpoint: performance on module</primarySecondaryEndpoints><previouslyApprovedISMMS>0</previouslyApprovedISMMS><prevISSMSProtocolNumber/><previouslySubmittedExternal>0</previouslySubmittedExternal><previouslySubmittedExternalIRBName/><previouslyApprovedExternal/><previousApprovalDoc uri="" docLink=""/><previouslySubmittedDetails/><retroAndProspective/><requestingWaiverForAnyProcedures/><bankingSpecimens>0</bankingSpecimens><instPRMCAppLetter uri="" docLink=""/><routineDrugs/><useControlledSubstances/><drugsBiologicsSponsorSupplied/><involvesDosimetryChart/><instDosimetryChart uri="" docLink=""/><involvesRadiologicalProcedures/><involvesStandardCareRadiologicalProceduresOnly/><involvesBiosafety>0</involvesBiosafety><requestingCRUResources>0</requestingCRUResources><consentingHumanSubjects/><FACTSCriteria/><FACTSClinicalResearchStudyCategory/><feasibilityRecruitmentGoals>Since this study provides education, the participants who are residents in training will welcome the intervention.</feasibilityRecruitmentGoals><facilitiesForConductingResearch>Residents have 4-5 hours of didactic conference on Wednesdays.  30 min of conference time will be utilized for "testing" and the answers will be reviewed immediately thereafter providing educational benefit and feedback to the resident participants.  </facilitiesForConductingResearch><totalNumberPatientsEvaluatedCRU/><investigatorWithdrawSubjects>Participants will be withdrawn if they have requested to be withdrawn. Their data will be destroyed and not used for any analysis. </investigatorWithdrawSubjects><recruitingParticipants>0</recruitingParticipants><howParticipantIdentified/><howParticipantScreened/><proceduresToLessenRiskDescription>All data will be anonymized. Module will take place during didactic conference when residents are already present and prepared for education.</proceduresToLessenRiskDescription><prisonerCategoryResearchInstruction/><prisonerWhoMayBenefit/><directBenefitToSubjects/><assentRequiredOf/><riskToSubjects/><studyDesignDescription>Participants will be given ten ECGs of syncope patients to interpret. Half the participants will be given a checklist of potential diagnoses to aid in interpretation. The other half of participants will not. After everyone has completed the module, there will be a didactic presentation on potential diagnoses to consider in syncope patients' ECGs and the correct interpretations will be given. 
+Although there is general ongoing ECG training in EM residency training, there is no dedicated training such as this one; this will be additional, dedicated ECG training for the EM residents at each site.</studyDesignDescription><proceduresDescription>Participants will write down their interpretations of 10 ECGs. </proceduresDescription><sourceRecordsDescription>Participants will provide demographic information including age, sex, and PGY level.  No additional demographic information will be requested.</sourceRecordsDescription><dataCollectedDescription>Demographic data (see above) and participants' free text ECG interpretations will be collected.</dataCollectedDescription><geneticTesting>0</geneticTesting><geneticTestingForClinicalPurposes/><typeInstruments/><standardizedInstruments/><investigatorInstrumentsDescription/><avTapingSubjectsIdentifiable/><avTapingMediaDiscarded/><avTapingMediaStorageDuration/><avTapingMediaStorageConfidentiality/><avTapingMediaShared/><avTapingRequiredForParticipation/><descShareResultsWhen/><consentDoc uri="" docLink=""/><languagesOtherThanEnglish/><languagesConsentProcess/><justificationNotEnrollingNonEnglishSpeaking/><waiveParentalCriteriaSet/><waiveParentalCriteriaSetJustify/><assentForm uri="" docLink=""/><waiveAssentCriteriaSetJustification/><designedBenefits/><indCapableOfConsent/><permissionList/><assentOfSubjects/><requestingWaiverFor>medical education study that is voluntary and anonymous.</requestingWaiverFor><justifyAlterationConsent/><healthInfoViewedRecorded>0</healthInfoViewedRecorded><healthInfoViewedRecordedDescription/><nonHealthInfoViewedRecorded>1</nonHealthInfoViewedRecorded><nonHealthInfoViewedRecordedDescription>Answers to module questions will be recorded, viewed and analyzed.  In addition, basic demographics (age, PGY, sex) will also be requested on a volunteer basis.</nonHealthInfoViewedRecordedDescription><HIVInfoViewedRecorded>0</HIVInfoViewedRecorded><HIVInfoInformedConsent/><dataViewed/><dataRecorded/><dataCollectionSources>1</dataCollectionSources><obtainingHIPAAAuthorization/><requestingWaiverAlteration/><researchCouldBeConductedWithoutWaiverAlteration/><explanationWhyNotWOWaiverAlteration/><researchCouldBeConductedWithoutPHI/><explanationWhyNotWOPHI/><howPHIProtected/><PHIDestroyed/><WhenHowPHIDestroyed/><justificationRetainingPHI/><PHIShared/><PHISharedDescription/><PHISharedJustification/><PHISharedWithWhom/><PHIObtainedBy/><primarySecondarySafetyEndpoints/><dmcCharterAvailable/><dmcCharter uri="" docLink=""/><DataSubmittedFDAPermit/><DeviceUsedDataSubmittedFDAPermit/><specimensWillBeReleased/><specimensCanBeObtainedBy/><studyWillUtilize/><includesStandardCare/><rareDiseaseStudy/><CRUPersonnel/><CRUFacilities/><descPerformedCRU/><outpatientVisits/><hoursPerVisit/><uniqueSituations/><timeDayTesting/><timeDayTestingSpecify/><specialNursingReqs/><specialNursingReqsSpecify/><specialInfectionControlReqs/><specialInfectionControlReqsSpecify/><fallsPrecaution/><seizurePrecaution/><patientsCareSelves/><requireNursingAssistance/><requireNursingAssistanceSpecify/><dietaryReqs/><dietaryReqsSpecify/><facts_payment_option/><facts_payment_option_1/><facts_payment_option_2/><facts_payment_option_5/><compTotal/><totalCosts/><totalCRUCosts/><compTotalCRU/><totalCRU/><involveHS/><meetDefResearch/><meetDefIRB/><involveUseInvest/><involveCRU/><involveVertebrate/><consPermission/><assentPermission/><consCapability/><assentDocument/><assentDocumentProcess/><assentDocumentDesc/><subGreat/><subPreg/><subPregData/><subMoney/><subMoneyDesc/><subTerm/><subTermDesc/><subNeo/><subNeoDesc/><specDescribe/><specLength/><specAccess/><specWhoAccess/><specInfo/><specRelease/><specApproval/><specObtain/><specProvide/><dateRevised/><objective>To determine whether emergency medicine residents interpret ECGs of syncope patients more successfully if they are provided with a checklist.</objective><background>ECG interpretation is a critical skill for the emergency physician. There are a number of diagnoses that may cause syncope which may be made using an ECG. Residents must be able to recognize features of ECGs that suggest a cause of syncope. A checklist has never been used to assist residents in interpreting ECGs of patients with syncope.</background><settingResearch>X</settingResearch><settingResearchOther>Review of ECGs in Emergency Medicine Conference Setting. There is a dedicated conference room at each site that is utilized for conference education.  Hatch Auditorium at Mt. Sinai.  Main Auditorium at St.Luke's site and a conference room next to Podell Auditorium at Beth Israel.</settingResearchOther><availableResources/><recruitMethods/><numSubjects/><neededNumSubjects>147</neededNumSubjects><studyTimeline>1 session 30 minutes in length</studyTimeline><studyTimelineA>1 month</studyTimelineA><studyTimelineB>1</studyTimelineB><endPoints/><otherProcs/><proceduresInvolved/><specimenBanking/><dataManagement/><dataInfo/><dataCollection uri="" docLink="" name="Data Collection Sheet" status="Data Collection Sheet"/><hipaaDoc uri="" name="HIPAA Authorization" status="HIPAA Authorization"/><dataStore>PI's Locked office</dataStore><dataStoreHow>2</dataStoreHow><dataStoreOther/><dataStoreWho/><dataLength>1 year (duration necessary for analysis and manuscript preparation)</dataLength><dataAccess/><dataTrans/><dataSecure>Always remain in locked office</dataSecure><dataAnalysis>Determine whether residents perform better when given a checklist by comparing data from residents who did and did not have checklist. Perform subgroup analysis by junior vs senior resident.</dataAnalysis><dataRecord>0</dataRecord><dataRecordMethod/><subjectWithdrawal>Participants may withdraw from the study at any time during or after the module by contacting the investigator verbally or in writing.</subjectWithdrawal><safetyMonitor>0</safetyMonitor><primManJustifiy/><specificAims/><freqDataReview/><altStudyDesign/><minToxicity/><gradingSystem/><dataAccuracy/><suspensionReport/><dmcDescription uri="" docLink=""/><subjectWithdraw/><subjectRisks>Risks are negligible. Participants' performance on the module will be anonymized and will not be used for evaluation, advancement in, or graduation from their residency programs.</subjectRisks><harmProvision>No harm or injury is anticipated from this educational module, but participants will be able to cease participation at any time if they are distressed. </harmProvision><subjectBenefits>Residents will become more proficient in interpretation of ECGs of patients with syncope.</subjectBenefits><subjectPrivacy>Participants' responses in the module will be anonymized. Only basic demographic information will be requested.</subjectPrivacy><subjectImpact>No economic impact is anticipated.</subjectImpact><subjectPayment>Residents more adept in ECG interpretation will take better care of their patients.</subjectPayment><consentObtain/><consentSetting/><consentWaiting/><consentSOPHRP/><consentDescribe/><consentChildren/><consentUnderAge/><consentParentalPermission/><consentOtherDescribe/><consentAll/><consentWhich/><consentDocument/><consentMiscDescribe/><consentAdults/><consentAdPerm/><consentAdList/><assentAllSome/><assentWhich/><assentNone/><assentProcess/><consentNonEnglish/><consentNEDesc/><consentNEExclude/><consentNEExcludeJust/><consentWaiver>2</consentWaiver><consentWaiverJust/><consentWritten/><adUnConsent/><teenConsent/><wardConsent/><pregConsent/><prisConsent/><otherAspects>None</otherAspects><otherSafeguards>Participants' performance on the module will be anonymous. Performance will not affect evaluation, advancement or graduation from the residency program. </otherSafeguards><multiCenter>1</multiCenter><descMultiCenter>There is interest in ECG education in the emergency medicine residency education program at all the sites, Mt. Sinai, MS-Beth Israel and MS-St.Luke's-Roosevelt.  The program directors at the other sites are more than willing to allow this educational opportunity for their residents.  Given that the exercise is only 30 minutes in duration, there won't be any difficulty scheduling it at the other sites.  The site directors at each site will implement the education exercise.</descMultiCenter><isCBPR>0</isCBPR><descCBPR/><shareResults>0</shareResults><descShareResults/><priorReview/><priorReviewIRB/><priorReviewApprove/><priorReviewDesc/><drugInvolve/><drugInvolveDesc/><useHUD>0</useHUD><useMedical/><useExternal/><submissionApproved/><instRad/><instRadApp/><instRadDesc/><instIBC/><instIBCApp/><instIBCDesc/><instPRMC>0</instPRMC><instPRMCApp/><instPRMCDesc/><instFCO/><instFCOApp/><instFCODesc/><instPath/><instPathApp/><instPathDesc/><instESCRO/><instESCROApp/><instESCRODesc/><instReg/><instRegApp/><instRegDesc/><instGCO/><instGCOApp/><instGCODesc/><instCTBB/><instCTBBApp/><instCTBBDesc/><hudNum/><hudFDA/><hudApprovalDoc uri="" docLink="" name="FDA HDE Approval" status="FDA Determination"/><hudUseDoc uri="" docLink="" name="HUD Use Summary" status="HUD Use Summary"/><hudProductDoc uri="" docLink="" name="Product Labeling" status="Product Labeling"/><hudPatientDoc uri="" docLink="" name="Patient Information Packet" status="Patient Information Packet"/><revImplant/><revLife/><revCure/><revOtherRisk/><revNoneCrit/><revRationale/><revClinical/><revClinicalDesc/><revOne/><revOneDesc/><revProspect/><revProspectDesc/><revObject/><revObjectDesc/><revBenefit/><revBenefitDesc/><revTemp/><revTempDesc/><revNeo/><revNeoDesc/><revPart/><revPartDesc/><revMonetary/><revMonetaryDesc/><revTiming/><revTimingDesc/><revViability/><revViabilityDesc/><revPrisResearch/><revPrisEffects/><revPrisBen/><revPrisBenDesc/><revPrisMag/><revPrisMagDesc/><revPrisVol/><revPrisVolDesc/><revPrisArb/><revPrisArbDesc/><revPrisPop/><revPrisPopDesc/><revPrisPart/><revPrisPartDesc/><revPrisExam/><revPrisExamDesc/><PWCDoc uri="" status=""/><PPDoc uri="" status=""/><ASSENTDoc uri="" status=""/><protocolUploadDoc uri="" name="Research Protocol" status="Research Protocol"/><docTypeAssent/><invoiceContact/><invoiceAddress1/><invoiceAddress2/><invoiceAddress3/><invoiceCity/><invoicePhone/><invoiceState/><invoiceZip/><escroApprovalNotification id="" uri="" status=""/><phiIdentifiers/><id8ID>IRB-16-00104</id8ID><title>ECG Checklist Group for Syncope</title><shortTitle/><createDate>2015-10-08</createDate><PIName>Kaushal Shah</PIName><contextGroup>Emergency Medicine</contextGroup><status>inDev</status><riskLevel/><researchType/><approvalStart/><approvalEnd/><revFreq/><orgApprovalDate/><laysummary>ECG interpretation is a complex skill that takes many years of mastery.  A simple tool to potentially educate residents and prevent missed diagnoses is a checklist.  We would like to study whether emergency medicine residents are more successful at interpreting ECGs for patients with syncope when they use a checklist compared to without a checklist.</laysummary><compParticipation>0</compParticipation><researchHyp/><studyPurpose/><expiditedCats/><exemptCats/><phase/><invRadio/><subToRSC/><link name="rscProt" type="entity" object="" title="" id="" uri="" state=""/><invRDNA/><consentObt/><retroChartReview/><survey>0</survey><surveyNotes/><observation/><observationProc/><observationNotes/><avTaping>0</avTaping><avTapingNotes/><deception>0</deception><deceptionNotes/><preExistingData/><prospectiveDataCollection/><ibcRegistrationNo/><ibcRegistrationDate/><ibcStatus/><ibcApprovalNotification uri="" status=""/><escroStatus/><involvePHI/><nonResearchData/><subToIBC/><link name="ibcProt" type="entity" object="" title="" id="" uri="" state=""/><invBiologics/><invBiological/><subToIBCBio/><link name="ibcBioProt" type="entity" object="" title="" id="" uri="" state=""/><invEmb/><subToESCRO/><link name="escroProt" type="entity" object="" title="" id="" uri="" state=""/><invDrugs>0</invDrugs><invDevs>0</invDevs><identSourcesPHI/><describeSourcesPHI/><receivePHI/><sharePHI/><shareWithPHI/><describeSharePHI/><shareHowPHI/><accessPHI/><explainMinRiskPHI/><descPlanToProtectPHI/><descPlanToDestroyPHI/><explainHipaaWaiver/><descPHI/><recMethodOther/><anticipatedRisks/><potentialBenefits/><benefitToSociety/><benefitsOfTreatment/><dataSafetyMonitor/><dataMonitorMethod/><standardOfCare/><participantCosts/><injuryCompensationAvailable/><injuryCompDesc/><injuryCompJustify/><findingsProvidedToParticipants/><findingsDescReleaseInfo/><explainFindingsNotShared/><retroStartDate/><retroEndDate/><retroIdentifierRecorded/><radiationEquipment/><radioactiveMaterials/><otherProcedures/><radOncology/><treatmentOutsideStudy/><addlTreatmentInStudy/><researchFunded>0</researchFunded><link name="grant" type="entity" object="" title="" id="" uri="" state=""/><fundingStatus/><fundingSource/><projInitiatedBy/><piGrantContract/><invContactName/><invAddress1/><invAddress2/><invAddress3/><invCity/><invState/><invZip/><invPhone/><invFax/><invEmail/><ageRange en="0" males="0" females="0">18TO64</ageRange><population en="0" males="0" females="0">resFellow</population><ethnicCat en="0" males="0" females="0"/><race en="0" males="0" females="0" unknown="0"/><recMethod description=""/><recMaterial/><oteuType/><oteuInitials/><oteuAge/><oteuSex/><oteuMedicalRecord/><oteuDiagnosis/><oteuDateofdiagnosis/><oteuPlannedtreatmentdate/><oteuInformedConsent uri="" id=""/><oteuInformedConsentDoc uri="" id="" status="" docLink=""/><oteuReason/><oteuDecision/><oteuComments/><approachParticipant per=""/><inclusionCriteria>Enrollment in an emergency medicine residency at one of the designated sites.
+There are 60 EM residents at Mt. Sinai, 45 EM residents at Beth Israel and 42 EM residents at St. Luke's-Roosevelt Hospital.  This is a total of 147 potential enrollments.</inclusionCriteria><exclusionCriteria>none</exclusionCriteria><enrollRestrictions>0</enrollRestrictions><identRestrictions/><justifyExclusions/><selectEthnicRestrictions/><justifyEthnicRestrictions/><selectRaceRestrictions/><justifyRaceRestrictions/><enrollAllSites>0</enrollAllSites><enrollThisSite/><enrollTotal>0</enrollTotal><totalEnrolled>147</totalEnrolled><childrensCats><HHS/><FDA/></childrensCats><prisonerCats/><concentProcess/><concentWaiver/><whereWhenConcent/><stepToMinimizeCoercion/><researchIntroduced/><enrollNonEnglishSpeaking/><identObtainConsent/><minCoercion/><waiverApplicableToAll/><noMoreThanMinRisk>The module being used is educational and residents would be learning this information either way. Learning about syncope  diagnoses in ECGs is beneficial to the residents.</noMoreThanMinRisk><waiverNotAffectParticipants>The participants would be undergoing this educational experience as part of didactic conference in any case. </waiverNotAffectParticipants><justifyWaiver>There is implied consent by completing the ECG module.</justifyWaiver><provideAdditionalInformation>Correct interpretations of the ECGs in the module will be presented in discussion after residents have completed the module.</provideAdditionalInformation><describeAlterationConsent/><identJustification/><waiverOfSignedConsentJustification/><submissionNotes/><signOff signedWhen="02/18/2016, 4:51:28 PM" signedBy="Kaushal Shah">1</signOff><signOffProxy signedWhen="" signedBy=""/><signatureCentral signedWhen="" signedBy=""/><subType>init</subType><Organization id="33"><OrgID>Ideate</OrgID><OrganizationName>Consilience International</OrganizationName><OHRP_IORG>12345</OHRP_IORG><OHRP_FWA>67890</OHRP_FWA><IRB_InstOfficial_uri>/ideate/entity/People/records/000022</IRB_InstOfficial_uri><IRB_RegContact_uri>/ideate/entity/People/records/000022</IRB_RegContact_uri></Organization><researchProgress>	</researchProgress><id8Ref/><id8ref/><appType>1</appType><externalIRBHIPAA/><researchInvolves>3</researchInvolves><consentingParticipants>0</consentingParticipants><clinicalTrial>0</clinicalTrial><radiologicalProcedures>0</radiologicalProcedures><exemptSummary/><exemptLocation/><exemptInteractionSubjects/><exemptEquitableSelection/><exemptPrivacyProtected/><exemptSurveyInstruments/><exemptResearchInfoSheet uri="" docLink=""/><exemptCategories/><externalIRBName/><externalIRBOther/><externalIRBMultiCenterNotPI/><externalIRBMultiCenterConsortium/><externalIRBMultiCenterCentralIRB/><externalIRBPIRoleNotIncludeSubjects/><externalIRBFederalFunds/><externalIRBRequestFromFCOIR/><externalIRBRequestFromPPHS/><externalIRBHIVTesting/><externalIRBHIVConsent uri="" docLink=""/><multiCenterISMPIResponsible>1</multiCenterISMPIResponsible><radiologicalProceduresDosimetry/><dosimetryChart uri="" docLink=""/><dateOfInvolvingHazardousMaterials/><biosafetyLevel/><riskGroup/><geneTherapy/><largeScaleProductionVectors/><vitroSysApplications/><codeForToxinOncogeneUnToxin/><descInsertedGeneWillCode/><insertedGeneWillAlterRangeOrCell/><descInsertedGeneWillAlter/><geneHaveReplicationCapacityOfVirus/><geneCapableOfAlteringHostCell/><wildVirusPresentInVector/><fractionWildVirusPresentInVector/><biosafetyData><vectorName/><cDNAInserts/><sizeAndSourceofInserts/><expressionProducts/><locationOfPreparation/><biosafetyRoom/></biosafetyData><dataHUD/><manufacturer/><contextGroupID>p_uUgD0BAHhywKkAva6B</contextGroupID><owner>gC61ez0BAEzDwKkAvay6</owner><Person invitationAid="" ie_recId="4263" uri="/ideate/entity/People/records/004263" uid="gC61ez0BAEzDwKkAvay6" id="4263" dataAccess="1" dataTrans="1" dataStoreWho=""><invitation date="" status="na"><messageOut date=""/><messageIn date=""/></invitation><role>PI</role><id>1963997</id><name>Kaushal Shah</name><fullname title="" Suffix="" LastName="Shah" MiddleName="" FirstName="Kaushal" Prefix="" Title="-"/><startDate/><endDate/><contact/><hasRelationship>0</hasRelationship><interPersonal/><consentProcess/><educationReq/><locationEvidence/><hasCOI>0</hasCOI><access>SIGNAUTH</access><obtainingConsent/><coiDisclosure docLink="" uri=""/><organization>Ideate</organization><sigAuthority>1</sigAuthority><phone>646-369-2747</phone><fax/><email selected="1"><email indx="1">kaushal.shah@mountsinai.org</email></email><address selected="1"><address indx="1"><name>Work</name><address1>One Gustave L. Levy Place</address1><address2/><address3/><city>New York</city><state>NY</state><zip>10029</zip></address></address><protStartDate>2015-10-08</protStartDate><protEndDate/><training/><TrainingExpirationDate/><TrainingStartDate/><uniStatus/><unistatus/><department selected="p_uUgD0BAHhywKkAva6B"><dept value="p_uUgD0BAHhywKkAva6B" name="Emergency Medicine"/></department><creatorIsPI>1</creatorIsPI><fcoi_certification_date>2012-07-25</fcoi_certification_date><fcoi_status>SUBMITTED</fcoi_status><financial_interest>N</financial_interest><fcoi_submitted_date>2016-02-18</fcoi_submitted_date><fcoi_amended_date/><institutional_interest>N</institutional_interest><sad_status/><sad_issue/><cv uri="/ideate/entity/IRB/records/000466/data/docs/4263_cv.pdf" uploaded="2016-02-18">CV</cv><TrainingCertifications Effective="2012-07-25" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590020416326251" ie_createTime="" ie_recId="8" title="FCOI certification" uri="/ideate/entity/Certifications/records/000008"/><TrainingCertifications Effective="2011-10-24" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590024232225031" ie_createTime="" ie_recId="4" title="Human Subjects Research training for Investigator/Research Staff" uri="/ideate/entity/Certifications/records/000004"/><TrainingCertifications Effective="2011-10-24" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590024232225041" ie_createTime="" ie_recId="3" title="HIPAA for Research Update" uri="/ideate/entity/Certifications/records/000003"/><TrainingCertifications Effective="2011-10-25" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590024232225071" ie_createTime="" ie_recId="5" title="Good Clinical Practice (GCP) training" uri="/ideate/entity/Certifications/records/000005"/><TrainingCertifications Effective="2011-10-24" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590024232225021" ie_createTime="" ie_recId="9" title="Data Security and HIPAA training" uri="/ideate/entity/Certifications/records/000009"/><TrainingCertifications Effective="2014-12-04" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590030753283111" ie_createTime="" ie_recId="2" title="Human Subjects Research training for Investigator/Research Staff Refresher" uri="/ideate/entity/Certifications/records/000002"/><TrainingCertifications Effective="2011-10-25" Expires="" crNumber="" PersonId="1963997" StartDate="" id="0000149590045909499511" ie_createTime="" ie_recId="1" title="Good Clinical Practice (GCP) refresh" uri="/ideate/entity/Certifications/records/000001"/></Person><Person invitationAid="" ie_recId="4263" uri="/ideate/entity/People/records/004263" uid="gC61ez0BAEzDwKkAvay6" id="4263"><invitation date="" status="author"><messageOut date=""/><messageIn date=""/></invitation><role>co</role><id>1963997</id><name>Kaushal Shah</name><fullname title="" Suffix="" LastName="Shah" MiddleName="" FirstName="Kaushal" Prefix="" Title="-"/><startDate/><endDate/><contact/><hasRelationship>0</hasRelationship><interPersonal/><consentProcess/><educationReq/><locationEvidence/><hasCOI>0</hasCOI><access>EDIT</access><obtainingConsent/><coiDisclosure docLink="" uri=""/><organization>Ideate</organization><sigAuthority/><phone>646-369-2747</phone><fax/><email selected="1"><email indx="1">kaushal.shah@mssm.edu</email></email><address selected="1"><address indx="1"><name>Work</name><address1>One Gustave L. Levy Place</address1><address2/><address3/><city>New York</city><state>NY</state><zip>10029</zip></address></address><protStartDate>2015-10-08</protStartDate><protEndDate/><training/><TrainingExpirationDate/><TrainingStartDate/><uniStatus/><unistatus/><department selected="p_uUgD0BAHhywKkAva6B"><dept value="p_uUgD0BAHhywKkAva6B" name="Emergency Medicine"/></department><cv uri="/ideate/entity/IRB/records/000466/data/docs/4263_cv.pdf" uploaded="2016-02-18">CV</cv></Person><PPDoc docLink=""/><waiveAssentCriteriaSet/><externalSiteApprovals id="41455245" ref="1" showdetails="1" fixed="0"><approvalDoc uri="" id="" status="" docLink=""/><siteNameText>Mount Sinai Hospital</siteNameText><siteName>2</siteName><siteNameOther/><siteContactDetails/><siteLocation/><contactName/><contactPhone/><contactEmail/><siteApproval/><passThrough/><reviewResearch/><mssmIRB/><otherIRB/><otherIRBDesc/><totalEnroll>60</totalEnroll><siteScreeningFailures/><siteScreeningSuccesses/><siteSubjectsEnrolled/></externalSiteApprovals><externalSiteApprovals id="30011548" ref="2" showdetails="1" fixed="0"><approvalDoc uri="" id="" status="" docLink=""/><siteNameText>Mount Sinai Beth Israel</siteNameText><siteName>7</siteName><siteNameOther/><siteContactDetails/><siteLocation/><contactName/><contactPhone/><contactEmail/><siteApproval>0</siteApproval><passThrough>0</passThrough><reviewResearch>2</reviewResearch><mssmIRB/><otherIRB/><otherIRBDesc/><totalEnroll>45</totalEnroll><siteScreeningFailures/><siteScreeningSuccesses/><siteSubjectsEnrolled/></externalSiteApprovals><externalSiteApprovals id="1430314" ref="3" showdetails="1" fixed="0"><approvalDoc uri="" id="" status="" docLink=""/><siteNameText>Mount Sinai St. Luke's</siteNameText><siteName>9</siteName><siteNameOther/><siteContactDetails/><siteLocation/><contactName/><contactPhone/><contactEmail/><siteApproval>0</siteApproval><passThrough>0</passThrough><reviewResearch>2</reviewResearch><mssmIRB/><otherIRB/><otherIRBDesc/><totalEnroll>42</totalEnroll><siteScreeningFailures/><siteScreeningSuccesses/><siteSubjectsEnrolled/></externalSiteApprovals><ifnumber>IF1880346</ifnumber><studyFundAccount/><Person invitationAid="" ie_recId="6992" uri="/ideate/entity/People/records/006992" uid="cxn9LlMBAG68Cl8MQZMy" id="6992" addedBy="reviewer"><invitation date="" status="invited"><messageOut date=""/><messageIn date=""/></invitation><role>CI</role><id>2339857</id><name>Emily Taub</name><fullname title="" Suffix="" LastName="Taub" MiddleName="" FirstName="Emily" Prefix="" Title=""/><startDate/><endDate/><contact/><hasRelationship>0</hasRelationship><interPersonal/><consentProcess/><educationReq/><locationEvidence/><hasCOI>0</hasCOI><access>EDIT</access><obtainingConsent/><coiDisclosure docLink="" uri=""/><organization>Ideate</organization><sigAuthority/><phone/><fax/><email selected="1"><email indx="1">emily.taub@mountsinai.org</email></email><address selected="1"><address indx="1"><name>Work</name><address1/><address2/><address3/><city/><state/><zip/></address></address><protStartDate>2016-03-03</protStartDate><protEndDate/><training/><TrainingExpirationDate/><TrainingStartDate/><uniStatus/><unistatus/><department selected="p_uUgD0BAHhywKkAva6B"><dept value="p_uUgD0BAHhywKkAva6B" name="Emergency Medicine"/></department><fcoi_certification_date/><fcoi_status>SUBMITTED</fcoi_status><financial_interest>N</financial_interest><fcoi_submitted_date>2016-02-22</fcoi_submitted_date><fcoi_amended_date/><institutional_interest>N</institutional_interest><sad_status/><sad_issue/><TrainingCertifications Effective="2015-10-07" Expires="" crNumber="" PersonId="2339857" StartDate="" id="0000149590024232225031" ie_createTime="" ie_recId="4" title="Human Subjects Research training for Investigator/Research Staff" uri="/ideate/entity/Certifications/records/000004"/><TrainingCertifications Effective="2015-09-28" Expires="" crNumber="" PersonId="2339857" StartDate="" id="0000149590024232225021" ie_createTime="" ie_recId="9" title="Data Security and HIPAA training" uri="/ideate/entity/Certifications/records/000009"/><TrainingCertifications Effective="2015-09-28" Expires="" crNumber="" PersonId="2339857" StartDate="" id="0000149590024232225041" ie_createTime="" ie_recId="3" title="HIPAA for Research Update" uri="/ideate/entity/Certifications/records/000003"/><cv uri="/ideate/entity/IRB/records/000466/data/docs/6992_cv.docx" uploaded="2016-03-04">CV</cv></Person><Person invitationAid="" ie_recId="6991" uri="/ideate/entity/People/records/006991" uid="FAf4LlMBAFq8Cl8MQZMy" id="6991" addedBy="reviewer"><invitation date="" status="invited"><messageOut date=""/><messageIn date=""/></invitation><role>CI</role><id>1677323</id><name>Thomas Nguyen</name><fullname title="" Suffix="" LastName="Nguyen" MiddleName="" FirstName="Thomas" Prefix="" Title=""/><startDate/><endDate/><contact/><hasRelationship>0</hasRelationship><interPersonal/><consentProcess/><educationReq/><locationEvidence/><hasCOI>0</hasCOI><access>READONLY</access><obtainingConsent/><coiDisclosure docLink="" uri=""/><organization>Ideate</organization><sigAuthority/><phone/><fax/><email selected="1"><email indx="1">Tnguyen@chpnet.org</email></email><address selected="1"><address indx="1"><name>Work</name><address1/><address2/><address3/><city/><state/><zip/></address></address><protStartDate>2016-03-03</protStartDate><protEndDate/><training/><TrainingExpirationDate/><TrainingStartDate/><uniStatus/><unistatus/><department selected="p_uUgD0BAHhywKkAva6B"><dept value="p_uUgD0BAHhywKkAva6B" name="Emergency Medicine"/></department><fcoi_certification_date/><fcoi_status>SUBMITTED</fcoi_status><financial_interest>N</financial_interest><fcoi_submitted_date>2016-02-19</fcoi_submitted_date><fcoi_amended_date/><institutional_interest>N</institutional_interest><sad_status/><sad_issue/><TrainingCertifications Effective="2003-03-17" Expires="" crNumber="" PersonId="1677323" StartDate="" id="0000149590024232225091" ie_createTime="" ie_recId="6" title="MSSM HIPAA (fulfilled prior to 2011)" uri="/ideate/entity/Certifications/records/000006"/><TrainingCertifications Effective="2015-03-01" Expires="" crNumber="" PersonId="1677323" StartDate="" id="0000149590024232225021" ie_createTime="" ie_recId="9" title="Data Security and HIPAA training" uri="/ideate/entity/Certifications/records/000009"/><TrainingCertifications Effective="2015-03-01" Expires="" crNumber="" PersonId="1677323" StartDate="" id="0000149590024232225031" ie_createTime="" ie_recId="4" title="Human Subjects Research training for Investigator/Research Staff" uri="/ideate/entity/Certifications/records/000004"/><TrainingCertifications Effective="2015-03-01" Expires="" crNumber="" PersonId="1677323" StartDate="" id="0000149590024232225041" ie_createTime="" ie_recId="3" title="HIPAA for Research Update" uri="/ideate/entity/Certifications/records/000003"/><cv uri="/ideate/entity/IRB/records/000466/data/docs/6991_cv. July 2016 Updated " uploaded="2016-07-25">CV</cv></Person><Person invitationAid="" ie_recId="6989" uri="/ideate/entity/People/records/006989" uid="xvPzHlMBAF$VCl8MQSOP" id="6989" addedBy="reviewer"><invitation date="" status="invited"><messageOut date=""/><messageIn date=""/></invitation><role>CI</role><id>1594547</id><name>Daniel Egan</name><fullname title="" Suffix="" LastName="Egan" MiddleName="" FirstName="Daniel" Prefix="" Title=""/><startDate/><endDate/><contact/><hasRelationship>0</hasRelationship><interPersonal/><consentProcess/><educationReq/><locationEvidence/><hasCOI>0</hasCOI><access>READONLY</access><obtainingConsent/><coiDisclosure docLink="" uri=""/><organization>Ideate</organization><sigAuthority/><phone/><fax/><email selected="1"><email indx="1">Daegan@chpnet.org</email></email><address selected="1"><address indx="1"><name>Work</name><address1/><address2/><address3/><city/><state/><zip/></address></address><protStartDate>2016-03-03</protStartDate><protEndDate/><training/><TrainingExpirationDate/><TrainingStartDate/><uniStatus/><unistatus/><department selected="p_uUgD0BAHhywKkAva6B"><dept value="p_uUgD0BAHhywKkAva6B" name="Emergency Medicine"/></department><fcoi_certification_date>2015-08-17</fcoi_certification_date><fcoi_status>SUBMITTED</fcoi_status><financial_interest>N</financial_interest><fcoi_submitted_date>2016-02-19</fcoi_submitted_date><fcoi_amended_date/><institutional_interest>N</institutional_interest><sad_status/><sad_issue/><TrainingCertifications Effective="2015-07-06" Expires="" crNumber="" PersonId="1594547" StartDate="" id="0000149590024232225031" ie_createTime="" ie_recId="4" title="Human Subjects Research training for Investigator/Research Staff" uri="/ideate/entity/Certifications/records/000004"/><TrainingCertifications Effective="2015-07-06" Expires="" crNumber="" PersonId="1594547" StartDate="" id="0000149590024232225041" ie_createTime="" ie_recId="3" title="HIPAA for Research Update" uri="/ideate/entity/Certifications/records/000003"/><TrainingCertifications Effective="2014-07-11" Expires="" crNumber="" PersonId="1594547" StartDate="" id="0000149590024232225071" ie_createTime="" ie_recId="5" title="Good Clinical Practice (GCP) training" uri="/ideate/entity/Certifications/records/000005"/><TrainingCertifications Effective="2015-07-06" Expires="" crNumber="" PersonId="1594547" StartDate="" id="0000149590024232225021" ie_createTime="" ie_recId="9" title="Data Security and HIPAA training" uri="/ideate/entity/Certifications/records/000009"/><TrainingCertifications Effective="2014-07-11" Expires="" crNumber="" PersonId="1594547" StartDate="" id="0000149590045909499511" ie_createTime="" ie_recId="1" title="Good Clinical Practice (GCP) refresh" uri="/ideate/entity/Certifications/records/000001"/><TrainingCertifications Effective="2015-08-17" Expires="" crNumber="" PersonId="1594547" StartDate="" id="0000149590020416326251" ie_createTime="" ie_recId="8" title="FCOI certification" uri="/ideate/entity/Certifications/records/000008"/><cv uri="/ideate/entity/IRB/records/000466/data/docs/6989_cv.docx" uploaded="2016-04-13">CV</cv></Person><section type="attached" label="Accumulated Docs" addcomment="" comment="" changed="" accept="" req="" justification="" acceptjust=""/><section type="new" label="Documents" addcomment="" comment="" changed="" accept="" req="" justification="" acceptjust=""/><Board ie_recId="24" uri="/ideate/entity/IRB Board/records/000024" id="24"><id>board112</id><name>Mount Sinai School of Medicine IRB #7 - NFL</name><OHRP_IRB_id/><description>Biomedical</description><researchType>bio</researchType><orgName>Mount Sinai School of Medicine</orgName><boardCategory>pphs</boardCategory><orgID/><irbInternal>internal</irbInternal><irbActive>1</irbActive><OHRP/><mnum>1</mnum><coordinator expertise="" uri="/ideate/entity/People/records/000757" apptEnd="2020-12-31" apptStart="2016-01-27" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Liz Carroll" ie_createTime="" ie_recId="757">
+        <expertise/>
+    </coordinator><intake expertise="" uri="/ideate/entity/People/records/006090" apptEnd="2016-01-27" apptStart="2016-01-27" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="David Dalton" ie_createTime="" ie_recId="6090">
+        <expertise/>
+    </intake><coordinator expertise="" uri="/ideate/entity/People/records/006565" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Keith King" ie_createTime="" ie_recId="6565"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006566" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Jessica Smilowitz" ie_createTime="" ie_recId="6566"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006327" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Selina Deluca" ie_createTime="" ie_recId="6327"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/000323" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Rebecca Banchik" ie_createTime="" ie_recId="323"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006109" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Martha Alvarado" ie_createTime="" ie_recId="6109"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/002207" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Lori Jennex" ie_createTime="" ie_recId="2207"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006807" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Marilyn Eshikena" ie_createTime="" ie_recId="6807"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006563" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Gabriella Foe" ie_createTime="" ie_recId="6563"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006569" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Joanna Martinez-Gomez" ie_createTime="" ie_recId="6569"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006900" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Garbrielle King" ie_createTime="" ie_recId="6900"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/002956" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Robert Maril" ie_createTime="" ie_recId="2956"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006789" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Nancy Ostrow" ie_createTime="" ie_recId="6789"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006902" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Ana Quiroz" ie_createTime="" ie_recId="6902"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006869" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Komal Srivastava" ie_createTime="" ie_recId="6869"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006901" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Jake Sutera" ie_createTime="" ie_recId="6901"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/004654" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Yanira Tavares" ie_createTime="" ie_recId="4654"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006286" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Jackie Treatman" ie_createTime="" ie_recId="6286"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/007226" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Kevin Van Geem" ie_createTime="" ie_recId="7226"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/006090" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="David Dalton" ie_createTime="" ie_recId="6090"><expertise/></coordinator><coordinator expertise="" uri="/ideate/entity/People/records/007231" apptEnd="2019-05-03" apptStart="2016-05-03" apptType="coor_current" alternate="" member="" irbChair="" institution="" scientist="" gender="" name="Mariella Hernandez" ie_createTime="" ie_recId="7231"><expertise/></coordinator><BoardMember ie_recId="2984" uri="/ideate/entity/People/records/002984" uid="" id="2984"><conference/><alternateFor/><gender/><scientist>1</scientist><institution>1</institution><chair/><member>primary</member><alternate/><apptType>current</apptType><apptStart>2010-12-01</apptStart><apptEnd>2016-11-30</apptEnd><expertise>5</expertise><id>2984</id><name>Glenn Martin</name><review include="" assigned="" status="Unassigned" reviewDate="" decision="" num="" attended=""/></BoardMember><BoardMember ie_recId="757" uri="/ideate/entity/People/records/000757" uid="" id="757"><conference/><alternateFor/><gender/><scientist/><institution>1</institution><chair/><member>primary</member><alternate/><apptType>current</apptType><apptStart>2012-01-01</apptStart><apptEnd>2018-01-01</apptEnd><expertise/><id>757</id><name>Liz Carroll</name><review include="" assigned="" status="Unassigned" reviewDate="" decision="" num="" attended=""/></BoardMember><BoardMember ie_recId="2207" uri="/ideate/entity/People/records/002207" uid="" id="2207"><conference/><alternateFor/><gender/><scientist>1</scientist><institution>1</institution><chair/><member>primary</member><alternate/><apptType>current</apptType><apptStart>2012-01-01</apptStart><apptEnd>2018-01-01</apptEnd><expertise/><id>2207</id><name>Lori Jennex</name><review include="" assigned="" status="Unassigned" reviewDate="" decision="" num="" attended=""/></BoardMember></Board><Coordinator new="" name="Keith King" uid="8GoKqlABAKz8Cl8MQV3w" uri="/ideate/entity/People/records/006565"/><assignedIRB>24</assignedIRB><assignedCoor>/ideate/entity/People/records/006565</assignedCoor><primaryEntityURI>/ideate/entity/IRB/records/000466</primaryEntityURI></data></xf:instance>
+    <xf:instance id="bootstrap"><data xmlns="">
+        <css>/resources/applications/IRB/css/main.css</css>
+        <js>/resources/services/appTabSet/appTabSet.js</js>
+      </data></xf:instance>
+    <xf:instance id="config" src="/fil/home/configs/IRB/tabSets/dashboardtabSetManage.xml"><tabs xmlns="" saveOnSwitch=""> 
+    
+    <tab id="LC" label="Lifecycle Event Manager" form="/../fil/home/configs/IRB/forms/actionsMan.xfrm"/>    
+    
+    <tab id="Comms" label="Communications">
+        <tab id="Letters" label="Letters" form="/../fil/home/configs/IRB/forms/gatheredComms.xfrm"/>
+        <tab id="inv" label="Invoices" form="/../fil/home/configs/IRB/forms/invoices.xfrm" when="invoices"/>
+        <tab id="coms" label="Comments" form="/../fil/home/configs/IRB/forms/dshbrd_commsMan.xfrm"/>        
+    </tab>
+    
+     
+    
+    <tab id="1" label="Summary">
+        <tab id="1a" label="Title" form="/../fil/home/configs/IRB/forms/irbsummaryView.xfrm" printlabel="Summary - Title" sourceXML="/summary.xml" formType="general" formName="summary" mode=""/>
+		<tab id="1c" label="Setup" form="/../fil/home/configs/IRB/forms/setupView.xfrm" printlabel="Summary - Setup" sourceXML="/setup.xml" formType="general" formName="setup" mode=""/>
+        <tab id="1b" label="Background" form="/../fil/home/configs/IRB/forms/templateMainView.xfrm" printlabel="Summary - Background" sourceXML="/templateMain.xml" formType="general" formName="templateMain" when="relyonMountSinaiIRB" mode=""/>
+    </tab>
+	
+    <tab id="4b" label="Research Personnel" form="/../fil/home/configs/IRB/forms/personnelView.xfrm" printlabel="Research Personnel" sourceXML="/personnel.xml" formType="drillIn" formName="personnel" mode=""/>
+	<!--<tab id="4" label="Personnel">
+        <tab id="4b" label="Research Personnel" form="/../fil/home/configs/IRB/forms/personnelView.xfrm" printlabel="Research Personnel" sourceXML="/personnel.xml" formType="drillIn" formName="personnel" mode=""/> <!{1}**when="pimatch"**{1}>
+        <tab id="4c" label="Other Personnel" form="/../fil/home/configs/IRB/forms/personnelOtherView.xfrm" printlabel="Other Personnel" sourceXML="/personnelOther.xml" formType="drillIn" formName="personnelOther" mode=""/>
+    </tab>-->
+	
+	<tab id="6X" label="Sites" form="/../fil/home/configs/IRB/forms/externalSitesView.xfrm" printlabel="Sites" sourceXML="/externalSites.xml" formType="drillIn" formName="externalSites" when="external" mode=""/>
+	
+	<tab id="3" label="Exemption" when="requestIRBExemption">
+		<tab id="3a" label="Summary" form="/../fil/home/configs/IRB/forms/exempSummaryView.xfrm" printlabel="Exemption - Summary" sourceXML="/exempSummary.xml" formType="general" formName="exempSummary" when="requestIRBExemption" mode=""/>		
+		<tab id="3b" label="Category" form="/../fil/home/configs/IRB/forms/exempCategoryView.xfrm" printlabel="Exemption - Category" sourceXML="/exempCategory.xml" formType="general" formName="exempCategory" when="requestIRBExemption" mode=""/>
+    </tab>
+	
+	<tab id="4" label="External IRB" form="/../fil/home/configs/IRB/forms/externalIRBView.xfrm" printlabel="External IRB" sourceXML="/externalIRB.xml" formType="general" formName="externalIRB" when="otherExternalIRB" mode=""/>
+	
+    <!--<tab id="2" label="Application Setup">-->
+        <!--<tab id="2a" label="Main Protocol" form="/../fil/home/configs/IRB/forms/researchDesignView.xfrm" printlabel="Application Setup - Main Protocol" sourceXML="/researchDesign.xml" formType="general" formName="researchDesign" mode=""/>-->
+        <!--<tab id="2b" label="Cancer" form="/../fil/home/configs/IRB/forms/instApprovalsView.xfrm" printlabel="Application Setup - Cancer" sourceXML="/instApprovals.xml" formType="general" formName="instApprovals" when="notRetroCharts" mode=""/>-->
+		<!--<tab id="2c" label="Drugs / Biologics" form="/../fil/home/configs/IRB/forms/drugsbiologicsView.xfrm" printlabel="Application Setup - Drugs / Biologics" sourceXML="/drugsbiologics.xml" formType="general" formName="drugsbiologics" when="notRetroCharts" mode=""/>-->
+		<!--<tab id="2d" label="Radiation Safety" form="/../fil/home/configs/IRB/forms/radiationsafetyView.xfrm" printlabel="Application Setup - Radiation Safety" sourceXML="/radiationsafety.xml" formType="general" formName="radiationsafety" when="notRetroCharts" mode=""/>-->
+		<!--<tab id="2e" label="Biosafety" form="/../fil/home/configs/IRB/forms/biosafetyView.xfrm" printlabel="Application Setup - Biosafety" sourceXML="/biosafety.xml" formType="general" formName="biosafety" when="notRetroCharts" mode=""/>
+		<tab id="2f" label="Clinical Research Unit" form="/../fil/home/configs/IRB/forms/cruView.xfrm" printlabel="Application Setup - Clinical Research Unit" sourceXML="/cru.xml" formType="general" formName="cru" when="notRetroCharts" mode=""/>
+		<tab id="2g" label="Financial Administration" form="/../fil/home/configs/IRB/forms/financialView.xfrm" printlabel="Application Setup - Financial Administration" sourceXML="/financial.xml" formType="general" formName="financial" when="notRetroCharts" mode=""/>-->
+    <!--</tab> -->
+	
+	<tab id="11A" label="Subjects" when="subjects">
+		<tab id="11C" label="Enrollment" form="/../fil/home/configs/IRB/forms/enrollmentView.xfrm" printlabel="Subjects - Enrollment" sourceXML="/enrollment.xml" formType="general" formName="enrollment" when="subjects" mode=""/>
+		<tab id="11B" label="Setting &amp; Resources" form="/../fil/home/configs/IRB/forms/settingsView.xfrm" printlabel="Subjects - Setting &amp; Resources" sourceXML="/settings.xml" formType="general" formName="settings" when="subjects" mode=""/>
+		<tab id="11" label="Populations" form="/../fil/home/configs/IRB/forms/subjectsView.xfrm" printlabel="Subjects - Populations" sourceXML="/subjects.xml" formType="general" formName="subjects" when="subjects" mode=""/>
+		<tab id="17" label="Participation" form="/../fil/home/configs/IRB/forms/enrollView.xfrm" printlabel="Subjects - Participation" sourceXML="/enroll.xml" formType="general" formName="enroll" when="subjects" mode=""/>
+		<tab id="0d" label="Risk &amp; Benefits" form="/../fil/home/configs/IRB/forms/templateSubjectsView.xfrm" printlabel="Subjects - Risk &amp; Benefits" sourceXML="/templateSubjects.xml" formType="general" formName="templateSubjects" when="subjects" mode=""/>
+		<tab id="31a" label="Children" form="/../fil/home/configs/IRB/forms/childrenView.xfrm" printlabel="Subjects - Children" sourceXML="/children.xml" formType="general" formName="children" when="vsChild" mode=""/>
+		<tab id="31b" label="Pregnant Women" form="/../fil/home/configs/IRB/forms/pregnantView.xfrm" printlabel="Subjects - Pregnant Women" sourceXML="/pregnant.xml" formType="general" formName="pregnant" when="vsPregnant" mode=""/>
+		<tab id="31c" label="Prisoners" form="/../fil/home/configs/IRB/forms/prisonersView.xfrm" printlabel="Subjects - Prisoners" sourceXML="/prisoners.xml" formType="general" formName="prisoners" when="vsPrisoners" mode=""/>
+        <tab id="31d" label="Adults Without Capacity" form="/../fil/home/configs/IRB/forms/withoutcapacityView.xfrm" printlabel="Subjects - Adults Without Capacity" sourceXML="/withoutcapacity.xml" formType="general" formName="withoutcapacity" when="vsAWS" mode=""/>
+    </tab>
+	
+	<!--<tab id="31" label="Vulnerable Subjects" when="vsPopulation">-->
+        <!--<tab id="31a" label="Children" form="/../fil/home/configs/IRB/forms/childrenView.xfrm" printlabel="Vulnerable Subjects - Children" sourceXML="/children.xml" formType="general" formName="children" when="vsChild" mode=""/>-->
+		<!--<tab id="31b" label="Pregnant Women" form="/../fil/home/configs/IRB/forms/pregnantView.xfrm" printlabel="Vulnerable Subjects - Pregnant Women" sourceXML="/pregnant.xml" formType="general" formName="pregnant" when="vsPregnant" mode=""/>-->
+        <!--<tab id="31c" label="Prisoners" form="/../fil/home/configs/IRB/forms/prisonersView.xfrm" printlabel="Vulnerable Subjects - Prisoners" sourceXML="/prisoners.xml" formType="general" formName="prisoners" when="vsPrisoners" mode=""/>
+        <tab id="31d" label="Adults Without Capacity" form="/../fil/home/configs/IRB/forms/withoutcapacityView.xfrm" printlabel="Vulnerable Subjects - Adults Without Capacity" sourceXML="/withoutcapacity.xml" formType="general" formName="withoutcapacity" when="vsAWS" mode=""/>-->
+    <!--</tab>-->
+	
+	<tab id="32" label="Procedures" when="procedures">
+		<tab id="32a" label="Narrative" form="/../fil/home/configs/IRB/forms/narrativeView.xfrm" printlabel="Procedures - Narrative" sourceXML="/narrative.xml" formType="general" formName="narrative" when="narrative" mode=""/>
+		<tab id="32b" label="Genetic Testing" form="/../fil/home/configs/IRB/forms/geneticView.xfrm" printlabel="Procedures - Pregnant Women" sourceXML="/genetic.xml" formType="general" formName="genetic" when="geneticTesting" mode=""/>
+		<tab id="32c" label="Details" form="/../fil/home/configs/IRB/forms/templateStudyDesignView.xfrm" printlabel="Procedures - Details" sourceXML="/templateStudyDesign.xml" formType="general" formName="templateStudyDesign" when="details" mode=""/>
+        <tab id="32d" label="Instruments" form="/../fil/home/configs/IRB/forms/instrumentsView.xfrm" printlabel="Procedures - Instruments" sourceXML="/instruments.xml" formType="general" formName="instruments" when="instruments" mode=""/>
+		<tab id="32e" label="Compensation" form="/../fil/home/configs/IRB/forms/compensationView.xfrm" printlabel="Procedures - Compensation" sourceXML="/compensation.xml" formType="general" formName="compensation" when="compensation" mode=""/>
+    </tab>
+	
+	<tab id="33" label="Consent" when="consentingParticipants">
+        <tab id="33a" label="Obtaining Consent" form="/../fil/home/configs/IRB/forms/consentView.xfrm" printlabel="Consent - Obtaining Consent" sourceXML="/consent.xml" formType="general" formName="consent" when="obtainingConsent" mode=""/>
+		<tab id="33b" label="Parental Permission" form="/../fil/home/configs/IRB/forms/parentalPermissionView.xfrm" printlabel="Consent - Parental Permission" sourceXML="/parentalPermission.xml" formType="general" formName="parentalPermission" when="parental" mode=""/>
+		<tab id="33c" label="Legally Authorized Representative" form="/../fil/home/configs/IRB/forms/legallyAuthorizedView.xfrm" printlabel="Consent - Legally Authorized Representative" sourceXML="/legallyAuthorized.xml" formType="general" formName="legallyAuthorized" when="lar" mode=""/>
+		<tab id="33d" label="Waiver of Informed Consent" form="/../fil/home/configs/IRB/forms/informedWaiverView.xfrm" printlabel="Consent - Waiver of Informed Consent" sourceXML="/informedWaiver.xml" formType="general" formName="informedWaiver" when="informedWaiver" mode=""/>
+		<tab id="33e" label="Waiver of Signed Consent" form="/../fil/home/configs/IRB/forms/signedConsentView.xfrm" printlabel="Consent - Waiver of Signed Consent" sourceXML="/signedConsent.xml" formType="general" formName="signedConsent" when="signed" mode=""/>
+		<tab id="33f" label="Documents" form="/../fil/home/configs/IRB/forms/consentDocsView.xfrm" printlabel="Consent - Documents" sourceXML="/consentDocs.xml" formType="general" formName="consentDocs" when="consentDocuments" mode=""/>
+    </tab>
+    
+    <tab id="0" label="Data" when="data">
+    	<tab id="0p" label="Collection" form="/../fil/home/configs/IRB/forms/collectionView.xfrm" printlabel="Data - Collection" sourceXML="/collection.xml" formType="general" formName="collection" when="data" mode=""/>
+        <tab id="0q" label="HIPAA" form="/../fil/home/configs/IRB/forms/hippaView.xfrm" printlabel="Data - HIPAA" sourceXML="/hippa.xml" formType="general" formName="hippa" when="hippa" mode=""/>
+		<tab id="0r" label="HIV/AIDS" form="/../fil/home/configs/IRB/forms/hivView.xfrm" printlabel="Data - HIV/AIDS" sourceXML="/hiv.xml" formType="drillIn" formName="hiv" when="hiv" mode=""/>
+    	<tab id="0c" label="Storage" form="/../fil/home/configs/IRB/forms/templateDataManView.xfrm" printlabel="Data - Storage" sourceXML="/templateDataMan.xml" formType="general" formName="templateDataMan" when="data" mode=""/>
+		<tab id="0s" label="Safety Monitoring" form="/../fil/home/configs/IRB/forms/monitoringView.xfrm" printlabel="Data - Safety Monitoring" sourceXML="/monitoring.xml" formType="general" formName="monitoring" when="safetyMonitoring" mode=""/>
+		<tab id="0h" label="Retrospective Review" form="/../fil/home/configs/IRB/forms/retrochartreviewsView.xfrm" printlabel="Data - Retrospective Review" sourceXML="/retrochartreviews.xml" formType="general" formName="retrochartreviews" when="retrospectiveReview" mode=""/>
+    </tab>
+    
+	<tab id="9" label="Devices" when="devices">
+		<tab id="9a" label="Investigational Devices" form="/../fil/home/configs/IRB/forms/investigationalDevicesView.xfrm" printlabel="Devices - Investigational Devices" sourceXML="/investigationalDevices.xml" formType="general" formName="investigationalDevices" when="invDevices" mode=""/>
+		<tab id="9b" label="Humanitarian Use Devices" form="/../fil/home/configs/IRB/forms/humanDevicesView.xfrm" printlabel="Devices - Humanitarian Use Devices" sourceXML="/humanDevices.xml" formType="general" formName="humanDevices" when="useHUD" mode=""/>
+    </tab>
+	
+	<tab id="34" label="Specimen Banking" form="/../fil/home/configs/IRB/forms/specimenBankingView.xfrm" printlabel="Specimen Banking" sourceXML="/specimenBanking.xml" formType="general" formName="specimenBanking" when="specimen" mode=""/>
+		
+	<!--<tab id="6X" label="External Sites" form="/../fil/home/configs/IRB/forms/externalSitesView.xfrm" printlabel="External Sites" sourceXML="/externalSites.xml" formType="general" formName="externalSites" when="external" mode=""/>-->
+	
+	<tab id="7" label="Funding" form="/../fil/home/configs/IRB/forms/fundingView.xfrm" printlabel="Funding" sourceXML="/funding.xml" formType="general" formName="funding" when="funding" mode=""/>
+	
+	<tab id="2b" label="Cancer" form="/../fil/home/configs/IRB/forms/instApprovalsView.xfrm" printlabel="Cancer" sourceXML="/instApprovals.xml" formType="general" formName="instApprovals" when="cancer" mode=""/>
+	
+	<tab id="2d" label="Radiation Safety" form="/../fil/home/configs/IRB/forms/radiationsafetyView.xfrm" printlabel="Radiation Safety" sourceXML="/radiationsafety.xml" formType="general" formName="radiationsafety" when="radiationSafety" mode=""/>
+	
+	<tab id="8" label="Drugs / Biologics" form="/../fil/home/configs/IRB/forms/mssmDrugsView.xfrm" printlabel="Drugs / Biologics" sourceXML="/mssmDrugs.xml" formType="general" formName="mssmDrugs" when="drugsBiologics" mode=""/> 
+	
+	<tab id="37" label="Biosafety" form="/../fil/home/configs/IRB/forms/biosafetyView.xfrm" printlabel="Biosafety" sourceXML="/biosafety.xml" formType="general" formName="biosafety" when="biosafety" mode=""/> 
+	
+	<tab id="35" label="Clinical Research Unit" when="cru">
+		<tab id="35a" label="Summary" form="/../fil/home/configs/IRB/forms/cruSummaryView.xfrm" printlabel="Clinical Research Unit - Summary" sourceXML="/cruSummary.xml" formType="general" formName="cruSummary" when="cru" mode=""/>
+		<tab id="35b" label="Requirements" form="/../fil/home/configs/IRB/forms/cruRequirementsView.xfrm" printlabel="Clinical Research Unit - Requirements" sourceXML="/cruRequirements.xml" formType="general" formName="cruRequirements" when="cru" mode=""/>
+		<tab id="35c" label="Costs" form="/../fil/home/configs/IRB/forms/cruCostsView.xfrm" printlabel="Clinical Research Unit - Costs" sourceXML="/cruCosts.xml" formType="general" formName="cruCosts" when="cru" mode=""/>
+    </tab>
+	
+	<tab id="36" label="Financial Administration" form="/../fil/home/configs/IRB/forms/financialAdminView.xfrm" printlabel="Financial Administration" sourceXML="/financialAdmin.xml" formType="general" formName="financialAdmin" when="finance" mode=""/>  
+    <!--<tab id="18" label="Attachments" form="/../fil/home/configs/IRB/forms/dshbrdAttachmentsView.xfrm"/>-->
+	<!-- sprint 10A to show doc store -->
+	<tab id="18T" label="Attachments">
+		<tab id="18" label="Submission" form="/../fil/home/configs/IRB/forms/dshbrdAttachmentsView.xfrm"/>	
+		<tab id="18A" label="PPHS Uploads" form="/../fil/home/configs/IRB/forms/dshbrdAttachmentsAdmin.xfrm"/>		
+	</tab>
+    <switches>
+    	<!-- sprint 10A switch to show doc store -->
+    	<showDocStore>0</showDocStore>
+    	<active>0</active>
+        <invoices>0</invoices>
+        <retroCharts>0</retroCharts>
+        <notRetroCharts>0</notRetroCharts>
+		<vsPopulation>0</vsPopulation>
+		<vsChild>0</vsChild>
+		<vsPregnant>0</vsPregnant>
+		<vsPrisoners>0</vsPrisoners>
+		<vsAWS>0</vsAWS>
+		<instruments>0</instruments>
+		<instType>0</instType>
+		<retroyn>0</retroyn>
+		<retroReview>0</retroReview>
+		<hippa>0</hippa>
+		<hiv>0</hiv>
+		<retroChartsStudy>0</retroChartsStudy>
+		<devices>0</devices>
+		<invDevices>0</invDevices>
+        <useHUD>0</useHUD>
+		<specimen>0</specimen>
+		<external>1</external>
+		<funding>0</funding>
+		<drugs>0</drugs>
+		<cru>0</cru>
+		<finance>0</finance>
+		<parental>0</parental>
+		<lar>0</lar>
+		<signed>0</signed>
+		<!--MSSM Addition-->
+		
+		<invoiced>0</invoiced>
+        <comp>0</comp>
+        <radio>0</radio>
+        <phi>0</phi>
+        <!--<techSession>0</techSession>-->
+        <instApproval>0</instApproval> <!--MSSM Addition-->
+        <extSites>0</extSites> <!--MSSM Addition-->
+         
+        <useHUDNeg>1</useHUDNeg><!--MSSM Addition-->
+        <useProtComp>0</useProtComp><!--MSSM Addition-->
+        <pregnantCheck>0</pregnantCheck> <!--MSSM Addition-->
+        <prisonCheck>0</prisonCheck> <!--MSSM Addition-->
+         
+        <neaf>0</neaf>
+        
+        <consentObt>0</consentObt>
+        <pimatch>1</pimatch>
+        <pipending>0</pipending>
+        
+        
+        <biologics>0</biologics>
+        <biological>0</biological>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+		<relyonMountSinaiIRB>1</relyonMountSinaiIRB>
+		<requestIRBExemption>0</requestIRBExemption>
+		<otherExternalIRB>0</otherExternalIRB>
+		<subjects>1</subjects>
+		<consentingParticipants>1</consentingParticipants>
+		<obtainingConsent>0</obtainingConsent>
+		<informedWaiver>1</informedWaiver>
+		<consentDocuments>0</consentDocuments>
+		<data>1</data>
+		<safetyMonitoring>1</safetyMonitoring>
+		<retrospectiveReview>0</retrospectiveReview>
+		<cancer>0</cancer>
+		<radiationSafety>0</radiationSafety>
+		<drugsBiologics>0</drugsBiologics>
+		<biosafety>0</biosafety>
+		<procedures>1</procedures>
+		<compensation>1</compensation>
+		
+		<narrative>0</narrative>
+		<geneticTesting>0</geneticTesting>
+		<details/>
+    </switches>
+</tabs></xf:instance>
+    <xf:instance id="dummy" src="/fil/ideate/entity/IRB/records/000466/data.xml"><data xmlns=""><id8ID>IRB-16-00104</id8ID><PI>Kaushal Shah</PI><title>ECG Checklist Group for Syncope</title><status>adminReview</status><board>/ideate/entity/IRB Board/records/000024</board><department>p_uUgD0BAHhywKkAva6B</department><stage>application</stage><owner>gC61ez0BAEzDwKkAvay6</owner><BoardName>Mount Sinai School of Medicine IRB #7 - NFL</BoardName><sponsor/><primeEntity>IRB</primeEntity><primeEntityID>466</primeEntityID><focus/><laysummary>ECG interpretation is a complex skill that takes many years of mastery.  A simple tool to potentially educate residents and prevent missed diagnoses is a checklist.  We would like to study whether emergency medicine residents are more successful at interpreting ECGs for patients with syncope when they use a checklist compared to without a checklist.</laysummary><approvalEnd/><people>-4263--4263--6992--6991--6989-</people><peopleURI>-/ideate/entity/People/records/004263--/ideate/entity/People/records/004263--/ideate/entity/People/records/006992--/ideate/entity/People/records/006991--/ideate/entity/People/records/006989-</peopleURI><peopleID>-gC61ez0BAEzDwKkAvay6--gC61ez0BAEzDwKkAvay6--cxn9LlMBAG68Cl8MQZMy--FAf4LlMBAFq8Cl8MQZMy--xvPzHlMBAF$VCl8MQSOP-</peopleID><drugs/><drugsURI/><revTime>0</revTime><devTime>329.663</devTime><crStatus/><frStatus/><approvalStart/></data></xf:instance>
+    <xf:bind nodeset="instance('proDat')/version" readonly="true()" relevant="false()"/>
+
+
+    <!-- JS Setup -->
+    <script ev:event="xforms-model-construct-done"> bootstrapSharedXfrm(model);
+      var ix = model.__XformSet.getRoot(); 
+      ix.___dashboard = 1;
+      ix.model.setValue("instance('ins')/lastPage", "");
+      model.setValue("instance('form')/lastPage", "");
+      model.setValue("instance('form')/id8ID", ix.id8ID);
+      model.setValue("instance('form')/target", ix.targetURI);
+      
+      //alert(ix.targetURI);
+      targ = ix.targetURI;
+      parts = ix.targetURI.split("/");
+      //alert(parts.length);
+      ix.orgTargetURI = ix.targetURI;
+      if(parts.length &gt; 6){
+        targ = ix.targetURI.substr(0, ix.targetURI.lastIndexOf("/"));
+        targ = ix.targetURI.substr(0, targ.lastIndexOf("/"));
+        ix.targetURI = targ;
+      }
+      
+      model.setValue("instance('form')/primeEntityURI", targ);
+      
+      
+      model.TS = new appTabSet(model, 'projectTabs'); 
+      model.TS.loadAppFile('proDat',"/data/irb.xml"); 
+      model.TS.loadAppFile('dummy', "/data.xml");
+      model.__XformSet.getRoot().model.TS = model.TS;
+      
+      model.TS.formSet.getRoot().__REVURI = "/data/irb.xml";
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model); model.USA.caseSecurity =
+      callSharedService("caseSecurity", {"op":"myTokens",
+      "caseUri":ix.targetURI}, "service", "json").output;
+      
+      model.__XformSet.getRoot().model.TS.caseSecurity = model.USA.caseSecurity; 
+      
+      model.USA.rebuildCaseTabs();
+      //includeSharedJS("/resources/services/projectBackup/clientSideJS.js");
+      //model.vh = new versionHandler(model, model.TS.appURI); model.rebuild();
+      model.recalculate(); model.refresh(); </script>
+
+    <script ev:event="xforms-ready"> //Initialize form elements
+      //AD.setupForm(); </script>
+
+    <script ev:event="ix-activity-save"> model.TS.saveAll(); </script>
+
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+
+  </xf:model>
+
+  <!--<h1>IS PI = <xf:output value="instance('form')/isPI"/></h1>-->
+
+  <div class="tabSet">
+
+    <!-- Consistant Header -->
+    <div class="header">
+      <!--<table class="infoLine">
+        <tr>
+          <td style="text-align:left;">Protocol Number: <xf:output value="instance('proDat')/id8ID"/></td>
+          <td style="text-align:center;"><xf:output value="instance('proDat')/title"/></td>
+          <td style="text-align:right;">IRB Application</td>
+        </tr>
+      </table>-->
+      <xf:switch>
+        <!--<xf:case id="show-tabHeader" exf:if="1">
+          <table class="infoBox">
+            <tr>
+              <td style="width:33%">
+                <table class="infoGroup">
+                  <tr><td class="label"><b>Principal Investigator:</b></td><td class="text"><xf:output value="instance('proDat')/Person[role='PI']/name"/></td></tr>
+                </table>
+              </td>
+              <td style="width:33%">
+                <table class="infoGroup">
+                  <exf:variable name="boardName" value="instance('proDat')/Board/name"/>
+                  <tr><td class="label"><b>Board:</b></td><td class="text"><xf:output value="if($boardName !='', $boardName, 'Pending')"/></td></tr>        
+                </table>
+              </td>
+              <td style="width:33%">
+                <table class="infoGroup">
+                  <tr><td class="label"><b>Status:</b></td><td class="text">Review</td></tr>    
+                </table>
+              </td>
+            </tr>
+          </table>
+        </xf:case>-->
+        <xf:case id="hide-tabHeader"> </xf:case>
+      </xf:switch>
+    </div>
+    <xf:switch>
+
+      <xf:case id="show-workscreen" exf:if="1">
+        <ix:subform form="{tabControlFront}" src="" id="projectTabs"/>
+      </xf:case>
+      <!--
+      <xf:case id="hide-workscreen">
+      </xf:case>
+      -->
+    </xf:switch>
+    <ix:subform form="{tabContainerFront}" src="" id="projectTabs"/>
+  </div>
+
+</form>

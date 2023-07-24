@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    color:blue;
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document id="" uri=""></document>
+      </data> 
+    </xf:instance>    
+    
+<!--    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document/>        
+      </data>
+    </xf:instance>-->
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+      
+      //ARCHITA: You'll have to load the appropriate datafile here that you want to attach the XML to as usual (change this to match wherever you're working)
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      
+      model.USA.fixevts();
+      
+      model.Frm.loadAppFile('dat', "/lifecycle.xml", "0");
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      
+      
+    </script>
+    <script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+    </script>
+    
+    
+    <xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+  </xf:model>
+
+  <div class="formFrame">
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+    
+    <div class="body">
+      <div>
+        <br/>
+        
+        <exf:variable value="instance('dat')/linkedOpp[@opType='problemOp' and details]" name="sec1"/>
+        <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>
+        
+        <i>No Unanticpated Problems Reported</i>
+        </div>
+        
+     <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+        <tr class="top">
+          <th class="small delete center"/>
+          <th class="out text large left" style="text-align:left">Event Type</th>
+          <th class="in text large left" style="text-align:left">Date of Event</th>
+          <th class="in text large left" style="text-align:left">IRB Submission Date</th>
+          <th class="in text large left" style="text-align:left">Description</th>
+          <th class="in text large left" style="text-align:left">Status</th>
+          <th class="in text large left" style="text-align:left"></th>
+        </tr>
+             
+      <xf:switch>
+        <xf:case id="show-docs">
+            <xf:repeat nodeset="$sec1">
+              <exf:variable value="details/type" name="typeX"/>
+              <tr>
+                <td class="small delete center">
+                  <xf:output value="position()"/>
+                </td>
+              <td class="out text large left">
+                <xf:output value="if($typeX='', 'Unknown (not yet specified)', instance('cats')/unantiProbType/type[@id=$typeX]/@name)"/>
+              </td>
+                <td class="out text large left">
+                  <xf:output value="if(details/eventDate != '', concat(substring(details/eventDate, 6, 2), '/', substring(details/eventDate, 9, 2), '/', substring(details/eventDate, 1, 4)), '-')"/>
+                </td>
+                <td class="out text large left">
+                  <xf:output value="if(details/reportDate != '', concat(substring(details/reportDate, 6, 2), '/', substring(details/reportDate, 9, 2), '/', substring(details/reportDate, 1, 4)), '-')"/>
+                  <!--<xf:output value="details/reportDate"/>-->
+                  <!--<exf:variable name="rd2" value="event[contains(@name, 'Being Processed') or contains(@name, 'Review') or contains(@name, 'Revisions')]/@start"/>
+                  <xf:output value="substring($rd2, 4, string-length($rd2) - 27)"/>-->
+                  <!--<xf:output value="script(model.getValue(&quot;$rd2&quot;, contextNode) + 222)"/>-->
+                  <!-- 11/24/2010 -->
+                </td>
+                <td class="out text large left">
+                  <xf:output value="details/eventDescription"/>
+                </td>   
+                <td class="out text large left">
+                  <xf:output value="details/@status"/>
+                </td>
+                <td class="out text large left">
+                  
+                </td>  
+            </tr>
+          </xf:repeat>          
+      </xf:case>
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>
+        <br/>         
+  </div>             
+  </div>       
+  
+
+  <!--<div class="bottomNav">
+    <table>
+      <tr>
+        <td class="back">
+          <div class="nav" style="float:right">
+            <script ev:event="click"> model.Frm.navigateTo("previousTab"); </script>
+            <div style="float:left" class="command">previous</div>
+            <img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/>
+          </div>
+        </td>
+        <td class="next">
+          <div class="nav" style="float:left">
+            <script ev:event="click"> model.Frm.navigateTo("nextTab"); </script>
+            <img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/>
+            <div style="float:right" class="command">next</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2009</div>
+  </div>-->
+</form>

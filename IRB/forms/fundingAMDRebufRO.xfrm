@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "funding");
+      model.setValue("instance('form')/AMD", "1"); model.__AMD = true;
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '7')
+          //model.USA.registerChangeLog('ins', '7')
+          model.USA.registerChangeLog('comments', '7')
+        </script></script><script ev:event="xforms-ready">document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);', 300);</script><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//@*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@comment"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@addcomment"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="repeaterTitle"><td><h1/></td></tr><tr class="repeater"><td class="repeatedSection" colspan="3"><xf:switch><xf:case exf:if="1" id="show-main2"><exf:variable value="instance('ins')/fundingSourceComp" name="nsmain2"/><xf:repeat nodeset="$nsmain2"><exf:variable value="@ref" name="nsXMLKEYmain2"/><exf:variable value="@ref" name="nsXMLKEY"/><table><tr><td><table class="basicColLayout"><tr class="entity"><td class="component subcomponent structure person"><xf:repeat nodeset="Organization[1]"><xf:input class="fullLine" ref="name"><ix:attr name="style" value="if(.='', 'display:none', '')"/><xf:label class="">Funding Source Name</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></xf:repeat><div><ix:attr name="style" value="if(Organization[1] and Organization/name[.!=''], 'display:none', '')"/><table class="addLine"><tr><td class="boldlabel">Funding Source</td><td style="vertical-align:bottom;" class="addArea"><span class="clickable"><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Funding Organization" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                    var key = model.getValue("@ref", contextNode);
+                    model.Frm.configureQuickSearch("Organizations", "replaceEntity", "instance('ins')/fundingSourceComp[@ref='" + key + "']/Organization[1]", "/applications/IRB/js/addFSORG", "main2", "Name", "Type", "", "1", "researcher", 'model.USA.rebuildTabs();model.USA.refreshArea("main2");', '1');
+                    model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                  </script></xf:action>            
+                Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td></tr></table></div></td><td class="options"><ix:attr name="style" value="if(Organization[1] and Organization/name[.!=''], '', 'display:none')"/><div class="clickable">Contact Information<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="width:350px;" id="details" title="Contact Details" class="detailsDialogBox"><xf:group style="border:none;" ref="Organization"><h3>Contact Information</h3><table class="detailsDialog"><tr><td colspan="2" style="padding-left:10px"><xf:input ref="contact" class="fullLine"><xf:label>Contact</xf:label></xf:input></td></tr><tr><td colspan="2" style="padding-left:10px"><xf:input ref="address1" class="fullLine"><xf:label>Address 1</xf:label></xf:input></td></tr><tr><td colspan="2" style="padding-left:10px"><xf:input ref="address2" class="fullLine"><xf:label>Address 2</xf:label></xf:input></td></tr><tr><td colspan="2" style="padding-left:10px"><xf:input ref="address3" class="fullLine"><xf:label>Address 3</xf:label></xf:input></td></tr><tr><td style="padding-left:10px"><xf:input ref="city" class="halfLine"><xf:label>City</xf:label></xf:input></td><td style="padding-left:10px"><xf:input ref="state" class="halfLine"><xf:label>State</xf:label></xf:input></td></tr><tr><td style="padding-left:10px"><xf:input ref="zip" class="halfLine"><xf:label>Zip Code</xf:label></xf:input></td><td style="padding-left:10px"><xf:input ref="phone" class="halfLine"><xf:label>Phone</xf:label></xf:input></td><td style="padding-left:10px"><xf:input ref="Fax" class="halfLine"><xf:label>Fax</xf:label></xf:input></td></tr><tr><td colspan="2" style="padding-left:10px"><xf:input ref="email" class="fullLine"><xf:label>Email</xf:label></xf:input></td></tr></table></xf:group><xf:trigger style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;"><xf:label>Close Details</xf:label><xf:close ev:event="DOMActivate"/></xf:trigger></ix:dialog></xf:action></div></td></tr><tr class="dropdown"><ix:attr value="if(Organization/name[.!=''], '', 'display:none')" name="style"/><td class="subcomponent component   widestLabel"><xf:select1 ref="Organization/fundingCat"><xf:label>Funding Category</xf:label><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/sponsorTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:repeat nodeset="instance('cats')/sponsorTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@conversionValue"/></xf:value></xf:item></xf:repeat><script ev:event="xforms-value-changed">
+			
+				//Clear Financial Administration
+				var fundingCat = model.getValue("instance('ins')/fundingSourceComp/Organization/fundingCat[. = 'Industry']",null);
+				var fDrugBiologics = model.getValue("instance('ins')/invDrugs",null);
+				var finvDevice = model.getValue("instance('ins')/invDevs",null);
+				var fClinicalTrial = model.getValue("instance('ins')/clinicalTrial",null);
+				var finance = "0";
+				if(fundingCat == "Industry" || fDrugBiologics == "1" || finvDevice == "1" || fClinicalTrial == "1") {
+					finance = "1";
+				} else {
+					finance = "0";
+				}
+				if(finance != "1") {
+					model.setValue("instance('ins')/FACTSClinicalResearchStudyCategory", "");
+					model.setValue("instance('ins')/facts_payment_option", "");
+					model.setValue("instance('ins')/facts_payment_option_1", "");
+					model.setValue("instance('ins')/facts_payment_option_2", "");
+					model.setValue("instance('ins')/facts_payment_option_5", "");
+				}
+				model.recalculate();
+				model.refresh();
+				model.USA.rebuildTabs();
+				model.activateCase("hide-nrd");
+				model.activateCase("show-nrd");
+			</script><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></td></tr><tr class="field"><td class="component subcomponent   widestLabel"><xf:input class="wide" ref="grantName"><xf:label>Grant or Contract Title</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr><tr class="field"><td class="component subcomponent   widestLabel"><xf:input class="wide" ref="grantNum"><xf:label>Grant or Contract  Number</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr><tr class="document"><td class="component subcomponent   widestLabel"><table class="oneToManyBox"><tr><td class="label">Copy of Grant</td><td class=""><span><ix:attr value="if(contractDoc != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="contractDoc/@uri" name="href"/><xf:output class="" value="contractDoc"/></a></span><span class="clickable"><ix:attr value="if(contractDoc != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "contractDoc";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Funding Proposal / Grant Application";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/fundingSourceComp[@ref='" + key + "']/contractDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(contractDoc != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="contractDoc"/><xf:setvalue ref="contractDoc/@uri"/><script>
+                      toDel = model.getValue("contractDoc/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="contractDoc/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="document"><td class="component subcomponent   widestLabel"><table class="oneToManyBox"><tr><td class="label">Copy of Contractual Scope of Work</td><td class=""><span><ix:attr value="if(contractualSOW != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="contractualSOW/@uri" name="href"/><xf:output class="" value="contractualSOW"/></a></span><span class="clickable"><ix:attr value="if(contractualSOW != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "contractualSOW";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Contractual Scope of Work";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/fundingSourceComp[@ref='" + key + "']/contractualSOW", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(contractualSOW != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="contractualSOW"/><xf:setvalue ref="contractualSOW/@uri"/><script>
+                      toDel = model.getValue("contractualSOW/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="contractualSOW/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="radiobuttons"><td class="subcomponent component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Funding Status</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(fundingStatus='fundingPending', 'Pending',if(fundingStatus='fundingFunded', 'Funded',
+                ''))"/></span></td></tr></table></td></tr><tr class="radiobuttons"><td class="subcomponent component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Project Initiated By</span></td><td class="noBox readonly"><span style="value"><xf:output value="'unknown'"/></span></td></tr></table></td></tr><tr class="entity"><td class="component subcomponent structure person"><xf:repeat nodeset="Person[1]"><xf:input class="fullLine" ref="name"><xf:label class="">Grant / Contract Principal Investigator (PI)</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input><table class="sharedLine"><tr><td><xf:input class="left" ref="department"><xf:label>Department/Division</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Person');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td><td class="spacer">/</td><td><xf:input class="right" ref="organization"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Person');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr></table><table class="sharedLine"><tr><td><xf:input class="left" ref="phone"><xf:label>Phone/Email</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Person');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td><td class="spacer">/</td><td><xf:input class="right" ref="email"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Person');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr></table></xf:repeat><div><ix:attr name="style" value="if(Person[1], 'display:none', '')"/><table class="addLine"><tr><td class="boldlabel">Grant / Contract Principal Investigator (PI)</td><td style="vertical-align:bottom;" class="addArea"><span class="clickable"><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Find PI" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                    var key = model.getValue("@ref", contextNode);
+                    model.Frm.configureQuickSearch("People", "replaceEntity", "instance('ins')/fundingSourceComp[@ref='" + key + "']/Person[1]", "/applications/USProject/js/addSlimPI", "main2", "Name", "ID", "Department", "1", "researcher", '', '1');
+                    model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                  </script></xf:action>            
+                Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td></tr></table></div></td><td class="options"><ix:attr name="style" value="if(Person[1], '', 'display:none')"/><div class="clickable">contact details<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="width:350px;" id="details" title="Contact Details" class="detailsDialogBox"><xf:group style="border:none;" ref="Person"><h3>Principal Investigator</h3><table class="detailsDialog"><tr><td style="padding-left:10px"><xf:input ref="department" class="halfLine"><xf:label>Department</xf:label></xf:input></td><td style="padding-left:10px"><xf:input ref="organization" class="halfLine"><xf:label>Division</xf:label></xf:input></td></tr><tr><td style="padding-left:10px"><xf:input ref="phone" class="halfLine"><xf:label>Phone</xf:label></xf:input></td><td style="padding-left:10px"><xf:input ref="email" class="halfLine"><xf:label>Email</xf:label></xf:input></td></tr></table></xf:group><xf:trigger style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;"><xf:label>Close Details</xf:label><xf:close ev:event="DOMActivate"/></xf:trigger></ix:dialog></xf:action></div></td></tr><tr class="yesnobuttons"><td class="subcomponent component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Protocol and Funding Proposal Match</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(fundingMatchesProposal = '1', 'Yes', if(fundingMatchesProposal = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="box"><ix:attr value="if(fundingMatchesProposal='0', '', 'display:none')" name="style"/><td class="subcomponent component textarea    widestLabel"><xf:textarea class="" ref="subDiffsFundingProposal"><xf:label>Identify Substantive Differences Between Protocol and Funding Proposal</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="break"><td><br/></td></tr></table></td><td class="errors custError"><exf:variable value="@ref" name="rowIndex"/><exf:variable value="concat(.,'')" name="theCurrentValue"/><exf:variable value="@ref" name="nsXMLKEY"/><exf:variable value="concat(instance('ins')/original/fundingSourceComp[@ref=$nsXMLKEY]/.,'')" name="thePreviousValue"/><exf:variable value="concat(instance('ins')/suggestions/fundingSourceComp[@ref=$nsXMLKEY]/.,'')" name="theSuggestedValue"/><exf:variable value="concat(instance('ins')/previous/review/original/fundingSourceComp[@ref=$nsXMLKEY]/.,'')" name="thePreviousOrgValue"/><exf:variable value="instance('ins')/previous/review/fundingSourceComp[@ref=$nsXMLKEY]" name="thisNodeNeedleOld"/><div><ix:attr value="if(normalize-space($theCurrentValue) != normalize-space($thePreviousValue), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><ix:attr value="if(@amdcomment='', 'color:red', 'color:green')" name="style"/><u>                            
+                Amended <xf:output value="if(@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                        model.setValue("../@amdchanged", "1", contextNode);
+                        model.rebuild();
+                        model.refresh();
+                        model.recalculate();
+                        SH.print("Updated");
+                      </script></xf:textarea></span></span></div></span></div></td></tr></table></xf:repeat></xf:case><xf:case id="hide-main2"/></xf:switch></td></tr></table></div></div></form>

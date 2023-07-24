@@ -1,0 +1,1122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout tr .clear{
+      background-color:white;
+      width:200px;
+    }
+    
+    div.formFrame table.fullColLayout tr td.clear div.xfctrl{
+    background-color:white; 
+    }
+    
+    div.formFrame table.fullColLayout tr td.clear table.xfctrl div{
+    background-color:white; 
+    }
+    
+    div.formFrame table.fullColLayout tr td.clear table.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout tr td.clear table.xfctrl tr{
+      background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout tr td.clear table.xfctrl tr td{
+      background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    color:blue;
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <isAMD>0</isAMD>
+        <col2/>
+        <document id="" uri=""></document>
+      </data> 
+    </xf:instance>   
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");      
+      
+      if(model.Frm.formSet.getRoot().__AMND){
+        model.setValue("instance('form')/isAMD","1");
+        model.Frm.loadOpFile('dat', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+        model.Frm.DOC_SRCDOC = model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI;        
+      }else{
+        model.Frm.loadAppFile('dat', model.Frm.formSet.getRoot().__REVURI, "1");
+        model.Frm.DOC_SRCDOC = model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI;  
+      }
+      model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      if(model.Frm.formSet.getRoot().__AMND){
+        model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      }else{
+        model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+      }
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      
+      //ARCHITA: This next lines are required, they identify the main 'data' instance where the documents list, and what status/decision a new doc is born with
+      model.Frm.DOC_INS = "dat";
+      model.Frm.DOC_NEW_STATUS = "New";
+      model.Frm.DOC_NEW_DECISION = "pen";
+      model.Frm.DOC_NEW_UPLOAD_OP = "newVersion";  //THIS CAN BE either replace or newVersion, set this globbally on your page or do it manually as below before each upload
+      
+      includeSharedJS("/resources/applications/"+model.Frm.app+"/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      model.Frm.reloadInst('dat');
+      
+      //RITDEV-537 - 06/24/2017 - this appends an attribute to each member of a nodeset
+      var nodesetXpath = "instance('dat')/document";
+      var newAttribute = "suggDoc";
+      var targetXpath = nodesetXpath + "[not(@" + newAttribute + ")]";
+      var cnt = model.getValue("count(" + targetXpath + ")");
+      var str = "";
+      var nds = model.selectNodeList("(" + targetXpath + ")");
+      var anyChange = false;
+      for(var i = 0; i &lt; nds.length; i++){
+      nds[i].setAttribute(newAttribute, "");
+      anyChange = true;
+      }
+      if(anyChange) model.submit("submitdat"); //save it if a change was made (or not)
+      
+      
+      model.refresh();
+      model.rebuild(); 
+      model.recalculate(); 
+      model.USA.registerChangeLog('comments', '18');
+      model.USA.___EVAL_CHANGE_ON_SAVE = true;
+      
+      SH.print("test");
+      
+    </script>
+    <script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+    </script>
+    
+    
+    <xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <!-- ARCHITA: This bind is required -->
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('dat')/document/@label" readonly="true()" relevant="false()"/>
+    <xf:bind nodeset="instance('dat')/document/@name" readonly="true()" relevant="false()"/>
+    <xf:bind nodeset="instance('dat')/document//@comments" readonly="false()" relevant="true()"/> 
+    <xf:bind nodeset="instance('dat')/document//@decisioncomments" readonly="false()" relevant="true()"/>
+  </xf:model>
+
+  <div class="formFrame" style="width:950px;">
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+    
+    <div class="body">
+      <div>
+        <h3><xf:output value="if(instance('form')/isAMD='1','Changed Documents','Documents')"/></h3>
+        <br/>
+     <table class="fullColLayout" border='0'>
+        <tr class="top">
+          <th class="small delete center">Deactivated</th>
+          <th class="out text large left">Type</th>
+          <th class="in text large left">Name</th>
+          <th class="in text small left"><span>Version</span></th>
+          <th class="in text small left"><span>Status</span></th>          
+          <th class="in text small left"><span>History</span></th>
+          <th class="in text large left">File name/<br/>Uploaded Date</th>
+          <th class="in text large left">Marked Up<br/>Version<span class="helpdialogOverTable" style="cursor:help;color:blue">  [?]
+            <div style="width:200px"><p><span style="color:black"><help>A version of the revised document with all changes identified using Track Changes or highlighting.</help></span></p></div></span></th>
+          <th class="out text large left">Comments</th>
+          <th class="out text small left">Actions</th>
+          <th class="clear"></th>
+        </tr>
+      <xf:switch>
+        <xf:case id="show-docs">
+          <exf:variable value="instance('dat')/document[@type='user' and @active!='-1' and @active!='-9']" name="sec1"/>
+          <!--<exf:variable value="instance('dat')/document[@type!='user']" name="sec2"/>   -->       
+          <exf:variable value="instance('dat')/document[@type!='user' and @active!='-1' and @active!='-9']" name="sec2"/>      <!-- [not(contains(@label,'Printable'))] -->
+            <xf:repeat nodeset="$sec2">
+              <exf:variable name="dindx" value="@id"/>
+              <exf:variable name="docDecision" value="@decision"/>
+              <exf:variable name="findx" value="@fid"/>
+              <tr><ix:attr name="style" value="if(@active='', 'background-color:lightgray;', '')"></ix:attr>
+                
+              <td class="small delete center">
+                <!--Was <span><ix:attr name="style" value="if(@active!='' and @type!='system', '', 'display:none')"></ix:attr>-->
+                <span><ix:attr name="style" value="if(@active!='', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:blue;">[No]</b>
+                </span>
+                <span><ix:attr name="style" value="if(@active='', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:red;">[Yes]</b>
+                </span>
+              </td>
+              <td class="out text large left">
+                <xf:output value="@label"/>
+                <!--<xf:input ref="@label"/>-->
+              </td>
+              <td class="in text large left">
+                <!--<span>
+                  <xf:input ref="@name"/>
+                  </span>-->
+                  <xf:output value="@name"/>
+              </td>
+              <td class="in text small left">
+                <xf:output value="@version"/>
+              </td>
+              <td class="in text small left">
+                <span>
+                  <!--<xf:output value="@status"/>-->
+                  <xf:output value="if(@status='New', 'New', '')"/>
+                  <xf:output value="if(@status='approved', 'Approved', '')"/>
+                </span>                
+              </td> 
+              <td class="in text small left">
+                <span><ix:attr name="style" value="if(version, '', 'display:none')"/>
+                  <span class="dialogOverInteractive" style="cursor:pointer;text-decoration:none;">
+                    <u class="clickable">View</u>
+                    <div style="width:350px;">  
+                      <h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5>
+                      <table style="background-color:white;">
+                        <ix:attr value="if(version, '', 'display:none')" name="style"/>
+                        <tr>
+                          <th>Version</th>
+                          <th>Uploaded</th>
+                          <th>Status</th>
+                          <th>Decision</th>
+                          <th>Document</th>
+                        </tr>
+                        <xf:repeat nodeset="version">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;width:50px;">1.<xf:output value="position()"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="local-js-date(@uploaded)"/><!--<xf:output value="concat(substring(@uploaded, 6, 2), '/', substring(@uploaded, 9, 2), '/', substring(@uploaded, 1, 4), '  ', substring(@uploaded, 12, 5), ' HR')"/>-->) </td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><!--<xf:output value="@status"/>-->
+                              <xf:output value="if(@status='New', 'New', '')"/>
+                              <xf:output value="if(@status='approved', 'Approved', '')"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="instance('cats')/documentDecision/type[@id=$docDecision]/@name"/></td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <a target="_blank">
+                                <ix:attr name="href" value="concat('' , @uri)"/>
+                                Download
+                              </a>
+                            </td>
+                          </tr>
+                        </xf:repeat>
+                      </table>
+                    </div>
+                  </span>
+                </span>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    <xf:output class="" value="@fileName"/>
+                  </a>
+                </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>
+              </td>
+              <td class="doc medium">
+                <span> 
+                  <span>
+                    <ix:attr value="if(changesDoc/@uri != '', '', 'display:none')" name="style"/>
+                    <a target="_blank_">
+                      <ix:attr value="changesDoc/@uri" name="href"/>
+                      <xf:output class="" value="changesDoc"/>
+                    </a>
+                  </span>
+                </span>
+              </td>
+                <td>
+                <div>
+                  <ix:attr value="if(@uri != '' and @comments!='', '', 'display:none')" name="style"/>
+                  <span style="" class="dialogOverInteractive">
+                    <u class="clickable">View</u>
+                    <div style="width:400px;">
+                      <p>
+                        <h5>Comments:</h5>
+                        <xf:textarea style="width:370px;height:8em;" ref="@comments"/>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    View
+                  </a>
+                </span>
+              </td>
+              <td class="clear errors custError"><div>
+                <exf:variable value="instance('dat')/suggestions/document[@fid=$findx]" name="sugDoc"/>
+                <xf:repeat nodeset="$sugDoc">
+                  <div><ix:attr value="if(@suggDoc!='', 'margin-top:-2px;', 'display:none')" name="style"/>
+                    <span><!--<ix:attr value="if(@suggDoc='', 'display:none', '')" name="style"/>-->
+                      <span>
+                        <a target="_blank_"><ix:attr value="concat('/fil', @suggDoc)" name="href"/>Suggestion by <xf:output value="../@username"></xf:output></a>
+                      </span>
+                    </span>
+                    <br/><br/>
+                  </div>
+                </xf:repeat>
+                <xf:select ref="@validfrom"><xf:item><xf:label>Upload Suggestion</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@validfrom='1', 'margin-top:-2px;', 'display:none')" name="style"/>
+                  
+                  <u class="clickable"><ix:attr value="if(@validto='', '', 'display:none')" name="style"/>
+                    <script ev:event="click"> 
+                      var id = model.getValue("@id",contextNode); 
+                      model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                      model.Frm.executeDocUpload(); 
+                    </script> Upload</u>
+                  <span><ix:attr value="if(@validto='', 'display:none', '')" name="style"/>
+                    <span>
+                      <a target="_blank_"><ix:attr value="concat('/fil', @validto)" name="href"/>View</a>
+                    </span> /
+                    <u class="clickable">
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                        model.Frm.executeDocUpload(); 
+                      </script>Replace</u>
+                  </span>
+                  <br/>
+                  <br/>
+                </div>
+                <xf:select ref="@decision"><xf:item><xf:label><ix:attr name="style" value="if(.='newDocRequired', 'color:red', 'color:black')"/>New Doc Required</xf:label><xf:value>newDocRequired</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                
+                <xf:select ref="@adddecisioncomments"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  com = model.getValue(".", contextNode);
+                  if(!com) model.USA.removeChange();               
+                  if(com) model.USA.addChange();
+                  if(!com) model.setValue("../@decisioncomments","",contextNode);               
+                  model.recalculate();       
+                  //model.USA.addChange();
+                  //model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@adddecisioncomments='1', 'margin-top:-2px;', 'display:none')" name="style"/><xf:textarea ref="@decisioncomments"/></div></div>
+              </td>              
+            </tr>
+          </xf:repeat>          
+       
+          <xf:repeat nodeset="$sec1">
+            <exf:variable name="dindx" value="@id"/>
+            <exf:variable name="findx" value="@fid"/>
+            <exf:variable name="docDecision" value="@decision"/>
+            <exf:variable name="lbl" value="@label"/>
+            <tr><ix:attr name="style" value="if(@active='', 'background-color:lightgray;', '')"></ix:attr>
+              
+              <td class="small delete center">
+               <!-- <b style="cursor:pointer;color:red;">X <xf:action
+                  exf:if="script('confirm(&quot;Are you ABSOLUTELY SURE this document should be removed on behalf of the PI?&quot;)')"
+                  ev:event="click"><xf:destroy ref="."/></xf:action></b>-->
+                <span><ix:attr name="style" value="if(@active!='' and @active!='-1', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:blue;">[No]</b>
+                </span>
+                <span><ix:attr name="style" value="if(@active='', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:red;">[Yes]</b>
+                </span>
+              </td>
+              <td class="out text large left"><xf:output value="instance('cats')/docTypes/type[@id=$lbl]/@name"/></td>
+              <td class="in text large left">
+                <xf:output value="@name"/>
+              </td>
+              <td class="in text small left">
+                <xf:output value="@version"/>
+              </td>
+              <td class="in text small left">
+                <span>
+                  <!--<xf:output value="@status"/>-->
+                  <xf:output value="if(@status='New', 'New', '')"/>
+                  <xf:output value="if(@status='approved', 'Approved', '')"/>
+                </span>                
+              </td> 
+              <td class="in text small left">
+                <span><ix:attr name="style" value="if(version, '', 'display:none')"/>
+                  <span class="dialogOverInteractive" style="cursor:pointer;text-decoration:none;">
+                    <u class="clickable">View</u>
+                    <div style="width:350px;">  
+                      <h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5>
+                      <table style="background-color:white;">
+                        <ix:attr value="if(version, '', 'display:none')" name="style"/>
+                        <tr>
+                          <th>Version</th>
+                          <th>Uploaded</th>
+                          <th>Status</th>
+                          <th>Decision</th>
+                          <th>Document</th>
+                        </tr>
+                        <xf:repeat nodeset="version">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;width:50px;">1.<xf:output value="position()"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="local-js-date(@uploaded)"/><!--<xf:output value="concat(substring(@uploaded, 6, 2), '/', substring(@uploaded, 9, 2), '/', substring(@uploaded, 1, 4), '  ', substring(@uploaded, 12, 5), ' HR')"/>-->) </td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><!--<xf:output value="@status"/>-->
+                              <xf:output value="if(@status='New', 'New', '')"/>
+                              <xf:output value="if(@status='approved', 'Approved', '')"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="instance('cats')/documentDecision/type[@id=$docDecision]/@name"/></td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <a target="_blank">
+                                <ix:attr name="href" value="concat('' , @uri)"/>
+                                Download
+                              </a>
+                            </td>
+                          </tr>
+                        </xf:repeat>
+                      </table>
+                    </div>
+                  </span>
+                </span>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    <xf:output class="" value="@fileName"/>
+                  </a>
+                </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>
+              </td>
+              <td class="doc medium">
+                <span> 
+                  <span>
+                    <ix:attr value="if(changesDoc/@uri != '', '', 'display:none')" name="style"/>
+                    <a target="_blank_">
+                      <ix:attr value="changesDoc/@uri" name="href"/>
+                      <xf:output class="" value="changesDoc"/>
+                    </a>
+                  </span>
+                </span>
+              </td>
+                <td>
+                <div>
+                  <ix:attr value="if(@uri != '' and @comments!='', '', 'display:none')" name="style"/>
+                  <span style="" class="dialogOverInteractive">
+                    <u class="clickable">View</u>
+                    <div style="width:400px;">
+                      <p>
+                        <h5>Comments:</h5>
+                        <xf:textarea style="width:370px;height:8em;" ref="@comments"/>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    View
+                  </a>
+                </span>
+              </td>
+              <td class="clear errors custError"><div>
+                <exf:variable value="instance('dat')/suggestions/document[@fid=$findx]" name="sugDoc"/>
+                <xf:repeat nodeset="$sugDoc">
+                  <div><ix:attr value="if(@suggDoc!='', 'margin-top:-2px;', 'display:none')" name="style"/>
+                    <span><ix:attr value="if(@suggDoc='', 'display:none', '')" name="style"/>
+                      <span>
+                        <a target="_blank_"><ix:attr value="concat('/fil', @suggDoc)" name="href"/>Suggestion by <xf:output value="../@username"></xf:output></a>
+                      </span>
+                    </span>
+                    <br/><br/>
+                  </div>
+                </xf:repeat>
+                <xf:select ref="@validfrom"><xf:item><xf:label>Upload Suggestion</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@validfrom='1', 'margin-top:-2px;', 'display:none')" name="style"/>
+                  
+                  <u class="clickable"><ix:attr value="if(@validto='', '', 'display:none')" name="style"/>
+                    <script ev:event="click"> 
+                      var id = model.getValue("@id",contextNode); 
+                      model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                      model.Frm.executeDocUpload(); 
+                    </script> Upload</u>
+                  <span><ix:attr value="if(@validto='', 'display:none', '')" name="style"/>
+                    <span>
+                      <a target="_blank_"><ix:attr value="concat('/fil', @validto)" name="href"/>View</a>
+                    </span> /
+                    <u class="clickable">
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                        model.Frm.executeDocUpload(); 
+                      </script>Replace</u>
+                  </span>
+                  <br/>
+                  <br/>
+                </div>
+                <xf:select ref="@decision"><xf:item><xf:label><ix:attr name="style" value="if(.='newDocRequired', 'color:red', 'color:black')"/>New Doc Required</xf:label><xf:value>newDocRequired</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <xf:select ref="@adddecisioncomments"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  com = model.getValue(".", contextNode);
+                  if(!com) model.USA.removeChange();               
+                  if(com) model.USA.addChange();
+                  if(!com) model.setValue("../@decisioncomments","",contextNode);               
+                  model.recalculate();       
+                  //model.USA.addChange();
+                  //model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@adddecisioncomments='1', 'margin-top:-2px;', 'display:none')" name="style"/><xf:textarea ref="@decisioncomments"/></div></div>
+              </td>
+            </tr>
+          </xf:repeat>
+      </xf:case>
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>
+      
+        <br/>
+      <br/>
+      <exf:variable value="instance('dat')/document[@status!='approved' and @active='-1']" name="sec1X"/>
+      <div>
+        <ix:attr name="style" value="if(count(instance('dat')/document[@status!='approved' and @active='-1']) &gt; 0, '', 'display:none')"/>
+        <h3>New Documents</h3>
+        <br/>
+        <table class="fullColLayout" border='0'>
+          <tr class="top">
+            <th class="small delete center"/>
+            <th class="out text large left">Type</th>
+            <th class="in text large left">Name</th>
+            <th class="in text small left"><span>Version</span></th>
+            <th class="in text small left"><span>Status</span></th>
+            <th class="in text small left"><span>History</span></th>
+            <th class="in text large left">File name/<br/>Uploaded Date</th>
+            <th class="out text small left">Comments</th>
+            <th class="out text small left">Actions</th>
+          </tr>        
+          <xf:repeat nodeset="$sec1X">
+            <exf:variable name="dindx" value="@id"/>
+            <exf:variable name="docDecision" value="@decision"/>            
+            <exf:variable name="lbl" value="@label"/>          
+            <exf:variable name="findx" value="@fid"/>
+            <tr>
+              <td class="small delete center">
+                <span></span>
+              </td>
+              <td class="out text large left">
+                <xf:output value="instance('cats')/docTypes/type[@id=$lbl]/@name"/>
+              </td>              
+              <td class="in text large left">
+                <xf:output value="@name"/>
+              </td>
+              <td class="in text small left">
+                <xf:output value="@version"/>              
+              </td>
+              <td class="in text small left">
+                <span>
+                  <xf:output value="if(@status='New', 'New', '')"/>
+                  <xf:output value="if(@status='approved', 'Approved', '')"/>
+                </span>
+              </td> 
+              <td class="in text small left">
+                <span><ix:attr name="style" value="if(version, '', 'display:none')"/>
+                  <span class="dialogOverInteractive" style="cursor:pointer;text-decoration:none;">
+                    <u class="clickable">View</u>
+                    <div style="width:350px;">  
+                      <h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5>
+                      <table style="background-color:white;">
+                        <ix:attr value="if(version, '', 'display:none')" name="style"/>
+                        <tr>
+                          <th>Version</th>
+                          <th>Uploaded</th>
+                          <th>Status</th>
+                          <th>Decision</th>
+                          <th>Document</th>
+                        </tr>
+                        <xf:repeat nodeset="version">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;width:50px;">1.<xf:output value="position()"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="local-js-date(@uploaded)"/>) </td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><!--<xf:output value="@status"/>-->
+                              <xf:output value="if(@status='New', 'New', '')"/>
+                              <xf:output value="if(@status='approved', 'Approved', '')"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="instance('cats')/documentDecision/type[@id=$docDecision]/@name"/></td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <a target="_blank">
+                                <ix:attr name="href" value="concat('' , @uri)"/>
+                                Download
+                              </a>
+                            </td>
+                          </tr>
+                        </xf:repeat>
+                      </table>
+                    </div>
+                  </span>
+                </span>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    <xf:output class="" value="@fileName"/>
+                  </a>
+                </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>
+              </td>
+              <td>
+                <div>
+                  <ix:attr value="if(@uri != '' and @comments!='', '', 'display:none')" name="style"/>
+                  <span style="" class="dialogOverInteractive">
+                    <u class="clickable">View</u>
+                    <div style="width:400px;">
+                      <p>
+                        <h5>Comments:</h5>
+                        <xf:textarea style="width:370px;height:8em;" ref="@comments"/>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>              
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    View
+                  </a>
+                </span>
+              </td>       
+              <td class="clear errors custError">
+                <div>
+                <exf:variable value="instance('dat')/suggestions/document[@fid=$findx]" name="sugDoc"/>
+                <xf:repeat nodeset="$sugDoc">
+                  <div><ix:attr value="if(@suggDoc!='', 'margin-top:-2px;', 'display:none')" name="style"/>
+                    <span><ix:attr value="if(@suggDoc='', 'display:none', '')" name="style"/>
+                      <span>
+                        <a target="_blank_"><ix:attr value="concat('/fil', @suggDoc)" name="href"/>Suggestion by <xf:output value="../@username"></xf:output></a>
+                      </span>
+                    </span>
+                    <br/><br/>
+                  </div>
+                </xf:repeat>
+                <xf:select ref="@validfrom"><xf:item><xf:label>Upload Suggestion</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@validfrom='1', 'margin-top:-2px;', 'display:none')" name="style"/>
+                  
+                  <u class="clickable"><ix:attr value="if(@validto='', '', 'display:none')" name="style"/>
+                    <script ev:event="click"> 
+                      var id = model.getValue("@id",contextNode); 
+                      model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                      model.Frm.executeDocUpload(); 
+                    </script> Upload</u>
+                  <span><ix:attr value="if(@validto='', 'display:none', '')" name="style"/>
+                    <span>
+                      <a target="_blank_"><ix:attr value="concat('/fil', @validto)" name="href"/>View</a>
+                    </span> /
+                    <u class="clickable">
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                        model.Frm.executeDocUpload(); 
+                      </script>Replace</u>
+                  </span>
+                  <br/>
+                  <br/>
+                </div>
+                <xf:select ref="@decision"><xf:item><xf:label><ix:attr name="style" value="if(.='newDocRequired', 'color:red', 'color:black')"/>New Doc Required</xf:label><xf:value>newDocRequired</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <xf:select ref="@adddecisioncomments"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  com = model.getValue(".", contextNode);
+                  if(!com) model.USA.removeChange();               
+                  if(com) model.USA.addChange();
+                  if(!com) model.setValue("../@decisioncomments","",contextNode);               
+                  model.recalculate();       
+                  //model.USA.addChange();
+                  //model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@adddecisioncomments='1', 'margin-top:-2px;', 'display:none')" name="style"/><xf:textarea ref="@decisioncomments"/></div>
+                </div>
+              </td>
+              
+            </tr>
+          </xf:repeat>          
+        </table>
+      </div>      
+      <br/>
+      <!--<div>
+      <h3>Unchanged Documents</h3>
+        <br/>
+     <table class="fullColLayout" border='0'>
+        <tr class="top">
+          <th class="small delete center">Deactivated</th>
+          <th class="out text large left">Type</th>
+          <th class="in text large left">Name</th>
+          <th class="in text small left"><span>Version</span></th>
+          <th class="in text small left"><span>Status</span></th>          
+          <th class="in text small left"><span>History</span></th>
+          <th class="in text large left">File name/<br/>Uploaded Date</th>
+          <th class="in text large left">Marked Up<br/>Version<span class="helpdialogOverTable" style="cursor:help;color:blue">  [?]
+            <div style="width:200px"><p><span style="color:black"><help>A version of the revised document with all changes identified using Track Changes or highlighting.</help></span></p></div></span></th>
+          <th class="out text large left">Comments</th>
+          <th class="out text small left">Actions</th>
+          <th class="clear"></th>
+        </tr>
+      <xf:switch>
+        <xf:case id="show-docs">
+          <exf:variable value="instance('dat')/document[@type='user' and @active='-9']" name="sec1C"/>
+          <!-\-<exf:variable value="instance('dat')/document[@type!='user']" name="sec2"/>   -\->       
+          <exf:variable value="instance('dat')/document[@type!='user' and @active='-9']" name="sec2C"/>      <!-\- [not(contains(@label,'Printable'))] -\->
+            <xf:repeat nodeset="$sec2C">
+              <exf:variable name="dindx" value="@id"/>
+              <exf:variable name="docDecision" value="@decision"/>
+              <exf:variable name="findx" value="@fid"/>
+              <tr><ix:attr name="style" value="if(@active='', 'background-color:lightgray;', '')"></ix:attr>
+                
+              <td class="small delete center">
+                <!-\-Was <span><ix:attr name="style" value="if(@active!='' and @type!='system', '', 'display:none')"></ix:attr>-\->
+                <span><ix:attr name="style" value="if(@active!='', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:blue;">[No]</b>
+                </span>
+                <span><ix:attr name="style" value="if(@active='', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:red;">[Yes]</b>
+                </span>
+              </td>
+              <td class="out text large left">
+                <xf:output value="@label"/>
+                <!-\-<xf:input ref="@label"/>-\->
+              </td>
+              <td class="in text large left">
+                <!-\-<span>
+                  <xf:input ref="@name"/>
+                  </span>-\->
+                  <xf:output value="@name"/>
+              </td>
+              <td class="in text small left">
+                <xf:output value="@version"/>
+              </td>
+              <td class="in text small left">
+                <span>
+                  <!-\-<xf:output value="@status"/>-\->
+                  <xf:output value="if(@status='New', 'New', '')"/>
+                  <xf:output value="if(@status='approved', 'Approved', '')"/>
+                </span>                
+              </td> 
+              <td class="in text small left">
+                <span><ix:attr name="style" value="if(version, '', 'display:none')"/>
+                  <span class="dialogOverInteractive" style="cursor:pointer;text-decoration:none;">
+                    <u class="clickable">View</u>
+                    <div style="width:350px;">  
+                      <h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5>
+                      <table style="background-color:white;">
+                        <ix:attr value="if(version, '', 'display:none')" name="style"/>
+                        <tr>
+                          <th>Version</th>
+                          <th>Uploaded</th>
+                          <th>Status</th>
+                          <th>Decision</th>
+                          <th>Document</th>
+                        </tr>
+                        <xf:repeat nodeset="version">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;width:50px;">1.<xf:output value="position()"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="local-js-date(@uploaded)"/><!-\-<xf:output value="concat(substring(@uploaded, 6, 2), '/', substring(@uploaded, 9, 2), '/', substring(@uploaded, 1, 4), '  ', substring(@uploaded, 12, 5), ' HR')"/>-\->) </td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><!-\-<xf:output value="@status"/>-\->
+                              <xf:output value="if(@status='New', 'New', '')"/>
+                              <xf:output value="if(@status='approved', 'Approved', '')"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="instance('cats')/documentDecision/type[@id=$docDecision]/@name"/></td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <a target="_blank">
+                                <ix:attr name="href" value="concat('' , @uri)"/>
+                                Download
+                              </a>
+                            </td>
+                          </tr>
+                        </xf:repeat>
+                      </table>
+                    </div>
+                  </span>
+                </span>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    <xf:output class="" value="@fileName"/>
+                  </a>
+                </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>
+              </td>
+              <td class="doc medium">
+                <span> 
+                  <span>
+                    <ix:attr value="if(changesDoc/@uri != '', '', 'display:none')" name="style"/>
+                    <a target="_blank_">
+                      <ix:attr value="changesDoc/@uri" name="href"/>
+                      <xf:output class="" value="changesDoc"/>
+                    </a>
+                  </span>
+                </span>
+              </td>
+                <td>
+                <div>
+                  <ix:attr value="if(@uri != '' and @comments!='', '', 'display:none')" name="style"/>
+                  <span style="" class="dialogOverInteractive">
+                    <u class="clickable">View</u>
+                    <div style="width:400px;">
+                      <p>
+                        <h5>Comments:</h5>
+                        <xf:textarea style="width:370px;height:8em;" ref="@comments"/>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    View
+                  </a>
+                </span>
+              </td>
+              <td class="clear errors custError"><div>
+                <exf:variable value="instance('dat')/suggestions/document[@fid=$findx]" name="sugDoc"/>
+                <xf:repeat nodeset="$sugDoc">
+                  <div><ix:attr value="if(@suggDoc!='', 'margin-top:-2px;', 'display:none')" name="style"/>
+                    <span><!-\-<ix:attr value="if(@suggDoc='', 'display:none', '')" name="style"/>-\->
+                      <span>
+                        <a target="_blank_"><ix:attr value="concat('/fil', @suggDoc)" name="href"/>Suggestion by <xf:output value="../@username"></xf:output></a>
+                      </span>
+                    </span>
+                    <br/><br/>
+                  </div>
+                </xf:repeat>
+                <xf:select ref="@validfrom"><xf:item><xf:label>Upload Suggestion</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@validfrom='1', 'margin-top:-2px;', 'display:none')" name="style"/>
+                  
+                  <u class="clickable"><ix:attr value="if(@validto='', '', 'display:none')" name="style"/>
+                    <script ev:event="click"> 
+                      var id = model.getValue("@id",contextNode); 
+                      model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                      model.Frm.executeDocUpload(); 
+                    </script> Upload</u>
+                  <span><ix:attr value="if(@validto='', 'display:none', '')" name="style"/>
+                    <span>
+                      <a target="_blank_"><ix:attr value="concat('/fil', @validto)" name="href"/>View</a>
+                    </span> /
+                    <u class="clickable">
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                        model.Frm.executeDocUpload(); 
+                      </script>Replace</u>
+                  </span>
+                  <br/>
+                  <br/>
+                </div>
+                <xf:select ref="@decision"><xf:item><xf:label><ix:attr name="style" value="if(.='newDocRequired', 'color:red', 'color:black')"/>New Doc Required</xf:label><xf:value>newDocRequired</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                
+                <xf:select ref="@adddecisioncomments"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@adddecisioncomments='1', 'margin-top:-2px;', 'display:none')" name="style"/><xf:textarea ref="@decisioncomments"/></div></div>
+              </td>              
+            </tr>
+          </xf:repeat>          
+       
+          <xf:repeat nodeset="$sec1C">
+            <exf:variable name="dindx" value="@id"/>
+            <exf:variable name="findx" value="@fid"/>
+            <exf:variable name="docDecision" value="@decision"/>
+            <exf:variable name="lbl" value="@label"/>
+            <tr><ix:attr name="style" value="if(@active='', 'background-color:lightgray;', '')"></ix:attr>
+              
+              <td class="small delete center">
+               <!-\- <b style="cursor:pointer;color:red;">X <xf:action
+                  exf:if="script('confirm(&quot;Are you ABSOLUTELY SURE this document should be removed on behalf of the PI?&quot;)')"
+                  ev:event="click"><xf:destroy ref="."/></xf:action></b>-\->
+                <span><ix:attr name="style" value="if(@active!='' and @active!='-1', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:blue;">[No]</b>
+                </span>
+                <span><ix:attr name="style" value="if(@active='', '', 'display:none')"></ix:attr>
+                  <b style="cursor:pointer;color:red;">[Yes]</b>
+                </span>
+              </td>
+              <td class="out text large left"><xf:output value="instance('cats')/docTypes/type[@id=$lbl]/@name"/></td>
+              <td class="in text large left">
+                <xf:output value="@name"/>
+              </td>
+              <td class="in text small left">
+                <xf:output value="@version"/>
+              </td>
+              <td class="in text small left">
+                <span>
+                  <!-\-<xf:output value="@status"/>-\->
+                  <xf:output value="if(@status='New', 'New', '')"/>
+                  <xf:output value="if(@status='approved', 'Approved', '')"/>
+                </span>                
+              </td> 
+              <td class="in text small left">
+                <span><ix:attr name="style" value="if(version, '', 'display:none')"/>
+                  <span class="dialogOverInteractive" style="cursor:pointer;text-decoration:none;">
+                    <u class="clickable">View</u>
+                    <div style="width:350px;">  
+                      <h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5>
+                      <table style="background-color:white;">
+                        <ix:attr value="if(version, '', 'display:none')" name="style"/>
+                        <tr>
+                          <th>Version</th>
+                          <th>Uploaded</th>
+                          <th>Status</th>
+                          <th>Decision</th>
+                          <th>Document</th>
+                        </tr>
+                        <xf:repeat nodeset="version">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;width:50px;">1.<xf:output value="position()"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="local-js-date(@uploaded)"/><!-\-<xf:output value="concat(substring(@uploaded, 6, 2), '/', substring(@uploaded, 9, 2), '/', substring(@uploaded, 1, 4), '  ', substring(@uploaded, 12, 5), ' HR')"/>-\->) </td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><!-\-<xf:output value="@status"/>-\->
+                              <xf:output value="if(@status='New', 'New', '')"/>
+                              <xf:output value="if(@status='approved', 'Approved', '')"/></td>
+                            <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="instance('cats')/documentDecision/type[@id=$docDecision]/@name"/></td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <a target="_blank">
+                                <ix:attr name="href" value="concat('' , @uri)"/>
+                                Download
+                              </a>
+                            </td>
+                          </tr>
+                        </xf:repeat>
+                      </table>
+                    </div>
+                  </span>
+                </span>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    <xf:output class="" value="@fileName"/>
+                  </a>
+                </span>
+                <br/>
+                <xf:output value="local-js-date(@uploaded)"/>
+              </td>
+              <td class="doc medium">
+                <span> 
+                  <span>
+                    <ix:attr value="if(changesDoc/@uri != '', '', 'display:none')" name="style"/>
+                    <a target="_blank_">
+                      <ix:attr value="changesDoc/@uri" name="href"/>
+                      <xf:output class="" value="changesDoc"/>
+                    </a>
+                  </span>
+                </span>
+              </td>
+                <td>
+                <div>
+                  <ix:attr value="if(@uri != '' and @comments!='', '', 'display:none')" name="style"/>
+                  <span style="" class="dialogOverInteractive">
+                    <u class="clickable">View</u>
+                    <div style="width:400px;">
+                      <p>
+                        <h5>Comments:</h5>
+                        <xf:textarea style="width:370px;height:8em;" ref="@comments"/>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+              <td class="doc medium">
+                <span>
+                  <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                  <a target="_blank_">
+                    <ix:attr value="concat('/fil', @uri)" name="href"/>
+                    View
+                  </a>
+                </span>
+              </td>
+              <td class="clear errors custError"><div>
+                <exf:variable value="instance('dat')/suggestions/document[@fid=$findx]" name="sugDoc"/>
+                <xf:repeat nodeset="$sugDoc">
+                  <div><ix:attr value="if(@suggDoc!='', 'margin-top:-2px;', 'display:none')" name="style"/>
+                    <span><ix:attr value="if(@suggDoc='', 'display:none', '')" name="style"/>
+                      <span>
+                        <a target="_blank_"><ix:attr value="concat('/fil', @suggDoc)" name="href"/>Suggestion by <xf:output value="../@username"></xf:output></a>
+                      </span>
+                    </span>
+                    <br/><br/>
+                  </div>
+                </xf:repeat>
+                <xf:select ref="@validfrom"><xf:item><xf:label>Upload Suggestion</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@validfrom='1', 'margin-top:-2px;', 'display:none')" name="style"/>
+                  
+                  <u class="clickable"><ix:attr value="if(@validto='', '', 'display:none')" name="style"/>
+                    <script ev:event="click"> 
+                      var id = model.getValue("@id",contextNode); 
+                      model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                      model.Frm.executeDocUpload(); 
+                    </script> Upload</u>
+                  <span><ix:attr value="if(@validto='', 'display:none', '')" name="style"/>
+                    <span>
+                      <a target="_blank_"><ix:attr value="concat('/fil', @validto)" name="href"/>View</a>
+                    </span> /
+                    <u class="clickable">
+                      <script ev:event="click"> 
+                        var id = model.getValue("@id",contextNode); 
+                        model.Frm.configureEnhancedDocUpload("replaceSugg",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                        model.Frm.executeDocUpload(); 
+                      </script>Replace</u>
+                  </span>
+                  <br/>
+                  <br/>
+                </div>
+                <xf:select ref="@decision"><xf:item><xf:label><ix:attr name="style" value="if(.='newDocRequired', 'color:red', 'color:black')"/>New Doc Required</xf:label><xf:value>newDocRequired</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <xf:select ref="@adddecisioncomments"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                  model.USA.addChange();
+                  model.recalculate();
+                </script></xf:select>
+                <div><ix:attr value="if(@adddecisioncomments='1', 'margin-top:-2px;', 'display:none')" name="style"/><xf:textarea ref="@decisioncomments"/></div></div>
+              </td>
+            </tr>
+          </xf:repeat>
+      </xf:case>
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>-->
+      
+      
+      <table class="addButtons">
+        <tr>
+          <td>
+      <!--<xf:trigger style=""><xf:label style="">Add</xf:label>
+        <script ev:event="DOMActivate">
+          model.Frm.addDocument();
+        </script>
+      </xf:trigger>-->
+          </td>
+        </tr>
+      </table>
+      <br/>      
+      <br/>     
+  </div>             
+  </div>       
+  
+
+  <div class="bottomNav">
+    <table>
+      <tr>
+        <td class="back">
+          <div class="nav" style="float:right">
+            <script ev:event="click"> model.Frm.navigateTo("previousTab"); </script>
+            <div style="float:left" class="command">previous</div>
+            <img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/>
+          </div>
+        </td>
+        <td class="next">
+          <div class="nav" style="float:left">
+            <script ev:event="click"> model.Frm.navigateTo("nextTab"); </script>
+            <img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/>
+            <div style="float:right" class="command">next</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div>
+  </div>
+</form>

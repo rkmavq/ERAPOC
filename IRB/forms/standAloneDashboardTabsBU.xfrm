@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <!-- The data model consists of:
+        ins - process data
+        proDat - project data
+        form - form specific data
+        bootstrap - bootstraping data (pointers to aux files to attach
+        config - config data
+      -->
+      <!--<xf:instance id="ins" src="{activity}/rules.xml"/>-->
+      <xf:instance id="form">
+        <data xmlns="">
+          <currency></currency>
+          <version/>
+          <departments/>
+          <!--<versions>
+            <options>
+            <option label="Version 1" value="1"/>
+            <option label="Version X" value="2"/>
+            </options>
+            </versions>-->
+          <views>
+            <options>
+              <option label="Project" value="project"/>
+              <option label="Task 0" value="task0"/>
+            </options>
+          </views>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+          
+          
+          <id8ID></id8ID>
+          <application>USProject</application>
+          <primeEntity>Projects</primeEntity>
+          <primeEntityURI/>
+          <focus>project</focus>
+          <view>project</view>
+          <lastPage></lastPage>
+          <formConf>dashboardtabSet</formConf>
+          <v>1</v>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/USProject/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+    <xf:instance id="dummy"><data xmlns=""/></xf:instance>
+      <xf:bind nodeset="instance('proDat')/version" readonly="true()" relevant="false()"/>
+      
+      
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        //alert(document.__refName);
+        //alert(document.__refUri);
+        
+        var ix = model.__XformSet.getRoot();
+        ix.___dashboard = 1;
+        model.setValue("instance('form')/id8ID", document.__refName);
+        model.setValue("instance('form')/primeEntityURI", document.__refUri);
+        
+        model.TS = new appTabSet(model, 'projectTabs');
+        model.TS.loadAppFile('proDat', "/data/projectData.xml");
+        model.TS.loadAppFile('proMap', "/data/projectMap.xml");
+        model.TS.loadAppFile('dummy', "/data.xml");
+        
+        model.__XformSet.getRoot().model.TS = model.TS;
+        model.__XformSet.getRoot().targetURI = document.__refUri;
+        
+        alert(model.TS.appURI);
+        
+        includeSharedJS("/resources/applications/USProject/js/clientSideFunctions.js");
+        model.USA = new usApp(model);
+        model.USA.rebuildTabs();
+        
+        //includeSharedJS("/resources/services/projectBackup/clientSideJS.js");
+        //model.vh = new versionHandler(model, model.TS.appURI);
+                
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+        
+      </script>    
+
+      <script ev:event="xforms-ready">
+        //Initialize form elements
+        //AD.setupForm();
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      model.TS.saveAll();      
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+  </xf:model>
+  <div class="wikiView">
+  
+  <div class="tabSet">
+    
+    <!-- Consistant Header -->
+    <div class="header">
+<!--      <table class="infoLine">
+        <tr>
+          <td style="text-align:left;">Project: <xf:output value="instance('proDat')/id8ID"/></td>
+          <td style="text-align:center;"><xf:output value="instance('proDat')/ShortTitle"/></td>
+          <td style="text-align:right;"><xf:output value="if(instance('ins')/view = 'project', 'Project Level', 'Component Level')"/></td>
+        </tr>
+      </table>   -->   
+      <xf:switch>
+      <xf:case id="show-tabHeader" exf:if="1">
+      <table class="infoBox">
+        <tr>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <tr><td class="label">Contact PI:</td><td class="text"><xf:output value="instance('proDat')/Person[role='PI']/name"/></td></tr>
+              <tr class="bottom"><td class="label">Admin Contact:</td><td class="text"><xf:output value="instance('proDat')/AdminContact/name"/></td></tr>
+            </table>
+          </td>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <tr><td class="label">Sponsor:</td><td class="text"><xf:output value="instance('proDat')/Opp/sponsor/@name"/></td></tr>    
+              <tr class="bottom"><td class="label">Program:</td><td class="text"><xf:output value="instance('proDat')/Opp/title"/></td></tr>    
+            </table>
+          </td>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <tr><td class="label">Total Directs:</td><td class="currency">$</td><td class="value"><xf:output value="format(instance('proDat')/totalDirects,2)"/></td></tr>    
+              <tr class="bottom"><td class="label">Total Indirects:</td><td class="currency">$</td><td class="value"><xf:output value="format(instance('proDat')/totalIndirects,2)"/></td></tr>    
+            </table>
+          </td>
+          <td>
+          </td>
+        </tr>
+      </table>
+      </xf:case>
+      <xf:case id="hide-tabHeader">
+      </xf:case>
+      </xf:switch>
+    </div>
+    <xf:switch>
+      
+      <xf:case id="show-workscreen" exf:if="1">
+        <ix:subform form="{tabControl}" src="" id="projectTabs"/>
+        <!--<ix:subform form="{tabControlFront}" src="" id="projectTabs"/>-->
+      </xf:case>
+      <!--
+      <xf:case id="hide-workscreen">
+      </xf:case>
+      -->
+    </xf:switch>
+     <ix:subform form="{tabContainer}" src="" id="projectTabs"/>
+  </div>
+    
+    
+  </div>
+</form>

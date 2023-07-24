@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    /* color:blue; */
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document id="" uri=""></document>
+        <revURI></revURI>
+        <RTP>0</RTP>
+      </data> 
+    </xf:instance> 
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="diffs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="revHist"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+<xf:instance id="proReviews"><data xmlns=""/></xf:instance>
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+            model.__waiting = new waitingBox("Please wait..."); 
+      
+      model.Frm.loadOpFile('proReviews', "/reviews.xml");
+      
+
+      currentReview = model.Frm.formSet.getRoot().__COMPREVURI.split("/reviews/")[1].split(".xml")[0];      
+          
+      lastReviewParent = model.getValue("instance('proReviews')/review[@num='"+currentReview+"']/@parent");
+      PIReturnCount = model.getValue("count(instance('proReviews')/metaReview[@num='"+lastReviewParent+"' and @action='Returned to PI'])") * 1;
+      
+        if(PIReturnCount > 0){
+        resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:model.Frm.linkedOpType,linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI:model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI}, "json");
+        }else{
+        resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:model.Frm.linkedOpType,linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI:model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI}, "json");          
+        }
+        model.Frm.loadOpFile('revHist', "/reviews/revHIST.xml", "0");
+        model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI);
+      model.__waiting.stop(); 
+      model.Frm.reloadInst('revHist');      
+      
+      model.setValue("instance('form')/RTP", PIReturnCount);
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      //AB 02/19/2019 solved for issue where proper basechange was not getting set when you tab into comments from personnel tab. 
+      //below we also check to make sure basechange is loded only when its an amendment.
+      //if(model.Frm.formSet.getRoot().__AMND){  
+      if(model.Frm.formSet.getRoot().__AMND &amp;&amp; model.Frm.formSet.getRoot().__AMND!="undefined" &amp;&amp; model.Frm.linkedOpType=="amendments"){   
+      model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+      }else{
+      model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/" + model.Frm.linkedOpType + "BaseChange.xml");
+      }
+
+    </script>
+    <script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+    </script>
+    
+    
+    <!--<xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>-->
+    
+    <!-- ARCHITA: This bind is required -->
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+  </xf:model>
+
+ 
+  <div class="formFrame">
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+    <div class="body">
+      
+      <br/>
+      <h4>PI Response:</h4>
+      <div>        
+        <br/>
+        
+        <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/analysis/el[(@interpretation!='' or @RSaction!='') and not(@interpretation='' and @RSaction='')]" name="sec1"/>
+        <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>          
+          <i>None</i>
+        </div>        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+          <tr class="top">
+            <th class="out text large left" style="width:200px;text-align:left">Location</th>
+            <th class="in text large left" style="text-align:left">Field</th>
+            <th class="in text large left" style="text-align:left">Original Value</th>
+            <th class="in text large left" style="text-align:left">Current Value</th>  
+            <th class="in text large left" style="text-align:left">Comment</th>
+            <th class="in text large left" style="text-align:left">Action</th>
+          </tr>
+          
+          <xf:switch>
+            <xf:case id="show-docs">
+              <xf:repeat nodeset="$sec1">
+                <exf:variable value="@cmp" name="needle"/>
+                <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+                <tr valign="top">
+                  <td class="out text alrge left" style="width:250px;">
+                    <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                      lnk = model.getValue("@cmp", contextNode);
+                      var target = "xf_0projectTabs_control";
+                      var receiver = model.Frm.formSet.getRoot().getChild(target);
+                      if(receiver){
+                      receiver.model.SF.switchTab(lnk);
+                      }
+                    </script><xf:output value="$source/@label"/></u>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="label"/>
+                  </td>
+                  <td class="out text large left">
+                    <span><ix:attr name="style" value="if(orgValue='MISSING', 'color:black', 'display:none')"/>None</span>
+                    <span><ix:attr name="style" value="if(orgValue!='MISSING', 'color:black', 'display:none')"/><xf:output value="orgValue"/></span>  
+                  </td> 
+                  <td class="out text large left">
+                    <xf:output value="thisVal"/>
+                  </td> 
+                  <td class="out text large left">
+                    <xf:output value="comment"/>
+                  </td>
+                  <td class="out text large left">
+                    <span><ix:attr name="style" value="if(@RSaction!='' and @interpretation='', 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+                    <span><ix:attr name="style" value="if(@RSaction!='' and contains(@xpath,'document'), 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+                    <span><ix:attr name="style" value="if(@interpretation='Using New Value' and not(contains(@xpath,'document')), 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>                    
+                    <span><ix:attr name="style" value="if(@interpretation='Using New Value' and contains(@xpath,'document') and @RSaction='', 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+                    <span><ix:attr name="style" value="if(@interpretation!='' and @interpretation!='Using New Value' and not(contains(@xpath,'document')), 'color:purple', 'display:none')"/><xf:output value="@interpretation"/></span>
+                  </td>                
+                </tr>                         
+              </xf:repeat>   
+            </xf:case>
+            <xf:case id="hide-docs"/>
+          </xf:switch> 
+        </table>
+      </div>
+      <br/>         
+    </div>             
+  </div>
+  <div class="bottomNav">
+    <table>
+      <tr>
+        <td class="back">
+          <!--<div class="nav" style="float:right">
+            <script ev:event="click"> model.Frm.navigateTo("previousTab"); </script>
+            <div style="float:left" class="command">previous</div>
+            <img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/>
+          </div>-->
+        </td>
+        <td class="next">
+          <div class="nav" style="float:left">
+            <script ev:event="click"> model.Frm.navigateTo("nextTab"); </script>
+            <img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/>
+            <div style="float:right" class="command">next</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div>
+  </div>
+</form>

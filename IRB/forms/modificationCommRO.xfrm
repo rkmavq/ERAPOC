@@ -1,0 +1,1730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    <!--color:blue;-->
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+		<revURI></revURI>
+        <document id="" uri=""></document>
+      </data> 
+    </xf:instance>    
+    
+<!--    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document/>        
+      </data>
+    </xf:instance>-->
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="diffs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+	 <xf:instance id="revHist"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+      
+      //ARCHITA: You'll have to load the appropriate datafile here that you want to attach the XML to as usual (change this to match wherever you're working)
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      
+      
+      if(model.Frm.formSet.getRoot().__AMND){
+        model.Frm.loadOpFile('dat', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      }else{
+        model.Frm.loadAppFile('dat', model.Frm.formSet.getRoot().__REVURI, "1");
+      }
+      resX=callSharedService("protocolRouting",{op:"findLastReview",targetSubmission:model.Frm.linkedOpURI}, "text");
+      if(resX == ""){ 
+      needle = model.Frm.linkedOpURI + "/amd.xml";
+      model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + "/amd.xml");   
+      }else{   
+      needle = model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI;
+      model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI);
+      model.setValue("instance('form')/revNum", "0");
+      model.setValue("instance('form')/metaNum", "0");
+      //get last review that was of type res and review num is less than current one and last one
+      lastMetaRSRevNum = model.getValue("instance('proReviews')/metaReview[((@action='Response Submission' or @action='Created Response Submission' or @action='Returned to PI') and @micro='0')][last()]/@num");     
+      if(lastMetaRSRevNum &amp;&amp; lastMetaRSRevNum!=""){
+      lastRSRevNum = model.getValue("instance('proReviews')/review[@parent="+lastMetaRSRevNum+"]/@num");     
+      if(lastRSRevNum &amp;&amp; lastRSRevNum!=""){
+      model.setValue("instance('form')/revNum",lastRSRevNum);
+      model.setValue("instance('form')/metaNum",lastMetaRSRevNum);      
+      }
+      }
+      
+      }
+      model.__waiting = new waitingBox("Please wait..."); 
+      resX=callSharedService("protocolRouting",{op:"generateAmendmentDiffsDynamic",linkedOp:model.Frm.linkedOpType,"trackChanges":"yes",app:"IRB",linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI: needle}, "json");        
+      model.Frm.loadOpFile('revHist', "/revHIST.xml", "0");
+      model.__waiting.stop(); 
+      
+      //model.Frm.loadOpFile('dat', "/amd.xml", "1");
+      //model.Frm.reloadInst('dat');
+      // model.setValue("instance('form')/revURI",model.Frm.linkedOpURI + "/amd.xml"); 
+      //resX=callSharedService("protocolRouting",{op:"generateAmendmentDiffsDynamic",linkedOp:model.Frm.linkedOpType,"trackChanges":"yes",app:"IRB",linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI: model.Frm.linkedOpURI + "/amd.xml"}, "json");        
+      //model.Frm.loadOpFile('revHist', "/revHIST.xml", "0");
+      
+      
+      
+      model.Frm.reloadInst('revHist');  
+      
+      
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+      document.MODEL = model;
+      
+      document.MODEL = model; //setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);document.MODEL.recalculate();', 300);
+      model.recalculate();
+      model.refresh();
+      model.rebuild();
+      model.USA.registerChangeLog('comments', '1X');
+    </script>
+    <script ev:event="xforms-ready">
+      
+      document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["m1", "m2", "m3", "m4"]);document.MODEL.recalculate();', 300);
+    </script>
+    
+    
+    <xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('dat')/*" readonly="true()" relevant="false()"/>  
+    <!--<xf:bind nodeset="instance('dat')//@addcomment" readonly="false()"/>
+    <xf:bind nodeset="instance('dat')//@comment" readonly="false()"/>-->
+    
+  </xf:model>
+
+  <!--<div class="formFrame">
+    <div class="body">
+  <div class="anchor">    
+    <h1 class="title">Test Test</h1>  
+    <br/>
+    <div class="dashboard">
+      
+      <!-\- Modified Document Drop -\->
+      <div style="display:none;">
+      <xf:input id="documentDrop" ref="instance('form')/document">
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+          <script>
+            var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+          </script>
+        </xf:action>
+      </xf:input>
+      </div>
+      <br/>
+      
+
+      <xf:trigger>
+        <xf:label>Add New Document</xf:label>
+        <script ev:event="DOMActivate">
+          model.Frm.addDocument();        
+        </script>
+      </xf:trigger>
+      
+      <xf:trigger>
+        <xf:label>Add An Event to a Document</xf:label>
+        <script ev:event="DOMActivate">
+          //ARCHITA: this is testing the functionality for document events, look inside the protocolRouting/main.js 
+          //at the addDocumentEvent method to see how you can use this in jsHandlers
+          
+          docUID = prompt("doc #");
+          newStatus= prompt("newStatus:");
+          newDecision= prompt("newDecision:");
+          decisionComments= prompt("decisionComments:");
+          
+          var ret = callSharedService("protocolRouting", {"op":"addDocumentEvent", "targetURI":model.Frm.targetURI, "docUID":docUID, "newStatus":newStatus, "newDecision":newDecision, "decisionComments":decisionComments}, "text");
+          alert(ret);
+          
+          //This is not intended to be run inside a form, so you need to synchronize/reload the instance data (cause this operation works on it directly)
+          model.reloadInstanceId('dat');
+          model.activateCase("hide-docs");
+          model.refresh();
+          model.rebuild();
+          model.recalculate();
+          model.activateCase("show-docs");   
+          
+        </script>
+      </xf:trigger>
+      
+      <xf:trigger>
+        <xf:label>Save</xf:label>
+        <script ev:event="DOMActivate">
+          model.submit("submit");
+        </script>
+      </xf:trigger>
+    </div>
+  </div>
+  </div>
+  </div>-->
+  
+  <div id="allcontrols" class="formFrame">
+    
+    
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+    <!--<table class="formMetaLine">
+      <tr>
+        <td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>,
+            <xf:output value="instance('form')/form/@createdBy"/></td>
+        <td class="updated"><ix:attr
+            value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+          Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output
+            value="instance('form')/form/@updatedBy"/></td>
+      </tr>
+    </table>-->
+    
+    
+    
+    <br/>
+    <div class="body">
+      
+      <br/>
+      
+      				<table class="basicColLayout">
+				<tr class="bigbox">
+					<td class="component textarea   widenLabel">
+						<exf:variable value="instance('dat')/modificationSummary/@revIndex" name="revIndexmodificationSummary"/>
+						<exf:variable value="(instance('dat')/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="thisNodeNeedlemodificationSummary"/>
+						<exf:variable value="instance('dat')/modificationSummary" name="thisNodemodificationSummary"/>
+						<exf:variable value="(instance('dat')/original/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="orgNodemodificationSummary"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="sugNodeSetmodificationSummary"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="sugNodemodificationSummary"/>
+						<exf:variable value="instance('dat')/previous/review/modificationSummary/@revIndex" name="revIndexOmodificationSummary"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="thisNodeNeedleOldmodificationSummary"/>
+						<exf:variable value="instance('dat')/previous/review/modificationSummary" name="thisNodeOldmodificationSummary"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="orgNodeOldmodificationSummary"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="sugNodeSetOldmodificationSummary"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="sugNodeOldmodificationSummary"/>
+						<xf:textarea style="height:10em;" class="" ref="instance('dat')/modificationSummary">
+							<xf:label>Summary of the Modification Request</xf:label>
+							<xf:action ev:event="xforms-value-changed">
+								<xf:setvalue ref="$thisNodeNeedlemodificationSummary/@changed">1</xf:setvalue>
+								<script>model.USA.addChange();</script>
+							</xf:action>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationSummary/@officeComm and $thisNodeNeedlemodificationSummary/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationSummary/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationSummary/@amdchanged and $thisNodeNeedlemodificationSummary/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationSummary/@amdcomment!='', $thisNodeNeedlemodificationSummary/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationSummary != $orgNodemodificationSummary, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationSummary/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationSummary/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationSummary/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationSummary/@req = 'change' or $thisNodeNeedleOldmodificationSummary/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationSummary != $thisNodeOldmodificationSummary and $thisNodeNeedleOldmodificationSummary/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationSummary/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationSummary = $thisNodeOldmodificationSummary, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationSummary = $thisNodeOldmodificationSummary, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationSummary/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationSummary/@justification!='', $thisNodeNeedleOldmodificationSummary/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$orgNodeOldmodificationSummary"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationSummary"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationSummary/@comment != '', $thisNodeNeedleOldmodificationSummary/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationSummary/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationSummary/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationSummary/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationSummary/@justification!='', $thisNodeNeedleOldmodificationSummary/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationSummary/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationSummary/@comment != '', $thisNodeNeedleOldmodificationSummary/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationSummary != $orgNodeOldmodificationSummary), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="$orgNodeOldmodificationSummary"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr class="bigbox">
+					<td class="component textarea   widenLabel">
+						<exf:variable value="instance('dat')/modificationJustification/@revIndex" name="revIndexmodificationJustification"/>
+						<exf:variable value="(instance('dat')/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="thisNodeNeedlemodificationJustification"/>
+						<exf:variable value="instance('dat')/modificationJustification" name="thisNodemodificationJustification"/>
+						<exf:variable value="(instance('dat')/original/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="orgNodemodificationJustification"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="sugNodeSetmodificationJustification"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="sugNodemodificationJustification"/>
+						<exf:variable value="instance('dat')/previous/review/modificationJustification/@revIndex" name="revIndexOmodificationJustification"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="thisNodeNeedleOldmodificationJustification"/>
+						<exf:variable value="instance('dat')/previous/review/modificationJustification" name="thisNodeOldmodificationJustification"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="orgNodeOldmodificationJustification"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="sugNodeSetOldmodificationJustification"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="sugNodeOldmodificationJustification"/>
+						<xf:textarea style="height:10em;" class="" ref="instance('dat')/modificationJustification">
+							<xf:label>Justification for the Modification</xf:label>
+							<xf:action ev:event="xforms-value-changed">
+								<xf:setvalue ref="$thisNodeNeedlemodificationJustification/@changed">1</xf:setvalue>
+								<script>model.USA.addChange();</script>
+							</xf:action>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationJustification/@officeComm and $thisNodeNeedlemodificationJustification/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationJustification/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationJustification/@amdchanged and $thisNodeNeedlemodificationJustification/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationJustification/@amdcomment!='', $thisNodeNeedlemodificationJustification/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationJustification != $orgNodemodificationJustification, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationJustification/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationJustification/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationJustification/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationJustification/@req = 'change' or $thisNodeNeedleOldmodificationJustification/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationJustification != $thisNodeOldmodificationJustification and $thisNodeNeedleOldmodificationJustification/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationJustification/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationJustification = $thisNodeOldmodificationJustification, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationJustification = $thisNodeOldmodificationJustification, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationJustification/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationJustification/@justification!='', $thisNodeNeedleOldmodificationJustification/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$orgNodeOldmodificationJustification"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationJustification"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationJustification/@comment != '', $thisNodeNeedleOldmodificationJustification/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationJustification/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationJustification/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationJustification/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationJustification/@justification!='', $thisNodeNeedleOldmodificationJustification/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationJustification/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationJustification/@comment != '', $thisNodeNeedleOldmodificationJustification/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationJustification != $orgNodeOldmodificationJustification), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="$orgNodeOldmodificationJustification"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr class="yesnobuttons">
+					<td class="component  widenLabel ">
+						<exf:variable value="instance('dat')/modificationChangesConsent/@revIndex" name="revIndexmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="thisNodeNeedlemodificationChangesConsent"/>
+						<exf:variable value="instance('dat')/modificationChangesConsent" name="thisNodemodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/original/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="orgNodemodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/original/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="orgNodeVmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="sugNodeSetmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="sugNodemodificationChangesConsent"/>
+						<exf:variable value="instance('dat')/previous/review/modificationChangesConsent/@revIndex" name="revIndexOmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="thisNodeNeedleOldmodificationChangesConsent"/>
+						<exf:variable value="instance('dat')/previous/review/modificationChangesConsent" name="thisNodeOldmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="orgNodeOldmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="sugNodeSetOldmodificationChangesConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="sugNodeOldmodificationChangesConsent"/>
+						<table class="horizontalSelects">
+							<tr>
+								<td class="yesBox readonly">
+									<span style="label">This Modification Changes the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</span>
+								</td>
+								<td class="noBox readonly">
+									<span style="value">
+										<xf:output value="if(instance('dat')/modificationChangesConsent = '1', 'Yes', if(instance('dat')/modificationChangesConsent = '0', 'No', ''))"/>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationChangesConsent/@officeComm and $thisNodeNeedlemodificationChangesConsent/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationChangesConsent/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationChangesConsent/@amdchanged and $thisNodeNeedlemodificationChangesConsent/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationChangesConsent/@amdcomment!='', $thisNodeNeedlemodificationChangesConsent/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationChangesConsent != $orgNodemodificationChangesConsent, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationChangesConsent/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationChangesConsent/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationChangesConsent/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsent/@req = 'change' or $thisNodeNeedleOldmodificationChangesConsent/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationChangesConsent != $thisNodeOldmodificationChangesConsent and $thisNodeNeedleOldmodificationChangesConsent/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationChangesConsent/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationChangesConsent = $thisNodeOldmodificationChangesConsent, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationChangesConsent = $thisNodeOldmodificationChangesConsent, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsent/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsent/@justification!='', $thisNodeNeedleOldmodificationChangesConsent/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="if($orgNodeOldmodificationChangesConsent='1','Yes',if($orgNodeOldmodificationChangesConsent='0','No',''))"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationChangesConsent"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsent/@comment != '', $thisNodeNeedleOldmodificationChangesConsent/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsent/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsent/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsent/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsent/@justification!='', $thisNodeNeedleOldmodificationChangesConsent/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationChangesConsent/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsent/@comment != '', $thisNodeNeedleOldmodificationChangesConsent/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationChangesConsent != $orgNodeOldmodificationChangesConsent), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="if($orgNodeOldmodificationChangesConsent='1','Yes',if($orgNodeOldmodificationChangesConsent='0','No',''))"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr class="bigbox">
+					<ix:attr value="if(instance('dat')/modificationChangesConsent = '1', '', 'display:none')" name="style"/>
+					<td class="component textarea   widenLabel">
+						<exf:variable value="instance('dat')/modificationChangesConsentDescription/@revIndex" name="revIndexmodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="thisNodeNeedlemodificationChangesConsentDescription"/>
+						<exf:variable value="instance('dat')/modificationChangesConsentDescription" name="thisNodemodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/original/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="orgNodemodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="sugNodeSetmodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="sugNodemodificationChangesConsentDescription"/>
+						<exf:variable value="instance('dat')/previous/review/modificationChangesConsentDescription/@revIndex" name="revIndexOmodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="thisNodeNeedleOldmodificationChangesConsentDescription"/>
+						<exf:variable value="instance('dat')/previous/review/modificationChangesConsentDescription" name="thisNodeOldmodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="orgNodeOldmodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="sugNodeSetOldmodificationChangesConsentDescription"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="sugNodeOldmodificationChangesConsentDescription"/>
+						<xf:textarea style="height:10em;" class="" ref="instance('dat')/modificationChangesConsentDescription">
+							<xf:label>Description of Changes in the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</xf:label>
+							<xf:action ev:event="xforms-value-changed">
+								<xf:setvalue ref="$thisNodeNeedlemodificationChangesConsentDescription/@changed">1</xf:setvalue>
+								<script>model.USA.addChange();</script>
+							</xf:action>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationChangesConsentDescription/@officeComm and $thisNodeNeedlemodificationChangesConsentDescription/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationChangesConsentDescription/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationChangesConsentDescription/@amdchanged and $thisNodeNeedlemodificationChangesConsentDescription/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationChangesConsentDescription/@amdcomment!='', $thisNodeNeedlemodificationChangesConsentDescription/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationChangesConsentDescription != $orgNodemodificationChangesConsentDescription, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationChangesConsentDescription/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationChangesConsentDescription/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationChangesConsentDescription/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@req = 'change' or $thisNodeNeedleOldmodificationChangesConsentDescription/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationChangesConsentDescription != $thisNodeOldmodificationChangesConsentDescription and $thisNodeNeedleOldmodificationChangesConsentDescription/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationChangesConsentDescription = $thisNodeOldmodificationChangesConsentDescription, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationChangesConsentDescription = $thisNodeOldmodificationChangesConsentDescription, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@justification!='', $thisNodeNeedleOldmodificationChangesConsentDescription/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$orgNodeOldmodificationChangesConsentDescription"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationChangesConsentDescription"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@comment != '', $thisNodeNeedleOldmodificationChangesConsentDescription/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@justification!='', $thisNodeNeedleOldmodificationChangesConsentDescription/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationChangesConsentDescription/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationChangesConsentDescription/@comment != '', $thisNodeNeedleOldmodificationChangesConsentDescription/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationChangesConsentDescription != $orgNodeOldmodificationChangesConsentDescription), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="$orgNodeOldmodificationChangesConsentDescription"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr class="yesnobuttons">
+					<td class="component  widenLabel ">
+						<exf:variable value="instance('dat')/modificationReConsent/@revIndex" name="revIndexmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="thisNodeNeedlemodificationReConsent"/>
+						<exf:variable value="instance('dat')/modificationReConsent" name="thisNodemodificationReConsent"/>
+						<exf:variable value="(instance('dat')/original/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="orgNodemodificationReConsent"/>
+						<exf:variable value="(instance('dat')/original/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="orgNodeVmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="sugNodeSetmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="sugNodemodificationReConsent"/>
+						<exf:variable value="instance('dat')/previous/review/modificationReConsent/@revIndex" name="revIndexOmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="thisNodeNeedleOldmodificationReConsent"/>
+						<exf:variable value="instance('dat')/previous/review/modificationReConsent" name="thisNodeOldmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="orgNodeOldmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="sugNodeSetOldmodificationReConsent"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="sugNodeOldmodificationReConsent"/>
+						<table class="horizontalSelects">
+							<tr>
+								<td class="yesBox readonly">
+									<span style="label">Subjects Will Be Re-Consented or Provided with the New Information</span>
+								</td>
+								<td class="noBox readonly">
+									<span style="value">
+										<xf:output value="if(instance('dat')/modificationReConsent = '1', 'Yes', if(instance('dat')/modificationReConsent = '0', 'No', ''))"/>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationReConsent/@officeComm and $thisNodeNeedlemodificationReConsent/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationReConsent/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationReConsent/@amdchanged and $thisNodeNeedlemodificationReConsent/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationReConsent/@amdcomment!='', $thisNodeNeedlemodificationReConsent/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationReConsent != $orgNodemodificationReConsent, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationReConsent/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationReConsent/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationReConsent/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationReConsent/@req = 'change' or $thisNodeNeedleOldmodificationReConsent/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationReConsent != $thisNodeOldmodificationReConsent and $thisNodeNeedleOldmodificationReConsent/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationReConsent/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationReConsent = $thisNodeOldmodificationReConsent, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationReConsent = $thisNodeOldmodificationReConsent, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationReConsent/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsent/@justification!='', $thisNodeNeedleOldmodificationReConsent/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="if($orgNodeOldmodificationReConsent='1','Yes',if($orgNodeOldmodificationReConsent='0','No',''))"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationReConsent"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsent/@comment != '', $thisNodeNeedleOldmodificationReConsent/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationReConsent/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationReConsent/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationReConsent/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsent/@justification!='', $thisNodeNeedleOldmodificationReConsent/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationReConsent/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsent/@comment != '', $thisNodeNeedleOldmodificationReConsent/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationReConsent != $orgNodeOldmodificationReConsent), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="if($orgNodeOldmodificationReConsent='1','Yes',if($orgNodeOldmodificationReConsent='0','No',''))"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr class="bigbox">
+					<ix:attr value="if(instance('dat')/modificationReConsent = '1', '', 'display:none')" name="style"/>
+					<td class="component textarea   widenLabel">
+						<exf:variable value="instance('dat')/modificationReConsentPlan/@revIndex" name="revIndexmodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="thisNodeNeedlemodificationReConsentPlan"/>
+						<exf:variable value="instance('dat')/modificationReConsentPlan" name="thisNodemodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/original/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="orgNodemodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="sugNodeSetmodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="sugNodemodificationReConsentPlan"/>
+						<exf:variable value="instance('dat')/previous/review/modificationReConsentPlan/@revIndex" name="revIndexOmodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="thisNodeNeedleOldmodificationReConsentPlan"/>
+						<exf:variable value="instance('dat')/previous/review/modificationReConsentPlan" name="thisNodeOldmodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="orgNodeOldmodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="sugNodeSetOldmodificationReConsentPlan"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="sugNodeOldmodificationReConsentPlan"/>
+						<xf:textarea style="height:10em;" class="" ref="instance('dat')/modificationReConsentPlan">
+							<xf:label>Proposed Plan to Re-Consent Subjects or to Provide Them with the New Information</xf:label>
+							<xf:action ev:event="xforms-value-changed">
+								<xf:setvalue ref="$thisNodeNeedlemodificationReConsentPlan/@changed">1</xf:setvalue>
+								<script>model.USA.addChange();</script>
+							</xf:action>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationReConsentPlan/@officeComm and $thisNodeNeedlemodificationReConsentPlan/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationReConsentPlan/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationReConsentPlan/@amdchanged and $thisNodeNeedlemodificationReConsentPlan/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationReConsentPlan/@amdcomment!='', $thisNodeNeedlemodificationReConsentPlan/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationReConsentPlan != $orgNodemodificationReConsentPlan, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationReConsentPlan/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationReConsentPlan/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationReConsentPlan/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationReConsentPlan/@req = 'change' or $thisNodeNeedleOldmodificationReConsentPlan/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationReConsentPlan != $thisNodeOldmodificationReConsentPlan and $thisNodeNeedleOldmodificationReConsentPlan/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationReConsentPlan/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationReConsentPlan = $thisNodeOldmodificationReConsentPlan, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationReConsentPlan = $thisNodeOldmodificationReConsentPlan, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationReConsentPlan/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentPlan/@justification!='', $thisNodeNeedleOldmodificationReConsentPlan/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$orgNodeOldmodificationReConsentPlan"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationReConsentPlan"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentPlan/@comment != '', $thisNodeNeedleOldmodificationReConsentPlan/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationReConsentPlan/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationReConsentPlan/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationReConsentPlan/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentPlan/@justification!='', $thisNodeNeedleOldmodificationReConsentPlan/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationReConsentPlan/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentPlan/@comment != '', $thisNodeNeedleOldmodificationReConsentPlan/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationReConsentPlan != $orgNodeOldmodificationReConsentPlan), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="$orgNodeOldmodificationReConsentPlan"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr class="bigbox">
+					<ix:attr value="if(instance('dat')/modificationReConsent = '0', '', 'display:none')" name="style"/>
+					<td class="component textarea   widenLabel">
+						<exf:variable value="instance('dat')/modificationReConsentNotNecesary/@revIndex" name="revIndexmodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="thisNodeNeedlemodificationReConsentNotNecesary"/>
+						<exf:variable value="instance('dat')/modificationReConsentNotNecesary" name="thisNodemodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/original/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="orgNodemodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="sugNodeSetmodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="sugNodemodificationReConsentNotNecesary"/>
+						<exf:variable value="instance('dat')/previous/review/modificationReConsentNotNecesary/@revIndex" name="revIndexOmodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/previous/review/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="thisNodeNeedleOldmodificationReConsentNotNecesary"/>
+						<exf:variable value="instance('dat')/previous/review/modificationReConsentNotNecesary" name="thisNodeOldmodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/previous/review/original/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="orgNodeOldmodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="sugNodeSetOldmodificationReConsentNotNecesary"/>
+						<exf:variable value="(instance('dat')/previous/review/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="sugNodeOldmodificationReConsentNotNecesary"/>
+						<xf:textarea style="height:10em;" class="" ref="instance('dat')/modificationReConsentNotNecesary">
+							<xf:label>Explanation Why Re-Consenting or Providing Subjects with the New Information is Not Necessary</xf:label>
+							<xf:action ev:event="xforms-value-changed">
+								<xf:setvalue ref="$thisNodeNeedlemodificationReConsentNotNecesary/@changed">1</xf:setvalue>
+								<script>model.USA.addChange();</script>
+							</xf:action>
+						</xf:textarea>
+					</td>
+					<td class="options"/>
+					<td class="errors custError">
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationReConsentNotNecesary/@officeComm and $thisNodeNeedlemodificationReConsentNotNecesary/@officeComm !='', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:blue">Office Comment</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Office Comments:</h5>
+											<xf:output value="$thisNodeNeedlemodificationReConsentNotNecesary/@officeComm"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedlemodificationReConsentNotNecesary/@amdchanged and $thisNodeNeedlemodificationReConsentNotNecesary/@amdchanged ='1', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:green">Amended</u>
+								<div style="width:300px;">
+									<p>
+										<span style="color:black">
+											<h5>Justification:</h5>
+											<xf:output value="if($thisNodeNeedlemodificationReConsentNotNecesary/@amdcomment!='', $thisNodeNeedlemodificationReConsentNotNecesary/@amdcomment, 'none provided')"/>
+										</span>
+									</p>
+								</div>
+							</span>
+							<br/>
+							<br/>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodemodificationReConsentNotNecesary != $orgNodemodificationReConsentNotNecesary, '', 'display:none')" name="style"/>Change Suggested</div>
+						<div>
+							<xf:select ref="$thisNodeNeedlemodificationReConsentNotNecesary/@addcomment">
+								<xf:item>
+									<xf:label>Add Comment</xf:label>
+									<xf:value>1</xf:value>
+								</xf:item>
+								<script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+								</script>
+							</xf:select>
+							<div>
+								<ix:attr value="if($thisNodeNeedlemodificationReConsentNotNecesary/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/>
+								<xf:textarea ref="$thisNodeNeedlemodificationReConsentNotNecesary/@comment"/>
+							</div>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@req = 'change' or $thisNodeNeedleOldmodificationReConsentNotNecesary/@req = 'changeSug', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($sugNodeOldmodificationReConsentNotNecesary != $thisNodeOldmodificationReConsentNotNecesary and $thisNodeNeedleOldmodificationReConsentNotNecesary/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@req = 'change', 'Required', 'Suggested')"/>
+									<xf:output value="if($sugNodeOldmodificationReConsentNotNecesary = $thisNodeOldmodificationReConsentNotNecesary, '', ' (Ignored)')"/>
+								</u>
+								<div style="width:300px;">
+									<p>
+										<ix:attr value="if($sugNodeOldmodificationReConsentNotNecesary = $thisNodeOldmodificationReConsentNotNecesary, 'display:none', '')" name="style"/>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@justification!='', $thisNodeNeedleOldmodificationReConsentNotNecesary/@justification, 'None provided')"/>
+										</p>
+									</p>
+									<hr/>
+									<i style="font-size:7pt;color:black;">Change History:</i>
+									<br/>
+									<br/>
+									<table style="background-color:white;">
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+                     Prior Value
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$orgNodeOldmodificationReConsentNotNecesary"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+										<tr>
+											<td style="background-color:white;vertical-align:top;">
+												<b>Suggested Revision</b>
+											</td>
+											<td style="background-color:white;vertical-align:top;color:black">
+												<span>
+													<xf:output value="$sugNodeOldmodificationReConsentNotNecesary"/>
+												</span>
+												<br/>
+											</td>
+										</tr>
+									</table>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@comment != '', $thisNodeNeedleOldmodificationReConsentNotNecesary/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@req = 'comment', '', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u>
+									<ix:attr value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u>
+								<div style="width:300px;">
+									<p>
+										<h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black">
+											<ix:attr value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/>
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@justification!='', $thisNodeNeedleOldmodificationReConsentNotNecesary/@justification, 'None provided')"/>
+										</p>
+										<xf:select ref="$thisNodeNeedleOldmodificationReConsentNotNecesary/@acceptjust" appearance="full">
+											<xf:item>
+												<xf:label>Accept Justification</xf:label>
+												<xf:value>1</xf:value>
+											</xf:item>
+										</xf:select>
+									</p>
+									<span>
+										<hr/>
+										<br/>
+										<i style="font-size:7pt;color:black;">Comments/Requirement:</i>
+										<br/>
+										<span style="color:black">
+											<xf:output value="if($thisNodeNeedleOldmodificationReConsentNotNecesary/@comment != '', $thisNodeNeedleOldmodificationReConsentNotNecesary/@comment, 'none')"/>
+										</span>
+									</span>
+								</div>
+							</span>
+						</div>
+						<div>
+							<ix:attr value="if(($thisNodeOldmodificationReConsentNotNecesary != $orgNodeOldmodificationReConsentNotNecesary), 'color:red', 'display:none')" name="style"/>
+							<span class="dialogOverInteractive">
+								<u style="color:red">Using New Value</u>
+								<div style="width:300px;">
+									<p>
+										<i style="font-size:7pt;color:black;">Change History:</i>
+										<br/>
+										<br/>
+										<table style="background-color:white;">
+											<tr>
+												<td style="background-color:white;vertical-align:top;">
+                       Prior Value
+												</td>
+												<td style="background-color:white;vertical-align:top;color:black">
+													<span>
+														<xf:output value="$orgNodeOldmodificationReConsentNotNecesary"/>
+													</span>
+													<br/>
+												</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+      
+      
+      <br/>
+      <br/>
+      <hr/>
+      <br/>
+      <h4>Summary of Changes:</h4>
+      <div>
+        
+        <br/>
+       <exf:variable value="instance('revHist')/amendmentDiffs[@uri=instance('form')/revURI]/analysis/el" name="sec1"/>
+        <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>
+        
+        <i>No Changes</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+        <tr class="top">
+          <th class="out text large left" style="width:200px;text-align:left">Location</th>
+          <th class="in text large left" style="text-align:left">Field</th>
+          <th class="in text large left" style="text-align:left">Original Value</th>
+          <th class="in text large left" style="text-align:left">New Value</th>
+		  <th class="in text large left" style="text-align:left">Action</th>
+          <th class="in text large left" style="text-align:left">Justification</th>
+		  
+        </tr>
+             
+      <xf:switch>
+       
+        <xf:repeat nodeset="$sec1">
+          <exf:variable value="@cmp" name="needle"/>
+          <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+          
+          <tr valign="top">
+            <td class="out text alrge left" style="width:250px;">
+              <span><ix:attr name="style" value="if(not(compId) or compId='', 'display:none', 'color:black')"/><xf:output value="compName"/> >> <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                spec = model.getValue("compId", contextNode);
+                lnk = model.getValue("@cmp", contextNode);
+                model.USA.formSet.getRoot().model.setValue("instance('ins')/focus", spec);
+                model.USA.formSet.getRoot().model.refresh();
+                model.USA.formSet.getRoot().model.recalculate();
+                model.USA.formSet.getRoot().model.rebuild();
+                
+                var target = "xf_0projectTabs_control";
+                var receiver = model.Frm.formSet.getRoot().getChild(target);
+                if(receiver){
+                receiver.model.SF.switchTab(lnk);
+                }
+                
+              </script><xf:output value="$source/@label"/></u></span>
+              <span><ix:attr name="style" value="if(not(compId) or compId='', 'color:black', 'display:none')"/><xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                lnk = model.getValue("@cmp", contextNode);
+                var target = "xf_0projectTabs_control";
+                var receiver = model.Frm.formSet.getRoot().getChild(target);
+                if(receiver){
+                receiver.model.SF.switchTab(lnk);
+                }
+              </script><xf:output value="$source/@label"/></u></span>
+            </td>
+			<td class="out text large left">
+			  <xf:output value="label"/>
+			</td>
+			<td class="out text large left">
+			  <span><ix:attr name="style" value="if(orgValue='MISSING', 'color:black', 'display:none')"/>None</span>
+			  <span><ix:attr name="style" value="if(orgValue!='MISSING', 'color:black', 'display:none')"/><xf:output value="orgValue"/></span>  
+			</td> 
+			<td class="out text large left">
+			  <xf:output value="thisVal"/>
+			</td> 
+			<td class="out text large left">
+			  <nobr><span><ix:attr name="style" value="if(@RSaction!='' and @interpretation='', 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+			  <span><ix:attr name="style" value="if(@interpretation='Using New Value', 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+			  <span><ix:attr name="style" value="if(@interpretation!='Using New Value', 'color:purple', 'display:none')"/><xf:output value="@interpretation"/></span>
+			  </nobr>
+			</td>        
+			<td class="out text large left">
+			  <xf:output value="AMDjustification"/>
+			</td>
+          </tr>
+          
+        </xf:repeat>
+        
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>
+        <br/>         
+  </div>             
+  </div>       
+  
+
+  <div class="bottomNav">
+    <table>
+      <tr>
+        <td class="back">
+          <div class="nav" style="float:right">
+            <script ev:event="click"> model.Frm.navigateTo("previousTab"); </script>
+            <div style="float:left" class="command">previous</div>
+            <img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/>
+          </div>
+        </td>
+        <td class="next">
+          <div class="nav" style="float:left">
+            <script ev:event="click"> model.Frm.navigateTo("nextTab"); </script>
+            <img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/>
+            <div style="float:right" class="command">next</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2009</div>
+  </div>
+</form>

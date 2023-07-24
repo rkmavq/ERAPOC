@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logicProgram>
+    <rules>
+        <order>
+            <rules level="app" order="1"/>
+            <rules level="institution" order="2"/>
+            <rules level="department" order="3"/>
+            <rules level="sponsor"/>
+            <rules level="foa"/>
+        </order>
+    </rules>
+    <workflows>
+        <createNew>
+        </createNew>
+    </workflows>
+</logicProgram>

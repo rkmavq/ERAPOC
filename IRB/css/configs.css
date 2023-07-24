@@ -1,0 +1,677 @@
+/**
+ * @overview Main Style Sheets for app management
+ * @name main.css
+ * @author wmalyk - (c) Consilience International LLC (2009)
+ * @date 2009
+ * @version 1.0.0 
+ */
+ 
+ 
+fieldset.configPageSmall{
+ margin-top:80px;
+ width:340px;
+ margin-left:360px;
+}
+ 
+fieldset.configPageLarge{
+ margin-top:50px;
+ width:600px;
+ margin-left:220px;
+}
+
+fieldset.configPageLarge div.xfctrl{
+    background:none;
+}
+
+
+/* Classes for the tab set */
+div.tabSet{
+    width: 800px;
+} 
+
+/* Controls for the greater framework/portal */
+body div.modes{
+    display:none;
+}
+div.flowHead div.minorBtn{
+    display:none;
+}
+
+
+/* Classes for the header */
+div.header{
+    width: 100%;
+    margin-bottom:10px;
+} 
+div.header table.infoLine{
+    width: 100%;
+    font: 14px Calibri, sans-serif;
+    font-weight: normal;    
+}
+div.header table.infoLine td{
+    width: 33%;
+}
+div.header table.infoBox{
+    width: 100%;
+    font: 11px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+    border: black;
+    border-width: 1px;
+    border-style: solid;
+} 
+div.header table.infoBox td{
+    vertical-align:top;
+    width:25%;
+}
+div.header table.infoBox table.infoGroup{
+    width:auto;
+    border-collapse: collapse;
+} 
+div.header table.infoBox table.infoGroup td{
+    vertical-align:top;
+    width:auto;
+    height:16px;
+} 
+div.header table.infoBox table.infoGroup tr.bottom td{
+    padding-top:5px
+} 
+div.header table.infoBox table.infoGroup td.label{
+    width:auto;
+    padding-right:8px;
+    padding-right:8px;
+} 
+div.header table.infoBox table.infoGroup td.currency{
+    width:5px;
+} 
+div.header table.infoBox table.infoGroup td.text{
+    width:auto;
+} 
+div.header table.infoBox table.infoGroup td.value{
+    text-align:right;
+    width:auto;
+} 
+div.header table.infoBox table.infoGroup td.dropdown{
+    width:200px;
+} 
+div.header table.infoBox table.infoGroup td.dropdown div.xfctrl{
+    background-color:white;
+    font: 11px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.header table.infoBox table.infoGroup td.dropdown div.xfctrl a.combo{
+    background-color:white;
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.header table.infoBox table.infoGroup td.dropdown div.xfctrl td.combo{
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.header table.infoBox table.infoGroup td.dropdown div.xfctrl a.combo table.combo{
+    height:auto;
+    background-color:white;
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+
+
+/* Classes for the controller form */
+div.switchFormControllerX{
+    width: 805px;
+}
+div.switchFormControllerX span.controllerLink{
+    color:blue;
+    cursor:pointer;
+}
+div.switchFormControllerX span.selected{
+    text-decoration: underline;
+}
+
+/* Styling for tabs */
+div.switchFormControllerX table.tabs{
+    width:auto;
+    border-collapse: collapse;
+    font: 10px Verdana, sans-serif;
+    font-weight: normal;
+} 
+div.switchFormControllerX table.tabs td{
+    width: auto; 
+    color: #707070 ;
+    padding: 4px 6px 4px 6px;
+    border-right: 10px solid white;
+    cursor: pointer;
+    text-align:center;
+}
+div.switchFormControllerX table.tabsBase{
+    width:800px;
+    border-collapse: collapse;
+    font: 10px Verdana, sans-serif;
+    font-weight: normal;
+    background-color: #3333CC
+} 
+div.switchFormControllerX table.subline td{
+    width: auto; 
+    color: #AAAAFF;
+    padding: 4px 6px 4px 6px;
+    border-right: none;
+    cursor:default;
+    text-align:center;
+}
+div.switchFormControllerX table.tabs td.tabSelected{
+    color: white;0
+    background-color: #3333CC;
+}
+div.switchFormControllerX table.tabs td.tabBar{
+    background-color: #3333CC;
+}
+div.switchFormControllerX table.tabs td.tab{
+    background-color: #99CCFF;
+}
+div.switchFormControllerX table.tabs td:hover{
+    color: white;
+}
+div.switchFormControllerX table.tabs td.non:hover{
+    color: #AAAAFF;
+}
+div.switchFormControllerX b.tabsub, span.tabsub{
+    cursor: pointer;
+    font-size: 11px;
+} 
+    
+    
+/* Styling for mouse over previews (inDev) */
+div.switchFormControllerX .previewOver:hover{
+    background-color:inherit;
+    position:relative;
+}
+div.switchFormControllerX .previewOver div {
+    display: none;
+}
+div.switchFormControllerX .previewOver:hover div {
+    color: green;
+    display:block;
+    position:absolute;
+    z-index: 1000;
+    left:20px;
+    top:20px;
+    border:1px solid green;
+    background-color: #fff;
+    padding:8px;
+    font: 9px Verdana, sans-serif; text-align: left;
+}
+
+/* Classes for the container form */
+div.switchFormContainer{
+    width: 805px;
+}
+
+
+/* ************************************************************** */
+/* Classes for generated forms */
+div.formFrame{
+    width: 800px;
+}
+
+/* Meta line */
+table.formMetaLine{
+    width: 100%;
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+table.formMetaLine td{
+    width: 50%;
+}
+table.formMetaLine td.initiated{
+    text-align:left;
+}
+table.formMetaLine td.updated{
+    text-align:right;
+}
+
+/* Main layout */
+div.formFrame div.body{
+    margin-top:15px;
+    margin-left:15px;
+}
+div.formFrame table.basicColLayout{
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.formFrame table.basicColLayout tr{
+       
+}
+div.formFrame table.basicColLayout td{
+    padding-bottom:10px; 
+    vertical-align:top;    
+}
+div.formFrame table.basicColLayout td.component{
+    width:500px; 
+}
+div.formFrame table.basicColLayout td.component div.xfctrl{
+    background:none;
+    border-bottom:thin solid gray;
+}
+div.formFrame table.basicColLayout td.component div.xfctrl label{
+    font: 10px Arial, sans-serif;
+    font-weight:bold;
+    color:black; 
+    width: 70px;
+    margin-top:0px;
+}
+
+
+/* Text Controls - fields */
+div.formFrame table.basicColLayout td.component div.xfctrl .xftext{
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray; 
+}
+div.formFrame table.basicColLayout td.component div.xfctrl.wide .xftext{
+    /*border-left:thin solid gray;
+    border-top:thin solid gray;
+    border-right:thin solid gray;
+    border-bottom:none;*/
+    border:none;
+    width: 420px;
+}
+div.formFrame table.basicColLayout tr.field td.component.stretchLabel div.xfctrl label{
+    width: 200px;
+}
+div.formFrame table.basicColLayout tr.field td.component.stretchLabel div.xfctrl .xftext{
+    width: 290px;
+}
+
+
+/* Text Controls - readonly fields */
+div.formFrame table.basicColLayout tr.readOnlyField td.component div.label{
+    float:left;
+    font: 10px Arial, sans-serif;
+    font-weight:bold;
+    color:black; 
+    width: 70px;
+}
+div.formFrame table.basicColLayout tr.readOnlyField td.component div.value{
+    float:left;
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray; 
+    border:none;
+    width: 420px;
+}
+
+
+/* Entity Structures */
+div.formFrame table.basicColLayout tr.entity td.component.structure{
+    padding-top:15px;
+}
+div.formFrame table.basicColLayout tr.entity td.options{
+    padding-top:15px;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl{
+    background:none;
+    border-bottom:thin solid gray;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl.top label{
+    font: 10px Arial, sans-serif;
+    font-weight:bold;
+    color:black; 
+    width: 120px;
+    margin-top:0px;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl label{
+    font: 10px Arial, sans-serif;
+    font-weight:normal;
+    color:black; 
+    width: 100px;
+    margin-top:0px;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl.fullLine label{
+    font-weight:normal;
+    width: 100px;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl.fullLine .xftext{
+    width: 390px;
+    border: none;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl .xftext{
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray; 
+}
+div.formFrame table.basicColLayout td.component.structure table.sharedLine div.xfctrl{
+    border:none;
+}
+div.formFrame table.basicColLayout td.component.structure table.sharedLine td.spacer{
+    text-align:center;
+    vertical-align:middle;
+    width:20px;
+}
+div.formFrame table.basicColLayout td.component.structure table.sharedLine td .xftext{
+    border:none;
+}
+div.formFrame table.basicColLayout td.component.structure div.xfctrl.wide .xftext{
+    /*border-left:thin solid gray;
+    border-top:thin solid gray;
+    border-right:thin solid gray;
+    border-bottom:none;*/
+    border:none;
+    width: 370px;
+}
+div.formFrame table.basicColLayout td.component.structure table.sharedLine{
+    width:100%;
+    border-collapse: collapse;
+    padding:0px;
+    padding-top:4px;
+    border-bottom:thin solid gray;
+}
+div.formFrame table.basicColLayout td.component.structure table.sharedLine td{
+    border-collapse: collapse;
+    padding-bottom:0px;
+}
+div.formFrame table.basicColLayout div.addLine{
+    font: 12px Arial, sans-serif;
+    font-weight:bold;
+    color:black; 
+    width: 100%;
+    margin-top:0px;
+    cursor:pointer;
+    border-bottom:thin solid gray;
+    text-align:center;
+}
+div.formFrame table.basicColLayout div.addLine:hover{
+    color:blue;
+}
+
+
+/* Text Areas - boxes */
+div.formFrame table.basicColLayout td.component.textarea div.xfctrl{
+    background:none;
+    border:none;
+}
+div.formFrame table.basicColLayout td.component div.xfctrl textarea{
+    /*border-left:thin solid gray;
+    border-top:thin solid gray;
+    border-right:thin solid gray;
+    border-bottom:none;*/
+    
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray; 
+    width: 428px;
+}
+
+
+/* Dropdowns */
+div.formFrame table.basicColLayout tr.dropdown td.component div.xfctrl{
+    background:none;
+    border:none;
+}
+div.formFrame table.basicColLayout tr.dropdown td.component.widenLabel div.xfctrl label{
+    width: 140px;
+}
+div.formFrame table.basicColLayout tr.dropdown td.component.stretchLabel div.xfctrl label{
+    width: 200px;
+}
+div.formFrame table.basicColLayout tr.dropdown td.component div.xfctrl a.combo{
+    background-color:white;
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.formFrame table.basicColLayout tr.dropdown td.component div.xfctrl td.combo{
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.formFrame table.basicColLayout tr.dropdown td.component a.combo table.combo{
+    height:auto;
+    background-color:white;
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+
+
+/* Radiobuttons */
+div.formFrame table.basicColLayout tr.radiobuttons td.component div.xfctrl{
+    background:none;
+    border:none;
+}
+div.formFrame table.basicColLayout tr.radiobuttons td.component.widenLabel div.xfctrl label{
+    width: 140px;
+}
+div.formFrame table.basicColLayout tr.radiobuttons td.component.stretchLabel div.xfctrl label{
+    width: 200px;
+}
+div.formFrame table.basicColLayout tr.radiobuttons td.component table.xfselect{
+    background-color:white;
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.formFrame table.basicColLayout tr.radiobuttons td.component table.xfselect tr.item td{
+    padding-bottom:5px;
+}
+
+
+/* entity links */
+div.formFrame table.basicColLayout tr.entitylink td.component div.xfctrl{
+    background:none;
+    border:none;
+}
+div.formFrame table.basicColLayout tr.entitylink table{
+    border-collapse:collapse;
+}
+div.formFrame table.basicColLayout tr.entitylink table td.label{
+    font: 10px Arial, sans-serif;
+    font-weight:bold;
+    color:black; 
+    width: 120px;
+    padding-top:5px;
+}
+div.formFrame table.basicColLayout tr.entitylink td.component div.xfctrl .xftext{
+    width:120px;
+}
+div.formFrame table.basicColLayout tr.entitylink td.component table td.buttons div{
+    float:left;
+}
+div.formFrame table.basicColLayout tr.entitylink td.component table td.buttons button{
+    margin-top:1px;
+    height:18px;
+    color:black;
+    background-color:#ABB7D1;
+}
+div.formFrame table.basicColLayout tr.entitylink td.component table td.buttons button.select{
+    width:85px;
+}
+div.formFrame table.basicColLayout tr.entitylink td.component table td.buttons button.undo{
+    width:50px;
+}
+div.formFrame table.basicColLayout tr.entitylink td.component table td.buttons button label{
+    color:black;
+    font: 8px Arial, sans-serif;
+    font-weight: normal;
+    margin-top:-2px;
+    vertical-align:top;
+}
+
+div.formFrame table.basicColLayout tr.entitylink td.component a.combo table.combo{
+    height:auto;
+    background-color:white;
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+
+
+
+/* Option - other box */
+div.formFrame table.basicColLayout td.component div.otherBox label{
+    font-weight: normal;
+    text-align:right;
+    padding-right:10px;
+}
+
+
+/* Yes / No */
+div.formFrame table.basicColLayout tr.yesnobuttons td.component div.xfctrl{
+    background:none;
+    border:none;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component.widenLabel div.xfctrl label{
+    width: 140px;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component.stretchLabel div.xfctrl label{
+    width: 200px;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component table.xfselect{
+    background-color:white;
+    font: 12px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component table.xfselect tr.item td{
+    padding-bottom:0px;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component.widenLabel table.horizontalSelects td.yesBox{
+    width:200px;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component.stretchLabel table.horizontalSelects td.yesBox{
+    width:200px;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component table.horizontalSelects td.yesBox{
+    width:120px;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component table.horizontalSelects{
+    border-collapse:collapse;
+}
+div.formFrame table.basicColLayout tr.yesnobuttons td.component table.horizontalSelects td.noBox{
+    width:50px;
+}
+
+
+/* Option Margin - right */
+div.formFrame table.basicColLayout td.options{
+    width:200px; 
+    font: 8px Arial, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+div.formFrame table.basicColLayout td.options div{
+    padding-top:7px;
+}
+div.formFrame table.basicColLayout td.options div.clickable{
+    cursor:pointer;
+}
+div.formFrame table.basicColLayout td.options div.clickable:hover{
+    color:blue;
+}
+
+
+/* Clickable Objects */
+u.clickable{
+    color:inherit;
+    cursor:pointer;
+}
+u.clickable:hover{
+    color:blue;
+}
+
+
+/* Quick Search Form */
+.quickSearchDialog{
+    width:250px;
+    height:300px;
+    background-color:#fff;
+}
+
+
+/* Details Form */
+.detailsDialogBox{
+    width:350px;
+    height:400px;
+    background-color:#fff;
+}
+table.detailsDialog{
+    background:none;
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+}
+table.detailsDialog tr{
+       
+}
+table.detailsDialog td{
+    padding-bottom:10px; 
+    vertical-align:top;    
+}
+table.detailsDialog div.xfctrl{
+    background:none;
+}
+table.detailsDialog div.xfctrl label{
+    font: 10px Arial, sans-serif;
+    font-weight:bold;
+    color:black; 
+    margin-top:-1px;
+}
+table.detailsDialog div.xfctrl label{
+    width: 70px;
+}
+table.detailsDialog div.xfctrl.fullLine .xftext{
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+    width: 260px;
+}
+table.detailsDialog div.xfctrl.halfLine .xftext{
+    font: 10px Calibri, sans-serif;
+    font-weight: normal;
+    color:gray;
+    width: 90px;
+}
+    
+
+
+div.configPannel{
+    margin-left:-10px;
+    width: 790px;
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
+    background-color: #99CCFF;
+}
+
+
+.wikiView div.configPannel div.xfctrl label{
+    font-size:9px;
+    width:100px;
+}
+
+.wikiView div.configPannel div.xfctrl input{
+    font-size:9px;
+}
+
+.wikiView div.configPannel div.xfctrl .combo{
+    font-size:9px;
+}
+
+.wikiView div.configPannel div.xfctrl textarea{
+    width: 400px;
+    height:40px;
+}
+
+.wikiView div.configPannel div.smalltext textarea{
+    width: 400px;
+    height:40px;
+}
+
+.wikiView div.configPannel div.largetext textarea{
+    width: 600px;
+    height:200px;
+}

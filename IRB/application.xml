@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+    <name>USProject</name>
+    <id>USProject</id>
+    <humanName>Grants.gov Project</humanName>
+    <configsPath>/configs/USProject</configsPath>
+    <resourcesPath>/system/resources/applications/USProject</resourcesPath>
+    <resourcePath>/system/resources/applications/USProject</resourcePath>
+    <version>1.3.0</version>
+    <author>wmalyk</author>
+    <domainauthor>danderson</domainauthor>
+    <copywrite>Consilience International LLC (2009)</copywrite>
+    <description>Applications to Grants.gov Sponsor Programs</description>
+    <dataMartEntity>IRB</dataMartEntity>
+    <dataMartTemplateEntity></dataMartTemplateEntity>
+    <region>us</region>
+    <formMetaDataURI>data/projectData.xml</formMetaDataURI>
+</application>

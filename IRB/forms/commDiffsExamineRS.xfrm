@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    /* color:blue; */
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <isAMD/>
+        <metaNum></metaNum>
+        <revNum></revNum>
+        <document id="" uri=""></document>
+      </data> 
+    </xf:instance>
+    <xf:instance id="proReviews"><data xmlns=""/></xf:instance>
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="diffs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      
+      isOTEU = model.Frm.formSet.getRoot().model.getValue("count(instance('proDat')/OTEU)") * 1 > 0;
+      isAMD = "1";
+          
+          //alert(model.Frm.formSet.getRoot().__COMPREVURI);
+      
+      //if(model.Frm.formSet.getRoot().__AMND){
+      if(model.Frm.formSet.getRoot().__AMND){
+        //SH.print("model.Frm.formSet.getRoot().__COMPREVURI= " + model.Frm.formSet.getRoot().__COMPREVURI +  " === " +);
+      resX=callSharedService("changeAgg",{op:"genChangesRS",testUri: model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI}, "json");
+        model.Frm.loadOpFile('dat', model.Frm.formSet.getRoot().__COMPREVURI, "0");
+      
+        model.setValue("instance('form')/isAMD", isAMD);
+        model.Frm.loadOpFile('proReviews', "/reviews.xml", "0");
+        //alert("loaded");
+      }else{
+      if(model.Frm.linkedOpURI!=''){
+        model.Frm.loadOpFile('dat', model.Frm.formSet.getRoot().__COMPREVURI, "0");  
+        //alert(model.Frm.formSet.getRoot().__COMPREVURI);
+        isAMD = "0";
+        model.setValue("instance('form')/isAMD", isAMD);
+        model.Frm.loadOpFile('proReviews', "/reviews.xml", "0");
+      }else{
+        if(isOTEU){
+          resX=callSharedService("changeAgg",{op:"genChangesRS",testUri:model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI, lop:"OTEU"}, "json");
+        }else{
+          resX=callSharedService("changeAgg",{op:"genChangesRS",testUri:model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI}, "json");
+        }
+        //resX=callSharedService("changeAgg",{op:"genChangesRS",testUri:model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI}, "json");
+        model.Frm.loadAppFile('dat', model.Frm.formSet.getRoot().__REVURI, "0");
+        model.Frm.loadAppFile('proReviews', "/reviews.xml", "0");
+        }
+      }
+      
+      //model.Frm.loadOpFile('dat', "/amd.xml", "1");
+//      model.Frm.loadAppFile('dat', model.Frm.formSet.getRoot().__REVURI, "0");
+      model.Frm.reloadInst('dat');
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      if(isOTEU){
+      model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/OTEUBaseChange.xml");
+      }else{
+      
+        //SH.print("XXX= " + model.Frm.linkedOpType);
+      
+      if(model.Frm.linkedOpType &amp;&amp; model.Frm.linkedOpType != "amendments"){
+          model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/" + model.Frm.linkedOpType + "BaseChange.xml");
+        }else{
+          model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+        }
+      }
+      
+      //alert(document.__refName);
+      model.setValue("instance('form')/revNum", document.__refName);
+      //find position of review
+      //alert(model.getValue("instance('proReviews')/review[@num="+document.__refName+"]/@parent"));
+      //alert(model.getValue("instance('proReviews')/metaReview[@num&lt;"+model.getValue("instance('form')/revNum")+" and @num&lt;="+model.getValue("instance('proReviews')/review[@num="+document.__refName+"]/@parent")+"][last()]/@num"));
+      model.setValue("instance('form')/metaNum", model.getValue("instance('proReviews')/metaReview[@num&lt;"+model.getValue("instance('form')/revNum")+" and @num&lt;="+model.getValue("instance('proReviews')/review[@num="+document.__refName+"]/@parent")+"][last()]/@num"));
+      
+     
+      
+    </script>
+    <script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+    </script>
+    
+    
+    <xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <!-- ARCHITA: This bind is required -->
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+  </xf:model>
+  
+  <div class="formFrame">
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+    <!--<table class="formMetaLine">
+      <tr>
+        <td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>,
+            <xf:output value="instance('form')/form/@createdBy"/></td>
+        <td class="updated"><ix:attr
+            value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+          Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output
+            value="instance('form')/form/@updatedBy"/></td>
+      </tr>
+    </table>-->
+    
+   
+    <!--<exf:variable value="instance('diffs')/form/el[@xml=instance('dat')/previous/review/NEWS/d]" name="sec1N"/>-->
+    <exf:variable value="instance('dat')/OLDCALCED/alpha/el[@action='new']" name="sec1N"/>
+    <exf:variable value="instance('dat')/@def" name="reviewLevel"/>
+    
+    <div class="body">
+      <xf:label>
+        <h1>
+          <span><ix:attr name="style" value="if($reviewLevel='intake' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/@type!='PRE' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='mod', '', 'display:none')"/>Intake Review</span>
+          <span><ix:attr name="style" value="if($reviewLevel='intake' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/@type='PRE' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision='mod', '', 'display:none')"/>Response Submission</span>
+          <span><ix:attr name="style" value="if($reviewLevel='coord' or $reviewLevel='staff', '', 'display:none')"/>Staff Review</span>
+          <span><ix:attr name="style" value="if($reviewLevel='director', '', 'display:none')"/>Director Review</span>
+          <span><ix:attr name="style" value="if($reviewLevel='res', '', 'display:none')"/>Response Submission</span>
+        </h1>
+      </xf:label>
+      <br/>
+      
+      
+      <div><ix:attr name="style" value="if(submissionNotes='', 'display:none', '')"/>
+        <h4><span><ix:attr name="style" value="if($reviewLevel='res', '', 'display:none')"/>Previous </span>Investigator Submission Notes:</h4>
+        
+        <br/>
+        
+        <div><ix:attr name="style" value="if(submissionNotes='', 'display:none', '')"/>          
+          <xf:output value="instance('dat')/submissionNotes"/>
+        </div>
+      </div>
+      <br/>
+      <div><ix:attr name="style" value="if($reviewLevel='res' or comments='', 'display:none', '')"/>
+        <h4>General Comments:</h4>
+        
+        <br/>
+        
+        <div><ix:attr name="style" value="if($reviewLevel='res' or comments='', 'display:none', '')"/>          
+          <xf:output value="instance('dat')/comments"/>
+        </div>
+      </div>
+      <br/>
+      <div><ix:attr name="style" value="if(instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision='mod', '', 'display:none')"/>
+      <div><ix:attr name="style" value="if(instance('proReviews')/metaReview[@num=instance('form')/metaNum]/reviewNotes/comments='', 'display:none', '')"/>
+        <h4>Review Comments:</h4>
+        
+        <br/>        
+        <div><ix:attr name="style" value="if(instance('proReviews')/metaReview[@num=instance('form')/metaNum]/reviewNotes/comments='', 'display:none', '')"/>          
+          <xf:output value="instance('proReviews')/metaReview[@num=instance('form')/metaNum]/reviewNotes/comments"/>
+        </div>
+      </div>
+      </div>
+      <div><ix:attr name="style" value="if(instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision='DEF', '', 'display:none')"/>
+        <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('dat')/@num]/reviewNotes/comments='', 'display:none', '')"/>
+          <h4>Review Comments:</h4>
+          
+          <br/>        
+          <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('dat')/@num]/reviewNotes/comments='', 'display:none', '')"/>          
+            <xf:output value="instance('proReviews')/review[@num=instance('dat')/@num]/reviewNotes/comments"/>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('dat')/@num]/reviewNotes/investigatorActions='', 'display:none', '')"/>
+        <h4>Investigator Actions:</h4>
+        
+        <br/>
+        
+        <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('dat')/@num]/reviewNotes/investigatorActions='', 'display:none', '')"/>          
+          <xf:output value="instance('proReviews')/review[@num=instance('dat')/@num]/reviewNotes/investigatorActions"/>
+        </div>
+      </div>
+      <br/>
+      <div><ix:attr name="style" value="if(instance('proReviews')/review[@parent=instance('form')/metaNum]/reviewNotes/investigatorResponse='', 'display:none', '')"/>
+        <h4>Investigator Response</h4>
+        
+        <br/>
+        
+        <div><ix:attr name="style" value="if(instance('proReviews')/review[@parent=instance('form')/metaNum]/reviewNotes/investigatorResponse='', 'display:none', '')"/>          
+          <xf:output value="instance('proReviews')/review[@parent=instance('form')/metaNum]/reviewNotes/investigatorResponse"/>
+        </div>
+      </div>
+      <br/>
+      
+      <exf:variable value="instance('dat')/suggestions/OLDCALCED/delta/el" name="sec1X"/> 
+      <div>        
+        <ix:attr name="style" value="if(count($sec1X) &gt; 0, '', 'display:none')"/>
+        <h4>Previous Changes and/or Comments:</h4>  
+        <br/>
+        
+        <!--<exf:variable value="instance('diffs')/form/el[@xml=instance('dat')/previous/review/DIFFS/d]" name="sec1X"/>-->
+        
+        <div>   <ix:attr name="style" value="if(count($sec1X) = 0, '', 'display:none')"/>       
+          <i>No Changes</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1X) &gt; 0, '', 'display:none')"/>
+          <tr class="top">
+            
+            <th class="out text large left" style="width:200px;text-align:left">Location</th>
+            <th class="in text large left" style="text-align:left">Field</th>
+            <th class="in text large left" style="text-align:left">Original Value</th>
+            <th class="in text large left" style="text-align:left">Suggested Value</th>
+            <th class="in text large left" style="text-align:left">Comments</th>
+            <th class="in text large left" style="text-align:left">Action(s)</th>
+            <th class="out text large left" style="width:200px;text-align:left"><ix:attr name="style" value="if($reviewLevel='res', 'display:none', '')"/>Justification</th>
+          </tr>
+          
+          <xf:switch>
+            <xf:case id="show-docs">
+              <xf:repeat nodeset="$sec1X">
+                <exf:variable value="@cmp" name="needle"/>
+                <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+                <tr>
+                  <td class="out text alrge left" style="width:250px;">
+                    <xf:output value="$source/@flabel"/> <xf:output value="$source/@label"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="@label"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="@orgVal"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="if(@action!='none', @thisVal, '')"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="@comment"/>
+                  </td>
+                  <td class="out text large left">
+                    <span><ix:attr name="style" value="if(@action='sugIgg', 'color:maroon', 'display:none')"/>Suggestion ignored original value used</span>
+                    <span><ix:attr name="style" value="if(@action='sug', 'color:green', 'display:none')"/>Suggested change made</span>
+                    <span><ix:attr name="style" value="if(@action='sugNew', 'color:maroon', 'display:none')"/>Suggestion ignored new value entered</span>
+                    <span><ix:attr name="style" value="if(@action='reqIgg', 'color:red', 'display:none')"/>Required change ignored original value used</span>
+                    <span><ix:attr name="style" value="if(@action='req', 'color:green', 'display:none')"/>Required change made</span>
+                    <span><ix:attr name="style" value="if(@action='reqNew', 'color:green', 'display:none')"/>Required change made</span>
+                    <span><ix:attr name="style" value="if(@action='unchanged', 'color:purple', 'display:none')"/>Comment only</span>
+                    <span><ix:attr name="style" value="if(@action='comment', 'color:purple', 'display:none')"/>Comment only</span>
+                    <span><ix:attr name="style" value="if(@action='commentNew', 'color:purple', 'display:none')"/>Comment only</span>
+                    <span><ix:attr name="style" value="if(@action='justification', 'color:red', 'display:none')"/>Justification required</span>                    
+                    <span><ix:attr name="style" value="if(@action='docup', 'color:darkblue', 'display:none')"/>Documents Updated</span>
+                  </td>
+                  <td class="out text large left"><ix:attr name="style" value="if($reviewLevel='res', 'display:none', '')"/>
+                    <xf:output value="if(@action='sug' or @action='req' or @action='reqNew', '', @justification)"/>
+                  </td>
+                  
+                </tr>
+                
+              </xf:repeat>          
+            </xf:case>
+            <xf:case id="hide-docs"/>
+          </xf:switch> 
+        </table>
+      </div>
+      <br/>         
+    </div>             
+    
+    <!--<exf:variable value="instance('diffs')/form/el[@xml=instance('dat')/previous/review/NEWS/d]" name="sec1N"/>-->
+    <!--<exf:variable value="instance('dat')/OLDCALCED/el[@action='new']" name="sec1N"/>-->
+    <exf:variable value="instance('dat')/OLDCALCED/delta/el" name="sec1N"/>
+    <div class="body">
+      <!--<ix:attr name="style" value="if(count($sec1N) &gt; 0 and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='mod' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='DEF', '', 'display:none')"/>-->
+      <ix:attr name="style" value="if(count($sec1N) &gt; 0, '', 'display:none')"/>
+      
+      <br/>
+      <h4>New Changes:</h4>
+      <div>
+        
+        <br/>
+        
+        
+        <table class="fullColLayout" border='0'>
+          <tr class="top">
+            <th class="out text large left" style="width:200px;text-align:left">Location</th>
+            <th class="in text large left" style="text-align:left">Field</th>
+            <th class="in text large left" style="text-align:left">Original Value</th>
+            <th class="in text large left" style="text-align:left">New Value</th>
+            <th class="in text large left" style="text-align:left">Comments</th>
+          </tr>
+          
+          <xf:switch>
+            <xf:case id="show-docs">
+              <xf:repeat nodeset="$sec1N">
+                <exf:variable value="@cmp" name="needle"/>
+                <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+                <exf:variable value="@code" name="code"/>
+                
+                <!--<tr><td>debug=<xf:output value="$needle"/></td></tr>-->
+                <tr><!--<ix:attr name="style" value="if($xmlSugg != $xmlMatch, '', 'display:none')"/>-->
+                  <td class="out text alrge left" style="width:250px;">
+                    <xf:output value="$source/@flabel"/><xf:output value="$source/@label"/>
+                  </td>
+                  
+                  <td class="out text large left">
+                    <xf:output value="@label"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="@orgVal"/>
+                  </td>
+                  <td class="out text large left">
+                    <span style='color:red'><ix:attr name="style" value="if(@orgVal != @sugVal, '', 'display:none')"/><xf:output value="@sugVal"/></span>
+                  </td>   
+                  <td class="out text large left">
+                    <xf:output value="@comment"/>
+                  </td>
+                  
+                </tr>
+              </xf:repeat>          
+            </xf:case>
+            <xf:case id="hide-docs"/>
+          </xf:switch> 
+        </table>
+      </div>
+      <br/>         
+    </div>
+    
+    <!--<xf:output value="instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision"/>-->
+    <exf:variable value="instance('dat')/CALCED/delta/el[@comment!='' or @action='docup']" name="sec1"/>
+    <div class="body">
+      <!--<ix:attr name="style" value="if(count($sec1) &gt; 0 and ((instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='mod' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='DEF') or (instance('form')/metaNum='')), '', 'display:none')"/>-->
+      <ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+      <br/>
+      <h4>Summary of New Comments:</h4>
+      <div>
+        
+        <br/>
+        
+        <!--<exf:variable value="instance('dat')/CALCED/delta/el[@comment!='' or @action='docup']" name="sec1"/>-->
+        <!--<div><ix:attr name="style" value="if(count($sec1) &gt; 0 and ((instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='mod' and instance('proReviews')/metaReview[@num=instance('form')/metaNum]/determination/decision!='DEF') or (instance('form')/metaNum='')), 'display:none', '')"/>-->
+          <div><ix:attr name="style" value="if(count($sec1) &gt; 0 and ((instance('form')/metaNum='')), 'display:none', '')"/>
+        
+        <i>No Comments</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+        <tr class="top">
+          <th class="out text large left" style="width:200px;text-align:left">Location</th>
+          <th class="in text large left" style="text-align:left">Field</th>
+          <th class="in text large left" style="text-align:left">Value</th>
+          <th class="in text large left" style="text-align:left">Comment</th>
+        </tr>
+             
+      <xf:switch>
+        <xf:case id="show-docs">
+            <xf:repeat nodeset="$sec1">
+              <exf:variable value="@cmp" name="needle"/>
+              <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+              <tr>
+                <td class="out text alrge left" style="width:250px;">
+                  <xf:output value="$source/@flabel"/><xf:output value="$source/@label"/>
+                </td>
+              <td class="out text large left">
+                <xf:output value="@label"/>
+              </td>
+                <td class="out text large left">
+                  <xf:output value="@orgVal"/>
+                </td>
+                <td class="out text large left">
+                  <xf:output value="@comment"/>
+                </td>
+            </tr>
+          
+              
+              
+              </xf:repeat>          
+      </xf:case>
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>
+        <br/>         
+  </div>             
+  </div>       
+</form>

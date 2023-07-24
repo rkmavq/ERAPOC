@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="">     
+    <!--<tab id="NoteRem" label="Error Log" form="/../fil/system/resources/services/protocolRouting/forms/errorsList.xfrm"/>-->
+    <tab id="NoteConfig" label="Generate Log" form="/../fil/system/resources/services/protocolRouting/forms/errorsConfig.xfrm"/>
+</tabs>

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<universe>
+    <!-- A universe consists of the fields and functions related to the application -->
+    
+    <fields>
+        <!-- Summary Fields-->
+        <field category="summary" id="PIName" label="PI Name" name="PIName" xml="PIName" type="text" uri="projectData" nature="derived"/>
+        <field category="summary" id="sponsorName" label="Sponsor Name" name="SponsorName" xml="SponsorName" type="text" uri="projectData" nature="derived"/>
+        <field category="summary" id="sponsorID" label="Sponsor Name" name="SponsorName" xml="SponsorID" type="text" uri="projectData" nature="derived"/>
+        <field category="summary" id="totalDirects" label="Total Direct Costs" name="totalDirects" xml="totalDirects" type="currency" uri="projectData" nature="derived"/>
+        <field category="summary" id="totalIndirects" label="Total Indirect Costs" name="totalIndirects" xml="totalIndirects" type="currency" uri="projectData" nature="derived"/>
+
+        <!-- General / Project Fields -->
+        <field category="project" id="ProjectTitle" label="Full Title" name="ProjectTitle" xml="ProjectTitle" type="text" uri="projectData" nature="input"/>
+        <field category="project" id="ShortTitle" label="Short Title" name="ShortTitle" xml="ShortTitle" type="text" uri="projectData" nature="input"/>
+        <field category="project" id="ProjectDescription" label="Project Description" name="ProjectTitle" xml="ProjectTitle" type="text" uri="projectData" nature="input"/>
+        <field category="project" id="StrategicPlanAlignment" label="Strategic Plan Alignment" name="StrategicPlanAlignment" xml="StrategicPlanAlignment" type="list" uri="projectData" nature="input">
+            <source type="listEntity" source="Research Focus List"/>
+        </field>
+        <field category="project" id="pi" label="Project Contact PI" name="pi" xml="Person[role='PI']/name" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="piDepartment" label="PI Department" name="pi/department" xml="Person[role='PI']/department" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="piOrganization" label="PI Organization" name="pi/organization" xml="Person[role='PI']/organization" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="piPhone" label="PI Phone" name="pi/phone" xml="Person[role='PI']/phone" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="piEmail" label="PI Email" name="pi/email" xml="Person[role='PI']/email" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="piDepartment" label="PI Department" name="pi/department" xml="Person[role='PI']/department" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="PrimaryAssociatedUnit" label="PrimaryAssociatedUnit" name="pi/department" xml="contextGroup" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="Org" label="Organization" name="org/name" xml="Organization/OrganizationName" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgAddress1" label="Org Address1" name="org/Address1" xml="Organization/Street1" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgAddress2" label="Org Address2" name="org/Address2" xml="Organization/Street2" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgCity" label="Org City" name="org/City" xml="Organization/City" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgCountry" label="Org County" name="org/County" xml="Organization/County" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgState" label="Org State" name="org/State" xml="Organization/State" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgCountry" label="Org Country" name="org/Country" xml="Organization/Country" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgZipCode" label="Org ZipCode" name="org/ZipCode" xml="Organization/ZipCode" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgDistrict" label="Org Congressional District" name="org/Distric" xml="Organization/Distric" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgDUNSID" label="Org DUNSID" name="org/DUNSID" xml="Organization/DUNSID" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OrgEIN" label="Org Employeee Identification (EIN)" name="org/EIN" xml="Organization/EIN" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="admin" label="Admin Contact" name="admin" xml="AdminContact/name" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="adminDepartment" label="Admin Department" name="admin/department" xml="AdminContact/department" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="adminOrganization" label="Admin Organization" name="admin/organization" xml="AdminContact/organization" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="adminPhone" label="Admin Phone" name="Admin/phone" xml="admin/phone" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="adminEmail" label="Admin Email" name="Admin/email" xml="admin/email" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="adminDepartment" label="Admin Department" name="admin/department" xml="AdminContact/department" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="projectType" label="Project Type" name="projectType" xml="projectType" type="list" uri="projectData" nature="input">
+            <source type="localURI" source="cats" nodeset="projectTypes/type" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="project" id="AgreeType" label="Agreement Type" name="AgreeType" xml="AgreeType" type="list" uri="projectData" nature="input">
+            <source type="localURI" source="cats" nodeset="agreeTypes/type" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="project" id="ApplicationType" label="Application Type" name="ApplicationTypeCode" xml="ApplicationTypeCode" type="list" uri="projectData" nature="input">
+            <source type="localURI" source="cats" nodeset="appTypeCodes/type" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="project" id="SubmissionType" label="Submission Type" name="AgreeType" xml="SubmissionTypeCode" type="list" uri="projectData" nature="input">
+            <source type="localURI" source="cats" nodeset="submissionTypeCodes/type" labelXML="@name" valueXML="@id"/>
+        </field>
+        
+        <field category="project" id="hasPriorRelatedProposal" label="Prior Related Funding?" name="relatedProposal" xml="relatedProposal/exists" type="yesno" uri="projectData" nature="input"/>
+        <field category="project" id="relatedProposal" label="Prior Related Proposal" name="relatedProposal" xml="relatedProposal" type="link" uri="projectData" nature="input" cardinality="n"/>
+        <field category="project" id="subToOtherAgencies" label="Submitting to Other Agencies?" name="otherAgencies/submitTo" xml="subToOtherAgencies" type="yesno" uri="projectData" nature="input"/>
+        <field category="project" id="otherAgency" label="Other Agencies" name="otherAgencies" xml="otherAgency" type="link" uri="projectData" nature="input" cardinality="n"/>
+        
+        <field category="project" id="CongressionalDistrict" label="Congressional District of Project" name="CongressionalDistrict" xml="Organization/CongressionalDistrict" type="text" uri="projectData" nature="input"/>
+        <field category="project" id="dists" label="Congressional District of Project" name="CongressionalDistrict/additional" xml="Organization/AdditionalCongDistricts" type="file" uri="projectData" nature="input"/>
+        <field category="project" id="areasAffected" label="Areas Affected by Project" name="areasAffected" xml="areasAffected" type="text" uri="projectData" nature="input"/>
+        
+        <field category="project" id="stateReview" label="Application Subject to Review by State Under Executive Order 12372" name="stateReviewOrder" xml="stateReviewOrder" type="list" uri="projectData" nature="input">
+            <source type="explicit">
+                <option label="YES, this application was made available to the State under E.O. 12372" value="covered"/>
+                <option label="NO, Program is not covered by E.O. 12372" value="notCovered"/>
+                <option label="NO, Program is subject to E.O. 12372 but has not been selected by the State for review" value="notToReview"/>
+            </source>
+        </field>
+        <field category="project" id="stateReviewDate" label="EO 12372 Date" name="stateReviewDate" xml="stateReviewDate" type="date" uri="projectData" nature="input"/>
+        <field category="project" id="keywords" label="Keywords" name="keyword" xml="keyword" type="text" uri="projectData" nature="input"/>
+        <field category="project" id="tags" label="Tags" name="tags" xml="tags" type="text" uri="projectData" nature="input"/>
+                
+        <!-- Documents -->
+        <field category="docs" id="docID" label="ID" name="doc/id" xml="doc/@id" type="text" uri="docs" nature="import" cardinality="n"/>
+        <field category="docs" id="docTitle" label="Name" name="doc/name" xml="doc/@title" type="text" uri="docs" nature="import" cardinality="n"/>
+        <field category="docs" id="docFile" label="File" name="doc/file" xml="doc/@uri" type="file" uri="docs" nature="input" cardinality="n"/>
+        <field category="docs" id="docUploadInfo" label="Upload Info" name="doc/uploadInfo" xml="doc/@uploaded" type="text" uri="docs" nature="derived" cardinality="n"/>
+        <field category="docs" id="docComments" label="Comments" name="doc/comments" xml="doc/@comments" type="text" uri="docs" nature="input" cardinality="n"/>
+        
+        
+        <!-- Compliance -->                
+        <field category="compliance" id="HumanSubjects" label="Human Subjects?" name="HumanSubjects" xml="HumanSubjects" type="yesno" uri="compliance" nature="input"/>
+        if hs
+        
+        <field category="compliance" id="IRBProtocol" label="IRB Protocol" name="HumanSubjects/IRBProtocol" xml="IRBProtocol" type="link" uri="compliance" nature="input"/>
+        <field category="compliance" id="IRBPending" label="IRB Review Pending?" name="HumanSubjects/IRBProtocol/reviewPending" xml="IRBPending" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="IRBApprovalDate" label="IRB Approval Date" name="HumanSubjects/IRBProtocol/approvalDate" xml="IRBApprovalDate" type="date" uri="compliance" nature="input"/>
+        <field category="compliance" id="IRBExemptions" label="Exemption Number(s)" name="HumanSubjects/IRBProtocol/exemptionNumbers" xml="IRBExemptions" type="list" uri="compliance" nature="input">
+            <source type="explicit">
+                <option label="1" value="1"/>
+                <option label="2" value="2"/>
+                <option label="3" value="3"/>
+                <option label="4" value="4"/>
+                <option label="5" value="5"/>  
+            </source>
+        </field>
+        
+        <field category="compliance" id="hasClinicalTrial" label="Clinical Trial?" name="HumanSubjects/clinicalTrail" xml="hasClinicalTrial" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="ClinicalTrial" label="Clinical Trial/Study" name="HumanSubjects/clinicalTrail/reference" xml="ClinicalTrial" type="link" uri="compliance" nature="input" cardinality="n"/>
+        <!--<field category="compliance" id="phaseIIITrail" label="NIH Phase III Trial?" name="HumanSubjects/nih3" xml="nihphase3" type="yesno" uri="compliance" nature="input"/>-->
+        <field category="compliance" id="cancerRelated" label="Cancer Related?" name="HumanSubjects/cancerRelated" xml="cancerRelated" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="stemCells" label="Human Stem Cell?" name="HumanSubjects/humanStemCells" xml="HumanStemCell" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="embryonicStemCells" label="Embryonic Stem Cells?" name="HumanSubjects/embryonicStemCells" xml="EmbryonicStemCells" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="specificLines" label="Specific Stem Cell Lines?" name="HumanSubjects/embryonicStemCells/specificLines" xml="SpecificLines" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="specificLineNumbers" label="List the registration number(s)" name="HumanSubjects/embryonicStemCells/specificLines/identify" xml="SpecificLineNumber" type="text" uri="compliance" nature="input"/>
+        <field category="compliance" id="specificLineCannotID" label="Cannot be referenced" name="HumanSubjects/embryonicStemCells/cannotIdentify" xml="CannotIdentifyLine" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="HumandBloodFluidTissue" label="Human Blood/Fluid/Tissue?" name="HumanSubjects/HumandBloodFluidTissue" xml="HumandBloodFluidTissue" type="yesno" uri="compliance" nature="input"/>
+                
+        
+        <field category="compliance" id="VertAnimals" label="Vertebrate Animals?" name="VertAnimals" xml="VertAnimals" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="IACUC" label="IACUC Protocol" name="VertAnimals/IACUC" xml="IACUC" type="link" uri="compliance" nature="input" cardinality="n"/>
+        <field category="compliance" id="IACUCPending" label="IACUC Review Pending?" name="VertAnimals/IACUC/reviewPending" xml="IACUCPending" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="IACUCApprovalDate" label="IACUC Approval Date" name="VertAnimals/IACUC/approvalDate" xml="IACUCApprovalDate" type="date" uri="compliance" nature="input"/>
+ 
+        <field category="compliance" id="Biohazards" label="Biohazards?" name="Biohazards" xml="Biohazards" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="BiohazardsExplain" label="Biohazards Explaination" name="Biohazards/Explain" xml="BiohazardsExplain" type="text" uri="compliance" nature="input" cardinality="n"/>
+            
+        <field category="compliance" id="SelectAgents" label="Select Agents?" name="SelectAgents" xml="SelectAgents" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="SelectAgentsExplain" label="Select Agents Explaination" name="SelectAgents/Explain" xml="SelectAgentsExplain" type="text" uri="compliance" nature="input" cardinality="n"/>
+            
+        <field category="compliance" id="PrivilegedInfo" label="Proposal contains Proprietary or Privileged Information?" name="PrivilegedInfo" xml="Priv" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="PrivilegedInfoExplain" label="Privileged Information Explaination" name="PrivilegedInfo/Explain" xml="PrivExplain" type="text" uri="compliance" nature="input" cardinality="n"/>
+       
+        <field category="compliance" id="EnvImpact" label="Environmental Impact?" name="EnvImpact" xml="EnvImpact" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="EnvImpactExplain" label="Environmental Impact Explaination" name="EnvImpact/Explain" xml="EnvImpactExplain" type="text" uri="compliance" nature="input" cardinality="n"/>
+        
+        <field category="compliance" id="EnvExempt" label="Exemption, Environmental Assessment, or Environmental Impact Statement?" name="EnvExempt" xml="EnvExempt" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="EnvExemptExplain" label="Environmental Exemption Explaination" name="EnvExempt/Explain" xml="EnvExemptExplain" type="text" uri="compliance" nature="input" cardinality="n"/>
+        
+        <field category="compliance" id="OutsideUS" label="Activities / Partnerships outside of US?" name="OutsideUS" xml="OutsideUS" type="yesno" uri="compliance" nature="input"/>
+        <field category="compliance" id="OutsideUSExplain" label="Partnership Countries" name="OutsideUS/Countries" xml="OutsideUSExplain" type="text" uri="compliance" nature="input" cardinality="n"/>
+        
+       
+        <!-- Certs -->
+        <field category="cert" id="Lobbying" label="Lobbying for Proposal?" name="Lobbying" xml="Lobbying" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="Certified" label="Certify true and accurate" name="Certified" xml="Certified" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="Entity" label="Interests in the entity?" name="Entity" xml="Entity" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="Conflict" label="Potential for real or perceived conflict?" name="Conflict" xml="Conflict" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="Debarred" label="Currently debarred by fed dept or sponsor?" name="Debarred" xml="Debarred" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="ConflictIndicator" label="Possible Conflict of Interest?" name="ConflictIndicator" xml="ConflictIndicator" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="PITraining" label="PI Training Complete?" name="PITraining" xml="PITraining" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="PIWaiverReq" label="PI Eligibility Waiver Required?" name="PIWaiverReq" xml="PIWaiverReq" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="FacultyWaiverReq" label="Faculty Waiver Required?" name="FacultyWaiverReq" xml="FacultyWaiverReq" type="yesno" uri="certs" nature="input"/>
+        <field category="cert" id="IntegritAct" label="Aware of Procurement Integrity Act and will you report?" name="IntegritAct" xml="IntegritAct" type="yesno" uri="certs" nature="input"/>
+        
+        
+        <!-- Funding Related -->
+        <field category="funding" id="ExternalFunding" label="External Funding" name="ExternalFunding" xml="ExternalFunding" type="yesno" uri="projectData" nature="input"/>
+        <field category="funding" id="GrantsGov" label="Grants.gov?" name="GrantsGov" xml="GrantsGov" type="yesno" uri="projectData" nature="derived"/>
+        <field category="funding" id="sponsorType" label="Sponsor Type" name="sponsorType" xml="sponsorType" type="list" uri="projectData" nature="input">
+            <source type="localURI" source="cats" nodeset="sponsorTypes/type" labelXML="@name" valueXML="@id"/>
+        </field>
+        
+        <field category="funding" id="OfferingAgency" label="Sponsor" name="sponsor/name" xml="Opp/sponsor/@name" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="SponsorAddress1" label="Sponsor Address 1" name="sponsor/address1" xml="Opp/sponsor/Street1" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="SponsorAddress2" label="Sponsor Address 2" name="sponsor/address2" xml="Opp/sponsor/Street2" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="SponsorCountry" label="Sponsor Country" name="sponsor/country" xml="Opp/sponsor/Country2" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="SponsorPhone" label="Sponsor Phone" name="sponsor/phone" xml="Opp/sponsor/Telephone" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="FOATitle" label="FOA Title" name="opp/Title" xml="Opp/title" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="FOANumber" label="FOA Number" name="opp/oppNumber" xml="Opp/oppNumber" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="submissionDeadline" name="SubmissionDeadline" xml="SubmissionDeadline" label="Submission Deadline" type="date" uri="projectData" nature="input"/>
+        <field category="funding" id="reviewDeadline" name="ReviewDeadline" xml="ReviewDeadline" label="Internal Review Deadline" type="date" uri="projectData" nature="derived"/>
+        <field category="funding" id="AgencyContact" name="AgencyContact" xml="AgencyContact" label="Agency Contact" type="text" uri="projectData" nature="import"/>
+        <field category="funding" id="AdditionalAgencyContact" name="AgencyContact/name" xml="AgencyContact" label="Other Agency Contact Name" type="text" uri="projectData" nature="import" cardinality="n"/>
+        <field category="funding" id="AdditionalAgencyContactType" name="AgencyContact/type" xml="AgencyContact/@type" label="Other Agency Contact Name" type="text" uri="projectData" nature="input" cardinality="n"/>
+        <field category="funding" id="hasOtherSponsor" name="hasOtherSponsor" xml="hasOtherSponsor" label="Other External Sponsors" type="yesno" uri="projectData" nature="input"/>
+        <field category="funding" id="otherSponsor" name="OtherSponsor" xml="otherSponsor" label="Additional Sponsor" type="lookup" uri="projectData" nature="import" cardinality="n"/>
+        
+        
+        
+        <!-- Details -->
+        <field category="project" id="startDate" label="Project Start Date" name="projectDates/start" xml="projectDates/start" type="date" uri="projectData" nature="input"/>
+        <field category="project" id="endDate" label="Project End Date" name="projectDates/end" xml="projectDates/end" type="date" uri="projectData" nature="input"/>
+        <field category="project" id="periodStartDate" label="Project Period Number" name="projectDates/period/number" xml="projectDates/periods/entry/@num" type="integer" uri="projectData" nature="input" cardinality="n"/>
+        <field category="project" id="periodStartDate" label="Project Period Start" name="projectDates/period/start" xml="projectDates/periods/entry/@start" type="date" uri="projectData" nature="input" cardinality="n"/>
+        <field category="project" id="periodEndDate" label="Project Period End" name="projectDates/period/end" xml="projectDates/periods/entry/@end" type="date" uri="projectData" nature="input" cardinality="n"/>
+      
+        <field category="project" id="OnCampus" label="Primarily on Campus?" name="OnCampus" xml="OnCampus" type="yesno" uri="projectData" nature="input"/>
+        <field category="project" id="OnCampusLocation" label="On Campus Location" name="OnCampus/location/name" xml="Location/@name" type="text" uri="projectData" nature="import" cardinality="n"/>      
+        <field category="project" id="OnCampusSubLocation" label="On Campus Sublocation" name="OnCampus/location/room" xml="Location/@sublocation" type="list" uri="projectData" nature="input" cardinality="n">
+            <source type="embeddedList" nodeset="../sublocation" labelXML="@label" valueXML="@value"/>
+        </field>  
+        <field category="project" id="OnCampusApproved" label="On Campus Location Approved" name="OnCampus/location/approved" xml="Location/@approved" type="yesno" uri="projectData" nature="import" cardinality="n"/>              
+        <field category="project" id="OnCampusRenovation" label="On Campus Location Renovation Required" name="OnCampus/location/renovation" xml="Location/@reno" type="yesno" uri="projectData" nature="import" cardinality="n"/>              
+        <field category="project" id="OnCampusRenovationExplained" label="On Campus Location Renovation Explained" name="OnCampus/location/renoExplained" xml="Location/@renoExplained" type="text" uri="projectData" nature="import" cardinality="n"/>              
+        <field category="project" id="OffCampusSite" label="OffCampus Site" name="OffCampus/site" xml="PrimaryPerformanceSiteDetails/OrganizationName" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusAddress1" label="OffCampus Address1" name="OffCampus/Address1" xml="PrimaryPerformanceSiteDetails/Street1" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusAddress2" label="OffCampus Address2" name="OffCampus/Address2" xml="PrimaryPerformanceSiteDetails/Street2" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusCity" label="OffCampus City" name="OffCampus/City" xml="PrimaryPerformanceSiteDetails/City" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusCountry" label="OffCampus County" name="OffCampus/County" xml="PrimaryPerformanceSiteDetails/County" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusState" label="OffCampus State" name="OffCampus/State" xml="PrimaryPerformanceSiteDetails/State" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusCountry" label="OffCampus Country" name="OffCampus/Country" xml="PrimaryPerformanceSiteDetails/Country" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="OffCampusZipCode" label="OffCampus ZipCode" name="OffCampus/ZipCode" xml="PrimaryPerformanceSiteDetails/ZipCode" type="text" uri="projectData" nature="import"/>
+        
+        <field category="project" id="RentalReq" label="Rental space required?" name="RentalReq" xml="RentalReq" type="yesno" uri="projectData" nature="import"/>
+        <field category="project" id="RentalReqExplain" label="Rental Requirements" name="RentalReq/explain" xml="RentalReqDescribe" type="text" uri="projectData" nature="import"/>
+
+        <field category="project" id="ModBudget" label="Modular Budget?" name="ModBudget" xml="ModBudget" type="yesno" uri="projectData" nature="import"/>
+        <field category="project" id="MultiPIs" label="Multiple PIs (Internal Sub-Components)" name="MultiPIs" xml="MultiPIs" type="yesno" uri="projectData" nature="import"/>
+        <field category="project" id="Subcontracts" label="External Sub-Components (Subcontracts)" name="Subcontracts" xml="Subcontracts" type="yesno" uri="projectData" nature="import"/>
+        
+        
+        <field category="project" id="hasPatents" label="Involves Inventions and Patents?" name="hasPatents" xml="hasPatents" type="yesno" uri="projectData" nature="import"/>
+        <field category="project" id="reportedpats" label="Inventions and Patents Previously Reported" name="reportedPatents" xml="reportedPatents" type="yesno" uri="projectData" nature="import"/>
+        
+        <field category="project" id="anticipatedProjectIncome" label="Anticipated Project Income?" name="anticipatedProjectIncome" xml="anticipatedProjectIncome" type="yesno" uri="projectData" nature="import"/>
+        <field category="project" id="anticipatedIncomeSource" label="Income Source" name="anticipatedProjectIncome/source" xml="income/source" type="text" uri="projectData" nature="import"/>
+        <field category="project" id="anticipatedIncomeAmount" label="Income Amount" name="anticipatedProjectIncome/amount" xml="income/amount" type="currency" uri="projectData" nature="import"/>
+   
+        
+        <!-- Items -->
+        <field category="item" id="itemCode" label="Code" name="item/code" xml="item/@style" type="text" uri="items" nature="derived"/>
+        <field category="item" id="itemCategory" label="Category" name="item/category" xml="item/@root" type="list" uri="list" nature="input">
+            <source type="localURI" source="cats" nodeset="itemData/item[@type='non-personnel']" labelXML="@short" valueXML="@detailedBudget"/>
+        </field>
+        <field category="item" id="itemSubCategory" label="Type" name="item/subcategory" xml="item/@type" type="list" uri="list" nature="input">
+            <source type="localURI" source="cats" nodeset="itemData/item[@detailedBudget=$x]/item" labelXML="@short" valueXML="@detailedBudget"/>
+        </field>
+        <field category="item" id="itemDescription" label="Name / Description" name="item/description" xml="item/@name" type="text" uri="items" nature="input"/>
+        <field category="item" id="itemHasInflation" label="Inflation?" name="item/inflationApplies" xml="item/config/@inflation" type="yesno" uri="items" nature="input"/>
+        
+        <field category="item" id="itemPeriodTDC" label="Period TDC" name="item/period/tdc" xml="item/durations/dur/@tdc" type="currency" uri="items" nature="input"/>
+        <field category="item" id="itemPeriodInflation" label="Period Inflation" name="item/period/inflation" xml="item/durations/dur/@inf" type="currency" uri="items" nature="derived"/>
+        <field category="item" id="itemPeriodTotal" label="Period Total" name="item/period/total" xml="item/durations/dur/@total" type="currency" uri="items" nature="derived"/>        
+        <field category="item" id="itemIncludedInMTDC" label="Included in MTDC?" name="item/inHTDC" xml="item/config/@MTDC != 0" type="yesno" uri="items" nature="derived"/>
+        <field category="item" id="itemPortionForFA" label="Qualifying Portion for F&amp;A" name="item/qualifiesForFA" xml="item/cost/@MTDC" type="currency" uri="items" nature="derived"/>
+        <field category="item" id="itemFA" label="F&amp;A" name="item/totalFA" xml="item/cost/@FA" type="currency" uri="items" nature="derived"/>
+        <field category="item" id="itemJustification" label="Justification" name="item/justification" xml="item/description" type="text" uri="items" nature="input"/>
+       
+
+        <!-- People -->
+        <field category="person" id="personName" label="Name" name="person/name" xml="Person/name" type="text" uri="personnel" nature="import"/>
+        <field category="person" id="personDepartment" label="Department" name="person/department" xml="Person/department" type="text" uri="personnel" nature="import"/>
+        <field category="person" id="personRole" label="Role" name="person/role" xml="Person/role" type="list" uri="personnel" nature="input">
+            <source type="localURI" source="cats" nodeset="personnelRoles/role[@id!='PI']" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="person" id="personEff" label="Avg Effort" name="person/effort" xml="Person/total/@utilization" type="percent" uri="personnel" nature="input"/>
+        <field category="person" id="personMonths" label="Calendar Months" name="person/months" xml="Person/total/@calendarMonths" type="number" uri="personnel" nature="input"/>
+        <field category="person" id="personSalary" label="Requested Salary" name="person/totalSalary" xml="Person/total/@salary" type="currency" uri="personnel" nature="derived"/>
+        <field category="person" id="personFB" label="Fringe Benefits" name="person/totalBenefits" xml="Person/total/@benefits" type="currency" uri="personnel" nature="derived"/>
+        <field category="person" id="personFA" label="F&amp;A" name="person/totalFA" xml="Person/total/@fa" type="currency" uri="personnel" nature="derived"/>
+        <field category="person" id="personBio" label="Bio" name="person/bio" xml="Person/bio" type="file" uri="personnel" nature="input"/>
+        <field category="person" id="personSupport" label="Support" name="person/support" xml="Person/support" type="file" uri="personnel" nature="input"/>
+    
+        <field category="person" id="personPhone" label="Phone" name="person/details/phone" xml="Person/phone" type="text" uri="Person" nature="input"/>
+        <field category="person" id="personEmail" label="Email" name="person/details/email" xml="Person/email" type="email" uri="Person" nature="input"/>
+        <field category="person" id="personFBClass" label="Fringe Benefits Class" name="person/details/FBClass" xml="Person/fringeBenefitsClass" type="list" uri="Person" nature="input">
+            <source type="localURI" source="cats" nodeset="fringeBenefitClasses/class" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="person" id="personInflationOccurs" label="Inflation Occurs" name="person/details/inflation/point" xml="Person/Inflation/@point" type="list" uri="Person" nature="input">
+            <source type="localURI" source="cats" nodeset="inflationPointTypes/type" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="person" id="personInflationRate" label="Inflation Rate" name="person/details/inflation/rate" xml="Person/Inflation/@rate" type="percent" uri="Person" nature="input"/>
+        
+        <field category="person" id="personAppointmentType" label="Appointment Type" name="person/details/appointment/type" xml="Person/appointments/appointment/@type" type="list" uri="Person" nature="input" cardinality="n">
+            <source type="localURI" source="cats" nodeset="appointmentTypes/type" labelXML="@name" valueXML="@id"/>
+        </field>      
+        <field category="person" id="personAppointmentStart" label="Appointment Start" name="person/details/appointment/start" xml="Person/appointments/appointment/@start" type="date" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personAppointmentStop" label="Appointment Stop" name="person/details/appointment/end" xml="Person/appointments/appointment/@end" type="date" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personAppointmentMonths" label="Appointment Months" name="person/details/appointment/months" xml="Person/appointments/appointment/@months" type="integer" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personAppointmentSalary" label="Appointment Base Salary" name="person/details/appointment/salary" xml="Person/appointments/appointment/@salary" type="currency" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personAppointmentFB" label="Appointment Fringe Benefits" name="person/details/appointment/fringeBenefits" xml="Person/appointments/appointment/@fringeBenefits" type="curency" uri="Person" nature="derived" cardinality="n"/>      
+       		
+        <field category="person" id="personWorkPeriod" label="Period Start" name="person/details/timeOnProject/start" xml="Person/appointments/utilization/cycle/@start" type="date" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personWorkPeriod" label="Period Stop" name="person/details/timeOnProject/end" xml="Person/appointments/utilization/cycle/@end" type="date" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personWorkPeriod" label="Period Utilization" name="person/details/timeOnProject/utilization" xml="Person/appointments/utilization/cycle/@utilization" type="percent" uri="Person" nature="input" cardinality="n"/>      
+        <field category="person" id="personWorkPeriod" label="Period F&amp;A" name="person/details/timeOnProject/FAType" xml="Person/appointments/utilization/cycle/@type" type="list" uri="Person" nature="input" cardinality="n">
+            <source type="localURI" source="cats" nodeset="locationTypes/type" labelXML="@name" valueXML="@id"/>
+        </field>      
+       
+  
+        <field category="otherPersonnelRole" id="otherPersonnelRole" label="Role" name="otherPersonnel/role" xml="otherPersonnel/@name" type="list" uri="personnel" nature="input" cardinality="n">
+            <source type="localURI" source="cats" nodeset="otherPersonnelRoles/role" labelXML="@name" valueXML="@id"/>
+        </field>
+        <field category="otherPersonnel" id="otherPersonnelNum" label="Number of Personnel" name="otherPersonnel/number" xml="otherPersonnel/@number" type="number" uri="personnel" nature="input" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelCalendarMonths" label="Calendar Months" name="otherPersonnel/calMonths" xml="otherPersonnel/@calMonths" type="number" uri="personnel" nature="input" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelAcademicMonths" label="Academic Months" name="otherPersonnel/acadMonths" xml="otherPersonnel/@acadMonths" type="number" uri="personnel" nature="input" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelSummerMonths" label="Summer Months" name="otherPersonnel/sumMonths" xml="otherPersonnel/@sumMonths" type="number" uri="personnel" nature="input" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelSummerMonths" label="Summer Months" name="otherPersonnel/sumMonths" xml="otherPersonnel/@sumMonths" type="number" uri="personnel" nature="input" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelSalary" label="Requested Salary" name="otherPersonnel/salary" xml="otherPersonnel/@funds" type="currency" uri="personnel" nature="input" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelFB" label="Fringe Benefits" name="otherPersonnel/benefits" xml="otherPersonnel/@fb" type="currency" uri="personnel" nature="derived" cardinality="n"/>
+        <field category="otherPersonnel" id="otherPersonnelTotal" label="Funds Requested" name="otherPersonnel/total" xml="otherPersonnel/@total" type="currency" uri="personnel" nature="derived" cardinality="n"/>
+
+        <!-- Budget -->
+        <field category="budget" id="budgetPeriod" label="Period" name="budget/period" xml="line/@num" type="number" uri="budget" nature="derived" cardinality="n"/>
+        <field category="budget" id="budgetComponent" label="Component" name="budget/component" xml="line/@comp" type="text" uri="budget" nature="derived" cardinality="n"/>
+        <field category="budget" id="budgetDirectCosts" label="Direct Cost" name="budget/directs" xml="line/@td" type="currency" uri="budget" nature="derived" cardinality="n"/>
+        <field category="budget" id="budgetUnallowables" label="Unallowables" name="budget/unallowables" xml="line/@unallowable" type="currency" uri="budget" nature="derived" cardinality="n"/>
+        <field category="budget" id="budgetDirectCosts" label="Allowable Directs" name="budget/allowableDirects" xml="line/@allowable" type="currency" uri="budget" nature="derived" cardinality="n"/>
+        <field category="budget" id="budgetDirectCosts" label="F&amp;A" name="budget/fa" xml="line/fa" type="currency" uri="budget" nature="derived" cardinality="n"/>
+        <field category="budget" id="budgetDirectCosts" label="Allowable Directs plus F&amp;A" name="budget/total" xml="line/@allowandfa" type="currency" uri="budget" nature="derived" cardinality="n"/>
+
+
+        <!-- Submission Specific -->
+        <field category="submission" id="submissionNotes" name="submissionNotes" xml="submissionNotes" label="Submission Notes" type="text" uri="certs" nature="input"/>
+        <field category="submission" id="signature" name="PISignature" xml="signOff" label="PI Signature" type="signature" uri="certs" nature="input"/>
+        
+    </fields>
+    
+    <functions>
+        <function name="Update Budget" description="Updates/Recalculates Budget on Demand" service="budgetServices"/>
+        <function name="Syncronize Header Data" description="Header Data is Synchronized" service="headerSynch">
+            <map target="SponsorName" source="Opp/sponsor/@name"/>
+        </function>
+        <!-- Import People (PI) -->
+        <quickSearch entity="People" dialogTitle="Find PI" importScript="/applications/USProject/js/addSlimPI" col1="Name" col2="ID" col3="Department" filter1="1" filter2="researcher" save="1">model.setValue("PIName", model.getValue("Person[role=\'PI\']/name"));model.Frm.formSet.getRoot().model.TS.refreshHeader();</quickSearch>
+       <!-- primary unit -->
+        <quickSearch entity="Departments" dialogTitle="Lookup Department" importScript="" col1="Name" col2="ID" col3="Division" filter1="" filter2="" save=""></quickSearch>
+        <!-- Org is imported by default -->
+        <!--<function name="Update Review Date" description="Automatically set the Review Dates / Workflow Rules based on Submission deadline" function="model.USA.updateReviewDate();"/>
+        <function name="Clear All Derived Fields" description="Automatically clear all derived values as fields are born/hidden"/.
+        <function name="App PI to Budget" description="Ensure PI is added automatically to all budget components" service/>projectServices", {"op":"piCheck"}
+        manual reorder of people
+        delete people - configrm Are you sure you want to delete this person? model.USA.deletePerson(model.getValue("@id", contextNode)); <option type="hideWhen">role='PI'</option>
+        drill into person - model.USA.drillIntoPerson(focus);
+        
+        recalculate FA - var x = model.Frm.processDoc("/data/budget.xml", "budgetServices",
+        {"op":"assembleFA", scope:"full"}, "service", "text"); model.Frm.reloadInst("fa")-->
+    </functions>
+    
+    <relationships>
+        <primaryEntity id="Projects" name="Projects" shared="no"/>
+        <linkedEntity id="FOA" name="FOA" type="FOA" source="FundingOppDatabase" cadinality="1" shared="yes"/>
+        <linkedEntity id="Sponsor" name="Sponsor" type="Organizations" source="datamart" cadinality="1" shared="yes"/>
+        <linkedEntity id="SponsorContact" name="SponsorContact" type="People" source="datamart" cadinality="n" shared="yes"/>
+        <linkedEntity id="OtherSponsor" name="OtherSponsor" type="Organizations" source="datamart" cadinality="n" shared="yes"/>
+        <linkedEntity id="OtherSubmision" name="OtherSubmision" type="Organizations" source="datamart" cadinality="n" shared="yes"/>
+        <linkedEntity id="PI" name="PI" type="People" source="datamart" cadinality="1" shared="yes"/>
+        <linkedEntity id="Admin" name="AdminContact" type="People" source="datamart" cadinality="1" shared="yes"/>
+        <linkedEntity id="Department" name="PrimaryUnit" type="Departments" source="datamart" cadinality="1" shared="no"/>
+        <linkedEntity id="Organization" name="Organization" type="Organizations" source="datamart" cadinality="1" shared="no"/>
+        <linkedEntity id="Keyword" name="Keyword" type="Keyword" source="datamart" cadinality="n" shared="yes"/>
+        <linkedEntity id="Location" name="Locations" type="Locations" source="datamart" cadinality="n" shared="yes"/>
+        <linkedEntity id="People" name="People" type="People" source="datamart" cadinality="n" shared="no"/>
+        <linkedEntity id="PriorProposal" name="PriorProposal" type="Projects" source="datamart" cadinality="n" shared="no"/>
+        
+        <linkedApp id="IRB" name="IRB" xml="IRB" shared="no"/>
+        <linkedApp id="ClinicalTrail" name="ClinicalTrail" xml="ClinicalTrail" shared="no"/>
+        <linkedApp id="IACUC" name="IACUC" xml="IACUC" shared="no"/>
+    </relationships>
+</universe>

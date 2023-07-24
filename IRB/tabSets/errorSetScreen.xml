@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummaryOTEUErr.xfrm"/>
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm"/>
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/irbsubmitO.xfrm" when="submit"/>
+    
+    <switches>
+        <funding>0</funding>
+        <comp>0</comp>
+        <radio>0</radio>
+        <phi>0</phi>
+        <neaf>0</neaf>
+        <retroCharts>0</retroCharts>
+        <consentObt>0</consentObt>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>1</drugs>
+        <devices>1</devices>
+        <biologics>1</biologics>
+        <biological>1</biological>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

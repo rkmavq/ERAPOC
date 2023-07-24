@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="baseChange.xml">
+    <tab toptab="7" id="7" label="New Information" flabel=""/>
+    <tab toptab="18" id="18" label="Attachments" flabel=""/>
+    <tab toptab="6" id="6" label="Submit" flabel=""/>
+    <form tabID="7" formType="general" formName="newInformation" printlabel="New Information" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/newInformation.xml">
+        <el comp="" typ="decode" component="radiobuttons" xml="eventType" cmp="7" lookup="newInfoType/type" label="@name" value="@id">Type of New Information</el>
+        <el comp="" typ="" component="bigbox" xml="eventDescription" cmp="7">Describe:</el>
+        <el comp="" typ="decode" component="radiobuttons" xml="newInfoOccurence" cmp="7" lookup="newInfoOccurrence/type" label="@name" value="@id">Occurrence of Incident</el>
+        <el comp="" typ="" component="date" xml="newInfoDateAware" cmp="7">Date Research Personnel Became Aware of this Information</el>
+        <el comp="" typ="" component="date" xml="newInfoPreviousReportDate" cmp="7">Date of Previous Report</el>
+        <el comp="" typ="" component="bigbox" xml="newInfoIncidentDescription" cmp="7">Description of Incident</el>
+        <el comp="" typ="" component="bigbox" xml="newInfoPossibleDescription" cmp="7">Possible Effects of Incident / Protocol Violation, Even if No Direct Harm Occurred:</el>
+        <el comp="" typ="" component="bigbox" xml="newInfoActualDescription" cmp="7">Actual Effects of Incident / Protocol Violation on Subject(s) Involved:</el>
+        <el comp="" typ="yesno" component="yesnobuttons" xml="newInfoCAP" cmp="7" lookup="" label="" value="">Attach a comprehensive corrective action plan (CAP) to address the systemic
+            issues behind any protocol violation, including a timeline for implementation and the
+            follow-up/monitoring plan. In addition, describe action steps taken to handle the
+            specific incident and to prevent such an occurrence in the future.</el>
+        <el comp="" typ="" component="bigbox" xml="newInfoCAPDescription" cmp="7">Description of CAP</el>
+        <el comp="" typ="" component="bigbox" xml="newInfoCAPNotNeededExplanation" cmp="7">Explanation Why CAP Is Not Required</el>
+        <el comp="" typ="" component="decodeexplicit" xml="newInfoCategory" cmp="7">Specific Categories that Characterize this New Information</el>
+        <el comp="" typ="" component="bigbox" xml="newInfoOtherDescription" cmp="7">(14) Specify:</el>
+    </form>
+    <form tabID="18" formName="" printlabel="Attachments">
+        <el comp="" message="[View Page]" xml="document" cmp="18"/>
+    </form>
+</map>

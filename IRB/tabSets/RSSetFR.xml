@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subCommDiffsPI.xfrm"/>
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalFRRSRebuf.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusFRRSRebuf.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusFRRSRebuf.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+ 
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReviseRS.xfrm"/>
+    
+    <tab id="LC2" color="silver" label="Reference Materials" form="/home/configs/IRB/forms/checklists.xfrm"/>
+    
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/fr_irbsubmitRSRebuf.xfrm" when="submit"/>
+    
+    <switches>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+    </switches>
+</tabs>

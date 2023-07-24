@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<operations>
+
+    <group selection='1' title='Create New'>
+            <op title='US Proposal App Form Layout' mode='run'
+                script='var res = callService("processLauncher",{"app":"USProject", "fragment":"ModifyForms"}, "json");if(res &amp;&amp;res.response == "passed"){runActivity(res.output.id, res.output.segment)}else{alert("Process Not Found");}'
+                param='{}'/>
+    </group>
+    <group selection='1' title='Reporting'>
+        <op title='Ad-hoc Reporting' mode='run'
+            script='window.open(REPORTING_URL + "/pentaho?userid=wmalyk&amp;password=id8pass");'
+            param='{}'/>
+        <op title='Awarded Funding By Year' mode='run'
+            script='model.ad.clearDashboard();model.ad.loadSecondaryDashboard("/home/resources/applications/USProject/forms/report1.xfrm");'
+            param='{}'/>
+        <op title='Requested Funding By Year' mode='run'
+            script='model.ad.clearDashboard();model.ad.loadSecondaryDashboard("/home/resources/applications/USProject/forms/report2.xfrm");'
+            param='{}'/>
+    </group>
+    
+    <group selection='1' title='Configure'>
+        <op title='Proposal Review Path &amp; Questions' mode='run'
+            script='model.ad.clearDashboard();model.ad.loadSecondaryDashboard("/home/resources/applications/USProject/forms/configReviews.xfrm");'
+            param='{}'/>
+        <op title='Record Numbering Scheme' mode='run'
+            script='model.ad.clearDashboard();model.ad.loadSecondaryDashboard("/home/resources/applications/USProject/forms/configNumbering.xfrm");'
+            param='{}'/>
+        <op title='Org Hierachy' mode='run'
+            script='window.location = "../view-usr/org.jsp";'
+            param='{}'/>
+        <op title='People Schema' mode='run'
+            script='window.location = "../entity/edit?entity=People";'
+            param='{}'/>
+    </group>
+
+</operations>

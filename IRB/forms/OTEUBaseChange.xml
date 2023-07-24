@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="OTEUBaseChange.xml">
+    <!-- Manually aded -->
+    <tab id="1" label="Summary" flabel=""/>
+    <tab id="18" label="Attachments" flabel=""/>
+    <form src="manual">
+        <el xml="oteuReason" cmp="1">Reason why conventional therapy/treatment cannot be used</el>
+        <el xml="oteuInitials" cmp="1">Initials</el>
+        <el xml="oteuAge" cmp="1">Age</el>
+        <el typ="decode" xml="oteuSex" cmp="1" lookup="OTEUSex/type" label="@name" value="@id"></el>
+        <el xml="oteuMedicalRecord" cmp="1">Medical Record #</el>
+        <el xml="oteuDiagnosis" cmp="1">Diagnosis</el>
+        <el xml="oteuDateofdiagnosis" cmp="1">Date of diagnosis</el>
+        <el xml="oteuPlannedtreatmentdate" cmp="1">Planned treatment date</el>
+        <el typ="decode" xml="oteuInformedConsent" lookup="oteuConsent/type" label="@name" value="@id" cmp="1">Informed Consent</el>
+    </form>
+    <form>
+        <el message="[View Page for Changes]" xml="document" cmp="18"/>
+    </form>
+</map>

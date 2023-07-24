@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+   
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummaryOTEU.xfrm" printlabel="Summary" sourceXML="/printSummaryOTEU.xml" formType="general" formName="printSummaryOTEU"/>
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm" printlabel="Attachments" sourceXML="/printAttachments.xml" formType="crossTab" formName="printAttachments"/>
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/irbsubmitO.xfrm" when="submit" printlabel="Submit" sourceXML="/submit.xml" formType="general" formName="submit"/>
+    
+    <switches>
+        <phi>0</phi>
+        <neaf>0</neaf>
+        <retroCharts>0</retroCharts>
+        <consentObt>0</consentObt>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>1</drugs>
+        <devices>1</devices>
+        <bios>1</bios>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

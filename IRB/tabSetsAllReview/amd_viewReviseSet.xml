@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+    
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummaryAMDComm.xfrm"/>
+    <tab id="2" label="Research Design">
+        <tab id="2a" label="Overview" form="/home/configs/IRB/forms/researchDesignAMDComm.xfrm"/>
+        <tab id="5" label="Risks and Benefits" form="/home/configs/IRB/forms/risksAMDComm.xfrm"/>
+    </tab> 
+    
+    <!-- ALL DRILLIN formsneed to be changed to allow for amendment type revision/approval -->
+    <tab id="4" label="Personnel">
+        <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/personnel.xfrm" when="pimatch"/>
+        <tab id="4a" label="Research Personnel" form="/home/configs/IRB/forms/personnelProxy.xfrm" when="pipending"/>
+        <tab id="4c" label="Other Personnel" form="/home/configs/IRB/forms/personnelOther.xfrm"/>
+    </tab>
+    <tab id="6A" label="Protocol Components">
+        <tab id="6" label="Performance Sites" form="/home/configs/IRB/forms/sites.xfrm"/>
+        <tab id="8" label="Drugs" form="/home/configs/IRB/forms/drugs.xfrm" when="drugs"/>
+        <tab id="9" label="Devices" form="/home/configs/IRB/forms/devices.xfrm" when="devices"/>
+        <tab id="10" label="Biologics" form="/home/configs/IRB/forms/biologics.xfrm" when="bios"/>
+        <tab id="17" label="Procedures" form="/home/configs/IRB/forms/procedures.xfrm"/>
+    </tab>
+    
+    <tab id="11A" label="Subjects">
+        <tab id="11" label="Populations" form="/home/configs/IRB/forms/subjectsAMDComm.xfrm"/>
+        <tab id="12" label="Eligibility" form="/home/configs/IRB/forms/eligibilityAMDComm.xfrm"/>
+        <tab id="13" label="Enrollment" form="/home/configs/IRB/forms/enrollAMDComm.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/home/configs/IRB/forms/recuitmentAMDComm.xfrm"/>
+        <tab id="14" label="Compensation" form="/home/configs/IRB/forms/compensation.xfrm"/>
+        <tab id="16" label="Consent" form="/home/configs/IRB/forms/consentAMDComm.xfrm"/>
+        <tab id="3" label="PHI" form="/home/configs/IRB/forms/healthrecordsAMDComm.xfrm"/>
+    </tab>
+    <tab id="7" label="Funding" form="/home/configs/IRB/forms/fundingAMDComm.xfrm"/>
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm"/>
+    
+    
+    <switches>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <bios>0</bios>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

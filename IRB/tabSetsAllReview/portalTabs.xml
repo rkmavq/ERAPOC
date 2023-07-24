@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="">     
+    <tab id="Sched" label="Meeting Schedule" form="/../fil/system/resources/services/protocolRouting/forms/meetings.xfrm"/>
+    <tab id="GeneralInfo" label="Board Info/Members" form="/../fil/system/resources/services/protocolRouting/forms/members.xfrm"/>
+</tabs>

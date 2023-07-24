@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lifecycle created="Mon Nov 09 2009 09:15:04 GMT-0500 (EST)" who="test">
+  <event name="Application Installed into Instance, Configuration Assigned to Owner" start="Mon Nov 09 2009 09:15:04 GMT-0500 (EST)" end="" who="test" result=""/>
+</lifecycle>

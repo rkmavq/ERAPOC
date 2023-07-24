@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="1" label="Summary">
+    	<tab id="1a" label="Summary" form="/home/configs/IRB/forms/summary.xfrm" printlabel="Summary - Summary" sourceXML="/summary.xml" formType="general"  special="general" formName="summary" mode=""/>
+		<tab id="1b" label="Purpose of the Research" form="/home/configs/IRB/forms/purpose.xfrm" printlabel="Summary - Purpose of the Research" sourceXML="/purpose.xml" formType="general" special="general" formName="purpose" mode=""/>
+        <tab id="1c" label="Research" form="/home/configs/IRB/forms/research.xfrm" printlabel="Summary - Research" sourceXML="/research.xml" formType="general" special="general" formName="research" when="notapprovedorsecondary" mode=""/>
+		<tab id="1d" label="General Questions" form="/home/configs/IRB/forms/summaryGeneral.xfrm" printlabel="Summary - General Questions" sourceXML="/summaryGeneral.xml" formType="general"  special="general" formName="summaryGeneral" when="notapprovedorsecondary" mode=""/>		
+    </tab>
+	
+	<tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/personnel.xfrm" printlabel="Research Personnel" sourceXML="/printPersonnel.xml" formType="personnelCrossTab" formName="printPersonnel" mode=""/>
+	
+	<tab id="2" label="Participants" when="notapprovedorsecondary">
+		<tab id="2a" label="Participants" form="/home/configs/IRB/forms/participants.xfrm" printlabel="Participants - Participants" sourceXML="/participants.xml" formType="general" special="general" formName="participants" when="notapprovedorsecondary" mode=""/>
+		<tab id="2b" label="Compensation" form="/home/configs/IRB/forms/compensation.xfrm" printlabel="Participants - Compensation" sourceXML="/compensation.xml" formType="general" special="general" formName="compensation" when="compensation" mode=""/>
+		<tab id="2c" label="Recruitment" form="/home/configs/IRB/forms/recruitment.xfrm" printlabel="Participants - Recruitment" sourceXML="/recruitment.xml" formType="general" special="general" formName="recruitment" when="notapprovedorsecondary" mode=""/>		
+    </tab>
+	
+	<tab id="3" label="Consent Process" when="notapprovedorsecondary">
+        <tab id="3a" label="Informed Consent Process" form="/home/configs/IRB/forms/consent.xfrm" printlabel="Consent - Informed Consent Process" sourceXML="/consent.xml" formType="general" special="general" formName="consent" when="notapprovedorsecondary" mode=""/>
+	</tab>	
+	
+	<tab id="5" label="Data" when="notapprovedorsecondary">
+    	<tab id="5a" label="Confidentiality  " form="/home/configs/IRB/forms/confidentiality.xfrm" printlabel="Data - Confidentiality" sourceXML="/confidentiality.xml" formType="general" special="general" formName="notapprovedorsecondary" when="data" mode=""/>
+        <tab id="5b" label="Data" form="/home/configs/IRB/forms/data.xfrm" printlabel="Data - Data" sourceXML="/data.xml" formType="general" special="general" formName="data" when="notapprovedorsecondary" mode=""/>
+		<tab id="5c" label="Data Transfer" form="/home/configs/IRB/forms/dataTransfer.xfrm" printlabel="Data - Data Transfer" sourceXML="/dataTransfer.xml" formType="drillIn" special="general" formName="dataTransfer" when="notapprovedorsecondary" mode=""/>    	
+    </tab>
+	
+	
+	<tab id="6" label="Deception" form="/home/configs/IRB/forms/deception.xfrm" printlabel="Deception" sourceXML="/deception.xml" formType="general" special="general" formName="deception" when="deception" mode=""/>
+	
+	<tab id="7" label="Risks and Benefits" when="notapprovedorsecondary">
+		<tab id="7a" label="Benefits" form="/home/configs/IRB/forms/benefits.xfrm" printlabel="Risks and Benefits - Benefits" sourceXML="/benefits.xml" formType="general" special="general" formName="benefits" when="notapprovedorsecondary" mode=""/>		
+		<tab id="7b" label="Risks" form="/home/configs/IRB/forms/risks.xfrm" printlabel="Risks and Benefits - Risks" sourceXML="/risks.xml" formType="general" special="general" formName="risks" when="notapprovedorsecondary" mode=""/>
+    </tab>
+	<tab id="8" label="Dissemination/Withdrawing" when="notapprovedorsecondary">
+		<tab id="8a" label="Feedback" form="/home/configs/IRB/forms/feedback.xfrm" printlabel="Dissemination/Withdrawing - Feedback" sourceXML="/feedback.xml" formType="general" special="general" formName="feedback" when="notapprovedorsecondary" mode=""/>		
+		<tab id="8b" label="Withdrawing" form="/home/configs/IRB/forms/withdrawing.xfrm" printlabel="Dissemination/Withdrawing - Withdrawing" sourceXML="/withdrawing.xml" formType="general" special="general" formName="withdrawing" when="notapprovedorsecondary" mode=""/>
+		<tab id="8c" label="Other Approvals" form="/home/configs/IRB/forms/otherApprovals.xfrm" printlabel="Dissemination/Withdrawing - Other Approvals" sourceXML="/otherApprovals.xml" formType="general" special="general" formName="otherApprovals" when="otherapprovals" mode=""/>
+    </tab>
+	<tab id="9" label="Indigenous Peoples" form="/home/configs/IRB/forms/indigenous.xfrm" printlabel="Indigenous Peoples" sourceXML="/indigenous.xml" formType="general" special="general" formName="indigenous" when="indigenous" mode=""/>
+	<tab id="10" label="Secondary Use of Data" form="/home/configs/IRB/forms/secondaryUse.xfrm" printlabel="Secondary Use of Data" sourceXML="/secondaryUse.xml" formType="general" special="general" formName="secondaryUse" when="secondaryuse" mode=""/>
+	
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm" printlabel="Attachments" sourceXML="/printAttachments.xml" formType="crossTab" formName="printAttachments" mode=""/>
+    
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/irbsubmit.xfrm" when="submit" printlabel="Submit" sourceXML="/submit.xml" formType="general" formName="submit" mode=""/>
+    <tab id="23" label="Send to PI" form="/home/configs/IRB/forms/irbsubmitproxy.xfrm" when="submitproxy" mode=""/>
+	
+	<switches>
+		<notapprovedorsecondary>0</notapprovedorsecondary>
+        <compensation>0</compensation>
+		<deception>0</deception>
+		<otherapprovals>0</otherapprovals>
+		<indigenous>0</indigenous>		
+		<secondaryuse>0</secondaryuse>		        
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>		
+    </switches>
+</tabs>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="certs"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="form"><data><tabID>35a</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "cruSummary");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+       
+        if(model.Frm.getApplicationURI()=="/data/irb.xml"){
+            if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+            }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+            }      
+          
+            
+              if(model.Frm.formSet.getRoot().__AMND){
+              model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+              model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+              }else{
+              model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+              }
+              
+              
+              if (model.Frm.formSet.getRoot().__REVURI.indexOf("/reviews") &gt; -1) model.Frm.revewMode = -1;
+              
+            
+        }
+      
+                if(model.Frm.getApplicationURI()=="/data/irb.xml"){
+                
+                }else{
+                    model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+                }
+              
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '35a')
+          //model.USA.registerChangeLog('ins', '35a')
+          model.USA.registerChangeLog('comments', '35a')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission>
+        if(model.Frm.getApplicationURI()=="/data/irb.xml"){
+          <xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission>
+        }
+      <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(certs)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind type="xsd:integer" nodeset="instance('ins')/outpatientVisits"/><xf:bind type="xsd:integer" nodeset="instance('ins')/hoursPerVisit"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><script ev:event="xforms-value-changed">model.USA.updateErrs('ins', 'recordTable');</script><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		Each protocol must be reviewed and approved by the Clinical Research Center Scientific Advisory Committee, which meets on a monthly basis, prior to admission of patients.  All studies must also be approved by the Icahn School of Medicing at Mount Sinai (ISMMS) Program for the Protection of Human Subjects (PPHS) Institutional Review Board (IRB).
+	    <option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		IT IS STRONGLY RECOMMENDED THAT CRU ADMINISTRATION BE CONTACTED WELL IN ADVANCE OF PROTOCOL SUBMISSION. 
+	    <option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		Contact the Clinical Research Manager at Christine.Hannigan@mssm.edu.
+	    <option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">		
+		Submission deadlines can be found at <a href="http://icahn.mssm.edu/static_files/MSSM/Files/Research/Resources/Clinical Research Centers/SAC Meeting Schedule.doc" target="_blank">http://icahn.mssm.edu/static_files/MSSM/Files/Research/Resources/Clinical Research Centers/SAC Meeting Schedule.doc</a>.
+	    <option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="radiobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:select1 ref="instance('ins')/studyWillUtilize" appearance="full" id="studyWillUtilize"><xf:label>Study Will Utilize</xf:label><xf:repeat nodeset="instance('cats')/studyWillUtilize/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help fieldWidth="270px;">Scatter bed services are research services provided in another location with the hospital, typically because a patient is  unable to get to the CRU or is an inpatient for a clinical reason.</help></span></p></div></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/studyWillUtilize = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;  width:550px"><tr class="top"><td style=""><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/includesStandardCare" appearance="full" class="selectYes" style="width:450px;" id="includesStandardCare"><xf:label>Study Includes Standard of Care</xf:label><xf:hint>Standard of care refers to tests or procedures that are performed as part of the subjects routine clinical care and are not part of the study protocol.</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/includesStandardCare" appearance="full" id="includesStandardCare"><xf:label/><xf:hint>Standard of care refers to tests or procedures that are performed as part of the subjects routine clinical care and are not part of the study protocol.</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>Standard of care refers to tests or procedures that are performed as part of the subjects routine clinical care and are not part of the study protocol.</help></span></p></div></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/includesStandardCare = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;  width:550px"><tr class="top"><td style=""><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/rareDiseaseStudy" appearance="full" class="selectYes" style="width:450px;" id="rareDiseaseStudy"><xf:label>Rare Disease Study</xf:label><xf:hint>See http://rarediseases.info.nih.gov/RareDiseaseList.aspx?PageID=1 for more information.</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/rareDiseaseStudy" appearance="full" id="rareDiseaseStudy"><xf:label/><xf:hint>See http://rarediseases.info.nih.gov/RareDiseaseList.aspx?PageID=1 for more information.</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>See <a href="http://rarediseases.info.nih.gov/RareDiseaseList.aspx?PageID=1" target="_blank">http://rarediseases.info.nih.gov/RareDiseaseList.aspx?PageID=1</a> for more information.</help></span></p></div></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/rareDiseaseStudy = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="checkboxes"><td class="component  widestLabel "><xf:select ref="instance('ins')/CRUPersonnel" appearance="full" id="CRUPersonnel"><xf:label>CRU Personnel</xf:label><xf:repeat nodeset="instance('cats')/CRUPersonnel/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select></td><td class="errors custError"><div><ix:attr value="if(instance('ins')/CRUPersonnel = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="checkboxes"><td class="component  widestLabel "><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:select ref="instance('ins')/CRUFacilities" appearance="full" id="CRUFacilities"><xf:label>CRU Facilities</xf:label><xf:repeat nodeset="instance('cats')/CRUFacilities/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help fieldWidth="325px;">If CT or MRI imaging, contact ISL Staff to ensure feasibility: <a href="http://www.mssm.edu/isl/research_proposals.shtml" target="_blank">http://www.mssm.edu/isl/research_proposals.shtml</a></help></span></p></div></span></td></tr></table></td><td class="errors custError"><div><ix:attr value="if(instance('ins')/CRUFacilities = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="bigbox"><td class="component textarea   widestLabel"><table style="margin-left:-3px;"><tr class="top"><td style=""><xf:textarea style="height:10em;" class="" ref="instance('ins')/descPerformedCRU"><xf:label>Describe What Will Be Performed On the CRU</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>If there are multiple locations for study visits or multiple visits with different needs, include a flow chart or table to delineate the procedures performed by the staff in the CRU. Provide a narrative justification for utilization of CRU resources (e.g. why the resource is necessary for undertaking the study) and a detailed explanation of nursing services needed (i.e. physical exam, insert IV, frequency of blood draw, infuse drug, observe for X time period, etc.).</help></span></p></div></span></td></tr></table></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/descPerformedCRU)"/></div></td><td class="errors custError"><div><ix:attr value="if(instance('ins')/descPerformedCRU = '', '', 'display:none')" name="style"/>Required</div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

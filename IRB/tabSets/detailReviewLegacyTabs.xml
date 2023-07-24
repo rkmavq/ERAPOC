@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+    
+    <!--<tab id="LC" label="Review(s)" form="/home/configs/IRB/forms/readonlyReviewsCoor.xfrm"/>-->
+    <tab id="LC" color="gray" label="Review(s)" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/>
+    
+    <!--<tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummaryView.xfrm"/>
+    <tab id="2" label="Research Design">
+        <!-\-<tab id="2a" label="Overview" form="/../fil/home/configs/IRB/forms/dshbrd_researchDesignView.xfrm"/>-\->
+        <tab id="2a" label="Overview" form="/home/configs/IRB/forms/researchDesignView.xfrm"/>
+        <tab id="5" label="Risks and Benefits" form="/home/configs/IRB/forms/risksView.xfrm"/>
+    </tab>
+    
+<!-\-    <tab id="4" label="Personnel">
+        <tab id="m1" label="Personnel" form="/../fil/home/configs/IRB/forms/dshbrd_personnelMan.xfrm" when="isPI"/>
+        <tab id="m3" label="Personnel" form="/../fil/home/configs/IRB/forms/dshbrd_personnelManRO.xfrm" when="staticPersonnel"/>
+        <tab id="m3c" label="Other Personnel" form="/../fil/home/configs/IRB/forms/dshbrd_personnelOther.xfrm"/>
+    </tab> -\->
+    <tab id="m3" label="Personnel" form="/home/configs/IRB/forms/dshbrd_personnelManRO.xfrm"/>
+
+    <tab id="6A" label="Protocol Components">
+        <tab id="6" label="Performance Sites" form="/home/configs/IRB/forms/sitesView.xfrm"/> <!-\- dshbrd_ -\->
+        
+        <tab id="6B" label="Retrospective Chart Reviews" form="/home/configs/IRB/forms/retrochartreviewsView.xfrm" when="retroCharts"/>
+        <tab id="10B" label="Biologics" form="/home/configs/IRB/forms/biologicsView.xfrm" when="biologics"/>
+        <tab id="10" label="Biological Samples" form="/home/configs/IRB/forms/biologicalView.xfrm" when="biological"/>
+               
+        <tab id="8" label="Drugs or Vaccines" form="/home/configs/IRB/forms/drugsView.xfrm" when="drugs"/>
+        <tab id="9" label="Devices" form="/home/configs/IRB/forms/devicesView.xfrm" when="devices"/>
+                
+        <tab id="17a" label="Radiation" form="/home/configs/IRB/forms/radiationView.xfrm" when="radio"/>
+    </tab>
+    
+    <tab id="11A" label="Participants">
+        <tab id="11" label="Populations" form="//home/configs/IRB/forms/subjectsView.xfrm"/>
+        <tab id="17" label="Projected Enrollment" form="/home/configs/IRB/forms/enrollView.xfrm"/>
+        <tab id="12" label="Eligibility" form="/home/configs/IRB/forms/eligibilityView.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/home/configs/IRB/forms/recuitmentView.xfrm"/>
+        <tab id="14" label="Compensation" form="/home/configs/IRB/forms/compensationView.xfrm" when="comp"/>        
+        <tab id="16" label="Consent" form="/home/configs/IRB/forms/consentView.xfrm" when="consentObt"/>
+        <tab id="3" label="PHI" form="/home/configs/IRB/forms/healthrecordsView.xfrm" when="phi"/>
+    </tab>
+    <tab id="7X" label="Funding" when="funding">
+        <tab id="7" label="Sources" form="/home/configs/IRB/forms/fundingView.xfrm" when="funding"/>
+        <tab id="7b" label="Invoice Details" form="/home/configs/IRB/forms/invoiceView.xfrm" when="invoiced"/>
+    </tab>-->
+    <tab id="21A" label="Documents" form="/home/configs/IRB/forms/legacyIADocs.xfrm"/>
+<!--    <tab id="11A" label="Participants">
+        <tab id="11" label="Populations" form="/home/configs/IRB/forms/subjects.xfrm"/>
+        <tab id="17" label="Projected Enrollment" form="/home/configs/IRB/forms/enroll.xfrm"/>
+        <tab id="12" label="Eligibility" form="/home/configs/IRB/forms/eligibility.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/home/configs/IRB/forms/recuitment.xfrm"/>
+        <tab id="14" label="Compensation" form="/home/configs/IRB/forms/compensation.xfrm" when="comp"/>        
+        <tab id="16" label="Consent" form="/home/configs/IRB/forms/consent.xfrm" when="consentObt"/>
+        <tab id="3" label="PHI" form="/home/configs/IRB/forms/healthrecords.xfrm" when="phi"/>
+    </tab>
+    <tab id="7X" label="Funding" when="funding">
+        <tab id="7" label="Sources" form="/home/configs/IRB/forms/funding.xfrm" when="funding"/>
+        <tab id="7b" label="Invoice Details" form="/home/configs/IRB/forms/invoice.xfrm" when="invoiced"/>
+    </tab>
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm"/>-->
+    
+    
+    <!--<tab id="11A" label="Participants">
+        <tab id="11" label="Populations" form="/../fil/home/configs/IRB/forms/dshbrd_subjects.xfrm"/>
+        <tab id="12" label="Eligibility" form="/../fil/home/configs/IRB/forms/dshbrd_eligibility.xfrm"/>
+        <tab id="13" label="Enrollment" form="/../fil/home/configs/IRB/forms/dshbrd_enroll.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/../fil/home/configs/IRB/forms/dshbrd_recuitment.xfrm"/>
+        <tab id="14" label="Compensation" form="/../fil/home/configs/IRB/forms/dshbrd_compensation.xfrm"/>
+        
+        <tab id="16" label="Consent" form="/../fil/home/configs/IRB/forms/dshbrd_consent.xfrm"/>
+        <tab id="3" label="PHI" form="/../fil/home/configs/IRB/forms/dshbrd_healthrecords.xfrm"/>
+    </tab>-->
+    <!--<tab id="7" label="Funding" form="/../fil/home/configs/IRB/forms/dshbrd_fundingView.xfrm"/>-->
+    <!--<tab id="18" label="Attachments" form="/../fil/home/configs/IRB/forms/dshbrd_attachments.xfrm"/>-->
+    
+    <!--
+        <tab id="19" label="Submissions" form="/home/configs/IRB/forms/submissions.xfrm"/>
+        <tab id="20" label="Reviews" form="/home/configs/IRB/forms/reviews.xfrm"/>
+        <tab id="21" label="Review Details" form="/home/configs/IRB/forms/reviewDetails.xfrm"/>-->
+    <!--
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/irbsubmit.xfrm" when="submit"/>
+    <tab id="23" label="Send to PI" form="/home/configs/IRB/forms/irbsubmitproxy.xfrm" when="submitproxy"/>-->
+    
+    <switches>
+        <invoicesPI></invoicesPI>
+        <isPI>0</isPI>
+        <isCoord>0</isCoord>
+        <isDirector>0</isDirector>
+        <isIntake>0</isIntake>
+        <staticPersonnel>0</staticPersonnel>
+        <seeComments>0</seeComments>
+        <seeRiscLogs>0</seeRiscLogs>
+        
+        <comms>0</comms>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <bios>0</bios>
+        <radio>0</radio>
+        <biologics>0</biologics>
+        <biological>0</biological>
+        <retroCharts>0</retroCharts>
+        
+        <funding>0</funding>
+        <invoiced>0</invoiced>
+        <comp>0</comp>
+        <phi>0</phi>
+        <consentObt>0</consentObt>
+        
+        <active>0</active>
+        
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

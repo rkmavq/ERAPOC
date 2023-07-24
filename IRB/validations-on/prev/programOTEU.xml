@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations tabset="errorSetScreen">
+    
+    <e type="direct" toptab="1" tab="1" err="oteuType" message="required"
+        xpath="count(instance('ins')/oteuType[. = ''])" xpathSS="count(oteuType[. = ''])"/>
+
+    <e type="direct" toptab="1" tab="1" err="Biologic" message="required"
+        xpath="count(instance('ins')/oteuType[. = 'Biologic' and not(instance('ins')/Biologic)])" xpathSS="count(oteuType[. = 'Biologic' and not(//Biologic)])"/>
+
+    <e type="direct" toptab="1" tab="1" err="Drug" message="required"
+        xpath="count(instance('ins')/oteuType[. = 'Drug' and not(instance('ins')/Drug)])" xpathSS="count(oteuType[. = 'Drug' and not(//Drug)])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="Device" message="required"
+        xpath="count(instance('ins')/oteuType[. = 'Device' and not(instance('ins')/Device)])" xpathSS="count(oteuType[. = 'Device' and not(//Device)])"/>
+
+    <e type="direct" toptab="1" tab="1" err="oteuReason" message="required"
+        xpath="count(instance('ins')/oteuReason[. = ''])" xpathSS="count(oteuReason[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuInitials" message="required"
+        xpath="count(instance('ins')/oteuInitials[. = ''])" xpathSS="count(oteuInitials[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuAge" message="required"
+        xpath="count(instance('ins')/oteuAge[. = ''])" xpathSS="count(oteuAge[. = ''])"/>
+
+    <e type="direct" toptab="1" tab="1" err="oteuSex" message="required"
+        xpath="count(instance('ins')/oteuSex[. = ''])" xpathSS="count(oteuSex[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuMedicalRecord" message="required"
+    xpath="count(instance('ins')/oteuMedicalRecord[. = ''])" xpathSS="count(oteuMedicalRecord[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuDiagnosis" message="required"
+    xpath="count(instance('ins')/oteuDiagnosis[. = ''])" xpathSS="count(oteuDiagnosis[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuDateofdiagnosis" message="required"
+        xpath="count(instance('ins')/oteuDateofdiagnosis[. = ''])" xpathSS="count(oteuDateofdiagnosis[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuPlannedtreatmentdate" message="required"
+        xpath="count(instance('ins')/oteuPlannedtreatmentdate[. = ''])" xpathSS="count(oteuPlannedtreatmentdate[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuInformedConsent" message="required"
+        xpath="count(instance('ins')/oteuInformedConsent[. = ''])" xpathSS="count(oteuInformedConsent[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1" err="oteuInformedConsentDoc" message="required"
+        xpath="count(instance('ins')/oteuInformedConsentDoc[. = '' and instance('ins')/oteuInformedConsent='has'])" xpathSS="count(oteuInformedConsentDoc[. = '' and //oteuInformedConsent='has'])"/>
+
+    <e type="direct" toptab="1" tab="1" err="oteuInformedConsentDoc" message="required"
+        xpath="count(instance('ins')/oteuInformedConsentDoc[. = '' and instance('ins')/oteuInformedConsent='cant'])" xpathSS="count(oteuInformedConsentDoc[. = '' and //oteuInformedConsent='cant'])"/>
+     
+
+<!--    <e type="direct" toptab="1" tab="1" err="shortTitle" message="short title is required"
+        xpath="count(instance('ins')/shortTitle[. = ''])" xpathSS="count(shortTitle[. = ''])"/>
+
+    <e type="direct" toptab="1" tab="1" err="shortTitle" message="short title is too long (max 50 characters)"
+        xpath="count(instance('ins')/shortTitle[string-length(.) &gt; 0])" xpathSS="count(shortTitle[string-length(.) &gt; 0])"/>-->
+    
+</validations>

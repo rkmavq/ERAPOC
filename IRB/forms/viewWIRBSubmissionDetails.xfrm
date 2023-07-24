@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <!-- The data model consists of:
+        ins - process data
+        proDat - project data
+        form - form specific data
+        bootstrap - bootstraping data (pointers to aux files to attach
+        config - config data
+      -->
+      <xf:instance id="ins">
+        <data xmlns="">
+         <primeEntityURI></primeEntityURI>
+         <reviewID></reviewID>
+         <linkedOpURI></linkedOpURI>
+         <application>IRB</application>
+         <lastPage></lastPage>
+         <formConf></formConf>
+        </data>
+      </xf:instance>
+      <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+    <xf:instance id="src"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <entity></entity>
+        	<submissionId/>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+        </data>
+      </xf:instance>
+      
+      <!-- This will be fetched and rendered based on what's returned in the service call -->
+      <xf:instance id="table">
+        <data xmlns="">
+          <content></content>
+        </data>
+      </xf:instance>
+  	<xf:instance id="cat">
+  		<data xmlns="">
+  			<content></content>
+  		</data>
+  	</xf:instance>
+      
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        
+        includeSharedJS("/resources/services/appForms/main.js");                         
+        model.setInstanceIdSrc('cat', "/fil/ideate/configs/IRB/datamodel/templates/data/catagories.xml");
+        model.setValue("instance('form')/submissionId",document.__refName);
+		//model.__waiting = new waitingBox("Refreshing Details");
+		//refreshSubmissionDetails
+		//var refreshSubmission = callSharedService("protocolRouting", {"op":"refreshSubmissionDetails", "targetURI":document.__refUri,"submissionId":document.__refName}, "service", "text").output;
+		model.setInstanceIdSrc("proDat", "/fil" + document.__refUri+"/data/wirb.xml");
+		//model.__waiting.stop();
+        model.rebuild();
+        model.refresh();
+        model.recalculate();
+      </script>
+  </xf:model>  
+	<style>
+			div.drillinForm div.xfctrl{
+			background:none;
+			}
+			
+			div.drillinForm div.xfctrl label{
+			color:black;
+			}
+			
+			div.formFrame div.drillinForm table.summary table.combo{
+			width:60%;
+			}
+			
+			div.formFrame div.drillinForm table.summary td.thin table.combo{
+			width:80%
+			}
+			
+			div.formFrame div.drillinForm table.summary td.wide table.combo{
+			width:40%
+			}
+			
+			div.formFrame div.drillinForm td.tight div.xfctrl input{
+			width:15px;
+			}
+			
+			div.drillinForm table.summary td.tight td{
+			margin-left:0px;
+			padding-left:5px;
+			width:auto;
+			}
+			
+			div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+			width:auto;
+			}
+			
+			div.formFrame div.drillinForm td.close div.xfctrl input{
+			padding:0px;
+			width:auto;
+			}
+			
+			div.diagXf table.xfctrl td{
+			vertical-align:top;
+			padding-bottom:8px;
+			padding-left:3px;
+			}
+			
+			div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+			width:100px;
+			}
+			
+			td.diagContent div.diagContent {
+			background-color:white;
+			}
+			
+			td.diagContent div.diagContent div.commGen{
+			}
+			
+			td.diagContent div.diagContent div.commGen label{
+			margin-left:2px;
+			width:70px;
+			}
+			
+			td.diagContent div.diagContent div.commGen input{
+			margin-left:2px;
+			width:300px;
+			}
+			
+			td.diagContent div.diagContent div.commGen textarea{
+			margin-left:2px;
+			width:370px;
+			height:200px;
+			}
+			
+		</style>
+		
+	<style>
+		div.main div.xfctrl{
+		background:none;
+		}
+		
+		div.main div.xftrl td.combo {color:black};
+		
+		
+		.wikiView div.actionsPulldown2{
+		width:210px;
+		padding:1px;
+		}
+		
+		
+		.wikiView div.actionsPulldown2 table.actionsPulldown2{
+		width:190px;
+		}
+		
+		
+		
+		.wikiView div.statusPulldown{
+		background:none;
+		padding:1px;
+		}
+		
+		.wikiView div.statusPulldown table.statusPulldown{
+		width:98%;
+		}
+		
+		
+		
+		.actionsGo{
+		height:19px;
+		font-size:10px;
+		}
+		
+		div.drillinForm div.xfctrl{
+		background:none;
+		}
+		
+		div.drillinForm div.xfctrl label{
+		color:black;
+		}
+		
+		div.formFrame div.drillinForm table.summary table.combo{
+		width:60%;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.thin table.combo{
+		width:80%
+		}
+		
+		div.formFrame div.drillinForm table.summary td.wide table.combo{
+		width:40%
+		}
+		
+		div.formFrame div.drillinForm td.tight div.xfctrl input{
+		width:15px;
+		}
+		
+		div.drillinForm table.summary td.tight td{
+		margin-left:0px;
+		padding-left:5px;
+		width:auto;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+		width:auto;
+		}
+		
+		div.formFrame div.drillinForm td.close div.xfctrl input{
+		padding:0px;
+		width:auto;
+		}
+		
+		div.diagXf table.xfctrl td{
+		vertical-align:top;
+		padding-bottom:8px;
+		padding-left:3px;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+		width:100px;
+		}
+		
+		td.diagContent div.diagContent {
+		background-color:white;
+		}
+		
+		td.diagContent div.diagContent div.commGen{
+		}
+		
+		td.diagContent div.diagContent div.commGen label{
+		margin-left:2px;
+		width:70px;
+		}
+		
+		td.diagContent div.diagContent div.commGen input{
+		margin-left:2px;
+		width:300px;
+		}
+		
+		td.diagContent div.diagContent div.commGen textarea{
+		margin-left:2px;
+		width:370px;
+		height:200px;
+		}
+		
+		
+	</style>
+	
+	<style>
+		.wikiView table.email div.xfctrl {background-color:white;};
+		
+		table.email {
+		width: 400px;
+		font: 12px;
+		}
+		
+		table.email td.left {
+		vertical-align:top;
+		padding:2px;
+		text-align:right;
+		width: 60px;
+		font-weight: bold;
+		}
+		
+		table.email td.right {
+		padding:2px;
+		margin-left:10px;
+		vertical-align:top;
+		width: 330px;
+		border: 1px solid #999999;
+		background-color:white;
+		}
+		
+		table.email td.rightoutput {
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl{
+		padding:0px;
+		margin:0px;
+		margin-left:-1px;
+		margin-right:-1px;
+		width: 360px;
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl input{
+		margin:0px;
+		width: 358px;
+		}
+		
+		.clickable {cursor:pointer; color:blue;}
+		
+		.wikiView table.email div.xfctrl{
+		padding:0px;
+		}
+		
+	</style>
+	<style>
+		
+		div.drillinForm div.xfctrl{
+		background:none;
+		}
+		
+		div.drillinForm div.xfctrl label{
+		color:black;
+		}
+		
+		div.formFrame div.drillinForm table.summary table.combo{
+		width:60%;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.thin table.combo{
+		width:80%
+		}
+		
+		div.formFrame div.drillinForm table.summary td.wide table.combo{
+		width:40%
+		}
+		
+		div.formFrame div.drillinForm td.tight div.xfctrl input{
+		width:15px;
+		}
+		
+		div.drillinForm table.summary td.tight td{
+		margin-left:0px;
+		padding-left:5px;
+		width:auto;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+		width:auto;
+		}
+		
+		div.formFrame div.drillinForm td.close div.xfctrl input{
+		padding:0px;
+		width:auto;
+		}
+		
+		div.diagXf table.xfctrl td{
+		vertical-align:top;
+		padding-bottom:8px;
+		padding-left:3px;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+		width:100px;
+		}
+		
+		td.diagContent div.diagContent {
+		background-color:white;
+		}
+		
+		td.diagContent div.diagContent div.commGen{
+		}
+		
+		td.diagContent div.diagContent div.commGen label{
+		margin-left:2px;
+		width:70px;
+		}
+		
+		td.diagContent div.diagContent div.commGen input{
+		margin-left:2px;
+		width:300px;
+		}
+		
+		td.diagContent div.diagContent div.commGen textarea{
+		margin-left:2px;
+		width:370px;
+		height:200px;
+		}
+		
+		table.easyLayout th {
+		text-align:left;	
+		}
+		
+		table.easyLayout th.tight {
+		width:60px;
+		text-align:center;
+		}
+		
+		table.easyLayout th.medium {
+		width:200px;
+		}
+		
+		table.easyLayout th.wide {
+		width:300px;
+		}
+		
+		table.easyLayout td.tight {
+		width:60px;
+		text-align:center;
+		}
+		
+		table.easyLayout td.medium {
+		width:200px;
+		}
+		
+		table.easyLayout td.wide {
+		width:300px;
+		}
+		
+		table.easyLayout tr.odd td {
+		background-color: #e8edff; 
+		}
+		
+		table.easyLayout tr.odd td.complete {
+		background-color: white;
+		}
+		
+		.wikiView table.easyLayout div.xfctrl{
+		background:none;
+		}
+		
+	</style>
+	
+    <div class="body">        
+      <br/>   
+      <table class="easyLayout" style="margin-left:20px;margin-top:20px;" width="100%">
+	  <tr class="top" valign="top">  
+	  <td colspan="2"><h2>Submission Details</h2></td>
+      </tr>      <!--<ix:attr value="if(count($recsM) &gt; 0, '', 'display:none')" name="style"/>-->
+      	<xf:repeat nodeset="instance('cat')/WIRBSubmissionNodeNames/type[@id!='refreshDate']">
+      		<exf:variable value="position()" name="po"/>      
+      		<exf:variable value="@id" name="rowId"/>      
+      		<exf:variable value="@name" name="rowName"/>
+			<exf:variable value="@datatype" name="rowType"/>
+            <tr class="top" valign="top">   	
+            	<ix:attr name="class" value="if($po mod 2 = 1, 'odd', 'even')"/>    
+            	<th class="small drillin left" width="20%"><xf:output value="$rowName"/>: </th>
+            	<td class="small drillin left">
+            		<span><ix:attr name="style" value="if($rowType='text', '', 'display:none')"/><xf:output value="instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId]"/></span>
+					<span><ix:attr name="style" value="if($rowType='boolean', '', 'display:none')"/><xf:output value="if(instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId]='false','No',if(instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId]='true','Yes','Unknown'))"/></span>
+					<span><ix:attr name="style" value="if($rowType='date', '', 'display:none')"/><xf:output value="if(instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId] != '', concat(substring(instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId], 6, 2), '/', substring(instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId], 9, 2), '/', substring(instance('proDat')/submissions/submission[id=instance('form')/submissionId]/*[local-name()=$rowId], 1, 4)), '   ')"/></span>
+            	</td>             
+            </tr>
+      	</xf:repeat>                     
+          </table>                
+    </div>    
+    <br/>
+    <br/><br/>
+    
+  
+</form>

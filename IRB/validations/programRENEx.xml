@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>    
+    <!--Attributes:
+        type: Always "direct"
+        toptab: Parent tabId if there is one
+        tab: TabId of the page
+        err: Field name that you want highlighted
+        xpath: client-side xpath to evaluate for
+        xpathSS: Server-side xpath to evaluate for.
+        ** As of now, all validations happen on server-side **--> 
+    
+    <!--<e type="direct" toptab="100" tab="100" err="aut1" xpath="count(instance('ins')/aut1[. = ''])" xpathSS="count(aut1[. = ''])"/>-->
+    <!--Throw an error if the count is > than 0-->
+    <!-- //AB 03/27/2017 RITDEV-151 NEW FCOI Personnel screen for RENEWALS START-->
+    <!-- Validation for Research Personnel starts here -->    
+    <e type="direct" toptab="4b" tab="4b" err="name" 
+        xpath="count(instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri) and ./name = ''])" xpathSS="count(Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != ../Person[role='PI']/@uri) and ./name = ''])"/>				
+    <e type="direct" toptab="4b" tab="4b" err="department" 
+        xpath="count(instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri) and ./department/dept[@name = '']])" xpathSS="count(Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != ../Person[role='PI']/@uri) and ./department/dept[@name = '']])"/>
+    <e type="direct" toptab="4b" tab="4b" err="role" 
+        xpath="count(instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri) and (./role = '' or ./role = 'co')])" xpathSS="count(Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != ../Person[role='PI']/@uri) and (./role = '' or ./role = 'co')])"/>
+    <e type="direct" toptab="4b" tab="4b" err="access" 
+        xpath="count(instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri) and ./access = ''])" xpathSS="count(Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != ../Person[role='PI']/@uri) and ./access = ''])"/>
+    <!--AB 09292015 validation to prevent submit if FCOI is missing-->
+    <!-- Sprint 10A AB: Exclude fcoi status of NA from validation check -->
+    <!-- Note: we cannot exclude author from calculation as we did previously due to this new admin role -->    
+    <!--<e type="direct" toptab="4b" tab="4b" err="FCOINEEDED" xpath="count(instance('ins')/Person[@uri != '' and invitation/@status!='author' and (not(fcoi_status) or fcoi_status!='SUBMITTED')])" xpathSS="count(Person[@uri != '' and invitation/@status!='author' and (not(fcoi_status) or fcoi_status!='SUBMITTED')])"/>--> 
+    <!--<e type="direct" toptab="4b" tab="4b" err="FCOINEEDED" xpath="count(instance('ins')/Person[instance('ins')/original/appType!='2' and @uri != '' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri) and (not(fcoi_status) or fcoi_status!='SUBMITTED') and (not(fcoi_status) or fcoi_status!='NA' or role!='ADM')])" xpathSS="count(Person[../appType!='2' and @uri != '' and (invitation/@status!='author' or @uri != ../Person[role='PI']/@uri) and (not(fcoi_status) or fcoi_status!='SUBMITTED') and (not(fcoi_status) or fcoi_status!='NA') and role!='ADM'])"/> 
+    <e type="direct" toptab="4b" tab="4b" err="ifnumber" xpath="count(instance('ins')/ifnumber[. = '' and instance('ins')/original/appType!='2'])" xpathSS="count(ifnumber[. = ''and ../original/appType!='2'])"/>
+    -->
+    <!-- cv validation and FCOI above, enable in PROD only CARLOS -->
+    <!--<e type="direct" toptab="4b" tab="4b" err="cv" xpath="count(instance('ins')/Person[@uri != '' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri) and (not(cv) or cv/@uri='') and role!='ADM'])" xpathSS="count(Person[@uri != '' and (invitation/@status!='author' or @uri != ../Person[role='PI']/@uri) and (not(cv) or cv/@uri='') and role!='ADM'])"/>
+    -->    
+    <!-- Validation for Research Personnel ends here -->
+    <!-- //AB 03/27/2017 RITDEV-151 NEW FCOI Personnel screen for RENEWALS END-->
+    
+    <!-- Validation for Modification starts here -->
+    
+    <e type="direct" tab="4" toptab="4" err="protocolStatus" 	
+        xpath="count(instance('ins')/protocolStatus[. = ''])" xpathSS="count(protocolStatus[. = ''])"/>	
+    <e type="direct" tab="4" toptab="4" err="continuingActivitiesDescription" 	
+        xpath="count(instance('ins')/continuingActivitiesDescription[. = '' and instance('ins')/protocolStatus='4'])" xpathSS="count(continuingActivitiesDescription[. = '' and ../protocolStatus='4'])"/>	
+    
+    <!-- Validation for Modification ends here -->
+    
+    
+    
+    <!-- Validation for Since Last Annual Approval starts here -->
+    <e type="direct" tab="6" toptab="6" err="laysummary" 	
+        xpath="count(instance('ins')/laysummary[. = ''])" xpathSS="count(laysummary[. = ''])"/>
+    <e type="direct" tab="6" toptab="6" err="SubjectsHarm" 	
+        xpath="count(instance('ins')/SubjectsHarm[. = ''])" xpathSS="count(SubjectsHarm[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="SubjectsHarmDescription" 	
+        xpath="count(instance('ins')/SubjectsHarmDescription[. = '' and instance('ins')/SubjectsHarm='1'])" xpathSS="count(SubjectsHarmDescription[. = '' and ../SubjectsHarm='1'])"/>		
+    <e type="direct" tab="6" toptab="6" err="SubjectsBenefit" 	
+        xpath="count(instance('ins')/SubjectsBenefit[. = ''])" xpathSS="count(SubjectsBenefit[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="SubjectsBenefitDescription" 	
+        xpath="count(instance('ins')/SubjectsBenefitDescription[. = '' and instance('ins')/SubjectsBenefit='1'])" xpathSS="count(SubjectsBenefitDescription[. = '' and ../SubjectsBenefit='1'])"/>	
+    <e type="direct" tab="6" toptab="6" err="SubjectsProblems" 	
+        xpath="count(instance('ins')/SubjectsProblems[. = ''])" xpathSS="count(SubjectsProblems[. = ''])"/>	
+    			
+    <e type="direct" tab="6" toptab="6" err="SubjectsWithdrawn" 	
+        xpath="count(instance('ins')/SubjectsWithdrawn[. = ''])" xpathSS="count(SubjectsWithdrawn[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="SubjectsWithdrawnExplanation" 	
+        xpath="count(instance('ins')/SubjectsWithdrawnExplanation[. = '' and instance('ins')/SubjectsWithdrawn='1'])" xpathSS="count(SubjectsWithdrawnExplanation[. = '' and ../SubjectsWithdrawn='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="SubjectsComplained" 	
+        xpath="count(instance('ins')/SubjectsComplained[. = ''])" xpathSS="count(SubjectsComplained[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="SubjectsComplainedDescription" 	
+        xpath="count(instance('ins')/SubjectsComplainedDescription[. = '' and instance('ins')/SubjectsComplained='1'])" xpathSS="count(SubjectsComplainedDescription[. = '' and ../SubjectsComplained='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="Publications" 	
+        xpath="count(instance('ins')/Publications[. = ''])" xpathSS="count(Publications[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="PublicationsDescription" 	
+        xpath="count(instance('ins')/PublicationsDescription[. = '' and instance('ins')/Publications='1'])" xpathSS="count(PublicationsDescription[. = '' and ../Publications='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="Findings" 	
+        xpath="count(instance('ins')/Findings[. = ''])" xpathSS="count(Findings[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="FindingsDescription" 	
+        xpath="count(instance('ins')/FindingsDescription[. = '' and instance('ins')/Findings='1'])" xpathSS="count(FindingsDescription[. = '' and ../Findings='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="MultiCenterReports" 	
+        xpath="count(instance('ins')/MultiCenterReports[. = ''])" xpathSS="count(MultiCenterReports[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="MultiCenterReportsDescription" 	
+        xpath="count(instance('ins')/MultiCenterReportsDescription[. = '' and instance('ins')/MultiCenterReports='1'])" xpathSS="count(MultiCenterReportsDescription[. = '' and ../MultiCenterReports='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="DSMBReports" 	
+        xpath="count(instance('ins')/DSMBReports[. = ''])" xpathSS="count(DSMBReports[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="DSMBReportsDescription" 	
+        xpath="count(instance('ins')/DSMBReportsDescription[. = '' and instance('ins')/DSMBReports='1'])" xpathSS="count(DSMBReportsDescription[. = '' and ../DSMBReports='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="OtherInfo" 	
+        xpath="count(instance('ins')/OtherInfo[. = ''])" xpathSS="count(OtherInfo[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="OtherInfoDescription" 	
+        xpath="count(instance('ins')/OtherInfoDescription[. = '' and instance('ins')/OtherInfo='1'])" xpathSS="count(OtherInfoDescription[. = '' and ../OtherInfo='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="RiskBenefitChanges" 	
+        xpath="count(instance('ins')/RiskBenefitChanges[. = ''])" xpathSS="count(RiskBenefitChanges[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="RiskBenefitChangesDescription" 	
+        xpath="count(instance('ins')/RiskBenefitChangesDescription[. = '' and instance('ins')/RiskBenefitChanges='1'])" xpathSS="count(RiskBenefitChangesDescription[. = '' and ../RiskBenefitChanges='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="RiskBenefitChangesExplanation" 	
+        xpath="count(instance('ins')/RiskBenefitChangesExplanation[. = '' and instance('ins')/RiskBenefitChanges='1'])" xpathSS="count(RiskBenefitChangesExplanation[. = '' and ../RiskBenefitChanges='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="ProblemsNotReported" 	
+        xpath="count(instance('ins')/ProblemsNotReported[. = ''])" xpathSS="count(ProblemsNotReported[. = ''])"/>	
+    <e type="direct" tab="6" toptab="6" err="ProblemsNotReportedDescription" 	
+        xpath="count(instance('ins')/ProblemsNotReportedDescription[. = '' and instance('ins')/ProblemsNotReported='1'])" xpathSS="count(ProblemsNotReportedDescription[. = '' and ../ProblemsNotReported='1'])"/>
+    <e type="direct" tab="6" toptab="6" err="ProblemsNotReportedExplanation" 	
+        xpath="count(instance('ins')/ProblemsNotReportedExplanation[. = '' and instance('ins')/ProblemsNotReported='1'])" xpathSS="count(ProblemsNotReportedExplanation[. = '' and ../ProblemsNotReported='1'])"/>			
+    
+    <!-- Validation for Since Last Annual Approval ends here -->
+    
+    <!-- Validation for Enrollment Status starts here -->
+    
+    <e type="direct" tab="7" toptab="7" err="siteScreeningFailures" 	
+        xpath="count(instance('ins')/externalSiteApprovals/siteScreeningFailures[. = ''])" xpathSS="count(externalSiteApprovals/siteScreeningFailures[. = ''])"/>		
+    <e type="direct" tab="7" toptab="7" err="siteScreeningSuccesses" 	
+        xpath="count(instance('ins')/externalSiteApprovals/siteScreeningSuccesses[. = ''])" xpathSS="count(externalSiteApprovals/siteScreeningSuccesses[. = ''])"/>			
+    
+    <!-- Validation for Enrollment Status ends here -->
+    
+</validations>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="baseChange_FR.xml">
+    <tab toptab="6" id="6" label="Since Last Annual Approval" flabel=""/>
+    <tab toptab="7" id="7" label="Enrollment Status" flabel=""/>
+    <tab toptab="4" id="4" label="Protocol Status" flabel=""/>
+    <tab toptab="18" id="18" label="Attachments" flabel=""/>
+    <tab toptab="22" id="22" label="Submit" flabel=""/>
+    <form tabID="6" formType="general" formName="sincelastapprovalFR"
+        printlabel="Since Last Annual Approval"
+        src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/sincelastapprovalFR.xml">
+        <el typ="" component="bigbox" xml="laysummary" cmp="6">Project Summary</el>
+        
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsHarm" cmp="6" lookup="" label=""
+            value="">Subjects Have Experienced Harm</el>
+        <el typ="" component="bigbox" xml="SubjectsHarmDescription" cmp="6">Description of Harm
+            Experienced by Subjects</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsBenefit" cmp="6" lookup="" label=""
+            value="">Subjects Have Experienced Benefit</el>
+        <el typ="" component="bigbox" xml="SubjectsBenefitDescription" cmp="6">Description of
+            Benefit Experienced by Subjects</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsProblems" cmp="6" lookup="" label=""
+            value="">There Have Been Unanticipated Problems Involving Risks to Subjects or
+            Others</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsWithdrawn" cmp="6" lookup="" label=""
+            value="">Subjects Have Withdrawn</el>
+        <el typ="" component="bigbox" xml="SubjectsWithdrawnExplanation" cmp="6">Explanation for
+            Subjects that Have Withdrawn</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsComplained" cmp="6" lookup="" label=""
+            value="">Subjects or Others Have Complained</el>
+        <el typ="" component="bigbox" xml="SubjectsComplainedDescription" cmp="6">Description of
+            Complaints</el>
+        <el typ="yesno" component="yesnobuttons" xml="Publications" cmp="6" lookup="" label=""
+            value="">There have been presentations or publications</el>
+        <el typ="yesno" component="yesnobuttons" xml="Findings" cmp="6" lookup="" label="" value=""
+            >There are new unreported findings since the last Continuing Review</el>
+        <el typ="yesno" component="yesnobuttons" xml="MultiCenterReports" cmp="6" lookup="" label=""
+            value="">There are new unreported Multi-Center Trial Reports since the last Continuing Review</el>
+        <el typ="yesno" component="yesnobuttons" xml="DSMBReports" cmp="6" lookup="" label=""
+            value="">There are new unreported Data Safety Monitoring Board (DSMB) since the last Continuing Review</el>
+    </form>
+    <form tabID="7" formType="general" formName="enrollmentstatusPrintFR"
+        printlabel="Enrollment Status"
+        src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/enrollmentstatusPrintFR.xml">
+        <el message="[View Page]" component="entryTable" xml="externalSiteApprovals" cmp="7">Since
+            Last Approval</el>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="totalEnroll" elxml="externalSiteApprovals" cmp="7"
+            >Subjects To Be Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="enrollThisSite" elxml="externalSiteApprovals" cmp="7"
+            >Number of records to be reviewed</col>
+        <el message="[View Page]" component="entryTable" xml="externalSiteApprovals" cmp="7">Since
+            Study Activation</el>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="totalEnroll" elxml="externalSiteApprovals" cmp="7"
+            >Subjects To Be Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="enrollThisSite" elxml="externalSiteApprovals" cmp="7"
+            >Number of records to be reviewed</col>
+        <el message="[View Page]" component="entryTable" xml="externalSiteApprovals" cmp="7"
+            >Subjects To Be Enrolled</el>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="totalEnroll" elxml="externalSiteApprovals" cmp="7"
+            >Subjects To Be Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="enrollThisSite" elxml="externalSiteApprovals" cmp="7"
+            >Number of records to be reviewed</col>
+        <el message="[View Page]" component="entryTable" xml="externalSiteApprovals" cmp="7">Number
+            of records to be reviewed</el>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="siteScreeningFailures" elxml="externalSiteApprovals"
+            cmp="7">Screening Failures</col>
+        <col typ="" component="number" xml="siteScreeningSuccesses" elxml="externalSiteApprovals"
+            cmp="7">Screening Successes</col>
+        <col typ="" component="number" xml="calcField" elxml="externalSiteApprovals" cmp="7"
+            >Subjects Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="totalEnroll" elxml="externalSiteApprovals" cmp="7"
+            >Subjects To Be Enrolled</col>
+        <col typ="" component="text" xml="siteNameText" elxml="externalSiteApprovals" cmp="7">Site
+            Name</col>
+        <col typ="" component="number" xml="enrollThisSite" elxml="externalSiteApprovals" cmp="7"
+            >Number of records to be reviewed</col>
+    </form>
+    <form tabID="4" formType="general" formName="protocolstatus" printlabel="Protocol Status"
+        src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/protocolstatus.xml">
+        <el typ="" component="decodeexplicit" xml="protocolStatus" cmp="4">Current Protocol
+            Status</el>
+        <el typ="" component="bigbox" xml="continuingActivitiesDescription" cmp="4">Description of
+            the Continuing Research Activities</el>
+    </form>
+    <form tabID="18" formType="drillIn" formName="printAttachments" printlabel="Attachments"
+        src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/printAttachments.xml">
+        <el message="[View Page]" xmlset="document" xml="" ident="" cmp="18"/>
+        <col typ="decode" component="dropdown" xml="@label" cmp="18" lookup="docTypes/type"
+            label="@name" value="@id"/>
+        <col typ="" component="text" xml="@name" cmp="18">Name</col>
+        <col typ="" component="text" xml="@version" cmp="18">Version</col>
+        <col typ="" component="text" xml="@status" cmp="18">Status</col>
+        <col typ="" component="text" xml="@fileName" cmp="18">Filename</col>
+        <col typ="" component="text" xml="@uploaded" cmp="18">Uploaded</col>
+        <col typ="" component="text" xml="@comments" cmp="18">Comments</col>
+    </form>
+    <form tabID="" formType="general" formName="ren_irbsubmit" printlabel="Submit"
+        src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/ren_submit.xml"/>
+    <form>
+        <el message="[View Page]" xml="document" cmp="18"/>
+    </form>
+</map>

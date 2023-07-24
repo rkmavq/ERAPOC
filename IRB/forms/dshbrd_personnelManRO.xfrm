@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms">
+    <xf:model id="fmodel">
+        <xf:instance id="certs">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="personXML">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="ins">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="meta">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="cats">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="ent"><data xmlns=""/></xf:instance>
+        <xf:instance id="form">
+            <data xmlns="">
+                <form updatedBy="" updated="" createdBy="" created=""/>
+                <searchText/>
+                <records/>
+                <fullSearchText/>
+                <fullSearchRecords/>
+                <col1/>
+                <col2/>
+                <col3/>
+                <document/>
+                <viewBy>year</viewBy>
+                <focus/>
+                <lastFocus/>
+                <temp/>
+                <comp uri=""/>
+                <myTabID></myTabID> <!-- AB: used to know what tab the user has clicked-->                
+            </data>
+        </xf:instance>
+        <xf:instance id="bootstrap">
+            <data xmlns="">
+                <js>/resources/services/appForms/main.js</js>
+                <config>/resources/services/liveList/config.xml</config> 
+                <css>/resources/services/liveList/dashboard.css</css>
+            </data>
+        </xf:instance>
+        <xf:instance id="config">
+            <data xmlns=""/>
+        </xf:instance>
+        <script ev:event="xforms-model-construct-done"> bootstrapSharedXfrm(model); model.Frm = new appForm(model, "personnel");
+            model.Frm.loadAppFile('ent', "/data.xml", "1"); model.Frm.loadAppFile('ins', "/data/irb.xml", "1"); if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+            model.Frm.formSet.getRoot().__VERSIONCHANGING = false; model.reloadInstanceId('ins'); } model.Frm.loadAppFile('meta',
+            "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0"); model.Frm.loadMetaData();
+            includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js"); model.USA = new irbProtocol(model);
+            tab = model.__XformSet.getRoot().model.getValue("instance('ins')/lastPage[last()]", "");
+            model.setValue("instance('form')/myTabID", tab);
+            model.refresh(); 
+            model.rebuild();
+            model.recalculate();     
+            </script>
+        <script ev:event="xforms-ready"/>
+        <xf:submission instance="ins" id="submitins" replace="none" method="put">
+            <xf:action ev:event="xforms-submit-done"/>
+            <xf:action ev:event="xforms-submit-error">
+                <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+            </xf:action>
+        </xf:submission>
+        <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+        <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+        <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+        <xf:bind readonly="true()" nodeset="//link/@title"/>
+        <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+        <xf:bind
+            nodeset="instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]/uniStatus"/>
+        <xf:bind
+            nodeset="instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]/role"/>
+        <xf:bind
+            nodeset="instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]/contact"/>
+        <xf:bind
+            nodeset="instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]/access"/>
+        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/name"/>
+        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/uniStatus"/>
+        <xf:bind type="xsd:date" nodeset="instance('ins')/Person/startDate" readonly="true()"/>
+        <xf:bind type="xsd:date" nodeset="instance('ins')/Person/endDate" readonly="true()"/>
+        
+        <xf:bind nodeset="instance('ins')/Person/uniStatus" readonly="true()"/>
+        <xf:bind nodeset="instance('ins')/Person/department/@selected" readonly="true()"/>
+        <xf:bind nodeset="instance('ins')/Person/role" readonly="true()"/>
+        
+        <xf:bind type="ix:file" nodeset="instance('ins')/Person/coiDisclosure"/>
+    </xf:model>
+    <ix:template name="QuickSearch">
+        <div style="padding:8px;width:400px">
+            <table style="width:240px">
+                <tr>
+                    <td>
+                        <xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px">
+                            <xf:label style="width:50px">Lookup:</xf:label>
+                        </xf:input>
+                    </td>
+                    <td>
+                        <div style="margin-right:20px;">
+                            <u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+                            <script ev:event="click"> model.Frm.executeQuickSearch(); </script>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <xf:switch>
+                <xf:case exf:if="1" id="hide-quicksearch"/>
+                <xf:case id="show-quicksearch">
+                    <exf:variable name="records" value="instance('form')/records//rec"/>
+                    <div>
+                        <ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+                        <h1>No Matches</h1>
+                    </div>
+                    <div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many
+                            Matches</h1>Please refine your search.</div>
+                    <table class="quickSearchMatches">
+                        <ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+                            name="style"/>
+                        <tr>
+                            <th style="text-align:left;">
+                                <xf:output value="instance('form')/col1"/>
+                            </th>
+                            <th style="text-align:left;padding-left:20px">
+                                <xf:output value="instance('form')/col2"/>
+                            </th>
+                            <th style="text-align:left;padding-left:20px">
+                                <xf:output value="instance('form')/col3"/>
+                            </th>
+                        </tr>
+                        <xf:repeat nodeset="$records">
+                            <tr>
+                                <td style="vertical-align:top; width:33%">
+                                    <u class="clickable">
+                                        <xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+                                        <xf:close ev:event="click"/>
+                                        <script ev:event="click"> var indx = model.getValue("@id", contextNode); var val =
+                                            model.getValue("@name", contextNode); if(val == "") val =
+                                            model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+                                            contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+                                            model.Frm.quickSearch.code; if(code) eval(code); if(model.Frm.quickSearch.save)
+                                            model.Frm.saveAll(); event.stopPropagation(); </script>
+                                    </u>
+                                </td>
+                                <td style="vertical-align:top;padding-left:20px; width:30%">
+                                    <xf:output
+                                        value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+                                    />
+                                </td>
+                                <td style="vertical-align:top;padding-left:20px; width:30%">
+                                    <xf:output
+                                        value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+                                    />
+                                </td>
+                            </tr>
+                        </xf:repeat>
+                    </table>
+                    <br/>
+                    <br/>
+                </xf:case>
+            </xf:switch>
+        </div>
+    </ix:template>
+    <div class="formFrame StretchedLayout">
+        <div style="display:none;">
+            <xf:input id="documentDrop" ref="instance('form')/document">
+                <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+                    <script> var n = model.getValue(".", contextNode); if(n != "") model.Frm.linkFile(n); </script>
+                </xf:action>
+            </xf:input>
+        </div>
+        
+        <div class="body">
+            <xf:switch>
+                <xf:case exf:if="1" id="show-recordTable"><!--  and (@uri != instance('ins')/Person[role='PI']/@uri) -->
+                    <!--<exf:variable
+                        value="instance('ins')/Person[role!='nonProtocol' and (role!='PI' or invitation/@status='author')][@id = instance('form')/focus or instance('form')/focus = '']"
+                        name="recs"/>
+                    <exf:variable
+                        value="instance('ins')/Person[role='nonProtocol' and (role!='PI' or invitation/@status='author')][@id = instance('form')/focus or instance('form')/focus = '']"
+                        name="recs2"/>-->
+                    <exf:variable
+                        value="instance('ins')/Person[(protEndDate='' or protenddate='' or days-from-date(now()) &lt; days-from-date(protEndDate)) and role!='nonProtocol' and (@uri != instance('ins')/Person[role='PI']/@uri or invitation/@status!='author')][@id = instance('form')/focus or instance('form')/focus = '']"
+                        name="recs"/>  
+                    <exf:variable
+                        value="instance('ins')/Person[(protEndDate!='' or protenddate!='') and not(days-from-date(now()) &lt; days-from-date(protEndDate)) and role!='nonProtocol' and (@uri != instance('ins')/Person[role='PI']/@uri or invitation/@status!='author')][@id = instance('form')/focus or instance('form')/focus = '']"
+                        name="recs2"/>                    
+                    <exf:variable
+                        value="instance('ins')/Person[role='nonProtocol' and (role!='PI' or invitation/@status='author')][@id = instance('form')/focus or instance('form')/focus = '']"
+                        name="recs3"/>
+                    
+                    <h1/>
+                    <span>
+                    <table class="fullColLayout">
+                        <ix:attr value="if(count($recs) &gt; 0 and instance('form')/myTabID='m3c', '', 'display:none')" name="style"/>
+                        <tr class="top">
+                            <th class="small delete center"></th>
+                            <th class="name out text mediumplus left">Name</th>
+                            <th class="contact in checkbox tiny center">CV</th>
+                            <th class="contact in checkbox tiny center">Professional License</th>
+                            <th class="contact in checkbox tiny center">Certifications</th>
+                            <th class="dprt in manual mediumplus left">Department</th>
+                            <th class="role in dropdown mediumlarge left">Role</th>
+                            <!--<th class="contact in checkbox tiny center">Start Date</th>-->
+                            <th class="contact in checkbox tiny center">cc<span class="helpdialogOverTable"
+                                    style="cursor:help;color:blue">  [?] <div style="width:200px">
+                                        <p>
+                                            <span style="color:black">
+                                                <help>Check this to have the individual copied on communications from the
+                                                    IRB.</help>
+                                            </span>
+                                        </p>
+                                    </div></span></th>
+                            <th class="access in checkbox tiny center">Access
+                                <span class="helpdialogOverTable" style="cursor:help;color:blue">  [?] 
+                                    <div style="width:200px">
+                                        <p>
+                                            <span style="color:black">
+                                                <help>Check this to grant the profile access to this research protocol.</help>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </span>
+                            </th>
+                            <th class="contact in checkbox tiny center">Obtaining Consent</th>
+                            <th class="small launch center"/>
+                        </tr>
+                        <xf:repeat nodeset="$recs">
+                            <exf:variable value="(.)" name="this"/>
+                            <exf:variable value="@id" name="indx"/>
+                            <exf:variable  value="position()" name="poi2"/>
+                            <tr>
+                                <td class="small delete center">
+                                    <xf:output value="$poi2"/>										
+                                </td>
+                                <td class="out text mediumplus left name">     
+                                    <xf:output value="name"/>                               
+                                </td>
+                                <td>                        
+                                    <span class="clickable" style="">
+                                        <u class="clickable">
+                                            <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/cv_icon.jpg"/>
+                                            <xf:action ev:event="click">
+                                                <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                    title="CV Information" class="detailsDialogBox">
+                                                    <xf:switch>
+                                                        <xf:case id="show-cv">                                                                                                       
+                                                            <table class="detailsDialog">
+                                                                
+                                                                <span>
+                                                                    <ix:attr value="if(not(cv) or cv/@uri='', '', 'display:none')" name="style"/>
+                                                                    <tr><td>No CV uploaded into the system</td></tr>
+                                                                </span>
+                                                                <span>
+                                                                    <ix:attr value="if(cv and cv/@uri!='', '', 'display:none')" name="style"/>
+                                                                    <tr><td><b>CV Upload Date</b></td><td><a target="_blank_"><ix:attr value="concat('/fil', cv/@uri)" name="href"/><xf:output value="local-date(cv/@uploaded)"/></a></td></tr>
+                                                                </span>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-cv"/>
+                                                    </xf:switch>  
+                                                </ix:dialog>
+                                            </xf:action>     
+                                        </u>
+                                    </span>
+                                </td>
+                                
+                                <!--VV:12/10/2020. Added Professional License for HH-->
+                                <td>                        
+                                    <span class="clickable" style="">
+                                        <u class="clickable">
+                                            <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/checkscreen.gif"/>
+                                            <xf:action ev:event="click">
+                                                <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                    title="Professional License Information" class="detailsDialogBox">
+                                                    <xf:switch>
+                                                        <xf:case id="show-pro">                                                                                                       
+                                                            <table class="detailsDialog">
+                                                                
+                                                                <span>
+                                                                    <ix:attr value="if(not(pro) or pro/@uri='', '', 'display:none')" name="style"/>
+                                                                    <tr><td>No Professional License uploaded into the system</td></tr>
+                                                                </span>
+                                                                <span>
+                                                                    <ix:attr value="if(pro and pro/@uri!='', '', 'display:none')" name="style"/>
+                                                                    <tr><td><b>Professional License Upload Date</b></td><td><a target="_blank_"><ix:attr value="concat('/fil', pro/@uri)" name="href"/><xf:output value="local-date(pro/@uploaded)"/></a></td></tr>
+                                                                </span>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-pro"/>
+                                                    </xf:switch>  
+                                                </ix:dialog>
+                                            </xf:action>     
+                                        </u>
+                                    </span>
+                                </td>
+                                <!--VV:12/10/2020. Added Professional License for HH-->
+                                
+                                <td>                                
+                                    <span class="clickable" style="">
+                                        <u class="clickable">    <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/checkscreen.gif"/><xf:action ev:event="click">
+                                            <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                title="Certifications" class="detailsDialogBox">
+                                                <script>
+                                                    //Extract Context
+                                                    pUri = model.getValue("@uri", contextNode);
+                                                    pUriSplit = pUri.split("/");
+                                                    person = pUriSplit[pUriSplit.length - 2];
+                                                    //alert(pUri + " - " + person);
+                                                    x = exeSharedScript("/applications/IRB/js/getCertsForPersonnel", {"param1":pUri}, "xml");
+                                                    
+                                                    //Attach to the model (replacing any existing nodes);
+                                                    var root = model.selectNodeList("instance('certs')", null)[0];
+                                                    var dat = model.selectNodeList("instance('certs')/resultSet", null)[0];
+                                                    
+                                                    if(dat) root.removeChild(dat);
+                                                    root.appendChild(x.documentElement);    
+                                                    
+                                                    model.setInstanceIdSrc('personXML', "/fil" + pUri + "/data.xml");
+                                                    
+                                                    model.recalculate();
+                                                    model.rebuild();
+                                                    model.refresh();
+                                                    
+                                                    model.activateCase('hide-main');
+                                                    model.activateCase('show-main');
+                                                </script>
+                                                <xf:switch>
+                                                    <xf:case id="show-main">                                                                                                       
+                                                        <table class="detailsDialog">
+                                                            <tr>
+                                                                <th width="180px" align="left"><xf:label>Title</xf:label></th>
+                                                                <th align="center" width="70px" style="padding-left:10px"><xf:label>Program Completed Date</xf:label></th>
+                                                                <!--<th align="center" width="100px" style="padding-left:10px"><xf:label>Start Date</xf:label></th>-->
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Expiration Date</xf:label></th>
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Score</xf:label></th>
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Passing Score</xf:label></th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="5">                                                                                                                                    
+                                                                    <hr/>
+                                                                </td>
+                                                            </tr>
+                                                            <xf:repeat nodeset="instance('certs')/resultSet/item">       
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <xf:output value="@name"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@trainingDate != '', concat(substring(@trainingDate, 6, 2), '/', substring(@trainingDate, 9, 2), '/', substring(@trainingDate, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                    <!--<td align="center" style="padding-left:10px">
+                                                    <xf:output value="if(@StartDate != '', concat(substring(@StartDate, 6, 2), '/', substring(@StartDate, 9, 2), '/', substring(@StartDate, 1, 4)), '-')"/>
+                                                </td>-->
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@endDate != '', concat(substring(@endDate, 6, 2), '/', substring(@endDate, 9, 2), '/', substring(@endDate, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="@totalScore"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="@passScore"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </xf:repeat>
+                                                        </table>
+                                                    </xf:case>
+                                                    <xf:case id="hide-main"/>
+                                                </xf:switch>  
+                                            </ix:dialog>
+                                        </xf:action></u>
+                                    </span>                                    
+                                </td>
+                                <td class="dprt in manual mediumplus left">
+                                    <exf:variable name="deptSel" value="department/@selected"/>
+                                    <xf:output value="department/dept[@value=$deptSel]/@name"/>
+                                </td>
+                                <td class="in dropdown mediumplus left role">
+                                    <exf:variable name="role" value="role"/>                                    
+                                    <div>
+                                        <ix:attr value="if(role='PI', '', 'display:none')" name="style"/>
+                                        <xf:output value="instance('cats')/personnelRoleTypesPI/type[@id=$role]/@name"/>
+                                    </div>
+                                    <div>
+                                        <ix:attr value="if(role!='PI', '', 'display:none')" name="style"/>
+                                        <exf:variable name="roleOut" value="count(instance('cats')/personnelRoleTypes/type[@id=$role])"/>
+                                        <xf:output value="if($roleOut = 0, instance('cats')/personnelRoleTypes/type[@conversionValue=$role]/@name, instance('cats')/personnelRoleTypes/type[@id=$role]/@name)"/>
+                                    </div>
+                                </td>
+                                <!--<td class="in checkbox tiny center contact" style="width:40px">
+                                    <xf:output value="if(protStartDate != '', local-date(protStartDate), '')"/>
+                                </td>-->
+                                <td class="in checkbox tiny center contact" style="width:30px">
+                                    <xf:output value="if(contact='1', 'X', '')"/>
+                                </td>
+                                <td class="in checkbox tiny center access" style="width:30px">
+                                    <xf:output value="if(access='EDIT', 'Edit Access', if(access='READONLY', 'Read-only Access', if(access='SIGNAUTH', 'Signature Authority', '')))"/>
+                                </td>
+                                <td class="in checkbox tiny center access" style="width:30px">
+                                    <div>
+                                        <xf:output value="if(obtainingConsent='1', 'Yes', 'No')"/>
+                                    </div>
+                                </td>
+                                <td class="small launch center">
+                                    <u class="clickable">Contact Details<xf:action ev:event="click">
+                                            <ix:dialog style="width:360px;height:" height="" width="360px" id="detailsDetails"
+                                                title="Contact Details" class="detailsDialogBox">
+                                                <xf:group style="border:none;" ref=".">
+                                                    <h3/>
+                                                    <xf:switch>
+                                                        <xf:case exf:if="1" id="show-dialog">
+                                                            <table class="detailsDialog">
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="phone" class="halfLine">
+                                                                 <xf:label>Phone</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                 <td>
+                                                                 <xf:input ref="fax" class="halfLine">
+                                                                 <xf:label>
+                                                                 <span style="padding-left:30px;">Fax</span>
+                                                                 </xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <div>
+                                                                 <ix:attr
+                                                                 value="if(count(email/email) &gt; 1, 'display:none', '')"
+                                                                 name="style"/>
+                                                                 <xf:input ref="email/email[1]" class="fullLine">
+                                                                 <xf:label>Email</xf:label>
+                                                                 </xf:input>
+                                                                 </div>
+                                                                 <div>
+                                                                 <ix:attr
+                                                                 value="if(count(email/email) &gt; 1, '', 'display:none')"
+                                                                 name="style"/>
+                                                                 <xf:select1 ref="email/@selected" class="fullLine">
+                                                                 <xf:label>Email</xf:label>
+                                                                 <xf:repeat nodeset="../email">
+                                                                 <xf:item>
+                                                                 <xf:label>
+                                                                 <xf:output value="."/>
+                                                                 </xf:label>
+                                                                 <xf:value>
+                                                                 <xf:output value="@indx"/>
+                                                                 </xf:value>
+                                                                 </xf:item>
+                                                                 </xf:repeat>
+                                                                 </xf:select1>
+                                                                 </div>
+                                                                 <hr/>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <ix:attr
+                                                                 value="if(count(address/address ) &gt; 1, '', 'display:none')"
+                                                                 name="style"/>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:select1 ref="address/@selected" class="fullLine">
+                                                                 <xf:label>Address</xf:label>
+                                                                 <xf:repeat nodeset="../address">
+                                                                 <xf:item>
+                                                                 <xf:label>
+                                                                 <xf:output value="name"/>
+                                                                 </xf:label>
+                                                                 <xf:value>
+                                                                 <xf:output value="@indx"/>
+                                                                 </xf:value>
+                                                                 </xf:item>
+                                                                 </xf:repeat>
+                                                                 <script ev:event="xforms-value-changed">
+                                                                 model.activateCase('hide-dialog'); model.refresh();
+                                                                 model.rebuild(); model.recalculate();
+                                                                 model.activateCase('show-dialog'); </script>
+                                                                 </xf:select1>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address1"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 1</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address2"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 2</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address3"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 3</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/city"
+                                                                 class="halfLine">
+                                                                 <xf:label>City</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                 <td>
+                                                                 <xf:input ref="address/address[@indx=../@selected]/state"
+                                                                 class="halfLine">
+                                                                 <xf:label>
+                                                                 <span style="padding-left:30px;">State</span>
+                                                                 </xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/zip"
+                                                                 class="halfLine">
+                                                                 <xf:label>Zip</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-dialog"/>
+                                                    </xf:switch>
+                                                </xf:group>
+                                                <xf:trigger
+                                                    style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;">
+                                                    <xf:label>Close Details</xf:label>
+                                                    <xf:close ev:event="DOMActivate"/>
+                                                </xf:trigger>
+                                            </ix:dialog>
+                                        </xf:action></u>
+                                </td>
+                            </tr>
+                        </xf:repeat>
+                    </table>
+                    </span>
+                    <span>    
+                    <table class="fullColLayout">
+                        <ix:attr value="if(count($recs2) &gt; 0 and instance('form')/myTabID='m3p', '', 'display:none')" name="style"/>
+                        <tr class="top">
+                            <th class="small delete center"></th>
+                            <th class="name out text mediumplus left">Name</th>
+                            <th class="contact in checkbox tiny center">CV</th>
+                            <th class="contact in checkbox tiny center">Professional License</th>
+                            <th class="contact in checkbox tiny center">Certifications</th>
+                            <th class="dprt in manual mediumplus left">Department</th>
+                            <th class="role in dropdown mediumlarge left">Role</th>
+                            <!--<th class="contact in checkbox tiny center">Start Date</th>-->
+                            <th class="contact in checkbox tiny center">End Date</th>
+                            <th class="contact in checkbox tiny center">cc<span class="helpdialogOverTable"
+                                    style="cursor:help;color:blue">  [?] <div style="width:200px">
+                                        <p>
+                                            <span style="color:black">
+                                                <help>Check this to have the individual copied on communications from the
+                                                    IRB.</help>
+                                            </span>
+                                        </p>
+                                    </div></span></th>
+                            <th class="access in checkbox tiny center">Access
+                                <span class="helpdialogOverTable" style="cursor:help;color:blue">  [?] 
+                                    <div style="width:200px">
+                                        <p>
+                                            <span style="color:black">
+                                                <help>Check this to grant the profile access to this research protocol.</help>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </span>
+                            </th>
+                            <th class="contact in checkbox tiny center">Obtaining Consent</th>
+                            <th class="small launch center"/>
+                        </tr>
+                        <xf:repeat nodeset="$recs2">
+                            <exf:variable value="(.)" name="this"/>
+                            <exf:variable value="@id" name="indx"/>
+                            <exf:variable  value="position()" name="poi2"/>
+                            <tr>
+                                <td class="small delete center">
+                                    <xf:output value="$poi2"/>										
+                                </td>
+                                <td class="out text mediumplus left name">     
+                                    <xf:output value="name"/>
+                                </td>
+                                <td>                        
+                                    <span class="clickable" style="">
+                                        <u class="clickable">
+                                            <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/cv_icon.jpg"/>
+                                            <xf:action ev:event="click">
+                                                <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                    title="CV Information" class="detailsDialogBox">
+                                                    <xf:switch>
+                                                        <xf:case id="show-cv">                                                                                                       
+                                                            <table class="detailsDialog">
+                                                                
+                                                                <span>
+                                                                    <ix:attr value="if(not(cv) or cv/@uri='', '', 'display:none')" name="style"/>
+                                                                    <tr><td>No CV uploaded into the system</td></tr>
+                                                                </span>
+                                                                <span>
+                                                                    <ix:attr value="if(cv and cv/@uri!='', '', 'display:none')" name="style"/>
+                                                                    <tr><td><b>CV Upload Date</b></td><td><a target="_blank_"><ix:attr value="concat('/fil', cv/@uri)" name="href"/><xf:output value="local-date(cv/@uploaded)"/></a></td></tr>
+                                                                </span>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-cv"/>
+                                                    </xf:switch>  
+                                                </ix:dialog>
+                                            </xf:action>     
+                                        </u>
+                                    </span>
+                                </td>
+                                
+                                <!--VV:12/10/2020. Added Professional License for HH-->
+                                <td>                        
+                                    <span class="clickable" style="">
+                                        <u class="clickable">
+                                            <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/checkscreen.gif"/>
+                                            <xf:action ev:event="click">
+                                                <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                    title="Professional License Information" class="detailsDialogBox">
+                                                    <xf:switch>
+                                                        <xf:case id="show-pro">                                                                                                       
+                                                            <table class="detailsDialog">
+                                                                
+                                                                <span>
+                                                                    <ix:attr value="if(not(pro) or pro/@uri='', '', 'display:none')" name="style"/>
+                                                                    <tr><td>No Professional License uploaded into the system</td></tr>
+                                                                </span>
+                                                                <span>
+                                                                    <ix:attr value="if(pro and pro/@uri!='', '', 'display:none')" name="style"/>
+                                                                    <tr><td><b>Professional License Upload Date</b></td><td><a target="_blank_"><ix:attr value="concat('/fil', pro/@uri)" name="href"/><xf:output value="local-date(pro/@uploaded)"/></a></td></tr>
+                                                                </span>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-pro"/>
+                                                    </xf:switch>  
+                                                </ix:dialog>
+                                            </xf:action>     
+                                        </u>
+                                    </span>
+                                </td>
+                                <!--VV:12/10/2020. Added Professional License for HH-->
+                                
+                                <td>
+                                    <span class="clickable" style="">
+                                        <u class="clickable">    <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/checkscreen.gif"/><xf:action ev:event="click">
+                                            <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                title="Certifications" class="detailsDialogBox">
+                                                <script>
+                                                    //Extract Context
+                                                    pUri = model.getValue("@uri", contextNode);
+                                                    pUriSplit = pUri.split("/");
+                                                    person = pUriSplit[pUriSplit.length - 2];
+                                                    //alert(pUri + " - " + person);
+                                                    x = exeSharedScript("/applications/IRB/js/getCertsForPersonnel", {"param1":pUri}, "xml");
+                                                    
+                                                    //Attach to the model (replacing any existing nodes);
+                                                    var root = model.selectNodeList("instance('certs')", null)[0];
+                                                    var dat = model.selectNodeList("instance('certs')/resultSet", null)[0];
+                                                    
+                                                    if(dat) root.removeChild(dat);
+                                                    root.appendChild(x.documentElement);    
+                                                    
+                                                    model.setInstanceIdSrc('personXML', "/fil" + pUri + "/data.xml");
+                                                    
+                                                    model.recalculate();
+                                                    model.rebuild();
+                                                    model.refresh();
+                                                    
+                                                    model.activateCase('hide-main');
+                                                    model.activateCase('show-main');
+                                                </script>
+                                                <xf:switch>
+                                                    <xf:case id="show-main">                                                                                                       
+                                                        <table class="detailsDialog">
+                                                            <tr>
+                                                                <td align="left" colspan="2"><xf:label>Certifications Start Date:</xf:label>    <xf:output value="local-date(instance('personXML')/TrainingStartDate)"/></td>
+                                                                <td align="left" colspan="2"><xf:label>Certifications Expiration Date:</xf:label>    <xf:output value="local-date(instance('personXML')/TrainingExpirationDate)"/></td>
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                                <td colspan="4">                                                                                                                                    
+                                                                    <hr/>
+                                                                </td>
+                                                            </tr>                                                                     
+                                                            <tr>
+                                                                <th width="180px" align="left"><xf:label>Title</xf:label></th>
+                                                                <th align="center" width="70px" style="padding-left:10px"><xf:label>Program Completed Date</xf:label></th>
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Start Date</xf:label></th>
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Expiration Date</xf:label></th>                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">                                                                                                                                    
+                                                                    <hr/>
+                                                                </td>
+                                                            </tr>
+                                                            <xf:repeat nodeset="instance('certs')/resultSet/item">       
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <xf:output value="@name"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@Effective != '', concat(substring(@Effective, 6, 2), '/', substring(@Effective, 9, 2), '/', substring(@Effective, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@StartDate != '', concat(substring(@StartDate, 6, 2), '/', substring(@StartDate, 9, 2), '/', substring(@StartDate, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@Expires != '', concat(substring(@Expires, 6, 2), '/', substring(@Expires, 9, 2), '/', substring(@Expires, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </xf:repeat>
+                                                        </table>
+                                                    </xf:case>
+                                                    <xf:case id="hide-main"/>
+                                                </xf:switch>  
+                                            </ix:dialog>
+                                        </xf:action></u>
+                                    </span>
+                                </td>
+                                <td class="dprt in manual mediumplus left">
+                                    <exf:variable name="deptSel" value="department/@selected"/>
+                                    <xf:output value="department/dept[@value=$deptSel]/@name"/>
+                                </td>
+                                <td class="in dropdown mediumplus left role">
+                                    <exf:variable name="role" value="role"/>                                    
+                                    <div>
+                                        <ix:attr value="if(role='PI', '', 'display:none')" name="style"/>
+                                        <xf:output value="instance('cats')/personnelRoleTypesPI/type[@id=$role]/@name"/>
+                                    </div>
+                                    <div>
+                                        <ix:attr value="if(role!='PI', '', 'display:none')" name="style"/>
+                                        <exf:variable name="roleOut" value="count(instance('cats')/personnelRoleTypes/type[@id=$role])"/>
+                                        <xf:output value="if($roleOut = 0, instance('cats')/personnelRoleTypes/type[@conversionValue=$role]/@name, instance('cats')/personnelRoleTypes/type[@id=$role]/@name)"/>
+                                    </div>
+                                </td>
+                                <!--<td class="in checkbox tiny center contact" style="width:40px">
+                                    <xf:output value="if(protStartDate != '', local-date(protStartDate), '')"/>
+                                </td>-->
+                                <td class="in checkbox tiny center contact" style="width:40px">
+                                    <xf:output value="if(protEndDate != '', local-date(protEndDate), '')"/>
+                                </td>
+                                <td class="in checkbox tiny center contact" style="width:30px">
+                                    <xf:output value="if(contact='1', 'X', '')"/>
+                                </td>
+                                <td class="in checkbox tiny center access" style="width:30px">
+                                    <xf:output value="if(access='EDIT', 'Edit Access', if(access='READONLY', 'Read-only Access', if(access='SIGNAUTH', 'Signature Authority', '')))"/>
+                                </td>
+                                <td class="in checkbox tiny center access" style="width:30px">
+                                    <div>
+                                        <xf:output value="if(obtainingConsent='1', 'Yes', 'No')"/>
+                                    </div>
+                                </td>
+                                <td class="small launch center">
+                                    <u class="clickable">Contact Details<xf:action ev:event="click">
+                                            <ix:dialog style="width:360px;height:" height="" width="360px" id="detailsDetails"
+                                                title="Contact Details" class="detailsDialogBox">
+                                                <xf:group style="border:none;" ref=".">
+                                                    <h3/>
+                                                    <xf:switch>
+                                                        <xf:case exf:if="1" id="show-dialog">
+                                                            <table class="detailsDialog">
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="phone" class="halfLine">
+                                                                 <xf:label>Phone</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                 <td>
+                                                                 <xf:input ref="fax" class="halfLine">
+                                                                 <xf:label>
+                                                                 <span style="padding-left:30px;">Fax</span>
+                                                                 </xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <div>
+                                                                 <ix:attr
+                                                                 value="if(count(email/email) &gt; 1, 'display:none', '')"
+                                                                 name="style"/>
+                                                                 <xf:input ref="email/email[1]" class="fullLine">
+                                                                 <xf:label>Email</xf:label>
+                                                                 </xf:input>
+                                                                 </div>
+                                                                 <div>
+                                                                 <ix:attr
+                                                                 value="if(count(email/email) &gt; 1, '', 'display:none')"
+                                                                 name="style"/>
+                                                                 <xf:select1 ref="email/@selected" class="fullLine">
+                                                                 <xf:label>Email</xf:label>
+                                                                 <xf:repeat nodeset="../email">
+                                                                 <xf:item>
+                                                                 <xf:label>
+                                                                 <xf:output value="."/>
+                                                                 </xf:label>
+                                                                 <xf:value>
+                                                                 <xf:output value="@indx"/>
+                                                                 </xf:value>
+                                                                 </xf:item>
+                                                                 </xf:repeat>
+                                                                 </xf:select1>
+                                                                 </div>
+                                                                 <hr/>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <ix:attr
+                                                                 value="if(count(address/address ) &gt; 1, '', 'display:none')"
+                                                                 name="style"/>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:select1 ref="address/@selected" class="fullLine">
+                                                                 <xf:label>Address</xf:label>
+                                                                 <xf:repeat nodeset="../address">
+                                                                 <xf:item>
+                                                                 <xf:label>
+                                                                 <xf:output value="name"/>
+                                                                 </xf:label>
+                                                                 <xf:value>
+                                                                 <xf:output value="@indx"/>
+                                                                 </xf:value>
+                                                                 </xf:item>
+                                                                 </xf:repeat>
+                                                                 <script ev:event="xforms-value-changed">
+                                                                 model.activateCase('hide-dialog'); model.refresh();
+                                                                 model.rebuild(); model.recalculate();
+                                                                 model.activateCase('show-dialog'); </script>
+                                                                 </xf:select1>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address1"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 1</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address2"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 2</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address3"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 3</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/city"
+                                                                 class="halfLine">
+                                                                 <xf:label>City</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                 <td>
+                                                                 <xf:input ref="address/address[@indx=../@selected]/state"
+                                                                 class="halfLine">
+                                                                 <xf:label>
+                                                                 <span style="padding-left:30px;">State</span>
+                                                                 </xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/zip"
+                                                                 class="halfLine">
+                                                                 <xf:label>Zip</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-dialog"/>
+                                                    </xf:switch>
+                                                </xf:group>
+                                                <xf:trigger
+                                                    style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;">
+                                                    <xf:label>Close Details</xf:label>
+                                                    <xf:close ev:event="DOMActivate"/>
+                                                </xf:trigger>
+                                            </ix:dialog>
+                                        </xf:action></u>
+                                </td>
+                            </tr>
+                        </xf:repeat>
+                    </table>
+                    </span>
+                    <span>    
+                    <table class="fullColLayout">
+                        <ix:attr value="if(count($recs3) &gt; 0 and instance('form')/myTabID='m3o', '', 'display:none')" name="style"/>
+                        <tr class="top">
+                            <th class="small delete center"></th>
+                            <th class="name out text mediumplus left">Name</th>
+                            <th class="contact in checkbox tiny center">CV</th>
+                            <th class="contact in checkbox tiny center">Professional License</th>
+                            <th class="contact in checkbox tiny center">Certifications</th>
+                            <th class="dprt in manual mediumplus left">Department</th>
+                            <th class="role in dropdown mediumlarge left">Role</th>
+                            <!--<th class="contact in checkbox tiny center">Start Date</th>-->
+                            <th class="contact in checkbox tiny center">End Date</th>
+                            <th class="contact in checkbox tiny center">cc<span class="helpdialogOverTable"
+                                    style="cursor:help;color:blue">  [?] <div style="width:200px">
+                                        <p>
+                                            <span style="color:black">
+                                                <help>Check this to have the individual copied on communications from the
+                                                    IRB.</help>
+                                            </span>
+                                        </p>
+                                    </div></span></th>
+                            <th class="access in checkbox tiny center">Access
+                                <span class="helpdialogOverTable" style="cursor:help;color:blue">  [?] 
+                                    <div style="width:200px">
+                                        <p>
+                                            <span style="color:black">
+                                                <help>Check this to grant the profile access to this research protocol.</help>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </span>
+                            </th>
+                            <th class="small launch center"/>
+                        </tr>
+                        <xf:repeat nodeset="$recs3">
+                            <exf:variable value="(.)" name="this"/>
+                            <exf:variable value="@id" name="indx"/>
+                            <exf:variable  value="position()" name="poi2"/>
+                            <tr>
+                                <td class="small delete center">
+                                    <xf:output value="$poi2"/>										
+                                </td>
+                                <td class="out text mediumplus left name">     
+                                    <xf:output value="name"/>
+                                </td>
+                                <td>                        
+                                    <span class="clickable" style="">
+                                        <u class="clickable">
+                                            <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/cv_icon.jpg"/>
+                                            <xf:action ev:event="click">
+                                                <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                    title="CV Information" class="detailsDialogBox">
+                                                    <xf:switch>
+                                                        <xf:case id="show-cv">                                                                                                       
+                                                            <table class="detailsDialog">
+                                                                
+                                                                <span>
+                                                                    <ix:attr value="if(not(cv) or cv/@uri='', '', 'display:none')" name="style"/>
+                                                                    <tr><td>No CV uploaded into the system</td></tr>
+                                                                </span>
+                                                                <span>
+                                                                    <ix:attr value="if(cv and cv/@uri!='', '', 'display:none')" name="style"/>
+                                                                    <tr><td><b>CV Upload Date</b></td><td><a target="_blank_"><ix:attr value="concat('/fil', cv/@uri)" name="href"/><xf:output value="local-date(cv/@uploaded)"/></a></td></tr>
+                                                                </span>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-cv"/>
+                                                    </xf:switch>  
+                                                </ix:dialog>
+                                            </xf:action>     
+                                        </u>
+                                    </span>
+                                </td>
+                                
+                                <!--VV:12/10/2020. Added Professional License for HH-->
+                                <td>                        
+                                    <span class="clickable" style="">
+                                        <u class="clickable">
+                                            <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/checkscreen.gif"/>
+                                            <xf:action ev:event="click">
+                                                <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                    title="Professional License Information" class="detailsDialogBox">
+                                                    <xf:switch>
+                                                        <xf:case id="show-pro">                                                                                                       
+                                                            <table class="detailsDialog">
+                                                                
+                                                                <span>
+                                                                    <ix:attr value="if(not(pro) or pro/@uri='', '', 'display:none')" name="style"/>
+                                                                    <tr><td>No Professional License uploaded into the system</td></tr>
+                                                                </span>
+                                                                <span>
+                                                                    <ix:attr value="if(pro and pro/@uri!='', '', 'display:none')" name="style"/>
+                                                                    <tr><td><b>Professional License Upload Date</b></td><td><a target="_blank_"><ix:attr value="concat('/fil', pro/@uri)" name="href"/><xf:output value="local-date(pro/@uploaded)"/></a></td></tr>
+                                                                </span>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-pro"/>
+                                                    </xf:switch>  
+                                                </ix:dialog>
+                                            </xf:action>     
+                                        </u>
+                                    </span>
+                                </td>
+                                <!--VV:12/10/2020. Added Professional License for HH-->
+                                
+                                <td>                                
+                                    <span class="clickable" style="">
+                                        <u class="clickable">    <img width="16" height="16" border="0" align="absmiddle" src="/../fil/system/resources/ideate/imgs/checkscreen.gif"/><xf:action ev:event="click">
+                                            <ix:dialog style="width:450px;height:" height="" width="450px" id="detailsDetails"
+                                                title="Certifications" class="detailsDialogBox">
+                                                <script>
+                                                    //Extract Context
+                                                    pUri = model.getValue("@uri", contextNode);
+                                                    pUriSplit = pUri.split("/");
+                                                    person = pUriSplit[pUriSplit.length - 2];
+                                                    //alert(pUri + " - " + person);
+                                                    x = exeSharedScript("/applications/IRB/js/getCertsForPersonnel", {"param1":pUri}, "xml");
+                                                    
+                                                    //Attach to the model (replacing any existing nodes);
+                                                    var root = model.selectNodeList("instance('certs')", null)[0];
+                                                    var dat = model.selectNodeList("instance('certs')/resultSet", null)[0];
+                                                    
+                                                    if(dat) root.removeChild(dat);
+                                                    root.appendChild(x.documentElement);    
+                                                    
+                                                    model.setInstanceIdSrc('personXML', "/fil" + pUri + "/data.xml");
+                                                    
+                                                    model.recalculate();
+                                                    model.rebuild();
+                                                    model.refresh();
+                                                    
+                                                    model.activateCase('hide-main');
+                                                    model.activateCase('show-main');
+                                                </script>
+                                                <xf:switch>
+                                                    <xf:case id="show-main">                                                                                                       
+                                                        <table class="detailsDialog">
+                                                            <tr>
+                                                                <td align="left" colspan="2"><xf:label>Certifications Start Date:</xf:label>    <xf:output value="local-date(instance('personXML')/TrainingStartDate)"/></td>
+                                                                <td align="left" colspan="2"><xf:label>Certifications Expiration Date:</xf:label>    <xf:output value="local-date(instance('personXML')/TrainingExpirationDate)"/></td>
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                                <td colspan="4">                                                                                                                                    
+                                                                    <hr/>
+                                                                </td>
+                                                            </tr>                                                                     
+                                                            <tr>
+                                                                <th width="180px" align="left"><xf:label>Title</xf:label></th>
+                                                                <th align="center" width="70px" style="padding-left:10px"><xf:label>Program Completed Date</xf:label></th>
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Start Date</xf:label></th>
+                                                                <th align="center" width="100px" style="padding-left:10px"><xf:label>Expiration Date</xf:label></th>                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">                                                                                                                                    
+                                                                    <hr/>
+                                                                </td>
+                                                            </tr>
+                                                            <xf:repeat nodeset="instance('certs')/resultSet/item">       
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <xf:output value="@name"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@Effective != '', concat(substring(@Effective, 6, 2), '/', substring(@Effective, 9, 2), '/', substring(@Effective, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@StartDate != '', concat(substring(@StartDate, 6, 2), '/', substring(@StartDate, 9, 2), '/', substring(@StartDate, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                    <td align="center" style="padding-left:10px">
+                                                                        <xf:output value="if(@Expires != '', concat(substring(@Expires, 6, 2), '/', substring(@Expires, 9, 2), '/', substring(@Expires, 1, 4)), '-')"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </xf:repeat>
+                                                        </table>
+                                                    </xf:case>
+                                                    <xf:case id="hide-main"/>
+                                                </xf:switch>  
+                                            </ix:dialog>
+                                        </xf:action></u>
+                                    </span>
+                                </td>
+                                <td class="dprt in manual mediumplus left">
+                                    <exf:variable name="deptSel" value="department/@selected"/>
+                                    <xf:output value="department/dept[@value=$deptSel]/@name"/>
+                                </td>
+                                <td class="in dropdown mediumplus left role">
+                                    <exf:variable name="role" value="role"/>                                    
+                                    <div>
+                                        <ix:attr value="if(role='PI', '', 'display:none')" name="style"/>
+                                        <xf:output value="instance('cats')/personnelRoleTypesPI/type[@id=$role]/@name"/>
+                                    </div>
+                                    <div>
+                                        <ix:attr value="if(role!='PI', '', 'display:none')" name="style"/>
+                                        <xf:output value="instance('cats')/personnelRoleTypes/type[@id=$role]/@name"/>         
+                                    </div>
+                                </td>
+                                <!--<td class="in checkbox tiny center contact" style="width:40px">
+                                    <xf:output value="if(protStartDate != '', local-date(protStartDate), '')"/>
+                                </td>-->
+                                <td class="in checkbox tiny center contact" style="width:40px">
+                                    <xf:output value="if(protEndDate != '', local-date(protEndDate), '')"/>
+                                </td>
+                                <td class="in checkbox tiny center contact" style="width:30px">
+                                    <xf:output value="if(contact='1', 'X', '')"/>
+                                </td>
+                                <td class="in checkbox tiny center access" style="width:30px">
+                                    <xf:output value="if(access='EDIT', 'Edit Access', if(access='READONLY', 'Read-only Access', if(access='SIGNAUTH', 'Signature Authority', '')))"/>
+                                </td>
+                                <td class="small launch center">
+                                    <u class="clickable">Contact Details<xf:action ev:event="click">
+                                            <ix:dialog style="width:360px;height:" height="" width="360px" id="detailsDetails"
+                                                title="Contact Details" class="detailsDialogBox">
+                                                <xf:group style="border:none;" ref=".">
+                                                    <h3/>
+                                                    <xf:switch>
+                                                        <xf:case exf:if="1" id="show-dialog">
+                                                            <table class="detailsDialog">
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="phone" class="halfLine">
+                                                                 <xf:label>Phone</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                 <td>
+                                                                 <xf:input ref="fax" class="halfLine">
+                                                                 <xf:label>
+                                                                 <span style="padding-left:30px;">Fax</span>
+                                                                 </xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <div>
+                                                                 <ix:attr
+                                                                 value="if(count(email/email) &gt; 1, 'display:none', '')"
+                                                                 name="style"/>
+                                                                 <xf:input ref="email/email[1]" class="fullLine">
+                                                                 <xf:label>Email</xf:label>
+                                                                 </xf:input>
+                                                                 </div>
+                                                                 <div>
+                                                                 <ix:attr
+                                                                 value="if(count(email/email) &gt; 1, '', 'display:none')"
+                                                                 name="style"/>
+                                                                 <xf:select1 ref="email/@selected" class="fullLine">
+                                                                 <xf:label>Email</xf:label>
+                                                                 <xf:repeat nodeset="../email">
+                                                                 <xf:item>
+                                                                 <xf:label>
+                                                                 <xf:output value="."/>
+                                                                 </xf:label>
+                                                                 <xf:value>
+                                                                 <xf:output value="@indx"/>
+                                                                 </xf:value>
+                                                                 </xf:item>
+                                                                 </xf:repeat>
+                                                                 </xf:select1>
+                                                                 </div>
+                                                                 <hr/>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <ix:attr
+                                                                 value="if(count(address/address ) &gt; 1, '', 'display:none')"
+                                                                 name="style"/>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:select1 ref="address/@selected" class="fullLine">
+                                                                 <xf:label>Address</xf:label>
+                                                                 <xf:repeat nodeset="../address">
+                                                                 <xf:item>
+                                                                 <xf:label>
+                                                                 <xf:output value="name"/>
+                                                                 </xf:label>
+                                                                 <xf:value>
+                                                                 <xf:output value="@indx"/>
+                                                                 </xf:value>
+                                                                 </xf:item>
+                                                                 </xf:repeat>
+                                                                 <script ev:event="xforms-value-changed">
+                                                                 model.activateCase('hide-dialog'); model.refresh();
+                                                                 model.rebuild(); model.recalculate();
+                                                                 model.activateCase('show-dialog'); </script>
+                                                                 </xf:select1>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address1"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 1</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address2"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 2</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td colspan="2" style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/address3"
+                                                                 class="fullLine">
+                                                                 <xf:label>Address 3</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/city"
+                                                                 class="halfLine">
+                                                                 <xf:label>City</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                 <td>
+                                                                 <xf:input ref="address/address[@indx=../@selected]/state"
+                                                                 class="halfLine">
+                                                                 <xf:label>
+                                                                 <span style="padding-left:30px;">State</span>
+                                                                 </xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                 <td style="padding-left:10px">
+                                                                 <xf:input ref="address/address[@indx=../@selected]/zip"
+                                                                 class="halfLine">
+                                                                 <xf:label>Zip</xf:label>
+                                                                 </xf:input>
+                                                                 </td>
+                                                                </tr>
+                                                            </table>
+                                                        </xf:case>
+                                                        <xf:case id="hide-dialog"/>
+                                                    </xf:switch>
+                                                </xf:group>
+                                                <xf:trigger
+                                                    style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;">
+                                                    <xf:label>Close Details</xf:label>
+                                                    <xf:close ev:event="DOMActivate"/>
+                                                </xf:trigger>
+                                            </ix:dialog>
+                                        </xf:action></u>
+                                </td>
+                            </tr>
+                        </xf:repeat>
+                    </table>
+                    </span>
+                </xf:case>
+                <xf:case id="hide-recordTable"/>
+            </xf:switch>
+        </div>
+        <div/>
+    </div>
+</form>

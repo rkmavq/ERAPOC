@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms">
+  <xf:model id="fmodel">
+    <xf:instance id="ins"><data xmlns=""></data></xf:instance>
+    <xf:instance id="meta"><data xmlns=""></data></xf:instance>
+  <xf:instance id="cats"><data xmlns=""></data></xf:instance>
+    <xf:instance id="docs"><data xmlns=""></data></xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+      <form updatedBy="" updated="" createdBy="" created=""/>
+      <tempRevIndex>-1</tempRevIndex>
+      <tempSugIndex>1</tempSugIndex>
+      <searchText/>
+      <records/>
+      <fullSearchText/>
+      <fullSearchRecords/>
+      <col1/>
+        <col2/>
+        <col3/>
+        <document id="" uri=""></document>
+        <temp/>
+      <comp uri=""/>
+    </data>
+    </xf:instance>
+    <xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data>
+    </xf:instance>
+    <xf:instance id="config"><data xmlns=""></data></xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      //ARCHITA: All Scripts Required have been added to the main appForm prototype, and should be available form  model.Frm._____();
+      model.Frm = new appForm(model, "docs");
+      
+      //ARCHITA: You'll have to load the appropriate datafile here that you want to attach the XML to as usual (change this to match wherever you're working)
+      model.Frm.loadAppFile('dat', "/data/irb.xml", "1");
+      
+      
+      //ARCHITA: This next lines are required, they identify the main 'data' instance where the documents list, and what status/decision a new doc is born with
+      model.Frm.DOC_INS = "dat";
+      model.Frm.DOC_NEW_STATUS = "New";
+      model.Frm.DOC_NEW_DECISION = "Pending";
+      model.Frm.DOC_NEW_UPLOAD_OP = "replace";  //THIS CAN BE either replace or newVersion, set this globbally on your page or do it manually as below before each upload
+      
+      model.Frm = new appForm(model, "healthrecords");
+      model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");model.Frm.loadAppFile('docs', "/data/irb.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('docs');
+              }
+            
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+    </script><script ev:event="xforms-ready"/>
+    <xf:submission instance="dat" id="submit" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>    
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission instance="docs" id="submitdocs" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (docs)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(docs)//*"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame">
+                  <div style="display:none;">
+                    <xf:input id="documentDrop" ref="instance('form')/document">
+                      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+                        <script>
+                          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+                        </script>
+                      </xf:action>
+                    </xf:input>
+                    
+                  <!--<xf:input id="documentDrop" ref="instance('form')/document">
+                    <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+                      <script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                      </script>
+                    </xf:action>
+                  </xf:input>-->
+                </div><table class="formMetaLine"><tr><td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>, <xf:output value="instance('form')/form/@createdBy"/></td><td class="updated"><ix:attr value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+                Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output value="instance('form')/form/@updatedBy"/></td></tr></table><div class="body"><h1/><table class="basicColLayout"><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invPHI" appearance="full"><xf:label>Does the research involve the access, use and disclosure of protected health information (PHI)?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+                model.setValue("instance('ins')/phiPro", "");
+                model.recalculate();
+            }
+                </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invPHI" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/invPHI = '1', '', 'display:none')" name="style"/><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/phiPro" appearance="full"><xf:label>Will the data collected from health information records be prospective or retrospective with identifiers recorded in the research record?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/phiPro" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="document"><ix:attr value="if(instance('ins')/invPHI = '1', '', 'display:none')" name="style"/><td class="component stretchLabel ">
+                  <table class="oneToManyBox">
+                    <tr>
+                      <td class="label">Attach the HIPAA Authorization Document</td>
+                      <td>
+                        <xf:trigger>
+                        <xf:label>Add New Document</xf:label>
+                        <script ev:event="DOMActivate">
+                          model.Frm.addDocument();        
+                        </script>
+                      </xf:trigger>
+                      </td>
+                      <td>
+                        <xf:trigger>
+                        <xf:label>Save</xf:label>
+                        <script ev:event="DOMActivate">
+                          model.submit("submit");
+                        </script>
+                        </xf:trigger>
+                      </td>
+                  <td class="">
+                    <span>
+                      <ix:attr value="if(instance('ins')/phiDoc != '', '', 'display:none')" name="style"/>
+                      <a target="_blank_">
+                        <ix:attr value="instance('ins')/phiDoc/@uri" name="href"/>
+                        <xf:output class="" value="instance('ins')/phiDoc"/>
+                      </a>
+                    </span>
+                    <span class="clickable">
+                      <ix:attr value="if(instance('ins')/phiDoc != '', 'display:none', '')" name="style"/>
+                      <script ev:event="click">
+                        var id = model.getValue("@id",contextNode); 
+                        //alert(id);
+                        model.Frm.configureEnhancedDocUpload("replaceValue",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                        model.Frm.executeDocUpload(); 
+                        
+              //model.Frm.configureDocUpload("replaceValue", "instance('ins')/phiDoc", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+              //model.Frm.executeDocUpload(); 
+            </script> 
+           Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/>
+                    </span>
+                  </td>
+                  <td classs="control">
+                    <span class="remove clickable">X
+            <ix:attr value="if(instance('ins')/phiDoc != '', '', 'display:none')" name="style"/>
+                      <xf:action ev:event="click" ref="."><xf:setvalue ref="instance('ins')/phiDoc"/>
+                        <xf:setvalue ref="instance('ins')/phiDoc/@uri"/>
+                      </xf:action>
+                    </span>
+                  </td>
+                </tr>
+                  </table>
+                  
+                  <xf:switch>
+                    <xf:case id="show-docs">
+                      
+                      <table>
+                        <xf:repeat nodeset="instance('dat')/document">
+                          <exf:variable name="dindx" value="@uid"/>
+                          <tr>
+                            <td class="small delete center">
+                              <b style="cursor:pointer;color:red;">X <xf:action
+                                exf:if="script('confirm(&quot;Delete this document?&quot;)')"
+                                ev:event="click">
+                                <script>
+                                  dindx = model.getValue("@uid", contextNode);
+                                  model.Frm.deleteDocument(dindx);
+                                </script>
+                                <xf:destroy ref="."/>
+                              </xf:action></b>
+                            </td>
+                            <td class="out text large left"><xf:output value="$dindx"><xf:label/></xf:output></td>
+                            <td class="out text large left"><xf:input ref="@label"><xf:label/></xf:input></td>
+                            
+                            <td class="in text large left">
+                              <span>
+                                <xf:input ref="@name"/>
+                              </span>
+                              <!--<span><ix:attr value="if(local-name(.)='doc', 'display:none', '')"
+                                name="style"/> Add New </span>-->
+                            </td>
+                            <td class="out text large left">
+                              <xf:output value="if(not(@uploaded) or @uploaded='', '', concat(@uploaded, ' by ' , @uploadedBy))"/>
+                            </td>
+                            <td class="in text small left">
+                              <span>
+                                <xf:input ref="@version"/>
+                              </span>
+                            </td>
+                            <td class="in text small left">
+                              <span><ix:attr name="style" value="if(version, '', 'display:none')"/>
+                                <span class="dialogOverInteractive" style="color:blue;cursor:pointer;text-decoration:none;"><u><b>View</b></u>
+                                  <div style="width:350px;">  
+                                    <h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5>
+                                    <table style="background-color:white;">
+                                      <ix:attr value="if(version, '', 'display:none')" name="style"/>
+                                      <tr>
+                                        <th>Version</th>
+                                        <th>Uploaded</th>
+                                        <th>Document</th>
+                                      </tr>
+                                      <xf:repeat nodeset="version">
+                                        <tr>
+                                          <td style="background-color:white;vertical-align:top;width:50px;">1.<xf:output value="position()"/></td>
+                                          <td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="concat(substring(@uploaded, 6, 2), '/', substring(@uploaded, 9, 2), '/', substring(@uploaded, 1, 4), '  ', substring(@uploaded, 12, 5), ' HR')"/>) </td>
+                                          <td style="background-color:white;vertical-align:top;color:black">
+                                            <a target="_blank">
+                                              <ix:attr name="href" value="concat('' , @uri)"/>
+                                              Download
+                                            </a>
+                                          </td>
+                                        </tr>
+                                      </xf:repeat>
+                                    </table>
+                                  </div>
+                                </span>
+                              </span>
+                            </td>
+                            <td class="doc medium">
+                              <span>
+                                <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                                <a target="_blank_">
+                                  <ix:attr value="concat('/fil', @uri)" name="href"/>
+                                  <xf:output class="" value="@fileName"/>
+                                </a>
+                              </span>
+                              <u class="clickable"><ix:attr value="if(@uri = '', '', 'display:none')" name="style"/>
+                                <script ev:event="click"> 
+                                  var id = model.getValue("@id",contextNode); 
+                                  model.Frm.configureEnhancedDocUpload("replaceValue",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                                  model.Frm.executeDocUpload(); 
+                                </script> Attach </u>
+                            </td>
+                            <td style="width:120px;border-left:none;text-align: right;">
+                              <u class="clickable"><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                                <script ev:event="click"> 
+                                  var id = model.getValue("@id",contextNode);
+                                  model.Frm.DOC_NEW_UPLOAD_OP = "replace";  //THIS OVERWRITES THE CURRENT VERSION OF THE DOCUMENT
+                                  model.Frm.configureEnhancedDocUpload("replaceValue",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                                  model.Frm.executeDocUpload(); 
+                                </script> Replace</u>
+                            </td>
+                            <td style="width:120px;border-left:none;text-align: right;">
+                              <u class="clickable"><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                                <script ev:event="click"> 
+                                  var id = model.getValue("@id",contextNode); 
+                                  model.Frm.DOC_NEW_UPLOAD_OP = "newVersion"; //THIS FORCES THE UPLOAD TO ADD A NEW VERSION
+                                  model.Frm.configureEnhancedDocUpload("replaceValue",contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                                  model.Frm.executeDocUpload(); 
+                                </script> Replace with new Version</u>
+                            </td>
+                            <td>
+                              <div>
+                                <ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                                <span style="color:blue" class="dialogOverInteractive">
+                                  <b>
+                                    <u>View</u>
+                                  </b>
+                                  <div style="width:400px;">
+                                    <p>
+                                      <h5>Comments:</h5>
+                                      <xf:textarea style="width:370px;height:8em;" ref="@comments"/>
+                                    </p>
+                                  </div>
+                                </span>
+                              </div>
+                            </td>
+                          </tr>
+                        </xf:repeat>
+                      </table>                      
+                    </xf:case>                    
+                    <xf:case id="hide-docs"/>
+                  </xf:switch>                   
+                  
+                </td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

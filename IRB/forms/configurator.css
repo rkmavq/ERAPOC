@@ -1,0 +1,236 @@
+/*div.id_infovis div.node{
+    border: 1px solid blue;
+}*/
+
+table.partList.lined td{
+    border-bottom: 1px solid gray;
+}
+
+table.partList.lined th{
+    border-bottom: 1px solid gray;
+}
+
+table.partList th{
+    text-align:left;
+    padding-left:10px;
+}
+
+table.partList td{
+    vertical-align:top;
+    text-align:left;
+    padding-left:10px;
+}
+
+div.canvas td.section table.partList div.xfctrl table.xfselect input{
+    width:17px;
+}
+
+
+div.frame {
+    border: 2px solid black;
+    width: 100%;
+}
+
+div.frame table{
+    /* width: 100%; */
+}
+
+
+div.frame table td{
+    /* text-align:center; */
+    vertical-align:top;
+}
+
+div.frame table td.button{
+    width:100px;
+    text-align:center;
+}
+
+div.frame table td.button u{
+    cursor:pointer;
+    color:blue;
+    text-decoration:none;
+}
+
+div.parts{
+    border: 2px solid black;
+    width: 100px;
+    position:absolute;
+    right:1px;
+}
+
+div.parts div.part{
+    border: 2px solid black;
+    padding:3px;
+    margin:3px;
+    text-align:center;
+    vertical-align:middle;
+    cursor:move;
+}
+
+div.canvas td.section {
+    border: 2px solid black;
+    padding: 10px;
+    vertical-align:top;
+}
+
+div.canvas td.section div.xfctrl label {
+    width: 60px;
+    vertical-align:top;
+    display: -moz-stack;
+}
+
+div.canvas td.section div.xfctrl input {
+    width:200px;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 9pt;
+}
+
+div.canvas td.section div.xfctrl textarea {
+    width:200px;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 9pt;
+}
+
+
+.wikiView div.ideateConfigurator div.xfctrl{
+    background: none;
+}
+
+.wikiView div.ideateConfigurator td.leftPan div.xfctrl label{
+    width: 140px;
+}
+
+.wikiView div.ideateConfigurator td.leftPan div.xfctrl input{
+    width: 180px;
+}
+
+.wikiView div.ideateConfigurator td.rightPan div.xfctrl label{
+    width: 60px;
+}
+
+.wikiView div.ideateConfigurator td.rightPan div.xfctrl input{
+    width: 200px;
+}
+
+div.dialog div.ideateConfigurator h1{
+    color:red;
+}
+
+div.dialog div.ideateConfigurator div.xfctrl{
+    background: none;
+}
+
+div.dialog div.ideateConfigurator td.leftPan div.xfctrl label{
+    width: 170px;
+}
+
+div.dialog div.ideateConfigurator td.leftPan div.xfctrl input{
+    width: 180px;
+}
+
+div.dialog div.ideateConfigurator td.rightPan div.xfctrl label{
+    width: 60px;
+}
+
+div.dialog div.ideateConfigurator td.rightPan div.xfctrl input{
+    width: 200px;
+}
+
+div.dialog div.ideateConfigurator table.rulesTable{
+    font-size:12px;
+    padding:3px;
+}
+
+div.dialog div.ideateConfigurator table.rulesTable th{
+    text-align:left;
+    padding:3px;
+}
+
+div.dialog div.ideateConfigurator table.rulesTable td{
+    text-align:left;
+    vertical-align:top;
+    width:120px;
+    padding:3px;
+    padding-right:10px;
+}
+
+div.dialog div.ideateConfigurator table.rulesTable td.wide{
+    text-align:left;
+    width:200px;   
+}
+
+div.dialog div.ideateConfigurator table.rulesTable td.thin{
+    text-align:left;
+    width:20px;   
+}
+
+div.dialog div.ideateConfigurator table.rulesTable td div.diagXf div.xfctrl{
+    padding:0;
+}
+
+
+.wikiView div.ideateConfigurator fieldset.feature{
+    margin-bottom:10px;
+}
+
+.wikiView div.ideateConfigurator fieldset.feature legend div.xfctrl{
+    padding:0;
+}
+.wikiView div.ideateConfigurator fieldset.feature legend div.xfctrl table.xfselect td{
+    vertical-align:middle;
+}
+
+
+
+div.ideateConfigurator table.rulesTable th{
+    text-align:left;
+    padding:3px;
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td{
+    text-align:left;
+    vertical-align:top;
+    width:120px;
+    padding:3px;
+    padding-right:10px;
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td.wide{
+    text-align:left;
+    width:200px;   
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td.thin{
+    text-align:left;
+    width:20px;   
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td div.diagXf div.xfctrl{
+    padding:0;
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td div.xfctrl{
+    padding:0;
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td div.xfctrl input{
+    margin-top:0px;
+}
+
+
+.wikiView div.ideateConfigurator table.rulesTable td table.inner{
+    
+}
+
+.wikiView div.ideateConfigurator table.rulesTable td table.inner td{
+    vertical-align:top;
+    padding:0;
+}
+
+.wikiView table.app th{
+    vertical-align:top;
+}
+.wikiView table.app td{
+    vertical-align:top;
+}

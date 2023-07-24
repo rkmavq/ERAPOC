@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fragment xmlns:xf="http://www.w3.org/2002/xforms"> 
+    <workflow>
+        <fragmentName>Create New</fragmentName>
+        <fragmentType>Review</fragmentType>
+        <fragmentNature>main</fragmentNature>
+        
+        <security type=""/>
+        
+        <description>This is the first review cycle for the FEC</description>
+        <launchedWhen criteria="prevFrag">frag2</launchedWhen>
+        <availableWhen stage="" criteria=""/>
+        <pass stage="" status="Waiting"/>
+        <fail stage="" status="InRevision"/>
+        
+        <link app="" type="" when=""/>
+        
+        <role/>
+        
+        <review reviewer="named" who="" name="Department Review">
+            <q n="1" type="scorecomment" label="General Quality" active="1"/>
+            <q n="2" type="yesno" label="Meets all institutional criteria" active="1"/>
+            <q n="3" type="yesno" label="Meets all departmental criteria" active="1"/>
+            <q n="4" type="yesnocomment" label="" active=""/>
+            <q n="5" type="comment" label="" active=""/>
+            <q n="6" type="score" label="" active=""/>
+            <returnWhen criteria="failed"/>
+            <passWhen criteria=""/>
+        </review>
+        
+        <routing>
+            <when timing=""/>
+            
+        </routing>
+        
+    </workflow>
+    
+    <tabs>
+        <tab id="WORKFLOW" name="WORKFLOW" label="Workflow Settings" protected="1" hidden="-1"/>
+        <tab id="t" name="top" label="Stuff" protected="1" hidden="">
+            <tab id="top1" name="Construction" label="Construction Tab" protected="1" hidden=""/>
+            <tab id="top2" name="Restruction" label="Restruction Tab" protected="1" hidden=""/>
+        </tab>
+    </tabs>
+    
+    <tab id="top1">
+    
+    <formType>general</formType>
+    <formName>projectDescription2.xfrm</formName>
+    <formID>pd</formID>
+    <tabName>Project Description</tabName>
+    
+    <options>
+        <customComponents>15</customComponents>
+        <title/>
+        <trackPageInitiated>1</trackPageInitiated>
+        <trackLastUpdate>1</trackLastUpdate>
+        <saveOnExit>1</saveOnExit>
+        <bottomBack>1</bottomBack>
+        <bottomNext>1</bottomNext>
+    </options>
+    
+    <insertBindings>
+        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/ApplicationTypeCode"/>
+        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/SubmissionTypeCode"/>
+    </insertBindings>
+    
+    <dataSource ins="ins" ref="/data/projectData.xml" save="1"/>
+    <dataSource ins="meta" ref="/data/projectData.xml"/>
+    <dataSource ins="cats" ref="/data/catagories.xml"/>
+    
+    <component reportable="1" id="projectTitle" type="field" source="ins" xml="ProjectTitle" label="Full Title" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <option type="charCount"/>
+    <quickSearch entity=""/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component><component reportable="1" id="shortTitle" type="field" source="ins" xml="ShortTitle" label="Short Title" hidden="">        
+        <visible whenComponent="" hasValue=""/>
+        <help>Help Text</help>
+        <option type=""/>
+        <option type="charCount"/>        
+    <quickSearch entity=""/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component><component reportable="1" id="stratAlign" type="dropdown" source="ins" xml="StrategicPlanAlignment" label="Strategic Initiatives" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <dataList type="xmlFeed" emptyValueLabel="None">
+            <xmlFeed source="listEntity" entity="Research Focus List"/>
+        </dataList>
+    <quickSearch entity=""/><dataList><xmlInstance nodeset=""/></dataList></component><component reportable="1" id="proDescription" type="box" source="ins" xml="ProjectDescription" label="Internal Description" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <option type="charCount"/>
+    <quickSearch entity=""/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>
+    
+    
+    
+    
+    
+    
+    
+    <component reportable="1" id="pi" type="entity" source="ins" xml="Person[role='PI']" label="Project Contact PI" hidden="">        
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <primaryLine xml="name"/>
+        <sharedLine label="Department/Division" xml1="department" xml2="organization"/>
+        <sharedLine label="Phone/Email" xml1="phone" xml2="email"/>
+        <addLine label="Project Contact PI"/>
+        <option type="replace"/>
+        <option type="details" label="contact details" title="Principal Investigator" height="400px">  
+            <line>
+                <item label="Name" xml="name"/>
+                <item label="Department" xml="department"/>
+            </line>
+            <line>
+                <item label="Phone" xml="phone"/>
+                <item label="Email" xml="email"/>
+            </line>
+        </option>
+        <quickSearch entity="People" dialogTitle="Find PI" importScript="/applications/USProject/js/addSlimPI" col1="Name" col2="ID" col3="Department" filter1="1" filter2="researcher" save="1">model.setValue("PIName", model.getValue("Person[role=\'PI\']/name"));model.Frm.formSet.getRoot().model.TS.refreshHeader();</quickSearch>
+    <dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>
+    
+    <component reportable="" id="break1" type="break">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="contextGroup" type="field" source="ins" xml="contextGroup" label="Primary Associated Unit / Division" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type=""/>
+        <option type="lookup" label="replace"/>
+        <quickSearch entity="Departments" dialogTitle="Lookup Department" importScript="" col1="Name" col2="ID" col3="Division" filter1="" filter2="" save=""/>
+    </component><component reportable="1" id="org" type="entity" source="ins" xml="Organization" label="Organization" hidden="">        
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <primaryLine xml="OrganizationName"/>
+        <option type="details" label="org details" title="Organizational Details" height="400px">  
+            <fullLine label="Legal Name" xml="OrganizationName"/>                
+            <line>
+                <item label="Street 1" xml="Street1"/>
+                <item label="Street 2" xml="Street2"/>
+            </line>
+            
+            <line>
+                <item label="City" xml="City"/>
+                <item label="Country" xml="County"/>
+            </line>
+            <line>
+                <item label="State" xml="StateCode"/>
+                <item label="Country" xml="Country"/>
+            </line>
+            <line>
+                <item label="Zip/Posal Code" xml="ZipCode"/>
+                <item label="Congressional District" xml="Distric"/>
+            </line>
+            <line>
+                <item label="Organizational DUNS" xml="DUNSID"/>
+                <item label="Employeee Identification (EIN) or (TIN)" xml="EIN"/>
+            </line>            
+        </option>
+    <quickSearch entity="Organizations"/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>    
+    
+    
+    
+    <component reportable="1" id="admin" type="entity" source="ins" xml="AdminContact" label="Admin Contact" hidden="">        
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <primaryLine xml="name"/>
+        <sharedLine label="Department/Division" xml1="department" xml2="organization"/>
+        <sharedLine label="Phone/Email" xml1="phone" xml2="email"/>
+        <option type="replace"/>
+        <option type="details" label="contact details" title="Admin Contact" height="400px">  
+            <line>
+                <item label="Name" xml="name"/>
+                <item label="Department" xml="department"/>
+            </line>
+            <line>
+                <item label="Phone" xml="phone"/>
+                <item label="Email" xml="email"/>
+            </line>
+        </option>
+        <quickSearch entity="People" dialogTitle="Find Admin Contact" importScript="/applications/USProject/js/addContact" col1="Name" col2="ID" col3="Department" filter1="1" filter2="admin">model.Frm.formSet.getRoot().model.TS.refreshHeader();</quickSearch>
+    </component>
+    
+    <component reportable="" custom="1" id="line1" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="proType" type="dropdown" source="ins" xml="projectType" label="Project Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="projectTypes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+    
+    <component reportable="1" id="agreeType" type="dropdown" source="ins" xml="AgreeType" label="Agreement Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="agreeTypes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    <quickSearch entity=""/><dataList><xmlFeed entity=""/></dataList></component>
+    
+    <component reportable="1" id="appTypeCode" type="dropdown" source="ins" xml="ApplicationTypeCode" label="Application Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="appTypeCodes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+    
+    <component reportable="1" id="subTypeCode" type="dropdown" source="ins" xml="SubmissionTypeCode" label="Submission Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="submissionTypeCodes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+   
+    <component reportable="" custom="1" id="line2" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="priorRelated" type="yesnoentitylink" source="ins" xml="relatedProposal" label="Identify: " hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="horizontalStack"/>
+        
+        <question xml="hasPriorRelatedProposal" label="Prior Related Funding?">
+            <option type="widenLabel"/>
+        </question>
+        <quickSearch entity="Projects" dialogTitle="Lookup Funding" importScript="" col1="Title" col2="ID" col3="PI" filter1="" filter2="" save=""/>
+        <option type="noCreateNew"/>
+    </component>
+    
+    <component id="line9" custom="1" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="SubToOtherAg" type="yesnobuttons" source="ins" xml="subToOtherAgencies" label="Submitting to Other Agencies?" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="widenLabel"/>
+    </component>
+    
+    
+    <component reportable="" id="otherAgencies" type="lookuplist" source="ins" xml="otherAgency" label="What Other Agencies?" hidden="">
+        <option type=""/>
+        <help/>
+        <option type="0orMore"/> 
+        <visible whenComponent="SubToOtherAg" hasValue="1"/>
+        <option type="widenLabel"/>
+        <quickSearch entity="Organizations" dialogTitle="Lookup Org" importScript="" col1="Name" col2="ID" col3="Sponsor Type" filter1="" filter2="Sponsor" save=""/>
+    <dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>
+    
+<!--    <component id="otherAgencies" type="list" source="ins" xml="otherAgency" label="What Other Agencies?">
+        <visible whenComponent="SubToOtherAg" hasValue="1"/>
+        <option type="widenLabel"/>
+    </component>
+-->    
+    <component reportable="" custom="1" id="line4" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="conDist" type="field" source="ins" xml="Organization/CongressionalDistrict" label="Congressional District of Project" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type=""/>
+        <!--<option type="lookup" label="replace"/>
+        <quickSearch entity="Departments" dialogTitle="Lookup District" importScript="" col1="District" col2="" save=""></quickSearch>-->
+    </component>  
+        
+    <component reportable="1" id="dists" type="document" source="ins" xml="Organization/AdditionalCongDistricts" label="Additional Districts" hidden=""> 
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type="onlyFileType">pdf</option>
+    </component>
+    
+    <component reportable="" custom="1" id="line5" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="" id="areas" type="box" source="ins" xml="areasAffected" label="Areas Affected by Project (i.e. cities; states; countries)" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type=""/>
+    </component>
+        
+    <component reportable="" custom="1" id="line11" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="stateReview" type="radiobuttons" source="ins" xml="stateReviewOrder" label="Is Application Subject to Review by State Under Executive Order 12372?" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="explicit" emptyValueLabel="">
+            <option label="YES, this application was made available to the State under E.O. 12372" value="covered"/>
+            <option label="NO, Program is not covered by E.O. 12372" value="notCovered"/>
+            <option label="NO, Program is subject to E.O. 12372 but has not been selected by the State for review" value="notToReview"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+    
+    <component reportable="1" id="stateReviewDate" type="date" source="ins" xml="stateReviewOrderDate" label="EO 12372 Date" hidden="">
+        <option type=""/>
+        <help/>
+        <visible whenComponent="stateReview" hasValue="covered"/>
+        <option type="widenLabel"/>
+    </component>
+    
+    
+    <component reportable="" custom="1" id="line6" type="line">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <!--<component id="focus" type="dropdown" source="ins" xml="researchFocus" label="Research Focus">
+        <dataList type="xmlFeed" emptyValueLabel="-Select-">
+            <xmlFeed source="listEntity" entity="Research Focus List"/>
+        </dataList>
+        <option type="widenLabel"/>
+        <option type="addOtherBox" xml="researchFocusOther" otherBoxLabel="Specify" otherBoxType="" otherLabel="" otherValue="" default=""/>       
+    </component>-->
+    
+    <component reportable="1" id="keywords" type="lookuplist" source="ins" xml="keyword" label="Keywords" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="0orMore"/> 
+        <quickSearch entity="Keywords" dialogTitle="Lookup Keyword" importScript="" col1="Keyword" col2="Category" col3="Subcategory" filter1="" filter2="" save=""/>
+    </component>
+    
+    <component reportable="1" id="tags" type="list" source="ins" xml="tag" label="Tags" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="0orMore"/> 
+    </component>
+    
+    </tab>
+    
+        <tab id="top2">
+    
+    <formType>general</formType>
+    <formName>projectDescription.xfrm</formName>
+    <formID>pd</formID>
+    <tabName>Project Description</tabName>
+    
+    <options>
+        <customComponents>15</customComponents>
+        <title/>
+        <trackPageInitiated>1</trackPageInitiated>
+        <trackLastUpdate>1</trackLastUpdate>
+        <saveOnExit>1</saveOnExit>
+        <bottomBack>1</bottomBack>
+        <bottomNext>1</bottomNext>
+    </options>
+    
+    <insertBindings>
+        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/ApplicationTypeCode"/>
+        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/SubmissionTypeCode"/>
+    </insertBindings>
+    
+    <dataSource ins="ins" ref="/data/projectData.xml" save="1"/>
+    <dataSource ins="meta" ref="/data/projectData.xml"/>
+    <dataSource ins="cats" ref="/data/catagories.xml"/>
+    
+    <component reportable="1" id="projectTitle" type="field" source="ins" xml="ProjectTitle" label="Full Title" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <option type="charCount"/>
+    <quickSearch entity=""/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component><component reportable="1" id="shortTitle" type="field" source="ins" xml="ShortTitle" label="Short Title" hidden="">        
+        <visible whenComponent="" hasValue=""/>
+        <help>Help Text</help>
+        <option type=""/>
+        <option type="charCount"/>        
+    <quickSearch entity=""/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component><component reportable="1" id="stratAlign" type="dropdown" source="ins" xml="StrategicPlanAlignment" label="Strategic Initiatives" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <dataList type="xmlFeed" emptyValueLabel="None">
+            <xmlFeed source="listEntity" entity="Research Focus List"/>
+        </dataList>
+    <quickSearch entity=""/><dataList><xmlInstance nodeset=""/></dataList></component><component reportable="1" id="proDescription" type="box" source="ins" xml="ProjectDescription" label="Internal Description" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <option type="charCount"/>
+    <quickSearch entity=""/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>
+    
+    
+    <component reportable="1" id="pi" type="entity" source="ins" xml="Person[role='PI']" label="Project Contact PI" hidden="">        
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type=""/>
+        <primaryLine xml="name"/>
+        <sharedLine label="Department/Division" xml1="department" xml2="organization"/>
+        <sharedLine label="Phone/Email" xml1="phone" xml2="email"/>
+        <addLine label="Project Contact PI"/>
+        <option type="replace"/>
+        <option type="details" label="contact details" title="Principal Investigator" height="400px">  
+            <line>
+                <item label="Name" xml="name"/>
+                <item label="Department" xml="department"/>
+            </line>
+            <line>
+                <item label="Phone" xml="phone"/>
+                <item label="Email" xml="email"/>
+            </line>
+        </option>
+        <quickSearch entity="People" dialogTitle="Find PI" importScript="/applications/USProject/js/addSlimPI" col1="Name" col2="ID" col3="Department" filter1="1" filter2="researcher" save="1">model.setValue("PIName", model.getValue("Person[role=\'PI\']/name"));model.Frm.formSet.getRoot().model.TS.refreshHeader();</quickSearch>
+    <dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>
+    
+    <component reportable="" id="break1" type="break">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="contextGroup" type="field" source="ins" xml="contextGroup" label="Primary Associated Unit / Division" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type=""/>
+        <option type="lookup" label="replace"/>
+        <quickSearch entity="Departments" dialogTitle="Lookup Department" importScript="" col1="Name" col2="ID" col3="Division" filter1="" filter2="" save=""/>
+    </component><component reportable="1" id="org" type="entity" source="ins" xml="Organization" label="Organization" hidden="">        
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <primaryLine xml="OrganizationName"/>
+        <option type="details" label="org details" title="Organizational Details" height="400px">  
+            <fullLine label="Legal Name" xml="OrganizationName"/>                
+            <line>
+                <item label="Street 1" xml="Street1"/>
+                <item label="Street 2" xml="Street2"/>
+            </line>
+            
+            <line>
+                <item label="City" xml="City"/>
+                <item label="Country" xml="County"/>
+            </line>
+            <line>
+                <item label="State" xml="StateCode"/>
+                <item label="Country" xml="Country"/>
+            </line>
+            <line>
+                <item label="Zip/Posal Code" xml="ZipCode"/>
+                <item label="Congressional District" xml="Distric"/>
+            </line>
+            <line>
+                <item label="Organizational DUNS" xml="DUNSID"/>
+                <item label="Employeee Identification (EIN) or (TIN)" xml="EIN"/>
+            </line>            
+        </option>
+    <quickSearch entity="Organizations"/><dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>    
+    
+    
+    
+    <component reportable="1" id="admin" type="entity" source="ins" xml="AdminContact" label="Admin Contact" hidden="">        
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <primaryLine xml="name"/>
+        <sharedLine label="Department/Division" xml1="department" xml2="organization"/>
+        <sharedLine label="Phone/Email" xml1="phone" xml2="email"/>
+        <option type="replace"/>
+        <option type="details" label="contact details" title="Admin Contact" height="400px">  
+            <line>
+                <item label="Name" xml="name"/>
+                <item label="Department" xml="department"/>
+            </line>
+            <line>
+                <item label="Phone" xml="phone"/>
+                <item label="Email" xml="email"/>
+            </line>
+        </option>
+        <quickSearch entity="People" dialogTitle="Find Admin Contact" importScript="/applications/USProject/js/addContact" col1="Name" col2="ID" col3="Department" filter1="1" filter2="admin">model.Frm.formSet.getRoot().model.TS.refreshHeader();</quickSearch>
+    </component>
+    
+    <component reportable="" custom="1" id="line1" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="proType" type="dropdown" source="ins" xml="projectType" label="Project Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="projectTypes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+    
+    <component reportable="1" id="agreeType" type="dropdown" source="ins" xml="AgreeType" label="Agreement Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="agreeTypes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    <quickSearch entity=""/><dataList><xmlFeed entity=""/></dataList></component>
+    
+    <component reportable="1" id="appTypeCode" type="dropdown" source="ins" xml="ApplicationTypeCode" label="Application Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="appTypeCodes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+    
+    <component reportable="1" id="subTypeCode" type="dropdown" source="ins" xml="SubmissionTypeCode" label="Submission Type" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="submissionTypeCodes/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+   
+    <component reportable="" custom="1" id="line2" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="priorRelated" type="yesnoentitylink" source="ins" xml="relatedProposal" label="Identify: " hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="horizontalStack"/>
+        
+        <question xml="hasPriorRelatedProposal" label="Prior Related Funding?">
+            <option type="widenLabel"/>
+        </question>
+        <quickSearch entity="Projects" dialogTitle="Lookup Funding" importScript="" col1="Title" col2="ID" col3="PI" filter1="" filter2="" save=""/>
+        <option type="noCreateNew"/>
+    </component>
+    
+    <component id="line9" custom="1" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="SubToOtherAg" type="yesnobuttons" source="ins" xml="subToOtherAgencies" label="Submitting to Other Agencies?" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="widenLabel"/>
+    </component>
+    
+    
+    <component reportable="" id="otherAgencies" type="lookuplist" source="ins" xml="otherAgency" label="What Other Agencies?" hidden="">
+        <option type=""/>
+        <help/>
+        <option type="0orMore"/> 
+        <visible whenComponent="SubToOtherAg" hasValue="1"/>
+        <option type="widenLabel"/>
+        <quickSearch entity="Organizations" dialogTitle="Lookup Org" importScript="" col1="Name" col2="ID" col3="Sponsor Type" filter1="" filter2="Sponsor" save=""/>
+    <dataList emptyValueLabel=""/><dataList type=""/><dataList><xmlFeed entity=""/></dataList><dataList><xmlInstance nodeset=""/></dataList></component>
+    
+<!--    <component id="otherAgencies" type="list" source="ins" xml="otherAgency" label="What Other Agencies?">
+        <visible whenComponent="SubToOtherAg" hasValue="1"/>
+        <option type="widenLabel"/>
+    </component>
+-->    
+    <component reportable="" custom="1" id="line4" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="conDist" type="field" source="ins" xml="Organization/CongressionalDistrict" label="Congressional District of Project" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type=""/>
+        <!--<option type="lookup" label="replace"/>
+        <quickSearch entity="Departments" dialogTitle="Lookup District" importScript="" col1="District" col2="" save=""></quickSearch>-->
+    </component>  
+        
+    <component reportable="1" id="dists" type="document" source="ins" xml="Organization/AdditionalCongDistricts" label="Additional Districts" hidden=""> 
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type="onlyFileType">pdf</option>
+    </component>
+    
+    <component reportable="" custom="1" id="line5" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="" id="areas" type="box" source="ins" xml="areasAffected" label="Areas Affected by Project (i.e. cities; states; countries)" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="stretchLabel"/>
+        <option type=""/>
+    </component>
+        
+    <component reportable="" custom="1" id="line11" type="line">
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <component reportable="1" id="stateReview" type="radiobuttons" source="ins" xml="stateReviewOrder" label="Is Application Subject to Review by State Under Executive Order 12372?" hidden="">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <dataList type="explicit" emptyValueLabel="">
+            <option label="YES, this application was made available to the State under E.O. 12372" value="covered"/>
+            <option label="NO, Program is not covered by E.O. 12372" value="notCovered"/>
+            <option label="NO, Program is subject to E.O. 12372 but has not been selected by the State for review" value="notToReview"/>
+        </dataList>
+        <option type="widenLabel"/>
+    </component>
+    
+    <component reportable="1" id="stateReviewDate" type="date" source="ins" xml="stateReviewOrderDate" label="EO 12372 Date" hidden="">
+        <option type=""/>
+        <help/>
+        <visible whenComponent="stateReview" hasValue="covered"/>
+        <option type="widenLabel"/>
+    </component>
+    
+    
+    <component reportable="" custom="1" id="line6" type="line">
+        <option type=""/>
+        <visible whenComponent="" hasValue=""/>
+    </component>
+    
+    <!--<component id="focus" type="dropdown" source="ins" xml="researchFocus" label="Research Focus">
+        <dataList type="xmlFeed" emptyValueLabel="-Select-">
+            <xmlFeed source="listEntity" entity="Research Focus List"/>
+        </dataList>
+        <option type="widenLabel"/>
+        <option type="addOtherBox" xml="researchFocusOther" otherBoxLabel="Specify" otherBoxType="" otherLabel="" otherValue="" default=""/>       
+    </component>-->
+    
+    <component reportable="1" id="keywords" type="lookuplist" source="ins" xml="keyword" label="Keywords" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="0orMore"/> 
+        <quickSearch entity="Keywords" dialogTitle="Lookup Keyword" importScript="" col1="Keyword" col2="Category" col3="Subcategory" filter1="" filter2="" save=""/>
+    </component>
+    
+    <component reportable="1" id="tags" type="list" source="ins" xml="tag" label="Tags" hidden="">
+        <visible whenComponent="" hasValue=""/>
+        <help/>
+        <option type="0orMore"/> 
+    </component>
+    
+    </tab>
+    
+    
+</fragment>

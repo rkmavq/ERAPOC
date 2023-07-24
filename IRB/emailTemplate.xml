@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <email id="processWIRB">
+        <subject>REVIEW WIRB OUTCOME AND PROCESS- __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">REVIEW WIRB OUTCOME AND PROCESS</a><br/></td></tr>                 
+            </table><br/>   
+            Please process the task on your to do list.<br/><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="APIAction">
+        <subject>API Action Notification - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>             
+            </table><br/>   
+            Automated Notification: An action was taken on the WIRB protocol. You may access the protocol in the Livelist > LEM > Lifecyle to view latest submission details.<br/><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>   
+    <email id="notificationOfRS">
+        <subject>Notification to PI - Submission Returned for revisions (__id8ID__ - __protocolTitle__)</subject> 
+        <body>
+            <br/>A request for additional information has been sent to __rulesField1__. Thank you.<br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                
+            </table><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <!-- Initial Application -->
+    <!--Intake Review-->    
+    <email id="sendToIntake">
+        <subject>ASSIGN PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the Initial Application Submission (__id8ID__): Process Initial Application. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                
+            </table><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="returnToIntake">
+        <subject>REVIEW REVISIONS AND ASSIGN PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the revised Initial Application Submission (__id8ID__): Process Initial Application. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                        
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>    
+    <!--Analyst Review START-->
+    <email id="sendToCoord">
+        <subject>REVIEW PROTOCOL AND PROCESS- __id8ID__ - __protocolTitle__</subject>  
+        <body>
+            <br/>Please review the Initial Application Submission (__id8ID__): Process Initial Application.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                               
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="returnToCoordReview">
+        <subject>REVIEW REVISIONS TO PROTOCOL AND PROCESS - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please review the revised Initial Application Submission (__id8ID__): Process Initial Application. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                 
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!--Analyst Review END-->
+    <!--Initial Application END-->
+    <!-- Amendment -->
+    <!-- Intake Review -->
+    <email id="amd_sendToIntake">
+        <subject>ASSIGN AMENDMENT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the Amendment Submission (__id8ID__): Process Amendment.<br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                           
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amd_returnToIntake">
+        <subject>REVIEW REVISIONS AND ASSIGN AMENDMENT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the revised Amendment Submission (__id8ID__): Process Amendment. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                              
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!--Analyst Review START-->
+    <email id="amd_sendToCoord">
+        <subject>REVIEW AMENDMENT AND PROCESS- __id8ID__ - __protocolTitle__</subject>  
+        <body>
+            <br/>Please review the Amendment Submission (__id8ID__): Process Amendment.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                  
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amd_returnToCoordReview">
+        <subject>REVIEW REVISIONS TO AMENDMENT AND PROCESS - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please review the revised Amendment Submission (__id8ID__): Process Amendment. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <!-- Analyst Review END-->    
+    <!-- Amendment END -->
+    <!-- Renewal -->
+    <!-- Intake Review -->
+    <email id="ren_sendToIntake">
+        <subject>ASSIGN CONTINUING REVIEW - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the Continuing Review Submission (__id8ID__): Process Continuing Review.<br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                             
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ren_returnToIntake">
+        <subject>REVIEW REVISIONS AND ASSIGN CONTINUING REVIEW - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the revised Continuing Review Submission (__id8ID__): Process Continuing Review. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                              
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!--Analyst Review START-->
+    <email id="ren_sendToCoord">
+        <subject>REVIEW CONTINUING REVIEW AND PROCESS- __id8ID__ - __protocolTitle__</subject>
+        <body>
+            <br/>Please review the Continuing Review Submission (__id8ID__): Process Continuing Review.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                   
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ren_returnToCoordReview">
+        <subject>REVIEW REVISIONS TO CONTINUING REVIEW AND PROCESS - __id8ID__ - __protocolTitle__</subject>
+        <body>
+            <br/>Please review the revised Continuing Review Submission (__id8ID__): Process Continuing Review. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                  
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <!-- Analyst Review END-->    
+    <!-- Renewal END -->
+    <!-- UP -->
+    <!-- Intake Review -->
+    <email id="up_sendToIntake">
+        <subject>ASSIGN NEW INFORMATION - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the New Information Submission (__id8ID__): Process New Information.<br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                       
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="up_returnToIntake">
+        <subject>REVIEW REVISIONS AND ASSIGN NEW INFORMATION - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the revised New Information Submission (__id8ID__): Process New Information. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                    
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!--Analyst Review START-->
+    <email id="up_sendToCoord">
+        <subject>REVIEW NEW INFORMATION AND PROCESS- __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please review the New Information Submission (__id8ID__): Process New Information.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                       
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="up_returnToCoordReview">
+        <subject>REVIEW REVISIONS TO NEW INFORMATION AND PROCESS - __id8ID__ - __protocolTitle__</subject>
+        <body>
+            <br/>Please review the revised New Information Submission (__id8ID__): Process New Information. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <!-- Analyst Review END-->    
+    <!-- UP END -->
+    <!-- Final Report -->
+    <!-- Intake Review -->
+    <email id="fr_sendToIntake">
+        <subject>ASSIGN FINAL REPORT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the Final Report Submission (__id8ID__): Process Final Report.<br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                   
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="fr_returnToIntake">
+        <subject>REVIEW REVISIONS AND ASSIGN FINAL REPORT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please ASSIGN the revised Final Report Submission (__id8ID__): Process Final Report. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!--Analyst Review START-->
+    <email id="fr_sendToCoord">
+        <subject>REVIEW FINAL REPORT AND PROCESS- __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <br/>Please review the Final Report Submission (__id8ID__): Process Final Report.<br/><br/>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                   
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="fr_returnToCoordReview">
+        <subject>REVIEW REVISIONS TO FINAL REPORT AND PROCESS - __id8ID__ - __protocolTitle__</subject>
+        <body>
+            <br/>Please review the revised Final Report Submission (__id8ID__): Process Final Report. <br/><br/> 
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>                                 
+            </table><br/>
+             
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <!-- Analyst Review END-->    
+    <!-- FR END -->  
+    
+    <!--PI Emails-->
+    <!-- Received by PI when proxy submits -->
+    <!-- Initial Application -->    
+    <email id="authorize">
+        <subject>PI SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">PI SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>            
+            The above protocol has been created and requires PI review and signature to submit for review.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Amendments -->
+    <email id="amd_sendToPI">
+        <subject>PI SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">PI SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>            
+            The above amendment has been created and requires PI review and signature to submit for review.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Personnel Change -->
+    <email id="amdpc_sendToPI">
+        <subject>PI SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">PI SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>            
+            The above personnel change has been created and requires PI review and signature to submit for review.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Renewal Request -->
+    <email id="ren_sendToPI">
+        <subject>PI SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">PI SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>            
+            The above Continuing Review has been created and requires PI review and signature to submit for review.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- IRB Event -->
+    <email id="up_sendToPI">
+        <subject>PI SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">PI SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>            
+            The above IRB event has been created and requires PI review and signature to submit for review.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Study Closure -->
+    <email id="fr_sendToPI">
+        <subject>PI SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">PI SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>            
+            The above study closure has been created and requires PI review and signature to submit for review.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    
+    <!-- Revision email to PI. Note the revision could be returned using Return to PI from HEO
+        , or Amendments needed after a delegated review or mods needed after board review.
+    The subject and content can vary for each situation-->
+    <!-- Initial Application -->    
+    <email id="respondToRSAdvisor">
+        <subject>REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE PROTOCOL</a><br/></td></tr>                 
+            </table><br/>             
+            The above protocol has been reviewed by your Advisor and requires your attention.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="respondToRSCoord">
+        <subject>REVIEW FEEDBACK AND REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE PROTOCOL</a><br/></td></tr>                 
+            </table><br/>             
+            __rulesField1__<br/><br/>
+            Please note: You must respond to the items raised during review before final approval will be considered. Research is NOT to start until final approval in the form of an 'Approval' is obtained.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="reviseCoord">
+        <subject>REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE PROTOCOL</a><br/></td></tr>                 
+            </table><br/>             
+            The above protocol has been pre-reviewed and requires your attention.  Please review the upcoming deadlines to ensure your protocol is re-submitted on time.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Amendments -->
+    <email id="amd_respondToRSAdvisor">
+        <subject>REVISE AMENDMENT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE AMENDMENT</a><br/></td></tr>                 
+            </table><br/>             
+            The above amendment has been reviewed by your Advisor and requires your attention.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amd_respondToRS">
+        <subject>REVIEW FEEDBACK AND REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE AMENDMENT</a><br/></td></tr>                 
+            </table><br/>             
+            __rulesField1__<br/><br/>
+            Please note: You must respond to the items raised during review before final approval will be considered. Research is NOT to start until final approval in the form of an 'Approval' is obtained.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amd_reviseCoord">
+        <subject>REVISE AMENDMENT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE AMENDMENT</a><br/></td></tr>                 
+            </table><br/>             
+            The above amendment has been pre-reviewed and requires your attention.  Please review the upcoming deadlines to ensure your protocol is re-submitted on time.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>    
+    <!-- Personnel Change -->
+    <email id="amdpc_respondToRSAdvisor">
+        <subject>REVISE PERSONNEL CHANGE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE PERSONNEL CHANGE</a><br/></td></tr>                 
+            </table><br/>             
+            The above personnel change has been reviewed by your Advisor and requires your attention.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amdpc_respondToRS">
+        <subject>REVIEW FEEDBACK AND REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE PERSONNEL CHANGE</a><br/></td></tr>                 
+            </table><br/>             
+            __rulesField1__<br/><br/>
+            Please note: You must respond to the items raised during review before final approval will be considered. Research is NOT to start until final approval in the form of an 'Approval' is obtained.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="amdpc_reviseCoord">
+        <subject>REVISE PERSONNEL CHANGE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE PERSONNEL CHANGE</a><br/></td></tr>                 
+            </table><br/>             
+            The above personnel change has been pre-reviewed and requires your attention.  Please review the upcoming deadlines to ensure your protocol is re-submitted on time.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Renewal Request -->
+    <email id="ren_respondToRSAdvisor">
+        <subject>REVISE CONTINUING REVIEW - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE CONTINUING REVIEW</a><br/></td></tr>                 
+            </table><br/>             
+            The above Continuing Review has been reviewed by your Advisor and requires your attention.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ren_respondToRS">
+        <subject>REVIEW FEEDBACK AND REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE CONTINUING REVIEW</a><br/></td></tr>                 
+            </table><br/>             
+            __rulesField1__<br/><br/>
+            Please note: You must respond to the items raised during review before final approval will be considered. Research is NOT to start until final approval in the form of an 'Approval' is obtained.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ren_reviseCoord">
+        <subject>REVISE CONTINUING REVIEW - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE CONTINUING REVIEW</a><br/></td></tr>                 
+            </table><br/>             
+            The above Continuing Review has been pre-reviewed and requires your attention.  Please review the upcoming deadlines to ensure your protocol is re-submitted on time.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- IRB Event -->
+    <email id="up_respondToRSAdvisor">
+        <subject>REVISE IRB EVENT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE IRB EVENT</a><br/></td></tr>                 
+            </table><br/>             
+            The above IRB Event has been reviewed by your Advisor and requires your attention.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="up_respondToRS">
+        <subject>REVIEW FEEDBACK AND REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE IRB EVENT</a><br/></td></tr>                 
+            </table><br/>             
+            __rulesField1__<br/><br/>
+            Please note: You must respond to the items raised during review before final approval will be considered. Research is NOT to start until final approval in the form of an 'Approval' is obtained.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="up_reviseCoord">
+        <subject>REVISE IRB EVENT - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE IRB EVENT</a><br/></td></tr>                 
+            </table><br/>             
+            The above IRB Event has been pre-reviewed and requires your attention.  Please review the upcoming deadlines to ensure your protocol is re-submitted on time.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Study Closure -->
+    <email id="fr_respondToRSAdvisor">
+        <subject>REVISE STUDY CLOSURE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE STUDY CLOSURE</a><br/></td></tr>                 
+            </table><br/>             
+            The above study closure has been reviewed by your Advisor and requires your attention.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="fr_respondToRS">
+        <subject>REVIEW FEEDBACK AND REVISE PROTOCOL - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE STUDY CLOSURE</a><br/></td></tr>                 
+            </table><br/>             
+            __rulesField1__<br/><br/>
+            Please note: You must respond to the items raised during review before final approval will be considered. Research is NOT to start until final approval in the form of an 'Approval' is obtained.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="fr_reviseCoord">
+        <subject>REVISE STUDY CLOSURE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                                 
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REVISE STUDY CLOSURE</a><br/></td></tr>                 
+            </table><br/>             
+            The above study closure has been pre-reviewed and requires your attention.  Please review the upcoming deadlines to ensure your protocol is re-submitted on time.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    
+    <!--Advisor Emails-->
+    <!-- Initial Application -->
+    <!-- Received by Advisor(s) when PI submits Note: return to advisor was not in specifications-->
+    <email id="advisorRev">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above protocol has been created and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Received by Advisor(s) when PI revises and re-submits -->
+    <email id="returnToAdvisorReview">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above protocol has been revised and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Amendments -->
+    <email id="amd_advisorRev">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above amendment has been created and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="amd_returnToAdvisorReview">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above amendment has been revised and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Personnel Change -->
+    <email id="amdpc_advisorRev">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above personnel change has been created and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="amdpc_returnToAdvisorReview">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above personnel change has been revised and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Renewal Request -->
+    <email id="ren_advisorRev">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above Continuing Review has been created and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="ren_returnToAdvisorReview">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above Continuing Review has been revised and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- IRB Event -->
+    <email id="up_advisorRev">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above IRB event has been created and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="up_returnToAdvisorReview">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above IRB event has been revised and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Study Closure -->
+    <email id="fr_advisorRev">
+        <subject>New Protocol for Review - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'>__taskURL__ADVISOR SIGN OFF REQUIRED__taskURLEnd__<br/></td></tr>                 
+            </table><br/>     
+            The above study closure has been created and requires your attention before being submitted. <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="fr_returnToAdvisorReview">
+        <subject>ADVISOR SIGN OFF REQUIRED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                              
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">ADVISOR SIGN OFF REQUIRED</a><br/></td></tr>                 
+            </table><br/>
+            The above study closure has been revised and requires your attention before being submitted. <br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    
+    <!-- Chair/Member Review -->    
+    <!-- Initial Application -->    
+    <email id="externalRev">
+        <subject>__rulesSubjectField1__ - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__</a><br/></td></tr>                 
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Amendments -->
+    <email id="amd_externalRev">
+        <subject>__rulesSubjectField1__ - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__</a><br/></td></tr>                 
+            </table>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>    
+    <!-- Personnel Change -->
+    <email id="amdpc_externalRev">
+        <subject>__rulesSubjectField1__ - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__</a><br/></td></tr>                 
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Renewal Request -->
+    <email id="ren_externalRev">
+        <subject>__rulesSubjectField1__ - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__</a><br/></td></tr>                 
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- IRB Event -->
+    <email id="up_externalRev">
+        <subject>__rulesSubjectField1__ - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__</a><br/></td></tr>                 
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <!-- Study Closure -->
+    <email id="fr_externalRev">
+        <subject>__rulesSubjectField1__ - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__</a><br/></td></tr>                 
+            </table><br/>
+            
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    
+    <!-- Agenda -->
+    <email id="agenda">
+        <attachmentName>Agenda</attachmentName>
+        <subject>REVIEW IRB AGENDA</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:140px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'>REVIEW IRB AGENDA<br/></td></tr>                 
+            </table><br/>            
+            <br/>
+            Message from Administrator: __rulesField3__
+            <br/>
+            <br/>The __rulesField1__ Agenda and materials for our meeting on __rulesField2__ are now available for review.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.  
+        </body>
+    </email>
+    <!-- Minutes -->
+    <email id="minutes">
+        <attachmentName>Minutes</attachmentName>
+        <subject>REVIEW IRB MINUTES</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>                
+                <tr><td style='vertical-align:top;width:140px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'>REVIEW IRB MINUTES<br/></td></tr>                 
+            </table><br/>     
+            <br/>
+            Message from Administrator: __rulesField3__
+            <br/>
+            <br/>The __rulesField1__ Minutes and materials from our meeting on __rulesField2__ are now available for review.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    
+    
+    <!-- Reminders -->
+    <email id="reviewreminder">
+        <subject>REMINDER TO REVIEW – __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REMINDER TO REVIEW – DELEGATED </a><br/></td></tr>                 
+            </table><br/>            
+            Just a friendly reminder that your review of the above protocol is now due.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.  
+        </body>
+    </email>
+    <email id="failurereminder">
+        <subject>FAILURE TO RESPOND REMINDER - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">REMINDER TO RESPOND</a><br/></td></tr>                 
+            </table><br/>            
+            Your research protocol has been returned for revisions and requires your response.<br/><br/> 
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="sevenDay">
+        <subject>7 DAY REMINDER TO RENEW OR CLOSE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">7 DAY REMINDER TO RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            This is a reminder that IRB approval for the above protocol will expire <b>IN ONE WEEK</b> on __rulesField1__.<br/><br/>
+            <b>ACTION REQUIRED</b> <br/><br/>
+            <b>Protocol Renewal: </b><br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>Continuing Review Form</b> to our office a <b>minimum of two weeks before the expiry date</b>. <b>Failure to submit the form prior to expiration will result in suspension of your study related activities.</b><br/><br/>  
+            <b>Protocol Closure:</b> <br/><br/>
+            If your study has concluded, please complete the <b>Final Report Form</b> prior to the expiration date.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>   <br/> 
+            NOTE: A reminder will be received until a Continuing Review or Final Report has been Approved/Acknowledged.<br/>   <br/>        
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+          </body>
+    </email>
+    <email id="thirtyDay">
+        <subject>30 DAY REMINDER TO RENEW OR CLOSE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">30 DAY REMINDER TO RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            <b>ACTION REQUIRED</b> <br/><br/>
+            <b>Protocol Renewal: </b><br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>Continuing Review Form</b> to our office a <b>minimum of two weeks before the expiry date</b>. <b>Failure to submit the form prior to expiration will result in suspension of your study related activities.</b><br/><br/>  
+            <b>Protocol Closure:</b> <br/><br/>
+            If your study has concluded, please complete the <b>Final Report Form</b> prior to the expiration date.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>   <br/> 
+            NOTE: A reminder will be received until a Continuing Review or Final Report has been Approved/Acknowledged.<br/>   <br/> 
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="sixtyDay">
+        <subject>60 DAY REMINDER TO RENEW OR CLOSE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">60 DAY REMINDER TO RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            <b>ACTION REQUIRED</b> <br/><br/>
+            <b>Protocol Renewal: </b><br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>Continuing Review Form</b> to our office a <b>minimum of two weeks before the expiry date</b>. <b>Failure to submit the form prior to expiration will result in suspension of your study related activities.</b><br/><br/>  
+            <b>Protocol Closure:</b> <br/><br/>
+            If your study has concluded, please complete the <b>Final Report Form</b> prior to the expiration date.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>   <br/> 
+            NOTE: A reminder will be received until a Continuing Review or Final Report has been Approved/Acknowledged.<br/>   <br/>        
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ninetyDay">
+        <subject>90 DAY REMINDER TO RENEW OR CLOSE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">90 DAY REMINDER TO RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            <b>ACTION REQUIRED</b> <br/><br/>
+            <b>Protocol Renewal: </b><br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>Continuing Review Form</b> to our office a <b>minimum of two weeks before the expiry date</b>. <b>Failure to submit the form prior to expiration will result in suspension of your study related activities.</b><br/><br/>  
+            <b>Protocol Closure:</b> <br/><br/>
+            If your study has concluded, please complete the <b>Final Report Form</b> prior to the expiration date.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>   <br/> 
+            NOTE: A reminder will be received until a Continuing Review or Final Report has been Approved/Acknowledged.<br/>   <br/>            
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="ex">
+        <subject>EXPIRATION NOTIFICATION- PLEASE RENEW OR CLOSE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">EXPIRATION NOTIFICATION - PLEASE RENEW OR CLOSE</a><br/></td></tr>                 
+            </table><br/>   
+            The IRB protocol above <b>EXPIRED</b> on __rulesField1__.<br/><br/> 
+            <b>All study related research activity must cease until new approval is granted. Activity includes all advertising, recruitment, screening, enrollment of new study participants, continued data collection, and any communication with participants. </b><br/><br/>
+            <b>ACTION REQUIRED</b><br/><br/>
+            Protocol Renewal:  <br/><br/>
+            If you wish to continue your project beyond this expiry date, you <b>must</b> submit a completed <b>Continuing Review Form</b> to our office as soon as possible. <b>Failure to submit the form will result in TERMINATION of your study related activities in 180 days.</b>  <br/><br/>
+            <b>Protocol Closure:</b> <br/><br/>
+            If your study has concluded, please complete the <b>Final Report Form</b> as soon as possible. <b>Failure to submit this form will prevent you from applying for new IRB Initial Application or Amendment to an active protocol until this project is closed.</b><br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.             
+        </body>
+    </email>
+    <email id="term">
+        <subject>TERMINATED NOTIFICATION - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">TERMINATED NOTIFICATION </a><br/></td></tr>                 
+            </table><br/>   
+            The IRB protocol above <b>EXPIRED</b> on __rulesField1__ and we have not heard from you. <br/><br/>
+            Therefore, we have <b>TERMINATED</b> this study. At this time, you no longer have IRB coverage and if you want to continue this research, you will have to submit an entire new application to the IRB. All study related research activity must cease until new approval is granted. Activity includes all advertising, recruitment, screening, enrollment of new study participants, continued data collection or analysis, and any communication with participants.<br/><br/>
+            <b>ACTION REQUIRED</b> <br/>  <br/>           
+            <b>Protocol Termination:</b> <br/><br/>
+            Please complete the <b>Final Report Form</b> as soon as possible. <b>Failure to submit this form will prevent you from applying for new IRB Initial Applications until this project is closed.</b><br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    
+    <!-- Letters -->
+    <email id="letters">
+        <attachmentName>IRB Notification</attachmentName>
+        <subject>__rulesSubjectField1__</subject> 
+        <body>       
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">LOG IN TO IDEATE TO VIEW THE NOTIFICATION</a><br/></td></tr>                 
+            </table><br/>            
+            <!--__rulesField2__<br/><br/>-->
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="approval">
+        <attachmentName>Approval Letter</attachmentName>
+        <subject>__rulesSubjectField1__ APPROVED - __id8ID__ - __protocolTitle__</subject> 
+        <body>       
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL__">__rulesField1__ APPROVED – LOG IN TO IDEATE TO VIEW THE APPROVAL</a><br/></td></tr>                 
+            </table><br/>            
+            <!--__rulesField2__<br/><br/>-->
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge. 
+        </body>
+    </email>
+    <email id="notapproved">
+        <subject>NOT APPROVED - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">NOT APPROVED NOTIFICATION </a><br/></td></tr>                 
+            </table><br/>   
+            The above protocol has been reviewed and is not approved. Please log in to review the explanation. <br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="notresearch">
+        <subject>STATUS CHANGE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">STATUS CHANGE NOTIFICATION </a><br/></td></tr>                 
+            </table><br/>   
+            The above protocol has been reviewed. It has been determined that this protocol does not meet the definition of research. Therefore, IRB approval is not required.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+    <email id="nothuman">
+        <subject>STATUS CHANGE - __id8ID__ - __protocolTitle__</subject> 
+        <body>
+            <table style='color:black;width:600px;font-size:12px;font-family:arial,sans-serif'>
+                <tr><td style='vertical-align:top;width:240px;'><b>PI:</b></td><td style='color:black;vertical-align:top'>__piName__<br/></td></tr>
+                          
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Number:</b></td><td style='color:black;vertical-align:top'>__id8ID__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Protocol Title:</b></td><td style='color:black;vertical-align:top'>__protocolTitle__<br/></td></tr>
+                <tr><td style='vertical-align:top;width:240px;'><b>Action Required:</b></td><td style='color:black;vertical-align:top'><a href="__taskURL2__">STATUS CHANGE NOTIFICATION </a><br/></td></tr>                 
+            </table><br/>   
+            The above protocol has been reviewed. It has been determined that this protocol does not involve human subjects. Therefore, IRB approval is not required.<br/><br/>
+            Please contact the IRB Office if you have any questions: hsrpp@mavq.com<br/><br/>             
+            Please login to the __url__ to access any task or view your Protocol. Please ensure you are using a supported browser; Chrome, Firefox or Microsoft Edge.
+        </body>
+    </email>
+</data>

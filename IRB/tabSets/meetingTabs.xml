@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+    <tab id="1x" label="Submissions">        
+        <tab id="1x1" label="All" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x2" label="Initial Reviews" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x3" label="Continuing Reviews" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <!--<tab id="1x4" label="Deferrals" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>--> <!--commented per Don's request. UMMC?-->
+        <tab id="1x5" label="Amendments" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x6" label="New Information" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x7" label="Final Reports" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab>     
+    <tab id="10" label="Information" form="/home/configs/IRB/forms/all_meetingInfo.xfrm"/>   
+    <tab id="11" label="Administrative Items" form="/home/configs/IRB/forms/all_meetingAdminItems.xfrm"/> 
+    <tab id="12" label="Attendance" form="/home/configs/IRB/forms/all_meetingAttendance.xfrm"/>
+    <tab id="13" label="Attachments" form="/home/configs/IRB/forms/all_meetingAttachments.xfrm"/> 
+    <tab id="14" label="Agenda" form="/home/configs/IRB/forms/all_meetingActions.xfrm"/>
+    <tab id="15" label="Minutes" form="/home/configs/IRB/forms/all_meetingActionsMinutes.xfrm"/><!--   sure who commented this or WHY!??--><!--  when="showPostMeetingTabs" -->
+    <!-- when="showPostMeetingTabs"-->
+       
+<!--    <tab id="1" label="All">
+        <tab id="1a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab> 
+    <tab id="2" label="Initial Reviews">
+        <tab id="2a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="2b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="2c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab> 
+    <tab id="3" label="Continuing Reviews">
+        <tab id="3a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="3b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="3c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab> 
+    <tab id="4" label="Deferrals">
+        <tab id="4a" label="Convened" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="4b" label="Expedited" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+        <tab id="4c" label="Exempt" form="/home/configs/IRB/forms/meetingEmpty.xfrm"/>
+    </tab> 
+    <tab id="5" label="Amendments">
+        <tab id="5a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="5b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="5c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab> 
+    <tab id="7" label="Unanticipated Problems">
+        <tab id="7a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="7b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="7c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab> 
+    <tab id="8" label="Final Reports">
+        <tab id="8a" label="Convened" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="8b" label="Expedited" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="8c" label="Exempt" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab> 
+    
+    <tab id="10" label="Information" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    <tab id="11" label="Administrative Items" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>    
+    <tab id="12" label="Attendance" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    <tab id="13" label="Actions" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>    
+-->
+    
+    <switches>
+        <showPostMeetingTabs>0</showPostMeetingTabs>
+    </switches>
+</tabs>

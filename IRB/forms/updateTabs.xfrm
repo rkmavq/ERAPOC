@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+      <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+      <xf:instance id="proMap"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <newComment/>
+          <currency></currency>
+          <version/>
+          <departments/>
+          <!--<versions>
+            <options>
+              <option label="Version 1" value="1"/>
+              <option label="Version X" value="2"/>
+            </options>
+          </versions>-->
+          <views>
+            <options>
+              <option label="Project" value="project"/>
+              <option label="Task 0" value="task0"/>
+            </options>
+          </views>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/USProject/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+    <xf:instance id="lcdat"><data xmlns=""/></xf:instance>
+    <xf:bind nodeset="instance('form')/version" readonly="instance('ins')/fragementName='preSubChecklist'" relevant="instance('ins')/fragementName!='preSubChecklist'"/>
+    <xf:bind nodeset="instance('ins')/view" readonly="instance('proDat')/MultiPIs != '1'" relevant="instance('proDat')/MultiPIs = '1'"/>
+    
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        
+        bootstrapSharedXfrm(model);
+        model.TS = new appTabSet(model, 'projectTabs');
+        model.TS.loadAppFile('proDat', "/data/projectData.xml");
+        model.TS.loadAppFile('proMap', "/data/projectMap.xml");
+        model.TS.loadAppFile('lcdat', "/lifecycle.xml");
+        includeSharedJS("/resources/applications/USProject/js/clientSideFunctions.js");
+        model.USA = new usApp(model);
+        model.USA.rebuildTabs();
+        model.USA.updateBudgetTotalsTabs();
+        
+        includeSharedJS("/resources/services/projectBackup/clientSideJS.js");
+        model.vh = new versionHandler(model, model.TS.appURI);
+        if(model.vh.version == ""){
+         model.vh.createFirstVersionUS("Draft 1");
+         model.vh.version = "Draft 1";
+         model.setValue("instance('form')/versions/currentVersion", "Draft 1");
+         model.setValue("instance('form')/version", "Draft 1");
+         model.refresh();
+         model.recalculate();
+        }
+        
+        //includeSharedJS("/resources/services/currencyConversion/clientSideJS.js");
+        //model.ch = new currencyHandler(model, model.TS.appURI, model.TS.app, ['GBP', 'EUR', 'USD', 'CAD'], 'test');      
+        
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>    
+
+      <script ev:event="xforms-ready">
+        //Initialize form elements
+        //AD.setupForm();
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      model.TS.saveAll();      
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submitlc" instance="lcdat">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission method="put" replace="none" id="submitheader" instance="proDat">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+  </xf:model>
+  
+  <table>
+    <tr>
+      <td style="width:300px;vertical-align:top;margin-right:20px;margin-top:20px;padding-right:10px;padding-top:10px;">
+        <br/>
+        <xf:group ref="." class="headerreview" style="width:300px;height:600px;">
+<br/><br/>
+  Please use the submit button to commit your updates.
+<br/>
+<br/>
+          <a class="submit1" href="#" title="Complete Update">
+            <xf:action ev:event="click">
+              <script>
+                model.submit('submit1');
+                model.submit('submitlc');
+                model.__currentChildForm.model.Frm.saveAll();
+                ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+              </script>
+            </xf:action>
+            <div class="cap"/>
+            Submit Update
+          </a>
+          
+          <br/><br/>
+          <hr/>
+          
+<br/><br/>
+
+          <div class="imain">
+            <h3>Change Log / Comments</h3>
+            
+            <div>
+              <exf:variable value="instance('lcdat')/comment" name="ctags"/>
+              <table class="oneToManyBox" style="width:100%">
+                <xf:repeat nodeset="$ctags[position() &gt; 1]">
+                  <tr>
+                    <td style="vertical-align:top;">
+                      <b><xf:output value="@who"/>:</b> <xf:output value="."/>
+  <br/>
+                    </td>
+                  </tr>
+                </xf:repeat>
+              </table>
+            </div>
+            <br/><hr/>
+            <div>
+              <xf:textarea ref="instance('form')/newComment">
+                <xf:label>New Comment: </xf:label>
+              </xf:textarea>
+            </div>
+            
+            <div>
+              <xf:trigger class="actionsGo">
+                <xf:label>Add</xf:label>
+                <xf:action ev:event="DOMActivate">  
+                  <xf:setvalue ref="$ctags[1]/@who" value="script('UserTree.getUserName(UserTree.getSelfId())')"/>
+                  <xf:setvalue ref="$ctags[1]/@when" value="now()"/>
+                  <xf:setvalue ref="$ctags[1]" value="instance('form')/newComment"/>
+                  <xf:duplicate after="$ctags[last()]" origin="$ctags[1]" ref="instance('lcdat')"/>
+                  <xf:setvalue ref="instance('form')/newComment"/>
+                  <!--<script>model.rebuild();model.recalculate();</script>-->
+                  
+                  
+                </xf:action>
+              </xf:trigger>
+            </div>
+            
+          </div>
+
+
+        </xf:group>
+        
+      </td>
+      <td style="vertical-align:top">
+  
+  
+  
+  <div class="tabSet">
+    
+    <!-- Consistant Header -->
+    <div class="header">
+      <table class="infoLine">
+        <tr>
+          <td style="text-align:left;">Project: <xf:output value="instance('proDat')/id8ID"/></td>
+          <td style="text-align:center;"><xf:output value="instance('proDat')/ShortTitle"/></td>
+          <td style="text-align:right;"><xf:output value="if(instance('ins')/view = 'project', 'Project Level', 'Component Level')"/></td>
+        </tr>
+      </table>      
+      <xf:switch>
+      <xf:case id="show-tabHeader" exf:if="1">
+      <table class="infoBox">
+        <tr>
+          <td>
+            <table class="infoGroup">
+              <tr><td class="label">Contact PI:</td><td class="text"><xf:output value="instance('proDat')/Person[role='PI']/name"/></td></tr>
+              <tr class="bottom"><td class="label">Admin Contact:</td><td class="text"><xf:output value="instance('proDat')/AdminContact/name"/></td></tr>
+            </table>
+          </td>
+          <td>
+            <table class="infoGroup">
+              <tr><td class="label">Sponsor:</td><td class="text"><xf:output value="instance('proDat')/Opp/sponsor/@name"/></td></tr>    
+              <tr class="bottom"><td class="label">Program:</td><td class="text"><xf:output value="instance('proDat')/Opp/title"/></td></tr>    
+            </table>
+          </td>
+          <td>
+            <table class="infoGroup">
+              <tr><td class="label">Total Directs:</td><td class="currency">$</td><td class="value"><xf:output value="format(instance('proDat')/totalDirects,2)"/></td></tr>    
+              <tr class="bottom"><td class="label">Total Indirects:</td><td class="currency">$</td><td class="value"><xf:output value="format(instance('proDat')/totalIndirects,2)"/></td></tr>    
+            </table>
+          </td>
+          <td>
+            <table class="infoGroup">
+              <tr>
+                <td class="label">Level</td>
+                <td class="dropdown">
+                    <xf:select1 ref="instance('ins')/view">
+                      <xf:item>
+                        <xf:label>Project</xf:label>
+                        <xf:value>project</xf:value>
+                      </xf:item>
+                      <xf:item>
+                        <xf:label>Task A</xf:label>
+                        <xf:value>taskA</xf:value>
+                      </xf:item>
+                      <xf:repeat nodeset="instance('proMap')/component[@type='task']">
+                        <exf:variable value="@ref" name="task"/>
+                        <xf:item>
+                          <xf:label><xf:output value="@name"/></xf:label>
+                          <xf:value><xf:output value="$task"/></xf:value>
+                        </xf:item>
+                        <xf:repeat nodeset="instance('proMap')/component[@type='sub' and @parent=$task]">
+                          <xf:item>
+                            <xf:label>- -<xf:output value="@name"/></xf:label>
+                            <xf:value><xf:output value="@ref"/></xf:value>
+                          </xf:item>
+                        </xf:repeat>
+                      </xf:repeat>
+                      <xf:repeat nodeset="instance('proMap')/component[@type='sub' and @parent='root']">
+                        <xf:item>
+                          <xf:label><xf:output value="@name"/></xf:label>
+                          <xf:value><xf:output value="@ref"/></xf:value>
+                        </xf:item>
+                      </xf:repeat>
+                      <script ev:event="xforms-value-changed">
+                        var val = model.getValue(".", contextNode);
+                        model.USA.changeProjectFocus(val);
+                        //model.USA.changeFocus(val);
+                      </script>
+                    </xf:select1>
+                </td>
+              </tr>    
+              <tr>
+                <td class="label">Version:</td>
+                <td class="dropdown">
+                  <xf:switch>
+                    <xf:case id="show-version-list" exf:if="1">
+                      <div><!--<ix:attr name="style" value="if(count(instance('form')/versions/version) &gt; 0, '', 'display:none')"/>-->
+                        <xf:select1 ref="instance('form')/version">
+                          <!-- 
+                            <versions><versionsCount>2</versionsCount><currentVersion>fresh</currentVersion><version num="2" name="fresh" folder="/test/entity/Projects/records/000029/versions/v2" created="2009-12-05T15:11:04Z"/></versions>                      -->
+                          <xf:repeat nodeset="instance('form')/versions/version">
+                            <xf:item>
+                              <xf:label><xf:output value="@name"/></xf:label>
+                              <xf:value><xf:output value="@name"/></xf:value>
+                            </xf:item>
+                          </xf:repeat>
+                          <xf:item>
+                            <xf:label>-Create New Version-</xf:label>
+                            <xf:value>--Create New--</xf:value>
+                          </xf:item>
+                          <xf:item>
+                            <xf:label>-Create Template-</xf:label>
+                            <xf:value>--Create Template--</xf:value>
+                          </xf:item>
+                          <script ev:event="xforms-value-changed">
+                            var val = model.getValue(".", contextNode);
+                            
+                            if(val == "--Create New--"){
+                              val = prompt("Enter a name for the new version: ");
+                              if(!val || val == ""){
+                                var v = model.getValue("instance('form')/versions/currentVersion");
+                                model.setValue("instance('form')/version", v);
+                                model.refresh();
+                                model.recalculate();
+                                model.activateCase("hide-version-list");
+                                model.activateCase("show-version-list");
+                                return;
+                              }
+                              model.vh.createVersion(val);
+                              return;
+                            }else if(val == "--Create Template--"){
+                            
+                              val = prompt("Enter a name for the template: ");
+                              if(!val || val == ""){
+                                ;
+                              }else{
+                                 if(model.vh.createTemplateUS(val)){
+                                   alert("Template " + val + " created.");
+                                 }else{
+                                   alert("Sorry, the template could not be created.");
+                                 }
+                              }
+                             
+                               var v = model.getValue("instance('form')/versions/currentVersion");
+                               model.setValue("instance('form')/version", v);
+                               model.refresh();
+                               model.recalculate();
+                               model.activateCase("hide-version-list");
+                               model.activateCase("show-version-list");
+                               return;
+                            }
+                            model.vh.changeVersionUS(val);
+                          </script>
+                        </xf:select1>
+                        
+                        
+                      </div>
+                    </xf:case>
+                    <xf:case id="hide-version-list"/>
+                  </xf:switch>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      </xf:case>
+      <xf:case id="hide-tabHeader">
+      </xf:case>
+      </xf:switch>
+    </div>
+
+    <xf:switch>
+      <xf:case id="show-workscreen" exf:if="1">
+        <ix:subform form="{tabControl}" src="" id="projectTabs"/>
+      </xf:case>
+      <xf:case id="hide-workscreen">
+      </xf:case>
+    </xf:switch>
+    <ix:subform form="{tabContainer}" src="" id="projectTabs"/>
+  </div>
+  
+  </td></tr></table>
+
+</form>

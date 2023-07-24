@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+   
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummary.xfrm"/>
+    
+    <tab id="1wo" label="TestChita" form="/home/configs/IRB/forms/irbsummaryLO.xfrm"/>
+    
+    <tab id="2" label="Research Design">
+        <tab id="2a" label="Overview" form="/home/configs/IRB/forms/researchDesign.xfrm"/>
+        <tab id="5" label="Risks and Benefits" form="/home/configs/IRB/forms/risks.xfrm"/>
+    </tab> 
+    
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/irbsubmit.xfrm"/>
+        
+    <switches>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <bios>0</bios>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

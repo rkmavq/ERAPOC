@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="7" label="New Information" form="/home/configs/IRB/forms/newInformationRSRebuf.xfrm" sourceXML="/newInformation.xml" formType="general" formName="newInformation"/>
+    
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReviseRS.xfrm"/>
+    
+    <!-- Please create a better, targetted Submit page, maybe "Return Response Submission to Coordinator with Changes..."  -->
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/up_irbsubmit.xfrm"/>
+    
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <participant>0</participant> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <violation>0</violation>
+        <!--<violation2>0</violation2>-->
+        <changeToProtocol>0</changeToProtocol>
+        <bios>0</bios>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <board>1</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+    </switches>
+</tabs>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><searchText/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "up_researchDesign");
+      
+        //model.Frm.loadAppFile('ins', "/problem.xml", "1");
+        model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+      model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr><td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>, <xf:output value="instance('form')/form/@createdBy"/></td><td class="updated"><ix:attr value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+                Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output value="instance('form')/form/@updatedBy"/></td></tr></table><div class="body"><h1/><table class="basicColLayout"><tr class="bigbox"><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/researchHyp"><xf:label>Research Hypothesis</xf:label></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/researchHyp)"/></div></td><td class="errors"><div><ix:attr value="if(instance('ins')/suggestions/researchHyp = instance('ins')/original/researchHyp and instance('ins')/researchHyp/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="instance('ins')/researchHyp/@comment"/></span></p></div></span></div><div><ix:attr value="if(instance('ins')/suggestions/researchHyp != instance('ins')/original/researchHyp, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if(instance('ins')/suggestions/researchHyp != instance('ins')/researchHyp, 'color:red', 'color:green')" name="style"/><xf:output value="if(instance('ins')/researchHyp = instance('ins')/suggestions/researchHyp, 'Using Suggested Change', if(instance('ins')/researchHyp = instance('ins')/original/researchHyp, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if(instance('ins')/researchHyp/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="instance('ins')/researchHyp/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Original Value</u><script ev:event="click">
+                          model.setValue("instance('ins')/researchHyp", model.getValue("instance('ins')/original/researchHyp"));
+                          model.refresh();
+                          model.recalculate();
+                          model.rebuild();
+                        </script></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="instance('ins')/original/researchHyp"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                        <script ev:event="click">
+                          model.setValue("instance('ins')/researchHyp", model.getValue("instance('ins')/suggestions/researchHyp"));
+                          model.refresh();
+                          model.recalculate();
+                          model.rebuild();
+                        </script></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="instance('ins')/suggestions/researchHyp"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/studyPurpose"><xf:label>Study Purpose</xf:label></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/studyPurpose)"/></div></td><td class="errors"><div><ix:attr value="if(instance('ins')/suggestions/studyPurpose = instance('ins')/original/studyPurpose and instance('ins')/studyPurpose/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="instance('ins')/studyPurpose/@comment"/></span></p></div></span></div><div><ix:attr value="if(instance('ins')/suggestions/studyPurpose != instance('ins')/original/studyPurpose, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if(instance('ins')/suggestions/studyPurpose != instance('ins')/studyPurpose, 'color:red', 'color:green')" name="style"/><xf:output value="if(instance('ins')/studyPurpose = instance('ins')/suggestions/studyPurpose, 'Using Suggested Change', if(instance('ins')/studyPurpose = instance('ins')/original/studyPurpose, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if(instance('ins')/studyPurpose/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="instance('ins')/studyPurpose/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Original Value</u><script ev:event="click">
+                          model.setValue("instance('ins')/studyPurpose", model.getValue("instance('ins')/original/studyPurpose"));
+                          model.refresh();
+                          model.recalculate();
+                          model.rebuild();
+                        </script></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="instance('ins')/original/studyPurpose"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                        <script ev:event="click">
+                          model.setValue("instance('ins')/studyPurpose", model.getValue("instance('ins')/suggestions/studyPurpose"));
+                          model.refresh();
+                          model.recalculate();
+                          model.rebuild();
+                        </script></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="instance('ins')/suggestions/studyPurpose"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invRadio" appearance="full"><xf:label>Involves Radioactive Material?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">        
+        
+        
+        
+        
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+                model.setValue("instance('ins')/subToRSC", "");
+                model.recalculate();
+            }
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invRadio" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="yesnoentitylink"><ix:attr value="if(instance('ins')/invRadio = '1', '', 'display:none')" name="style"/><td class="component horizontalStack  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/subToRSC" appearance="full"><xf:label>Have you submitted to the RSC?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+         
+        
+        
+            
+        
+        
+        
+        
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/subToRSC" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td><td class="entityarea"><div class="dependant entitylink"><ix:attr value="if(instance('ins')/subToRSC = '1', '', 'display:none')" name="style"/><table class=" "><tr><td class="label">Identify RSC Protocol:</td><td><div><ix:attr value="if(instance('ins')/link[@name='rscProt']/@title != '', '', 'display:none')" name="style"/><xf:input ref="instance('ins')/link[@name='rscProt']/@title" class=""><xf:label style="width:0px"/></xf:input></div></td><td class="buttons"><div><ix:attr value="if(instance('ins')/link[@name='rscProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Create New</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="'Create on submission'" ref="instance('ins')/link[@name='rscProt']/@title"/><xf:setvalue value="'-1'" ref="instance('ins')/link[@name='rscProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='rscProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='rscProt']/@state"/></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='rscProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Lookup</xf:label><xf:action ev:event="DOMActivate"><ix:dialog style="height:300px;" id="results" title="Lookup Lookup IBC" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                              model.Frm.configureQuickSearch("IBC Protocols", "entityLink", "instance('ins')/link[@name='rscProt']", "", "", "Name", "", "", "", "", '', '');
+                            
+                            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                          </script></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='rscProt']/@title != '', '', 'display:none')" name="style"/><xf:trigger class="undo"><xf:label>Undo</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="" ref="instance('ins')/link[@name='rscProt']/@title"/><xf:setvalue value="" ref="instance('ins')/link[@name='rscProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='rscProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='rscProt']/@state"/><script>model.activateCase('hide-external');</script></xf:action></xf:trigger></div></td></tr></table></div></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/subToRSC = '0', '', 'display:none')" name="style"/><td colspan="4"><div>
+        
+        A protocol must be submitted to the RSC and Approved prior to submitting your protocol to the  IRB.
+    </div></td></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invRDNA" appearance="full"><xf:label>Involves rDNA</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">        
+        
+        
+        
+        
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/subToIBC", "");
+            model.recalculate();
+            }
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invRDNA" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="yesnoentitylink"><ix:attr value="if(instance('ins')/invRDNA = '1', '', 'display:none')" name="style"/><td class="component horizontalStack  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/subToIBC" appearance="full"><xf:label>Have you submitted to the IBC?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+         
+        
+        
+            
+        
+        
+        
+        
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/subToIBC" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td><td class="entityarea"><div class="dependant entitylink"><ix:attr value="if(instance('ins')/subToIBC = '1', '', 'display:none')" name="style"/><table class=" "><tr><td class="label">Identify IBC Protocol:</td><td><div><ix:attr value="if(instance('ins')/link[@name='ibcProt']/@title != '', '', 'display:none')" name="style"/><xf:input ref="instance('ins')/link[@name='ibcProt']/@title" class=""><xf:label style="width:0px"/></xf:input></div></td><td class="buttons"><div><ix:attr value="if(instance('ins')/link[@name='ibcProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Create New</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="'Create on submission'" ref="instance('ins')/link[@name='ibcProt']/@title"/><xf:setvalue value="'-1'" ref="instance('ins')/link[@name='ibcProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcProt']/@state"/></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='ibcProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Lookup</xf:label><xf:action ev:event="DOMActivate"><ix:dialog style="height:300px;" id="results" title="Lookup Lookup IBC" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                              model.Frm.configureQuickSearch("IBC Protocols", "entityLink", "instance('ins')/link[@name='ibcProt']", "", "", "Name", "", "", "", "", '', '');
+                            
+                            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                          </script></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='ibcProt']/@title != '', '', 'display:none')" name="style"/><xf:trigger class="undo"><xf:label>Undo</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="" ref="instance('ins')/link[@name='ibcProt']/@title"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcProt']/@state"/><script>model.activateCase('hide-external');</script></xf:action></xf:trigger></div></td></tr></table></div></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/subToIBC = '0', '', 'display:none')" name="style"/><td colspan="4"><div>
+        
+        A protocol must be submitted to the IBC and Approved prior to submitting your protocol to the IRB.
+    </div></td></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invBiologics" appearance="full"><xf:label>Involves Biologics</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">        
+        
+        
+        
+        
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+                model.setValue("instance('ins')/subToIBCBio", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invBiologics" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="yesnoentitylink"><ix:attr value="if(instance('ins')/invBiologics = '1', '', 'display:none')" name="style"/><td class="component horizontalStack  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/subToIBCBio" appearance="full"><xf:label>Have you submitted to the IBC?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+         
+        
+        
+            
+        
+        
+        
+        
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/subToIBCBio" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td><td class="entityarea"><div class="dependant entitylink"><ix:attr value="if(instance('ins')/subToIBCBio = '1', '', 'display:none')" name="style"/><table class=" "><tr><td class="label">Identify IBC Protocol:</td><td><div><ix:attr value="if(instance('ins')/link[@name='ibcBioProt']/@title != '', '', 'display:none')" name="style"/><xf:input ref="instance('ins')/link[@name='ibcBioProt']/@title" class=""><xf:label style="width:0px"/></xf:input></div></td><td class="buttons"><div><ix:attr value="if(instance('ins')/link[@name='ibcBioProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Create New</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="'Create on submission'" ref="instance('ins')/link[@name='ibcBioProt']/@title"/><xf:setvalue value="'-1'" ref="instance('ins')/link[@name='ibcBioProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcBioProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcBioProt']/@state"/></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='ibcBioProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Lookup</xf:label><xf:action ev:event="DOMActivate"><ix:dialog style="height:300px;" id="results" title="Lookup Lookup IBC" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                              model.Frm.configureQuickSearch("IBC Protocols", "entityLink", "instance('ins')/link[@name='ibcBioProt']", "", "", "Name", "", "", "", "", '', '');
+                            
+                            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                          </script></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='ibcBioProt']/@title != '', '', 'display:none')" name="style"/><xf:trigger class="undo"><xf:label>Undo</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="" ref="instance('ins')/link[@name='ibcBioProt']/@title"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcBioProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcBioProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='ibcBioProt']/@state"/><script>model.activateCase('hide-external');</script></xf:action></xf:trigger></div></td></tr></table></div></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/subToIBCBio = '0', '', 'display:none')" name="style"/><td colspan="4"><div>
+        
+        A protocol must be submitted to the IBC and Approved prior to submitting your protocol to the IRB.
+    </div></td></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invEmb" appearance="full"><xf:label>Involves Embryonic Stem Cells?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">        
+        
+        
+        
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/subToESCRO", "");
+            model.recalculate();
+            }
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invEmb" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="yesnoentitylink"><ix:attr value="if(instance('ins')/invEmb = '1', '', 'display:none')" name="style"/><td class="component horizontalStack  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/subToESCRO" appearance="full"><xf:label>Have you submitted to ESCRO?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+         
+        
+        
+            
+        
+        
+        
+        
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/subToESCRO" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td><td class="entityarea"><div class="dependant entitylink"><ix:attr value="if(instance('ins')/subToESCRO = '1', '', 'display:none')" name="style"/><table class=" "><tr><td class="label">Identify ESCRO Protocol:</td><td><div><ix:attr value="if(instance('ins')/link[@name='escroProt']/@title != '', '', 'display:none')" name="style"/><xf:input ref="instance('ins')/link[@name='escroProt']/@title" class=""><xf:label style="width:0px"/></xf:input></div></td><td class="buttons"><div><ix:attr value="if(instance('ins')/link[@name='escroProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Create New</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="'Create on submission'" ref="instance('ins')/link[@name='escroProt']/@title"/><xf:setvalue value="'-1'" ref="instance('ins')/link[@name='escroProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='escroProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='escroProt']/@state"/></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='escroProt']/@title = '', '', 'display:none')" name="style"/><xf:trigger class="select"><xf:label>Lookup</xf:label><xf:action ev:event="DOMActivate"><ix:dialog style="height:300px;" id="results" title="Lookup Lookup IBC" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+                              model.Frm.configureQuickSearch("IBC Protocols", "entityLink", "instance('ins')/link[@name='escroProt']", "", "", "Name", "", "", "", "", '', '');
+                            
+                            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                          </script></xf:action></xf:trigger></div><div><ix:attr value="if(instance('ins')/link[@name='escroProt']/@title != '', '', 'display:none')" name="style"/><xf:trigger class="undo"><xf:label>Undo</xf:label><xf:action ev:event="DOMActivate"><xf:setvalue value="" ref="instance('ins')/link[@name='escroProt']/@title"/><xf:setvalue value="" ref="instance('ins')/link[@name='escroProt']/@id"/><xf:setvalue value="" ref="instance('ins')/link[@name='escroProt']/@uri"/><xf:setvalue value="" ref="instance('ins')/link[@name='escroProt']/@state"/><script>model.activateCase('hide-external');</script></xf:action></xf:trigger></div></td></tr></table></div></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/subToESCRO = '0', '', 'display:none')" name="style"/><td colspan="4"><div>
+        
+        A protocol must be submitted to ESCRO and Approved prior to submitting your protocol to the IRB.
+    </div></td></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invDrugs" appearance="full"><xf:label>Involves Drugs?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">        
+        
+        
+        
+            model.USA.rebuildTabs();
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invDrugs" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons"><td class="component  widenLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/invDevs" appearance="full"><xf:label>Involves Devices?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">        
+        
+        
+        
+            model.USA.rebuildTabs();
+        
+    </script></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/invDevs" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1></td></tr></table></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

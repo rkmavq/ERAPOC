@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form class="formFrame2" xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+  <!-- IRB 1.0 -->  
+  
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+      
+      <xf:instance id="lookup">
+        <data xmlns="">
+          <newTarget/>
+          <search/>
+          <choice/>
+          <choiceText/>
+          <records num=""/>
+          <item/>
+          <ref/>
+        </data>
+      </xf:instance>
+      <xf:instance id="temp">
+        <data xmlns="">
+          <records num=""/>
+          <rec>
+            <label/>
+            <uri/>
+          </rec>
+        </data>
+      </xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <specifyFunding>no</specifyFunding>
+          <departments>
+            
+          </departments>
+          <flash></flash>
+          <searchText/>
+          <records/>
+		  <data><targetID/><title/></data>
+          <fullSearchText/>
+          <fullSearchRecords/>
+          <col1/>
+          <col2/>
+          <col3/>
+          <document/>
+          <temp/>
+        </data> 
+      </xf:instance>  
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <js>/resources/services/appForms/main.js</js>
+          <!--<css>/resources/applications/USProject/css/main.css</css>-->
+        </data>
+      </xf:instance>
+      <script ev:event="ix-activity-save">
+        model.submit("submit"); 
+      </script>
+      <xf:instance id="config">
+        <data xmlns=""/>
+      </xf:instance>
+	    <xf:submission id="submit" replace="none" method="put">
+	    	<xf:action ev:event="xforms-submit-done">
+	    		<xf:message level="ephemeral">Submit done.</xf:message>
+	    	</xf:action>
+	    	<xf:action ev:event="xforms-submit-error">
+	    		<xf:message level="ephemeral">Problem submitting...</xf:message>
+	    	</xf:action>
+	    </xf:submission>
+    	      
+      <script ev:event="xforms-model-construct-done">
+          loadLib("../js/ideate/xforms.js");
+          bootstrapSharedXfrm(model);
+          hideLog();
+          setTitle("Create a New IRB Protocol");
+          model.Frm = new appForm(model, "kickoff");
+          includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js"); 
+          model.protocol = new irbProtocol(model);
+          
+          //VV: 12/08/2018. I took care of the back-end changes to populated seedID in rules.xml. When seedID exists, you need to call the addPI js below to populate the PI Name below to avoid a lookup
+          var pis = model.getValue("count(instance('ins')/Person[role='PI'])") * 1;
+          
+          if((true || !pis) &amp;&amp; model.getValue("instance('ins')/seedID") != ""){
+            SH.print("Attaching PI");
+            var xmlDoc = exeSharedScript("/applications/IRB/js/addPI", {"targetID":model.getValue("instance('ins')/seedID"), "app":"IRB"}, "xml"); 
+            var nl = model.selectNodeList("instance('ins')/Person[role='PI'][1]", null);
+            if (nl.length >= 1) {
+              nl[0].parentNode.replaceChild(getSafeDocumentElement(nl[0], xmlDoc), nl[0]);
+            } else {
+              var n = model.selectNodeList("instance('ins')", null);
+              n[0].appendChild(getSafeDocumentElement(n[0], xmlDoc));
+            }
+            model.setValue("instance('ins')/newDept",model.getValue("instance('ins')/Person[role='PI'][1]/department/dept[1]/@value"));            
+          }
+          //VV: 12/08/2018. I took care of the back-end changes to populated seedID in rules.xml. When seedID exists, you need to call the addPI js below to populate the PI Name below to avoid a lookup
+          
+          model.rebuild();
+          model.refresh();
+      </script>
+      
+      <!--VV:02/15/2019 StartPoint should not be read-only. Now that the binds work, it's getting grayed out!?-->
+      <!--<xf:bind nodeset="//startPoint" readonly="true()" relevant="false()"/>-->
+      <!--VV:02/15/2019 StartPoint should not be read-only. Now that the binds work, it's getting grayed out!?-->
+      <xf:bind nodeset="//currentView" readonly="true()" relevant="false()"/>
+      <xf:bind nodeset="instance('lookup')/newTarget" readonly="true()" relevant="false()"/>
+      <xf:bind nodeset="instance('ins')/link[@name='original']/@title" readonly="true()" relevant="false()"/>
+      <xf:bind nodeset="instance('ins')/link[@name='template']/@title" readonly="true()" relevant="false()"/>
+      <xf:bind nodeset="instance('ins')/Person[role='PI']/name" readonly="true()" relevant="false()"/>
+      
+    </xf:model>
+  <style>
+    div.main div.xfctrl{
+    background:none;
+    }
+    
+    .wikiView div.main div.xfctrl label{
+      font-size:12px;
+      font-weight:normal;
+    }
+    
+    #xf_0_searchBox{
+      width:200px;
+    }
+    
+    .submit-button{
+    height: 20px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px 8px 15px;
+    background: #194567 !important;
+    border-radius: 6px;
+    }
+    
+    
+    
+    .cancel-button{
+    height: 19px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px 8px 15px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid #CBCBCB;
+    border-radius: 6px;
+    color:black !important;
+    }
+    .save:hover{
+    background: #194567 !important;
+    color: #6E748E !important;
+    }
+    .cancel:hover{
+    background-color: #FFFFFF !important;
+    color: rgb(110, 116, 142) !important ;
+    
+    }
+    
+  </style>
+  <ix:template name="QuickSearch">
+    <div style="padding:8px;width:400px">
+      <table style="width:240px">
+        <tr>
+          <td>
+            <xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px">
+              <xf:label style="width:50px">Lookup:</xf:label>
+            </xf:input>
+          </td>
+          <!--<td>
+            <div style="margin-right:20px;">
+              <u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+              <script ev:event="click">model.Frm.executeQuickSearch(); </script>
+            </div>
+          </td>-->
+        </tr>
+      </table>
+      <hr/>
+      <xf:switch>
+        <xf:case exf:if="1" id="hide-quicksearch"/>
+        <xf:case id="show-quicksearch">
+          <exf:variable name="records" value="instance('form')/records//rec"/>
+          <div>
+            <ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+            <h1>No Matches</h1>
+          </div>
+          <div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"
+          /><h1>Too Many Matches</h1>Please refine your search.</div>
+          <table class="quickSearchMatches">
+            <ix:attr
+              value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+              name="style"/>
+            <tr>
+              <th style="text-align:left;">
+                <xf:output value="instance('form')/col1"/>
+              </th>
+              <th style="text-align:left;padding-left:20px">
+                <xf:output value="instance('form')/col2"/>
+              </th>
+              <th style="text-align:left;padding-left:20px">
+                <xf:output value="instance('form')/col3"/>
+              </th>
+            </tr>
+            <xf:repeat nodeset="$records">
+              <tr>
+                <td style="vertical-align:top; width:33%">
+                  <u class="clickable" style="cursor:pointer;color:blue">
+                    <xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+                    <xf:close ev:event="click"/>
+                    <script ev:event="click"> var indx = model.getValue("@id", contextNode); var val
+                      = model.getValue("@name", contextNode); if(val == "") val =
+                      model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+                      contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+                      model.Frm.quickSearch.code; if(code) eval(code);
+                      if(model.Frm.quickSearch.save) model.Frm.saveAll(); event.stopPropagation();
+                    </script>
+                  </u>
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:30%">
+                  <xf:output
+                    value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+                  />
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:30%">
+                  <xf:output
+                    value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+                  />
+                </td>
+              </tr>
+            </xf:repeat>
+          </table>
+          <br/>
+          <br/>
+        </xf:case>
+      </xf:switch>
+    </div>
+  </ix:template>
+  
+  
+  <div style="padding: 15px 8px 30px 8px; width:700px" class="main homepage formFram formFrame2">
+    
+    <div class="main homepage formFrame ">
+    
+    <table style="width:600px;" class="basicColLayout"><tr><td colspan="2">
+      <xf:select1 ref="startPoint" appearance="full" class="basicCtrl">
+        <xf:label style="width:200px">Create:</xf:label>
+        <xf:item><xf:label>New</xf:label><xf:value>new</xf:value></xf:item>
+        <xf:item><xf:label>Copy from existing</xf:label><xf:value>copy</xf:value></xf:item>
+        <!--<xf:item><xf:label>Copy from template</xf:label><xf:value>template</xf:value></xf:item>-->
+		 <script ev:event="xforms-value-changed">				
+              model.recalculate(); model.rebuild();                    
+              model.activateCase('hide-button');
+              model.activateCase('show-button'); 
+            </script>
+      </xf:select1>
+    </td><!--<td>
+      <div class="rightInfo" style="margin-left:20px;font-style:italic;">Note: All options are interconnected.<br/>Users can select starting point.</div>
+    </td>-->
+	<td></td>
+	</tr>
+      
+      <tr><td colspan="2">
+        <ix:attr value="if(startPoint = 'copy', '', 'display:none')" name="style"/>
+        <br/>
+        <div class="dependant entitylink">
+          <table class=" ">
+            <tr>
+              <td class="label" style="width:132px;margin-left:5px;">Protocol to Copy: </td>
+              <td>
+                <div>
+                  <ix:attr
+                    value="if(instance('ins')/link[@name='original']/@title != '', '', 'display:none')"
+                    name="style"/>
+                  <xf:input ref="instance('ins')/link[@name='original']/@title" class="">
+                    <xf:label style="width:0px"/>
+                  </xf:input>
+                </div>
+              </td>
+              <td class="buttons">
+                <div>
+                  <ix:attr
+                    value="if(instance('ins')/link[@name='original']/@title = '', '', 'display:none')"
+                    name="style"/>
+                  <span style="margin-left:30px;font-weight:normal;cursor:pointer;color:blue">Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                      <ix:dialog style="height:300px;" id="results"
+                        title="Lookup Protocol to Copy" class="quickSearchDialog">
+                        <ix:include template="QuickSearch" ref="."/>
+                      </ix:dialog>
+                      <script> 
+                        model.setValue("instance('form')/searchText", "");
+                        model.refresh();
+						 model.qsCallBack = function(){											
+							model.setValue("instance('ins')/link[@name='original']/@title", model.getValue("instance('form')/data/title"));
+							model.setValue("instance('ins')/link[@name='original']/@uri", model.getValue("instance('form')/data/targetID"));
+							model.setValue("instance('ins')/link[@name='original']/@id", model.getValue("instance('form')/data/targetID").substring(model.getValue("instance('form')/data/targetID").lastIndexOf("/")+1));							
+							model.activateCase("hide-depts");
+							model.Frm.save();
+							model.recalculate();
+							model.rebuild();
+							model.activateCase("show-depts");
+					}
+                        model.Frm.configureQuickSearch("IRB", "replaceEntity", "instance('form')/data", "/applications/IRB/js/copyIRB", "IRBLink", "Title", "ID", "PI", "PI", "", 'model.qsCallBack();', ''); 
+						model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress"); 
+						</script>
+                    </xf:action>
+                  </span>
+                </div>
+                <div>
+                  <ix:attr
+                    value="if(instance('ins')/link[@name='original']/@title != '', '', 'display:none')"
+                    name="style"/>
+                  <span style="margin-left:30px;font-weight:normal;cursor:pointer;color:blue">Undo<xf:action ev:event="click">
+                      <xf:setvalue value=""
+                        ref="instance('ins')/link[@name='original']/@title"/>
+                      <xf:setvalue value=""
+                        ref="instance('ins')/link[@name='original']/@id"/>
+                      <xf:setvalue value=""
+                        ref="instance('ins')/link[@name='original']/@uri"/>
+                      <xf:setvalue value=""
+                        ref="instance('ins')/link[@name='original']/@state"/>
+                    </xf:action>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td></tr>
+      
+      <tr><td colspan="2">
+        <ix:attr value="if(startPoint = 'template', '', 'display:none')" name="style"/>
+        <br/>
+        <div class="dependant entitylink">
+          <table class=" ">
+            <tr>
+              <td class="label" style="width:132px;margin-left:5px;">Template to Copy: </td>
+              <td>
+                <div>
+                  <ix:attr
+                    value="if(instance('ins')/link[@name='template']/@title != '', '', 'display:none')"
+                    name="style"/>
+                  <xf:input ref="instance('ins')/link[@name='template']/@title" class="">
+                    <xf:label style="width:0px"/>
+                  </xf:input>
+                </div>
+              </td>
+              <td class="buttons">
+                <div>
+                  <ix:attr
+                    value="if(instance('ins')/link[@name='template']/@title = '', '', 'display:none')"
+                    name="style"/>
+                  <span style="margin-left:30px;font-weight:normal;cursor:pointer;color:blue">Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                    <ix:dialog style="height:300px;" id="results"
+                      title="Lookup Project to Copy" class="quickSearchDialog">
+                      <ix:include template="QuickSearchProjects" ref="."/>
+                    </ix:dialog>
+                    <script>
+                      model.setValue("instance('form')/searchText", "");
+                      model.refresh();
+					 
+                      model.Frm.configureQuickSearch("Project Templates", "entityLink",
+                      "instance('ins')/link[@name='template']", "", "", "Template", "Owner",
+                      "", "", "", 'model.activateCase("hide-button");model.activateCase("show-button");', ''); 
+                      model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress"); </script>
+                  </xf:action>
+                  </span>
+                </div>
+                <div>
+                  <ix:attr
+                    value="if(instance('ins')/link[@name='template']/@title != '', '', 'display:none')"
+                    name="style"/>
+                  <span style="margin-left:30px;font-weight:normal;cursor:pointer;color:blue">Undo<xf:action ev:event="click">
+                    <xf:setvalue value=""
+                      ref="instance('ins')/link[@name='template']/@title"/>
+                    <xf:setvalue value=""
+                      ref="instance('ins')/link[@name='template']/@id"/>
+                    <xf:setvalue value=""
+                      ref="instance('ins')/link[@name='template']/@uri"/>
+                    <xf:setvalue value=""
+                      ref="instance('ins')/link[@name='template']/@state"/>
+                  </xf:action>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td></tr>
+            
+      <xf:switch>
+        <xf:case exf:if="1" id="hide-quicksearch"/>
+      </xf:switch>
+      
+      <tr><td colspan="2">
+        <ix:attr value="if(currentView != '' and startPoint != 'copy' and startPoint != 'template', '', 'display:none')" name="style"/>
+        <hr/>  
+      </td></tr>
+      
+      
+    </table>    
+  </div>
+    
+    <table style="width:600px;" class="basicColLayout">      
+      <tr><td colspan="2">
+        <div>
+          <ix:attr value="if(currentView != '' and startPoint != '' , '', 'display:none')" name="style"/>
+          <br/>
+          <xf:textarea ref="newName" style="width:300px;height:5em;">
+            <xf:label style="width:200px">Protocol Title:</xf:label>
+            <script ev:event="xforms-value-changed">
+              model.recalculate(); model.rebuild();                    
+              model.activateCase('hide-button');
+              model.activateCase('show-button'); 
+            </script>
+          </xf:textarea>        
+        </div>
+      </td>
+      </tr>
+      
+      <tr><td colspan="2">
+      <hr/>  
+      </td></tr>
+
+      <tr>
+        <ix:attr value="if(currentView != '' and startPoint != 'template', '', 'display:none')" name="style"/>
+        <td colspan="2">
+        <td class="component structure person  ">
+          <br/>
+          <xf:switch>
+            <xf:case exf:if="1" id="show-pi">
+          <xf:repeat nodeset="instance('ins')/Person[role='PI'][1]">
+            <table style="margin-left:-5px;"><tr><td><xf:input class="wide top" ref="name">
+              <xf:label style="width:200px">Principal Investigator:</xf:label>
+            </xf:input></td><td><span style="margin-left:10px;font-weight:normal;cursor:pointer;color:blue">Replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+              <ix:dialog style="height:300px;" id="results" title="Find PI"
+                class="quickSearchDialog">
+                <ix:include template="QuickSearch" ref="."/>
+              </ix:dialog>
+              <script>
+                if(!model.seeded) model.setValue("instance('form')/searchText", model.getValue("instance('ins')/seedName")); 
+                //wmalykFeb2015update for MSSM - added this flag, to make sure the default value is only seeded once 
+                model.seeded = true; 
+                model.refresh();
+                model.Frm.configureQuickSearch("People", "replaceEntity",
+                "instance('ins')/Person[role='PI'][1]",
+                "/applications/IRB/js/addPI", "pi", "Name", "ID","Department", "1",
+                "researcher", 'model.activateCase(\"hide-depts\");model.recalculate();model.rebuild();model.activateCase(\"show-depts\");',
+                '0'); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+              </script>
+            </xf:action></span></td></tr></table>
+          </xf:repeat>
+          <div class="addLine"><ix:attr name="style"
+            value="if(instance('ins')/Person[role='PI'][1], 'display:none', 'font-family:Arial,Helvetica,Sans-Serif;font-size:12px;font-weight:normal;margin-left:-2px;')"/>IRB Principal Investigator: <span style="margin-left:30px;font-weight:normal;color:blue;cursor:pointer">Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+              <ix:dialog style="height:300px;" id="results" title="Find PI"
+                class="quickSearchDialog">
+                <ix:include template="QuickSearch" ref="."/>
+              </ix:dialog>
+              <script>
+                //model.setValue("instance('form')/searchText", model.getValue("instance('ins')/seedName"));
+                if(!model.seeded) model.setValue("instance('form')/searchText", model.getValue("instance('ins')/seedName")); 
+               //wmalykFeb2015update for MSSM - added this flag, to make sure the default value is only seeded once
+                model.seeded = true; 
+                model.refresh();
+                model.Frm.configureQuickSearch("People", "replaceEntity",
+                "instance('ins')/Person[role='PI'][1]",
+                "/applications/IRB/js/addPI", "pi", "Name", "ID","Department", "1",
+                "researcher", 'model.activateCase(\"hide-depts\");model.recalculate();model.rebuild();model.activateCase(\"show-depts\");',
+                '0'); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                
+                //model.protocol.loadPIDepartments();
+              </script>
+            </xf:action></span></div>
+            </xf:case>
+            <xf:case id="hide-pi">
+            </xf:case>
+            </xf:switch>
+        </td><!--<ix:attr value="if(instance('ins')/Person[role='PI'][1]/createIsPI != '1' and startPoint != 'copy' and startPoint != 'template', '', 'display:none')" name="style"/>-->
+      </td></tr>
+      <xf:switch>
+        <xf:case exf:if="1" id="hide-quicksearch"/>
+      
+      <tr>
+        <ix:attr value="if(currentView != '' and startPoint != 'template', '', 'display:none')" name="style"/>
+        <td colspan="2">
+        <div>
+          <xf:switch>
+            <xf:case exf:if="newDept[.!='']" id="show-depts">
+              <span><ix:attr value="if(instance('ins')/Person[role='PI'][1]/creatorIsPI = '0', '', 'display:none')" name="style"/>
+                <i style="padding-left:10px;font-weight:normal;color:red">Note: When the application is complete, it will be sent to the PI for submission.</i>
+                <!--<i style="padding-left:10px;font-weight:normal;color:red">Note: Proxy functionality is currently disabled.</i>-->
+                <br/>
+              </span>
+              <br/>
+          <xf:select1 ref="newDept">
+            <xf:label style="width:200px">Department:</xf:label>
+            <!--<xf:repeat nodeset="instance('form')/departments/list/option">
+              <xf:item><xf:label><xf:output value="@label"/></xf:label><xf:value><xf:output value="@value"/></xf:value></xf:item>
+              </xf:repeat>-->
+            <xf:item><xf:label>-Select-</xf:label><xf:value></xf:value></xf:item>
+            <!--<xf:repeat nodeset="instance('ins')/Person[role='PI'][1]/department/dept[@value='PbXoIS4BAG4urBFACDIt']">
+              <xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@value"/></xf:value></xf:item>
+              </xf:repeat>-->
+            <xf:repeat nodeset="instance('ins')/Person[role='PI'][1]/department/dept">
+              <xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@value"/></xf:value></xf:item>
+            </xf:repeat>
+            <script ev:event="xforms-value-changed">
+              model.recalculate(); model.rebuild();                    
+              model.activateCase('hide-button');
+              model.activateCase('show-button'); 
+            </script>
+            
+          </xf:select1>        
+            </xf:case>
+            <xf:case exf:if="1" id="hide-depts"/>
+          </xf:switch>
+          </div>
+        </td>
+      </tr>
+      </xf:switch>
+      
+      <tr><td colspan="2">
+        <ix:attr value="if(currentView != '' and startPoint != 'copy' and startPoint != 'template', '', 'display:none')" name="style"/>
+        <hr/>  
+      </td></tr>
+      
+      </table>    
+  </div>
+  
+  <xf:switch>
+    <xf:case exf:if="1" id="show-button">
+    <table>
+      <tr>
+        <td>
+      <ix:attr name="style" value="if((newDept != '' and newName != '') or (startPoint = 'template' and link[@name='template']/@id!='') , 'vertical-align:top;', 'display:none')"/>
+<div class="submit-button">
+    <span class="pbutton2"/>
+    
+    
+  <a title="Begin" href="#" class="save" style="color: white;text-decoration: none;font-size: 14px;"><xf:action ev:event="click">
+      <script>
+        
+        if(!model.__processing){      
+          model.__processing = true;
+         var id = model.getValue("link[@name='original']/@id");
+         var t = model.getValue("link[@name='template']/@id");
+         var sp = model.getValue("startPoint");
+         if(sp == "template"){
+           //model.setValue("startPoint", "copy");
+           model.setValue("EntityID", t);
+         }else{
+           model.setValue("EntityID", id);
+         }
+         model.submit('submit');
+         model.setValue('path', 'start'); model.submit('submit'); 
+         //model.__waiting = new waitingBox();
+         //model.__processing = false;
+         
+         /*
+         if(SH.is_ie){
+          window.setTimeout(function(){
+            ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);            
+           }, 1);
+         }else{
+          ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);          
+         }*/
+         
+         ActivityTree.waitTime = 10;
+         
+         if(SH.is_ie){
+         window.setTimeout(function(){
+         ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+         model.__processing = false;
+         }, 1);
+         }else{
+         ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+         model.__processing = false;
+         }
+       }
+      </script>
+    </xf:action><div class="save"/>Begin Application</a>
+</div>     
+          
+        </td>
+      
+        <td style="vertical-align:top;">
+          <div class="cancel-button" style="margin-left:10px;">
+            <span class="pbutton2"/>
+            
+            
+            <a class="cancel" title="Cancel" href="#" style="color: ##376DC8; text-decoration: none; font-size: 14px;"><xf:action ev:event="click">
+              <script>
+                
+                model.setValue('path', 'cancel'); model.submit('submit'); 
+                ActivityTree.submitDest = "/home"; //window.location="/home";
+                ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);             
+              </script>
+            </xf:action><div class=""/>Cancel</a>
+          </div>     
+          
+        </td>
+      
+      </tr>
+    
+    
+    
+    </table>
+      
+      
+      
+    </xf:case>
+    
+    <xf:case id="hide-button"/>  
+  
+  
+  
+  </xf:switch>
+  
+  
+  
+  
+  
+  
+  
+  <br/>
+  
+  
+  
+  
+  
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
+
+
+
+
+
+
+
+
+
+                                                                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

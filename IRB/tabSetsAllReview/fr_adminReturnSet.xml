@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+ 
+    <tab id="LC" label="Review(s)" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>
+    
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/fr_irbsummary.xfrm"/>
+    
+    <tab id="2" label="Enrollment">
+        <tab id="2a" label="Summary" form="/home/configs/IRB/forms/fr_enrolled_summary.xfrm"/>
+        <tab id="2b" label="Age Range(s)" form="/home/configs/IRB/forms/fr_enrolled_age.xfrm"/>
+        <tab id="2c" label="Population(s)" form="/home/configs/IRB/forms/fr_enrolled_pop.xfrm"/>
+        <tab id="2d" label="Ethnic Categories" form="/home/configs/IRB/forms/fr_enrolled_ethnic.xfrm"/>
+        <tab id="2e" label="Race(s)" form="/home/configs/IRB/forms/fr_enrolled_race.xfrm"/>
+    </tab>
+    
+    <tab id="3" label="Events">
+        <tab id="3a" label="Participants" form="/home/configs/IRB/forms/fr_eventsParticipants.xfrm"/>
+        <tab id="3b" label="General" form="/home/configs/IRB/forms/fr_eventsGeneral.xfrm"/>
+        <tab id="3c" label="Suspensions" form="/home/configs/IRB/forms/fr_eventsSuspensions.xfrm"/>
+        <tab id="3d" label="Unanticipated Problems" form="/home/configs/IRB/forms/fr_eventsProblems.xfrm"/>
+<!--        <tab id="3e" label="Local Serious Adverse Events" form="/home/configs/IRB/forms/fr_eventsSAEs.xfrm"/>-->
+    </tab> 
+    
+    <tab id="COV" label="Update Protocol Case" form="/home/configs/IRB/forms/fr_returnsubmit.xfrm" when="boardrevPending"/>
+    <tab id="RS" label="Prepare Response Submission" form="/home/configs/IRB/forms/fr_returnsubmitRS.xfrm" when="mkRS"/>
+    
+    
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <board>1</board>
+    </switches>
+</tabs>

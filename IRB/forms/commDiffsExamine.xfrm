@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    /* color:blue; */
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>        
+        <isAMD/>
+        <metaNum></metaNum>
+        <revNum></revNum>
+        <!-- AB 01/30/2019 -->
+        <currMetaType/>
+        <lastMetaType/>
+        <showPIResponse/>
+        <!-- AB 08/13/2018 store current member review comments if any to be displayed. -->
+        <currentrevNum></currentrevNum>
+        <document id="" uri=""></document>      
+        <revURI></revURI>
+      </data> 
+    </xf:instance> 
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="diffs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="revHist"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+      
+      model.Frm = new appForm(model, "docs");
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      model.__waiting = new waitingBox("Please wait..."); 
+      isOTEU = model.Frm.formSet.getRoot().model.getValue("count(instance('proDat')/OTEU)") * 1 > 0;
+      isAMD = "1";
+      if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('revHist', "/reviews/revHIST.xml", "0");
+          model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI);
+          
+          model.setValue("instance('form')/isAMD", isAMD);
+          model.Frm.loadOpFile('proReviews', "/reviews.xml", "0");
+      }else{
+      if(model.Frm.linkedOpURI!='' &amp;&amp; !model.Frm.formSet.getRoot().__AMND){
+            isAMD = "0";
+            model.Frm.loadOpFile('revHist', "/reviews/revHIST.xml", "0");
+            model.setValue("instance('form')/isAMD", isAMD);
+            model.Frm.loadOpFile('proReviews', "/reviews.xml", "0");
+            
+            model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI);
+        }else{  
+            isAMD = "0";
+            model.Frm.loadAppFile('revHist', "/data/reviews/revHIST.xml", "0");
+            model.setValue("instance('form')/revURI", model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI);
+            model.Frm.loadAppFile('proReviews', "/reviews.xml", "0");
+          }
+      }
+      SH.print("document.__refName = " + document.__refName + "---isAMD = " + isAMD);
+      //AB 08/13/2018 store current member review comments if any to be displayed.
+      model.setValue("instance('form')/currentrevNum", "0");
+      if(model.Frm.linkedOpURI!=''){
+        //AB 08/13/2018 store current member review comments if any to be displayed.
+        currRevNum = model.getValue("instance('proReviews')/review[@uri='"+model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI+"']/@num");
+        model.setValue("instance('form')/currentrevNum",currRevNum);
+        //AB 08/13/2018 store current member review comments if any to be displayed. - END
+        //p4updates - wmalyk:April_4_2017 - when doing a popup examination, the stars/fixes/calculations will already have been aplied
+        //if(!window.isPop){
+        resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic",linkedOp:model.Frm.linkedOpType,"trackChanges":"yes",app:"IRB",linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI: model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI}, "json");        
+        //}
+        model.Frm.loadOpFile('revHist', "/reviews/revHIST.xml", "0");
+        model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI);
+        model.Frm.loadOpFile('proReviews', "/reviews.xml", "0");
+      }else{
+        //AB 08/13/2018 store current member review comments if any to be displayed. - START
+        currRevNum = model.getValue("instance('proReviews')/review[@uri='"+model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI+"']/@num");
+        model.setValue("instance('form')/currentrevNum",currRevNum);      
+        //AB 08/13/2018 store current member review comments if any to be displayed. - END
+        //if(!window.isPop){
+        resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:"",linkedOpURI:"",baseURI:model.Frm.targetURI,revDataURI:model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI}, "json");
+        //}
+        model.Frm.loadAppFile('revHist', "/data/reviews/revHIST.xml", "0");
+        model.setValue("instance('form')/revURI", model.Frm.targetURI + model.Frm.formSet.getRoot().__REVURI);
+        model.Frm.loadAppFile('proReviews', "/reviews.xml", "0");
+      }
+      
+      model.__waiting.stop(); 
+      
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+
+
+      //find position of review
+      model.setValue("instance('form')/revNum", "0");
+      model.setValue("instance('form')/lastMetaType", "");
+      model.setValue("instance('form')/currMetaType", "");
+      var currentReviewParent = 0;
+      var currentVersion = 0;
+      var currentMeta = 0;      
+      var currMetaType = "";   
+      var lastMetaType = ""
+      var isCurrLast = "0";
+      var prevRevDataURI = "";
+      /*
+      if(model.getValue("instance('proReviews')/review[last()]/@num")==document.__refName){        
+        //get last review that was of type res and review num is less than current one but last one      
+        lastMetaRSRevNum = model.getValue("instance('proReviews')/metaReview[((determination/decision='mod' or determination/decision='DEF' or @action='Returned to PI') and @num&lt;"+currentMeta * 1+")][last()]/@num");
+        lastMetaType = model.getValue("instance('proReviews')/metaReview[((determination/decision='mod' or determination/decision='DEF' or @action='Returned to PI') and @num&lt;"+currentMeta * 1+")][last()]/@type");
+        model.setValue("instance('form')/lastMetaType",lastMetaType);        
+        if(lastMetaRSRevNum &amp;&amp; lastMetaRSRevNum!=""){
+         var lastRSRevNum = model.getValue("instance('proReviews')/review[@parent='"+lastMetaRSRevNum+"']/@num");   
+         var prevRevDataURI = model.getValue("instance('proReviews')/review[@parent="+lastMetaRSRevNum+"][last()]/@uri");
+         if(lastRSRevNum &amp;&amp; lastRSRevNum!=""){      
+           model.setValue("instance('form')/revNum",lastRSRevNum);
+         }
+        }
+      }else{
+        lastRSRevNum = document.__refName; 
+        model.setValue("instance('form')/revNum",lastRSRevNum);             
+      }
+      */
+      currentReviewParent = model.getValue("instance('proReviews')/review[(@num="+document.__refName * 1+")][last()]/@parent");
+      currentMeta = model.getValue("instance('proReviews')/metaReview[(@num="+currentReviewParent * 1+")][last()]/@num")*1;
+      currMetaType = model.getValue("instance('proReviews')/metaReview[(@num="+currentReviewParent * 1+")][last()]/@type");
+      currMetaAction = model.getValue("instance('proReviews')/metaReview[(@num="+currentReviewParent * 1+")][last()]/@action");
+      
+      if(currMetaAction=="Returned to PI"){
+        //show no PI response 
+        model.setValue("instance('form')/showPIResponse","0");
+        lastRSRevNum = document.__refName; 
+        model.setValue("instance('form')/revNum",lastRSRevNum);   
+      }else{
+        //get last review that was of type res and review num is less than current one but last one      
+        lastMetaRSRevNum = model.getValue("instance('proReviews')/metaReview[((determination/decision='mod' or determination/decision='DEF' or @action='Returned to PI') and @num&lt;"+currentMeta * 1+")][last()]/@num");
+        lastMetaType = model.getValue("instance('proReviews')/metaReview[((determination/decision='mod' or determination/decision='DEF' or @action='Returned to PI') and @num&lt;"+currentMeta * 1+")][last()]/@type");
+        model.setValue("instance('form')/lastMetaType",lastMetaType);                
+        if(lastMetaRSRevNum &amp;&amp; lastMetaRSRevNum!=""){
+          var lastRSRevNum = model.getValue("instance('proReviews')/review[@parent='"+lastMetaRSRevNum+"']/@num");             
+          var prevRevDataURI = model.getValue("instance('proReviews')/review[@parent="+lastMetaRSRevNum+"][last()]/@uri");
+          if(lastRSRevNum &amp;&amp; lastRSRevNum!=""){      
+            model.setValue("instance('form')/revNum",lastRSRevNum);
+          }
+        }      
+      }
+   
+   if(model.Frm.linkedOpType &amp;&amp; model.Frm.linkedOpType != "amendments"){
+   model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/" + model.Frm.linkedOpType + "BaseChange.xml");      
+   }else if(model.Frm.linkedOpType &amp;&amp; model.Frm.linkedOpType == "amendments"){
+   model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+   }else{
+   model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+   }
+   
+   model.Frm.reloadInst('revHist');  
+      
+      //AB once you find it run the generateReviewHistoryDynamic for the previous review to get the PI response      
+      if(prevRevDataURI!=""){
+      model.__waiting = new waitingBox("Please wait..."); 
+      if(model.Frm.formSet.getRoot().__AMND){
+        //resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:model.Frm.linkedOpType,linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI:prevRevDataURI}, "json");            
+      }else{          
+        //resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:"",linkedOpURI:"",baseURI:model.Frm.targetURI,revDataURI:prevRevDataURI}, "json");
+      }
+      model.Frm.reloadInst('revHist');      
+      model.__waiting.stop();
+      }
+      model.reloadInstanceId("revHist");
+      //alert(model.getValue("instance('form')/revNum"));
+    </script>
+    <script ev:event="xforms-ready">
+      //Initialize form elements
+      //AD.setupForm();
+    </script>
+    
+    
+    <xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <!-- ARCHITA: This bind is required -->
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+  </xf:model>
+  
+  <div class="formFrame">
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+
+    <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/@def" name="reviewLevel"/>
+    
+    
+    <div class="body">
+      <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/@name" name="revType"/>
+      <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/@username" name="revTypeWho"/>
+      <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/@version" name="revVersion"/> 
+      <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/@action" name="revAction"/>     
+      
+      <xf:label>
+        <h1>
+          <span><ix:attr name="style" value="if($revType='', 'display:none', '')"/><xf:output value="$revType"/></span><span><ix:attr name="style" value="if($revTypeWho='', 'display:none', '')"/>: <xf:output value="$revTypeWho"/></span><span><ix:attr name="style" value="if($revVersion='', 'display:none', '')"/> (Version: <xf:output value="$revVersion"/>)</span><span><ix:attr name="style" value="if($revAction='', 'display:none', '')"/> / <xf:output value="$revAction"/></span>
+        </h1>
+      </xf:label>
+      <!--<div><ix:attr name="style" value="if(submissionNotes='', 'display:none', '')"/>
+        <h4><span><ix:attr name="style" value="if($reviewLevel='res', '', 'display:none')"/>Previous </span>Investigator Submission Notes:</h4>
+        <div><ix:attr name="style" value="if(submissionNotes='', 'display:none', '')"/>          
+          <xf:output value="instance('dat')/submissionNotes"/>
+        </div>
+        <br/>
+      </div>-->
+      <div>
+        <div><ix:attr name="style" value="if(instance('form')/revNum!='' and instance('proReviews')/review[@num=instance('form')/currentrevNum]/reviewNotes/comments!='', '', 'display:none')"/>
+          <h4>Review Comments:</h4>
+          
+          <br/>        
+          <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('form')/currentrevNum]/reviewNotes/comments='', 'display:none', '')"/>          
+            <xf:output value="instance('proReviews')/review[@num=instance('form')/currentrevNum]/reviewNotes/comments"/>
+          </div>
+        </div>
+        <br/>
+        <div><ix:attr name="style" value="if(instance('form')/revNum!='' and instance('proReviews')/review[@num=instance('form')/currentrevNum]/reviewNotes/investigatorActions!='', '', 'display:none')"/>
+          <h4>Investigator Actions:</h4>
+          
+          <br/>        
+          <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('form')/currentrevNum]/reviewNotes/investigatorActions='', 'display:none', '')"/>          
+            <xf:output value="instance('proReviews')/review[@num=instance('form')/currentrevNum]/reviewNotes/investigatorActions"/>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div><ix:attr name="style" value="if(instance('form')/revNum!='' and instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/comments!='', '', 'display:none')"/>
+          <h4>Previous Review Comments:</h4>
+          
+          <br/>        
+          <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/comments!='', '', 'display:none')"/>          
+            <xf:output value="instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/comments"/>
+          </div>
+        </div>
+        
+        <br/>
+      </div>
+      
+      <div><ix:attr name="style" value="if(instance('form')/revNum!='' and instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/investigatorActions!='', '', 'display:none')"/>
+        <h4>Previous Investigator Actions:</h4>
+        
+        <br/>
+        
+        <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/investigatorActions!='', '', 'display:none')"/>          
+          <xf:output value="instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/investigatorActions"/>
+        </div>
+        
+        <br/>
+      </div>
+      <div><ix:attr name="style" value="if(instance('form')/revNum!='' and instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/investigatorResponse!='', '', 'display:none')"/>
+        <h4>Investigator Response to Previous Comments:</h4>
+        
+        <br/>
+        
+        <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/investigatorResponse!='', '', 'display:none')"/>          
+          <xf:output value="instance('proReviews')/review[@num=instance('form')/revNum]/reviewNotes/investigatorResponse"/>
+        </div>
+        
+        <br/>
+      </div>
+      
+       
+    </div>
+    <div class="body">
+      
+      <br/>
+      <h4>Summary of Current Comments:</h4>
+      <div>
+        
+        <br/>
+        <!--<exf:variable value="instance('revHist')/review[@num=instance('form')/currentrevNum]/analysis/el[comment!='']" name="sec1"/>-->
+        <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/analysis/el[comment!='']" name="sec1"/>
+        <div><ix:attr name="style" value="if(count($sec1) > 0, 'display:none', '')"/>          
+          <i>None</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) > 0, '', 'display:none')"/>
+          <tr class="top">
+            <th class="out text large left" style="width:200px;text-align:left">Location</th>
+            <th class="in text large left" style="text-align:left">Field</th>
+            <th class="in text large left" style="width:200px;text-align:left">Current Value</th>      
+            <th class="in text large left" style="text-align:left">Review Comments</th>            
+          </tr>
+          
+          <xf:switch>
+            <xf:case id="show-docs">
+              <xf:repeat nodeset="$sec1">
+                <exf:variable value="@cmp" name="needle"/>
+                <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+                <tr valign="top">
+                  <td class="out text alrge left" style="width:250px;">
+                    <!--<xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                      lnk = model.getValue("@cmp", contextNode);
+                      var target = "xf_0projectTabs_control";
+                      var receiver = model.Frm.formSet.getRoot().getChild(target);
+                      if(receiver){
+                      receiver.model.SF.switchTab(lnk);
+                      }
+                      </script><xf:output value="$source/@label"/></u>-->
+                    <span>                      
+                      <u style="color:blue;cursor:pointer"><script ev:event="click">
+                        lnk = model.getValue("@cmp", contextNode);
+                        var target = "xf_0projectTabs_control";
+                        var receiver = model.Frm.formSet.getRoot().getChild(target);
+                        if(receiver){
+                        receiver.model.SF.switchTab(lnk);
+                        }else{
+                        var receiver2 = model.Frm.formSet.getRoot().model.__currentControllerForm
+                        if(receiver2){
+                        receiver2.switchTab(lnk);
+                        }
+                        }
+                      </script><xf:output value="tab"/>
+                      </u>
+                    </span>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="label"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="thisVal"/>
+                  </td>    
+                  <td class="out text large left">
+                    <xf:output value="comment"/>
+                  </td>
+                </tr>                         
+              </xf:repeat>   
+            </xf:case>
+            <xf:case id="hide-docs"/>
+          </xf:switch> 
+        </table>
+      </div>
+      <br/>         
+    </div>             
+    
+    
+    <div class="body">
+      
+      <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/analysis/el[officecomment!='']" name="sec3"/>
+      <div><ix:attr name="style" value="if(count($sec3) &gt; 0, '', 'display:none')"/>
+        <br/>
+        <h4>Summary of Office Comments:</h4>
+        <br/>                
+        
+        <exf:variable value="instance('revHist')/review[@uri=instance('form')/revURI]/analysis/el[officecomment!='']" name="sec3"/>
+        <div><ix:attr name="style" value="if(count($sec3) &gt; 0, 'display:none', '')"/>          
+          <i>No Comments</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec3) &gt; 0, '', 'display:none')"/>
+          <tr class="top">
+            <th class="out text large left" style="width:200px;text-align:left">Location</th>
+            <th class="in text large left" style="text-align:left">Field</th>
+            <th class="in text large left" style="text-align:left">Value</th>
+            <th class="in text large left" style="text-align:left">Comment</th>
+          </tr>
+          
+          <xf:switch>
+            <xf:case id="show-docs">
+              <xf:repeat nodeset="$sec3">
+                <exf:variable value="@cmp" name="needle"/>
+                <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+                <tr valign="top">
+                  <td class="out text alrge left" style="width:250px;">
+                    <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                      lnk = model.getValue("@cmp", contextNode);
+                      var target = "xf_0projectTabs_control";
+                      var receiver = model.Frm.formSet.getRoot().getChild(target);
+                      if(receiver){
+                      receiver.model.SF.switchTab(lnk);
+                      }
+                    </script><xf:output value="$source/@label"/></u>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="label"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="thisVal"/>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="officecomment"/>
+                  </td>
+                </tr>              
+              </xf:repeat>   
+            </xf:case>
+            <xf:case id="hide-docs"/>
+          </xf:switch> 
+        </table>
+      </div>
+      <br/>
+    </div>
+    
+    <exf:variable value="instance('revHist')/review[@num=instance('form')/revNum]/analysis/el[@interpretation!='' or @RSaction!='']" name="sec1"/>     
+      <div class="body">
+      <ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/> 
+      <br/>
+      <h4>PI Response:</h4>
+      <div>
+        
+        <br/>         
+        
+        <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>          
+          <i>None</i>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+          <tr class="top">
+            <th class="out text large left" style="width:200px;text-align:left">Location</th>
+            <th class="in text large left" style="text-align:left">Field</th>
+            <th class="in text large left" style="width:200px;text-align:left">Original Value</th>
+            <th class="in text large left" style="width:200px;text-align:left">Current Value</th>  
+            <th class="in text large left" style="text-align:left">Review Comment</th>
+            <th class="in text large left" style="text-align:left">Action</th>
+            <!--<th class="out text large left" style="width:200px;text-align:left">Justification</th>-->
+          </tr>
+          
+          <xf:switch>
+            <xf:case id="show-docs">
+              <xf:repeat nodeset="$sec1">
+                <exf:variable value="@cmp" name="needle"/>
+                <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+                <tr valign="top">
+                  <td class="out text alrge left" style="width:250px;">
+                    <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                      lnk = model.getValue("@cmp", contextNode);                      
+                      var target = "xf_0projectTabs_control";
+                      var receiver = model.Frm.formSet.getRoot().getChild(target);
+                      if(receiver){
+                      receiver.model.SF.switchTab(lnk);
+                      }
+                    </script><xf:output value="$source/@label"/></u>
+                  </td>
+                  <td class="out text large left">
+                    <xf:output value="label"/>
+                  </td>
+                  <td class="out text large left">
+                    <span><ix:attr name="style" value="if(orgValue='MISSING', 'color:black', 'display:none')"/>None</span>
+                    <span><ix:attr name="style" value="if(orgValue!='MISSING', 'color:black', 'display:none')"/><xf:output value="orgValue"/></span>  
+                  </td> 
+                  <td class="out text large left">
+                    <xf:output value="thisVal"/>
+                  </td> 
+                  <td class="out text large left">
+                    <xf:output value="comment"/>
+                  </td>
+                  <td class="out text large left">
+                    <!--<span><ix:attr name="style" value="if(@interpretation='Using New Value', 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+                      <span><ix:attr name="style" value="if(@interpretation!='Using New Value', 'color:purple', 'display:none')"/><xf:output value="@interpretation"/></span> --> 
+                    <span><ix:attr name="style" value="if(@RSaction!='' and @interpretation='', 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+                    <span><ix:attr name="style" value="if(@RSaction!='' and contains(@xpath,'document'), 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+                    <span><ix:attr name="style" value="if(@interpretation='Using New Value' and not(contains(@xpath,'document')), 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+                    <span><ix:attr name="style" value="if(@interpretation='Using New Value' and contains(@xpath,'document') and @RSaction='', 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+                    <span><ix:attr name="style" value="if(@interpretation!='' and @interpretation!='Using New Value', 'color:purple', 'display:none')"/><xf:output value="@interpretation"/></span>  
+                  </td> 
+                  <!--<td class="out text large left">
+                    <xf:output value="justification"/>
+                  </td>-->
+                </tr>                         
+              </xf:repeat>   
+            </xf:case>
+            <xf:case id="hide-docs"/>
+          </xf:switch> 
+        </table>
+      </div>
+      <br/>         
+    </div>             
+    
+    
+  
+</div>       
+</form>

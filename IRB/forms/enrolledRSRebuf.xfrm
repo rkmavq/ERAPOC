@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "enrolled");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind nodeset="instance('ins')/enrollAllSites" type="xsd:integer"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/enrollAllSites" calculate="sum(../ageRange/@en)"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/ageRange"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/population"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/ethnicCat"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/race"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr><td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>, <xf:output value="instance('form')/form/@createdBy"/></td><td class="updated"><ix:attr value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+                Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output value="instance('form')/form/@updatedBy"/></td></tr></table><div class="body"><h1/><table class="basicColLayout"><tr class="number"><td class="component number stretchLabel "><xf:input style="width:80px" ref="instance('ins')/enrollAllSites"><xf:label>Total Enrolled to Date</xf:label></xf:input></td><td class="options"/></tr><tr class="dropdownlist"><xf:switch><xf:case exf:if="1" id="show-ageRange"><td class="component  widenLabel"><exf:variable value="instance('ins')/ageRange" name="nsageRange"/><table class="oneToManyBox multidropdowns"><tr><ix:attr value="if(count($nsageRange[position() &gt; 1]) &gt; 0, '', 'display:none')" name="style"/><th/><th/><th>No. Enrolled</th></tr><xf:repeat nodeset="$nsageRange[position() &gt; 1]"><tr><td class="label"><xf:output value="if(position() = 1, 'Age Range(s)', '')"/></td><td class="value"><xf:select1 style="width:200px;" ref="."><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/ageRangeTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td class="xform dropdown"><xf:input ref="@en" style="width:40px"/></td><td classs="control"><span class="remove clickable">X
+                    <xf:destroy ev:event="click" ref="."/></span></td></tr></xf:repeat><tr><td class="label"><xf:output value="if(count($nsageRange) = 1, 'Age Range(s)', '')"/></td><td class="value addline"><span class="clickable"><xf:action ev:event="click"><xf:duplicate after="$nsageRange[last()]" origin="$nsageRange[last()]" ref="."/><script>model.rebuild(); model.recalculate();</script><xf:setvalue ref="$nsageRange[last()]"/></xf:action>
+                  Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-ageRange"/></xf:switch></tr><tr class="break"><td><br/></td></tr><tr class="dropdownlist"><xf:switch><xf:case exf:if="1" id="show-population"><td class="component  widenLabel"><exf:variable value="instance('ins')/population" name="nspopulation"/><table class="oneToManyBox multidropdowns"><tr><ix:attr value="if(count($nspopulation[position() &gt; 1]) &gt; 0, '', 'display:none')" name="style"/><th/><th/><th>No. Enrolled</th></tr><xf:repeat nodeset="$nspopulation[position() &gt; 1]"><tr><td class="label"><xf:output value="if(position() = 1, 'Population(s)', '')"/></td><td class="value"><xf:select1 style="width:200px;" ref="."><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/populationTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td class="xform dropdown"><xf:input ref="@en" style="width:40px"/></td><td classs="control"><span class="remove clickable">X
+                    <xf:destroy ev:event="click" ref="."/></span></td></tr></xf:repeat><tr><td class="label"><xf:output value="if(count($nspopulation) = 1, 'Population(s)', '')"/></td><td class="value addline"><span class="clickable"><xf:action ev:event="click"><xf:duplicate after="$nspopulation[last()]" origin="$nspopulation[last()]" ref="."/><script>model.rebuild(); model.recalculate();</script><xf:setvalue ref="$nspopulation[last()]"/></xf:action>
+                  Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-population"/></xf:switch></tr><tr class="break"><td><br/></td></tr><tr class="dropdownlist"><xf:switch><xf:case exf:if="1" id="show-ethnicCat"><td class="component  widenLabel"><exf:variable value="instance('ins')/ethnicCat" name="nsethnicCat"/><table class="oneToManyBox multidropdowns"><tr><ix:attr value="if(count($nsethnicCat[position() &gt; 1]) &gt; 0, '', 'display:none')" name="style"/><th/><th/><th>No. Enrolled</th></tr><xf:repeat nodeset="$nsethnicCat[position() &gt; 1]"><tr><td class="label"><xf:output value="if(position() = 1, 'Ethnic Categories', '')"/></td><td class="value"><xf:select1 style="width:200px;" ref="."><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/ethnicCategoryTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td class="xform dropdown"><xf:input ref="@en" style="width:40px"/></td><td classs="control"><span class="remove clickable">X
+                    <xf:destroy ev:event="click" ref="."/></span></td></tr></xf:repeat><tr><td class="label"><xf:output value="if(count($nsethnicCat) = 1, 'Ethnic Categories', '')"/></td><td class="value addline"><span class="clickable"><xf:action ev:event="click"><xf:duplicate after="$nsethnicCat[last()]" origin="$nsethnicCat[last()]" ref="."/><script>model.rebuild(); model.recalculate();</script><xf:setvalue ref="$nsethnicCat[last()]"/></xf:action>
+                  Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-ethnicCat"/></xf:switch></tr><tr class="break"><td><br/></td></tr><tr class="dropdownlist"><xf:switch><xf:case exf:if="1" id="show-race"><td class="component  widenLabel"><exf:variable value="instance('ins')/race" name="nsrace"/><table class="oneToManyBox multidropdowns"><tr><ix:attr value="if(count($nsrace[position() &gt; 1]) &gt; 0, '', 'display:none')" name="style"/><th/><th/><th>No. Enrolled</th></tr><xf:repeat nodeset="$nsrace[position() &gt; 1]"><tr><td class="label"><xf:output value="if(position() = 1, 'Race(s)', '')"/></td><td class="value"><xf:select1 style="width:200px;" ref="."><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/raceTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td class="xform dropdown"><xf:input ref="@en" style="width:40px"/></td><td classs="control"><span class="remove clickable">X
+                    <xf:destroy ev:event="click" ref="."/></span></td></tr></xf:repeat><tr><td class="label"><xf:output value="if(count($nsrace) = 1, 'Race(s)', '')"/></td><td class="value addline"><span class="clickable"><xf:action ev:event="click"><xf:duplicate after="$nsrace[last()]" origin="$nsrace[last()]" ref="."/><script>model.rebuild(); model.recalculate();</script><xf:setvalue ref="$nsrace[last()]"/></xf:action>
+                  Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-race"/></xf:switch></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

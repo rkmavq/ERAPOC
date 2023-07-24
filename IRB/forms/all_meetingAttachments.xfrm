@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms">
+  <xf:model id="fmodel">
+    <xf:instance id="ins">
+      <data xmlns="">
+        <primeEntityURI></primeEntityURI> <!-- wmalyk03212019: required because nodes are not automatically inserted into forms anymore -->
+      </data>
+    </xf:instance>
+    <xf:instance id="meta">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="proDat">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="boards" src="../../../../../entity/recordList?entity=IRB%20Board"/>
+    <xf:instance id="reviews">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <READONLY></READONLY>
+        <searchText/>
+        <records/>
+        <docIndex>0</docIndex>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <col3/>
+        <document/>
+        <viewBy>year</viewBy>
+        <focus/>
+        <focus2/>
+        <lastFocus/>
+        <temp/>
+        <comp uri=""/>
+      	
+      	<commTo></commTo>
+      	<commCC></commCC>
+      	<commSubject></commSubject>
+      	<commLetter>none</commLetter>
+      	<commMessage>none</commMessage>
+      	<reviewType></reviewType>
+      	<reviewMeth></reviewMeth>
+      	<myTabID></myTabID>
+      </data>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <script ev:event="xforms-model-construct-done"> 
+      
+      //Initialize Form
+      bootstrapSharedXfrm(model);         
+      model.setValue("instance('ins')/primeEntityURI", document.__refUri);        
+  
+      //This is another place where tabSet could be a problem, lets see
+      //Need to manually load appTabSet object (usually you only have one or other (it's either a set of tabs, or a form inside the set (a single tap/appForm)))
+      includeSharedJS("/resources/services/appTabSet/appTabSet.js");        
+      includeSharedJS("/resources/services/appForms/main.js");      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      
+      //AB 03/05/2019 always use meeting.xml
+      model.setInstanceIdSrc("proDat", "/fil" + document.__refUri + document.__refName);      
+      model.Frm = new appForm(model, "reviews");
+      model.Frm.loadAppFile('reviews', document.__refName, "1");
+      model.Frm.loadAppFile('ins', "/data.xml", "1");            
+      model.setInstanceIdSrc("cats", "/fil/home/configs/IRB/datamodel/templates/data/catagories.xml");
+      
+      //Load Form Logic
+      boardURI =  document.__refUri + "/data.xml";	
+      meetingURI =  document.__refUri + document.__refName;
+      model.USA = new irbProtocol(model); model.refresh(); model.rebuild(); model.recalculate(); 
+      
+      fid = model.USA.getTabID();
+  	  model.setValue("instance('form')/myTabID", fid);
+	    model.setValue("instance('form')/reviewType", model.Frm.reviewType);
+	    model.setValue("instance('form')/reviewMeth", model.Frm.reviewMeth);
+
+      //wmalyk03192019
+      model.Frm.mapDocNamesToSequenceNumbers = true;
+
+      if(model.Frm.formSet.getRoot().READONLY) model.setValue("instance('form')/READONLY", "1");
+
+    </script>
+    
+    <script xmlns="" ev:event="xforms-ready"/>
+    <xf:submission instance="proDat" id="submitproDat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved!</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (proDat)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>	
+    <xf:submission instance="reviews" id="submitreviews" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (reviews)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission instance="cats" id="submitcats" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (cats)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('ins')/Reviewer/type"/>    
+   </xf:model>
+  
+  <style>
+    div.formFrame table.fullColLayout table.budgetTool td .xftext{ background-color:white; }
+    div.formFrame table.budgetTool td .xftext{ background-color:white; } div.formFrame
+    table.fullColLayout div.headerselect{ background:none; } div.formFrame table.fullColLayout
+    div.headerselect table.headerselect{ background:none; border:none; } div.formFrame
+    table.fullColLayout div.headerselect table.headerselect tr{ background:none; border:none;
+    color:white; } div.formFrame table.fullColLayout div.headerselect table.headerselect tr td{
+    border:none; padding:none; vertical-align:middle; } div.formFrame table.fullColLayout
+    tr.periodbreak td{ border-bottom: medium solid black; } div.formFrame table.optionsheader
+    div.xfctrl{ } div.questions div.xfctrl{ background:none; width:auto; } div.questions
+    table.selection div.xfctrl{ background:none; width:450px; } div.questions div.xfctrl input{
+    width:500px;; font-size:12px; } div.questions div.xfctrl textarea{ width:500px;; font-size:11px;
+    } .wikiView div.questions div.xfctrl label{ width:200px; padding-right:5px; font-size:11px; }
+    .wikiView div.questions div.viewOnly table{ font-size:11px; } .wikiView div.questions
+    div.viewOnly table td.label{ width:200px; padding-right:5px; font-weight:bold;
+    vertical-align:top; padding-bottom:15px; } .wikiView div.questions div.viewOnly table td.value{
+    width:500px; vertical-align:top; padding-bottom:15px; } 
+    
+    .wikiView div.repeater table td{
+    
+    }
+    
+    .wikiView div.repeater table td div.xfctrl{
+    padding:0px;
+    }
+    
+    .wikiView div.repeater table.small td div.xfctrl{
+    padding:0px;
+    }
+    
+    .wikiView div.repeater table.small td div.xfctrl input{
+    width:80px;
+    }
+    
+    .wikiView div.xfctrl input {
+    margin-top:0px;
+    }
+    
+    .wikiView div.xfctrl textarea {
+    margin-top:0px;
+    }
+    
+    .wikiView div.repeater table.small td.thin div.xfctrl input{
+    width:40px;
+    }
+    
+    .wikiView div.repeater table.small tr.member{
+    padding-top:10px;
+    }
+
+	table.easyLayout th {
+		text-align:left;	
+	}
+
+	table.easyLayout th.tight {
+		width:60px;
+		text-align:center;
+	}
+	
+	table.easyLayout th.medium {
+		width:200px;
+	}
+	
+	table.easyLayout th.wide {
+		width:300px;
+	}
+
+	table.easyLayout td.tight {
+		width:60px;
+		text-align:center;
+	}
+	
+	table.easyLayout td.medium {
+		width:200px;
+	}
+	
+	table.easyLayout td.wide {
+		width:300px;
+	}
+	
+	table.easyLayout tr.odd td {
+	background-color: #FAF0E6; 
+	}
+
+	table.easyLayout tr.odd td.complete {
+		background-color: white;
+	}
+
+	.wikiView table.easyLayout div.xfctrl{
+		background:none;
+	}
+
+   //AB new style sheet -  START
+   .wikiView div.xfctrl{
+   background:none;
+   }
+   
+   body
+   {
+   line-height: 1.6em;
+   }
+   
+   table.one-column-emphasis
+   {
+   font-family: Arial, Sans-Serif;
+   font-size: 12px;
+   margin: 15px;
+   width: 780px;
+   text-align: left;
+   border-collapse: collapse;
+   }
+   table.one-column-emphasis th
+   {
+   font-size: 12px;
+   font-weight: bold;
+   padding: 12px 15px;
+   color: #039;
+   background: #eff2ff;
+   }
+   
+   .trBottom
+   {
+   border-bottom: 1px solid #d0dafd;
+   }   
+   
+   table.one-column-emphasis td
+   {
+   padding: 10px 15px;
+   color: #669;
+   //border-top: 1px solid #e8edff;
+   border-top: 0px solid #eff2ff;
+   }
+   .oce-first
+   {
+   background: #eff2ff;
+   border-right: 0px solid transparent;
+   border-left: 0px solid transparent;
+   }
+   table.one-column-emphasis tr:hover td
+   {
+   //color: #339;
+   //background: #eff2ff;
+   color: #039;
+   background: #d0dafd;
+   }
+   
+   .wikiView div.xfctrl{
+   background:none;
+   }
+   //AB new style sheet -  END
+    
+  </style>
+
+  
+  <div class="formFrame">
+    <div style="display:none;">
+      <xf:input id="documentDrop" ref="instance('form')/document">
+        <!--<script ev:event="xforms-value-changed">alert(1);</script>
+        <script ev:event="DOM-Activate">alert(2);</script>-->
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+          <script>var n = model.getValue(".", contextNode); if(n != "") model.Frm.linkFile(n);
+          </script>
+        </xf:action>
+      </xf:input>
+    </div>
+  
+    
+    <exf:variable value="instance('proDat')/attach" name="nstags"/>
+    <table class="one-column-emphasis" summary="Attachments">
+      <colgroup>
+        <col class="oce-first" />
+      </colgroup>
+      <thead>
+        <tr class="trBottom">
+          <th class="value addline"><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>
+            <span class="clickable">  
+              <xf:trigger>
+              <xf:label>Save</xf:label>
+              <script ev:event="DOMActivate">
+                model.submit("submitproDat");
+              </script>
+            </xf:trigger>
+            </span></span>
+          </th>
+          <th scope="col" style="text-align:center;" colspan="3"><h3>Attachments</h3></th>
+          <th class="value addline">
+            <span class="clickable"><xf:action ev:event="click">
+              <xf:duplicate after="$nstags[1]" origin="$nstags[1]" ref="instance('proDat')"/>
+              <script>model.rebuild(); model.recalculate();</script>
+              <xf:setvalue ref="$nstags[1]"/>
+            </xf:action><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/><u style="color:blue;cursor:pointer;text-decoration:none;">Add</u> <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></span>
+          </th>
+        </tr>
+        <tr>
+          <th scope="col" style="text-align:center;">File</th>
+          <th scope="col" style="text-align:center;">Name/Description</th>
+          <th scope="col" style="text-align:center;"><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>Send with Agenda</span></th>
+          <th scope="col" style="text-align:center;"><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>Send with Minutes</span></th>
+          <th scope="col" style="text-align:center;"><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>Remove</span></th>
+        </tr>
+      </thead>
+      
+      <tbody> 
+      <xf:repeat nodeset="$nstags[position() &gt; 1]">
+        <tr>
+                  <td>
+                    <span>
+                      <ix:attr value="if(.!= '', '', 'display:none')" name="style"/>
+                      <a target="_blank_">
+                        <ix:attr value="./@uri" name="href"/>
+                        <xf:output class="" value="."/>
+                      </a>
+                    </span>
+                    <span class="clickable"><ix:attr value="if(.!= '', 'display:none', '')" name="style"/>
+                      <xf:setvalue ref="instance('form')/docIndex" value="position() + 1" ev:event="click"/>
+                      <script ev:event="click">
+                        model.Frm.docUpload.dSkip = true; 
+                        p = model.getValue("instance('form')/docIndex") * 1;
+                      //alert(p);
+                      model.Frm.configureDocUpload("replaceValue", "instance('proDat')/attach[" + p + "]", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                      model.Frm.executeDocUpload();
+                      </script> Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/>
+                    </span>
+                  </td>
+                <td><xf:input ref="@name" style="background-color:none;"></xf:input></td>
+          <td align="center"><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>
+                  <xf:select ref="@agenda" appearance="full" style="background-color:none;">
+                     <xf:item>
+                       <xf:label></xf:label>
+                       <xf:value>1</xf:value>
+                     </xf:item>
+                    </xf:select></span>
+                  </td>
+          <td align="center"><span><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>
+                    <xf:select ref="@minutes" appearance="full" style="background-color:none;">
+                       <xf:item>
+                         <xf:label></xf:label>
+                         <xf:value>1</xf:value>
+                       </xf:item>
+                     </xf:select></span>
+                   </td>          
+                  <td classs="control">
+                    <span class="remove clickable"><ix:attr name="style" value="if(instance('form')/READONLY='1', 'display:none', '')"/>X<ix:attr value="if(. != '', '', 'display:none')" name="style"/>
+                      <xf:action ev:event="click" ref=".">
+                        <!--<xf:setvalue ref="."/>
+                        <xf:setvalue ref="./@uri"/>-->
+                        <xf:destroy ev:event="click" ref="."/>
+                      </xf:action>
+                   </span> 
+                 <!-- </td>
+                </tr>
+              </table>
+            </div>-->
+          </td>
+<!--          <td classs="control">
+            <span class="remove clickable">X <xf:destroy ev:event="click" ref="."/></span>
+          </td>-->
+        </tr>
+      </xf:repeat>
+        
+<!--      <tr>
+        <td class="label">
+          <xf:output value="if(count($nstags) = 1, 'Documents', '')"/>
+        </td>
+        <td class="value addline">
+          <span class="clickable"><xf:action ev:event="click">
+            <xf:duplicate after="$nstags[last()]" origin="$nstags[last()]" ref="instance('proDat')"/>
+            <script>model.rebuild(); model.recalculate();</script>
+            <xf:setvalue ref="$nstags[last()]"/>
+          </xf:action> Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span>
+        </td>
+        <td/>
+      </tr>-->
+      </tbody>
+    </table>
+  
+  <!--o	For the repeating section:
+    
+    
+    Repeating section for   THINGTOREPEAT  -\->
+    Notice:                      
+    <xf:setvalue ref="$nstags[last()]"/>
+    Is the thing that clears the values, you’ll probably want something like    
+    <xf:setvalue ref="$nstags[last()]/@uri"/>
+    
+    
+    <td class="component  ">
+    <exf:variable value="instance('ins')/THINGTOREPEAT" name="nstags"/>
+    <table class="oneToManyBox">
+    <xf:repeat nodeset="$nstags[position() &gt; 1]">
+    <tr>
+    <td class="label">
+    <xf:output value="if(position() = 1, 'Tags', '')"/>
+    </td>
+    <td class="value">
+    <xf:input class="" ref=".">
+    <xf:label/>
+    </xf:input>
+    </td>
+    <td classs="control">
+    <span class="remove clickable">X <xf:destroy ev:event="click" ref="."/></span>
+    </td>
+    </tr>
+    </xf:repeat>
+    <tr>
+    <td class="label">
+    <xf:output value="if(count($nstags) = 1, 'Tags', '')"/>
+    </td>
+    <td class="value addline">
+    <span class="clickable"><xf:action ev:event="click">
+    <xf:duplicate after="$nstags[last()]" origin="$nstags[last()]" ref="."/>
+    <script>model.rebuild(); model.recalculate();</script>
+    <xf:setvalue ref="$nstags[last()]"/>
+    </xf:action> Add <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span>
+    </td>
+    <td/>
+    </tr>
+    </table>
+    </td>-->
+    <div style="position:static;text-align:center; top: 400px;">© <xf:output value="script('copywrite(2011)')"/></div>
+  </div>
+</form>

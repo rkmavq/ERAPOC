@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/><revURI></revURI></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "modification");
+      model.Frm.loadOpFile('ins', '/amd.xml', "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+        model.Frm.loadOpFile('revHist', "/revHIST.xml", "0");
+        model.setValue("instance('form')/revURI", model.Frm.linkedOpURI + "/amd.xml");        
+        model.Frm.reloadInst('revHist'); 
+        
+        model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready">document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);', 300);</script><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')//@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')//*"/><xf:bind readonly="true()" nodeset="instance('ins')/*/*"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="bigbox"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/modificationSummary/@revIndex" name="revIndexmodificationSummary"/><exf:variable value="(instance('ins')/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="thisNodeNeedlemodificationSummary"/><exf:variable value="instance('ins')/modificationSummary" name="thisNodemodificationSummary"/><exf:variable value="(instance('ins')/original/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="orgNodemodificationSummary"/><exf:variable value="(instance('ins')/suggestions/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="sugNodeSetmodificationSummary"/><exf:variable value="(instance('ins')/suggestions/modificationSummary[@revIndex=$revIndexmodificationSummary])" name="sugNodemodificationSummary"/><exf:variable value="instance('ins')/previous/review/modificationSummary/@revIndex" name="revIndexOmodificationSummary"/><exf:variable value="(instance('ins')/previous/review/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="thisNodeNeedleOldmodificationSummary"/><exf:variable value="instance('ins')/previous/review/modificationSummary" name="thisNodeOldmodificationSummary"/><exf:variable value="(instance('ins')/previous/review/original/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="orgNodeOldmodificationSummary"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="sugNodeSetOldmodificationSummary"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationSummary[@revIndex=$revIndexOmodificationSummary])" name="sugNodeOldmodificationSummary"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/modificationSummary"><xf:label>Summary of the Modification Request</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationSummary/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationSummary/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationSummary != $thisNodemodificationSummary, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+            Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationSummary/@amdcomment"/></span></span></div></span></div></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/modificationJustification/@revIndex" name="revIndexmodificationJustification"/><exf:variable value="(instance('ins')/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="thisNodeNeedlemodificationJustification"/><exf:variable value="instance('ins')/modificationJustification" name="thisNodemodificationJustification"/><exf:variable value="(instance('ins')/original/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="orgNodemodificationJustification"/><exf:variable value="(instance('ins')/suggestions/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="sugNodeSetmodificationJustification"/><exf:variable value="(instance('ins')/suggestions/modificationJustification[@revIndex=$revIndexmodificationJustification])" name="sugNodemodificationJustification"/><exf:variable value="instance('ins')/previous/review/modificationJustification/@revIndex" name="revIndexOmodificationJustification"/><exf:variable value="(instance('ins')/previous/review/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="thisNodeNeedleOldmodificationJustification"/><exf:variable value="instance('ins')/previous/review/modificationJustification" name="thisNodeOldmodificationJustification"/><exf:variable value="(instance('ins')/previous/review/original/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="orgNodeOldmodificationJustification"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="sugNodeSetOldmodificationJustification"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationJustification[@revIndex=$revIndexOmodificationJustification])" name="sugNodeOldmodificationJustification"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/modificationJustification"><xf:label>Justification for the Modification</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationJustification/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationJustification/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationJustification != $thisNodemodificationJustification, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+            Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationJustification/@amdcomment"/></span></span></div></span></div></td></tr><tr class="yesnobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/modificationChangesConsent/@revIndex" name="revIndexmodificationChangesConsent"/><exf:variable value="(instance('ins')/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="thisNodeNeedlemodificationChangesConsent"/><exf:variable value="instance('ins')/modificationChangesConsent" name="thisNodemodificationChangesConsent"/><exf:variable value="(instance('ins')/original/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="orgNodemodificationChangesConsent"/><exf:variable value="(instance('ins')/original/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="orgNodeVmodificationChangesConsent"/><exf:variable value="(instance('ins')/suggestions/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="sugNodeSetmodificationChangesConsent"/><exf:variable value="(instance('ins')/suggestions/modificationChangesConsent[@revIndex=$revIndexmodificationChangesConsent])" name="sugNodemodificationChangesConsent"/><exf:variable value="instance('ins')/previous/review/modificationChangesConsent/@revIndex" name="revIndexOmodificationChangesConsent"/><exf:variable value="(instance('ins')/previous/review/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="thisNodeNeedleOldmodificationChangesConsent"/><exf:variable value="instance('ins')/previous/review/modificationChangesConsent" name="thisNodeOldmodificationChangesConsent"/><exf:variable value="(instance('ins')/previous/review/original/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="orgNodeOldmodificationChangesConsent"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="sugNodeSetOldmodificationChangesConsent"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationChangesConsent[@revIndex=$revIndexOmodificationChangesConsent])" name="sugNodeOldmodificationChangesConsent"/><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">This Modification Changes the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(instance('ins')/modificationChangesConsent = '1', 'Yes', if(instance('ins')/modificationChangesConsent = '0', 'No', ''))"/></span></td></tr></table></td><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationChangesConsent != $thisNodemodificationChangesConsent, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+          Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationChangesConsent/@amdcomment"/></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/modificationChangesConsent = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/modificationChangesConsentDescription/@revIndex" name="revIndexmodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="thisNodeNeedlemodificationChangesConsentDescription"/><exf:variable value="instance('ins')/modificationChangesConsentDescription" name="thisNodemodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/original/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="orgNodemodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="sugNodeSetmodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexmodificationChangesConsentDescription])" name="sugNodemodificationChangesConsentDescription"/><exf:variable value="instance('ins')/previous/review/modificationChangesConsentDescription/@revIndex" name="revIndexOmodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/previous/review/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="thisNodeNeedleOldmodificationChangesConsentDescription"/><exf:variable value="instance('ins')/previous/review/modificationChangesConsentDescription" name="thisNodeOldmodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/previous/review/original/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="orgNodeOldmodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="sugNodeSetOldmodificationChangesConsentDescription"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationChangesConsentDescription[@revIndex=$revIndexOmodificationChangesConsentDescription])" name="sugNodeOldmodificationChangesConsentDescription"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/modificationChangesConsentDescription"><xf:label>Description of Changes in the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationChangesConsentDescription/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationChangesConsentDescription/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationChangesConsentDescription != $thisNodemodificationChangesConsentDescription, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+            Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationChangesConsentDescription/@amdcomment"/></span></span></div></span></div></td></tr><tr class="yesnobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/modificationReConsent/@revIndex" name="revIndexmodificationReConsent"/><exf:variable value="(instance('ins')/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="thisNodeNeedlemodificationReConsent"/><exf:variable value="instance('ins')/modificationReConsent" name="thisNodemodificationReConsent"/><exf:variable value="(instance('ins')/original/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="orgNodemodificationReConsent"/><exf:variable value="(instance('ins')/original/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="orgNodeVmodificationReConsent"/><exf:variable value="(instance('ins')/suggestions/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="sugNodeSetmodificationReConsent"/><exf:variable value="(instance('ins')/suggestions/modificationReConsent[@revIndex=$revIndexmodificationReConsent])" name="sugNodemodificationReConsent"/><exf:variable value="instance('ins')/previous/review/modificationReConsent/@revIndex" name="revIndexOmodificationReConsent"/><exf:variable value="(instance('ins')/previous/review/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="thisNodeNeedleOldmodificationReConsent"/><exf:variable value="instance('ins')/previous/review/modificationReConsent" name="thisNodeOldmodificationReConsent"/><exf:variable value="(instance('ins')/previous/review/original/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="orgNodeOldmodificationReConsent"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="sugNodeSetOldmodificationReConsent"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationReConsent[@revIndex=$revIndexOmodificationReConsent])" name="sugNodeOldmodificationReConsent"/><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Subjects Will Be Re-Consented or Provided with the New Information</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(instance('ins')/modificationReConsent = '1', 'Yes', if(instance('ins')/modificationReConsent = '0', 'No', ''))"/></span></td></tr></table></td><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationReConsent != $thisNodemodificationReConsent, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+          Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationReConsent/@amdcomment"/></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/modificationReConsent = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/modificationReConsentPlan/@revIndex" name="revIndexmodificationReConsentPlan"/><exf:variable value="(instance('ins')/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="thisNodeNeedlemodificationReConsentPlan"/><exf:variable value="instance('ins')/modificationReConsentPlan" name="thisNodemodificationReConsentPlan"/><exf:variable value="(instance('ins')/original/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="orgNodemodificationReConsentPlan"/><exf:variable value="(instance('ins')/suggestions/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="sugNodeSetmodificationReConsentPlan"/><exf:variable value="(instance('ins')/suggestions/modificationReConsentPlan[@revIndex=$revIndexmodificationReConsentPlan])" name="sugNodemodificationReConsentPlan"/><exf:variable value="instance('ins')/previous/review/modificationReConsentPlan/@revIndex" name="revIndexOmodificationReConsentPlan"/><exf:variable value="(instance('ins')/previous/review/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="thisNodeNeedleOldmodificationReConsentPlan"/><exf:variable value="instance('ins')/previous/review/modificationReConsentPlan" name="thisNodeOldmodificationReConsentPlan"/><exf:variable value="(instance('ins')/previous/review/original/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="orgNodeOldmodificationReConsentPlan"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="sugNodeSetOldmodificationReConsentPlan"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationReConsentPlan[@revIndex=$revIndexOmodificationReConsentPlan])" name="sugNodeOldmodificationReConsentPlan"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/modificationReConsentPlan"><xf:label>Proposed Plan to Re-Consent Subjects or to Provide Them with the New Information</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationReConsentPlan/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationReConsentPlan/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationReConsentPlan != $thisNodemodificationReConsentPlan, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+            Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationReConsentPlan/@amdcomment"/></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/modificationReConsent = '0', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/modificationReConsentNotNecesary/@revIndex" name="revIndexmodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="thisNodeNeedlemodificationReConsentNotNecesary"/><exf:variable value="instance('ins')/modificationReConsentNotNecesary" name="thisNodemodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/original/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="orgNodemodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="sugNodeSetmodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexmodificationReConsentNotNecesary])" name="sugNodemodificationReConsentNotNecesary"/><exf:variable value="instance('ins')/previous/review/modificationReConsentNotNecesary/@revIndex" name="revIndexOmodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/previous/review/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="thisNodeNeedleOldmodificationReConsentNotNecesary"/><exf:variable value="instance('ins')/previous/review/modificationReConsentNotNecesary" name="thisNodeOldmodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/previous/review/original/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="orgNodeOldmodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="sugNodeSetOldmodificationReConsentNotNecesary"/><exf:variable value="(instance('ins')/previous/review/suggestions/modificationReConsentNotNecesary[@revIndex=$revIndexOmodificationReConsentNotNecesary])" name="sugNodeOldmodificationReConsentNotNecesary"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/modificationReConsentNotNecesary"><xf:label>Explanation Why Re-Consenting or Providing Subjects with the New Information is Not Necessary</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationReConsentNotNecesary/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlemodificationReConsentNotNecesary/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><br/><div><ix:attr value="if($orgNodemodificationReConsentNotNecesary != $thisNodemodificationReConsentNotNecesary, '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+            Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="$thisNodeNeedlemodificationReConsentNotNecesary/@amdcomment"/></span></span></div></span></div></td></tr></table></div></div>
+  <br/>
+  <h4>Summary of Changes:</h4>
+  <div>
+    
+    <br/>
+    <exf:variable value="instance('revHist')/amendmentDiffs[@uri=instance('form')/revURI]/analysis/el" name="sec1"/>
+    <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>
+      
+      <i>No Changes</i>
+    </div>
+    
+    <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+      <tr class="top">
+        <th class="out text large left" style="width:200px;text-align:left">Location</th>
+        <th class="in text large left" style="text-align:left">Field</th>
+        <th class="in text large left" style="text-align:left">Original Value</th>
+        <th class="in text large left" style="text-align:left">New Value</th>
+        <th class="in text large left" style="text-align:left">Action</th>
+        <th class="in text large left" style="text-align:left">Justification</th>
+        
+      </tr>
+      
+      <xf:switch>
+        
+        <xf:repeat nodeset="$sec1">
+          <exf:variable value="@cmp" name="needle"/>
+          <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+          
+          <tr valign="top">
+            <td class="out text alrge left" style="width:250px;">
+              <span><ix:attr name="style" value="if(not(compId) or compId='', 'display:none', 'color:black')"/><xf:output value="compName"/> >> <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                spec = model.getValue("compId", contextNode);
+                lnk = model.getValue("@cmp", contextNode);
+                model.USA.formSet.getRoot().model.setValue("instance('ins')/focus", spec);
+                model.USA.formSet.getRoot().model.refresh();
+                model.USA.formSet.getRoot().model.recalculate();
+                model.USA.formSet.getRoot().model.rebuild();
+                
+                var target = "xf_0projectTabs_control";
+                var receiver = model.Frm.formSet.getRoot().getChild(target);
+                if(receiver){
+                receiver.model.SF.switchTab(lnk);
+                }
+                
+              </script><xf:output value="$source/@label"/></u></span>
+              <span><ix:attr name="style" value="if(not(compId) or compId='', 'color:black', 'display:none')"/><xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                lnk = model.getValue("@cmp", contextNode);
+                var target = "xf_0projectTabs_control";
+                var receiver = model.Frm.formSet.getRoot().getChild(target);
+                if(receiver){
+                receiver.model.SF.switchTab(lnk);
+                }
+              </script><xf:output value="$source/@label"/></u></span>
+            </td>
+            <td class="out text large left">
+              <xf:output value="label"/>
+            </td>
+            <td class="out text large left">
+              <span><ix:attr name="style" value="if(orgValue='MISSING', 'color:black', 'display:none')"/>None</span>
+              <span><ix:attr name="style" value="if(orgValue!='MISSING', 'color:black', 'display:none')"/><xf:output value="orgValue"/></span>  
+            </td> 
+            <td class="out text large left">
+              <xf:output value="thisVal"/>
+            </td> 
+            <td class="out text large left">
+              <nobr><span><ix:attr name="style" value="if(@RSaction!='' and @interpretation='', 'color:purple', 'display:none')"/><xf:output value="@RSaction"/></span>
+                <span><ix:attr name="style" value="if(@interpretation='Using New Value', 'color:red', 'display:none')"/><xf:output value="@interpretation"/></span>
+                <span><ix:attr name="style" value="if(@interpretation!='Using New Value', 'color:purple', 'display:none')"/><xf:output value="@interpretation"/></span>
+              </nobr>
+            </td>        
+            <td class="out text large left">
+              <xf:output value="AMDjustification"/>
+            </td>
+          </tr>
+          
+        </xf:repeat>
+        
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+    </table>
+  </div>
+  <br/>   </form>

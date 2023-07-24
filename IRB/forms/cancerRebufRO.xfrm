@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "cancer");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+          model.Frm.revewMode = -1;
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '51b')
+          //model.USA.registerChangeLog('ins', '51b')
+          model.USA.registerChangeLog('comments', '51b')
+        </script></script><script ev:event="xforms-ready">
+    document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);', 300);</script><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')//@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')//*"/><xf:bind readonly="true()" nodeset="instance('ins')/*/*"/><xf:bind readonly="false()" nodeset="instance('ins')//@comment"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="yesnobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/PRMCApproval/@revIndex" name="revIndexPRMCApproval"/><exf:variable value="(instance('ins')/PRMCApproval[@revIndex=$revIndexPRMCApproval])" name="thisNodeNeedlePRMCApproval"/><exf:variable value="instance('ins')/PRMCApproval" name="thisNodePRMCApproval"/><exf:variable value="(instance('ins')/original/PRMCApproval[@revIndex=$revIndexPRMCApproval])" name="orgNodePRMCApproval"/><exf:variable value="(instance('ins')/original/PRMCApproval[@revIndex=$revIndexPRMCApproval])" name="orgNodeVPRMCApproval"/><exf:variable value="(instance('ins')/suggestions/PRMCApproval[@revIndex=$revIndexPRMCApproval])" name="sugNodeSetPRMCApproval"/><exf:variable value="(instance('ins')/suggestions/PRMCApproval[@revIndex=$revIndexPRMCApproval])" name="sugNodePRMCApproval"/><exf:variable value="instance('ins')/previous/review/PRMCApproval/@revIndex" name="revIndexOPRMCApproval"/><exf:variable value="(instance('ins')/previous/review/PRMCApproval[@revIndex=$revIndexOPRMCApproval])" name="thisNodeNeedleOldPRMCApproval"/><exf:variable value="instance('ins')/previous/review/PRMCApproval" name="thisNodeOldPRMCApproval"/><exf:variable value="(instance('ins')/previous/review/original/PRMCApproval[@revIndex=$revIndexOPRMCApproval])" name="orgNodeOldPRMCApproval"/><exf:variable value="(instance('ins')/previous/review/suggestions/PRMCApproval[@revIndex=$revIndexOPRMCApproval])" name="sugNodeSetOldPRMCApproval"/><exf:variable value="(instance('ins')/previous/review/suggestions/PRMCApproval[@revIndex=$revIndexOPRMCApproval])" name="sugNodeOldPRMCApproval"/><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Cancer Research that Requires Approval from the Protocol Review and Monitoring Committee (PRMC)</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(instance('ins')/PRMCApproval = '1', 'Yes', if(instance('ins')/PRMCApproval = '0', 'No', ''))"/></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodePRMCApproval = $orgNodePRMCApproval or $thisNodeNeedlePRMCApproval/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodePRMCApproval != $orgNodePRMCApproval and $sugNodePRMCApproval = $orgNodePRMCApproval, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodePRMCApproval != $orgNodePRMCApproval and $sugNodePRMCApproval = $orgNodePRMCApproval, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedlePRMCApproval/@comment !='' and ($thisNodePRMCApproval = $orgNodePRMCApproval or not($orgNodePRMCApproval)) and ($thisNodePRMCApproval = $sugNodePRMCApproval or not($sugNodePRMCApproval) or $sugNodePRMCApproval='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedlePRMCApproval/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedlePRMCApproval/@comment"/></span></p><span><ix:attr value="if($thisNodePRMCApproval != $orgNodePRMCApproval, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlePRMCApproval/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/PRMCApproval", "", tempRevIndex, "fill", 'org', "", "PRMCApproval", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodePRMCApproval"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodePRMCApproval!='' and $sugNodePRMCApproval!='//' and $sugNodePRMCApproval != $orgNodePRMCApproval, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodePRMCApproval != $thisNodePRMCApproval, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodePRMCApproval = $sugNodePRMCApproval, 'Using Suggested Change', if($thisNodePRMCApproval = $orgNodePRMCApproval, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedlePRMCApproval/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedlePRMCApproval/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlePRMCApproval/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/PRMCApproval", "", tempRevIndex, "fill", 'org', "", "PRMCApproval", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodePRMCApproval"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlePRMCApproval/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/PRMCApproval", "", tempRevIndex, "fill", 'sug', "", "PRMCApproval", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodePRMCApproval"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/PRMCApproval = '1', '', 'display:none')" name="style"/><td class="component  widenLabel "><exf:variable value="instance('ins')/PRMCApprovalObtained/@revIndex" name="revIndexPRMCApprovalObtained"/><exf:variable value="(instance('ins')/PRMCApprovalObtained[@revIndex=$revIndexPRMCApprovalObtained])" name="thisNodeNeedlePRMCApprovalObtained"/><exf:variable value="instance('ins')/PRMCApprovalObtained" name="thisNodePRMCApprovalObtained"/><exf:variable value="(instance('ins')/original/PRMCApprovalObtained[@revIndex=$revIndexPRMCApprovalObtained])" name="orgNodePRMCApprovalObtained"/><exf:variable value="(instance('ins')/original/PRMCApprovalObtained[@revIndex=$revIndexPRMCApprovalObtained])" name="orgNodeVPRMCApprovalObtained"/><exf:variable value="(instance('ins')/suggestions/PRMCApprovalObtained[@revIndex=$revIndexPRMCApprovalObtained])" name="sugNodeSetPRMCApprovalObtained"/><exf:variable value="(instance('ins')/suggestions/PRMCApprovalObtained[@revIndex=$revIndexPRMCApprovalObtained])" name="sugNodePRMCApprovalObtained"/><exf:variable value="instance('ins')/previous/review/PRMCApprovalObtained/@revIndex" name="revIndexOPRMCApprovalObtained"/><exf:variable value="(instance('ins')/previous/review/PRMCApprovalObtained[@revIndex=$revIndexOPRMCApprovalObtained])" name="thisNodeNeedleOldPRMCApprovalObtained"/><exf:variable value="instance('ins')/previous/review/PRMCApprovalObtained" name="thisNodeOldPRMCApprovalObtained"/><exf:variable value="(instance('ins')/previous/review/original/PRMCApprovalObtained[@revIndex=$revIndexOPRMCApprovalObtained])" name="orgNodeOldPRMCApprovalObtained"/><exf:variable value="(instance('ins')/previous/review/suggestions/PRMCApprovalObtained[@revIndex=$revIndexOPRMCApprovalObtained])" name="sugNodeSetOldPRMCApprovalObtained"/><exf:variable value="(instance('ins')/previous/review/suggestions/PRMCApprovalObtained[@revIndex=$revIndexOPRMCApprovalObtained])" name="sugNodeOldPRMCApprovalObtained"/><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">PRMC Approval Has Been Obtained</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(instance('ins')/PRMCApprovalObtained = '1', 'Yes', if(instance('ins')/PRMCApprovalObtained = '0', 'No', ''))"/></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodePRMCApprovalObtained = $orgNodePRMCApprovalObtained or $thisNodeNeedlePRMCApprovalObtained/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodePRMCApprovalObtained != $orgNodePRMCApprovalObtained and $sugNodePRMCApprovalObtained = $orgNodePRMCApprovalObtained, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodePRMCApprovalObtained != $orgNodePRMCApprovalObtained and $sugNodePRMCApprovalObtained = $orgNodePRMCApprovalObtained, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedlePRMCApprovalObtained/@comment !='' and ($thisNodePRMCApprovalObtained = $orgNodePRMCApprovalObtained or not($orgNodePRMCApprovalObtained)) and ($thisNodePRMCApprovalObtained = $sugNodePRMCApprovalObtained or not($sugNodePRMCApprovalObtained) or $sugNodePRMCApprovalObtained='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedlePRMCApprovalObtained/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedlePRMCApprovalObtained/@comment"/></span></p><span><ix:attr value="if($thisNodePRMCApprovalObtained != $orgNodePRMCApprovalObtained, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlePRMCApprovalObtained/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/PRMCApprovalObtained", "", tempRevIndex, "fill", 'org', "", "PRMCApprovalObtained", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodePRMCApprovalObtained"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodePRMCApprovalObtained!='' and $sugNodePRMCApprovalObtained!='//' and $sugNodePRMCApprovalObtained != $orgNodePRMCApprovalObtained, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodePRMCApprovalObtained != $thisNodePRMCApprovalObtained, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodePRMCApprovalObtained = $sugNodePRMCApprovalObtained, 'Using Suggested Change', if($thisNodePRMCApprovalObtained = $orgNodePRMCApprovalObtained, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedlePRMCApprovalObtained/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedlePRMCApprovalObtained/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlePRMCApprovalObtained/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/PRMCApprovalObtained", "", tempRevIndex, "fill", 'org', "", "PRMCApprovalObtained", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodePRMCApprovalObtained"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlePRMCApprovalObtained/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/PRMCApprovalObtained", "", tempRevIndex, "fill", 'sug', "", "PRMCApprovalObtained", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodePRMCApprovalObtained"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="document"><ix:attr value="if(instance('ins')/PRMCApprovalObtained = '1', '', 'display:none')" name="style"/><xf:switch><xf:case id="show-PRMCApprovalLetter"><td class="component  widenLabel"><table class="oneToManyBox"><tr><td class="label">PRMC Approval Letter</td><td class=""><span><ix:attr value="if(instance('ins')/PRMCApprovalLetter != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="instance('ins')/PRMCApprovalLetter/@uri" name="href"/><xf:output class="" value="instance('ins')/PRMCApprovalLetter"/></a></span></td><td classs="control"/></tr></table></td><td class="options"/></xf:case><xf:case id="hide-PRMCApprovalLetter"/></xf:switch></tr></table></div></div></form>

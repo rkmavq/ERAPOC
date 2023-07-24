@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+    
+    <tab id="LC" label="Lifecycle Event Manager" form="/../fil/home/configs/IRB/forms/actions.xfrm"/>    
+    
+    <tab id="Comms" label="Communications">
+        <tab id="Letters" label="Letters" form="/../fil/home/configs/IRB/forms/gatheredComms.xfrm"/>
+        <tab id="coms" label="Comments" form="/../fil/home/configs/IRB/forms/dshbrd_commsMan.xfrm" when="seeComments"/>        
+    </tab>
+    <tab id="1" label="Summary" form="/../fil/home/configs/IRB/forms/irbsummaryOTEURO.xfrm"/>
+    
+    <tab id="18" label="Attachments" form="/../fil/home/configs/IRB/forms/attachmentsView.xfrm"/>
+    <switches>
+        <invoicesPI></invoicesPI>
+        <isPI>0</isPI>
+        <isCoord>0</isCoord>
+        <isDirector>0</isDirector>
+        <isIntake>0</isIntake>
+        <staticPersonnel>0</staticPersonnel>
+        <seeComments>0</seeComments>
+        
+        <comms>0</comms>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <bios>0</bios>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

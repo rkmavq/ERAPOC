@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalFR.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusFR.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusFR.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+ 
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReview.xfrm"/>
+    
+    <!--
+        <tab id="22" label="Submit" form="/home/configs/IRB/forms/fr_irbsubmit.xfrm" when="submit"/>
+        <tab id="23" label="Send to PI" form="/home/configs/IRB/forms/fr_irbsubmitproxy.xfrm" when="submitproxy"/>-->
+    
+    <switches>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+    </switches>
+</tabs>

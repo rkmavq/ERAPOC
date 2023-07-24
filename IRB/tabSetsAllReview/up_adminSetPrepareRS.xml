@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/up_irbsummaryRSComm.xfrm"/>
+    <tab id="2" label="Participant" form="/home/configs/IRB/forms/up_subjectRSComm.xfrm" when="participant"/>
+    <tab id="3" label="Protocol Violations/Noncompliance" form="/home/configs/IRB/forms/up_noncomplianceRSComm.xfrm" when="violation"/>
+    <tab id="3a" label="Protocol Violations/Noncompliance" form="/home/configs/IRB/forms/up_noncomplianceRSComm.xfrm" when="violation2"/>
+    <tab id="4" label="Actions" form="/home/configs/IRB/forms/up_actionsRSComm.xfrm"/>
+    <tab id="5" label="Additional Reports" form="/home/configs/IRB/forms/up_addlreportsRSComm.xfrm"/>
+        
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <participant>0</participant> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <violation>0</violation>
+        <violation2>0</violation2>
+        <bios>0</bios>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <board>1</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+    </switches>
+</tabs>

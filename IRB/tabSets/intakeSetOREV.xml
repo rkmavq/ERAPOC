@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <!-- Make sure all tabsets for this phase (and the return from the board meeting) use this form for the reviews -->
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummaryOTEUViewRebuf.xfrm"/>
+    
+    <!-- Reponse Submission Forms for irbsummary -->
+    <!--<tab id="1b" label="RS-Create" form="/home/configs/IRB/forms/irbsummaryRSComm.xfrm"/>
+    <tab id="1c" label="RS-Review" form="/home/configs/IRB/forms/irbsummaryRSRebuf.xfrm"/>
+    <tab id="1d" label="RS-Return" form="/home/configs/IRB/forms/irbsummaryRSViewRebuf.xfrm"/>-->
+    
+    <!-- Amendment Forms for irbsummary -->
+    <!--<tab id="1e" label="Amd-Make" form="/home/configs/IRB/forms/irbsummaryAMDComm.xfrm"/>
+    <tab id="1f" label="Amd-Review" form="/home/configs/IRB/forms/irbsummaryAMDRebuf.xfrm"/>
+    <tab id="1g" label="Amd-Return" form="/home/configs/IRB/forms/irbsummaryAMDViewRebuf.xfrm"/>-->
+    
+    <!-- Debug page, probably not useful -->
+    <!--<tab id="D" label="Debug/Testing" form="/home/configs/IRB/forms/debug.xfrm"/>-->
+    
+    
+    <!--<tab id="COV" label="Send to Board Meeting" form="/home/configs/IRB/forms/boardsubmit.xfrm" when="boardrevPending"/>-->
+    
+    <!-- Please replace these two tabs with nicely built tabs that say what's happening - i.e. "By clickign tihs button you will submit the case, or by clicking you will now create the RS -->
+    <!--<tab id="Diff" color="silver" label="Changes" form="/home/configs/IRB/forms/awesomeDiffs.xfrm"/>-->
+    
+    <!--<tab id="LC" color="gray" label="Review(s)" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>-->
+    
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <bios>0</bios>
+        <radio>0</radio>
+        <phi>0</phi>
+        <neaf>0</neaf>
+        <retroCharts>0</retroCharts>
+        <consentObt>0</consentObt>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>1</drugs>
+        <devices>1</devices>
+        <biologics>1</biologics>
+        <biological>1</biological>
+        <board>1</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

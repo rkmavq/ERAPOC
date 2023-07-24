@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="baseChange_UP.xml">
+    <tab toptab="7" id="7" label="New Information" flabel=""/>
+    <tab toptab="18" id="18" label="Attachments" flabel=""/>
+    <tab toptab="6" id="6" label="Submit" flabel=""/>
+    <form tabID="7" formType="general" formName="newInformation" printlabel="New Information"
+        src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/newInformation.xml">
+        <el typ="decode" component="radiobuttons" xml="eventType" cmp="7" lookup="newInfoType/type" label="@name" value="@id">Type of New Information</el>
+        <el typ="" component="bigbox" xml="eventDescription" cmp="7">Describe:</el>
+        <el typ="decode" component="radiobuttons" xml="newInfoOccurence" cmp="7" lookup="newInfoOccurrence/type" label="@name" value="@id">Occurrence of Incident</el>
+        <el typ="" component="date" xml="newInfoDateAware" cmp="7">Date Research Personnel Became Aware of this Information</el>
+        <el typ="" component="date" xml="newInfoPreviousReportDate" cmp="7">Date of Previous Report</el>
+        <el typ="" component="bigbox" xml="newInfoIncidentDescription" cmp="7">Description of Incident</el>
+        <el typ="" component="bigbox" xml="newInfoPossibleDescription" cmp="7">Possible Effects of Incident / Protocol Violation, Even if No Direct Harm Occurred:</el>
+        <el typ="" component="bigbox" xml="newInfoActualDescription" cmp="7">Actual Effects of Incident / Protocol Violation on Subject(s) Involved:</el>
+        <el typ="yesno" component="yesnobuttons" xml="newInfoCAP" cmp="7" lookup="" label="" value="">Attach a comprehensive corrective action plan (CAP) to address the systemic
+            issues behind any protocol violation, including a timeline for implementation and the
+            follow-up/monitoring plan. In addition, describe action steps taken to handle the
+            specific incident and to prevent such an occurrence in the future.</el>
+        <el typ="" component="bigbox" xml="newInfoCAPDescription" cmp="7">Description of CAP</el>
+        <el typ="" component="bigbox" xml="newInfoCAPNotNeededExplanation" cmp="7">Explanation Why CAP Is Not Required</el>
+        <el typ="" component="decodeexplicit" xml="newInfoCategory" cmp="7">Specific Categories that Characterize this New Information</el>
+        <el typ="" component="bigbox" xml="newInfoOtherDescription" cmp="7">(14) Specify:</el>
+    </form>
+    <form tabID="18" formType="drillIn" formName="printAttachments" printlabel="Attachments" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/printAttachments.xml">
+        <el message="[View Page]" xmlset="document" xml="" ident="" cmp="18"/>
+        <col typ="decode" component="dropdown" xml="@label" cmp="18" lookup="docTypes/type" label="@name" value="@id"/>
+        <col typ="" component="text" xml="@name" cmp="18">Name</col>
+        <col typ="" component="text" xml="@version" cmp="18">Version</col>
+        <col typ="" component="text" xml="@status" cmp="18">Status</col>
+        <col typ="" component="text" xml="@fileName" cmp="18">Filename</col>
+        <col typ="" component="text" xml="@uploaded" cmp="18">Uploaded</col>
+        <col typ="" component="text" xml="@comments" cmp="18">Comments</col>
+    </form>
+    <form tabID="" formType="general" formName="up_irbsubmit" printlabel="Submit" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/up_submit.xml"/>
+    <form>
+        <el message="[View Page]" xml="document" cmp="18"/>
+    </form>
+</map>

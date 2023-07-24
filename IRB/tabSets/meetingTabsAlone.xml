@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+    <tab id="1x" label="Submissions">        
+        <tab id="1x1" label="All" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x2" label="Initial Reviews" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x3" label="Continuing Reviews" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <!--<tab id="1x4" label="Deferrals" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>--> <!--commented per Don's request. UMMC?-->
+        <tab id="1x5" label="Amendments" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x6" label="New Information" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x7" label="Final Reports" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+        <tab id="1x8" label="OTEUs" form="/home/configs/IRB/forms/all_meetingFull_View.xfrm"/>
+    </tab>     
+    <tab id="10" label="Information" form="/home/configs/IRB/forms/all_meetingInfo.xfrm"/>   
+    <tab id="11" label="Administrative Items" form="/home/configs/IRB/forms/all_meetingAdminItems.xfrm"/> 
+    <tab id="12" label="Attendance" form="/home/configs/IRB/forms/all_meetingAttendance.xfrm" when="showPostMeetingTabs"/>
+    <tab id="13" label="Attachments" form="/home/configs/IRB/forms/all_meetingAttachments.xfrm"/> 
+
+    <switches>
+        <showPostMeetingTabs>0</showPostMeetingTabs>
+    </switches>
+</tabs>

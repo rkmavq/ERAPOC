@@ -1,0 +1,40 @@
+## Alert Identity
+alert.from.email: irb.ideate@umc.edu
+alert.from.name: IRB Ideate
+
+## Outbound
+mail.transport.protocol: smtp
+mail.smtp.host: http://Mxhost.umsmed.edu
+mail.smtp.port: 25
+
+## SMTP user. Required only if SMTP server requires authentication
+mail.smtp.auth: false
+
+## Mail server authentication
+## mail.user: william.malyk@gmail.com
+## mail.password: elp28DrogA
+
+
+## Inbound
+## mail.store.protocol: pop3
+## mail.pop3.host: http://pop.gmail.com
+## mail.pop3.port: 995
+## mail.pop3.auth: true
+## mail.pop3.port: 110
+
+## bounce path address
+mail.smtp.from: irb.ideate@umc.edu
+
+## SMTP localhost. Required only if SMTP  requires a full hostname
+## mail.smtp.localhost: gmail.com
+
+## Timing
+mail.pop3.connectiontimeout: 100000
+mail.pop3.timeout: 3000000
+mail.smtp.connectiontimeout: 100000
+mail.smtp.timeout: 3000000
+## Zero added
+
+mail.send.batch: 10
+mail.send.pause: 20
+mail.check.pause: 20

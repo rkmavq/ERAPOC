@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="baseChange.xml">
+    <tab toptab="6" id="6" label="Since Last Annual Approval" flabel=""/>
+    <tab toptab="7" id="7" label="Enrollment Status" flabel=""/>
+    <tab toptab="4" id="4" label="Protocol Status" flabel=""/>
+    <tab toptab="18" id="18" label="Attachments" flabel=""/>
+    <tab toptab="22" id="22" label="Submit" flabel=""/>
+    <form tabID="6" formType="general" formName="sincelastapprovalFR" printlabel="Since Last Annual Approval" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/sincelastapprovalFR.xml">
+        <el typ="" component="bigbox" xml="laysummary" cmp="6">Project Summary</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsHarm" cmp="6" lookup="" label="" value="">Subjects Have Experienced Harm</el>
+        <el typ="" component="bigbox" xml="SubjectsHarmDescription" cmp="6">Description of Harm Experienced by Subjects</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsBenefit" cmp="6" lookup="" label="" value="">Subjects Have Experienced Benefit</el>
+        <el typ="" component="bigbox" xml="SubjectsBenefitDescription" cmp="6">Description of Benefit Experienced by Subjects</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsProblems" cmp="6" lookup="" label="" value="">There Have Been Unanticipated Problems Involving Risks to Subjects or Others</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsWithdrawn" cmp="6" lookup="" label="" value="">Subjects Have Withdrawn</el>
+        <el typ="" component="bigbox" xml="SubjectsWithdrawnExplanation" cmp="6">Explanation for Subjects that Have Withdrawn</el>
+        <el typ="yesno" component="yesnobuttons" xml="SubjectsComplained" cmp="6" lookup="" label="" value="">Subjects or Others Have Complained</el>
+        <el typ="" component="bigbox" xml="SubjectsComplainedDescription" cmp="6">Description of Complaints</el>
+        <el typ="yesno" component="yesnobuttons" xml="Publications" cmp="6" lookup="" label="" value="">There have been presentations or publications</el>
+        <el typ="yesno" component="yesnobuttons" xml="Findings" cmp="6" lookup="" label="" value="">There are new unreported findings since the last Continuing Review</el>
+        <el typ="yesno" component="yesnobuttons" xml="MultiCenterReports" cmp="6" lookup="" label="" value="">There are new unreported Multi-Center Trial Reports since the last Continuing Review</el>
+        <el typ="yesno" component="yesnobuttons" xml="DSMBReports" cmp="6" lookup="" label="" value="">There are new unreported Data Safety Monitoring Board (DSMB) since the last Continuing Review</el>
+    </form>    
+    <form tabID="7" formName="enrollmentstatusFR" printlabel="Enrollment Status"
+        src="/system/resources/applications/IRB/configs/forms/MANITOBA_MASTER_FORMS/enrollmentstatusFR.xml">
+        <!--<el comp="" typ="" xml="externalSiteApprovals" cmp="7"/>-->
+        <el comp="" typ="" message="    [View tab for additional details]" component="entryTable" xmlset="externalSiteApprovals" xml="externalSiteApprovals" ident="siteNameText" cmp="7">Enrollment Status</el>
+        <el comp="" typ="" xml="original/externalSiteApprovals" cmp="7"/>
+    </form>
+    <form tabID="4" formName="protocolstatusFR" printlabel="Protocol Status"
+        src="/system/resources/applications/IRB/configs/forms/MANITOBA_MASTER_FORMS/protocolstatusFR.xml">
+        <el comp="" typ="yesno" xml="protocolTransfer" cmp="4" lookup="" label="" value="">Protocol Will Be Transferred to Another Institution</el>
+        <el comp="" typ="" xml="protocolTransferDate" cmp="4" lookup="" label="" value="">Date of Transfer</el>
+    </form>
+    <form tabID="18" formName="" printlabel="Attachments">
+        <el comp="" message="[View Page]" xml="document" cmp="18"/>
+    </form>
+</map>

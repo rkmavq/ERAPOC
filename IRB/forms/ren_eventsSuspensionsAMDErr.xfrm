@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "ren_eventsSuspensions");
+      model.Frm.loadOpFile('ins', '/amd.xml', "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><script ev:event="xforms-value-changed">model.USA.updateErrs('ins', 'recordTable');</script><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="yesnobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/anySuspensions/@revIndex" name="revIndexanySuspensions"/><exf:variable value="(instance('ins')/anySuspensions[@revIndex=$revIndexanySuspensions])" name="thisNodeNeedleanySuspensions"/><exf:variable value="instance('ins')/anySuspensions" name="thisNodeVanySuspensions"/><exf:variable value="if($thisNodeVanySuspensions='1', 'Yes', if($thisNodeVanySuspensions='0', 'No', ''))" name="thisNodeanySuspensions"/><exf:variable value="(instance('ins')/original/anySuspensions[@revIndex=$revIndexanySuspensions])" name="orgNodeVanySuspensions"/><exf:variable value="if($orgNodeVanySuspensions='1', 'Yes', if($orgNodeVanySuspensions='0', 'No', ''))" name="orgNodeanySuspensions"/><exf:variable value="(instance('ins')/suggestions/anySuspensions[@revIndex=$revIndexanySuspensions])" name="sugNodeSetanySuspensions"/><exf:variable value="(instance('ins')/suggestions/anySuspensions[@revIndex=$revIndexanySuspensions])" name="sugNodeVanySuspensions"/><exf:variable value="if($sugNodeVanySuspensions='1', 'Yes', if($sugNodeVanySuspensions='0', 'No', ''))" name="sugNodeanySuspensions"/><exf:variable value="instance('ins')/previous/review/anySuspensions/@revIndex" name="revIndexOanySuspensions"/><exf:variable value="(instance('ins')/previous/review/anySuspensions[@revIndex=$revIndexOanySuspensions])" name="thisNodeNeedleOldanySuspensions"/><exf:variable value="instance('ins')/previous/review/anySuspensions" name="thisNodeVOldanySuspensions"/><exf:variable value="if($thisNodeVOldanySuspensions='1', 'Yes', if($thisNodeVOldanySuspensions='0', 'No', ''))" name="thisNodeOldanySuspensions"/><exf:variable value="(instance('ins')/previous/review/original/anySuspensions[@revIndex=$revIndexOanySuspensions])" name="orgNodeVOldanySuspensions"/><exf:variable value="if($orgNodeVOldanySuspensions='1', 'Yes', if($orgNodeVOldanySuspensions='0', 'No', ''))" name="orgNodeOldanySuspensions"/><exf:variable value="(instance('ins')/previous/review/suggestions/anySuspensions[@revIndex=$revIndexOanySuspensions])" name="sugNodeSetOldanySuspensions"/><exf:variable value="(instance('ins')/previous/review/suggestions/anySuspensions[@revIndex=$revIndexOanySuspensions])" name="sugNodeVOldanySuspensions"/><exf:variable value="if($sugNodeVOldanySuspensions='1', 'Yes', if($sugNodeVOldanySuspensions='0', 'No', ''))" name="sugNodeOldanySuspensions"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/anySuspensions" appearance="full" id="anySuspensions"><xf:label>Has any review board or IRB disapproved, suspended or terminated this research?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/anySuspensions" appearance="full" id="anySuspensions"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/anySuspensionsDesc", "");
+            model.recalculate();
+            }
+        </script></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/anySuspensions = '', '', 'display:none')" name="style"/>Required</div><div><ix:attr value="if($orgNodeanySuspensions != $thisNodeanySuspensions, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanySuspensions/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleanySuspensions/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanySuspensions/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/anySuspensions = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/anySuspensionsDesc/@revIndex" name="revIndexanySuspensionsDesc"/><exf:variable value="(instance('ins')/anySuspensionsDesc[@revIndex=$revIndexanySuspensionsDesc])" name="thisNodeNeedleanySuspensionsDesc"/><exf:variable value="instance('ins')/anySuspensionsDesc" name="thisNodeanySuspensionsDesc"/><exf:variable value="(instance('ins')/original/anySuspensionsDesc[@revIndex=$revIndexanySuspensionsDesc])" name="orgNodeanySuspensionsDesc"/><exf:variable value="(instance('ins')/suggestions/anySuspensionsDesc[@revIndex=$revIndexanySuspensionsDesc])" name="sugNodeSetanySuspensionsDesc"/><exf:variable value="(instance('ins')/suggestions/anySuspensionsDesc[@revIndex=$revIndexanySuspensionsDesc])" name="sugNodeanySuspensionsDesc"/><exf:variable value="instance('ins')/previous/review/anySuspensionsDesc/@revIndex" name="revIndexOanySuspensionsDesc"/><exf:variable value="(instance('ins')/previous/review/anySuspensionsDesc[@revIndex=$revIndexOanySuspensionsDesc])" name="thisNodeNeedleOldanySuspensionsDesc"/><exf:variable value="instance('ins')/previous/review/anySuspensionsDesc" name="thisNodeOldanySuspensionsDesc"/><exf:variable value="(instance('ins')/previous/review/original/anySuspensionsDesc[@revIndex=$revIndexOanySuspensionsDesc])" name="orgNodeOldanySuspensionsDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anySuspensionsDesc[@revIndex=$revIndexOanySuspensionsDesc])" name="sugNodeSetOldanySuspensionsDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anySuspensionsDesc[@revIndex=$revIndexOanySuspensionsDesc])" name="sugNodeOldanySuspensionsDesc"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/anySuspensionsDesc"><xf:label>Please describe:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedleanySuspensionsDesc/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanySuspensionsDesc/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/anySuspensionsDesc = '', '', 'display:none')" name="style"/>Required</div><div><ix:attr value="if($orgNodeanySuspensionsDesc != $thisNodeanySuspensionsDesc, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanySuspensionsDesc/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+                Amended <xf:output value="if($thisNodeNeedleanySuspensionsDesc/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanySuspensionsDesc/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                        model.rebuild();
+                        model.refresh();
+                        model.recalculate();
+                      </script></xf:textarea></span></span></div></span></div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/adminHoldNotReported/@revIndex" name="revIndexadminHoldNotReported"/><exf:variable value="(instance('ins')/adminHoldNotReported[@revIndex=$revIndexadminHoldNotReported])" name="thisNodeNeedleadminHoldNotReported"/><exf:variable value="instance('ins')/adminHoldNotReported" name="thisNodeVadminHoldNotReported"/><exf:variable value="if($thisNodeVadminHoldNotReported='1', 'Yes', if($thisNodeVadminHoldNotReported='0', 'No', ''))" name="thisNodeadminHoldNotReported"/><exf:variable value="(instance('ins')/original/adminHoldNotReported[@revIndex=$revIndexadminHoldNotReported])" name="orgNodeVadminHoldNotReported"/><exf:variable value="if($orgNodeVadminHoldNotReported='1', 'Yes', if($orgNodeVadminHoldNotReported='0', 'No', ''))" name="orgNodeadminHoldNotReported"/><exf:variable value="(instance('ins')/suggestions/adminHoldNotReported[@revIndex=$revIndexadminHoldNotReported])" name="sugNodeSetadminHoldNotReported"/><exf:variable value="(instance('ins')/suggestions/adminHoldNotReported[@revIndex=$revIndexadminHoldNotReported])" name="sugNodeVadminHoldNotReported"/><exf:variable value="if($sugNodeVadminHoldNotReported='1', 'Yes', if($sugNodeVadminHoldNotReported='0', 'No', ''))" name="sugNodeadminHoldNotReported"/><exf:variable value="instance('ins')/previous/review/adminHoldNotReported/@revIndex" name="revIndexOadminHoldNotReported"/><exf:variable value="(instance('ins')/previous/review/adminHoldNotReported[@revIndex=$revIndexOadminHoldNotReported])" name="thisNodeNeedleOldadminHoldNotReported"/><exf:variable value="instance('ins')/previous/review/adminHoldNotReported" name="thisNodeVOldadminHoldNotReported"/><exf:variable value="if($thisNodeVOldadminHoldNotReported='1', 'Yes', if($thisNodeVOldadminHoldNotReported='0', 'No', ''))" name="thisNodeOldadminHoldNotReported"/><exf:variable value="(instance('ins')/previous/review/original/adminHoldNotReported[@revIndex=$revIndexOadminHoldNotReported])" name="orgNodeVOldadminHoldNotReported"/><exf:variable value="if($orgNodeVOldadminHoldNotReported='1', 'Yes', if($orgNodeVOldadminHoldNotReported='0', 'No', ''))" name="orgNodeOldadminHoldNotReported"/><exf:variable value="(instance('ins')/previous/review/suggestions/adminHoldNotReported[@revIndex=$revIndexOadminHoldNotReported])" name="sugNodeSetOldadminHoldNotReported"/><exf:variable value="(instance('ins')/previous/review/suggestions/adminHoldNotReported[@revIndex=$revIndexOadminHoldNotReported])" name="sugNodeVOldadminHoldNotReported"/><exf:variable value="if($sugNodeVOldadminHoldNotReported='1', 'Yes', if($sugNodeVOldadminHoldNotReported='0', 'No', ''))" name="sugNodeOldadminHoldNotReported"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/adminHoldNotReported" appearance="full" id="adminHoldNotReported"><xf:label>Has there been an administrative hold by the investigator or sponsor that has not been reported to the IRB?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/adminHoldNotReported" appearance="full" id="adminHoldNotReported"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/adminHoldNotReportedDesc", "");
+            model.recalculate();
+            }
+        </script></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/adminHoldNotReported = '', '', 'display:none')" name="style"/>Required</div><div><ix:attr value="if($orgNodeadminHoldNotReported != $thisNodeadminHoldNotReported, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleadminHoldNotReported/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleadminHoldNotReported/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleadminHoldNotReported/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/adminHoldNotReported = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/adminHoldNotReportedDesc/@revIndex" name="revIndexadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/adminHoldNotReportedDesc[@revIndex=$revIndexadminHoldNotReportedDesc])" name="thisNodeNeedleadminHoldNotReportedDesc"/><exf:variable value="instance('ins')/adminHoldNotReportedDesc" name="thisNodeadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/original/adminHoldNotReportedDesc[@revIndex=$revIndexadminHoldNotReportedDesc])" name="orgNodeadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/suggestions/adminHoldNotReportedDesc[@revIndex=$revIndexadminHoldNotReportedDesc])" name="sugNodeSetadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/suggestions/adminHoldNotReportedDesc[@revIndex=$revIndexadminHoldNotReportedDesc])" name="sugNodeadminHoldNotReportedDesc"/><exf:variable value="instance('ins')/previous/review/adminHoldNotReportedDesc/@revIndex" name="revIndexOadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/previous/review/adminHoldNotReportedDesc[@revIndex=$revIndexOadminHoldNotReportedDesc])" name="thisNodeNeedleOldadminHoldNotReportedDesc"/><exf:variable value="instance('ins')/previous/review/adminHoldNotReportedDesc" name="thisNodeOldadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/previous/review/original/adminHoldNotReportedDesc[@revIndex=$revIndexOadminHoldNotReportedDesc])" name="orgNodeOldadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/adminHoldNotReportedDesc[@revIndex=$revIndexOadminHoldNotReportedDesc])" name="sugNodeSetOldadminHoldNotReportedDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/adminHoldNotReportedDesc[@revIndex=$revIndexOadminHoldNotReportedDesc])" name="sugNodeOldadminHoldNotReportedDesc"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/adminHoldNotReportedDesc"><xf:label>Please describe:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedleadminHoldNotReportedDesc/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleadminHoldNotReportedDesc/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/adminHoldNotReportedDesc = '', '', 'display:none')" name="style"/>Required</div><div><ix:attr value="if($orgNodeadminHoldNotReportedDesc != $thisNodeadminHoldNotReportedDesc, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleadminHoldNotReportedDesc/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+                Amended <xf:output value="if($thisNodeNeedleadminHoldNotReportedDesc/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleadminHoldNotReportedDesc/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                        model.rebuild();
+                        model.refresh();
+                        model.recalculate();
+                      </script></xf:textarea></span></span></div></span></div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

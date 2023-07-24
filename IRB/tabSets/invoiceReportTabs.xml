@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+    <tab id="1" label="All" form="/home/configs/IRB/forms/allInvRemindersSent_View.xfrm"/>   
+    <tab id="1x" label="Past Due Invoice Reminder Reminders">        
+        <tab id="1x1" label="90 Day" form="/home/configs/IRB/forms/allInvRemindersSent_View.xfrm"/>
+        <tab id="1x2" label="60 Day" form="/home/configs/IRB/forms/allInvRemindersSent_View.xfrm"/>
+        <tab id="1x3" label="30 Day" form="/home/configs/IRB/forms/allInvRemindersSent_View.xfrm"/>
+    </tab>     
+    <tab id="2" label="Invoice Due Notifications" form="/home/configs/IRB/forms/allInvRemindersSent_View.xfrm"/>
+</tabs>

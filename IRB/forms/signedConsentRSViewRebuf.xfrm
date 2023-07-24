@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="certs"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="review"><data/></xf:instance><xf:instance id="form"><data><tabID>33e</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "signedConsent");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        
+        
+        
+    		  if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+    		  model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+          
+          if (model.Frm.formSet.getRoot().__REVURI.indexOf("/reviews") &gt; -1) model.Frm.revewMode = -1;
+          
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '33e')
+          //model.USA.registerChangeLog('ins', '33e')
+          model.USA.registerChangeLog('comments', '33e')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@req"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@req"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@req"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@req"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:none;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:none;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:none;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="radiobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/identJustification/@revIndex" name="revIndexidentJustification"/><exf:variable value="(instance('ins')/amendmentNodes/identJustification[@revIndex=$revIndexidentJustification])" name="amdNodeNeedleidentJustification"/><exf:variable value="(instance('ins')/identJustification[@revIndex=$revIndexidentJustification])" name="thisNodeNeedleidentJustification"/><exf:variable value="instance('ins')/identJustification" name="thisNodeVidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$thisNodeVidentJustification]/@name" name="thisNodeidentJustification"/><exf:variable value="(instance('ins')/original/identJustification[@revIndex=$revIndexidentJustification])" name="orgNodeVidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$orgNodeVidentJustification]/@name" name="orgNodeidentJustification"/><exf:variable value="(instance('ins')/suggestions/identJustification[@revIndex=$revIndexidentJustification])" name="sugNodeSetidentJustification"/><exf:variable value="(instance('ins')/suggestions/identJustification[@revIndex=$revIndexidentJustification])" name="sugNodeVidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$sugNodeVidentJustification]/@name" name="sugNodeidentJustification"/><exf:variable value="instance('ins')/previous/review/identJustification/@revIndex" name="revIndexOidentJustification"/><exf:variable value="(instance('ins')/previous/review/identJustification[@revIndex=$revIndexOidentJustification])" name="thisNodeNeedleOldidentJustification"/><exf:variable value="instance('ins')/previous/review/identJustification" name="thisNodeVOldidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$thisNodeVOldidentJustification]/@name" name="thisNodeOldidentJustification"/><exf:variable value="(instance('ins')/previous/review/original/identJustification[@revIndex=$revIndexOidentJustification])" name="orgNodeVOldidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$orgNodeVOldidentJustification]/@name" name="orgNodeOldidentJustification"/><exf:variable value="(instance('ins')/previous/review/suggestions/identJustification[@revIndex=$revIndexOidentJustification])" name="sugNodeSetOldidentJustification"/><exf:variable value="(instance('ins')/previous/review/suggestions/identJustification[@revIndex=$revIndexOidentJustification])" name="sugNodeVOldidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$sugNodeVOldidentJustification]/@name" name="sugNodeOldidentJustification"/><exf:variable value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=$sugNodeVOldidentJustification]/@name" name="sugNodeOldidentJustification"/><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Which of the Following Justifications is Being Used to Request a Waiver of Documentation</span></td><td class="noBox readonly"><span style="value"><xf:output value="instance('cats')/identJustification/type[not(@inactive) or @inactive=''][@id=instance('ins')/identJustification]/@name"/></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedleidentJustification/@amdchanged and ($thisNodeNeedleidentJustification/@amdcomment !='' or $thisNodeNeedleidentJustification/@amdchanged !=''), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:green">Amended</u><div style="width:300px;"><p><span style="color:black"><h5>Justification:</h5><xf:output value="if($thisNodeNeedleidentJustification/@amdcomment!='', $thisNodeNeedleidentJustification/@amdcomment, 'none provided')"/></span></p></div></span><br/><br/></div><div><ix:attr value="if($thisNodeNeedleidentJustification/@amdchanged and ($thisNodeNeedleidentJustification/@amdcomment !='' or $thisNodeNeedleidentJustification/@amdchanged !=''), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">Case Value</u><div style="width:300px;"><p><span style="color:black"><h5>Currently Approved Value:</h5><xf:output value="$amdNodeNeedleidentJustification"/></span></p></div></span><br/><br/></div><div><xf:select ref="$thisNodeNeedleidentJustification/@addcomment"><xf:item><xf:label><nobr>Add Comment</nobr></xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                //cnged = model.getValue("../@changed", contextNode);
+                //com = model.getValue(".", contextNode);
+                //if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                //if(!cnged &amp;&amp; com)
+                model.USA.addChange();
+                model.recalculate();
+              </script></xf:select><div><ix:attr value="if($thisNodeNeedleidentJustification/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedleidentJustification/@comment"/></div></div><div><ix:attr value="if($thisNodeNeedleOldidentJustification/@req = 'change' or $thisNodeNeedleOldidentJustification/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeOldidentJustification != $thisNodeOldidentJustification and $thisNodeNeedleOldidentJustification/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+              Change was <xf:output value="if($thisNodeNeedleOldidentJustification/@req = 'change', 'Required', 'Suggested')"/><xf:output value="if($sugNodeOldidentJustification = $thisNodeOldidentJustification, '', ' (Ignored)')"/></u><div style="width:300px;"><p><ix:attr value="if($sugNodeOldidentJustification = $thisNodeOldidentJustification, 'display:none', '')" name="style"/><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldidentJustification/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldidentJustification/@justification!='', $thisNodeNeedleOldidentJustification/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+            Prior Value
+            </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeOldidentJustification"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b>Suggested Revision</b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeOldidentJustification"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldidentJustification/@comment != '', $thisNodeNeedleOldidentJustification/@comment, 'none')"/></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleOldidentJustification/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleOldidentJustification/@justification='', 'color:red', 'color:green')" name="style"/>
+            Justification was required</u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldidentJustification/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldidentJustification/@justification!='', $thisNodeNeedleOldidentJustification/@justification, 'None provided')"/></p></p><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldidentJustification/@comment != '', $thisNodeNeedleOldidentJustification/@comment, 'none')"/></span></span></div></span></div><br/><div><ix:attr value="if($thisNodeNeedleOldidentJustification/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue"><nobr>Previous Comment</nobr></u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleOldidentJustification/@comment"/></span></p></div></span></div><div><ix:attr value="if(($thisNodeOldidentJustification != $orgNodeOldidentJustification) and (not($thisNodeNeedleOldidentJustification/@req) or $thisNodeNeedleOldidentJustification/@req = '' or $thisNodeNeedleOldidentJustification/@req = 'commentOnly' or $thisNodeNeedleOldidentJustification/@req = 'comment'), 'color:red', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">Using New Value</u><div style="width:300px;"><p><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+                        Prior Value
+                      </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeOldidentJustification"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="instructions"><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		* The only record linking the participant and the research would be the signed consent document and the principal risk of the research is the potential harm from a breach of confidentiality. <br/>
+		* The research involves minimal risk and includes no procedures for which written consent is normally required outside of the research context. <br/>
+	    <option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="bigbox"><td class="component textarea   widestLabel"><exf:variable value="instance('ins')/waiverOfSignedConsentJustification/@revIndex" name="revIndexwaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/amendmentNodes/waiverOfSignedConsentJustification[@revIndex=$revIndexwaiverOfSignedConsentJustification])" name="amdNodeNeedlewaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/waiverOfSignedConsentJustification[@revIndex=$revIndexwaiverOfSignedConsentJustification])" name="thisNodeNeedlewaiverOfSignedConsentJustification"/><exf:variable value="instance('ins')/waiverOfSignedConsentJustification" name="thisNodewaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/original/waiverOfSignedConsentJustification[@revIndex=$revIndexwaiverOfSignedConsentJustification])" name="orgNodewaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/suggestions/waiverOfSignedConsentJustification[@revIndex=$revIndexwaiverOfSignedConsentJustification])" name="sugNodeSetwaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/suggestions/waiverOfSignedConsentJustification[@revIndex=$revIndexwaiverOfSignedConsentJustification])" name="sugNodewaiverOfSignedConsentJustification"/><exf:variable value="instance('ins')/previous/review/waiverOfSignedConsentJustification/@revIndex" name="revIndexOwaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/previous/review/waiverOfSignedConsentJustification[@revIndex=$revIndexOwaiverOfSignedConsentJustification])" name="thisNodeNeedleOldwaiverOfSignedConsentJustification"/><exf:variable value="instance('ins')/previous/review/waiverOfSignedConsentJustification" name="thisNodeOldwaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/previous/review/original/waiverOfSignedConsentJustification[@revIndex=$revIndexOwaiverOfSignedConsentJustification])" name="orgNodeOldwaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/previous/review/suggestions/waiverOfSignedConsentJustification[@revIndex=$revIndexOwaiverOfSignedConsentJustification])" name="sugNodeSetOldwaiverOfSignedConsentJustification"/><exf:variable value="(instance('ins')/previous/review/suggestions/waiverOfSignedConsentJustification[@revIndex=$revIndexOwaiverOfSignedConsentJustification])" name="sugNodeOldwaiverOfSignedConsentJustification"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/waiverOfSignedConsentJustification"><xf:label>Explanation of Justification Being Used to Request a Waiver of Documentation</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlewaiverOfSignedConsentJustification/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedlewaiverOfSignedConsentJustification/@amdchanged and ($thisNodeNeedlewaiverOfSignedConsentJustification/@amdcomment !='' or $thisNodeNeedlewaiverOfSignedConsentJustification/@amdchanged !=''), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:green">Amended</u><div style="width:300px;"><p><span style="color:black"><h5>Justification:</h5><xf:output value="if($thisNodeNeedlewaiverOfSignedConsentJustification/@amdcomment!='', $thisNodeNeedlewaiverOfSignedConsentJustification/@amdcomment, 'none provided')"/></span></p></div></span><br/><br/></div><div><ix:attr value="if($thisNodeNeedlewaiverOfSignedConsentJustification/@amdchanged and ($thisNodeNeedlewaiverOfSignedConsentJustification/@amdcomment !='' or $thisNodeNeedlewaiverOfSignedConsentJustification/@amdchanged !=''), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">Case Value</u><div style="width:300px;"><p><span style="color:black"><h5>Currently Approved Value:</h5><xf:output value="$amdNodeNeedlewaiverOfSignedConsentJustification"/></span></p></div></span><br/><br/></div><div><xf:select ref="$thisNodeNeedlewaiverOfSignedConsentJustification/@addcomment"><xf:item><xf:label><nobr>Add Comment</nobr></xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+                //cnged = model.getValue("../@changed", contextNode);
+                //com = model.getValue(".", contextNode);
+                //if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                //if(!cnged &amp;&amp; com)
+                model.USA.addChange();
+                model.recalculate();
+              </script></xf:select><div><ix:attr value="if($thisNodeNeedlewaiverOfSignedConsentJustification/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlewaiverOfSignedConsentJustification/@comment"/></div></div><div><ix:attr value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'change' or $thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeOldwaiverOfSignedConsentJustification != $thisNodeOldwaiverOfSignedConsentJustification and $thisNodeNeedleOldwaiverOfSignedConsentJustification/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+              Change was <xf:output value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'change', 'Required', 'Suggested')"/><xf:output value="if($sugNodeOldwaiverOfSignedConsentJustification = $thisNodeOldwaiverOfSignedConsentJustification, '', ' (Ignored)')"/></u><div style="width:300px;"><p><ix:attr value="if($sugNodeOldwaiverOfSignedConsentJustification = $thisNodeOldwaiverOfSignedConsentJustification, 'display:none', '')" name="style"/><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@justification!='', $thisNodeNeedleOldwaiverOfSignedConsentJustification/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+            Prior Value
+            </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeOldwaiverOfSignedConsentJustification"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b>Suggested Revision</b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeOldwaiverOfSignedConsentJustification"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@comment != '', $thisNodeNeedleOldwaiverOfSignedConsentJustification/@comment, 'none')"/></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@justification='', 'color:red', 'color:green')" name="style"/>
+            Justification was required</u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@justification!='', $thisNodeNeedleOldwaiverOfSignedConsentJustification/@justification, 'None provided')"/></p></p><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@comment != '', $thisNodeNeedleOldwaiverOfSignedConsentJustification/@comment, 'none')"/></span></span></div></span></div><br/><div><ix:attr value="if($thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue"><nobr>Previous Comment</nobr></u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleOldwaiverOfSignedConsentJustification/@comment"/></span></p></div></span></div><div><ix:attr value="if(($thisNodeOldwaiverOfSignedConsentJustification != $orgNodeOldwaiverOfSignedConsentJustification) and (not($thisNodeNeedleOldwaiverOfSignedConsentJustification/@req) or $thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = '' or $thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'commentOnly' or $thisNodeNeedleOldwaiverOfSignedConsentJustification/@req = 'comment'), 'color:red', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">Using New Value</u><div style="width:300px;"><p><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+                        Prior Value
+                      </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeOldwaiverOfSignedConsentJustification"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/identJustification = '1', '', 'display:none')" name="style"/><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		<visible whenComponent="identJustification" hasValue="1"/>
+		PI must attest that the following is true. <br/>
+		* Each subject will be asked whether the subject wants documentation linking the subject with the research, and the subject’s wishes will govern. <br/>
+        <option type="widestLabel"/>
+	</component></font></h4></span></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

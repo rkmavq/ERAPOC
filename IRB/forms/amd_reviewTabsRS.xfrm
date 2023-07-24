@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+      <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+    <xf:instance id="proReviews"><data xmlns=""/></xf:instance>
+    <xf:instance id="revHist"><data xmlns=""/></xf:instance>
+    <xf:instance id="cats"><data xmlns=""/></xf:instance>
+    <xf:instance id="lc"><data xmlns=""/></xf:instance>
+    <xf:instance id="comments"><data xmlns=""/></xf:instance>
+    <xf:instance id="amdcomments"><data xmlns=""/></xf:instance>
+    <xf:instance id="amdrevHist"><data xmlns=""/></xf:instance>
+    <xf:instance id="insx"><data xmlns=""/></xf:instance>
+    <xf:instance id="insy"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <departments/>
+          <currency></currency>
+          <version/>
+          <departments/>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+       
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        function redirectToTask(desiredTask){
+        try{
+        var prevLocation = window.location + "";
+        var currentTask = prevLocation.split("step=")[1];
+        var targetTask = desiredTask.replace(/ /g, "%20");
+        if(currentTask != targetTask){
+        var newLocation = prevLocation.split("step=")[0] + "step=" + targetTask;
+        //alert("redirect to: " + newLocation);
+        window.location = newLocation;
+        }else{
+        //alert("no need to redirect");
+        }
+        }catch(e){
+        SH.print("Error redirecting to task: " + desiredTask + " error=" + e); 
+        }
+        }
+        
+        redirectToTask("Prepare Response Submission");
+        
+        bootstrapSharedXfrm(model);
+        //model.setValue("instance('ins')/reviewID", 4); //I think that was the bug.
+        model.TS = new appTabSet(model, 'projectTabs');
+        //the lines above are things taht should be inserted by an xslt not really by hand like this.
+        
+        //alert(model.TS.formSet.getRoot().__COMPREVURI); //btw firebug upgrade broke the console.debug thing, so you are back to alerts if you are running formside js, it sucks, i hope they fix it BASTARDS
+        
+        
+        model.TS.loadOpFile('proDat', "/amd.xml");
+        model.TS.loadOpFile('insx', "/amd.xml");
+        model.TS.loadOpFile('proReviews', "/reviews.xml");
+        model.TS.loadAppFile('cats', "/data/catagories.xml");
+        model.TS.loadAppFile('lc', "/lifecycle.xml");
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+        
+        /*
+        vid = model.getValue("instance('proReviews')/review[last()]/@num");
+        model.setValue("instance('ins')/reviewID", vid);
+        model.submit("submit1");
+        */
+        
+        model.USA.rebuildTabsStart();
+        if(model.getValue("instance('ins')/formConf")=="amd_adminSetPrepareRS") model.setValue("instance('ins')/passFail", "determiningRev");
+        
+         model.TS.formSet.getRoot().__REVURI = "/data/reviews/" + model.getValue("instance('ins')/reviewID") + ".xml";
+        model.TS.formSet.getRoot().__COMPREVURI = "/reviews/" + model.getValue("instance('ins')/reviewID") + ".xml";
+        model.TS.formSet.getRoot().__AMND = true;
+        
+        
+        
+        //ARCHITA - COMMENTS ADDITION TO MAKE SURE STARS START PROPERLY
+        var PIReturnCount = 0;
+        
+        var targetRevUri = model.getValue("instance('ins')/linkedOpURI") + model.TS.formSet.getRoot().__COMPREVURI;
+        model.targetRevUri = targetRevUri;
+        
+        resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:"amendments",linkedOpURI:model.getValue("instance('ins')/linkedOpURI"),baseURI:model.getValue("instance('ins')/primeEntityURI"), revDataURI:targetRevUri}, "json");            
+        //Load the revHist
+        model.TS.loadOpFile('revHist', "/reviews/revHIST.xml", "0");        
+        model.TS.loadOpFile('amdrevHist', "/revHIST.xml", "0");
+        //VV Copy 11/30/2016
+        if (model.getValue("instance('ins')/comments")=="" &amp;&amp; model.getValue("instance('proReviews')/review[@num=instance('ins')/reviewID]/reviewNotes/comments") != "")
+          model.setValue("instance('ins')/comments", model.getValue("instance('proReviews')/review[@num=instance('ins')/reviewID]/reviewNotes/comments"));
+        if (model.getValue("instance('ins')/investigatorActions")=="" &amp;&amp; model.getValue("instance('proReviews')/review[@num=instance('ins')/reviewID]/reviewNotes/investigatorActions") != "")
+          model.setValue("instance('ins')/investigatorActions", model.getValue("instance('proReviews')/review[@num=instance('ins')/reviewID]/reviewNotes/investigatorActions"));
+        else
+          model.setValue("instance('ins')/investigatorActions", "");
+        model.submit("submit1");
+        model.reloadInstanceId("ins");        
+        //VV Copy 11/30/2016  
+        
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>    
+
+      <script ev:event="xforms-ready">
+        //AB 02/11/2019 this needs to run to reset stars after develop RS
+        model.TS.populateTabFlagsBasedOnRevHist("revHist", model.targetRevUri);
+        model.TS.populateAMDTabFlagsBasedOnRevHist("amdrevHist", model.targetRevUri);
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      model.TS.saveAll();    
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+        <script>;</script>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <!--<xf:submission method="put" replace="none" id="submitreviews" instance="proReviews">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+        <script>;</script>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>-->
+    
+  </xf:model>
+ 
+ <style>
+   div.diagXf table.xfctrl td{
+    vertical-align:top;
+    padding-bottom:8px;
+    padding-left:3px;
+   }
+
+ </style>
+ 
+ 
+  
+  <table>
+    <tr>
+      <td style="width:300px;vertical-align:top;margin-right:20px;margin-top:20px;padding-right:10px;padding-top:10px;">
+        <!--<xf:group ref="." class="headerreview" style="width:300px;">
+          <xf:label>
+            <h1><xf:output value="instance('proReviews')/review[@num=instance('ins')/reviewID]/@name"></xf:output></h1>
+          </xf:label>
+          <br/>
+          <exf:variable name="mode" value="instance('proReviews')/review[@num=instance('ins')/reviewID]/@def"/>
+          
+          <div><ix:attr name="style" value="if($mode!='', '', 'display:none')"/>
+            <h3>Review Type: <xf:output value="instance('cats')/reviewTypes/type[@id=$mode]/@name"/></h3>  
+            <br/>
+          </div>
+          
+          
+          <div><ix:attr name="style" value="if($mode='', '', 'display:none')"/>
+            <xf:textarea ref="instance('ins')/comments" style="height:300px;width:98%">
+              <xf:label>Comments</xf:label>
+              <script ev:event="xforms-value-changed">
+                model.submit('submit1');
+              </script>
+            </xf:textarea>
+          </div>  
+          
+          
+          <hr/>
+               <!-\-<div><!-\-<ix:attr name="style" value="if($mode='', '', 'display:none')"/>-\->
+                   <xf:select1 ref="instance('ins')/passFail">
+                    <xf:label>Pass/Fail Review?</xf:label>
+                    <xf:item>
+                      <xf:label>-Select-</xf:label>
+                      <xf:value></xf:value>
+                    </xf:item>
+                    <xf:item>
+                      <xf:label>Pass (Send to Central Admin)</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <xf:item>
+                      <xf:label>Fail (Return for Revision)</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed">
+                      model.submit('submit1');
+                    </script>
+                  </xf:select1>
+               </div>-\->
+          
+          <div><ix:attr name="style" value="if($mode!='', '', 'display:none')"/>
+            <xf:select1 ref="instance('ins')/passFail">
+              <xf:label>Decision</xf:label>
+              <xf:item>
+                <xf:label>-Select-</xf:label>
+                <xf:value></xf:value>
+              </xf:item>
+              <xf:repeat nodeset="instance('cats')/decisionTypes/type">
+                <xf:item>
+                  <xf:label><xf:output value="@name"/></xf:label>
+                  <xf:value><xf:output value="@id"/></xf:value>
+                </xf:item>
+              </xf:repeat>
+              <script ev:event="xforms-value-changed">
+                dec = model.getValue(".", contextNode);
+                model.setValue("instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/decision", dec);
+                model.submit('submitreviews');
+                model.submit('submit1');
+              </script>
+            </xf:select1>
+            <br/>
+          </div>
+          
+          <div><ix:attr name="style" value="if($mode!='', '', 'display:none')"/>
+            <xf:select1 ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/riskLevel">
+              <xf:label>Risk Level</xf:label>
+              <xf:item>
+                <xf:label>-Select-</xf:label>
+                <xf:value></xf:value>
+              </xf:item>
+              <xf:repeat nodeset="instance('cats')/riskTypes/type">
+                <xf:item>
+                  <xf:label><xf:output value="@name"/></xf:label>
+                  <xf:value><xf:output value="@id"/></xf:value>
+                </xf:item>
+              </xf:repeat>
+              <script ev:event="xforms-value-changed">
+                model.submit('submitreviews');
+              </script>
+            </xf:select1>
+          </div>
+          
+          <div><ix:attr name="style" value="if($mode!='' and instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/riskLevel='min', 'margin-left:115px;', 'display:none')"/>
+            <xf:select1 appearance="full" ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt/@yesNo">
+              <xf:item>
+                <xf:label>Exempt</xf:label>
+                <xf:value>exempt</xf:value>
+              </xf:item>
+            </xf:select1>
+          </div>
+          
+          <div><ix:attr name="style" value="if($mode!='' and instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/riskLevel='min', 'margin-left:115px;', 'display:none')"/>
+            <xf:select1 appearance="full" ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt/@yesNo">
+              <xf:item>
+                <xf:label>Expedited</xf:label>
+                <xf:value>expedited</xf:value>
+              </xf:item>
+              <script ev:event="xforms-value-changed">
+                model.setValue("instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt", "");
+                model.refresh();
+                model.rebuild();
+                model.recalculate();
+                model.submit('submitreviews');
+              </script>
+            </xf:select1>
+          </div>
+          
+          <div class="exempts"><ix:attr name="style" value="if($mode!='' and instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/riskLevel='min', 'margin-left:135px;', 'display:none')"/>
+              Categories: <u style="color:blue;cursor:pointer;text-decoration:underline;">set
+                <ix:dialog id="Categories" style="width:500px; height:500px" width="500" height="500"
+                  title="Set Categories" ev:event="click">
+                  <h4 style="margin-left:20px;"><xf:output value="if(instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt/@yesNo='expedited', 'Expedited', 'Exemption')"/> Categories</h4>
+                  
+                  <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt/@yesNo='expedited', 'margin-left:20px;', 'display:none')"/>
+                    <xf:select appearance="full" ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt">
+                      <xf:repeat nodeset="instance('cats')/exemptionTypes/type">
+                      <xf:item>
+                        <xf:label><xf:output value="@name"/><br/></xf:label>
+                        <xf:value><xf:output value="@id"/></xf:value>
+                      </xf:item>
+                      </xf:repeat>
+                    </xf:select>
+                  </div>
+
+                  <div><ix:attr name="style" value="if(instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt/@yesNo!='expedited', 'margin-left:20px;', 'display:none')"/>
+                    <xf:select appearance="full" ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/determination/exempt">
+                      <xf:repeat nodeset="instance('cats')/expeditedTypes/type">
+                        <xf:item>
+                          <xf:label><xf:output value="@name"/><br/></xf:label>
+                          <xf:value><xf:output value="@id"/></xf:value>
+                        </xf:item>
+                      </xf:repeat>
+                    </xf:select>
+                  </div>
+                </ix:dialog>
+              </u>
+          </div>
+          
+          <div><ix:attr name="style" value="if($mode='' or (not(instance('proDat')/population[.='minors']) and not(instance('proDat')/population[.='k12'])), 'display:none', '')"/>
+              <br/>      
+            <xf:group ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/childrensCats">
+                    <xf:label><h5>Children's Categories</h5></xf:label>
+                    <table class="summary">
+                      <tr>
+                        <td class="large tight" style="width:194px;vertical-align:top;">
+                          <xf:select1 ref="HHS">
+                            <xf:label style="width:35px;">HHS</xf:label>
+                            <xf:item>
+                              <xf:label>-Select-</xf:label>
+                              <xf:value></xf:value>
+                            </xf:item>
+                            <xf:repeat nodeset="instance('cats')/HHSChildrensTypes/type">
+                              <xf:item>
+                                <xf:label><xf:output value="@name"/></xf:label>
+                                <xf:value><xf:output value="@id"/></xf:value>
+                              </xf:item>
+                            </xf:repeat>
+                          </xf:select1>
+                        </td>
+                        <td class="large tight" style="margin-left:10px;width:194px;vertical-align:top;">
+                          <xf:select1 ref="FDA">
+                            <xf:label style="width:35px;">FDA</xf:label>
+                            <xf:item>
+                              <xf:label>-Select-</xf:label>
+                              <xf:value></xf:value>
+                            </xf:item>
+                            <xf:repeat nodeset="instance('cats')/FDAChildrensTypes/type">
+                              <xf:item>
+                                <xf:label><xf:output value="@name"/></xf:label>
+                                <xf:value><xf:output value="@id"/></xf:value>
+                              </xf:item>
+                            </xf:repeat>
+                          </xf:select1>
+                        </td>
+                      </tr>
+                    </table>
+                  </xf:group>
+                  <br/>
+                  </div>
+                
+                <div><ix:attr name="style" value="if($mode='' or (not(instance('proDat')/population[.='prisprim']) and not(instance('proDat')/population[.='prissec'])), 'display:none', '')"/>
+                    <xf:group ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/prisonerCats">
+                       <xf:label><h5>Prisoner Categories</h5></xf:label>
+                       <table class="summary">
+                         <tr>
+                           <td class="large tight" style="width:250px;">
+                             <xf:select ref="." appearance="full">
+                               <xf:repeat nodeset="instance('cats')/PrisonerTypes/type">
+                                 <xf:item>
+                                   <xf:label><xf:output value="@name"/></xf:label>
+                                   <xf:value><xf:output value="@id"/></xf:value>
+                                 </xf:item>
+                               </xf:repeat>
+                             </xf:select>
+                           </td>
+                         </tr>
+                       </table>
+                     </xf:group>
+                   <br/>
+                  </div>
+          
+          <div><ix:attr name="style" value="if($mode!='', '', 'display:none')"/>
+            <br/>
+            <xf:textarea ref="instance('proReviews')/review[@num=instance('ins')/reviewID]/reviewNotes/comments" style="height:100px;width:98%">
+              <xf:label>Review Comments</xf:label>
+              <script ev:event="xforms-value-changed">
+                model.submit('submitreviews');
+              </script>
+            </xf:textarea>
+          </div>  
+          
+          
+          
+                <br/>
+                
+                
+                
+                <a class="submit1" href="#" title="Submit">
+                  <xf:action ev:event="click">
+                    <script>
+                      model.submit('submit1');
+                      model.__currentChildForm.model.Frm.saveAll();
+                      ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+                    </script>
+                  </xf:action>
+                  <div class="cap"/>
+                  Submit Review
+                </a>
+        </xf:group>-->
+        
+        <xf:group ref="." class="headerreview" style="width:300px;">
+          <xf:label>
+            <h1><xf:output value="instance('proReviews')/review[@num=instance('ins')/reviewID]/@name"></xf:output></h1>
+          </xf:label>
+          <br/>
+          <exf:variable name="mode" value="instance('proReviews')/review[@num=instance('ins')/reviewID]/@def"/>
+          
+          <div><ix:attr name="style" value="if($mode!='', '', 'display:none')"/>
+            <br/>
+            <xf:textarea ref="instance('ins')/comments" style="height:100px;width:98%">
+              <xf:label>Review Comments</xf:label>
+              <script ev:event="xforms-value-changed">
+                model.submit('submit1');
+                cms = model.getValue(".", contextNode);
+                myID = model.getValue("instance('ins')/reviewID");
+                var uri = model.getValue("instance('ins')/linkedOpURI");
+                resX = callSharedService("protocolRouting",{op:"updateReviewsXML",uri: uri, processURI: model.getValue("instance('ins')/processURI"), reviewID: model.getValue("instance('ins')/reviewID")}, "text");           
+                model.reloadInstanceId('proReviews');
+              </script>
+            </xf:textarea>
+            
+            <br/>
+            
+            <xf:textarea ref="instance('ins')/investigatorActions" style="height:100px;width:98%">
+              <xf:label>Investigator Actions</xf:label>
+              <script ev:event="xforms-value-changed">
+                model.submit('submit1');
+                cms = model.getValue(".", contextNode);
+                myID = model.getValue("instance('ins')/reviewID");
+                var uri = model.getValue("instance('ins')/linkedOpURI");
+                resX = callSharedService("protocolRouting",{op:"updateReviewsXML",uri: uri, processURI: model.getValue("instance('ins')/processURI"), reviewID: model.getValue("instance('ins')/reviewID")}, "text");           
+                model.reloadInstanceId('proReviews');
+              </script>
+            </xf:textarea>  
+          </div>  
+          
+          
+          <!--<div><ix:attr name="style" value="if(instance('ins')/passFail!='determiningRev' and instance('ins')/passFail!='boardRev', '', 'display:none')"/>
+            <xf:select1 ref="instance('ins')/passFail">
+            <xf:label>Pass/Fail Review?</xf:label>
+            <xf:item>
+            <xf:label>-Select-</xf:label>
+            <xf:value></xf:value>
+            </xf:item>
+            <xf:item>
+            <xf:label>Pass (Accept Modification)</xf:label>
+            <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item>
+            <xf:label>Fail (Return for Further Revision)</xf:label>
+            <xf:value>0</xf:value>
+            </xf:item>
+            <script ev:event="xforms-value-changed">
+            model.submit('submit1');
+            </script>
+            </xf:select1>
+            </div>-->          
+          <br/>
+          
+          <a class="submit1" href="#" title="Submit">
+            <xf:action ev:event="click">
+              <script>
+                if(model.SUBMITTED) return;
+                if(!confirm("Are you sure?"))return;
+                model.SUBMITTED = true;
+                model.__waiting = new waitingBox();
+                model.submit('submit1');
+                model.__currentChildForm.model.Frm.saveAll();
+                ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+              </script>
+            </xf:action>
+            <div class="cap"/>
+            Submit
+          </a>
+        </xf:group>
+        
+      </td>
+      <td style="vertical-align:top">
+        <div class="tabSet">
+          
+          <!-- Consistant Header -->
+          <div class="header">
+            <table class="infoLine">
+              <tr>
+                <td style="text-align:left;">Protocol Number: <xf:output value="instance('proDat')/id8ID"/></td>
+                <td style="text-align:center;"><xf:output value="instance('proDat')/title"/></td>
+                <td style="text-align:right;">Amendment</td>
+              </tr>
+            </table>      
+            <xf:switch>
+              <xf:case id="show-tabHeader" exf:if="1">
+                <table class="infoBox">
+                  <tr>
+                    <td style="width:33%">
+                      <table class="infoGroup">
+                        <tr><td class="label"><b>Principal Investigator:</b></td><td class="text"><xf:output value="instance('proDat')/Person[role='PI']/name"/></td></tr>
+                      </table>
+                    </td>
+                    <td style="width:33%">
+                      <!--<table class="infoGroup">
+                        <exf:variable name="boardName" value="instance('proDat')/Board/name"/>
+                        <tr><td class="label"><b>Board:</b></td><td class="text"><xf:output value="if($boardName !='', $boardName, 'Pending')"/></td></tr>        
+                      </table>-->
+                    </td>
+                    <td style="width:33%;text-align:right;">
+                      <u style="cursor:pointer;color:blue">Print<ix:action ev:event="click">
+                        <script>
+                          model.__waiting = new waitingBox();
+                          
+                          var holdIRB = model.USA;
+                          baseURI = model.TS.formSet.getRoot().model.TS.linkedOpURI;
+                          splts = baseURI.split("/");
+                          holdIRB.printURI =  splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/" + splts[6] + "/" + splts[7] + "/print.xml";  
+                          holdIRB.print('protocol');
+                          
+                          projId = "Protocol: " + model.getValue("instance('proDat')/id8ID");
+                          var lcxpath = "instance('lc')/linkedOpp";
+                          
+                          var s = model.getValue(lcxpath + "[@uri='" + baseURI + "']/@status");
+                          
+                          watermark = "Initial Draft";
+                          if(s=="inDev" || s=="inProgress"){
+                          watermark = "Initial Draft";}
+                          if(s=="active" || s=="ACT" || s=="closed" || s=="TRANS" || s=="withdrawn" || s=="terminated"){
+                          watermark = "FINAL";}
+                          if(s=="revisions"){
+                          watermark = "Revisions";}
+                          if(s=="revisions"){
+                          watermark = "Revisions";}
+                          if(s=="deptReview" || s=="intakeReview" || s=="adminReview" || s=="directorReview" || s=="boardReview"){
+                          watermark = "Under Review";}
+                          window.open(REPORTING_URL_NEW + "/pentaho/content/reporting/reportviewer/report.html?outputType=pdf&amp;solution=Ideate&amp;path=&amp;name=PrintTabSet.prpt&amp;filterParam=" + holdIRB.printURI + "&amp;Stamp=" + watermark + "&amp;footer=" + projId + "&amp;userid=id8user&amp;password=id8pass");
+                          
+                          model.__waiting.stop();                                  
+                        </script>
+                      </ix:action></u>
+                    </td>
+                  </tr>
+                </table>
+              </xf:case>
+              <xf:case id="hide-tabHeader">
+              </xf:case>
+            </xf:switch>
+          </div>
+          
+          <xf:switch>
+            <xf:case id="show-workscreen" exf:if="1">
+              <ix:subform form="{tabControlRev}" src="" id="projectTabs"/>
+            </xf:case>
+            <xf:case id="hide-workscreen">
+            </xf:case>
+          </xf:switch>
+          <ix:subform form="{tabContainer}" src="" id="projectTabs"/>
+        </div>
+        
+      </td>
+    </tr>
+  </table>
+
+  
+  
+  
+</form>

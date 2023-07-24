@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="form"><data><tabID>?</tabID><ping>0</ping><AMD/><form created="" createdBy="" updated="" updatedBy=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "amd_submit");
+      
+      needle = model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI;
+		resX=callSharedService("protocolRouting",{op:"generateAmendmentDiffsDynamic",linkedOp:model.Frm.linkedOpType,"trackChanges":"yes",app:"IRB",linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI: needle}, "json");
+		resX=callSharedService("protocolRouting",{op:"generateReviewHistoryDynamic","trackChanges":"yes",app:"IRB",linkedOp:model.Frm.linkedOpType,linkedOpURI:model.Frm.linkedOpURI,baseURI:model.Frm.targetURI,revDataURI:model.Frm.linkedOpURI + model.Frm.formSet.getRoot().__COMPREVURI}, "json");
+		model.recalculate();
+		model.rebuild();
+		model.refresh();
+	model.Frm.loadOpFile('ins', "/amd.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '?')
+          //model.USA.registerChangeLog('ins', '?')
+          model.USA.registerChangeLog('comments', '?')
+        </script></script><script ev:event="xforms-ready"/><xf:submission method="put" replace="none" id="submitins" instance="ins"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind nodeset="instance(ins)//*" readonly="false()" relevant="true()"/><xf:bind nodeset="instance(meta)//*" readonly="false()" relevant="true()"/><xf:bind nodeset="instance(cats)//*" readonly="false()" relevant="true()"/><xf:bind nodeset="//link/@title" readonly="true()"/><xf:bind type="ix:file" nodeset="instance('form')/document"/><xf:setvalue ev:event="xforms-model-construct-done" ref="instance('ins')/signOff"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input style="width:140px" ref="instance('form')/searchText" id="searchBox"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case id="hide-quicksearch" exf:if="1"/><xf:case id="show-quicksearch"><exf:variable value="instance('form')/records//rec" name="records"/><exf:variable value="instance('form')/ping" name="pingVar"/><div><ix:attr value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')" name="style"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')" name="style"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr value="if(count($records)=0, '', 'display:none')" name="style"/><h1>No Matches</h1></div><div><ix:attr name="style" value="if(count($records) &gt; 150, '', 'display:none')"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr name="style" value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div id="allcontrols" class="formFrame"><div style="display:none;"><xf:input ref="instance('form')/document" id="documentDrop"><xf:action exf:if="instance('form')/document != ''" ev:event="xforms-value-changed"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1>Modification Submission</h1><table class="basicColLayout"><tr class="box"><td class="component textarea    "><xf:textarea ref="instance('ins')/submissionNotes" class=""><xf:label>Optional Submission Notes</xf:label></xf:textarea></td><td class="options"/></tr><tr class="line"><td><hr/></td></tr><tr class="instructions"><td colspan="4"><span><h3><component type="instructions">
+        <font size="2">Your signature below will serve as your attestation that:</font>
+    </component></h3></span></td></tr><tr class="instructions"><td colspan="4"><span><h3><component type="instructions">
+        <font size="2">
+			* All statements herein are true, complete and accurate to the best of my knowledge.
+		</font>
+    </component></h3></span></td></tr><tr class="signature"><td class="component"><xf:select appearance="full" ref="instance('ins')/signOff"><xf:item><xf:label>I Agree<span><ix:attr name="style" value="if(instance('ins')/signOff = '1', 'font-weight:normal', 'display:none')"/> (signed <xf:output value="instance('ins')/signOff/@signedWhen"/> by <xf:output value="instance('ins')/signOff/@signedBy"/>)</span></xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+        model.Frm.captureSignature("instance('ins')/signOff");
+      </script></xf:select></td></tr><tr class="break"><td><br/></td></tr><tr class="submit"><ix:attr name="style" value="if(instance('ins')/signOff = '1', '', 'display:none')"/><td><a class="submit1" href="#" title="Submit"><xf:action ev:event="click"><script>
+        if(model.SUBMITTED) return;
+        
+          if(!confirm("Are you sure you're ready to submit this Modification?"))return;
+        
+        //ActivityTree.__waiting = new waitingBox();
+        //if(model.USA){ if(!model.USA.queuePrint()){return;};};
+        model.SUBMITTED = true;
+        model.Frm.saveAll();
+        try{ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);}
+        catch(e){model.model.SUBMITTED = false; return;};
+        </script></xf:action><div class="cap"/>Submit changes</a></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div style="float:right" class="nav"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div class="command" style="float:left">previous</div><img src="../fil/system/resources/ideate/imgs/left.png" style="float:right"/></div></td><td class="next"/></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- IRB 1.0 -->
+    
+  
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+    <xf:instance id="insx"><data xmlns=""/></xf:instance>  
+    <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <currency></currency>
+          <version/>
+          <departments/>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+          <document></document>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+    <xf:bind nodeset="instance('form')/version" readonly="instance('ins')/fragementName='preSubChecklist'" relevant="instance('ins')/fragementName!='preSubChecklist'"/>
+    
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        
+        bootstrapSharedXfrm(model);
+        model.TS = new appTabSet(model, 'projectTabs');
+        model.TS.loadAppFile('proDat', "/data/irb.xml");
+        model.TS.loadAppFile('insx', "/data/irb.xml");
+        
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+        
+        includeSharedJS("/resources/services/appForms/main.js");
+        model.Frm = new appForm(model, "invite");
+        
+        
+        model.USA.rebuildTabsStart();
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>    
+
+      <script ev:event="xforms-ready">
+        
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      model.submit("submit1");
+      model.submit("submitheader");
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission method="put" replace="none" id="submitheader" instance="proDat">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:bind type="ix:file" nodeset="instance('form')/document"/>
+    <xf:bind type="ix:file" nodeset="instance('ins')/risk"/>
+  </xf:model>
+    
+  <style>
+    div.main div.xfctrl{
+    background:none;
+    }
+    
+    .wikiView div.main div.xfctrl label{
+    font-size:12px;
+    font-weight:normal;
+    }
+    
+    #xf_0_searchBox{
+    width:200px;
+    }
+  </style>
+    
+  <div style="display:none;">
+    <!--<xf:input ref="instance('form')/document" id="documentDropf">
+      <xf:action exf:if="instance('form')/document != ''" ev:event="xforms-value-changed">
+        <script> 
+          alert("anything...");
+          var n = model.getValue(".", contextNode);
+          if(n != "") model.Frm.linkFile(n);
+        </script>
+      </xf:action>
+    </xf:input>-->
+    <xf:input ref="instance('ins')/risk" id="documentDrop">
+      <xf:action exf:if="instance('ins')/risk != ''" ev:event="xforms-value-changed">
+        <script> 
+          var n = model.getValue(".", contextNode);
+          model.setValue("instance('form')/document", n);
+          puri = model.getValue("instance('ins')/processURI");
+          duri = "/fil" + puri + "/" + n;
+          model.setValue("instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure", n);
+          model.setValue("instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure/@uri", duri);
+          model.activateCase("hide-button");
+          model.refresh();
+          model.recalculate();
+          model.rebuild();
+          model.activateCase("show-button");
+          model.refresh();
+          model.recalculate();
+          model.rebuild();
+        </script>
+      </xf:action>
+    </xf:input>
+  </div>    
+  <div class="tabSet">
+    
+    <!-- Consistant Header -->
+    <div class="header">
+      <table class="infoLine">
+        <tr>
+          <td style="text-align:left;">Protocol Number: <xf:output value="instance('proDat')/id8ID"/></td>
+          <td style="text-align:center;"><xf:output value="instance('proDat')/shortTitle"/></td>
+          <td style="text-align:right;">IRB Application</td>
+        </tr>
+      </table>      
+      <xf:switch>
+      <xf:case id="show-tabHeader" exf:if="1">
+      <table class="infoBox">
+        <tr>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <tr><td class="label"><b>Principal Investigator:</b></td><td class="text"><xf:output value="instance('proDat')/Person[role='PI']/name"/></td></tr>
+            </table>
+          </td>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <exf:variable name="boardName" value="instance('proDat')/Board/name"/>
+              <tr><td class="label"><b>Board:</b></td><td class="text"><xf:output value="if($boardName !='', $boardName, 'Pending')"/></td></tr>        
+            </table>
+          </td>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <tr><td class="label"><b>Status:</b></td><td class="text">Initial Draft</td></tr>    
+            </table>
+          </td>
+        </tr>
+      </table>
+      </xf:case>
+      <xf:case id="hide-tabHeader">
+      </xf:case>
+      </xf:switch>
+    </div>
+
+    <div class="main homepage formFrame"><ix:attr name="style" value="if(instance('ins')/inviteMode = 'invitation' and not(instance('proDat')/Person[@uri=instance('ins')/user]), '', 'display:none')"/>
+      <br/>
+      <h3>Sorry your invitation to this protocol was revoked.</h3>     
+      <br/>
+      <table style="width:600px;" class="basicColLayout">
+       
+        <tr><td colspan="2">
+          <div>
+            <xf:textarea ref="instance('ins')/comm" style="width:250px;height:5em;">
+              <xf:label style="width:120px;color:black"><b>Comments for PI:</b></xf:label>
+            </xf:textarea>        
+          </div>
+        </td>
+        </tr>
+        
+        <tr><td colspan="2">
+          <hr/>  
+        </td></tr>
+        
+        
+      </table>
+      <br/>
+      
+      <div>
+        <span class="pbutton2"/>
+        
+        <a title="Send Comment" href="#" class="submit1"><xf:action ev:event="click">
+          <script>
+            
+            if(!model.__processing){      
+            model.__processing = true;
+            model.setValue('path', 'na'); 
+            model.submit('submit1'); 
+            ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+            model.__processing = false;
+            }
+          </script>
+        </xf:action><div class="cap"/>Send Comment</a>
+      </div>
+
+    </div>
+
+
+    <div class="main homepage formFrame"><ix:attr name="style" value="if(instance('ins')/inviteMode = 'invitation' and instance('proDat')/Person[@uri=instance('ins')/user], '', 'display:none')"/>
+    <br/>
+    <h3>You've been invited to join the following IRB Protocol:</h3>     
+      <br/>
+      <table style="color:black;width:600px;font-size:12px;font-family:arial,sans-serif" class="">
+        <tr>
+          <td style="vertical-align:top;width:140px;"><b>Title:</b></td><td style="color:black;vertical-align:top"><xf:output value="instance('proDat')/title"/><br/><br/></td>
+        </tr>
+        <tr>
+          <td style="vertical-align:top;width:140px;"><b>Principal Investigator:</b></td><td style="color:black;vertical-align:top"><xf:output value="instance('proDat')/Person[role='PI']/name"/><br/><br/></td>
+        </tr>
+        <tr>
+          <td style="vertical-align:top;width:140px;"><b>Summary:</b></td><td style="color:black;vertical-align:top"><xf:output value="instance('proDat')/laysummary"/><br/><br/></td>
+        </tr>
+      </table>
+      
+      <br/>
+      <hr/>
+      <i style="margin-left:0px;">Please accept or decline with comment</i>
+      <br/><br/>
+      <table style="width:600px;" class="basicColLayout">
+        <tr><td style="width:300px">
+        <xf:select1 ref="instance('proDat')/Person[@uri=instance('ins')/user]/invitation/@status" appearance="full" class="basicCtrl">
+          <xf:label style="color:black"><b>Decision:</b></xf:label>
+          <xf:item><xf:label>Accept</xf:label><xf:value>accept</xf:value></xf:item>
+          <xf:item><xf:label>Decline</xf:label><xf:value>decline</xf:value></xf:item>
+        </xf:select1>
+        </td>
+        </tr>
+                
+        <tr><td colspan="2">
+          <div>
+            <xf:textarea ref="instance('proDat')/Person[@uri=instance('ins')/user]/invitation/messageIn" style="width:250px;height:5em;">
+              <xf:label style="width:120px;color:black"><b>Comments:</b></xf:label>
+            </xf:textarea>        
+          </div>
+        </td>
+        </tr>
+        
+      </table>
+
+<div><ix:attr name="style" value="if(instance('proDat')/Person[@uri=instance('ins')/user]/invitation/@status = 'accept', '', 'display:none')"/>
+      <br/>
+      <hr/>
+      <i style="margin-left:0px;">Please answer the following protocol related questions:</i><br/>
+      <br/>
+      <table style="width:600px;" class="basicColLayout">
+        
+                  <tr style="vertical-align:top">
+                    <td style="vertical-align:top">
+                      <xf:select1 style="width:450px;" ref="instance('proDat')/Person[@uri=instance('ins')/user]/hasRelationship"
+                        appearance="full">
+                        <xf:label style="width:390px;color:black">Does the investigator, or family members thereof (spouse, children), serve as major officers of, hold a managerial role in, or otherwise have a significant financial relationship (including consulting) with the research sponsor or any subcontract recipient?</xf:label>
+                        <xf:item>
+                          <xf:label>Yes</xf:label>
+                          <xf:value>1</xf:value>
+                        </xf:item>
+                        <script ev:event="xforms-value-changed">
+                          model.refresh();
+                          model.recalculate();
+                          model.rebuild();
+                          model.activateCase("hide-button");
+                          model.activateCase("show-button");  
+                        </script>
+                      </xf:select1>
+                      <br/>
+                    </td>
+                    <td style="vertical-align:top">
+                      <xf:select1 ref="instance('proDat')/Person[@uri=instance('ins')/user]/hasRelationship"
+                        appearance="full" style="width:50px;">
+                        <xf:label/>
+                        <xf:item>
+                          <xf:label>No</xf:label>
+                          <xf:value>0</xf:value>
+                        </xf:item>
+                      </xf:select1>
+                      
+                    </td>
+                  </tr>
+                  <tr style="vertical-align:top">
+                    <td style="vertical-align:top">
+                      <xf:select1 style="width:450px;" ref="instance('proDat')/Person[@uri=instance('ins')/user]/hasCOI" appearance="full">
+                        <xf:label style="width:390px;color:black">Does the investigator, or family members thereof, have any other relationships, commitments (including assignments of Intellectual Property Rights), activities (including uncompensated activities) or financial/fiduciary interests that present potential or apparent conflicts of interest or commitment with this study, or are there any other potential conflicts of interest with the study?</xf:label>
+                        <xf:item>
+                          <xf:label>Yes</xf:label>
+                          <xf:value>1</xf:value>
+                        </xf:item>
+                        <script ev:event="xforms-value-changed">
+                          model.refresh();
+                          model.recalculate();
+                          model.rebuild();
+                          model.activateCase("hide-button");
+                          model.activateCase("show-button");  
+                        </script>
+                        
+                      </xf:select1>
+                      <br/>
+                    </td>
+                    <td style="vertical-align:top">
+                      <xf:select1 ref="instance('proDat')/Person[@uri=instance('ins')/user]/hasCOI" appearance="full" style="width:50px;">
+                        <xf:label/>
+                        <xf:item>
+                          <xf:label>No</xf:label>
+                          <xf:value>0</xf:value>
+                        </xf:item>
+                      </xf:select1>
+                    </td>
+                  </tr>
+                </table>
+                <div>
+                  <span>
+                    <ix:attr
+                      value="if(instance('proDat')/Person[@uri=instance('ins')/user]/hasCOI='1' or instance('proDat')/Person[@uri=instance('ins')/user]/hasRelationship='1', 'margin-left:10px;margin-top:30px;', 'display:none')"
+                      name="style"/>
+                    <b>COI Disclosure:</b>
+                    <span>
+                      <ix:attr
+                        value="if(instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure != '', '', 'display:none')"
+                        name="style"/>
+                      <a target="_blank_">
+                        <ix:attr value="instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure/@uri"
+                          name="href"/>
+                        View</a>
+                    </span>
+                    <span class="clickable" style=""><ix:attr
+                      value="if(instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure != '', 'display:none', 'color:blue;cursor:pointer;')"
+                      name="style"/><script ev:event="click">
+                       model.Frm.configureDocUpload("replaceValue", "instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', 'pdf');
+                       model.Frm.executeDocUpload(); 
+                      </script> <u>Attach</u> <img
+                          src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span>
+                    <span class="remove clickable" style=""><ix:attr
+                      value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', 'color:red;cursor:pointer;', 'display:none')"
+                      name="style"/><b>X</b><xf:action ev:event="click" ref=".">
+                        <xf:setvalue ref="instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure"/>
+                        <xf:setvalue ref="instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure/@uri"/>
+                      </xf:action></span>
+                  </span>
+                </div>
+        
+</div>
+
+      <div><ix:attr name="style" value="if(instance('proDat')/Person[@uri=instance('ins')/user]/invitation/@status = 'decline', '', 'display:none')"/>
+        <br/>
+        <hr/>
+        <div>
+        
+        <span class="pbutton2"/>
+        
+        <a title="Send Decision" href="#" class="submit1"><xf:action ev:event="click">
+          <script>
+            if(!model.__processing){      
+            model.__processing = true;
+            model.setValue('path', ''); 
+            model.submit('submitheader'); 
+            model.submit('submit1'); 
+            ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+            model.__processing = false;
+            }
+          </script>
+        </xf:action><div class="cap"/>Send Decision</a>
+        </div>
+          
+      </div>
+      
+      <xf:switch>
+        <xf:case exf:if="1" id="show-button">
+          <div><ix:attr name="style" value="if(instance('proDat')/Person[@uri=instance('ins')/user]/invitation/@status = 'accept', '', 'display:none')"/>
+            <br/>
+            <hr/>
+            <div><ix:attr name="style" value="if(instance('proDat')/Person[@uri=instance('ins')/user]/hasCOI = '' or instance('proDat')/Person[@uri=instance('ins')/user]/hasRelationship = '', 'display:none', '')"/>
+              
+              
+              <div><ix:attr
+                value="if(instance('proDat')/Person[@uri=instance('ins')/user]/hasCOI = '0' and instance('proDat')/Person[@uri=instance('ins')/user]/hasRelationship = '0' , '', 'display:none')"
+                name="style"/>
+                
+                <span class="pbutton2"/>
+                
+                <a title="Send Decision" href="#" class="submit1"><xf:action ev:event="click">
+                  <script>
+                    if(!model.__processing){      
+                    model.__processing = true;
+                    model.setValue('path', ''); 
+                    model.submit('submitheader'); 
+                    model.submit('submit1'); 
+                    ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+                    model.__processing = false;
+                    }
+                  </script>
+                </xf:action><div class="cap"/>Send Decision</a>
+              </div>
+            
+              <div><ix:attr
+                value="if(instance('proDat')/Person[@uri=instance('ins')/user]/hasCOI = '0' and instance('proDat')/Person[@uri=instance('ins')/user]/hasRelationship = '0' , 'display:none', '')"
+                name="style"/>
+              
+              <div><ix:attr
+                value="if(instance('proDat')/Person[@uri=instance('ins')/user]/coiDisclosure ='' , 'display:none', '')"
+                name="style"/>
+              
+              <span class="pbutton2"/>
+              
+              <a title="Send Decision" href="#" class="submit1"><xf:action ev:event="click">
+                <script>
+                  if(!model.__processing){      
+                  model.__processing = true;
+                  model.setValue('path', ''); 
+                  model.submit('submitheader'); 
+                  model.submit('submit1'); 
+                  ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+                  model.__processing = false;
+                  }
+                </script>
+              </xf:action><div class="cap"/>Send Decision</a>
+              </div>
+                </div>
+            
+            </div>
+          </div>
+          
+        </xf:case>
+        <xf:case exf:if="1" id="hide-button"><h1>WHYYY?</h1></xf:case>
+        </xf:switch>
+
+</div>
+    
+   
+    
+    <div class="main homepage formFrame"><ix:attr name="style" value="if(instance('ins')/inviteMode = 'authorize', '', 'display:none')"/>
+        <br/>
+        <h3>The following IRB Protocol application was created on your behalf:</h3>     
+        <br/>
+        <table style="color:black;width:600px;font-size:12px;font-family:arial,sans-serif" class="">
+          <tr>
+            <td style="vertical-align:top;width:140px;"><b>Title:</b></td><td style="color:black;vertical-align:top"><xf:output value="instance('proDat')/title"/><br/><br/></td>
+          </tr>
+          <tr>
+            <td style="vertical-align:top;width:140px;"><b>Summary:</b></td><td style="color:black;vertical-align:top"><xf:output value="instance('proDat')/laysummary"/><br/><br/></td>
+          </tr>
+          <tr>
+            <td style="vertical-align:top;width:140px;"><br/><br/><b>Create by:</b></td><td style="color:black;vertical-align:top"><br/><br/><xf:output value="instance('proDat')/Person[invitation/@status='author']/name"/><br/><br/></td>
+          </tr>
+        </table>
+        
+        <br/>
+        <hr/>
+        <i style="margin-left:0px;">Would you like to submit this Protocol:</i>
+        <br/><br/>
+        <table style="width:600px;" class="basicColLayout">
+          <tr><td style="width:300px">
+            <xf:select1 ref="instance('proDat')/Person[role='PI']/invitation/@status" appearance="full" class="basicCtrl">
+              <xf:label style="color:black"><b>Decision:</b></xf:label>
+              <xf:item><xf:label>Yes</xf:label><xf:value>accept</xf:value></xf:item>
+              <xf:item><xf:label>No</xf:label><xf:value>decline</xf:value></xf:item>
+            </xf:select1>
+          </td>
+          </tr>
+          
+          <tr><td colspan="2">
+            <div>
+              <xf:textarea ref="instance('proDat')/Person[role='PI']/invitation/messageIn" style="width:250px;height:5em;">
+                <xf:label style="width:120px;color:black"><b>Comments:</b></xf:label>
+              </xf:textarea>        
+            </div>
+          </td>
+          </tr>
+          
+        </table>
+        
+       <div><ix:attr name="style" value="if(instance('proDat')/Person[role='PI']/invitation/@status = 'accept', '', 'display:none')"/>
+          <br/>
+          <hr/>
+          <i style="margin-left:0px;">Please answer the following protocol related questions:</i><br/>
+          <br/>
+          <table style="width:600px;" class="basicColLayout">
+            
+            <tr style="vertical-align:top">
+              <td style="vertical-align:top">
+                <xf:select1 style="width:450px;" ref="instance('proDat')/Person[role='PI']/invitation/messageIn"
+                  appearance="full">
+                  <xf:label style="width:390px;color:black">Are you a student?</xf:label>
+                  <xf:item>
+                    <xf:label>Yes</xf:label>
+                    <xf:value>1</xf:value>
+                  </xf:item>
+                </xf:select1>
+                <br/>
+              </td>
+              <td style="vertical-align:top">
+                <xf:select1 ref="instance('proDat')/Person[role='PI']/invitation/messageIn"
+                  appearance="full" style="width:50px;">
+                  <xf:label/>
+                  <xf:item>
+                    <xf:label>No</xf:label>
+                    <xf:value></xf:value>
+                  </xf:item>
+                </xf:select1>
+              </td>
+            </tr>
+            <tr style="vertical-align:top">
+              <td style="vertical-align:top">
+                <xf:select1 style="width:450px;" ref="instance('proDat')/Person[role='PI']/hasRelationship"
+                  appearance="full">
+                  <xf:label style="width:390px;color:black">Does the investigator, or family members thereof (spouse, children), serve as major officers of, hold a managerial role in, or otherwise have a significant financial relationship (including consulting) with the research sponsor or any subcontract recipient?</xf:label>
+                  <xf:item>
+                    <xf:label>Yes</xf:label>
+                    <xf:value>1</xf:value>
+                  </xf:item>
+                </xf:select1>
+                <br/>
+              </td>
+              <td style="vertical-align:top">
+                <xf:select1 ref="instance('proDat')/Person[role='PI']/hasRelationship"
+                  appearance="full" style="width:50px;">
+                  <xf:label/>
+                  <xf:item>
+                    <xf:label>No</xf:label>
+                    <xf:value>0</xf:value>
+                  </xf:item>
+                </xf:select1>
+              </td>
+            </tr>
+            <tr style="vertical-align:top">
+              <td style="vertical-align:top">
+                <xf:select1 style="width:450px;" ref="instance('proDat')/Person[role='PI']/hasCOI" appearance="full">
+                  <xf:label style="width:390px;color:black">Does the investigator, or family members thereof, have any other relationships, commitments (including assignments of Intellectual Property Rights), activities (including uncompensated activities) or financial/fiduciary interests that present potential or apparent conflicts of interest or commitment with this study, or are there any other potential conflicts of interest with the study?</xf:label>
+                  <xf:item>
+                    <xf:label>Yes</xf:label>
+                    <xf:value>1</xf:value>
+                  </xf:item>
+                </xf:select1>
+                <br/>
+              </td>
+              <td style="vertical-align:top">
+                <xf:select1 ref="instance('proDat')/Person[role='PI']/hasCOI" appearance="full" style="width:50px;">
+                  <xf:label/>
+                  <xf:item>
+                    <xf:label>No</xf:label>
+                    <xf:value>0</xf:value>
+                  </xf:item>
+                </xf:select1>
+              </td>
+            </tr>
+          </table>
+          <div>
+            <span>
+              <ix:attr
+                value="if(instance('proDat')/Person[role='PI']/hasCOI='1' or instance('proDat')/Person[role='PI']/hasRelationship='1', 'margin-left:10px;margin-top:30px;', 'display:none')"
+                name="style"/>
+              <b>COI Disclosure:</b>
+              <span>
+                <ix:attr
+                  value="if(instance('proDat')/Person[role='PI']/coiDisclosure != '', '', 'display:none')"
+                  name="style"/>
+                <a target="_blank_">
+                  <ix:attr value="instance('proDat')/Person[role='PI']/coiDisclosure/@uri"
+                    name="href"/>
+                  View</a>
+              </span>
+              <span class="clickable" style=""><ix:attr
+                value="if(instance('proDat')/Person[role='PI']/coiDisclosure != '', 'display:none', 'color:blue;cursor:pointer;')"
+                name="style"/><script ev:event="click">
+                  model.Frm.configureDocUpload("replaceValue", "instance('proDat')/Person[role='PI']/coiDisclosure", "", "", event.uiEvent.clientX, event.uiEvent.clientY, '', 'pdf');
+                  model.Frm.executeDocUpload(); 
+                </script> <u>Attach</u> <img
+                  src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span>
+              <span class="remove clickable" style=""><ix:attr
+                value="if(instance('proDat')/Person[role='PI']/coiDisclosure != '', 'color:red;cursor:pointer;', 'display:none')"
+                name="style"/><b>X</b><xf:action ev:event="click" ref=".">
+                  <xf:setvalue ref="instance('proDat')/Person[role='PI']/coiDisclosure"/>
+                  <xf:setvalue ref="instance('proDat')/Person[role='PI']/coiDisclosure/@uri"/>
+                </xf:action></span>
+            </span>
+          </div>
+          
+        </div>
+        
+        <div><ix:attr name="style" value="if(instance('proDat')/Person[role='PI']/invitation/@status = 'accept', '', 'display:none')"/>
+          <br/>
+          <hr/>
+          <span class="pbutton2"/>
+          
+          <a title="Review/Submit Protocol" href="#" class="submit1"><xf:action ev:event="click">
+            <script>
+              if(!model.__processing){      
+              model.__processing = true;
+              model.setValue('path', 'authorized'); 
+              model.submit('submitheader'); 
+              model.submit('submit1'); 
+              ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+              model.__processing = false;
+              }
+            </script>
+          </xf:action><div class="cap"/>Review/Submit Protocol</a>
+        </div>
+        
+      <div><ix:attr name="style" value="if(instance('proDat')/Person[role='PI']/invitation/@status = 'decline', '', 'display:none')"/>
+        <br/>
+        <hr/>
+        <span class="pbutton2"/>
+        
+        <a title="Discard Protocol" href="#" class="submit1"><xf:action ev:event="click">
+          <script>
+            if(!model.__processing){      
+            model.__processing = true;
+            model.setValue('path', ''); 
+            model.submit('submitheader'); 
+            model.submit('submit1'); 
+            ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+            model.__processing = false;
+            }
+          </script>
+        </xf:action><div class="cap"/>Discard Protocol</a>
+      </div>
+        
+      </div>
+    
+</div>
+</form>

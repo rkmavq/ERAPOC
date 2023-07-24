@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+    
+    <tab id="1" label="Summary"> 
+        <tab id="1a" label="Overview" form="/home/configs/IRB/forms/ren_irbsummaryRebuf.xfrm"/>
+        <tab id="1b" label="Consent Documents" form="/home/configs/IRB/forms/ren_consentRebuf.xfrm"/>        
+    </tab>
+    
+    <tab id="2" label="Enrollment">
+        <tab id="2a" label="Summary" form="/home/configs/IRB/forms/ren_enrolled_summaryRebuf.xfrm"/>
+        <tab id="2b" label="Age Range(s)" form="/home/configs/IRB/forms/ren_enrolled_ageRebuf.xfrm"/>
+        <tab id="2c" label="Population(s)" form="/home/configs/IRB/forms/ren_enrolled_popRebuf.xfrm"/>
+        <tab id="2d" label="Ethnic Categories" form="/home/configs/IRB/forms/ren_enrolled_ethnicRebuf.xfrm"/>
+        <tab id="2e" label="Race(s)" form="/home/configs/IRB/forms/ren_enrolled_raceRebuf.xfrm"/>
+    </tab>
+    
+    <tab id="3" label="Events">
+        <tab id="3a" label="Participants" form="/home/configs/IRB/forms/ren_eventsParticipantsRebuf.xfrm"/>
+        <tab id="3b" label="General" form="/home/configs/IRB/forms/ren_eventsGeneralRebuf.xfrm"/>
+        <tab id="3c" label="Suspensions" form="/home/configs/IRB/forms/ren_eventsSuspensionsRebuf.xfrm"/>
+        <tab id="3d" label="Unanticipated Problems" form="/home/configs/IRB/forms/ren_eventsProblemsRebuf.xfrm"/>
+<!--        <tab id="3e" label="Local Serious Adverse Events" form="/home/configs/IRB/forms/ren_eventsSAEsRebuf.xfrm"/>-->
+    </tab> 
+        
+    <switches>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches> 
+
+</tabs>

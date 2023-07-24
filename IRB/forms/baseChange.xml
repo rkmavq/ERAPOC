@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="baseChange.xml">
+	<tab toptab="1A" id="1A" label="Amendment Summary" flabel=""/>
+	<tab toptab="1" id="1a" label="Title" flabel="Summary &gt;&gt; "/>
+	<tab toptab="1" id="1c" label="Setup" flabel="Summary &gt;&gt; "/>
+	<tab toptab="1" id="1b" label="Background" flabel="Summary &gt;&gt; "/>
+	<tab toptab="4b" id="4b" label="Research Personnel" flabel=""/>
+	<tab toptab="5" id="5" label="Compassionate Single Patient IND" flabel=""/>	
+	<tab toptab="6X" id="6X" label="Sites" flabel=""/>
+	<tab toptab="3" id="3a" label="Summary" flabel="Exemption &gt;&gt; "/>
+	<tab toptab="3" id="3b" label="Category" flabel="Exemption &gt;&gt; "/>
+	<tab toptab="4" id="4" label="External IRB" flabel=""/>
+	<tab toptab="11A" id="11C" label="Enrollment" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="11B" label="Setting and Resources" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="11" label="Populations" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="17" label="Participation" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="0d" label="Risk and Benefits" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="31a" label="Children" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="31b" label="Pregnant Women" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="31c" label="Prisoners" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="11A" id="31d" label="Adults Without Capacity" flabel="Subjects &gt;&gt; "/>
+	<tab toptab="32" id="32a" label="Narrative" flabel="Procedures &gt;&gt; "/>
+	<tab toptab="32" id="32b" label="Genetic Testing" flabel="Procedures &gt;&gt; "/>
+	<tab toptab="32" id="32c" label="Details" flabel="Procedures &gt;&gt; "/>
+	<tab toptab="32" id="32d" label="Instruments" flabel="Procedures &gt;&gt; "/>
+	<tab toptab="32" id="32e" label="Compensation" flabel="Procedures &gt;&gt; "/>
+	<tab toptab="33" id="33a" label="Obtaining Consent" flabel="Consent &gt;&gt; "/>
+	<tab toptab="33" id="33b" label="Parental Permission" flabel="Consent &gt;&gt; "/>
+	<tab toptab="33" id="33c" label="Legally Authorized Representative" flabel="Consent &gt;&gt; "/>
+	<tab toptab="33" id="33d" label="Waiver of Informed Consent" flabel="Consent &gt;&gt; "/>
+	<tab toptab="33" id="33e" label="Waiver of Signed Consent" flabel="Consent &gt;&gt; "/>
+	<tab toptab="33" id="33f" label="Documents" flabel="Consent &gt;&gt; "/>
+	<tab toptab="0" id="0p" label="Collection" flabel="Data &gt;&gt; "/>
+	<tab toptab="0" id="0q" label="HIPAA" flabel="Data &gt;&gt; "/>
+	<tab toptab="0" id="0r" label="HIV/AIDS" flabel="Data &gt;&gt; "/>
+	<tab toptab="0" id="0c" label="Storage" flabel="Data &gt;&gt; "/>
+	<tab toptab="0" id="0s" label="Safety Monitoring" flabel="Data &gt;&gt; "/>
+	<tab toptab="0" id="0h" label="Retrospective Review" flabel="Data &gt;&gt; "/>
+	<tab toptab="9" id="9a" label="Investigational Devices" flabel="Devices &gt;&gt; "/>
+	<tab toptab="9" id="9b" label="Humanitarian Use Devices" flabel="Devices &gt;&gt; "/>
+	<tab toptab="34" id="34" label="Specimen Banking" flabel=""/>
+	<tab toptab="7" id="7" label="Funding" flabel=""/>
+	<tab toptab="2b" id="2b" label="Cancer" flabel=""/>
+	<tab toptab="2d" id="2d" label="Radiation Safety" flabel=""/>
+	<tab toptab="8" id="8" label="Drugs / Biologics" flabel=""/>
+	<tab toptab="37" id="37" label="Biosafety" flabel=""/>
+	<tab toptab="35" id="35a" label="Summary" flabel="Clinical Research Unit &gt;&gt; "/>
+	<tab toptab="35" id="35b" label="Requirements" flabel="Clinical Research Unit &gt;&gt; "/>
+	<tab toptab="35" id="35c" label="Costs" flabel="Clinical Research Unit &gt;&gt; "/>
+	<tab toptab="36" id="36" label="Financial Administration" flabel=""/>
+	<tab toptab="18" id="18" label="Attachments" flabel=""/>
+	<tab toptab="22" id="22" label="Submit" flabel=""/>
+	<tab toptab="23" id="23" label="Send to PI" flabel=""/>
+	<form tabID="1A" formName="modification" printlabel="Amendment Summary" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/modification.xml">
+		<el comp="" typ="" xml="modificationSummary" cmp="1A">Summary of the Modification Request</el>
+		<el comp="" typ="" xml="modificationJustification" cmp="1A">Justification for the Modification</el>
+		<el comp="" typ="yesno" xml="modificationChangesConsent" cmp="1A">This Modification Changes the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</el>
+		<el comp="" typ="" xml="modificationChangesConsentDescription" cmp="1A">Description of Changes in the Consent Document or Information that May Affect Subjects’ Willingness to Continue to Participate in the Research</el>
+		<el comp="" typ="yesno" xml="modificationReConsent" cmp="1A">Subjects Will Be Re-Consented or Provided with the New Information</el>
+		<el comp="" typ="" xml="modificationReConsentPlan" cmp="1A">Proposed Plan to Re-Consent Subjects or to Provide Them with the New Information</el>
+		<el comp="" typ="" xml="modificationReConsentNotNecesary" cmp="1A">Explanation Why Re-Consenting or Providing Subjects with the New Information is Not Necessary</el>
+	</form>    
+	
+	<form tabID="1a" formType="general" formName="irbsummary" printlabel="Title"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/summary.xml">
+		<el comp="" typ="" component="box" xml="title" cmp="1a">Protocol Title</el>
+		<el comp="" typ="" component="field" xml="contextGroup" cmp="1a">Primary Department</el>
+		<el comp="" typ="" component="bigbox" xml="laysummary" cmp="1a">Lay Summary</el>
+	</form>
+	<form tabID="1c" formType="general" formName="setup" printlabel="Setup" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/setup.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="feeWaiverRequested" cmp="1c" lookup="" label="" value="">Fee Waiver Requested</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="feeWaiverReason" lookup="feeWaiverReason" label="@name" value="@id" cmp="1c" >Identify Fee Waiver Reason</el>
+		<el comp="" typ="" component="bigbox" xml="feeWaiverReasonOther" cmp="1c">Please explain why the payment of an IRB fee would create a meaningful obstacle to the conduct of this research conduct</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="researchFunded" cmp="1c" lookup="" label="" value="">Funding Has Been Requested / Obtained</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="FACTSClinicalResearchStudyCategory" lookup="FACTSClinicalResearchStudyCategory/type" label="@name" value="@id" cmp="1c" >Clinical Research Study Category</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="educationalRequirements" lookup="educationalRequirements" label="@name" value="@id" cmp="1c" >Educational Requirements</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="unfundedSource" lookup="unfundedSource" label="@name" value="@id" cmp="1c" >Funding Source</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="ipOfPI" cmp="1c" lookup="" label="" value="">Is this protocol the intellectual property of the Principal Investigator?</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="involveHHResources" cmp="1c" lookup="" label="" value="">Does the project involve using HonorHealth resources?</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="projectStrategy" cmp="1c" lookup="" label="" value="">Has the project been discussed at HonorHealth Research Strategy Meeting?</el>
+		
+		<el comp="" typ="decode" component="radiobuttons" xml="appType" cmp="1c" lookup="appType/type" label="@name" value="@id">Application Type</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="CPUServices" cmp="1c" lookup="" label="" value="">CPU Services</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="WIRBStudy" cmp="1c" lookup="" label="" value="">Is there a WIRB Study Id?</el>
+		<el comp="" typ="" component="field" xml="wirbProtocolNumber" cmp="1c">WIRB Study ID</el>
+		
+		
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBHIPAA" cmp="1c" lookup="" label="" value="">External IRB Will Make HIPAA-Related Considerations</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="researchInvolves" cmp="1c" lookup="researchInvolves/type" label="@name" value="@id">Research Involves</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="consentingParticipants" cmp="1c" lookup="" label="" value="">Consenting Participants</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="requestingWaiverForAnyProcedures" cmp="1c" lookup="" label="" value="">Requesting Waiver or Alteration of Informed Consent for Any Procedures</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="useHUD" cmp="1c" lookup="" label="" value="" >Humanitarian Use Device (HUD) Used Exclusively in the Course of Medical Practice</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="invDevs" cmp="1c" lookup="" label="" value="" >Use of an Investigational Device to Evaluate Its Safety or Effectiveness</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="bankingSpecimens" cmp="1c" lookup="" label="" value="">Banking Specimens for Future Research</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="clinicalTrial" cmp="1c" lookup="" label="" value="">Clinical Trial</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="invDrugs" cmp="1c" lookup="" label="" value="" >Drugs / Biologics </el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="radiologicalProcedures" cmp="1c" lookup="" label="" value="">Radiological Procedures</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="requestingCRUResources" cmp="1c" lookup="" label="" value="">Request Use of Clinical Research Unit Resources</el>
+	</form>
+	<form tabID="1b" formType="general" formName="templateMain" printlabel="Background" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/templateMain.xml">
+		<el comp="" typ="" component="bigbox" xml="objective" cmp="1b">Objectives</el>
+		<el comp="" typ="" component="bigbox" xml="background" cmp="1b">Background</el>
+		<el comp="" typ="" component="bigbox" xml="primarySecondaryEndpoints" cmp="1b">Primary and Secondary Study Endpoints</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="previouslySubmittedExternal" cmp="1b" lookup="" label="" value="">Protocol Was Previously Submitted to an External(non-ISMMS) IRB</el>
+		<el comp="" typ="" component="box" xml="previouslySubmittedExternalIRBName" cmp="1b">External IRB Name</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="previouslyApprovedExternal" cmp="1b" lookup="" label="" value="">Protocol Was Approved by the External IRB</el>
+		<el comp="" typ="" component="document" xml="previousApprovalDoc" cmp="1b">External IRB Approval Document</el>
+		<el comp="" typ="" component="bigbox" xml="previouslySubmittedDetails" cmp="1b">Details of the Review Including the Date of Review and External IRB Contact Information</el>
+	</form>
+	<form tabID="4b" formType="drillin" formName="personnel" printlabel="Research Personnel" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/personnel.xml">
+		<el comp="" typ="drillin" message="    [View tab for additional details]" xmlset="Person[role!=&apos;nonProtocol&apos;]" 
+			xml="Person"  entName="Person" nodeName="name" cmp="4b">Research Personnel</el>
+	</form>
+	
+	<form tabID="5" formType="general" formName="singlePatientIND" printlabel="Single Patient IND"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/singlePatientIND.xml">
+		<el comp="" typ="" component="document" xml="fda3926Doc" cmp="5">Attach Form FDA3926</el>
+		<el comp="" typ="" component="field" xml="singlePatientINDNumber" cmp="5">IND Number</el>
+		<el comp="" typ="" component="document" xml="drugTreatmentPlanDoc" cmp="5">Attach HonorHealth Research Institute DRUG TREATMENT PLAN INFORMATION AND CONSENT FORM For Single Patient Under IND</el>
+		<el comp="" typ="" component="document" xml="fda1572Doc" cmp="5">Attach Form FDA1572</el>
+		<el comp="" typ="" component="document" xml="fdaOkToProceedDoc" cmp="5">Attach FDA OK to Proceed Letter</el>
+		<el comp="" typ="" component="document" xml="idbDoc" cmp="5">Attach Investigator Drug Brochure</el>
+	</form>
+	
+	<form tabID="6X" formType="drillin" formName="externalSites" printlabel="External Sites" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/externalSites.xml">
+		<!--<el code="$org/siteName" pre="" xmlset="externalSiteApprovals" xml="externalSiteApprovals" ident="siteName" cmp="6X">Sites</el>--><!--  ident="siteName" -->
+		<el comp="" typ="drillin" message="    [View tab for additional details]" xmlset="externalSiteApprovals" xml="externalSiteApprovals" identDecode="siteName" lookup="siteName/type" label="@name" value="@id" cmp="6X">Sites</el>
+		<col typ="" component="manual" xml="siteName" cmp="6X">Site Name</col>
+		<col typ="" component="manual" xml="siteNameOther" cmp="6X">Other External Site Name</col>
+		<col typ="" component="manual" xml="standardContactInfo" cmp="6X">Contact Details</col>
+		<col typ="" component="manual" xml="siteApproval" cmp="6X">Approved</col>
+		<col typ="" component="document" xml="approvalDoc" cmp="6X">Approval Document</col>
+		<col typ="" component="manual" xml="passThrough" cmp="6X">Funded By Mount Sinai</col>
+		<col typ="" component="manual" xml="reviewResearch" cmp="6X">Reviewed By</col>
+		<col typ="" component="manual" xml="otherIRBDesc" cmp="6X">Other IRB</col>
+		<!--VV:02/15/2019 Added below for merged Subjects/Sites pages-->
+		<col typ="" component="textarea" xml="totalEnroll" cmp="6X" >Subjects To Be Enrolled</col>
+		<!--VV:02/15/2019 Added below for merged Subjects/Sites pages-->
+	</form>
+	<form tabID="3a" formType="general" formName="exempSummary" printlabel="Summary"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/exempSummary.xml">
+		<el comp="" typ="" component="bigbox" xml="exemptSummary" cmp="3a">Summary of the Research</el>
+		<el comp="" typ="" component="bigbox" xml="exemptLocation" cmp="3a">Location Where Research Will Be Carried Out</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="exemptInteractionSubjects" cmp="3a" lookup="" label="" value="">There Will Be Interaction with Subjects</el>
+		
+		<!-- AB Sprint 4 -->
+		<el comp="" typ="yesno" component="yesnobuttons" xml="involveRetroDataBioSpecimens" cmp="3a" lookup="" label="" value="">Does The Project Involve Review of Retrospective Data/Biospecimens?</el>
+		
+		<el comp="" typ="" component="bigbox" xml="exemptEquitableSelection" cmp="3a">Explanation of How Selection of Subjects Will Be Equitable</el>
+		<el comp="" typ="" component="bigbox" xml="exemptPrivacyProtected" cmp="3a">Explanation of How Subjects Privacy Will Be Protected</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="exemptSurveyInstruments" cmp="3a" lookup="" label="" value="">Surveys Instruments Will Be Used</el>
+	</form>
+	<form tabID="3b" formType="general" formName="exempCategory" printlabel="Category"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/exempCategory.xml">
+		<el comp="" typ="decodeChk" component="checkboxes" xml="exemptCategories" cmp="3b">Exemption Categories</el>
+	</form>
+	<form tabID="4" formType="general" formName="externalIRB" printlabel="External IRB"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/externalIRB.xml">
+		<el comp="" typ="decode" component="radiobuttons" xml="externalIRBName" cmp="4" lookup="externalIRBName/type" label="@name" value="@id">Research Will Be Reviewed By</el>
+		<el comp="" typ="" component="bigbox" xml="externalIRBOther" cmp="4">Specify Other IRB</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBMultiCenterNotPI" cmp="4" lookup="" label="" value="">Research is a Major Multi-Center Clinical Trial and the Mount Sinai PI is not the overall PI of the Trial</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBMultiCenterConsortium" cmp="4" lookup="" label="" value="">Research is a Major Multi-Center Research Consortium Project</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBMultiCenterCentralIRB" cmp="4" lookup="" label="" value="">Research is a Multi-Center Trial with a Central IRB</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBPIRoleNotIncludeSubjects" cmp="4" lookup="" label="" value="">Mount Sinai PI is a Collaborator on Human Research Primarily Conducted at Another Organization and PI’s Role does not Include Interaction or Intervention with Subjects</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBRequestFromPPHS" cmp="4" lookup="" label="" value="">Request Comes from the Program for Protection of Human Subjects (PPHS)</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="externalIRBHIVTesting" cmp="4" lookup="" label="" value="">Research Requires HIV Testing</el>
+		<el comp="" typ="" component="document" xml="externalIRBHIVConsent" cmp="4">HIV Research Consent Document</el>
+	</form>
+	<!--VV:02/15/2019 No longer needed, because Subjects page is now merged with Sites page. Can we comment this out?-->
+	<form tabID="11C" formType="general" formName="enrollment" printlabel="Enrollment"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/enrollment.xml">
+		<el comp="" message="    [View tab for additional details]" component="entryTable" xml="externalSiteApprovals" cmp="11C"/>
+		<col typ="" component="manual" xml="siteNameText" elxml="externalSiteApprovals" cmp="11C" >Site Name</col>
+		<col typ="" component="textarea" xml="totalEnroll" elxml="externalSiteApprovals" cmp="11C" >Subjects To Be Enrolled</col>
+		<el comp="" typ="" component="number" xml="totalEnrolled" cmp="11C">Total Number of Subjects to be Enrolled Across All Listed Sites Above (Auto Populated)</el>
+	</form>
+	<!--VV:02/15/2019 No longer needed, because Subjects page is now merged with Sites page. Can we comment this out?-->
+	<form tabID="11B" formType="general" formName="settings"
+		printlabel="Setting &amp; Resources"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/settings.xml">
+		<el comp="" typ="decodeChk" component="checkboxes" xml="settingResearch" cmp="11B" lookup="settingResearch/type" label="@name" value="@id">Setting of Human Research</el>
+		<el comp="" typ="" component="bigbox" xml="settingResearchOther" cmp="11B">Specify Other Setting of Human Research</el>
+		<el comp="" typ="" component="number" xml="neededNumSubjects" cmp="11B">Total Number of Subjects Needed To Meet Enrollment Goals</el>
+		<el comp="" typ="" component="number" xml="numSubjectsCompleteStudy" cmp="11B">Total Number of Evaluable Subjects Needed To Complete Study</el>
+		<el comp="" typ="" component="bigbox" xml="facilitiesForConductingResearch" cmp="11B">Facilities To Be Used for Conducting Research</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="multiCenter" cmp="11B" lookup="" label="" value="">Multi-Center Study</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="multiCenterISMPIResponsible" cmp="11B" lookup="" label="" value="">Mount Sinai Principal Investigator is Responsible for All Centers</el>
+		<el comp="" typ="" component="bigbox" xml="descMultiCenter" cmp="11B">Management of Multi-Center Study</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="isCBPR" cmp="11B" lookup="" label="" value="" >Community-Based Participant Research Study</el>
+		<el comp="" typ="" component="bigbox" xml="descCBPR" cmp="11B">Involvement of the Community in the Design and Conduct of Research</el>
+	</form>
+	<form tabID="11" formType="general" formName="subjects" printlabel="Populations"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/subjects.xml">
+		<el comp="" typ="" component="bigbox" xml="inclusionCriteria" cmp="11">Inclusion Criteria</el>
+		<el comp="" typ="" component="bigbox" xml="exclusionCriteria" cmp="11">Exclusion Criteria</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="enrollRestrictions" cmp="11" lookup="" label="" value="">Enrollment Restrictions Based Upon Gender, Pregnancy, Childbearing Potential, or Race</el>
+		<el comp="" typ="" component="box" xml="justifyRestrictions" cmp="11">Justify Restriction(s)</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="ageRange" cmp="11" lookup="ageRangeTypes/type" label="@name" value="@id" >Age Range(s)</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="population" cmp="11" lookup="populationTypes/type" label="@name" value="@id" >Targeted Population(s)</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="race" cmp="11" lookup="raceTypes/type" label="@name" value="@id" >Ethnicity</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="researchProlong" cmp="11" lookup="" label="" value="">Will the research study prolong the hospitalization period?</el>
+		<el comp="" typ="" component="bigbox" xml="describeProlong" cmp="11">Describe:</el>
+	</form>
+	<form tabID="17" formType="general" formName="enroll" printlabel="Participation"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/enroll.xml">
+		<el comp="" typ="" component="box" xml="studyTimeline" cmp="17">Duration of an Individual Subject&amp;apos;s Participation in the Study</el>
+		<el comp="" typ="" component="box" xml="studyTimelineA" cmp="17">Duration Anticipated to Enroll All Study Subjects</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="studyTimelineB" lookup="studyTimelineB/type" label="@name" value="@id" cmp="17">Estimated Date for the Investigators to Complete This Study</el>
+		<el comp="" typ="" component="bigbox" xml="subjectWithdrawal" cmp="17">Procedures for Subjects to Request Withdrawal</el>
+		<el comp="" typ="" component="bigbox" xml="investigatorWithdrawSubjects" cmp="17">Procedures for Investigator to Withdraw Subjects</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="recruitingParticipants" cmp="17" lookup="" label="" value="">Participants Will Be Recruited</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="recMethod" cmp="17" lookup="methodTypes/type" label="@name" value="@id" >Recruitment Method(s)</el>
+		<el comp="" typ="" component="bigbox" xml="recMethodOther" cmp="17">Specify Other Recruitment Method</el>
+		<el comp="" typ="" component="bigbox" xml="howParticipantIdentified" cmp="17">How Participants Will Be Identified</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="approachParticipant" cmp="17" lookup="contactTypes/type" label="@name" value="@id">Who Will Initially Approach Potential Participants</el>
+		<el comp="" typ="" component="bigbox" xml="approachParticipantDescribe" cmp="17">Describe:</el>
+		<el comp="" typ="" component="bigbox" xml="researchIntroduced" cmp="17">How Research Will Be Introduced to Participants</el>
+		<el comp="" typ="" component="bigbox" xml="howParticipantScreened" cmp="17">How Participants Will Be Screened</el>
+	</form>
+	<form tabID="0d" formType="general" formName="templateSubjects"
+		printlabel="Risk &amp; Benefits"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/templateSubjects.xml">
+		<el comp="" typ="" component="bigbox" xml="subjectRisks" cmp="0d">Risks to Subjects</el>
+		<el comp="" typ="" component="bigbox" xml="proceduresToLessenRiskDescription" cmp="0d">Description of Procedures Taken to Lessen the Probability or Magnitude of Risks </el>
+		<el comp="" typ="" component="bigbox" xml="harmProvision" cmp="0d">Provisions for Research Related Harm / Injury</el>
+		<el comp="" typ="" component="bigbox" xml="subjectBenefits" cmp="0d">Expected Direct Benefit to Subjects</el>
+		<el comp="" typ="" component="bigbox" xml="subjectPayment" cmp="0d">Benefit to Society</el>
+		<el comp="" typ="" component="bigbox" xml="subjectPrivacy" cmp="0d">Provisions to Protect the Privacy Interests of Subjects</el>
+		<el comp="" typ="" component="bigbox" xml="subjectImpact" cmp="0d">Economic Impact on Subjects</el>
+	</form>
+	<form tabID="31a" formType="general" formName="children" printlabel="Children"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/children.xml">
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="subGreat" lookup="subGreat/type" label="@name" value="@id" cmp="31a">Risk Presented to Children</el>
+	</form>
+	<form tabID="31b" formType="general" formName="pregnant" printlabel="Pregnant Women"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/pregnant.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="subPreg" cmp="31b" lookup="" label="" value="" >Preclinical Studies Including Those on Pregnant Animals and Clinical Studies Including Those on Non-Pregnant Women Have Been Conducted</el>
+		<el comp="" typ="" component="bigbox" xml="subPregData" cmp="31b">Data for Assessing Potential Risks to Pregnant Women and Fetuses</el>
+	</form>
+	<form tabID="31c" formType="general" formName="prisoners" printlabel="Prisoners"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/prisoners.xml">
+		<el comp="" typ="decodeChk" component="checkboxes" xml="prisonerCategoryResearchInstruction" lookup="prisonerCategoryResearchInstruction/type" label="@name" value="@id" cmp="31c" >Category of Research (Select ALL that Apply)</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="prisonerWhoMayBenefit" lookup="prisonerWhoMayBenefit/type" label="@name" value="@id" cmp="31c">Who May Benefit from Research on Practices</el>
+	</form>
+	<form tabID="31d" formType="general" formName="withoutcapacity"
+		printlabel="Adults Without Capacity"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/withoutcapacity.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="directBenefitToSubjects" cmp="31d" lookup="" label="" value="">There is Anticipated Direct Benefit to the Subjects</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="assentRequiredOf" lookup="assentRequiredOf/type" label="@name" value="@id" cmp="31d">Assent is Required of</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="riskToSubjects" lookup="riskToSubjects/type" label="@name" value="@id" cmp="31d">Risk to Subjects</el>
+	</form>
+	<form tabID="32a" formType="general" formName="narrative" printlabel="Narrative"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/narrative.xml">
+		<el comp="" typ="" component="bigbox" xml="studyDesignDescription" cmp="32a">Description of the Study Design</el>
+		<el comp="" typ="" component="bigbox" xml="proceduresDescription" cmp="32a">Description of Procedures Being Performed</el>
+		<el comp="" typ="" component="bigbox" xml="sourceRecordsDescription" cmp="32a">Description of the Source Records that Will Be Used to Collect Data About Subjects </el>
+		<el comp="" typ="" component="bigbox" xml="dataCollectedDescription" cmp="32a">Description of Data that Will Be Collected Including Long-Term Follow-Up</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="IRBHIVTesting" cmp="32a" lookup="" label="" value="">Research Requires HIV Testing</el>
+		<el comp="" typ="" component="document" xml="IRBHIVConsent" cmp="32a">HIV Research Consent Document</el>
+	</form>
+	<form tabID="32b" formType="general" formName="genetic" printlabel="Genetic Testing"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/genetic.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="geneticTesting" cmp="32b" lookup="" label="" value="">Genetic Testing Will Be Performed</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="geneticTestingForClinicalPurposes" cmp="32b" lookup="" label="" value="">Genetic Testing Will Be Performed for Clinical Purposes</el>
+	</form>
+	<form tabID="32c" formType="general" formName="templateStudyDesign" printlabel="Details"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/templateStudyDesign.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="survey" cmp="32c" lookup="" label="" value="" >Surveys or Interviews</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="typeInstruments" lookup="typeInstruments/type" label="@name" value="@id" cmp="32c">Type of Instruments Being Used</el>
+		<el comp="" typ="" component="bigbox" xml="standardizedInstruments" cmp="32c">Names of Standardized Instruments</el>
+		<el comp="" typ="" component="bigbox" xml="investigatorInstrumentsDescription" cmp="32c">Description of Instruments Created By Research Team</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="avTaping" cmp="32c" lookup="" label="" value="">Audio / Photo / Video Recording</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="avTapingSubjectsIdentifiable" cmp="32c" lookup="" label="" value="">Subjects Will Be Identifiable</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="avTapingMediaDiscarded" cmp="32c" lookup="" label="" value="">Media Will Be Discarded When the Research Study is Completed</el>
+		<el comp="" typ="" component="box" xml="avTapingMediaStorageDuration" cmp="32c">Duration Media Will Be Stored</el>
+		<el comp="" typ="" component="bigbox" xml="avTapingMediaStorageConfidentiality" cmp="32c">How Media Will Be Stored to Ensure Confidentiality</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="avTapingMediaShared" cmp="32c" lookup="" label="" value="">Media Will Be Shared with Others</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="avTapingRequiredForParticipation" cmp="32c" lookup="" label="" value="">Audio / Photo / Video Recording is Required for Participation</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="deception" cmp="32c" lookup="" label="" value="">Deception</el>
+		<el comp="" typ="" component="bigbox" xml="deceptionNotes" cmp="32c">Describe:</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="shareResults" cmp="32c" lookup="" label="" value="">Results of the Study Will Be Shared with Subjects or Others</el>
+		<el comp="" typ="" component="bigbox" xml="descShareResults" cmp="32c">How the Results Will Be Shared</el>
+		<el comp="" typ="" component="bigbox" xml="descShareResultsWhen" cmp="32c">When the Results Will Be Shared</el>
+	</form>
+	<form tabID="32d" formType="general" formName="instruments" printlabel="Instruments"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/instruments.xml">
+		<el comp="" message="    [View tab for additional details]" component="entryTable" xmlset="instruments" xml="instruments" cmp="32d">Instruments Created By Research Team</el>
+		<col typ="" component="manual" xml="@title" elxml="instruments" cmp="32d">Type</col>
+		<col typ="" component="manual" xml="@name" elxml="instruments" cmp="32d">Name</col>
+		<col typ="" component="document" xml="instruments" elxml="instruments" cmp="32d">Upload</col>
+	</form>
+	<form tabID="32e" formType="general" formName="compensation" printlabel="Compensation"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/compensation.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="compParticipation" cmp="32e" lookup="" label="" value="">Compensation for Participation</el>
+		<el comp="" typ="entryTable" message="    [View tab for additional details]" xmlset="Compensation" xml="Compensation" identDecode="type" lookup="compensationTypes/type" label="@name" value="@id" cmp="32e">Compensation</el>
+		<col typ="decode" component="dropdown" xml="type" elxml="Compensation" cmp="32e" lookup="" label="" value=""/>
+		<col typ="" component="text" xml="amount" elxml="Compensation" cmp="32e">Amount Per Visit</col>
+		<col typ="" component="text" xml="numberOfVisits" elxml="Compensation" cmp="32e"># of Visits</col>
+		<col typ="" component="text" xml="compLineTotal" elxml="Compensation" cmp="32e">Line Total</col>
+		<col typ="decode" component="dropdown" xml="justification" elxml="Compensation" cmp="32e" lookup="" label="" value=""/>
+		<col typ="decode" component="dropdown" xml="compensationWhoWillPay" elxml="Compensation" cmp="32e" lookup="" label="" value=""/>
+		<col typ="" component="manual" xml="compensationSpecifyWhoWillPay" elxml="Compensation" cmp="32e">Specify Who Will Pay</col>
+		<col typ="" component="textarea" xml="compensationComment" elxml="Compensation" cmp="32e" >Comment</col>
+		<el comp="" typ="" component="number" xml="compTotal" cmp="32e">Total Compensation</el>
+	</form>
+	
+	<form tabID="33a" formType="general" formName="consent" printlabel="Obtaining Consent"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/consent.xml">
+		<el comp="" typ="decodeChk" component="checkboxes" xml="concentProcess" cmp="33a" lookup="processTypes/type" label="@name" value="@id" >Consent Process</el>
+		<el comp="" typ="" component="box" xml="whereWhenConcent" cmp="33a">Where and When Consent Will Be Obtained</el>
+		<el comp="" typ="" component="bigbox" xml="consentWaiting" cmp="33a">Waiting Period for Obtaining Consent</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="consentSOPHRP" cmp="33a" lookup="" label="" value="">SOP HRP-090 Informed Consent Process for Research Is Being Used</el>
+		
+		<!-- AB Sprint 4 -->
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="consentType" lookup="consentType/type" label="@name" value="@id" cmp="33a">Consent</el>
+		<el comp="" typ="" component="bigbox" xml="consentTypeOtherSpecify" cmp="33a">Specify</el>
+		
+		<el comp="" typ="" component="bigbox" xml="consentDescribe" cmp="33a">Specify Why SOP HRP-090 Is Not Being Used</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="consentWritten" lookup="consentWritten/type" label="@name" value="@id" cmp="33a">Process to Document Consent in Writing</el>
+		<el comp="" typ="" component="bigbox" xml="consentWrittenDescribe" cmp="33a">Provide Justification for Verbal Consent Use</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="enrollNonEnglishSpeaking" cmp="33a" lookup="" label="" value="">Non-English Speaking Participants Will Be Enrolled</el>
+		<el comp="" typ="" component="bigbox" xml="languagesOtherThanEnglish" cmp="33a">What Languages Other Than English Will Be Used</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="languagesConsentProcess" lookup="languagesConsentProcess/type" label="@name" value="@id" cmp="33a">What Process Will Be Used</el>
+		<el comp="" typ="" component="bigbox" xml="justificationNotEnrollingNonEnglishSpeaking" cmp="33a" >Justification for Not Enrolling Non-English Speaking Participants</el>
+	</form>
+	<form tabID="33b" formType="general" formName="parentalPermission"
+		printlabel="Parental Permission"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/parentalPermission.xml">
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="consPermission" lookup="consPermission/type" label="@name" value="@id" cmp="33b">Permission To Be Obtained From</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="waiveParentalCriteriaSet" lookup="waiveParentalCriteriaSet/type" label="@name" value="@id" cmp="33b">Which of the Following Set of Criteria Applies</el>
+		<el comp="" typ="" component="bigbox" xml="waiveParentalCriteriaSetJustify" cmp="33b">Justify Why This Set of Criteria Applies</el>
+		<el comp="" typ="" component="document" xml="PPDoc" cmp="33b">Parental Permission Document</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="assentPermission" lookup="assentPermission/type" label="@name" value="@id" cmp="33b">Assent To Be Obtained From</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="assentProcess" lookup="assentProcess/type" label="@name" value="@id" cmp="33b">Assent Process</el>
+		<el comp="" typ="" component="document" xml="assentForm" cmp="33b">Assent Form</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="assentDocumentProcess" lookup="assentDocumentProcess/type" label="@name" value="@id" cmp="33b">Process for Documentation</el>
+		<el comp="" typ="" component="bigbox" xml="assentDocumentDesc" cmp="33b">Specify Other Process for Documentation</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="consCapability" lookup="consCapability/type" label="@name" value="@id" cmp="33b">Which of the Following Are True (Choose At Least One)</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="waiveAssentCriteriaSet" lookup="waiveAssentCriteriaSet/type" label="@name" value="@id" cmp="33b">Which of the Following Set of Criteria Applies</el>
+		<el comp="" typ="" component="bigbox" xml="waiveAssentCriteriaSetJustification" cmp="33b">Justify Why This Set of Criteria Applies</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="designedBenefits" cmp="33b" lookup="" label="" value="">The Research or Demonstration Project is Designed to Study, Evaluate, or Otherwise Examine One or More of the Following</el>
+	</form>
+	<form tabID="33c" formType="general" formName="legallyAuthorized"
+		printlabel="Legally Authorized Representative"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/legallyAuthorized.xml">
+		<el comp="" typ="" component="bigbox" xml="indCapableOfConsent" cmp="33c">Process to Determine Whether an Individual is Capable of Consent</el>
+		<el comp="" typ="" component="bigbox" xml="assentOfSubjects" cmp="33c">Process for Assent of the Subjects</el>
+	</form>
+	<form tabID="33d" formType="general" formName="informedWaiver"
+		printlabel="Waiver of Informed Consent"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/informedWaiver.xml">
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="consentWaiver" lookup="consentWaiver/type" label="@name" value="@id" cmp="33d">Type of Waiver</el>
+		<el comp="" typ="" component="box" xml="noMoreThanMinRisk" cmp="33d">How the Research Involves No More Than Minimal Risks to Participants</el>
+		<el comp="" typ="" component="box" xml="waiverNotAffectParticipants" cmp="33d">How the Waiver / Alteration Will Not Adversely Affect the Rights and Welfare of Participants</el>
+		<el comp="" typ="" component="box" xml="justifyWaiver" cmp="33d">Why It Is Not Practical To Conduct this Research Without a Waiver or Alteration of Informed Consent</el>
+		<el comp="" typ="" component="box" xml="provideAdditionalInformation" cmp="33d">Plans for Providing Participants with Additional Pertinant Information After Participation Where Appropriate</el>
+		<el comp="" typ="" component="box" xml="describeAlterationConsent" cmp="33d">How the Consent Process Will Be Altered</el>
+		<el comp="" typ="" component="box" xml="justifyAlterationConsent" cmp="33d">Justify the Need for this Alteration</el>
+	</form>
+	<form tabID="33e" formType="general" formName="signedConsent"
+		printlabel="Waiver of Signed Consent"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/signedConsent.xml">
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="identJustification" lookup="identJustification/type" label="@name" value="@id" cmp="33e">Which of the Following Justifications is Being Used to Request a Waiver of Documentation</el>
+		<el comp="" typ="" component="bigbox" xml="waiverOfSignedConsentJustification" cmp="33e">Explanation of Justification Being Used to Request a Waiver of Documentation</el>
+	</form>
+	<form tabID="33f" formName="consentDocs" printlabel="Documents" src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/consentDocs.xml">
+		<el comp="" component="entryTable"  message="    [View tab for additional details]" xmlset="consentDocs" xml="consentDocs" ident="document" cmp="33f">Consent Documents</el>
+		<col typ="" component="manual" xml="title" elxml="consentDocs" cmp="33f">Type</col>
+		<col typ="" component="manual" xml="name" elxml="consentDocs" cmp="33f">Name</col>
+		<col typ="" component="document" xml="consentDocs" elxml="consentDocs" cmp="33f">Upload</col>
+	</form>
+	<form tabID="0p" formType="general" formName="collection" printlabel="Collection"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/collection.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="healthInfoViewedRecorded" cmp="0p" lookup="" label="" value="">Health Related Information Will Be Viewed, Recorded, or Generated</el>
+		<el comp="" typ="" component="bigbox" xml="healthInfoViewedRecordedDescription" cmp="0p">Description of Health Information That Will Be Viewed, Recorded, or Generated</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="nonHealthInfoViewedRecorded" cmp="0p" lookup="" label="" value="">Non-Health Related Information Will Be Viewed or Recorded</el>
+		<el comp="" typ="" component="bigbox" xml="nonHealthInfoViewedRecordedDescription" cmp="0p" >Description of Non-Health Information That Will Be Viewed or Recorded</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="HIVInfoViewedRecorded" cmp="0p" lookup="" label="" value="">HIV / AIDS Related Information Will Be Viewed or Recorded</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="HIVInfoInformedConsent" cmp="0p" lookup="" label="" value="">Informed Consent Will Be Obtained to Access Identifiable HIV / AIDS Information</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="dataRecord" cmp="0p" lookup="" label="" value="">Data That Will Be Viewed, Recorded, or Generated Contains ANY of the Following Directly Identifiable Information</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="dataViewed" cmp="0p" lookup="dataRecord/type" label="@name" value="@id">Will Be Viewed</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="dataRecorded" cmp="0p" lookup="dataRecord/type" label="@name" value="@id">Will Be Recorded</el>
+		<el comp="" typ="" component="document" xml="dataCollection" cmp="0p">Data Collection Sheet</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="dataCollectionSources" cmp="0p" lookup="dataCollectionSourceTypes/type" label="@name" value="@id">Data Collection Source(s)</el>
+	</form>
+	<form tabID="0q" formType="general" formName="hippa" printlabel="HIPAA"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/hippa.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="obtainingHIPAAAuthorization" cmp="0q" lookup="" label="" value="">Obtaining HIPAA Authorization</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="requestingWaiverAlteration" lookup="requestingWaiverAlteration/type" label="@name" value="@id" cmp="0q">Requesting Waiver or Alteration</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="researchCouldBeConductedWithoutPHI" cmp="0q" lookup="" label="" value="">Research Could Be Practicably Conducted Without Access to and Use of Protected Health Information (PHI)</el>
+		<el comp="" typ="" component="bigbox" xml="explanationWhyNotWOPHI" cmp="0q">Explanation Why Research Could Not Be Practicably Conducted Without Access to and Use of PHI</el>
+		<el comp="" typ="" component="bigbox" xml="explanationWhyNotWOWaiverAlteration" cmp="0q">Explanation Why Research Could Not Be Practicably Conducted Without a Waiver or Alteration of Authorization</el>
+		<el comp="" typ="" component="bigbox" xml="howPHIProtected" cmp="0q">How PHI Will Be Protected from Improper Use or Disclosure</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="PHIDestroyed" cmp="0q" lookup="" label="" value="">PHI Will Be Destroyed at the Earliest Opportunity Consistent with the Research</el>
+		<el comp="" typ="" component="bigbox" xml="WhenHowPHIDestroyed" cmp="0q">When and How PHI Will Be Destroyed </el>
+		<el comp="" typ="" component="bigbox" xml="justificationRetainingPHI" cmp="0q">Justification for Retaining PHI Indefinitely</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="PHIShared" cmp="0q" lookup="" label="" value="">PHI Will Be Shared</el>
+		<!-- AB Sprint 4 Item - Add the following the following under PHI Will Be Shared -->
+		<el comp="" typ="yesno" component="yesnobuttons" xml="haveCopyOfDUA" cmp="0q" lookup="" label="" value="">Do you have a copy of the Data User Agreement?</el>
+		<el comp="" typ="" component="document" xml="copyOfDUA" cmp="0q">Upload Data User Agreement</el>
+		
+		<el comp="" typ="" component="bigbox" xml="PHISharedDescription" cmp="0q">Description of PHI that Will Be Shared</el>
+		<el comp="" typ="" component="bigbox" xml="PHISharedJustification" cmp="0q">Justification for Sharing PHI</el>
+		<el comp="" typ="" component="bigbox" xml="PHISharedWithWhom" cmp="0q">With Whom Directly PHI Will Be Shared</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="PHIObtainedBy" lookup="PHIObtainedBy/type" label="@name" value="@id" cmp="0q">PHI Can Be Obtained By</el>
+	</form>
+	<form tabID="0r" formType="drillin" formName="hiv" printlabel="HIV/AIDS"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/hiv.xml">
+		<el comp="" typ="drillin" message="    [View tab for additional details]" xmlset="HIVPerson" xml="HIVPerson" ident="name" cmp="0r" >HIVAIDS</el>
+		<col typ="" component="text" xml="hivTableName" cmp="0r">Name</col>
+		<col typ="" component="manual" xml="hivTableRole" cmp="0r">Clinical / Adminstrative Role</col>
+	</form>
+	<form tabID="0c" formType="general" formName="templateDataMan" printlabel="Storage"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/templateDataMan.xml">
+		<el comp="" typ="" component="bigbox" xml="dataStore" cmp="0c">Location Where Data Will Be Stored</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="dataStoreHow" lookup="dataStoreHow/type" label="@name" value="@id" cmp="0c">How will the data be stored?</el>
+		<el comp="" typ="" component="bigbox" xml="dataStoreOther" cmp="0c">Specify How Data Will Be Stored</el>
+		<el comp="" typ="" component="entryTable" message="    [View tab for additional details]" xml="Person" xmlset="Person[(invitation/@status!=&apos;author&apos; or (invitation/@status=&apos;author&apos; and role!=&apos;co&apos;)) and role!=&apos;nonProtocol&apos; and not(name = preceding::name)]" cmp="0c"/>		
+		<el comp="" typ="" component="bigbox" xml="dataLength" cmp="0c">Duration Data Will Be Stored</el>
+		<el comp="" typ="" component="bigbox" xml="dataSecure" cmp="0c">Steps That Will Be Taken to Secure the Data During Storage, Use, and Transmission</el>
+		<el comp="" typ="" component="bigbox" xml="dataAnalysis" cmp="0c">Data Analysis Plan Including Any Statistical Procedures</el>
+	</form>	
+	<form tabID="0s" formType="general" formName="monitoring" printlabel="Safety Monitoring"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/monitoring.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="safetyMonitor" cmp="0s" lookup="" label="" value="">More Than the Minimum Data Safety Monitoring Will Be Done</el>
+		<el comp="" typ="" component="entity" xml="primDataMan" cmp="0s">Principal Monitor</el>
+		<el comp="" typ="" component="entryTable" message="    [View tab for additional details]" xmlset="addlDataMan" xml="addlDataMan" cmp="0s">Additional Monitors</el>
+		<col typ="" component="text" xml="name" elxml="addlDataMan" cmp="0s">Name</col>
+		<col typ="" component="text" xml="fullname/@Title" elxml="addlDataMan" cmp="0s">Title</col>
+		<col typ="" component="text" xml="department/dept[@value=../@selected]/@name" elxml="addlDataMan" cmp="0s">Department</col>
+		<col typ="" component="manual" xml="address" elxml="addlDataMan" cmp="0s">Contact Details</col>
+		<col typ="decode" component="dropdown" xml="type" elxml="addlDataMan" cmp="0s" lookup="" label="" value="">Additional Monitors</col>
+		<el comp="" typ="" component="bigbox" xml="specificAims" cmp="0s">Specific Items That Will Be Monitored for Safety</el>
+		<el comp="" typ="" component="bigbox" xml="freqDataReview" cmp="0s">Frequency of Data Review</el>
+		<el comp="" typ="" component="bigbox" xml="altStudyDesign" cmp="0s">Rules for Alteration of Study Design</el>
+		<el comp="" typ="" component="bigbox" xml="minToxicity" cmp="0s">Selection Procedures to Minimize Toxicity</el>
+		<el comp="" typ="" component="bigbox" xml="gradingSystem" cmp="0s">Grading System to Evaluate Adverse Events</el>
+		<el comp="" typ="" component="bigbox" xml="dataAccuracy" cmp="0s">Procedures to Assure Data Accuracy</el>
+		<el comp="" typ="" component="bigbox" xml="suspensionReport" cmp="0s">Suspension Reported to</el>
+		<el comp="" typ="" component="bigbox" xml="subjectWithdraw" cmp="0s">Anticipated Circumstances of Subject Withdrawal</el>
+		<el comp="" typ="" component="bigbox" xml="primarySecondarySafetyEndpoints" cmp="0s">Primary or Secondary Safety Endpoints</el>
+		<el comp="" typ="" component="document" xml="dmcDescription" cmp="0s">Description of Data Monitoring Committee (DMC)</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="dmcCharterAvailable" cmp="0s" lookup="" label="" value="">DMC Charter Available</el>
+		<el comp="" typ="" component="document" xml="dmcCharter" cmp="0s">DMC Charter</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="dataCoordinatingCenter" cmp="0s" lookup="" label="" value="">Will the Research Include Data Coordinating Center Activities?</el>
+	</form>
+	<form tabID="0h" formType="general" formName="retrochartreviews"
+		printlabel="Retrospective Review"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/retrochartreviews.xml">
+		<el comp="" typ="" component="number" xml="enrollThisSite" cmp="0h">Number of records to be reviewed</el>
+		<el comp="" typ="" component="date" xml="retroStartDate" cmp="0h">Data Generation Period Start Date</el>
+		<el comp="" typ="" component="date" xml="retroEndDate" cmp="0h">Data Generation Period End Date</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="DataSubmittedFDAPermit" cmp="0h" lookup="" label="" value="">Data Regarding Subjects or Control Subjects Will Be Submitted to or Held for Inspection by FDA as Part of an Application for a Research or Marketing Permit</el>
+	</form>
+	<form tabID="9a" formType="general" formName="investigationalDevices"
+		printlabel="Investigational Devices"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/investigationalDevices.xml">
+		<el comp="" typ="" component="repeater" message="    [View tab for additional details]" xmlset="Device" xml="Device" ident="mssmDevice" cmp="9a">Device(s)</el>
+		<col typ="" component="box" xml="mssmDevice" cmp="9a">Investigational Device Name</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="" component="box" xml="deviceDescribe" cmp="9a">Description of Device</col>
+		<col typ="yesno" component="yesnobuttons" xml="ideStudy" cmp="9a" lookup="" label="" value="">Study Is Being Done Under an Investigational Device Exemption (IDE)</col>
+		<col typ="" component="field" xml="deviceIDE" cmp="9a">IDE #</col>
+		<col typ="decode" component="radiobuttons" xml="deviceSponsor" cmp="9a" lookup="deviceSponsor/type" label="@name" value="@id"/>
+		<col typ="" component="field" xml="deviceSponsorName" cmp="9a">Specify Name of Sponsor</col>
+		<col typ="yesno" component="yesnobuttons" xml="invManufactured" cmp="9a" lookup="" label="" value="">Device Is Investigator Manufactured</col>
+		<col typ="" component="box" xml="descInvManufactured" cmp="9a">Arrangements and Precautions Taken To Ensure Proper Manufacturing of Device</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="yesno" component="yesnobuttons" xml="deviceMeetsExemptionCategory" cmp="9a" lookup="" label="" value="">Device Meets One of the Following Categories for Exemption</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="decode" component="radiobuttons" xml="deviceExemptionCategory" cmp="9a" lookup="deviceExemptionCategory/type" label="@name" value="@id"/>
+		<col typ="" component="box" xml="deviceExemptionJustification" cmp="9a">Justification for Meeting Criteria</col>
+		<col typ="" component="document" xml="deviceFDAApprovedLabeling" cmp="9a">FDA Approved Labeling</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="yesno" component="yesnobuttons" xml="deviceMeetsAbbreviatedIDE" cmp="9a" lookup="" label="" value="">Device Meets the Following Criteria for an Abbreviated IDE</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="" component="box" xml="deviceAbbreviatedIDEJustification" cmp="9a">Justification for Meeting Criteria</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="" component="box" xml="storagePolicy" cmp="9a">Policies and Procedures for Storage, Handling and Control of Distribution of Device</col>
+		<col typ="yesno" component="yesnobuttons" xml="noCost" cmp="9a" lookup="" label="" value="" >Sponsor Will Provide Device at No Cost for Research Subjects</col>
+		<!-- AB Sprint 4 -->
+		<col typ="yesno" component="yesnobuttons" xml="cmsApprovalDocPresent" cmp="9a" lookup="" label="" value="" >Do you have a CMS Approval Letter?</col>
+		
+		<col typ="" component="document" xml="cmsApprovalDoc" cmp="9a">CMS Approval Letter</col>
+		<col typ="" component="box" xml="descCost" cmp="9a">Detailed Information of Who Will Cover Costs and How Cost Level Was Determined</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="" component="document" xml="riskAssessDoc" cmp="9a">FDA Device Assessment or Notification</col>
+		<col typ="" component="instructions" xml="" cmp="9a"/>
+		<col typ="" component="document" xml="deviceBrochureDoc" cmp="9a">Device Brochure</col>
+		<col typ="" component="document" xml="irbDetDoc" cmp="9a">Determinations Made by Other IRBs</col>
+		<col typ="" component="break" xml="" cmp="9a"/>
+	</form>	
+	<form tabID="9b" formType="general" formName="humanDevices"
+		printlabel="Humanitarian Use Devices"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/humanDevices.xml">
+		<el comp="" typ="" component="box" xml="dataHUD" cmp="9b">Humanitarian Use Device (HUD) Name</el>
+		<el comp="" typ="" component="box" xml="manufacturer" cmp="9b">Manufacturer</el>
+		<el comp="" typ="" component="field" xml="hudNum" cmp="9b">Humanitarian Device Exemption (HDE) Number</el>
+		<el comp="" typ="" component="bigbox" xml="hudFDA" cmp="9b">FDA Approval Indication</el>
+		<el comp="" typ="" component="document" xml="hudApprovalDoc" cmp="9b">FDA HDE Approval</el>
+		<el comp="" typ="" component="document" xml="hudUseDoc" cmp="9b">HUD Use Summary</el>
+		<el comp="" typ="" component="document" xml="hudProductDoc" cmp="9b">Product Labeling</el>
+		<el comp="" typ="" component="document" xml="hudPatientDoc" cmp="9b">Patient Information Packet</el>
+	</form>
+	<form tabID="34" formType="general" formName="specimenBanking" printlabel="Specimen Banking"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/specimenBanking.xml">
+		<el comp="" typ="" component="bigbox" xml="specDescribe" cmp="34">Where the Specimens Will Be Stored</el>
+		<el comp="" typ="" component="bigbox" xml="specLength" cmp="34">Duration Specimens Will Be Stored</el>
+		<el comp="" typ="" component="bigbox" xml="specAccess" cmp="34">How Researchers Will Gain Access to Specimens</el>
+		<el comp="" typ="" component="bigbox" xml="specInfo" cmp="34">Information To Be Stored or Associated with Each Specimen</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="specimensWillBeReleased" cmp="34" lookup="" label="" value="">Specimens Will Be Released</el>
+		<!-- AB 03/01/2017 xml and xmlset needed to be reversed -->
+		<el comp="" typ="" component="entryTable" message="    [View tab for additional details]" xml="Person" xmlset="Person[(invitation/@status!=&apos;author&apos; or (invitation/@status=&apos;author&apos; and role!=&apos;co&apos;)) and role!=&apos;nonProtocol&apos; and not(name = preceding::name)]" cmp="34"/>		
+		<el comp="" typ="" component="bigbox" xml="specRelease" cmp="34">Process for Researchers to Request Release of Specimens</el>
+		<el comp="" typ="" component="bigbox" xml="specApproval" cmp="34">Approvals Required for Release of Specimens</el>
+		<el comp="" typ="" component="bigbox" xml="specProvide" cmp="34">Information To Be Provided with Specimens</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="specimensCanBeObtainedBy" lookup="specimensCanBeObtainedBy/type" label="@name" value="@id" cmp="34">Specimens Can Be Obtained By</el>
+	</form>
+	<form tabID="7" formType="general" formName="funding" printlabel="Funding"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/funding.xml">
+		<el comp="" typ="" component="repeater" message="    [View tab for additional details]" xmlset="fundingSourceComp" xml="fundingSourceComp" ident="grantName" cmp="7">Funding</el>		
+		<col typ="" component="entity" xml="Organization" cmp="7">Funding Source Name</col>
+		<col typ="decode" component="dropdown" xml="Organization/fundingCat" cmp="7" lookup="sponsorTypes/type" label="@name" value="@id"/>
+		<col typ="" component="instructions" xml="" cmp="7"/>
+		<col typ="" component="field" xml="grantName" cmp="7">Grant or Contract Title</col>
+		<col typ="" component="field" xml="grantNum" cmp="7">Grant or Contract Number</col>
+		<col typ="yesno" component="yesnobuttons" xml="haveSOW" cmp="7" lookup="" label="" value="">Do you have a copy of Contractual Scope of Work</col>
+		<col typ="" component="document" xml="contractualSOW" cmp="7">Copy of Contractual Scope of Work</col>
+		<col typ="" component="decodeexplicit" xml="fundingStatus" cmp="7">Funding Status</col>
+		<col typ="decode" component="radiobuttons" xml="projInitiatedBy" cmp="7" lookup="projectInitiatedBy/type" label="@name" value="@id"/>
+		<col typ="yesno" component="yesnobuttons" xml="knowPI" cmp="7" lookup="" label="" value="">Do you know the Contract Principal Investigator (PI)</col>
+		<col typ="" component="entity" xml="Person" cmp="7">Grant / Contract Principal Investigator (PI)</col>
+		<col typ="yesno" component="yesnobuttons" xml="fundingMatchesProposal" cmp="7" lookup="" label="" value="">Protocol and Funding Proposal Match</col>
+		<col typ="" component="box" xml="subDiffsFundingProposal" cmp="7">Identify Substantive Differences Between Protocol and Funding Proposal</col>
+		<col typ="" component="break" xml="" cmp="7"/>
+	</form>
+
+	<form tabID="2b" formType="general" formName="instApprovals" printlabel="Cancer"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/instApprovals.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="instPRMCApp" cmp="2b" lookup="" label="" value="">PRMC Approval Has Been Obtained</el>
+		<el comp="" typ="" component="document" xml="instPRMCAppLetter" cmp="2b">PRMC Approval Letter</el>
+	</form>
+	<form tabID="2d" formType="general" formName="radiationsafety" printlabel="Radiation Safety"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/radiationsafety.xml">
+		<el comp="" typ="yesno" component="yesnobuttons" xml="radiologicalProceduresDosimetry" cmp="2d" lookup="" label="" value="">Study protocol involves any of the following Radiological Procedures requiring use of Dosimetry Chart</el>
+		<el comp="" typ="" component="document" xml="dosimetryChart" cmp="2d">Completed Dosimetry Chart</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="involvesRadiologicalProcedures" cmp="2d" lookup="" label="" value="">Study protocol involves any of the following Radiological Procedures</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="involvesStandardCareRadiologicalProceduresOnly" cmp="2d" lookup="" label="" value="">Study protocol involves any of the following Standard of Care Radiological Procedures (including projects where discrete Standard of Care Imaging is acquired in addition to Research Imaging)</el>
+	</form>
+	<form tabID="8" formType="general" formName="mssmDrugs" printlabel="Drugs / Biologics"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/mssmDrugs.xml">
+		<el comp="" typ="" component="repeater" message="    [View tab for additional details]" xmlset="Drug" xml="Drug" ident="nonRoutineDrugsGenericName" cmp="8">Drugs / Biologics</el>
+		<col typ="" component="field" xml="nonRoutineDrugsGenericName" cmp="8">Generic Name</col>
+		<col typ="" component="field" xml="nonRoutineDrugsBrandName" cmp="8">Brand Name</col>
+		<col typ="yesno" component="yesnobuttons" xml="drugValidIND" cmp="8" lookup="" label="" value="">Drug Has Valid IND</col>
+		
+		<col typ="" component="instructions" xml="" cmp="8"/>
+		<col typ="" component="field" xml="nonRoutineDrugsINDNumber" cmp="8">IND Number</col>
+		<col typ="" component="field" xml="nonRoutineDrugsINDHolder" cmp="8">Name of IND Holder</col>
+		<col typ="decode" component="radiobuttons" xml="typeINDHolder" cmp="8" lookup="typeINDHolder/type" label="@name" value="@id"/>
+		
+		<!-- AB Sprint 4 START-->
+		<col typ="" component="document" xml="invDrugBrochure" cmp="8">Investigator Drug Brochure" docLabel="Investigator Drug Brochure</col>
+		<!-- AB Sprint 4 END-->
+		<col typ="" component="document" xml="sponsorProtocolINDNumber" cmp="8">Sponsor Protocol Imprinted with IND Number</col>
+		<col typ="" component="document" xml="FDACommunicationINDNumber" cmp="8">Written Communication from the FDA Documenting the IND Number</col>
+		<col typ="yesno" component="yesnobuttons" xml="drugMeetsExemptionCategory" cmp="8" lookup="" label="" value="">Drug Meets One of the Following Categories for Exemption</col>
+		<col typ="" component="instructions" xml="" cmp="8"/>
+		<col typ="decode" component="radiobuttons" xml="drugExemptionCategory" cmp="8" lookup="drugExemptionCategory/type" label="@name" value="@id"/>
+		<col typ="" component="box" xml="drugExemptionCategoryJustification" cmp="8">Justification for Meeting Criteria</col>
+		<col typ="" component="document" xml="drugDocument" cmp="8">Package Insert Document</col>
+		<col typ="" component="readOnlyField" xml="" cmp="8"> </col>
+		<col typ="" component="instructions" xml="" cmp="8"/>
+		<col typ="yesno" component="yesnobuttons" xml="coordinatingCenter" cmp="8" lookup="" label="" value="">Icahn School of Medicine at Mount Sinai (ISMMS) Is the Coordinating Center</col>
+		<col typ="" component="box" xml="coordinatingCenterRole" cmp="8">Role of the Investigational Drug Service (IDS)</col>
+		<col typ="" component="box" xml="drugBiologicDesc" cmp="8">Drug / Biologic Description (Manufacturer/Generic Name/Form/Strength)</col>
+		<col typ="yesno" component="yesnobuttons" xml="controlledSubstance" cmp="8" lookup="" label="" value="">Controlled Substance</col>
+		<col typ="" component="decodeexplicit" xml="controlledSubstanceSchedule" cmp="8" >Schedule</col>
+		<col typ="" component="instructions" xml="" cmp="8"/>
+		<col typ="yesno" component="yesnobuttons" xml="drugBiologicStandardOfCare" cmp="8" lookup="" label="" value="">Use of this Drug / Biologic Is Considered Standard of Care</col>
+		<col typ="" component="decodeexplicit" xml="requestedPharmacyServices" cmp="8">Requested Pharmacy Services</col>
+		<col typ="" component="box" xml="requestedPharmacyServicesSpecify" cmp="8">Specify Other Requested Pharmacy Services</col>
+		<col typ="" component="decodeexplicit" xml="drugBiologicSupplier" cmp="8">Drug / Biologic Will Be Supplied By</col>
+		<col typ="" component="box" xml="drugBiologicSupplierSpecify" cmp="8">Specify Other Drug / Biologic Supplier</col>
+		<col typ="yesno" component="yesnobuttons" xml="usingPlacebo" cmp="8" lookup="" label="" value="">Using Placebo</col>
+		<col typ="" component="decodeexplicit" xml="placeboSupplier" cmp="8">Placebo Will Be Supplied By</col>
+		<col typ="yesno" component="yesnobuttons" xml="compoundingRequired" cmp="8" lookup="" label="" value="">Compounding Required (Paid for by Study Funds)</col>
+		<col typ="" component="decodeexplicit" xml="whereDrugBiologicAdministered" cmp="8">Where Drug / Biologic Will Be Administered</col>
+		<col typ="" component="box" xml="whereDrugBiologicAdministeredSpecify" cmp="8">Specify Location of Private Office</col>
+		<col typ="" component="decodeexplicit" xml="whereDrugBiologicStored" cmp="8">Where Drug / Biologic Will Be Stored</col>
+		<col typ="yesno" component="yesnobuttons" xml="storageCriteriaMet" cmp="8" lookup="" label="" value="">ALL of the Following Storage Criteria Are Met</col>
+		<col typ="" component="instructions" xml="" cmp="8"/>
+		<col typ="" component="box" xml="storageCriteriaNotMetJustification" cmp="8">Justification Why Any of the Above Storage Criteria Cannot Be Met</col>
+		<col typ="yesno" component="yesnobuttons" xml="distributionCriteriaMet" cmp="8" lookup="" label="" value="">ALL of the Following Distribution Criteria Are Met</col>
+		<col typ="" component="instructions" xml="" cmp="8"/>
+		<col typ="" component="box" xml="distributionCriteriaNotMetJustification" cmp="8" >Justification Why Any of the Above Distribution Criteria Cannot Be Met</col>
+	</form>
+	<form tabID="37" formType="general" formName="biosafety" printlabel="Biosafety"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/biosafety.xml">
+		<el comp="" typ="" component="date" xml="dateOfInvolvingHazardousMaterials" cmp="37">Starting Date of Activity Involving Hazardous Materials</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="biosafetyLevel" cmp="37" lookup="biosafetyLevel/type" label="@name" value="@id">Biosafety Level</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="riskGroup" cmp="37" lookup="riskGroup/type" label="@name" value="@id">Risk Group</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="geneTherapy" cmp="37" lookup="" label="" value="">Gene Therapy</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="largeScaleProductionVectors" cmp="37" lookup="" label="" value="">Large Scale Production of Vectors</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="vitroSysApplications" cmp="37" lookup="" label="" value="">In Vitro System Applications</el>
+		<el comp="" typ="" component="entryTable" message="    [View tab for additional details]" xmlset="Organism" xml="Organism" ident="vectorName" cmp="37">Organism</el>
+		<col typ="" component="textarea" xml="vectorName" elxml="Organism" cmp="37">Vector Name</col>
+		<col typ="" component="manual" xml="OrganismName" elxml="Organism" cmp="37">Organism</col>
+		<col typ="" component="manual" xml="cDNAInserts" elxml="Organism" cmp="37">cDNA Inserts</col>
+		<col typ="" component="manual" xml="sizeAndSourceofInserts" elxml="Organism" cmp="37">Size and Source of the Inserts</col>
+		<col typ="" component="manual" xml="expressionProducts" elxml="Organism" cmp="37">Expression Products</col>
+		<col typ="" component="manual" xml="locationOfPreparation" elxml="Organism" cmp="37" >Location of Preparation</col>
+		<col typ="" component="manual" xml="biosafetyRoom" elxml="Organism" cmp="37">Room</col>
+		<col typ="" component="manual" xml="standardContactInfo" elxml="Organism" cmp="37">Contact Details</col>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="codeForToxinOncogeneUnToxin" cmp="37" lookup="" label="" value="">Inserted Gene Will Code For Known Toxin, Known Oncogene or Uncharacterized Toxin</el>
+		<el comp="" typ="" component="bigbox" xml="descInsertedGeneWillCode" cmp="37">Description of What Inserted Gene Will Code</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="insertedGeneWillAlterRangeOrCell" cmp="37" lookup="" label="" value="">Inserted Gene Will Alter Host Range or Known Cell Tropism</el>
+		<el comp="" typ="" component="bigbox" xml="descInsertedGeneWillAlter" cmp="37">Description of What Inserted Gene Will Alter</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="geneHaveReplicationCapacityOfVirus" cmp="37" lookup="" label="" value="">Inserted Gene Will Have Replication Capacity of a Virus</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="geneCapableOfAlteringHostCell" cmp="37" lookup="" label="" value="">Inserted Gene Will Be Capable of Altering the Host Cell Cycle</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="wildVirusPresentInVector" cmp="37" lookup="" label="" value="">Wild Type Virus Sequence Present in Vector</el>
+		<el comp="" typ="decode" component="radiobuttons" xml="fractionWildVirusPresentInVector" cmp="37" lookup="fractionWildVirusPresentInVector/type" label="@name" value="@id">Fraction of Wild Type Virus Sequence Present in Vector</el>
+	</form>	
+	<form tabID="35a" formType="general" formName="cruSummary" printlabel="Summary"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/cruSummary.xml">
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="studyWillUtilize" lookup="studyWillUtilize/type" label="@name" value="@id" cmp="35a">Study Will Utilize</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="includesStandardCare" cmp="35a" lookup="" label="" value="">Study Includes Standard of Care</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="rareDiseaseStudy" cmp="35a" lookup="" label="" value="">Rare Disease Study</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="CRUPersonnel" lookup="CRUPersonnel/type" label="@name" value="@id" cmp="35a">CRU Personnel</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="CRUFacilities" lookup="CRUFacilities/type" label="@name" value="@id" cmp="35a">CRU Facilities</el>
+		<el comp="" typ="" component="bigbox" xml="descPerformedCRU" cmp="35a">Describe What Will Be Performed On the CRU</el>
+	</form>
+	<form tabID="35b" formType="general" formName="cruRequirements" printlabel="Requirements"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/cruRequirements.xml">
+		<el comp="" typ="" component="number" xml="totalNumberPatientsEvaluatedCRU" cmp="35b">Number of Patients to be Evaluated at the Clinical Research Unit (CRU)</el>
+		<el comp="" typ="" component="number" xml="outpatientVisits" cmp="35b">Outpatient Visits / Patient</el>
+		<el comp="" typ="" component="number" xml="hoursPerVisit" cmp="35b">Hours / Visit</el>
+		<el comp="" typ="" component="bigbox" xml="uniqueSituations" cmp="35b">Explanation of Any Unique Situations</el>
+		<el comp="" typ="decodeChk" component="checkboxes" xml="timeDayTesting" lookup="timeDayTesting/type" label="@name" value="@id" cmp="35b">Time of Day Required for Testing</el>
+		<el comp="" typ="" component="bigbox" xml="timeDayTestingSpecify" cmp="35b">Specify Time of Day</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="specialNursingReqs" cmp="35b" lookup="" label="" value="">Special Nursing Requirements</el>
+		<el comp="" typ="" component="bigbox" xml="specialNursingReqsSpecify" cmp="35b">Specify Special Nursing Requirements</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="specialInfectionControlReqs" cmp="35b" lookup="" label="" value="">Special Infection Control Requirements</el>
+		<el comp="" typ="" component="bigbox" xml="specialInfectionControlReqsSpecify" cmp="35b">Specify Special Infection Control Requirements</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="fallsPrecaution" cmp="35b" lookup="" label="" value="">Falls Precaution</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="seizurePrecaution" cmp="35b" lookup="" label="" value="">Seizure Precaution</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="patientsCareSelves" cmp="35b" lookup="" label="" value="">Patients Can Care For Selves</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="requireNursingAssistance" cmp="35b" lookup="" label="" value="">Require Nursing Assistance</el>
+		<el comp="" typ="" component="bigbox" xml="requireNursingAssistanceSpecify" cmp="35b">Specify Nursing Assistance Requirements</el>
+		<el comp="" typ="yesno" component="yesnobuttons" xml="dietaryReqs" cmp="35b" lookup="" label="" value="">Dietary and Scheduling Requirements</el>
+		<el comp="" typ="" component="bigbox" xml="dietaryReqsSpecify" cmp="35b">Specify Dietary and Scheduling Requirements</el>
+	</form>
+	<form tabID="35c" formType="general" formName="cruCosts" printlabel="Costs"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/cruCosts.xml">
+		<el comp="" typ="" component="entryTable" message="    [View tab for additional details]" xmlset="Cost" xml="Cost" cmp="35c">Costs</el>
+		<col typ="decode" component="dropdown" xml="costsType" elxml="Cost" cmp="35c" lookup="" label="" value=""/>
+		<col typ="" component="manual" xml="costsTypeOther" elxml="Cost" cmp="35c">Specify Other Type of Test</col>
+		<col typ="decode" component="dropdown" xml="costsSiteAnalysis" elxml="Cost" cmp="35c" lookup="" label="" value=""/>
+		<col typ="" component="manual" xml="costsSiteAnalysisOther" elxml="Cost" cmp="35c">Specify Other Site of Analysis</col>
+		<col typ="" component="text" xml="costsPerTest" elxml="Cost" cmp="35c">Cost Per Test</col>
+		<col typ="" component="text" xml="costsNumTests" elxml="Cost" cmp="35c"># of Tests</col>
+		<col typ="" component="text" xml="costsLineTotal" elxml="Cost" cmp="35c">Line Total</col>
+		<col typ="decode" component="dropdown" xml="costsWhoWillPay" elxml="Cost" cmp="35c" lookup="" label="" value=""/>
+		<col typ="" component="manual" xml="costsWhoWillPayOther" elxml="Cost" cmp="35c">Specify Who Will Pay</col>
+		<el comp="" typ="" component="number" xml="totalCosts" cmp="35c">Total Costs</el>
+		<el comp="" typ="" component="number" xml="totalCRUCosts" cmp="35c">Total Costs Paid by CRU</el>
+		<el comp="" typ="" component="number" xml="compTotalCRU" cmp="35c">Total Compensation Paid by CRU</el>
+		<el comp="" typ="" component="number" xml="totalCRU" cmp="35c">Total Costs and Compensation Paid by CRU</el>
+	</form>
+	
+	<form tabID="36" formType="general" formName="financialAdmin"
+		printlabel="Financial Administration"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/financialAdmin.xml">
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="facts_payment_option" lookup="facts_payment_option/type" label="@name" value="@id" cmp="36">Payment Option</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="facts_payment_option_1" lookup="facts_payment_option_1/type" label="@name" value="@id" cmp="36">Payment Option 1</el>
+		<el comp="" typ="decodeChk" component="radiobuttons" xml="facts_payment_option_2" lookup="facts_payment_option_2/type" label="@name" value="@id" cmp="36">Payment Option 2</el>
+		<el comp="" typ="" component="bigbox" xml="facts_payment_option_5" cmp="36">Payment Option 5</el>
+	</form>
+	<form tabID="18" formType="drillin" formName="printAttachments" printlabel="Attachments"
+		src="/system/resources/applications/IRB/configs/forms/HH_MASTER_FORMS/printAttachments.xml">
+		<el comp="" typ="drillin" message="    [View tab for additional details]" xml="document" cmp="18"/>
+		<col typ="decode" component="dropdown" xml="@label" cmp="18" lookup="docTypes/type" label="@name" value="@id"/>
+		<col typ="" component="text" xml="@name" cmp="18">Name</col>
+		<col typ="" component="text" xml="@version" cmp="18">Version</col>
+		<col typ="" component="text" xml="@status" cmp="18">Status</col>
+		<col typ="" component="text" xml="@fileName" cmp="18">Filename</col>
+		<col typ="" component="text" xml="@uploaded" cmp="18">Uploaded</col>
+		<col typ="" component="text" xml="@comments" cmp="18">Comments</col>
+	</form>	
+</map>

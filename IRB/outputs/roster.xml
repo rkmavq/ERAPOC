@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<outputs num="1">
+	<output id="approval" name="Approval Letter" type="letter" uri="/ideate/configs/IRB/outputs/Approval.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats"/>
+	<output id="acknowledgment" name="Acknowledgment Letter" type="letter" uri="/ideate/configs/IRB/outputs/Acknowledgement.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="compassionateUseIND" name="Compassionate Use IND Approval Letter" type="letter" uri="/ideate/configs/IRB/outputs/CompassionateUseIND.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="exemption" name="Exemption Letter" type="letter" uri="/ideate/configs/IRB/outputs/Exemption.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="expedited" name="Expedited Approval" type="letter" uri="/ideate/configs/IRB/outputs/Expedited.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="finalReportAcknowledgment" name="Final Report Acknowledgment Letter" type="letter" uri="/ideate/configs/IRB/outputs/FinalReportAcknowledgment.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="modificationsRequired" name="Modifications Required Letter" type="letter" uri="/ideate/configs/IRB/outputs/ModificationsRequired.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="notApproved" name="Not Approved Letter" type="letter" uri="/ideate/configs/IRB/outputs/NotApproved.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="notResearch" name="Not Research Letter" type="letter" uri="/ideate/configs/IRB/outputs/NotResearch.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	
+	
+	
+	
+	<!-- the ones below are reminders and expiration notices -->
+	<output id="rem" name="Continuation Reminder" type="notif" uri="/ideate/configs/IRB/outputs/continuationReminders.xsl" routines="addPDFBasics,addInstructionsToInvestigator,addSetupApproval,addMeetingDate"/>	
+	<output id="exnot" name="Expiration of Protocol Approval" type="notif" uri="/ideate/configs/IRB/outputs/ExpirationOfApproval.xsl" routines="addPDFBasics,addInstructionsToInvestigator,addSetupApproval,addMeetingDate"/>
+	
+	<!-- Sprint 10B Deferrable Issues START -->
+	<output id="defIssues" name="Deferrable Issues Communication" type="defcomm" inactive="1" uri="/ideate/configs/IRB/outputs/deferrableIssuesCommHTML.xsl" routines="addPDFBasics"/>	
+	<!-- Sprint 10B Deferrable Issues END -->
+	
+	<!-- AB 12132015: Add new letter in here. For any special coding scenario where you need to retrive data specific to the letter 
+    create a new routine (similar to addInstructionsToInvestigator in case.js) and add to @routines attribute for the letter -->
+	
+	<!-- Add the agenda pointer here. Move the communications_agenda.xsl to the ideate/configs/IRB/outputs folder. 
+		Add an attribute to identify if building RTF or PDF -->
+</outputs>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map id="renewalsBaseChange.xml">
+    <tab id="1a" label="Overview" flabel="Summary &gt;&gt; "/>
+    <tab id="1b" label="Consent Documents" flabel="Summary &gt;&gt; "/>
+    <tab id="2a" label="Summary" flabel="Enrollment &gt;&gt; "/>
+    <tab id="2b" label="Age Range(s)" flabel="Enrollment &gt;&gt; "/>
+    <tab id="2c" label="Population(s)" flabel="Enrollment &gt;&gt; "/>
+    <tab id="2d" label="Ethnic Categories" flabel="Enrollment &gt;&gt; "/>
+    <tab id="2e" label="Race(s)" flabel="Enrollment &gt;&gt; "/>
+    <tab id="2f" label="Total" flabel="Enrollment &gt;&gt; "/>
+    <tab id="2x" label="Enrollment" flabel=""/>
+    <tab id="3a" label="Participants" flabel="Events &gt;&gt; "/>
+    <tab id="3b" label="General" flabel="Events &gt;&gt; "/>
+    <tab id="3c" label="Suspensions" flabel="Events &gt;&gt; "/>
+    <tab id="3f" label="Unanticipated Problems" flabel="Events &gt;&gt; "/>
+    <tab id="22" label="Submit" flabel=""/>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_summary.xml">
+        <el xml="laysummary" cmp="1a">Protocol Lay Summary</el>
+        <el xml="peopleTable" cmp="1a"/>
+        <!--<el xml="researchProgress" cmp="1a">Provide a summary of the progress of the research:</el>-->
+        <el xml="fdaApproval" cmp="1a">Since the last IRB review, has the FDA approved any of the
+            Drugs/Devices/Biologics used in this study or approved the investigational use?</el>
+        <el message="[View Page for Changes]" xml="fdaApprovalItem" cmp="1a">Identify</el>
+        <el xml="recentLitOrFindings" cmp="1a">Does recent literature, findings, or other available
+            information affect the risks associated with the research, risk-benefit analysis,
+            alternatives to participation, or participant&amp;apos;s willingness to continue
+            participation?</el>
+        <el xml="relevanceSummary" cmp="1a">Summarize the relevancy of this information to this
+            study, in your own words, with specific details:</el>
+        <el xml="changeConsentReq" cmp="1a">Does this information necessitate a change to the
+            consent/assent document(s) and/or protocol?</el>
+        <el xml="changeExplaination" cmp="1a">Please explain and submit an Amendment, and a copy of
+            the revised consent/assent document(s) with the changes highlighted.</el>
+        <el xml="additionRisksIdentified" cmp="1a">Have any additional risks been identified since
+            the last approval?</el>
+        <el xml="longTermFollowUp" cmp="1a">Is the research remaining active ONLY for long-term
+            follow-up of subjects?</el>
+        <el xml="interventionsComplete" cmp="1a">Have all participants enrolled completed all
+            research related interventions?</el>
+        <el xml="dataAnlysisOnly" cmp="1a">Is the research active for data analysis only?</el>
+        <el xml="laysummary" cmp="1a">Protocol Lay Summary</el>
+        <el xml="researchProgress" cmp="1a">Provide a summary of the progress of the research:</el>
+        <el xml="rschConductedAsOutlined" cmp="1a">Is the research being conducted as originally
+            outlined?</el>
+        <el xml="publishedLiterature" cmp="1a">Have there been any presentations or publications,
+            including abstracts, from this research since the last IRB review?</el>
+        <el message="[View Page for Changes]" xml="publicationElement" cmp="1a">Publications</el>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_summary.xml">
+        <el xml="numberParticipantsEnrolled" cmp="2a">Total number of participants enrolled since
+            last IRB review:</el>
+        <el xml="enrollNewParticipants" cmp="2a">Are you enrolling new participants?</el>
+        <el xml="enrollmentClosed" cmp="2a">Has enrollment closed since last IRB review?</el>
+        <el xml="nonEnglishParticipants" cmp="2a">Have any participants whose primary language is
+            not English been approached to participate and/or been enrolled since the last
+            review?</el>
+        <el xml="numberNonEnglish" cmp="2a">Number</el>
+        <el xml="nonEnglishLanguage" cmp="2a">Language of the consent process:</el>
+        <el xml="nonEnglishLanguageConsent" cmp="2a">Language of the consent document:</el>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_age.xml">
+        <el xml="ageRange" cmp="2b"/>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_pop.xml">
+        <el xml="population" cmp="2c"/>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_ethnic.xml">
+        <el xml="ethnicCat" cmp="2d"/>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_race.xml">
+        <el xml="race" cmp="2e"/>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_total.xml">
+        <el xml="enrollAllSites" cmp="2f">Total Approved for All Sites:</el>
+        <el xml="enrollThisSite" cmp="2f">Total Approved for This Site:</el>
+        <el xml="enrollTotal" cmp="2f">Total Enrolled To Date:</el>
+        <el xml="enrollTotal" cmp="2f">Total Enrolled/Charts Reviewed To Date:</el>
+        <el xml="explainEnrollmentExceeded" cmp="2f">Please explain why the approved number was
+            exceeded:</el>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_enrolled_small.xml">
+        <el xml="enrollThisSite" cmp="2x">Total Approved Local Site:</el>
+        <el xml="smallEnrol" cmp="2x">Enrolled/Charts reviewed to date:</el>
+        <el xml="smallJust" cmp="2x">Please explain why the approved number was exceeded:</el>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_eventsParticipants.xml">
+        <el xml="anyComplaints" cmp="3a">Have any participants complained about the research?</el>
+        <el xml="noComplaints" cmp="3a">Number of participant Complaints:</el>
+        <el xml="anyComplaintsDesc" cmp="3a">Please Describe:</el>
+        <el xml="anyWithdrawls" cmp="3a">Have any participants withdrawn from the research
+            protocol?</el>
+        <el xml="noWithdrawls" cmp="3a">Number of participants who withdrew from the protocol:</el>
+        <el xml="anyWithdrawlsDesc" cmp="3a">Please Describe:</el>
+        <el xml="anyWithdrawlsByPi" cmp="3a">Have any participants been withdrawn from the research
+            protocol by the investigator?</el>
+        <el xml="noWithdrawlsByPi" cmp="3a">Number of participants:</el>
+        <el xml="anyWithdrawlsByPiDesc" cmp="3a">Please Describe:</el>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_eventsGeneral.xml">
+        <el xml="anyAudits" cmp="3b">Has an audit of the research been conducted by a federal agency
+            or sponsor?</el>
+        <el typ="decode" xml="auditBy" cmp="3b" lookup="auditedBy/type" label="@name" value="@id"
+            >Audit conducted by:</el>
+        <el xml="auditComplete" cmp="3b">Has the audit been completed?</el>
+        <el xml="auditReport" cmp="3b">Have you received an audit report?</el>
+        <el xml="auditDoc" cmp="3b">Please attach the document pertaining to the audit.</el>
+    </form>
+    <form src="/system/resources/applications/IRB/configs/forms/bill/ren_eventsSuspensions.xml">
+        <el xml="anySuspensions" cmp="3c">Has any review board or IRB disapproved, suspended or
+            terminated this research?</el>
+        <el xml="anySuspensionsDesc" cmp="3c">Please describe:</el>
+        <el xml="adminHoldNotReported" cmp="3c">Has there been an administrative hold by the
+            investigator or sponsor that has not been reported to the IRB?</el>
+        <el xml="adminHoldNotReportedDesc" cmp="3c">Please describe:</el>
+    </form>
+    <form>
+        <el message="[View Page for Changes]" xml="document" cmp="18"/>
+    </form>
+</map>

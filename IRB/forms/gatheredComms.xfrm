@@ -1,0 +1,977 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms" xmlns:id8="http://ideate.com"><xf:model id="fmodel">
+	<!--<xf:instance id="routing" src="../routing.xml"/>-->
+	<xf:instance id="temp" src="/fil/ideate/configs/IRB/docs/uploads.xml"/>
+	<xf:instance id="ins"><data xmlns=""/></xf:instance>
+  <xf:instance id="ent"><data xmlns=""/></xf:instance>
+  <xf:instance id="lc"><data xmlns=""/></xf:instance>
+	<xf:instance id="comms"><data xmlns=""/></xf:instance>
+  <xf:instance id="form">
+    <data xmlns="">
+    <status>x</status>
+    <status>x</status>
+    <actor>x</actor>
+    <action>1</action>
+    	<isDirector>0</isDirector>
+    	<isCoord>0</isCoord>
+    	<actions>1</actions>
+    	<reviewer>1</reviewer>
+    	<isPI>0</isPI>
+    	<form updatedBy="" updated="" createdBy="" created=""/>
+    	<searchText/>
+    	<records/>
+    	<fullSearchText/>
+    	<fullSearchRecords/>
+    	<col1/>
+    	<col2/>
+    	<col3/>
+    	<document/>
+    	<viewBy>year</viewBy>
+    	<focus/>
+    	<focus2/>
+    	<lastFocus/>
+    	<temp/>
+    	<comp uri=""/>
+    	<excludeSwitch>0</excludeSwitch>
+    	<submissionName>IRB Protocol Application</submissionName>
+    	<commTo></commTo>
+    	<commCC></commCC>
+    	<commSubject></commSubject>
+    	<commLetter>none</commLetter>
+    	<commMessage>none</commMessage>
+    	
+    	<revMode>in</revMode>
+    	<revCom></revCom>
+    	<linkedOp></linkedOp>
+    	<showCats>0</showCats>
+    	<showComms>0</showComms>
+    
+    	<mode>send</mode>
+    	<uri></uri>
+    	<import id="" uri="" name="" email=""/>
+    	<email>
+    		<commLetter></commLetter>
+    		<creating>0</creating>
+    		<from name='' uri=''/>
+    		<!--<to name='' uri=''/>-->
+    		<subject></subject>
+    		<bodyHTML></bodyHTML>
+    		<bodyTXT></bodyTXT>
+    		<attachment uri=''></attachment>
+    		<sent></sent>
+    	</email>
+
+    </data></xf:instance>
+	<xf:instance id="state">
+		<data xmlns=""/>
+	</xf:instance>
+	<xf:instance id="cats">
+		<data xmlns=""/>
+	</xf:instance>
+        		
+	<xf:instance id="bootstrap">
+		<data xmlns="">
+			<css>/resources/applications/IRB/css/main.css</css>
+		</data>
+	</xf:instance>
+        		
+    <script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+
+      s = model.getValue("instance('ent')/status");
+      var tui = model.__XformSet.getRoot().targetURI;
+      model.setValue("instance('ent')/primaryEntityURI", tui);
+      var status = model.getValue("instance('ent')/status");
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js"); 
+      model.USA = new irbProtocol(model);
+      //This adds the security tokens to this page, then you can use them.
+      model.USA.caseSecurity = model.__XformSet.getRoot().model.TS.caseSecurity;
+      
+      includeSharedJS("/resources/services/appForms/main.js");
+      model.Frm = new appForm(model, "general");
+
+	  model.mailTo = callSharedService("caseSecurity", {"op":"getUsersAndNames", "caseUri":model.__XformSet.getRoot().targetURI, "token":"mailTo"}, "service", "json").output;      
+ 	  //alert(JSON.stringify(model.COMM.mailTo));
+
+      res = callSharedService("configurator", {"op":"genComms", "protURI":tui}, "service", "text");
+      //alert(res.output);
+      includeSharedJS("/resources/services/email/forms/clientSideEmail.js");
+      model.COMM = new emailHandler(model,"IRB");
+
+	  model.USA.isPI = callSharedService("caseSecurity", {"op":"isPI", "caseUri":model.__XformSet.getRoot().targetURI}, "service", "text").output;
+	  if(model.USA.isPI){
+	  	model.setValue("instance('form')/isPI", "1");
+	  }else{
+	  	model.setValue("instance('form')/isPI", "");
+	  }
+      if(model.USA.hasToken("isDirector")){
+      	model.setValue("instance('form')/isDirector", "1");
+      	SH.print("Dude is a director");
+      }
+      
+      if(model.USA.hasToken("isCoord")){
+      	model.setValue("instance('form')/isCoord", "1");
+      	SH.print("Dude is an IRB Co-ordinator");
+      }
+      loadInstance(model, "comms", "/data/allcomms.xml");
+      loadInstance(model, "ins", "/data/irb.xml");
+      model.reloadInstanceId("comms");
+      
+      model.recalculate();
+      model.rebuild();
+      
+    </script>
+  
+   <xf:bind nodeset="instance('ent')/stage" readonly="true()" relevant="false()"/>
+  <xf:bind nodeset="instance('ent')/status" readonly="true()" relevant="false()"/>
+  
+	<xf:bind nodeset="instance('form')/email/attachment" type="ix:file"/>
+	<xf:bind nodeset="instance('temp')/attachment" type="ix:file"/>
+	<xf:bind nodeset="instance('form')/email/bodyHTML[instance('form')/mode='view']" readonly="true()"/>
+	<xf:bind nodeset="instance('form')/email/subject[instance('form')/mode='view']" readonly="true()"/>
+  
+    <script ev:event="ix-activity-save">
+			model.submit("submit1");
+		</script>
+    <xf:submission id="submit1" instance="comms" replace="none" method="put">
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Submit done.</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem submitting...</xf:message>
+			</xf:action>
+		</xf:submission>
+</xf:model>
+  
+  <style>
+    div.main div.xfctrl{
+      background:none;
+    }
+    
+    div.main div.xftrl td.combo {color:black};
+    
+    
+    .wikiView div.actionsPulldown2{
+    width:210px;
+    padding:1px;
+    }
+
+
+	.wikiView div.actionsPulldown2 table.actionsPulldown2{
+	width:190px;
+	}
+
+
+
+.wikiView div.statusPulldown{
+background:none;
+padding:1px;
+}
+
+.wikiView div.statusPulldown table.statusPulldown{
+width:98%;
+}
+
+
+    
+    .actionsGo{
+    height:19px;
+    font-size:10px;
+    }
+    
+    div.drillinForm div.xfctrl{
+    background:none;
+    }
+    
+    div.drillinForm div.xfctrl label{
+    color:black;
+    }
+    
+    div.formFrame div.drillinForm table.summary table.combo{
+    width:60%;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.thin table.combo{
+    width:80%
+    }
+    
+    div.formFrame div.drillinForm table.summary td.wide table.combo{
+    width:40%
+    }
+    
+    div.formFrame div.drillinForm td.tight div.xfctrl input{
+    width:15px;
+    }
+    
+    div.drillinForm table.summary td.tight td{
+    margin-left:0px;
+    padding-left:5px;
+    width:auto;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+    width:auto;
+    }
+    
+    div.formFrame div.drillinForm td.close div.xfctrl input{
+    padding:0px;
+    width:auto;
+    }
+    
+    div.diagXf table.xfctrl td{
+    vertical-align:top;
+    padding-bottom:8px;
+    padding-left:3px;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+    width:100px;
+    }
+    
+    td.diagContent div.diagContent {
+    background-color:white;
+    }
+    
+    td.diagContent div.diagContent div.commGen{
+    }
+    
+    td.diagContent div.diagContent div.commGen label{
+    margin-left:2px;
+    width:70px;
+    }
+    
+    td.diagContent div.diagContent div.commGen input{
+    margin-left:2px;
+    width:300px;
+    }
+    
+    td.diagContent div.diagContent div.commGen textarea{
+    margin-left:2px;
+    width:370px;
+    height:200px;
+    }
+    
+    
+  </style>
+	<style>
+		.wikiView div.xfctrl {background-color:white;};
+		
+		table.email {
+		width: 400px;
+		font: 12px;
+		}
+		
+		table.email td.left {
+		vertical-align:top;
+		padding:2px;
+		text-align:right;
+		width: 60px;
+		font-weight: bold;
+		}
+		
+		table.email td.right {
+		padding:2px;
+		margin-left:10px;
+		vertical-align:top;
+		width: 330px;
+		border: 1px solid #999999;
+		background-color:white;
+		}
+		
+		table.email td.rightoutput {
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl{
+		padding:0px;
+		margin:0px;
+		margin-left:-1px;
+		margin-right:-1px;
+		width: 360px;
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl input{
+		margin:0px;
+		width: 358px;
+		}
+		
+		.clickable {cursor:pointer; color:blue;}
+		
+		.wikiView table.email div.xfctrl{
+			padding:0px;
+		}
+
+		.create-button{
+		background: #194567;
+    	border-radius: 6px;
+    	color: #fff;
+    	border: none;
+    	padding: 10px 15px 10px 15px;
+    	cursor: pointer;
+    	font-family: 'Roboto';
+    	font-size: 15px;
+		}
+
+		.outer-box{
+			border:none;
+			<!-- background: #FFFFFF;
+			border: 1px solid #CBCBCB;
+			box-sizing: border-box;
+			border-radius: 0px 0px 6px 6px; -->
+		}
+		
+	</style>
+	
+	<!-- wmalyk: 12-21-2018 this functionality looks like it was implemented before as part of the quicksearch, but was suppressed. Here it's just explicit, add this dialog and it will allow manual email addresses to be used instead of a lookup -->
+	<ix:template name="ManualAdd">
+		<div style="padding:8px;width:400px">
+			
+					<br/>
+					
+					<xf:input ref="instance('form')/import/@name"><xf:label style="width:50px">Name:</xf:label></xf:input>
+					<xf:input ref="instance('form')/import/@email"><xf:label style="width:50px">Email:</xf:label></xf:input>
+					<br/>		
+					<xf:trigger style="margin-left:2px;">
+						<xf:label>Add</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<script>
+								model.COMM.addRecip();
+							</script>
+							<xf:close/>
+						</xf:action>
+					</xf:trigger>
+					<xf:trigger style="margin-left:2px;">
+						<xf:label>Cancel</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<xf:close/>
+						</xf:action>
+					</xf:trigger>
+				
+		</div>
+	</ix:template>
+	<ix:template name="QuickSearch">
+		<div style="padding:8px;width:400px">
+			<table style="width:240px">
+				<tr>
+					<td>
+						<xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px">
+							<xf:label style="width:50px">Lookup:</xf:label>
+						</xf:input>
+					</td>
+					<td>
+						<div style="margin-right:20px;">
+							<u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+							<script ev:event="click"> model.Frm.executeQuickSearch(); </script>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<hr/>
+			<xf:switch>
+				<xf:case exf:if="1" id="hide-quicksearch">
+					<br/>
+					<b><u>OR</u></b> <i> add additional/off-system email:</i>
+					<br/><br/>
+					
+					<xf:input ref="instance('form')/import/@name"><xf:label style="width:50px">Name:</xf:label></xf:input>
+					<xf:input ref="instance('form')/import/@email"><xf:label style="width:50px">Email:</xf:label></xf:input>
+					<xf:trigger style="margin-left:2px;">
+						<xf:label>Add</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<script>
+								model.COMM.addRecip();
+							</script>
+							<xf:close/>
+						</xf:action>
+					</xf:trigger>
+				</xf:case>
+				<xf:case id="show-quicksearch">
+					<exf:variable name="records" value="instance('form')/records//rec"/>
+					<div>
+						<ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+						<h1>No Matches</h1>
+					</div>
+					<div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"
+					/><h1>Too Many Matches</h1>Please refine your search.</div>
+					<table class="quickSearchMatches">
+						<ix:attr
+							value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+							name="style"/>
+						<tr>
+							<th style="text-align:left;">
+								<xf:output value="instance('form')/col1"/>
+							</th>
+							<th style="text-align:left;padding-left:20px">
+								<xf:output value="instance('form')/col2"/>
+							</th>
+							<th style="text-align:left;padding-left:20px">
+								<xf:output value="instance('form')/col3"/>
+							</th>
+						</tr>
+						<xf:repeat nodeset="$records">
+							<tr>
+								<td style="vertical-align:top; width:33%">
+									<u class="clickable">
+										<xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+										<xf:close ev:event="click"/>
+										<script ev:event="click"> var indx = model.getValue("@id", contextNode); var val
+											= model.getValue("@name", contextNode); if(val == "") val =
+											model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+											contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+											model.Frm.quickSearch.code; if(code) eval(code);
+											if(model.Frm.quickSearch.save) model.Frm.saveAll(); event.stopPropagation();
+										</script>
+									</u>
+								</td>
+								<td style="vertical-align:top;padding-left:20px; width:30%">
+									<xf:output
+										value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+									/>
+								</td>
+								<td style="vertical-align:top;padding-left:20px; width:30%">
+									<xf:output
+										value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+									/>
+								</td>
+							</tr>
+						</xf:repeat>
+					</table>
+					<br/>
+					<br/>
+				</xf:case>
+			</xf:switch>
+		</div>
+	</ix:template>
+	
+	<div style="display:none;">
+		<xf:input id="documentDrop" ref="instance('temp')/attachment">
+			<script ev:event="xforms-value-changed"> 
+				model.activateCase('hide-create');
+				model.refresh();
+				model.rebuild();
+				model.recalculate();
+				x = model.getValue(".", contextNode);
+				sp = x.split("/"); x = sp[sp.length-1];
+				model.setValue(".", x, contextNode);
+				model.activateCase('show-create');
+			</script></xf:input></div>
+	
+	<xf:switch>
+		<xf:case exf:if="1" id="show-comms">
+  
+			<div class="main formFrame" style="width:inherit;">
+  
+	
+		<xf:group ref="." class="outer-box">
+
+		<br/>
+			
+			<table style="width:100%;padding-5px;">
+				<tr>
+					<td style="width:75%;vertical-align:top;">
+						<h3>Protocol Specific Communications</h3>
+						
+						
+			<br/>
+			<exf:variable
+							value="instance('comms')/prot/comm2"
+							name="comRecs"/>
+							
+							<div><ix:attr value="if(count($comRecs) = 0, 'margin-left:10px;', 'display:none')" name="style"/><h5><i>None</i></h5></div>
+			
+			<div>
+						
+						<table class="fullColLayout" style="width:100% !important;">
+							<ix:attr value="if(count($comRecs) &gt; 0, '', 'display:none')" name="style"/>
+							<tr class="top">
+								<th class="small delete center"/>
+								<th class="name out text mediumlarge left">Name</th>
+								<th class="type in dropdown medium left">From</th>
+								<th class="status in manual medium left">To</th>
+								<th class="status in manual mediumlarge left">CC</th>
+								<th class="status in manual medium left">Create Date</th>
+								<th class="status in manual medium left">Sent Date</th>
+								<th class="status in manual medium left"></th>
+							</tr>
+							<xf:repeat nodeset="$comRecs">
+								<exf:variable
+									value="position()"
+									name="poi"/>
+								<tr>
+									<td class="small delete center">
+										<span><ix:attr name="style" value="if(instance('form')/isPI='1', 'display:none', '')"/>
+										<u class="clickable"><ix:attr value="if(@sentDate!='', 'display:none', '')"
+											name="style"/>X<xf:action
+												exf:if="script('confirm(&quot;Are you sure you want to delete this communication?&quot;)')"
+												ev:event="click">
+												<xf:destroy ref="."/>
+												<script>model.submit('submit1')</script>
+											</xf:action></u></span>								
+									</td>
+									<td class="out text mediumlarge left name">
+										<xf:output value="@name"/>
+									</td>
+									<td class="out text medium left name">
+										<xf:output value="@from"/>
+									</td>
+									<td class="out text medium left name">
+										<xf:output value="@to"/>
+									</td>
+									<td class="out text mediumlarge left name">
+										<xf:output value="@cc"/>
+									</td>
+									<td class="status in manual medium left"><nobr>
+										<!--<xf:output value="if(@created != '', concat(substring(@created, 6, 2), '/', substring(@created, 9, 2), '/', substring(@created, 1, 4)), '')"/>-->
+										<xf:output value="if(@created != '', concat(substring(@created, 6, 2), '/', substring(@created, 9, 2), '/', substring(@created, 1, 4)), '')"/>
+									</nobr></td>
+									<td class="status in manual medium left"><nobr>
+										<span><ix:attr name="style" value="if(instance('form')/isPI='1', 'display:none', '')"/>
+										<u class="clickable"><ix:attr name="style" value="if(@sentDate='', 'color:blue', 'display:none')"/>
+											<script ev:event="click">
+													model.COMM.sendFreeComm(contextNode);
+											</script>Send</u></span>
+										<span><ix:attr name="style" value="if(@sentDate='', 'display:none', '')"/>
+											<!--<xf:output value="if(@sentDate != '', concat(substring(@sentDate, 6, 2), '/', substring(@sentDate, 9, 2), '/', substring(@sentDate, 1, 4)), '-')"/>-->
+											<xf:output value="if(@sentDate != '', concat(substring(@sentDate, 6, 2), '/', substring(@sentDate, 9, 2), '/', substring(@sentDate, 1, 4)), '')"/>
+										</span>
+									</nobr></td>
+									<td class="status in manual medium left">
+										<span><ix:attr name="style" value="if(@uri!='', '', 'display:none')"/><a target="_blank_" style="blue"><ix:attr name="href" value="concat('../fil', @uri)"/>View</a>
+										</span>
+										<!--<u style="color:blue;cursor:pointer;text-decoration:underline;">View
+											<xf:action ev:event="click">
+												<ix:dialog style="height:500px;width:500px;background-color:white;" id="ShowComm" title="View Communication" class="commDialog">
+													<div style="margin-left:20px;">
+														<h3><xf:output value="@name"/></h3>
+														<br/>
+														<p style="padding-left:30px;">
+															<xf:output value="."/>
+														</p>
+														<br/>
+														<span><ix:attr name="style" value="if(@uri!='', '', 'display:none')"/>Download attachment: <a target="_blank_"><ix:attr name="href" value="concat('../fil', @uri)"/>here</a>
+														</span>
+													</div>
+												</ix:dialog>
+											</xf:action>
+										</u>-->
+									</td>
+								</tr>
+							</xf:repeat>
+						</table>
+				<br/><br/>
+			</div>
+						<xf:switch>
+							<xf:case exf:if="instance('form')/creating=1" id="show-create">
+								<xf:group ref="." style="border:1px solid black; width:400px;">
+								<h4>Create New Communication</h4><br/>
+									<div>
+									<table id="email" class="email">
+										<tr>
+											<td class="left">To:</td>
+											<td class="right">
+												<xf:repeat nodeset="instance('form')/email/to">
+													<span><b><xf:output value="@name"/></b> [<xf:output value="."/>]</span> <span><ix:attr value="if(instance('form')/mode='send', '', 'display:none')"
+														name="style"/><b class="clickable" style="color:red">X<xf:action
+															ev:event="click">
+															<xf:destroy ref="."/>
+														</xf:action></b></span><br/>
+												</xf:repeat>
+												<!-- wmalyk: 12-21-2018 Replace with two buttons, one for linking, one for manually adding-->
+												<!--<div class="clickable" style="margin-top:4px;"><ix:attr value="if(instance('form')/mode='send', '', 'display:none')"
+													name="style"/> Add<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action
+														ev:event="click">
+														<ix:dialog style="height:300px;" id="addRecip" title="Add Recipient"
+															class="quickSearchDialog">
+															<ix:include template="QuickSearch" ref="."/>
+														</ix:dialog>
+														<script>
+															model.Frm.configureQuickSearch("People", "replaceValueAndID", "instance('form')/import", "", "comm", "Name", "ID","", "", "", 'model.COMM.addRecip();', '0');
+															model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+														</script>
+														</xf:action></div>-->
+												<div class="clickable" style="margin-top:4px;"><ix:attr value="if(instance('form')/mode='send', '', 'display:none')"
+													name="style"/> Add (via Lookup)<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action
+														ev:event="click">
+														<ix:dialog style="height:300px;" id="addRecip" title="Add Recipient"
+															class="quickSearchDialog">
+															<ix:include template="QuickSearch" ref="."/>
+														</ix:dialog>
+														<script>
+															model.Frm.configureQuickSearch("People", "replaceValueAndID", "instance('form')/import", "", "comm", "Name", "ID","", "", "", 'model.COMM.addRecip();', '0');
+															model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+														</script>
+													</xf:action></div>
+												<tempUserName></tempUserName>
+												<tempEmailAddress></tempEmailAddress>
+												<div class="clickable" style="margin-top:4px;"><ix:attr value="if(instance('form')/mode='send', '', 'display:none')"
+													name="style"/> Add (External Email)<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action
+														ev:event="click">
+														<script>
+															model.setValue("instance('form')/import/@name", "");
+															model.setValue("instance('form')/import/@email", "");
+														</script>
+														<ix:dialog style="height:200px;width:350px" id="addRecipManual" title="Add External Recipient"
+															class="quickSearchDialog">
+															<ix:include template="ManualAdd" ref="."/>
+														</ix:dialog>
+													</xf:action></div>
+											</td>
+										</tr>
+										<tr>
+											<td class="left">From:</td>
+											<td class="right"><b><xf:output value="instance('form')/email/from/@name"/></b> [<xf:output value="instance('form')/email/from"/>]</td>
+										</tr>
+										<tr>
+											<td class="left">Subject:</td>
+											<td class="rightoutput"><xf:input ref="instance('form')/email/subject"/></td>
+										</tr>
+										<tr>
+											<td class="left">Attachment:</td>
+											<td class="right">
+												<table><tr>
+													<td><xf:select1 id="Switcher" ref="instance('form')/email/commLetter">
+														<xf:item>
+															<xf:label>None</xf:label>
+															<xf:value></xf:value>
+														</xf:item>
+														<!-- <xf:item>
+															<xf:label>Approval Letter</xf:label>
+															<xf:value>GENapproval</xf:value>
+														</xf:item> -->
+														<xf:item>
+															<xf:label>Manual Attachment:</xf:label>
+															<xf:value>ATT</xf:value>
+														</xf:item>
+														
+														<!-- wm: 12-17-2018 - sourcing attachments from the case file -->
+														<xf:repeat nodeset="instance('ins')/document[@active='1']">
+															<xf:item>
+																<xf:label>Case Attachment: <xf:output value="@fileName"/></xf:label>
+																<xf:value>CASE-<xf:output value="@uid"/></xf:value>
+															</xf:item>
+														</xf:repeat>
+														
+														<!-- <xf:item>
+															<xf:label>Approval For Development Only</xf:label>
+															<xf:value>GENAppDev</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>HIPAA Waiver - Alteration of Authorization</xf:label>
+															<xf:value>GENHippAoA</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>HIPAA Waiver - Waiver of Authorization</xf:label>
+															<xf:value>GENHippWoA</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>No Quorum</xf:label>
+															<xf:value>GENNoQ</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Not Human Subjects</xf:label>
+															<xf:value>GENNotHS</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Not Research</xf:label>
+															<xf:value>GENNotRe</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Exempt Study Completion Report Ack</xf:label>
+															<xf:value>GENExStudyCompRepAck</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Exempt Study Progress Report Ack</xf:label>
+															<xf:value>GENExStudyProRepAck</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Exemption Granted</xf:label>
+															<xf:value>GENExGrant</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Suspension of IRB Approval</xf:label>
+															<xf:value>GENSus</xf:value>
+														</xf:item>
+														
+														<xf:item>
+															<xf:label>Amendment - Acknowledgement</xf:label>
+															<xf:value>GENAmAck</xf:value>
+														</xf:item>
+														
+														<xf:item>
+															<xf:label>One Time Use Acknowledgement</xf:label>
+															<xf:value>GENOTUA</xf:value>
+														</xf:item>
+														
+														<xf:item>
+															<xf:label>Disapproval Notice</xf:label>
+															<xf:value>GENDis</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Approval Notice - Final Report</xf:label>
+															<xf:value>GENAppFR</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Unanticipated Problem Acknowledgement</xf:label>
+															<xf:value>GENUPA</xf:value>
+														</xf:item> -->
+														
+														<!--<xf:item>
+															<xf:label>Approval Notice</xf:label>
+															<xf:value>/ideate/configs/IRB/outputs/10</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Modification Req Notice</xf:label>
+															<xf:value>mod</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>IRB Deferral Notice</xf:label>
+															<xf:value>def</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>30 Day Reminder</xf:label>
+															<xf:value>rem30</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>60 Day Reminder</xf:label>
+															<xf:value>rem60</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>90 Day Reminder</xf:label>
+															<xf:value>rem90</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Withdrawl Letter</xf:label>
+															<xf:value>withdrawl</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Failed to Respond Reminder</xf:label>
+															<xf:value>failed</xf:value>
+														</xf:item>
+														<xf:item>
+															<xf:label>Expiration Notice</xf:label>
+															<xf:value>exnot</xf:value>
+														</xf:item>-->
+														<script ev:event="xforms-value-changed">
+															typ = model.getValue(".", contextNode);
+															if(typ){
+															if(typ == "ATT"){
+																document.__TARGETURI = "/ideate/configs/IRB";
+																//var elmt = model.getUiElementById("documentDrop");
+																tac = "";
+															}
+															tac="";
+															if(typ == "GENapproval") tac = "- Approval Notice"; //apr
+															if(typ == "GENAppDev") tac = "- Approval For Development Only";
+															if(typ == "GENHippAoA") tac = "- HIPAA Waiver - Alteration of Authorization";
+															if(typ == "GENHippWoA") tac = "- HIPAA Waiver - Waiver of Authorization";
+															if(typ == "GENNoQ") tac = "- No Quorum";
+															if(typ == "GENNotHS") tac = "- Not Human Subjects";
+															if(typ == "GENNotRe") tac = "- Not Research";
+															if(typ == "GENExStudyCompRepAck") tac = "- Exempt Study Completion Report Ack";
+															if(typ == "GENExStudyProRepAck") tac = "- Exempt Study Progress Report Ack";
+															if(typ == "GENExCat4") tac = "- Exemption Granted - Exempt Cat 4 only";
+															if(typ == "GENSus") tac = "- Suspension of IRB Approval";
+															if(typ == "GENAmAck") tac = "- Amendment - Acknowledgement";
+															if(typ == "GENExGrant") tac = "- Exemption Granted";
+															if(typ == "GENOTUA") tac = "- One Time Use Acknowledgement";
+															if(typ == "GENDis") tac = "- Disapproval Notice";
+															if(typ == "GENAppFR") tac = "- Approval Notice - Final Report";
+															if(typ == "GENUPA") tac = "- Unanticipated Problem Acknowledgement";
+															
+															lead = "IRB Notification - " + model.getValue("instance('ins')/id8ID");
+															model.setValue("instance('form')/email/subject", lead + " " + tac);
+															model.recalculate();
+															model.activateCase('hide-create');
+															model.refresh();
+															model.rebuild();
+															model.recalculate();
+															model.activateCase('show-create');
+															}
+														</script>
+													</xf:select1></td>
+													<td>
+														<div class="clickable"><ix:attr value="if(instance('form')/email/commLetter!='ATT' or instance('temp')/attachment != '' or instance('form')/mode='view', 'display:none', '')"
+															name="style"/> Add<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/>
+															<script ev:event="click">
+																document.__TARGETURI = "/ideate/configs/IRB";
+																var elmt = model.getUiElementById("documentDrop");
+																evt = new Object();
+																evt.pageX = event.uiEvent.clientX;
+																evt.pageY = event.uiEvent.clientY;
+																elmt.lastChild.onclick(evt);
+															</script></div>
+														<span><ix:attr value="if(instance('form')/email/commLetter!='ATT' or instance('temp')/attachment = '' or instance('form')/mode!='send', 'display:none', '')"
+															name="style"/><a target="_NEW_"><ix:attr value="concat('../fil/ideate/configs/IRB/docs', instance('temp')/attachment)" name="href"/><xf:output value="instance('temp')/attachment"/></a> <b class="clickable" style="color:red">X<xf:action
+																ev:event="click">
+																<script>                	
+																	model.setValue("instance('temp')/attachment", "");
+																	model.activateCase('hide-create');
+																	model.refresh();
+																	model.rebuild();
+																	model.recalculate();
+																	model.activateCase('show-create');
+																</script>
+															</xf:action></b></span>
+														<!--<span><ix:attr value="if(instance('form')/email/commLetter!='ATT' or instance('temp')/attachment = '' or instance('form')/mode='send', 'display:none', '')"
+															name="style"/><a target="_NEW_"><ix:attr value="instance('temp')/attachment/@uri" name="href"/><xf:output value="instance('temp')/attachment"/></a></span>-->
+													</td>
+												</tr></table>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<xf:textarea ref="instance('form')/email/bodyHTML" style="margin-left:72px; width:357px;height:200px;"></xf:textarea>
+											</td>
+										</tr>
+									</table>												    
+								</div>
+								<xf:trigger style="margin-left:72px;">
+									<xf:label>Create</xf:label>
+									<xf:action ev:event="DOMActivate">
+										<script>
+											//model.COMM.send();
+											if(model.COMM.createFreeComm()) model.COMM.hideEmailComm();
+										</script>
+									</xf:action>
+								</xf:trigger>
+								<xf:trigger>
+									<xf:label>Cancel</xf:label>
+									<xf:action ev:event="DOMActivate">
+										<script>
+											model.COMM.hideEmailComm();
+										</script>
+									</xf:action>
+								</xf:trigger>		
+								</xf:group>
+							</xf:case>
+							<xf:case id="hide-create" exf:if="1">
+								<xf:trigger style="color:red;" class="create-button"><ix:attr name="style" class="create-button" value="if(instance('form')/isDirector='1' or instance('form')/isCoord='1', '', 'display:none')"/>
+									<xf:label class="create-button" >Create New</xf:label>
+									<xf:action ev:event="DOMActivate">
+										<script>
+											model.COMM.showEmailComm("IRB");
+										</script> 
+									</xf:action>		
+								</xf:trigger>
+							</xf:case>
+						</xf:switch>
+		
+						<!--<hr/>-->
+						<br/><br/>
+						
+						<h3>Submission Specific Communications</h3>
+						<br/>
+						
+						<exf:variable
+							value="instance('comms')/prot/comm|instance('comms')/subs/comm"
+							name="comSubRecs"/>
+						
+						<div><ix:attr value="if(count($comSubRecs) = 0, 'margin-left:10px;', 'display:none')" name="style"/><h5><i>None</i></h5></div>
+						
+						
+						<div>
+							
+							<table class="fullColLayout" style="width:100% !important;">
+								<ix:attr value="if(count($comSubRecs) &gt; 0, '', 'display:none')" name="style"/>
+								<tr class="top">
+									<th class="small delete center"/>
+									<th class="name out text mediumlarge left">Name</th>
+									<th class="type in dropdown medium left">From</th>
+									<th class="status in manual medium left">To</th>
+									<th class="status in manual mediumlarge left">CC</th>
+									<th class="status in manual medium left">Create Date</th>
+									<th class="status in manual medium left">Sent Date</th>
+									<th class="status in manual medium left">Document</th>
+									<th class="status in manual medium left">Description</th>
+								</tr>
+								<xf:repeat nodeset="$comSubRecs">
+									<exf:variable
+										value="position()"
+										name="poi"/>
+									<tr>
+										<td class="small delete center">
+											<xf:output value="$poi"/>										
+										</td>
+										<td class="out text mediumlarge left name">
+											<xf:output value="@name"/>
+										</td>
+										<td class="out text medium left name">
+											<xf:output value="@from"/>
+										</td>
+										<td class="out text medium left name">
+											<xf:output value="@to"/>
+										</td>
+										<td class="out text mediumlarge left name">
+											<xf:output value="@cc"/>
+										</td>
+										<td class="status in manual medium left"><nobr>
+											<xf:output value="if(@created != '', local-date(@created), '')"/>
+										</nobr></td>
+										<td class="status in manual medium center"><nobr>
+											<!--<span><ix:attr name="style" value="if(@sentDate='', '', 'display:none')"/>
+											-</span>-->
+											
+											<!-- wm: 12-17-2018 - added ability to send from the case - I don't know if this is what's desired/appropriate so please remove if needed -->
+											<!--<span>
+											<u class="clickable"><ix:attr name="style" value="if(@sentDate='', 'color:blue', 'display:none')"/>
+												<script ev:event="click">
+													model.COMM.sendFreeComm(contextNode);
+												</script>Send</u>
+											</span>-->
+											
+											<span><ix:attr name="style" value="if(@sentDate='', 'display:none', '')"/>
+												<!--<xf:output value="if(@sentDate != '', concat(substring(@sentDate, 6, 2), '/', substring(@sentDate, 9, 2), '/', substring(@sentDate, 1, 4)), '-')"/>-->
+												<!--<xf:output value="if(@sentDate != '', concat(substring(@sentDate, 6, 2), '/', substring(@sentDate, 9, 2), '/', substring(@sentDate, 1, 4)), '')"/>-->
+												<xf:output value="if(@sentDate != '', local-date(@sentDate), '')"/>
+											</span>
+											</nobr></td>
+										<td class="status in manual medium left">
+											<span>
+												<ix:attr name="style" value="if(@uri!='' and @sentDate!='', '', 'display:none')"/>
+												<a target="_blank_" style="blue"><ix:attr name="href" value="concat('../fil', @uri)"/>View</a>
+											</span>											
+										</td>
+										<td>
+											<span><ix:attr name="style" value="if(descirption!='','','display:none')"/>
+												<span class="dialogOverInteractive"><u style="color:blue;cursor:pointer;text-decoration:none;">View</u>
+													<div style="width:350px;">  
+														<br/>														
+														<h5>Description</h5>														
+														<hr/>
+														<br/>
+														<table cellspacing="0" cellpadding="1" border="0" style="">		
+																<tr>
+																	<td style="background-color:white;vertical-align:top;color:black;">
+																		<xf:output value="descirption"/>
+																	</td>																	
+																</tr>															
+														</table>
+													</div>
+												</span>
+											</span>
+										</td>
+									</tr>									
+								</xf:repeat>
+							</table>
+							<br/><br/>
+						</div>
+
+					</td>
+				</tr>
+			</table>
+		  	
+		  <br/><br/>
+  	</xf:group>
+  </div>
+
+		</xf:case>
+		<xf:case id="hide-comms"/>
+
+
+		
+	</xf:switch>
+
+
+
+
+</form>

@@ -1,0 +1,1917 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <!-- The data model consists of:
+        ins - process data
+        proDat - project data
+        form - form specific data
+        bootstrap - bootstraping data (pointers to aux files to attach
+        config - config data
+      -->
+      <xf:instance id="insq"><data xmlns=""/></xf:instance>
+      <xf:instance id="proDatq"><data xmlns=""/></xf:instance>
+    <xf:instance id="proMapq"><data xmlns=""/></xf:instance>
+    <xf:instance id="catsq"><data xmlns=""/></xf:instance>
+    <xf:instance id="comments"><data xmlns=""/></xf:instance>
+    <xf:instance id="proReviews"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <currency></currency>
+          <version/>
+          <departments/>
+          <!--<versions>
+            <options>
+            <option label="Version 1" value="1"/>
+            <option label="Version X" value="2"/>
+            </options>
+            </versions>-->
+          <views>
+            <options>
+              <option label="Project" value="project"/>
+              <option label="Task 0" value="task0"/>
+            </options>
+          </views>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+          <currentView>1</currentView>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <!--<css>/resources/applications/IRB/css/main.css</css>-->
+          <js>/resources/services/appTabSet/appTabSetEx.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+      <!--<xf:bind nodeset="instance('proDatq')/version" readonly="true()" relevant="false()"/>-->
+          
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        model.TS = new appTabSetEx(model, 'projectTabs', 'viewSet');
+        
+        model.setInstanceIdSrc('proDatq', "/fil" + model.TS.formSet.getRoot().__REVURI + "/data/reviews/" + model.TS.formSet.getRoot().__REVID + ".xml");
+        model.setInstanceIdSrc('catsq', "/fil" + model.TS.formSet.getRoot().__REVURI + "/data/catagories.xml");
+        model.setInstanceIdSrc('insq', "/fil" + model.TS.formSet.getRoot().__REVURI + "/data/reviews/" + model.TS.formSet.getRoot().__REVID + ".xml");
+                
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>    
+    
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('insq')/Person[role='PI']/name"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('insq')/contextGroup"/>
+    <xf:bind readonly="true()" relevant="false()" nodeset="instance('insq')/status"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('insq')/Person/name"/>
+  </xf:model>
+  
+  
+  
+  <table>
+    <tr>
+      <td style="vertical-align:top">
+      
+        <div class="tabSet">
+          
+          <!-- Consistant Header -->
+          <div class="header">
+            <table class="infoLine">
+              <tr>
+                <td style="text-align:left;">Protocol Number: <xf:output value="instance('proDatq')/id8ID"/></td>
+                <td style="text-align:center;"><xf:output value="instance('proDatq')/title"/></td>
+                <td style="text-align:right;">IRB Application</td>
+              </tr>
+            </table>      
+            <xf:switch>
+              <xf:case id="show-tabHeader" exf:if="1">
+                <table class="infoBox">
+                  <tr>
+                    <td style="width:33%">
+                      <table class="infoGroup">
+                        <tr><td class="label"><b>Principal Investigator:</b></td><td class="text"><xf:output value="instance('proDatq')/Person[role='PI']/name"/></td></tr>
+                      </table>
+                    </td>
+                    <td style="width:33%">
+                      <table class="infoGroup">
+                        <exf:variable name="boardName" value="instance('proDatq')/Board/name"/>
+                        <tr><td class="label"><b>Board:</b></td><td class="text"><xf:output value="if($boardName !='', $boardName, 'Pending')"/></td></tr>        
+                      </table>
+                    </td>
+                    <td style="width:33%">
+                      <table class="infoGroup">
+                        <tr><td class="label"><b>Status:</b></td><td class="text">Review</td></tr>    
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </xf:case>
+              <xf:case id="hide-tabHeader">
+              </xf:case>
+            </xf:switch>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <div class="switchFormController">
+    <exf:variable name="topTab" value="instance('form')/currentView/@parent"/>
+    <exf:variable name="cv" value="instance('form')/currentView"/>
+    <exf:variable name="tabs" value="instance('config')/tab"/>
+    <exf:variable name="subs" value="$tabs[@id = $topTab]/tab"/>
+    
+    <table class="tabs">
+      <tr> 
+          <td>
+            <ix:attr name="class" value="if(instance('form')/currentView = 1, 'tabSelected', 'tab')"/>
+            <span>Summary</span>
+            <script ev:event="click">model.activateCase("p1"); model.setValue("instance('form')/currentView", 1); model.recalculate(); //model.SF.switchTab(model.getValue("@id", contextNode));</script>
+          </td>
+        <td>
+          <ix:attr name="class" value="if(instance('form')/currentView = 2, 'tabSelected', 'tab')"/>
+          <span>Research Design</span>
+          <script ev:event="click">model.activateCase("p2");  model.setValue("instance('form')/currentView", 2); model.recalculate(); //model.SF.switchTab(model.getValue("@id", contextNode));</script>
+        </td>
+        <td class="tab">
+          <span>Personnel</span>
+        </td>
+        <td class="tab">
+          <span>Protocol Components</span>
+        </td>
+        <td class="tab">
+          <span>Subjects</span>
+        </td>
+        <td class="tab">
+          <span>Funding</span>
+        </td>
+        <td class="tab">
+          <span>Attachments</span>
+        </td>        
+      </tr>
+    </table>
+    
+    <xf:switch>
+      <xf:case id="show-sub" exf:if="1">
+        <table class="tabsBase">
+          <tr><td class="tabBar" colspan="48" style="height: 30px; width: 805px;">
+            <!-- Render as a line -->
+            <table class="subline" style="font-size:8px;">
+              <tr> 
+                  <td class="command">
+                                        
+                  </td>
+              </tr>
+            </table>              
+          </td></tr>
+        </table>
+      </xf:case>
+      <xf:case id="hide-subs">
+        <tr><td class="tabBar" colspan="48" style="height: 30px; width: 800px;">
+        </td></tr>
+      </xf:case>
+    </xf:switch>
+      
+  </div>
+  
+  <div class="switchFormContainer">
+    <xf:switch>
+      <xf:case id="p1" exf:if="1">
+        <div class="formFrame">
+    <div style="display:none;">
+      <xf:input id="documentDrop" ref="instance('form')/document">
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+          <script> var n = model.getValue(".", contextNode); if(n != "") model.Frm.linkFile(n);
+          </script>
+        </xf:action>
+      </xf:input>
+    </div>
+    
+    <div class="body">
+      <h1/>
+      <table class="basicColLayout">
+        <tr class="field">
+          <td class="component  widenLabel">
+            <xf:input class="wide" ref="instance('insq')/shortTitle">
+              <xf:label>Short Title</xf:label>
+              <xf:hint>Name used for easy identification of the protocol</xf:hint>
+            </xf:input>
+          </td>
+          <td class="options"/>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/shortTitle = instance('insq')/original/shortTitle and instance('insq')/shortTitle/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/shortTitle/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/shortTitle != instance('insq')/original/shortTitle, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/shortTitle != instance('insq')/shortTitle, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/shortTitle = instance('insq')/suggestions/shortTitle, 'Using Suggested Change', if(instance('insq')/shortTitle = instance('insq')/original/shortTitle, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/shortTitle/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/shortTitle/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/shortTitle",
+                              model.getValue("instance('insq')/original/shortTitle"));
+                              model.refresh(); model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/original/shortTitle"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/shortTitle",
+                                model.getValue("instance('insq')/suggestions/shortTitle"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/suggestions/shortTitle"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr class="box">
+          <td class="component textarea   widenLabel">
+            <xf:textarea class="" ref="instance('insq')/title">
+              <xf:label>Protocol Title</xf:label>
+            </xf:textarea>
+          </td>
+          <td class="options">
+            <div>character count: <xf:output value="string-length(instance('insq')/title)"/></div>
+          </td>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/title = instance('insq')/original/title and instance('insq')/title/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/title/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/title != instance('insq')/original/title, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/title != instance('insq')/title, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/title = instance('insq')/suggestions/title, 'Using Suggested Change', if(instance('insq')/title = instance('insq')/original/title, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/title/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/title/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/title",
+                              model.getValue("instance('insq')/original/title")); model.refresh();
+                              model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/original/title"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/title",
+                                model.getValue("instance('insq')/suggestions/title"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/suggestions/title"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <xf:switch>
+          <xf:case exf:if="1" id="show-peps">
+            <tr class="field">
+              <td class="component  widenLabel">
+                <xf:input class="wide" ref="instance('insq')/Person[role='PI']/name">
+                  <xf:label>Principal Investigator</xf:label>
+                </xf:input>
+              </td>
+              <td class="options">
+                <div class="clickable"> replace <img
+                    src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action
+                    ev:event="click">
+                    <ix:dialog style="height:300px;" id="results" title="Find PI"
+                      class="quickSearchDialog">
+                      <ix:include template="QuickSearch" ref="."/>
+                    </ix:dialog>
+                    <script>
+                    </script>
+                  </xf:action></div>
+              </td>
+              <td class="errors">
+                <div>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/Person[role='PI']/name = instance('insq')/original/Person[role='PI']/name and instance('insq')/Person[role='PI']/@comment != '', '', 'display:none')"
+                    name="style"/>
+                  <span class="dialogOverInteractive">
+                    <u style="color:blue">Review Comment</u>
+                    <div style="width:300px;">
+                      <p>
+                        <h5>Review Comments:</h5>
+                        <span style="color:black">
+                          <xf:output value="instance('insq')/Person[role='PI']/@comment"/>
+                        </span>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+                <div>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/Person[role='PI']/name != instance('insq')/original/Person[role='PI']/name, '', 'display:none')"
+                    name="style"/>
+                  <span class="dialogOverInteractive">
+                    <u>
+                      <ix:attr
+                        value="if(instance('insq')/suggestions/Person[role='PI']/name != instance('insq')/Person[role='PI']/name, 'color:red', 'color:green')"
+                        name="style"/>
+                      <xf:output
+                        value="if(instance('insq')/Person[role='PI']/name = instance('insq')/suggestions/Person[role='PI']/name, 'Using Suggested Change', if(instance('insq')/Person[role='PI']/name = instance('insq')/original/Person[role='PI']/name, 'Ignoring Suggestion', 'Using New Value'))"
+                      />
+                    </u>
+                    <div style="width:300px;">
+                      <p>
+                        <h5>Review:</h5>
+                        <span style="">
+                          <ix:attr
+                            value="if(instance('insq')/Person[role='PI']/@comment !='', 'color:black', 'display:none')"
+                            name="style"/>
+                          <xf:output value="instance('insq')/Person[role='PI']/@comment"/>
+                          <br/>
+                          <br/>
+                        </span>
+                        <hr/>
+                        <i style="font-size:7pt;color:black;">Select value to use:</i>
+                        <br/>
+                        <br/>
+                        <table style="background-color:white;">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;">
+                              <b>
+                                <u style="color:red;cursor:pointer">Original Value</u>
+                                <script ev:event="click">
+                                  model.setValue("instance('insq')/Person[role='PI']/name",
+                                  model.getValue("instance('insq')/original/Person[role='PI']/name"));
+                                  model.refresh(); model.recalculate(); model.rebuild(); </script>
+                              </b>
+                            </td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <span>
+                                <xf:output value="instance('insq')/original/Person[role='PI']/name"/>
+                              </span>
+                              <br/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;">
+                              <b>
+                                <u style="color:green;cursor:pointer">Suggested Revision <script
+                                    ev:event="click">
+                                    model.setValue("instance('insq')/Person[role='PI']/name",
+                                    model.getValue("instance('insq')/suggestions/Person[role='PI']/name"));
+                                    model.refresh(); model.recalculate(); model.rebuild();
+                                  </script></u>
+                              </b>
+                            </td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <span>
+                                <xf:output
+                                  value="instance('insq')/suggestions/Person[role='PI']/name"/>
+                              </span>
+                              <br/>
+                            </td>
+                          </tr>
+                        </table>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr class="html">
+              <ix:attr value="if(Person[role='PI']/creatorIsPI = '0', '', 'display:none')"
+                name="style"/>
+              <td>
+                <visible xpath="Person[role='PI']/creatorIsPI = '0'"/>
+                <i style="margin-left:10px;color:red">When the application is complete, it will be
+                  sent to the PI for submission</i>
+                <br/>
+                <br/>
+              </td>
+            </tr>
+            <tr class="field">
+              <td class="component  widenLabel">
+                <xf:input class="wide"
+                  ref="instance('insq')/Person[invitation/@status='author']/name">
+                  <xf:label>Submission Creator</xf:label>
+                </xf:input>
+              </td>
+              <td class="options"/>
+              <td class="errors">
+                <div>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/Person[invitation/@status='author']/name = instance('insq')/original/Person[invitation/@status='author']/name and instance('insq')/Person[invitation/@status='author']/name/@comment != '', '', 'display:none')"
+                    name="style"/>
+                  <span class="dialogOverInteractive">
+                    <u style="color:blue">Review Comment</u>
+                    <div style="width:300px;">
+                      <p>
+                        <h5>Review Comments:</h5>
+                        <span style="color:black">
+                          <xf:output
+                            value="instance('insq')/Person[invitation/@status='author']/name/@comment"
+                          />
+                        </span>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+                <div>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/Person[invitation/@status='author']/name != instance('insq')/original/Person[invitation/@status='author']/name, '', 'display:none')"
+                    name="style"/>
+                  <span class="dialogOverInteractive">
+                    <u>
+                      <ix:attr
+                        value="if(instance('insq')/suggestions/Person[invitation/@status='author']/name != instance('insq')/Person[invitation/@status='author']/name, 'color:red', 'color:green')"
+                        name="style"/>
+                      <xf:output
+                        value="if(instance('insq')/Person[invitation/@status='author']/name = instance('insq')/suggestions/Person[invitation/@status='author']/name, 'Using Suggested Change', if(instance('insq')/Person[invitation/@status='author']/name = instance('insq')/original/Person[invitation/@status='author']/name, 'Ignoring Suggestion', 'Using New Value'))"
+                      />
+                    </u>
+                    <div style="width:300px;">
+                      <p>
+                        <h5>Review:</h5>
+                        <span style="">
+                          <ix:attr
+                            value="if(instance('insq')/Person[invitation/@status='author']/name/@comment !='', 'color:black', 'display:none')"
+                            name="style"/>
+                          <xf:output
+                            value="instance('insq')/Person[invitation/@status='author']/name/@comment"/>
+                          <br/>
+                          <br/>
+                        </span>
+                        <hr/>
+                        <i style="font-size:7pt;color:black;">Select value to use:</i>
+                        <br/>
+                        <br/>
+                        <table style="background-color:white;">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;">
+                              <b>
+                                <u style="color:red;cursor:pointer">Original Value</u>
+                                <script ev:event="click">
+                                  model.setValue("instance('insq')/Person[invitation/@status='author']/name",
+                                  model.getValue("instance('insq')/original/Person[invitation/@status='author']/name"));
+                                  model.refresh(); model.recalculate(); model.rebuild(); </script>
+                              </b>
+                            </td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <span>
+                                <xf:output
+                                  value="instance('insq')/original/Person[invitation/@status='author']/name"
+                                />
+                              </span>
+                              <br/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;">
+                              <b>
+                                <u style="color:green;cursor:pointer">Suggested Revision <script
+                                    ev:event="click">
+                                    model.setValue("instance('insq')/Person[invitation/@status='author']/name",
+                                    model.getValue("instance('insq')/suggestions/Person[invitation/@status='author']/name"));
+                                    model.refresh(); model.recalculate(); model.rebuild();
+                                  </script></u>
+                              </b>
+                            </td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <span>
+                                <xf:output
+                                  value="instance('insq')/suggestions/Person[invitation/@status='author']/name"
+                                />
+                              </span>
+                              <br/>
+                            </td>
+                          </tr>
+                        </table>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr class="dropdown">
+              <ix:attr value="if(Person[role='PI']/creatorIsPI = '0', '', 'display:none')"
+                name="style"/>
+              <td class="component  widenLabel">
+                <xf:select1 ref="instance('insq')/Person[invitation/@status='author']/role">
+                  <xf:label>Role</xf:label>
+                  <xf:repeat nodeset="instance('catsq')/allRoles/type">
+                    <xf:item>
+                      <xf:label>
+                        <xf:output value="@name"/>
+                      </xf:label>
+                      <xf:value>
+                        <xf:output value="@id"/>
+                      </xf:value>
+                    </xf:item>
+                  </xf:repeat>
+                </xf:select1>
+              </td>
+              <td class="options"/>
+              <td class="errors">
+                <div>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/Person[invitation/@status='author']/role = instance('insq')/original/Person[invitation/@status='author']/role and instance('insq')/Person[invitation/@status='author']/role/@comment != '', '', 'display:none')"
+                    name="style"/>
+                  <span class="dialogOverInteractive">
+                    <u style="color:blue">Review Comment</u>
+                    <div style="width:300px;">
+                      <p>
+                        <h5>Review Comments:</h5>
+                        <span style="color:black">
+                          <xf:output
+                            value="instance('insq')/Person[invitation/@status='author']/role/@comment"
+                          />
+                        </span>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+                <div>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/Person[invitation/@status='author']/role != instance('insq')/original/Person[invitation/@status='author']/role, '', 'display:none')"
+                    name="style"/>
+                  <span class="dialogOverInteractive">
+                    <u>
+                      <ix:attr
+                        value="if(instance('insq')/suggestions/Person[invitation/@status='author']/role != instance('insq')/Person[invitation/@status='author']/role, 'color:red', 'color:green')"
+                        name="style"/>
+                      <xf:output
+                        value="if(instance('insq')/Person[invitation/@status='author']/role = instance('insq')/suggestions/Person[invitation/@status='author']/role, 'Using Suggested Change', if(instance('insq')/Person[invitation/@status='author']/role = instance('insq')/original/Person[invitation/@status='author']/role, 'Ignoring Suggestion', 'Using New Value'))"
+                      />
+                    </u>
+                    <div style="width:300px;">
+                      <p>
+                        <h5>Review:</h5>
+                        <span style="">
+                          <ix:attr
+                            value="if(instance('insq')/Person[invitation/@status='author']/role/@comment !='', 'color:black', 'display:none')"
+                            name="style"/>
+                          <xf:output
+                            value="instance('insq')/Person[invitation/@status='author']/role/@comment"/>
+                          <br/>
+                          <br/>
+                        </span>
+                        <hr/>
+                        <i style="font-size:7pt;color:black;">Select value to use:</i>
+                        <br/>
+                        <br/>
+                        <table style="background-color:white;">
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;">
+                              <b>
+                                <u style="color:red;cursor:pointer">Original Value</u>
+                                <script ev:event="click">
+                                  model.setValue("instance('insq')/Person[invitation/@status='author']/role",
+                                  model.getValue("instance('insq')/original/Person[invitation/@status='author']/role"));
+                                  model.refresh(); model.recalculate(); model.rebuild(); </script>
+                              </b>
+                            </td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <span>
+                                <xf:output
+                                  value="instance('catsq')/allRoles/type[@id=instance('insq')/original/Person[invitation/@status='author']/role]/@name"
+                                />
+                              </span>
+                              <br/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="background-color:white;vertical-align:top;">
+                              <b>
+                                <u style="color:green;cursor:pointer">Suggested Revision <script
+                                    ev:event="click">
+                                    model.setValue("instance('insq')/Person[invitation/@status='author']/role",
+                                    model.getValue("instance('insq')/suggestions/Person[invitation/@status='author']/role"));
+                                    model.refresh(); model.recalculate(); model.rebuild();
+                                  </script></u>
+                              </b>
+                            </td>
+                            <td style="background-color:white;vertical-align:top;color:black">
+                              <span>
+                                <xf:output
+                                  value="instance('catsq')/allRoles/type[@id=instance('insq')/suggestions/Person[invitation/@status='author']/role]/@name"
+                                />
+                              </span>
+                              <br/>
+                            </td>
+                          </tr>
+                        </table>
+                      </p>
+                    </div>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </xf:case>
+          <xf:case id="hide-peps"/>
+        </xf:switch>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <tr class="field">
+          <td class="component  widenLabel">
+            <xf:input class="wide" ref="instance('insq')/contextGroup">
+              <xf:label>Primary Department</xf:label>
+            </xf:input>
+          </td>
+          <td class="options">
+            <div style="margin-top:-2px;" class="clickable">replace<img
+                src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action
+                ev:event="click">
+                <ix:dialog style="height:300px;" id="results" title="Lookup Department"
+                  class="quickSearchDialog">
+                  <ix:include template="QuickSearch" ref="."/>
+                </ix:dialog>
+                <script>  </script>
+              </xf:action></div>
+          </td>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/contextGroup = instance('insq')/original/contextGroup and instance('insq')/contextGroup/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/contextGroup/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/contextGroup != instance('insq')/original/contextGroup, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/contextGroup != instance('insq')/contextGroup, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/contextGroup = instance('insq')/suggestions/contextGroup, 'Using Suggested Change', if(instance('insq')/contextGroup = instance('insq')/original/contextGroup, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/contextGroup/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/contextGroup/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/contextGroup",
+                              model.getValue("instance('insq')/original/contextGroup"));
+                              model.refresh(); model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/original/contextGroup"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/contextGroup",
+                                model.getValue("instance('insq')/suggestions/contextGroup"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/suggestions/contextGroup"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr class="dropdown">
+          <td class="component  widenLabel">
+            <xf:select1 ref="instance('insq')/researchType">
+              <xf:label>Research Type</xf:label>
+              <xf:item>
+                <xf:label>-Select-</xf:label>
+                <xf:value/>
+              </xf:item>
+              <xf:repeat nodeset="instance('catsq')/researchTypes/type">
+                <xf:item>
+                  <xf:label>
+                    <xf:output value="@name"/>
+                  </xf:label>
+                  <xf:value>
+                    <xf:output value="@id"/>
+                  </xf:value>
+                </xf:item>
+              </xf:repeat>
+            </xf:select1>
+          </td>
+          <td class="options"/>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/researchType = instance('insq')/original/researchType and instance('insq')/researchType/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/researchType/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/researchType != instance('insq')/original/researchType, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/researchType != instance('insq')/researchType, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/researchType = instance('insq')/suggestions/researchType, 'Using Suggested Change', if(instance('insq')/researchType = instance('insq')/original/researchType, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/researchType/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/researchType/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/researchType",
+                              model.getValue("instance('insq')/original/researchType"));
+                              model.refresh(); model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output
+                              value="instance('catsq')/researchTypes/type[@id=instance('insq')/original/researchType]/@name"
+                            />
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/researchType",
+                                model.getValue("instance('insq')/suggestions/researchType"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output
+                              value="instance('catsq')/researchTypes/type[@id=instance('insq')/suggestions/researchType]/@name"
+                            />
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr class="bigbox">
+          <td class="component textarea   widenLabel">
+            <xf:textarea style="height:10em;" class="" ref="instance('insq')/laysummary">
+              <xf:label>Lay Summary</xf:label>
+            </xf:textarea>
+          </td>
+          <td class="options">
+            <div>character count: <xf:output value="string-length(instance('insq')/laysummary)"
+              /></div>
+          </td>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/laysummary = instance('insq')/original/laysummary and instance('insq')/laysummary/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/laysummary/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/laysummary != instance('insq')/original/laysummary, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/laysummary != instance('insq')/laysummary, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/laysummary = instance('insq')/suggestions/laysummary, 'Using Suggested Change', if(instance('insq')/laysummary = instance('insq')/original/laysummary, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/laysummary/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/laysummary/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/laysummary",
+                              model.getValue("instance('insq')/original/laysummary"));
+                              model.refresh(); model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/original/laysummary"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/laysummary",
+                                model.getValue("instance('insq')/suggestions/laysummary"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/suggestions/laysummary"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+        
+        
+      </xf:case>
+      <xf:case id="p2">
+        <div class="formFrame">
+        <div class="body">
+      <h1/>
+      <table class="basicColLayout">
+        <tr class="bigbox">
+          <td class="component textarea   widenLabel">
+            <xf:textarea style="height:10em;" class="" ref="instance('insq')/researchHyp">
+              <xf:label>Research Hypothesis</xf:label>
+            </xf:textarea>
+          </td>
+          <td class="options">
+            <div>character count: <xf:output value="string-length(instance('insq')/researchHyp)"
+              /></div>
+          </td>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/researchHyp = instance('insq')/original/researchHyp and instance('insq')/researchHyp/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/researchHyp/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/researchHyp != instance('insq')/original/researchHyp, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/researchHyp != instance('insq')/researchHyp, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/researchHyp = instance('insq')/suggestions/researchHyp, 'Using Suggested Change', if(instance('insq')/researchHyp = instance('insq')/original/researchHyp, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/researchHyp/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/researchHyp/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/researchHyp",
+                              model.getValue("instance('insq')/original/researchHyp"));
+                              model.refresh(); model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/original/researchHyp"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/researchHyp",
+                                model.getValue("instance('insq')/suggestions/researchHyp"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/suggestions/researchHyp"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr class="bigbox">
+          <td class="component textarea   widenLabel">
+            <xf:textarea style="height:10em;" class="" ref="instance('insq')/studyPurpose">
+              <xf:label>Study Purpose</xf:label>
+            </xf:textarea>
+          </td>
+          <td class="options">
+            <div>character count: <xf:output value="string-length(instance('insq')/studyPurpose)"
+              /></div>
+          </td>
+          <td class="errors">
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/studyPurpose = instance('insq')/original/studyPurpose and instance('insq')/studyPurpose/@comment != '', '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u style="color:blue">Review Comment</u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review Comments:</h5>
+                    <span style="color:black">
+                      <xf:output value="instance('insq')/studyPurpose/@comment"/>
+                    </span>
+                  </p>
+                </div>
+              </span>
+            </div>
+            <div>
+              <ix:attr
+                value="if(instance('insq')/suggestions/studyPurpose != instance('insq')/original/studyPurpose, '', 'display:none')"
+                name="style"/>
+              <span class="dialogOverInteractive">
+                <u>
+                  <ix:attr
+                    value="if(instance('insq')/suggestions/studyPurpose != instance('insq')/studyPurpose, 'color:red', 'color:green')"
+                    name="style"/>
+                  <xf:output
+                    value="if(instance('insq')/studyPurpose = instance('insq')/suggestions/studyPurpose, 'Using Suggested Change', if(instance('insq')/studyPurpose = instance('insq')/original/studyPurpose, 'Ignoring Suggestion', 'Using New Value'))"
+                  />
+                </u>
+                <div style="width:300px;">
+                  <p>
+                    <h5>Review:</h5>
+                    <span style="">
+                      <ix:attr
+                        value="if(instance('insq')/studyPurpose/@comment !='', 'color:black', 'display:none')"
+                        name="style"/>
+                      <xf:output value="instance('insq')/studyPurpose/@comment"/>
+                      <br/>
+                      <br/>
+                    </span>
+                    <hr/>
+                    <i style="font-size:7pt;color:black;">Select value to use:</i>
+                    <br/>
+                    <br/>
+                    <table style="background-color:white;">
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:red;cursor:pointer">Original Value</u>
+                            <script ev:event="click"> model.setValue("instance('insq')/studyPurpose",
+                              model.getValue("instance('insq')/original/studyPurpose"));
+                              model.refresh(); model.recalculate(); model.rebuild(); </script>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/original/studyPurpose"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color:white;vertical-align:top;">
+                          <b>
+                            <u style="color:green;cursor:pointer">Suggested Revision <script
+                                ev:event="click"> model.setValue("instance('insq')/studyPurpose",
+                                model.getValue("instance('insq')/suggestions/studyPurpose"));
+                                model.refresh(); model.recalculate(); model.rebuild(); </script></u>
+                          </b>
+                        </td>
+                        <td style="background-color:white;vertical-align:top;color:black">
+                          <span>
+                            <xf:output value="instance('insq')/suggestions/studyPurpose"/>
+                          </span>
+                          <br/>
+                        </td>
+                      </tr>
+                    </table>
+                  </p>
+                </div>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/invRadio" appearance="full">
+                    <xf:label>Involves Radioactive Material?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> x = model.getValue(".", contextNode);
+                      if(x == "0"){ model.setValue("instance('insq')/subToRSC", "");
+                      model.recalculate(); } </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/invRadio" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="yesnoentitylink">
+          <ix:attr value="if(instance('insq')/invRadio = '1', '', 'display:none')" name="style"/>
+          <td class="component horizontalStack  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/subToRSC" appearance="full">
+                    <xf:label>Have you submitted to the RSC?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/subToRSC" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+                <td class="entityarea">
+                  <div class="dependant entitylink">
+                    <ix:attr value="if(instance('insq')/subToRSC = '1', '', 'display:none')"
+                      name="style"/>
+                    <table class=" ">
+                      <tr>
+                        <td class="label">Identify RSC Protocol:</td>
+                        <td>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='rscProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:input ref="instance('insq')/link[@name='rscProt']/@title" class="">
+                              <xf:label style="width:0px"/>
+                            </xf:input>
+                          </div>
+                        </td>
+                        <td class="buttons">
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='rscProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Create New</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value="'Create on submission'"
+                                  ref="instance('insq')/link[@name='rscProt']/@title"/>
+                                <xf:setvalue value="'-1'"
+                                  ref="instance('insq')/link[@name='rscProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='rscProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='rscProt']/@state"/>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='rscProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Lookup</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <ix:dialog style="height:300px;" id="results"
+                                  title="Lookup Lookup IBC" class="quickSearchDialog">
+                                  <ix:include template="QuickSearch" ref="."/>
+                                </ix:dialog>
+                                <script> model.Frm.configureQuickSearch("IBC Protocols",
+                                  "entityLink", "instance('insq')/link[@name='rscProt']", "", "",
+                                  "Name", "", "", "", "", '', '');
+                                  model.Frm.registerKeypressCallback("searchBox",
+                                  "quickSearchKeyPress"); </script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='rscProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="undo">
+                              <xf:label>Undo</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='rscProt']/@title"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='rscProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='rscProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='rscProt']/@state"/>
+                                <script>model.activateCase('hide-external');</script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="instructions">
+          <ix:attr value="if(instance('insq')/subToRSC = '0', '', 'display:none')" name="style"/>
+          <td colspan="4">
+            <div> A protocol must be submitted to the RSC and Approved prior to submitting your
+              protocol to the IRB. </div>
+          </td>
+        </tr>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/invRDNA" appearance="full">
+                    <xf:label>Involves rDNA</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> x = model.getValue(".", contextNode);
+                      if(x == "0"){ model.setValue("instance('insq')/subToIBC", "");
+                      model.recalculate(); } </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/invRDNA" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="yesnoentitylink">
+          <ix:attr value="if(instance('insq')/invRDNA = '1', '', 'display:none')" name="style"/>
+          <td class="component horizontalStack  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/subToIBC" appearance="full">
+                    <xf:label>Have you submitted to the IBC?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/subToIBC" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+                <td class="entityarea">
+                  <div class="dependant entitylink">
+                    <ix:attr value="if(instance('insq')/subToIBC = '1', '', 'display:none')"
+                      name="style"/>
+                    <table class=" ">
+                      <tr>
+                        <td class="label">Identify IBC Protocol:</td>
+                        <td>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:input ref="instance('insq')/link[@name='ibcProt']/@title" class="">
+                              <xf:label style="width:0px"/>
+                            </xf:input>
+                          </div>
+                        </td>
+                        <td class="buttons">
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Create New</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value="'Create on submission'"
+                                  ref="instance('insq')/link[@name='ibcProt']/@title"/>
+                                <xf:setvalue value="'-1'"
+                                  ref="instance('insq')/link[@name='ibcProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcProt']/@state"/>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Lookup</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <ix:dialog style="height:300px;" id="results"
+                                  title="Lookup Lookup IBC" class="quickSearchDialog">
+                                  <ix:include template="QuickSearch" ref="."/>
+                                </ix:dialog>
+                                <script> model.Frm.configureQuickSearch("IBC Protocols",
+                                  "entityLink", "instance('insq')/link[@name='ibcProt']", "", "",
+                                  "Name", "", "", "", "", '', '');
+                                  model.Frm.registerKeypressCallback("searchBox",
+                                  "quickSearchKeyPress"); </script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="undo">
+                              <xf:label>Undo</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcProt']/@title"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcProt']/@state"/>
+                                <script>model.activateCase('hide-external');</script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="instructions">
+          <ix:attr value="if(instance('insq')/subToIBC = '0', '', 'display:none')" name="style"/>
+          <td colspan="4">
+            <div> A protocol must be submitted to the IBC and Approved prior to submitting your
+              protocol to the IRB. </div>
+          </td>
+        </tr>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/invBiologics" appearance="full">
+                    <xf:label>Involves Biologics</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> x = model.getValue(".", contextNode);
+                      if(x == "0"){ model.setValue("instance('insq')/subToIBCBio", "");
+                      model.recalculate(); } </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/invBiologics" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="yesnoentitylink">
+          <ix:attr value="if(instance('insq')/invBiologics = '1', '', 'display:none')" name="style"/>
+          <td class="component horizontalStack  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/subToIBCBio" appearance="full">
+                    <xf:label>Have you submitted to the IBC?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/subToIBCBio" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+                <td class="entityarea">
+                  <div class="dependant entitylink">
+                    <ix:attr value="if(instance('insq')/subToIBCBio = '1', '', 'display:none')"
+                      name="style"/>
+                    <table class=" ">
+                      <tr>
+                        <td class="label">Identify IBC Protocol:</td>
+                        <td>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcBioProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:input ref="instance('insq')/link[@name='ibcBioProt']/@title" class="">
+                              <xf:label style="width:0px"/>
+                            </xf:input>
+                          </div>
+                        </td>
+                        <td class="buttons">
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcBioProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Create New</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value="'Create on submission'"
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@title"/>
+                                <xf:setvalue value="'-1'"
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@state"/>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcBioProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Lookup</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <ix:dialog style="height:300px;" id="results"
+                                  title="Lookup Lookup IBC" class="quickSearchDialog">
+                                  <ix:include template="QuickSearch" ref="."/>
+                                </ix:dialog>
+                                <script> model.Frm.configureQuickSearch("IBC Protocols",
+                                  "entityLink", "instance('insq')/link[@name='ibcBioProt']", "", "",
+                                  "Name", "", "", "", "", '', '');
+                                  model.Frm.registerKeypressCallback("searchBox",
+                                  "quickSearchKeyPress"); </script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='ibcBioProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="undo">
+                              <xf:label>Undo</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@title"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='ibcBioProt']/@state"/>
+                                <script>model.activateCase('hide-external');</script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="instructions">
+          <ix:attr value="if(instance('insq')/subToIBCBio = '0', '', 'display:none')" name="style"/>
+          <td colspan="4">
+            <div> A protocol must be submitted to the IBC and Approved prior to submitting your
+              protocol to the IRB. </div>
+          </td>
+        </tr>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/invEmb" appearance="full">
+                    <xf:label>Involves Embryonic Stem Cells?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> x = model.getValue(".", contextNode);
+                      if(x == "0"){ model.setValue("instance('insq')/subToESCRO", "");
+                      model.recalculate(); } </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/invEmb" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="yesnoentitylink">
+          <ix:attr value="if(instance('insq')/invEmb = '1', '', 'display:none')" name="style"/>
+          <td class="component horizontalStack  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/subToESCRO" appearance="full">
+                    <xf:label>Have you submitted to ESCRO?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/subToESCRO" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+                <td class="entityarea">
+                  <div class="dependant entitylink">
+                    <ix:attr value="if(instance('insq')/subToESCRO = '1', '', 'display:none')"
+                      name="style"/>
+                    <table class=" ">
+                      <tr>
+                        <td class="label">Identify ESCRO Protocol:</td>
+                        <td>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='escroProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:input ref="instance('insq')/link[@name='escroProt']/@title" class="">
+                              <xf:label style="width:0px"/>
+                            </xf:input>
+                          </div>
+                        </td>
+                        <td class="buttons">
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='escroProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Create New</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value="'Create on submission'"
+                                  ref="instance('insq')/link[@name='escroProt']/@title"/>
+                                <xf:setvalue value="'-1'"
+                                  ref="instance('insq')/link[@name='escroProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='escroProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='escroProt']/@state"/>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='escroProt']/@title = '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="select">
+                              <xf:label>Lookup</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <ix:dialog style="height:300px;" id="results"
+                                  title="Lookup Lookup IBC" class="quickSearchDialog">
+                                  <ix:include template="QuickSearch" ref="."/>
+                                </ix:dialog>
+                                <script> model.Frm.configureQuickSearch("IBC Protocols",
+                                  "entityLink", "instance('insq')/link[@name='escroProt']", "", "",
+                                  "Name", "", "", "", "", '', '');
+                                  model.Frm.registerKeypressCallback("searchBox",
+                                  "quickSearchKeyPress"); </script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                          <div>
+                            <ix:attr
+                              value="if(instance('insq')/link[@name='escroProt']/@title != '', '', 'display:none')"
+                              name="style"/>
+                            <xf:trigger class="undo">
+                              <xf:label>Undo</xf:label>
+                              <xf:action ev:event="DOMActivate">
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='escroProt']/@title"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='escroProt']/@id"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='escroProt']/@uri"/>
+                                <xf:setvalue value=""
+                                  ref="instance('insq')/link[@name='escroProt']/@state"/>
+                                <script>model.activateCase('hide-external');</script>
+                              </xf:action>
+                            </xf:trigger>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="instructions">
+          <ix:attr value="if(instance('insq')/subToESCRO = '0', '', 'display:none')" name="style"/>
+          <td colspan="4">
+            <div> A protocol must be submitted to ESCRO and Approved prior to submitting your
+              protocol to the IRB. </div>
+          </td>
+        </tr>
+        <tr class="line">
+          <td>
+            <hr/>
+          </td>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/invDrugs" appearance="full">
+                    <xf:label>Involves Drugs?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"></script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/invDrugs" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('insq')/invDevs" appearance="full">
+                    <xf:label>Involves Devices?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                    <script ev:event="xforms-value-changed"> </script>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('insq')/invDevs" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+        </div>
+      </xf:case>
+    </xf:switch>
+  </div>
+  
+</form>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "cru");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        
+            if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+            }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+            }
+          model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+          model.Frm.revewMode = -1;
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '2f')
+          //model.USA.registerChangeLog('ins', '2f')
+          model.USA.registerChangeLog('comments', '2f')
+        </script></script><script ev:event="xforms-ready">
+    </script><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="yesnobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/requestingCRUResources/@revIndex" name="revIndexrequestingCRUResources"/><exf:variable value="(instance('ins')/requestingCRUResources[@revIndex=$revIndexrequestingCRUResources])" name="thisNodeNeedlerequestingCRUResources"/><exf:variable value="instance('ins')/requestingCRUResources" name="thisNoderequestingCRUResources"/><exf:variable value="(instance('ins')/original/requestingCRUResources[@revIndex=$revIndexrequestingCRUResources])" name="orgNoderequestingCRUResources"/><exf:variable value="(instance('ins')/original/requestingCRUResources[@revIndex=$revIndexrequestingCRUResources])" name="orgNodeVrequestingCRUResources"/><exf:variable value="(instance('ins')/suggestions/requestingCRUResources[@revIndex=$revIndexrequestingCRUResources])" name="sugNodeSetrequestingCRUResources"/><exf:variable value="(instance('ins')/suggestions/requestingCRUResources[@revIndex=$revIndexrequestingCRUResources])" name="sugNoderequestingCRUResources"/><exf:variable value="instance('ins')/previous/review/requestingCRUResources/@revIndex" name="revIndexOrequestingCRUResources"/><exf:variable value="(instance('ins')/previous/review/requestingCRUResources[@revIndex=$revIndexOrequestingCRUResources])" name="thisNodeNeedleOldrequestingCRUResources"/><exf:variable value="instance('ins')/previous/review/requestingCRUResources" name="thisNodeOldrequestingCRUResources"/><exf:variable value="(instance('ins')/previous/review/original/requestingCRUResources[@revIndex=$revIndexOrequestingCRUResources])" name="orgNodeOldrequestingCRUResources"/><exf:variable value="(instance('ins')/previous/review/suggestions/requestingCRUResources[@revIndex=$revIndexOrequestingCRUResources])" name="sugNodeSetOldrequestingCRUResources"/><exf:variable value="(instance('ins')/previous/review/suggestions/requestingCRUResources[@revIndex=$revIndexOrequestingCRUResources])" name="sugNodeOldrequestingCRUResources"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/requestingCRUResources" appearance="full" id="requestingCRUResources"><xf:label>Request Use of Clinical Research Unit Resources</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/requestingCRUResources" appearance="full" id="requestingCRUResources"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+			if(x == "0"){
+				model.setValue("instance('ins')/totalNumberPatientsEvaluatedCRU", "");
+				
+				model.setValue("instance('ins')/studyWillUtilize", "");
+				model.setValue("instance('ins')/includesStandardCare", "");
+				model.setValue("instance('ins')/rareDiseaseStudy", "");
+				model.setValue("instance('ins')/CRUPersonnel", "");
+				model.setValue("instance('ins')/CRUFacilities", "");
+				model.setValue("instance('ins')/descPerformedCRU", "");
+				
+				model.setValue("instance('ins')/outpatientVisits", "");
+				model.setValue("instance('ins')/hoursPerVisit", "");
+				model.setValue("instance('ins')/uniqueSituations", "");
+				model.setValue("instance('ins')/timeDayTesting", "");
+				model.setValue("instance('ins')/timeDayTestingSpecify", "");
+				model.setValue("instance('ins')/specialNursingReqs", "");
+				model.setValue("instance('ins')/specialNursingReqsSpecify", "");
+				model.setValue("instance('ins')/specialInfectionControlReqs", "");
+				model.setValue("instance('ins')/specialInfectionControlReqsSpecify", "");
+				model.setValue("instance('ins')/fallsPrecaution", "");
+				model.setValue("instance('ins')/seizurePrecaution", "");
+				model.setValue("instance('ins')/patientsCareSelves", "");
+				model.setValue("instance('ins')/requireNursingAssistance", "");
+				model.setValue("instance('ins')/requireNursingAssistanceSpecify", "");
+				model.setValue("instance('ins')/dietaryReqs", "");
+				model.setValue("instance('ins')/dietaryReqsSpecify", "");
+				
+				model.setValue("instance('ins')/compTotalCRU", "");
+				
+				model.setValue("instance('ins')/totalCosts", "");
+				model.setValue("instance('ins')/totalCRUCosts", "");
+				model.setValue("instance('ins')/compTotalCRU", "");
+				model.setValue("instance('ins')/totalCRU", "");
+				var m = model.selectNodeList("instance('ins')/Cost", null);
+				for(var i = m.length; i &gt; 0; i--){
+					m[i-1].parentNode.removeChild(m[i-1]);
+				}
+				model.USA.refreshArea('Cost');
+			}
+			model.recalculate();
+			model.refresh();
+			model.USA.rebuildTabs();
+			model.activateCase("hide-nrd");
+            model.activateCase("show-nrd");
+        </script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlerequestingCRUResources/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedlerequestingCRUResources/@officeComm and $thisNodeNeedlerequestingCRUResources/@officeComm !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Office Comment</u><div style="width:300px;"><p><span style="color:black"><h5>Office Comments:</h5><xf:output value="$thisNodeNeedlerequestingCRUResources/@officeComm"/></span></p></div></span><br/><br/></div><div><ix:attr value="if($thisNodeNeedlerequestingCRUResources/@amdchanged and $thisNodeNeedlerequestingCRUResources/@amdchanged ='1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:green">Amended</u><div style="width:300px;"><p><span style="color:black"><h5>Justification:</h5><xf:output value="if($thisNodeNeedlerequestingCRUResources/@amdcomment!='', $thisNodeNeedlerequestingCRUResources/@amdcomment, 'none provided')"/></span></p></div></span><br/><br/></div><div><ix:attr value="if($thisNoderequestingCRUResources != $orgNoderequestingCRUResources, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlerequestingCRUResources/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlerequestingCRUResources/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlerequestingCRUResources/@comment"/></div></div><div><ix:attr value="if($thisNodeNeedleOldrequestingCRUResources/@req = 'change' or $thisNodeNeedleOldrequestingCRUResources/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeOldrequestingCRUResources != $thisNodeOldrequestingCRUResources and $thisNodeNeedleOldrequestingCRUResources/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldrequestingCRUResources/@req = 'change', 'Required', 'Suggested')"/><xf:output value="if($sugNodeOldrequestingCRUResources = $thisNodeOldrequestingCRUResources, '', ' (Ignored)')"/></u><div style="width:300px;"><p><ix:attr value="if($sugNodeOldrequestingCRUResources = $thisNodeOldrequestingCRUResources, 'display:none', '')" name="style"/><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldrequestingCRUResources/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldrequestingCRUResources/@justification!='', $thisNodeNeedleOldrequestingCRUResources/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+                     Prior Value
+                   </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="if($orgNodeOldrequestingCRUResources='1','Yes',if($orgNodeOldrequestingCRUResources='0','No',''))"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b>Suggested Revision</b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeOldrequestingCRUResources"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldrequestingCRUResources/@comment != '', $thisNodeNeedleOldrequestingCRUResources/@comment, 'none')"/></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleOldrequestingCRUResources/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleOldrequestingCRUResources/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldrequestingCRUResources/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldrequestingCRUResources/@justification!='', $thisNodeNeedleOldrequestingCRUResources/@justification, 'None provided')"/></p><xf:select ref="$thisNodeNeedleOldrequestingCRUResources/@acceptjust" appearance="full"><xf:item><xf:label>Accept Justification</xf:label><xf:value>1</xf:value></xf:item></xf:select></p><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldrequestingCRUResources/@comment != '', $thisNodeNeedleOldrequestingCRUResources/@comment, 'none')"/></span></span></div></span></div><div><ix:attr value="if(($thisNodeOldrequestingCRUResources != $orgNodeOldrequestingCRUResources) and ($thisNodeNeedleOldrequestingCRUResources/@req = '' or $thisNodeNeedleOldrequestingCRUResources/@req = 'commentOnly' or $thisNodeNeedleOldrequestingCRUResources/@req = 'comment'), 'color:red', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">Using New Value</u><div style="width:300px;"><p><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+                       Prior Value
+                     </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="if($orgNodeOldrequestingCRUResources='1','Yes',if($orgNodeOldrequestingCRUResources='0','No',''))"/></span><br/></td></tr></table></p></div></span></div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

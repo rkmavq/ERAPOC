@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subCommDiffsPIAdminView.xfrm"/>
+    <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/ren_personnelRSComm.xfrm" printlabel="Research Personnel" sourceXML="/ren_personnel.xml" formType="drillIn" formName="ren_personnel" mode=""/>
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalRSComm.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapproval.xml" formType="general" formName="sincelastapproval"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusRSComm.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatus.xml" formType="general" formName="enrollmentstatus" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusRSComm.xfrm" printlabel="Protocol Status" sourceXML="/protocolstatus.xml" formType="general" formName="protocolstatus"/>
+		 
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManPrepareRS.xfrm"/>
+    <switches>
+        <full>1</full>
+        <notfull>0</notfull>
+        <enrollment>0</enrollment>
+    </switches>
+</tabs>

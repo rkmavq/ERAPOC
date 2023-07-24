@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations tabset="errorSetScreen">
+   <!-- <e type="direct" toptab="1" tab="1" err="eventDate" message="required"
+        xpath="count(instance('ins')/eventDate[. = ''])" xpathSS="count(eventDate[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="PINotifiedDate" message="required"
+        xpath="count(instance('ins')/PINotifiedDate[. = ''])" xpathSS="count(PINotifiedDate[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="eventType" message="required"
+        xpath="count(instance('ins')/eventType[. = ''])" xpathSS="count(eventType[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="eventDescription" message="required"
+        xpath="count(instance('ins')/eventDescription[. = ''])" xpathSS="count(eventDescription[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="eventUnexpected" message="required"
+        xpath="count(instance('ins')/eventUnexpected[. = ''])" xpathSS="count(eventUnexpected[. = ''])"/>
+    <!-\-<e type="direct" toptab="1" tab="1" err="eventUnexpectedDesc" message="required"
+        xpath="count(instance('ins')/eventUnexpectedDesc[. = '' and instance('ins')/eventUnexpected='1'])" xpathSS="count(eventUnexpectedDesc[. = '' and //eventUnexpected='1'])"/>-\->
+    <e type="direct" toptab="1" tab="1" err="eventRelated" message="required"
+        xpath="count(instance('ins')/eventRelated[. = ''])" xpathSS="count(eventRelated[. = ''])"/>
+    <!-\-<e type="direct" toptab="1" tab="1" err="eventRelatedDesc" message="required"
+        xpath="count(instance('ins')/eventRelatedDesc[. = '' and instance('ins')/eventRelated='1'])" xpathSS="count(eventRelatedDesc[. = '' and //eventRelated='1'])"/>-\->
+    <e type="direct" toptab="1" tab="1" err="eventIncreasedriskOfHarm" message="required"
+        xpath="count(instance('ins')/eventIncreasedriskOfHarm[. = ''])" xpathSS="count(eventIncreasedriskOfHarm[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="eventSubjectRelated" message="required"
+        xpath="count(instance('ins')/eventSubjectRelated[. = ''])" xpathSS="count(eventSubjectRelated[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="changeToProtocol" message="required"
+        xpath="count(instance('ins')/changeToProtocol[. = ''])" xpathSS="count(changeToProtocol[. = ''])"/>
+    
+    
+    <e type="direct" toptab="2" tab="2" err="ummcParticipant" message="required"
+        xpath="count(instance('ins')/ummcParticipant[. = ''])" xpathSS="count(ummcParticipant[. = '' and //eventSubjectRelated='1'])"/>
+    <e type="direct" toptab="2" tab="2" err="ummcPerformanceSite" message="required"
+        xpath="count(instance('ins')/ummcPerformanceSite[. = ''])" xpathSS="count(ummcPerformanceSite[. = '' and //eventSubjectRelated='1'])"/>
+    <e type="direct" toptab="2" tab="2" err="subjectCurrentResearchStatus" message="required"
+        xpath="count(instance('ins')/subjectCurrentResearchStatus[. = ''])" xpathSS="count(subjectCurrentResearchStatus[. = '' and //eventSubjectRelated='1'])"/>
+    
+    
+    <e type="direct" toptab="3" tab="3" err="vioType" message="required"
+        xpath="count(instance('ins')/vioType[. = ''])" xpathSS="count(vioType[. = '' and (//eventType='2' or //eventType='3')])"/>
+    <e type="direct" toptab="3" tab="3" err="vioProtChangeNoAppr" message="required"
+        xpath="count(instance('ins')/vioProtChangeNoAppr[. = ''])" xpathSS="count(vioProtChangeNoAppr[. = '' and (//eventType='2' or //eventType='3')])"/>
+    <!-\-<e type="direct" toptab="3" tab="3" err="descvioProtChangeNoAppr" message="required"
+        xpath="count(instance('ins')/descvioProtChangeNoAppr[. = ''])" xpathSS="count(descvioProtChangeNoAppr[. = '' and (//eventType='2' or //eventType='3')])"/>-\->
+    <e type="direct" toptab="3" tab="3" err="vioResult" message="required"
+        xpath="count(instance('ins')/vioResult[. = ''])" xpathSS="count(vioResult[. = '' and (//eventType='2' or //eventType='3')])"/>
+    <!-\-<e type="direct" toptab="3" tab="3" err="descvioResult" message="required"
+        xpath="count(instance('ins')/descvioResult[. = ''])" xpathSS="count(descvioResult[. = '' and (//eventType='2' or //eventType='3')])"/>-\->
+    <e type="direct" toptab="3" tab="3" err="vioAffectIntegrity" message="required"
+        xpath="count(instance('ins')/vioAffectIntegrity[. = ''])" xpathSS="count(vioAffectIntegrity[. = '' and (//eventType='2' or //eventType='3')])"/>
+    <e type="direct" toptab="3" tab="3" err="vioRecur" message="required"
+        xpath="count(instance('ins')/vioRecur[. = ''])" xpathSS="count(vioRecur[. = '' and (//eventType='2' or //eventType='3')])"/>
+    <e type="direct" toptab="3" tab="3" err="eventPreventiveActions" message="required"
+        xpath="count(instance('ins')/eventPreventiveActions[. = '' and instance('ins')/vioRecur='1'])" xpathSS="count(eventPreventiveActions[. = '' and //vioRecur='1' and (//eventType='2' or //eventType='3')])"/>
+    
+    
+    
+    <e type="direct" toptab="4" tab="4" err="protocolModified" message="required"
+        xpath="count(instance('ins')/protocolModified[. = ''])" xpathSS="count(protocolModified[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="consentModified" message="required"
+        xpath="count(instance('ins')/consentModified[. = ''])" xpathSS="count(consentModified[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="reconsentParticipants" message="required"
+        xpath="count(instance('ins')/reconsentParticipants[. = ''])" xpathSS="count(reconsentParticipants[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="additionalInfoProvided" message="required"
+        xpath="count(instance('ins')/additionalInfoProvided[. = ''])" xpathSS="count(additionalInfoProvided[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="enrollmentSuspended" message="required"
+        xpath="count(instance('ins')/enrollmentSuspended[. = ''])" xpathSS="count(enrollmentSuspended[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="protocolSuspended" message="required"
+        xpath="count(instance('ins')/protocolSuspended[. = ''])" xpathSS="count(protocolSuspended[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="researchStopped" message="required"
+        xpath="count(instance('ins')/researchStopped[. = ''])" xpathSS="count(researchStopped[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="otherAction" message="required"
+        xpath="count(instance('ins')/otherAction[. = ''])" xpathSS="count(otherAction[. = ''])"/>
+    <e type="direct" toptab="4" tab="4" err="otherDescribe" message="required"
+        xpath="count(instance('ins')/otherDescribe[. = '' and instance('ins')/otherAction='1'])" xpathSS="count(otherDescribe[. = '' and //otherAction='1'])"/>
+    
+    
+    <e type="direct" toptab="5" tab="5" err="fdaReport" message="required"
+    xpath="count(instance('ins')/fdaReport[. = ''])" xpathSS="count(fdaReport[. = ''])"/>
+    <e type="direct" toptab="5" tab="5" err="ohrpReport" message="required"
+        xpath="count(instance('ins')/ohrpReport[. = ''])" xpathSS="count(ohrpReport[. = ''])"/>
+    <e type="direct" toptab="5" tab="5" err="sponsorReport" message="required"
+        xpath="count(instance('ins')/sponsorReport[. = ''])" xpathSS="count(sponsorReport[. = ''])"/>
+    <e type="direct" toptab="5" tab="5" err="dsmbDmcReport" message="required"
+        xpath="count(instance('ins')/dsmbDmcReport[. = ''])" xpathSS="count(dsmbDmcReport[. = ''])"/>
+    <!-\-<e type="direct" toptab="5" tab="5" err="crcReport" message="required"
+        xpath="count(instance('ins')/crcReport[. = ''])" xpathSS="count(crcReport[. = ''])"/>
+    <e type="direct" toptab="5" tab="5" err="cancerCenterReport" message="required"
+        xpath="count(instance('ins')/cancerCenterReport[. = ''])" xpathSS="count(cancerCenterReport[. = ''])"/>-\->
+    <e type="direct" toptab="5" tab="5" err="rscReport" message="required"
+        xpath="count(instance('ins')/rscReport[. = ''])" xpathSS="count(rscReport[. = ''])"/>
+    <e type="direct" toptab="5" tab="5" err="ibcReport" message="required"
+        xpath="count(instance('ins')/ibcReport[. = ''])" xpathSS="count(ibcReport[. = ''])"/>
+    <e type="direct" toptab="5" tab="5" err="otherReport" message="required"
+    xpath="count(instance('ins')/otherReport[. = ''])" xpathSS="count(otherReport[. = ''])"/>
+    
+    <e type="direct" toptab="5" tab="5" err="otherReportName" message="required"
+        xpath="count(instance('ins')/otherReportName[. = '' and instance('ins')/otherReport='1'])" xpathSS="count(otherReportName[. = '' and //otherReport='1'])"/>
+    -->
+</validations>

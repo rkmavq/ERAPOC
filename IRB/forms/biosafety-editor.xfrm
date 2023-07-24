@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="form"><data><tabID>37</tabID><ping>0</ping><AMD/><form created="" createdBy="" updated="" updatedBy=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "biosafety");
+      
+      console.info("Editing mode");
+      App.sessionConfig = model.Frm.formSet.getRoot().model.sessionConfig;
+      model.Frm.loadAppFile('ins', "/data/irb.xml" + "?d=" + (new Date()), "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml" + "?d=" + (new Date()), "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '37')
+          //model.USA.registerChangeLog('ins', '37')
+          model.USA.registerChangeLog('comments', '37')
+        </script></script><script ev:event="xforms-ready"/><xf:submission method="put" replace="none" id="submitins" instance="ins"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind nodeset="instance(ins)//*" readonly="false()" relevant="true()"/><xf:bind nodeset="instance(meta)//*" readonly="false()" relevant="true()"/><xf:bind nodeset="instance(cats)//*" readonly="false()" relevant="true()"/><xf:bind nodeset="//link/@title" readonly="true()"/><xf:bind type="ix:file" nodeset="instance('form')/document"/><xf:bind type="xsd:date" nodeset="instance('ins')/dateOfInvolvingHazardousMaterials"/><xf:bind type="xsd:date" nodeset="instance('ins')/dateOfInvolvingHazardousMaterials"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input style="width:140px" ref="instance('form')/searchText" id="searchBox"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case id="hide-quicksearch" exf:if="1"/><xf:case id="show-quicksearch"><exf:variable value="instance('form')/records//rec" name="records"/><exf:variable value="instance('form')/ping" name="pingVar"/><div><ix:attr value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')" name="style"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')" name="style"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr value="if(count($records)=0, '', 'display:none')" name="style"/><h1>No Matches</h1></div><div><ix:attr name="style" value="if(count($records) &gt; 150, '', 'display:none')"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr name="style" value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div id="allcontrols" class="formFrame"><div style="display:none;"><xf:input ref="instance('form')/document" id="documentDrop"><xf:action exf:if="instance('form')/document != ''" ev:event="xforms-value-changed"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="radiobuttons" oncontextmenu="App.sessionConfig.editElement('biosafetyLevel', event);return false;" compId="biosafetyLevel"><td class="component   widestLabel"><xf:select1 id="biosafetyLevel" appearance="full" ref="instance('ins')/biosafetyLevel"><xf:label>Biosafety Level</xf:label><xf:repeat nodeset="instance('cats')/biosafetyLevel/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><script ev:event="xforms-value-changed"/></xf:select1></td></tr><tr class="date" oncontextmenu="App.sessionConfig.editElement('dateOfInvolvingHazardousMaterials', event);return false;" compId="dateOfInvolvingHazardousMaterials"><td class="component   widestLabel"><table class="date"><tr><td class="label">Starting Date of Activity Involving Hazardous Materials</td><td class="dateBox"><div><xf:output value="if(instance('ins')/dateOfInvolvingHazardousMaterials != '', concat(substring(instance('ins')/dateOfInvolvingHazardousMaterials, 6, 2), '/', substring(instance('ins')/dateOfInvolvingHazardousMaterials, 9, 2), '/', substring(instance('ins')/dateOfInvolvingHazardousMaterials, 1, 4)), '-')"/></div></td><td class="dateCtrl"><xf:input ref="instance('ins')/dateOfInvolvingHazardousMaterials"><script ev:event="xforms-value-changed"/></xf:input></td></tr></table></td></tr><tr class="radiobuttons" oncontextmenu="App.sessionConfig.editElement('riskGroup', event);return false;" compId="riskGroup"><td class="component   widestLabel"><xf:select1 id="riskGroup" appearance="full" ref="instance('ins')/riskGroup"><xf:label>Risk Group</xf:label><xf:repeat nodeset="instance('cats')/riskGroup/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><script ev:event="xforms-value-changed"/></xf:select1></td></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('geneTherapy', event);return false;" compId="geneTherapy"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/geneTherapy" id="geneTherapy"><xf:label>Gene Therapy</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/geneTherapy" id="geneTherapy"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('largeScaleProductionVectors', event);return false;" compId="largeScaleProductionVectors"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/largeScaleProductionVectors" id="largeScaleProductionVectors"><xf:label>Large Scale Production of Vectors</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/largeScaleProductionVectors" id="largeScaleProductionVectors"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('vitroSysApplications', event);return false;" compId="vitroSysApplications"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/vitroSysApplications" id="vitroSysApplications"><xf:label>In Vitro System Applications</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/vitroSysApplications" id="vitroSysApplications"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td></tr><tr class="entryTable" oncontextmenu="App.sessionConfig.editElement('Organism', event);return false;" compId="Organism"><xf:switch><xf:case id="show-Organism" exf:if="1"><td class="fullColLayout"><exf:variable name="nsOrganism" value="instance('ins')/Organism"/><h5/><table class="fullColLayout"><ix:attr name="style" value="if(count($nsOrganism) &gt; 0, '', 'display:none')"/><tr class="top"><th/><th/><th class=" in textarea wide left">Vector Name</th><th class=" in manual wide left">Organism</th><th class=" in manual wide left">cDNA Inserts</th><th class=" in manual wide left">Size and Source of the Inserts</th><th class=" in manual wide left">Expression Products</th><th class=" in manual wide left">Location of Preparation</th><th class=" in manual wide left">Room</th><th class="Details in manual  ">Contact Details</th><td bgcolor="white"/></tr><xf:repeat nodeset="$nsOrganism"><exf:variable name="nsXMLKEYOrganism" value="@id"/><exf:variable name="nsXMLKEY" value="@id"/><tr valign="top"><td classs="control"><b style="color:red;cursor:pointer;">X
+                    <xf:action ev:event="click"><xf:destroy ref="."/><script/></xf:action></b></td><td class="out text small center"><xf:output value="position()"/></td><td class=" in textarea wide left"><span style="vertical-align:top;"><xf:input ref="vectorName"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><span><table>
+				<tr class="field">
+					<td class="component  widestLabel">
+						<xf:output ref="OrganismName"/>													
+					</td>
+					<td class="options">
+						<div class="clickable">
+							Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/>
+							<xf:action ev:event="click">
+								<ix:dialog style="height:300px;height:300px;" id="results" title="Organism" class="quickSearchDialog">
+									<ix:include template="QuickSearch" ref="."/>
+								</ix:dialog>
+								<script>
+									var recNo = model.getValue("count(preceding-sibling::Organism)+1",contextNode);									
+									model.Frm.configureQuickSearch("Biologic", "replaceValue", "instance('ins')/Organism[" + recNo + "]/OrganismName", "/applications/IRB/js/addOrganism", "biologic", "Name", "ID","", "", "", 'model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;', '');
+									model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+								</script>
+							</xf:action>
+						</div>
+					</td>
+				</tr>
+			</table></span><span style="display:none"><xf:input ref="OrganismName"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><span><print type="box" nodeset="" evaluate="0" condition=""/><div style="width:150px;">				
+				<xf:input style="width:140px;" ref="cDNAInserts"/>
+			</div></span><span style="display:none"><xf:input ref="cDNAInserts"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><span><print type="box" nodeset="" evaluate="0" condition=""/><div style="width:150px;">				
+				<xf:input style="width:140px;" ref="sizeAndSourceofInserts"/>
+			</div></span><span style="display:none"><xf:input ref="sizeAndSourceofInserts"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><span><print type="box" nodeset="" evaluate="0" condition=""/><div style="width:150px;">				
+				<xf:input style="width:140px;" ref="expressionProducts"/>
+			</div></span><span style="display:none"><xf:input ref="expressionProducts"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><span><xf:select1 id="locationOfPreparation" ref="locationOfPreparation">							
+				<xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item>
+				<xf:repeat nodeset="instance('cats')/locationOfPreparation/type">
+					<xf:item>
+						<xf:label><xf:output value="@name"/></xf:label>
+						<xf:value><xf:output value="@id"/></xf:value>
+					</xf:item>
+				</xf:repeat>				
+			</xf:select1></span><span style="display:none"><xf:input ref="locationOfPreparation"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><span><print type="box" nodeset="" evaluate="0" condition=""/><div style="width:150px;">				
+				<xf:input style="width:140px;" ref="biosafetyRoom"/>
+			</div></span><span style="display:none"><xf:input ref="biosafetyRoom"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class="Details in manual  "><span style="vertical-align:top;"><span><u class="clickable">Contact Details<xf:action ev:event="click">
+					<ix:dialog style="width:360px;height:" height="" width="360px" id="detailsDetails" title="Contact Details" class="detailsDialogBox">
+						<xf:group style="border:none;" ref=".">
+							<h3/>
+							<xf:switch>
+								<xf:case exf:if="1" id="show-dialog">
+									<table class="detailsDialog">
+										<tr>
+											<td style="padding-left:10px">
+												<xf:input ref="phone" class="halfLine">
+													<xf:label>Phone</xf:label>
+												</xf:input>
+											</td>
+											<td>
+												<xf:input ref="fax" class="halfLine">
+													<xf:label>
+														<span style="padding-left:30px;">Fax</span>
+													</xf:label>
+												</xf:input>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding-left:10px">
+												<div>
+													<xf:input ref="email" class="fullLine">
+														<xf:label>Email</xf:label>
+													</xf:input>
+												</div>												
+												<hr/>
+											</td>
+										</tr>										
+										<tr>
+											<td colspan="2" style="padding-left:10px">
+												<xf:input ref="address1" class="fullLine">
+													<xf:label>Address 1</xf:label>
+												</xf:input>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding-left:10px">
+												<xf:input ref="address2" class="fullLine">
+													<xf:label>Address 2</xf:label>
+												</xf:input>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding-left:10px">
+												<xf:input ref="address3" class="fullLine">
+													<xf:label>Address 3</xf:label>
+												</xf:input>
+											</td>
+										</tr>
+										<tr>
+											<td style="padding-left:10px">
+												<xf:input ref="city" class="halfLine">
+													<xf:label>City</xf:label>
+												</xf:input>
+											</td>
+											<td>
+												<xf:input ref="state" class="halfLine">
+													<xf:label>
+														<span style="padding-left:30px;">State</span>
+													</xf:label>
+												</xf:input>
+											</td>
+										</tr>
+										<tr>
+											<td style="padding-left:10px">
+												<xf:input ref="zip" class="halfLine">
+													<xf:label>Zip</xf:label>
+												</xf:input>
+											</td>
+										</tr>
+									</table>
+								</xf:case>
+								<xf:case id="hide-dialog"/>
+							</xf:switch>
+						</xf:group>
+						<xf:trigger style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;">
+							<xf:label>Close Details</xf:label>
+							<xf:close ev:event="DOMActivate"/>
+						</xf:trigger>
+					</ix:dialog>
+				</xf:action>
+			</u></span><span style="display:none"><xf:input ref="standardContactInfo"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('Organism');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class="errors custError" bgcolor="white"/></tr></xf:repeat></table><br/><table class="addButtons"><tr><td><xf:trigger style="" class=""><xf:label style="">Add</xf:label><xf:action ev:event="DOMActivate"><script>
+              params={revIndex:""};
+              
+              
+              
+              var xmlDoc = model.Frm.processDoc("", "/applications/IRB/js/addOrganism", params, "script", "xml");
+              var n = model.selectNodeList("instance('ins')", null);
+              n[0].appendChild(xmlDoc.documentElement);
+              model.refresh();
+              model.rebuild();
+              model.recalculate();
+              model.activateCase("hide-Organism");
+              model.activateCase("show-Organism");   
+              </script></xf:action></xf:trigger></td></tr></table></td></xf:case><xf:case id="hide-Organism"/></xf:switch></tr><tr class="instructions" oncontextmenu="App.sessionConfig.editElement('8068383a-60d5-4f06-ad03-c9a64a4216e9', event);return false;" compId="8068383a-60d5-4f06-ad03-c9a64a4216e9"><td colspan="4"><span><h3><component type="instructions" id="8068383a-60d5-4f06-ad03-c9a64a4216e9" active="1"><option type="widestLabel"/></component></h3></span></td></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('codeForToxinOncogeneUnToxin', event);return false;" compId="codeForToxinOncogeneUnToxin"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/codeForToxinOncogeneUnToxin" id="codeForToxinOncogeneUnToxin"><xf:label>Inserted Gene Will Code For Known Toxin, Known Oncogene or Uncharacterized Toxin</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/codeForToxinOncogeneUnToxin" id="codeForToxinOncogeneUnToxin"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+				x = model.getValue(".", contextNode);
+				if(x != "1") {
+							model.setValue("instance('ins')/descInsertedGeneWillCode", "");
+				}
+				model.recalculate();
+				model.refresh();
+				model.activateCase("hide-nrd");
+				model.activateCase("show-nrd");
+		</script></xf:select1></td></tr></table></td></tr><tr class="bigbox" oncontextmenu="App.sessionConfig.editElement('descInsertedGeneWillCode', event);return false;" compId="descInsertedGeneWillCode"><td class="component textarea   widestLabel"><xf:textarea ref="instance('ins')/descInsertedGeneWillCode" class="" style="height:10em;"><xf:label>Description of What Inserted Gene Will Code</xf:label></xf:textarea></td><td class="options"/></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('insertedGeneWillAlterRangeOrCell', event);return false;" compId="insertedGeneWillAlterRangeOrCell"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/insertedGeneWillAlterRangeOrCell" id="insertedGeneWillAlterRangeOrCell"><xf:label>Inserted Gene Will Alter Host Range or Known Cell Tropism</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/insertedGeneWillAlterRangeOrCell" id="insertedGeneWillAlterRangeOrCell"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+				x = model.getValue(".", contextNode);
+				if(x != "1") {
+							model.setValue("instance('ins')/descInsertedGeneWillAlter", "");
+				}
+				model.recalculate();
+				model.refresh();
+				model.activateCase("hide-nrd");
+				model.activateCase("show-nrd");
+		</script></xf:select1></td></tr></table></td></tr><tr class="bigbox" oncontextmenu="App.sessionConfig.editElement('descInsertedGeneWillAlter', event);return false;" compId="descInsertedGeneWillAlter"><td class="component textarea   widestLabel"><xf:textarea ref="instance('ins')/descInsertedGeneWillAlter" class="" style="height:10em;"><xf:label>Description of What Inserted Gene Will Alter</xf:label></xf:textarea></td><td class="options"/></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('geneHaveReplicationCapacityOfVirus', event);return false;" compId="geneHaveReplicationCapacityOfVirus"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/geneHaveReplicationCapacityOfVirus" id="geneHaveReplicationCapacityOfVirus"><xf:label>Inserted Gene Will Have Replication Capacity of a Virus</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/geneHaveReplicationCapacityOfVirus" id="geneHaveReplicationCapacityOfVirus"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('geneCapableOfAlteringHostCell', event);return false;" compId="geneCapableOfAlteringHostCell"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/geneCapableOfAlteringHostCell" id="geneCapableOfAlteringHostCell"><xf:label>Inserted Gene Will Be Capable of Altering the Host Cell Cycle</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/geneCapableOfAlteringHostCell" id="geneCapableOfAlteringHostCell"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script></xf:select1></td></tr></table></td></tr><tr class="yesnobuttons" oncontextmenu="App.sessionConfig.editElement('wildVirusPresentInVector', event);return false;" compId="wildVirusPresentInVector"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 class="selectYes" appearance="full" ref="instance('ins')/wildVirusPresentInVector" id="wildVirusPresentInVector"><xf:label>Wild Type Virus Sequence Present in Vector</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 appearance="full" ref="instance('ins')/wildVirusPresentInVector" id="wildVirusPresentInVector"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+				x = model.getValue(".", contextNode);
+				if(x != "1") {
+							model.setValue("instance('ins')/fractionWildVirusPresentInVector", "");
+				}
+				model.recalculate();
+				model.refresh();
+				model.activateCase("hide-nrd");
+				model.activateCase("show-nrd");
+		</script></xf:select1></td></tr></table></td></tr><tr class="radiobuttons" oncontextmenu="App.sessionConfig.editElement('fractionWildVirusPresentInVector', event);return false;" compId="fractionWildVirusPresentInVector"><td class="component   widestLabel"><xf:select1 id="fractionWildVirusPresentInVector" appearance="full" ref="instance('ins')/fractionWildVirusPresentInVector"><xf:label>Fraction of Wild Type Virus Sequence Present in Vector</xf:label><xf:repeat nodeset="instance('cats')/fractionWildVirusPresentInVector/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td></tr><tr class="dropdown" oncontextmenu="App.sessionConfig.editElement('7c32db04-4b89-4246-bee4-09da243311a0', event);return false;" compId="7c32db04-4b89-4246-bee4-09da243311a0"><td x="y" class="component  widenLabel "><xf:select1 ref="instance('ins')/xmlf836"><xf:label>Custom Field</xf:label><xf:item><xf:label>-select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/customCat[@id='7c32db04-4b89-4246-bee4-09da243311a0']/option"><xf:item><xf:label><xf:output value="@label"/></xf:label><xf:value><xf:output value="@value"/></xf:value></xf:item></xf:repeat></xf:select1></td></tr></table></div></div></form>

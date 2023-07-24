@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="">     
+    <tab id="NoteRem" label="Notifications Log" form="/../fil/system/resources/services/protocolRouting/forms/remindersList.xfrm"/>
+    <!--<tab id="NoteConfig" label="Configuration" form="/../fil/system/resources/services/protocolRouting/forms/remindersConfig.xfrm"/>-->
+    
+    <!--    <tab id="Sched" label="Meeting Schedule" form="/../fil/system/resources/services/protocolRouting/forms/meetings.xfrm"/>
+    <tab id="Info" label="Information" form="/../fil/system/resources/services/protocolRouting/forms/info.xfrm"/>
+    <tab id="mems" label="Members">
+        <!-\-<tab id="all" label="All" form="/../fil/system/resources/services/protocolRouting/forms/members.xfrm"/>-\->
+        <tab id="current" label="Current" form="/../fil/system/resources/services/protocolRouting/forms/members.xfrm"/>
+        <tab id="future" label="Future" form="/../fil/system/resources/services/protocolRouting/forms/members.xfrm"/>    
+        <tab id="past" label="Past" form="/../fil/system/resources/services/protocolRouting/forms/members.xfrm"/>
+    </tab> 
+    <tab id="coords" label="Coordinators">
+        <!-\-<tab id="coor_all" label="All" form="/../fil/system/resources/services/protocolRouting/forms/coordinators.xfrm"/>-\->
+        <tab id="coor_current" label="Current" form="/../fil/system/resources/services/protocolRouting/forms/coordinators.xfrm"/>
+        <tab id="coor_future" label="Future" form="/../fil/system/resources/services/protocolRouting/forms/coordinators.xfrm"/>    
+        <tab id="coor_past" label="Past" form="/../fil/system/resources/services/protocolRouting/forms/coordinators.xfrm"/>
+    </tab> 
+    <tab id="consultants" label="Consultants">
+        <!-\-<tab id="cons_all" label="All" form="/../fil/system/resources/services/protocolRouting/forms/consultants.xfrm"/>-\->
+        <tab id="cons_current" label="Current" form="/../fil/system/resources/services/protocolRouting/forms/consultants.xfrm"/>
+        <tab id="cons_future" label="Future" form="/../fil/system/resources/services/protocolRouting/forms/consultants.xfrm"/>    
+        <tab id="cons_past" label="Past" form="/../fil/system/resources/services/protocolRouting/forms/consultants.xfrm"/>
+    </tab> -->
+    
+<!--    <tab id="Coord" label="Coordinators" form="/../fil/system/resources/services/protocolRouting/forms/coord.xfrm"/>        -->
+</tabs>

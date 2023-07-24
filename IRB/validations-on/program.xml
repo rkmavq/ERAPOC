@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>
+    <e type="direct" toptab="1" tab="1" err="ptitle" 
+        xpath="count(instance('ins')/title[. = ''])" xpathSS="count(title[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="stitle" 
+        xpath="count(instance('ins')/shortTitle[string-length(.) &gt; 50])" xpathSS="count(shortTitle[string-length(.) &gt; 50])"/>
+    <e type="direct" toptab="1" tab="1" err="rt" 
+        xpath="count(instance('ins')/researchType[. = ''])" xpathSS="count(researchType[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="lay" 
+        xpath="count(instance('ins')/laysummary[. = ''])" xpathSS="count(laysummary[. = ''])"/>
+    <e type="direct" toptab="1" tab="1" err="protocolUploadDoc" 
+        xpath="count(instance('ins')/protocolUploadDoc[. = ''])" xpathSS="count(protocolUploadDoc[. = ''])"/>
+    
+    
+    <e type="direct" toptab="2" tab="2a" err="researchHyp" 
+        xpath="count(instance('ins')/researchHyp[. = ''])" xpathSS="count(researchHyp[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="studyPurpose" 
+        xpath="count(instance('ins')/studyPurpose[. = ''])" xpathSS="count(studyPurpose[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="retroChartReview" 
+        xpath="count(instance('ins')/retroChartReview[. = ''])" xpathSS="count(retroChartReview[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="researchFunded" 
+        xpath="count(instance('ins')/researchFunded[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(researchFunded[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="consentObt" 
+        xpath="count(instance('ins')/consentObt[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(consentObt[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="compParticipation" 
+        xpath="count(instance('ins')/compParticipation[. = ''])" xpathSS="count(compParticipation[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="survey" 
+        xpath="count(instance('ins')/survey[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(survey[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="observation" 
+        xpath="count(instance('ins')/observation[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(observation[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="avTaping" 
+        xpath="count(instance('ins')/avTaping[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(avTaping[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="deception" 
+        xpath="count(instance('ins')/deception[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(deception[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="preExistingData" 
+        xpath="count(instance('ins')/preExistingData[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(preExistingData[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="prospectiveDataCollection" 
+        xpath="count(instance('ins')/prospectiveDataCollection[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(prospectiveDataCollection[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="involvePHI" 
+        xpath="count(instance('ins')/involvePHI[. = ''])" xpathSS="count(involvePHI[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="invRadio" 
+        xpath="count(instance('ins')/invRadio[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invRadio[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="invRDNA" 
+        xpath="count(instance('ins')/invRDNA[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invRDNA[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="subToIBC" 
+        xpath="count(instance('ins')/subToIBC[. = '' and instance('ins')/invRDNA='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(subToIBC[. = '' and //invRDNA='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="ibcRegistrationDate" 
+        xpath="count(instance('ins')/ibcRegistrationDate[. = '' and instance('ins')/ibcStatus='2' and instance('ins')/subToIBC='1' and instance('ins')/invRDNA='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(ibcRegistrationDate[. = '' and //subToIBC='1' and //ibcStatus='2' and //invRDNA='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="ibcStatus" 
+        xpath="count(instance('ins')/ibcStatus[. = '' and instance('ins')/subToIBC='1' and instance('ins')/invRDNA='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(ibcStatus[. = '' and //subToIBC='1' and //invRDNA='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="ibcApprovalNotification" 
+        xpath="count(instance('ins')/ibcApprovalNotification[. = '' and instance('ins')/ibcStatus='2' and instance('ins')/subToIBC='1' and instance('ins')/invRDNA='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(ibcApprovalNotification[. = '' and //ibcStatus='2' and //subToIBC='1' and //invRDNA='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="invBiologics" 
+        xpath="count(instance('ins')/invBiologics[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invBiologics[. = '' and //retroChartReview='0'])"/>
+
+    <e type="direct" toptab="2" tab="2a" err="ibcApprovalNotification" 
+        xpath="count(instance('ins')/ibcApprovalNotification[. = '' and instance('ins')/ibcStatus = '2' and instance('ins')/subToIBC = '1'])" xpathSS="count(ibcApprovalNotification[. = '' and //ibcStatus = '2' and //subToIBC = '1'])"/>
+    
+    <e type="direct" toptab="2" tab="2a" err="invEmb" 
+        xpath="count(instance('ins')/invEmb[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invEmb[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="subToESCRO" 
+        xpath="count(instance('ins')/subToESCRO[. = '' and instance('ins')/invEmb='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(subToESCRO[. = '' and //invEmb='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="escroStatus" 
+        xpath="count(instance('ins')/escroStatus[. = '' and instance('ins')/subToESCRO='1' and instance('ins')/invEmb='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(escroStatus[. = '' and //subToESCRO='1' and //invEmb='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="escroApprovalNotification" 
+        xpath="count(instance('ins')/escroApprovalNotification[. = '' and instance('ins')/escroStatus='2'  and instance('ins')/subToESCRO='1' and instance('ins')/invEmb='1' and instance('ins')/retroChartReview='0'])" xpathSS="count(escroApprovalNotification[. = '' and //escroStatus='2' and //subToESCRO='1' and //invEmb='1' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="invBiological" 
+        xpath="count(instance('ins')/invBiological[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invBiological[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="invDrugs" 
+        xpath="count(instance('ins')/invDrugs[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invDrugs[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="invDevs" 
+        xpath="count(instance('ins')/invDevs[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(invDevs[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="2" tab="2a" err="nonResearchData" 
+        xpath="count(instance('ins')/nonResearchData[. = '' and (instance('ins')/retroChartReview = '1' or instance('ins')/survey = '1' or instance('ins')/avTaping = '1' or instance('ins')/preExistingData = '1' or instance('ins')/prospectiveDataCollection = '1' or instance('ins')/invRadio = '1' or instance('ins')/invRDNA = '1' or instance('ins')/invBiologics = '1' or instance('ins')/invDevs='1' or instance('ins')/invDrugs='1' or instance('ins')/invBiological = '1')])" 
+        xpathSS="count(nonResearchData[. = '' and (//retroChartReview = '1' or //survey = '1' or //avTaping = '1' or //preExistingData = '1' or //prospectiveDataCollection = '1' or //invRadio = '1' or //invRDNA = '1' or //invBiologics = '1' or //invDevs='1' or //invDrugs='1' or //invBiological = '1')])"/>
+    
+    
+    
+    <e type="direct" toptab="2" tab="5" err="anticipatedRisks" 
+        xpath="count(instance('ins')/anticipatedRisks[. = ''])" xpathSS="count(anticipatedRisks[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="potentialBenefits" 
+        xpath="count(instance('ins')/potentialBenefits[. = ''])" xpathSS="count(potentialBenefits[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="benefitToSociety" 
+        xpath="count(instance('ins')/benefitToSociety[. = ''])" xpathSS="count(benefitToSociety[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="dataSafetyMonitor" 
+        xpath="count(instance('ins')/dataSafetyMonitor[. = ''])" xpathSS="count(dataSafetyMonitor[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="dataMonitorMethod" 
+        xpath="count(instance('ins')/dataMonitorMethod[. = '' and instance('ins')/dataSafetyMonitor='1'])" xpathSS="count(dataMonitorMethod[. = '' and //dataSafetyMonitor='1'])"/>
+    <e type="direct" toptab="2" tab="5" err="standardOfCare" 
+        xpath="count(instance('ins')/standardOfCare[. = ''])" xpathSS="count(standardOfCare[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="participantCosts" 
+        xpath="count(instance('ins')/participantCosts[. = ''])" xpathSS="count(participantCosts[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="standardOfCareTypeTbl" 
+        xpath="count(*[not(instance('ins')/standardOfCareTypeTbl) and instance('ins')/participantCosts='1'])" xpathSS="count(*[not(//standardOfCareTypeTbl) and //participantCosts='1'])"/>
+    <e type="direct" toptab="2" tab="5" err="standardOfCareTypeTblErrs" 
+        xpath="count(instance('ins')/standardOfCareTypeTbl[(standardOfCareType='' or participantCostsDescription='') and instance('ins')/participantCosts='1'])" xpathSS="count(standardOfCareTypeTbl[(standardOfCareType='' or participantCostsDescription='') and //participantCosts='1'])"/>
+        
+    
+    <e type="direct" toptab="2" tab="5" err="injuryCompensationAvailable" 
+        xpath="count(instance('ins')/injuryCompensationAvailable[. = ''])" xpathSS="count(injuryCompensationAvailable[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="injuryCompDesc" 
+        xpath="count(instance('ins')/injuryCompDesc[. = '' and instance('ins')/injuryCompensationAvailable='1'])" xpathSS="count(injuryCompDesc[. = '' and //injuryCompensationAvailable='1'])"/>
+    <e type="direct" toptab="2" tab="5" err="injuryCompDesc" 
+        xpath="count(instance('ins')/injuryCompJustify[. = '' and instance('ins')/injuryCompensationAvailable='0'])" xpathSS="count(injuryCompJustify[. = '' and //injuryCompensationAvailable='0'])"/>
+    <e type="direct" toptab="2" tab="5" err="findingsProvidedToParticipants" 
+        xpath="count(instance('ins')/findingsProvidedToParticipants[. = ''])" xpathSS="count(findingsProvidedToParticipants[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="findingsDescReleaseInfo" 
+        xpath="count(instance('ins')/findingsDescReleaseInfo[. = '' and instance('ins')/findingsProvidedToParticipants='1'])" xpathSS="count(findingsDescReleaseInfo[. = '' and //findingsProvidedToParticipants='1'])"/>
+    <e type="direct" toptab="2" tab="5" err="explainFindingsNotShared" 
+    xpath="count(instance('ins')/explainFindingsNotShared[. = '' and instance('ins')/findingsProvidedToParticipants='0'])" xpathSS="count(explainFindingsNotShared[. = '' and //findingsProvidedToParticipants='0'])"/>
+    <!--<e type="direct" toptab="2" tab="5" err="findingsDescReleaseInfo" 
+        xpath="count(instance('ins')/findingsDescReleaseInfo[. = ''])" xpathSS="count(findingsDescReleaseInfo[. = ''])"/>
+    <e type="direct" toptab="2" tab="5" err="explainFindingsNotShared" 
+        xpath="count(instance('ins')/explainFindingsNotShared[. = ''])" xpathSS="count(explainFindingsNotShared[. = ''])"/>-->
+    
+
+
+    <e type="direct" toptab="4" tab="4b" err="role" 
+        xpath="count(instance('ins')/Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]/role[. = ''])" 
+        xpathSS="count(Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != Person[role='PI']/@uri)]/role[. = ''])"/>
+    <e type="direct" toptab="4" tab="4b" err="PICOANEEDED" 
+        xpath="count(instance('ins')/Person[role='PI' and (hasRelationship='' or hasCOI='' or ((hasCOI='1' or hasRelationship='1') and coiDisclosure=''))])" 
+        xpathSS="count(Person[role='PI' and (hasRelationship='' or hasCOI='' or ((hasCOI='1' or hasRelationship='1') and coiDisclosure=''))])"/>
+
+
+    <!--<e type="direct" toptab="4" tab="4a" err="ptitle" 
+        xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = ''])"/>-->
+    
+    
+    <!--<e type="direct" toptab="4" tab="4c" err="ptitle" 
+        xpath="count(instance('ins')/Person[role='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)][. = ''])" 
+        xpathSS="count(Person[role='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)][. = ''])"/>    -->
+    
+   
+    <e type="direct" toptab="6A" tab="6" err="nosublocations" 
+        xpath="count(*[not(instance('ins')/Location)])" xpathSS="count(*[not(//Location)])"/>
+    <e type="direct" toptab="6A" tab="6" err="sublocation" 
+        xpath="count(instance('ins')/Location[onsite='1']/@sublocation[. = ''])" xpathSS="count(Location[onsite='1']/@sublocation[. = ''])"/>
+    
+    <e type="direct" toptab="6A" tab="6" err="phone" 
+        xpath="count(instance('ins')/Location[onsite!='1']/phone[. = ''])" xpathSS="count(Location[onsite!='1']/phone[. = ''])"/>
+    <e type="direct" toptab="6A" tab="6" err="email" 
+        xpath="count(instance('ins')/Location[onsite!='1']/email[. = ''])" xpathSS="count(Location[onsite!='1']/email[. = ''])"/>
+    <e type="direct" toptab="6A" tab="6" err="address1" 
+        xpath="count(instance('ins')/Location[onsite!='1']/address1[. = ''])" xpathSS="count(Location[onsite!='1']/address1[. = ''])"/>
+    <e type="direct" toptab="6A" tab="6" err="city" 
+        xpath="count(instance('ins')/Location[onsite!='1']/city[. = ''])" xpathSS="count(Location[onsite!='1']/city[. = ''])"/>
+    <e type="direct" toptab="6A" tab="6" err="state" 
+        xpath="count(instance('ins')/Location[onsite!='1']/state[. = ''])" xpathSS="count(Location[onsite!='1']/state[. = ''])"/>
+    <e type="direct" toptab="6A" tab="6" err="zip" 
+        xpath="count(instance('ins')/Location[onsite!='1']/zip[. = ''])" xpathSS="count(Location[onsite!='1']/zip[. = ''])"/>
+
+
+    
+    <!--Vamshi commented these out per Don's request to make them non-mandatory-->
+    <!--<e type="direct" toptab="6A" tab="6" err="fwa" 
+        xpath="count(instance('ins')/Location/fwa[. = ''])" xpathSS="count(Location/fwa[. = ''])"/>
+    <e type="direct" toptab="6A" tab="6" err="iorg" 
+        xpath="count(instance('ins')/Location/iorg[. = ''])" xpathSS="count(Location/iorg[. = ''])"/>-->
+    <!--Vamshi commented these out per Don's request to make them non-mandatory-->
+    
+    <e type="direct" toptab="6A" tab="6B" err="retroStartDate" 
+        xpath="count(instance('ins')/retroStartDate[. = ''])" xpathSS="count(retroStartDate[. = '' and //retroChartReview='1'])"/>  
+    <e type="direct" toptab="6A" tab="6B" err="retroEndDate" 
+        xpath="count(instance('ins')/retroEndDate[. = ''])" xpathSS="count(retroEndDate[. = '' and //retroChartReview='1'])"/>      
+    <e type="direct" toptab="6A" tab="6B" err="retroIdentifierRecorded" 
+        xpath="count(instance('ins')/retroIdentifierRecorded[. = ''])" xpathSS="count(retroIdentifierRecorded[. = '' and //retroChartReview='1'])"/>  
+    
+    
+    
+    <e type="direct" toptab="6A" tab="10B" err="nobiologics" 
+        xpath="count(*[not(instance('ins')/Biologic)])" xpathSS="count(*[not(//Biologic) and //invBiologics='1'])"/>
+    <e type="direct" toptab="6A" tab="10B" err="fdaStatus" 
+        xpath="count(instance('ins')/Biologic/fdaStatus[. = '' and ../fdaApproved=''])" xpathSS="count(Biologic/fdaStatus[. = '' and ../fdaApproved='' and //invBiologics='1'])"/>
+    <e type="direct" toptab="6A" tab="10B" err="fdaDate" 
+        xpath="count(instance('ins')/Biologic/fdaDate[. = '' and ../fdaApproved=''])" xpathSS="count(Biologic/fdaDate[. = '' and ../fdaApproved='' and //invBiologics='1'])"/>
+    <e type="direct" toptab="6A" tab="10B" err="fdaDoc" 
+        xpath="count(instance('ins')/Biologic/fdaDoc[. = '' and ../fdaApproved=''])" xpathSS="count(Biologic/fdaDoc[. = ''  and ../fdaApproved='' and //invBiologics='1'])"/>
+    
+    <e type="direct" toptab="6A" tab="10B" err="app501Date" 
+        xpath="count(instance('ins')/Biologic/app501Date[. = '' and ../approved501='1'])" xpathSS="count(Biologic/app501Date[. = '' and ../approved501='1' and //invBiologics='1'])"/>
+    <e type="direct" toptab="6A" tab="10B" err="app501Doc" 
+        xpath="count(instance('ins')/Biologic/app501Doc[. = '' and ../approved501='1'])" xpathSS="count(Biologic/app501Doc[. = '' and ../approved501='1' and //invBiologics='1'])"/>
+    <e type="direct" toptab="6A" tab="10B" err="PMAApprovalDate" 
+        xpath="count(instance('ins')/Biologic/PMAApprovalDate[. = '' and ../preMarketApproval='1'])" xpathSS="count(Biologic/PMAApprovalDate[. = '' and ../preMarketApproval='1' and //invBiologics='1'])"/>
+    <e type="direct" toptab="6A" tab="10B" err="preMarkDoc" 
+        xpath="count(instance('ins')/Biologic/preMarkDoc[. = '' and ../preMarketApproval='1'])" xpathSS="count(Biologic/preMarkDoc[. = '' and ../preMarketApproval='1' and //invBiologics='1'])"/>
+    
+    
+    <e type="direct" toptab="6A" tab="10" err="nobiologicSamples" 
+        xpath="count(*[not(instance('ins')/Biological)])" xpathSS="count(*[not(//Biological) and //invBiological='1'])"/>
+    <e type="direct" toptab="6A" tab="10" err="biologicSamplesProblems" 
+        xpath="count(instance('ins')/Biological[(biologicType='' or amount='' or frequency='')])" xpathSS="count(Biological[(biologicType='' or amount='' or frequency='') and //invBiological='1'])"/>
+    <e type="direct" toptab="6A" tab="10" err="biologicSamplesProblemsTwo" 
+        xpath="count(instance('ins')/Biological[((@purpose='' or describe='' or storagelength='' or sampleIdentification='') and @futureResearch='1')])" xpathSS="count(Biological[((@purpose='' or describe='' or storagelength='' or sampleIdentification='') and @futureResearch='1') and //invBiological='1'])"/>
+    <e type="direct" toptab="6A" tab="10" err="biologicSamplesProblemsThree" 
+        xpath="count(instance('ins')/Biological[(outsideRecipient='' and @outsideUMMC='1')])" xpathSS="count(Biological[(outsideRecipient='' and @outsideUMMC='1') and //invBiological='1'])"/>
+    
+    
+    <e type="direct" toptab="6A" tab="8" err="nodrugs" 
+        xpath="count(*[not(instance('ins')/Drug)])" xpathSS="count(*[not(//Drug) and //invDrugs='1'])"/>
+    
+    <e type="direct" toptab="6A" tab="8" err="manufacturer" 
+        xpath="count(instance('ins')/Drug/manufacturer[. = ''])" xpathSS="count(Drug/manufacturer[. = '' and //invDrugs='1'])"/>
+    
+    
+    <!--This validation is no longer needed, form field has been removed from the Drugs screen-->
+    <!--<e type="direct" toptab="6A" tab="8" err="form" 
+    xpath="count(instance('ins')/Drug/form[. = ''])" xpathSS="count(Drug/form[. = '' and //invDrugs='1'])"/>-->
+    
+    <e type="direct" toptab="6A" tab="8" err="onLabel" 
+        xpath="count(instance('ins')/Drug/onLabel[. = ''])" xpathSS="count(Drug/onLabel[. = '' and //invDrugs='1'])"/>
+    <e type="direct" toptab="6A" tab="8" err="fdaStatus" 
+        xpath="count(instance('ins')/Drug/fdaStatus[. = '' and ../onLabel='0'])" xpathSS="count(Drug/fdaStatus[. = '' and ../onLabel='0' and //invDrugs='1'])"/>
+    <e type="direct" toptab="6A" tab="8" err="fdaDate" 
+        xpath="count(instance('ins')/Drug/fdaDate[. = '' and ../onLabel='0'])" xpathSS="count(Drug/fdaDate[. = '' and ../onLabel='0' and //invDrugs='1'])"/>
+    <e type="direct" toptab="6A" tab="8" err="indNum" 
+        xpath="count(instance('ins')/Drug/indNum[. = '' and ../fdaStatus='investigational' and ../onLabel='0'])" xpathSS="count(Drug/indNum[. = '' and ../fdaStatus='investigational' and ../onLabel='0' and //invDrugs='1'])"/>
+    <e type="direct" toptab="6A" tab="8" err="indHolder" 
+        xpath="count(instance('ins')/Drug/indindHolderNum[. = '' and ../fdaStatus='investigational' and ../onLabel='0'])" xpathSS="count(Drug/indHolder[. = '' and ../fdaStatus='investigational' and ../onLabel='0' and //invDrugs='1'])"/>
+    <e type="direct" toptab="6A" tab="8" err="drugDocument" 
+        xpath="count(instance('ins')/Drug/drugDocument[. = '' and ../onLabel='0'])" xpathSS="count(Drug/drugDocument[. = '' and ../onLabel='0' and //invDrugs='1'])"/>
+    
+    
+    <e type="direct" toptab="6A" tab="9" err="nodevices" 
+        xpath="count(*[not(instance('ins')/Device)])" xpathSS="count(*[not(//Device) and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="manufacturer" 
+        xpath="count(instance('ins')/Device/manufacturer[. = ''])" xpathSS="count(Device/manufacturer[. = '' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="fdaClass" 
+        xpath="count(instance('ins')/Device/fdaClass[. = '' and ../onLabel='0'])" xpathSS="count(Device/fdaClass[. = '' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="riskDetermination" 
+        xpath="count(instance('ins')/Device/riskDetermination[. = '' and ../onLabel='0'])" xpathSS="count(Device/riskDetermination[. = '' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="riskDeterminer" 
+        xpath="count(instance('ins')/Device/riskDeterminer[. = '' and ../onLabel='0'])" xpathSS="count(Device/riskDeterminer[. = '' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="fdaStatus" 
+        xpath="count(instance('ins')/Device/fdaStatus[. = '' and ../onLabel='0'])" xpathSS="count(Device/fdaStatus[. = '' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="fdaDate" 
+        xpath="count(instance('ins')/Device/fdaDate[. = '' and ../onLabel='0'])" xpathSS="count(Device/fdaDate[. = '' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="routeToMarket" 
+        xpath="count(instance('ins')/Device/routeToMarket[. = '' and ../onLabel='0'])" xpathSS="count(Device/routeToMarket[. = '' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="fadExemption" 
+        xpath="count(instance('ins')/Device/fadExemption[. = '' and ../onLabel='0' and ../routeToMarket='exempt'])" xpathSS="count(Device/fadExemption[. = '' and ../onLabel='0' and ../routeToMarket='exempt' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="ideNum" 
+        xpath="count(instance('ins')/Device/ideNum[. = '' and ../fdaExemption='IDE' and ../onLabel='0' and ../routeToMarket='exempt'])" xpathSS="count(Device/ideNum[. = '' and ../onLabel='0' and ../fdaExemption='IDE' and ../routeToMarket='exempt' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="medicareReim" 
+        xpath="count(instance('ins')/Device/medicareReim[. = '' and ../fdaExemption='IDE' and ../onLabel='0' and ../routeToMarket='exempt'])" xpathSS="count(Device/medicareReim[. = '' and ../fdaExemption='IDE' and ../onLabel='0' and ../routeToMarket='exempt' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="fdaDetDate" 
+        xpath="count(instance('ins')/Device/fdaDetDate[. = '' and ../routeToMarket='exempt' and ../onLabel='0'])" xpathSS="count(Device/fdaDetDate[. = '' and ../routeToMarket='exempt' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="fdaDoc" 
+        xpath="count(instance('ins')/Device/fdaDoc[. = '' and ../routeToMarket='exempt' and ../onLabel='0'])" xpathSS="count(Device/fdaDoc[. = '' and ../routeToMarket='exempt' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="hudNum" 
+        xpath="count(instance('ins')/Device/hudNum[. = '' and ../routeToMarket='hud' and ../onLabel='0'])" xpathSS="count(Device/hudNum[. = '' and ../routeToMarket='hud' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="hudDoc" 
+        xpath="count(instance('ins')/Device/hudDoc[. = '' and ../routeToMarket='hud' and ../onLabel='0'])" xpathSS="count(Device/hudDoc[. = '' and ../routeToMarket='hud' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="app501Date" 
+        xpath="count(instance('ins')/Device/app501Date[. = '' and ../routeToMarket='510k' and ../onLabel='0'])" xpathSS="count(Device/app501Date[. = '' and ../routeToMarket='510k' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="app501Doc" 
+        xpath="count(instance('ins')/Device/app501Doc[. = '' and ../routeToMarket='510k' and ../onLabel='0'])" xpathSS="count(Device/app501Doc[. = '' and ../routeToMarket='510k' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="preMarkDate" 
+        xpath="count(instance('ins')/Device/preMarkDate[. = '' and ../routeToMarket='pma' and ../onLabel='0'])" xpathSS="count(Device/preMarkDate[. = '' and ../routeToMarket='pma' and ../onLabel='0' and //invDevs='1'])"/>
+    <e type="direct" toptab="6A" tab="9" err="preMarkDoc" 
+        xpath="count(instance('ins')/Device/preMarkDoc[. = '' and ../routeToMarket='pma' and ../onLabel='0'])" xpathSS="count(Device/preMarkDoc[. = '' and ../routeToMarket='pma' and ../onLabel='0' and //invDevs='1'])"/>
+    
+    
+    
+    <e type="direct" toptab="6A" tab="17a" err="otherProcedures" 
+        xpath="count(instance('ins')/radiationEquipment[. = ''])" xpathSS="count(radiationEquipment[. = '' and //invRadio='1'])"/>
+    <e type="direct" toptab="6A" tab="17a" err="otherProcedures" 
+        xpath="count(instance('ins')/radioactiveMaterials[. = ''])" xpathSS="count(radioactiveMaterials[. = '' and //invRadio='1'])"/>
+    <e type="direct" toptab="6A" tab="17a" err="otherProcedures" 
+        xpath="count(instance('ins')/otherProcedures[. = ''])" xpathSS="count(otherProcedures[. = '' and //invRadio='1'])"/>
+    <e type="direct" toptab="6A" tab="17a" err="otherProceduresDesc" 
+        xpath="count(*[not(instance('ins')/otherProceduresDesc) and instance('ins')/otherProcedures='1'])" xpathSS="count(*[not(//otherProceduresDesc) and //otherProcedures='1' and //invRadio='1'])"/>
+    <e type="direct" toptab="6A" tab="17a" err="otherProceduresDescProb" 
+        xpath="count(instance('ins')/otherProceduresDesc[(describe = '' or procedure = '' or perYearSOC = '' or perYearResearch = '' or totalProcedures = '' or totalProceduresRes = '') and instance('ins')/otherProcedures='1'])" xpathSS="count(otherProceduresDesc[(describe = '' or procedure = '' or perYearSOC = '' or perYearResearch = '' or totalProcedures = '' or totalProceduresRes = '') and //otherProcedures='1' and //invRadio='1'])"/>
+    
+    <e type="direct" toptab="6A" tab="17a" err="radOncology" 
+        xpath="count(instance('ins')/radOncology[. = ''])" xpathSS="count(radOncology[. = '' and //invRadio='1'])"/>
+    <e type="direct" toptab="6A" tab="17a" err="otherRadioactiveTreatment" 
+        xpath="count(*[not(instance('ins')/otherRadioactiveTreatment) and instance('ins')/radOncology='1'])" xpathSS="count(*[not(//otherRadioactiveTreatment) and //radOncology='1' and //invRadio='1'])"/>
+    <e type="direct" toptab="6A" tab="17a" err="otherRadioactiveTreatmentProb" 
+        xpath="count(instance('ins')/otherRadioactiveTreatment[(treated = '' or dose = '' or treatment = '' or frequency = '' or number = '' or numberWithout = '') and instance('ins')/radOncology='1'])" xpathSS="count(otherRadioactiveTreatment[(treated = '' or dose = '' or treatment = '' or frequency = '' or number = '' or numberWithout = '') and //radOncology='1' and //invRadio='1'])"/>
+    
+    
+     
+    <e type="direct" toptab="11A" tab="11" err="ageRange" 
+    xpath="count(instance('ins')/ageRange[. = ''])" xpathSS="count(ageRange[. = ''])"/>
+    <e type="direct" toptab="11A" tab="11" err="population" 
+        xpath="count(instance('ins')/population[. = ''])" xpathSS="count(population[. = ''])"/> 
+    <e type="direct" toptab="11A" tab="11" err="ethnicCat" 
+        xpath="count(instance('ins')/ethnicCat[. = ''])" xpathSS="count(ethnicCat[. = ''])"/> 
+    <e type="direct" toptab="11A" tab="11" err="race" 
+        xpath="count(instance('ins')/race[. = ''])" xpathSS="count(race[. = ''])"/> 
+    
+    
+    
+    
+    <e type="direct" toptab="11A" tab="17" err="enrollThisSite" 
+        xpath="count(instance('ins')/enrollThisSite[. = '' or . &lt;= 0])" xpathSS="count(enrollThisSite[. = '' or . &lt;= 0])"/>
+    <e type="direct" toptab="11A" tab="17" err="enrollAllSites" 
+        xpath="count(instance('ins')/enrollAllSites[. = '' or . &lt;= 0])" xpathSS="count(enrollAllSites[. = '' or . &lt;= 0])"/>
+    
+    
+    
+<!-- Need to remove dupes -->
+    <e type="direct" toptab="11A" tab="12" err="inclusionCriteria" 
+        xpath="count(instance('ins')/inclusionCriteria[. = ''])" xpathSS="count(inclusionCriteria[. = ''])"/>
+    <e type="direct" toptab="11A" tab="12" err="exclusionCriteria" 
+        xpath="count(instance('ins')/exclusionCriteria[. = ''])" xpathSS="count(exclusionCriteria[. = ''])"/>
+    <e type="direct" toptab="11A" tab="12" err="enrollRestrictions" 
+        xpath="count(instance('ins')/enrollRestrictions[. = ''])" xpathSS="count(enrollRestrictions[. = ''])"/>
+    <e type="direct" toptab="11A" tab="12" err="identRestrictions" 
+        xpath="count(instance('ins')/identRestrictions[. = '' and instance('ins')/enrollRestrictions='1'])" xpathSS="count(identRestrictions[. = '' and //enrollRestrictions='1'])"/>
+    <e type="direct" toptab="11A" tab="12" err="justifyExclusions" 
+        xpath="count(instance('ins')/justifyExclusions[. = '' and instance('ins')/identRestrictions[.='MALE' or .='FEMALE' or .='PREGNANT' or .='CHILDBEARING']])" xpathSS="count(justifyExclusions[. = '' and //identRestrictions[.='MALE' or .='FEMALE' or .='PREGNANT' or .='CHILDBEARING']])"/>
+    <e type="direct" toptab="11A" tab="12" err="selectEthnicRestrictions" 
+        xpath="count(instance('ins')/selectEthnicRestrictions[. = '' and instance('ins')/identRestrictions[.='ETHNICORIGIN']])" xpathSS="count(selectEthnicRestrictions[. = '' and //identRestrictions[.='ETHNICORIGIN']])"/>
+    <e type="direct" toptab="11A" tab="12" err="justifyEthnicRestrictions" 
+        xpath="count(instance('ins')/justifyEthnicRestrictions[. = '' and instance('ins')/identRestrictions[.='ETHNICORIGIN']])" xpathSS="count(justifyEthnicRestrictions[. = '' and //identRestrictions[.='ETHNICORIGIN']])"/>
+    <e type="direct" toptab="11A" tab="12" err="selectRaceRestrictions" 
+        xpath="count(instance('ins')/selectRaceRestrictions[. = '' and instance('ins')/identRestrictions[.='RACE']])" xpathSS="count(selectRaceRestrictions[. = '' and //identRestrictions[.='RACE']])"/>
+    <e type="direct" toptab="11A" tab="12" err="justifyRaceRestrictions" 
+        xpath="count(instance('ins')/justifyRaceRestrictions[. = '' and instance('ins')/identRestrictions[.='RACE']])" xpathSS="count(justifyRaceRestrictions[. = '' and //identRestrictions[.='RACE']])"/>
+    
+    
+    
+    
+    
+    
+    <e type="direct" toptab="11A" tab="11X" err="recMethod" 
+        xpath="count(instance('ins')/recMethod[. = '' and instance('ins')/retroChartReview='0'])" xpathSS="count(recMethod[. = '' and //retroChartReview='0'])"/>
+    <e type="direct" toptab="11A" tab="11X" err="recMethodOther" 
+        xpath="count(instance('ins')/recMethodOther[. = '' and instance('ins')/recMethod='OTHER'])" xpathSS="count(recMethodOther[. = '' and //recMethod='OTHER'])"/> 
+    <!--<e type="direct" toptab="11A" tab="11X" err="recMaterial" 
+        xpath="count(instance('ins')/recMaterial[. = ''])" xpathSS="count(recMaterial[. = ''])"/> 
+    <e type="direct" toptab="11A" tab="11X" err="approachParticipant" 
+        xpath="count(instance('ins')/approachParticipant[. = ''])" xpathSS="count(approachParticipant[. = ''])"/> -->
+      
+    
+    
+    
+    <e type="direct" toptab="11A" tab="14" err="noCompensation" 
+        xpath="count(*[not(instance('ins')/Compensation)])" xpathSS="count(*[not(//Compensation) and //compParticipation='1'])"/>
+    
+    <e type="direct" toptab="11A" tab="14" err="type" 
+        xpath="count(instance('ins')/Compensation/type[. = ''])" xpathSS="count(Compensation/type[. = '' and //compParticipation='1'])"/> 
+
+    <e type="direct" toptab="11A" tab="14" err="amount" 
+        xpath="count(instance('ins')/Compensation/amount[(. = '' or . &lt;= 0) and ../type='mon'])" xpathSS="count(Compensation/amount[(. = ''  or . &lt;= 0) and ../type='mon' and //compParticipation='1'])"/> 
+    
+    <e type="direct" toptab="11A" tab="14" err="justification" 
+        xpath="count(instance('ins')/Compensation/justification[. = ''])" xpathSS="count(Compensation/justification[. = '' and //compParticipation='1'])"/> 
+    <e type="direct" toptab="11A" tab="14" err="description" 
+        xpath="count(instance('ins')/Compensation/description[. = ''])" xpathSS="count(Compensation/description[. = '' and //compParticipation='1'])"/> 
+    
+    
+    <e type="direct" toptab="11A" tab="16" err="researchIntroduced" 
+        xpath="count(instance('ins')/researchIntroduced[. = ''])" xpathSS="count(researchIntroduced[. = '' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="enrollNonEnglishSpeaking" 
+        xpath="count(instance('ins')/enrollNonEnglishSpeaking[. = ''])" xpathSS="count(enrollNonEnglishSpeaking[. = '' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="identObtainConsent" 
+        xpath="count(instance('ins')/identObtainConsent[. = '' and (instance('ins')/concentProcess='PWIC' or instance('ins')/concentProcess='PARPERM' or instance('ins')/concentProcess='WRTASNT' or instance('ins')/concentProcess='ALTCNSNT')])" xpathSS="count(identObtainConsent[. = '' and (//concentProcess='PWIC' or //concentProcess='PARPERM' or //concentProcess='WRTASNT' or //concentProcess='ALTCNSNT') and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="whereWhenConcent" 
+        xpath="count(instance('ins')/whereWhenConcent[. = '' and (instance('ins')/concentProcess='PWIC' or instance('ins')/concentProcess='PARPERM' or instance('ins')/concentProcess='WRTASNT' or instance('ins')/concentProcess='ALTCNSNT')])" xpathSS="count(whereWhenConcent[. = '' and (//concentProcess='PWIC' or //concentProcess='PARPERM' or //concentProcess='WRTASNT' or //concentProcess='ALTCNSNT') and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="concentWaiver" 
+        xpath="count(instance('ins')/concentWaiver[. = '' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(concentWaiver[. = '' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="minCoercion" 
+        xpath="count(instance('ins')/minCoercion[. = '' and instance('ins')/concentWaiver='WVIC' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(minCoercion[. = '' and //concentWaiver='WVIC' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="waiverApplicableToAll" 
+        xpath="count(instance('ins')/waiverApplicableToAll[. = '' and instance('ins')/concentWaiver='WVIC' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(waiverApplicableToAll[. = '' and //concentWaiver='WVIC' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="noMoreThanMinRisk" 
+        xpath="count(instance('ins')/noMoreThanMinRisk[. = '' and instance('ins')/concentWaiver='WVIC' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(noMoreThanMinRisk[. = '' and //concentWaiver='WVIC' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="waiverNotAffectParticipants" 
+        xpath="count(instance('ins')/waiverNotAffectParticipants[. = '' and instance('ins')/concentWaiver='WVIC' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(waiverNotAffectParticipants[. = '' and //concentWaiver='WVIC' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="justifyWaiver" 
+        xpath="count(instance('ins')/justifyWaiver[. = '' and instance('ins')/concentWaiver='WVIC' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(justifyWaiver[. = '' and //concentWaiver='WVIC' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="provideAdditionalInformation" 
+        xpath="count(instance('ins')/provideAdditionalInformation[. = '' and instance('ins')/concentWaiver='WVIC' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(provideAdditionalInformation[. = '' and //concentWaiver='WVIC' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="describeAlterationConsent"
+        xpath="count(instance('ins')/describeAlterationConsent[. = '' and instance('ins')/concentProcess='ALTERIC'])" xpathSS="count(describeAlterationConsent[. = '' and //concentProcess='ALTERIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="identJustification"
+        xpath="count(instance('ins')/identJustification[. = '' and instance('ins')/concentWaiver='WVIC-DOC'])" xpathSS="count(identJustification[. = '' and //concentWaiver='WVIC-DOC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="waiverOfSignedConsentJustification"
+        xpath="count(instance('ins')/waiverOfSignedConsentJustification[. = '' and instance('ins')/concentWaiver='WVIC-DOC'])" xpathSS="count(waiverOfSignedConsentJustification[. = '' and //concentWaiver='WVIC-DOC' and //consentObt='1'])"/>
+    
+    
+    <e type="direct" toptab="11A" tab="16" err="PWCDoc" 
+        xpath="count(instance('ins')/PWCDoc[. = '' and instance('ins')/concentProcess='PWIC'])" xpathSS="count(PWCDoc[. = '' and //concentProcess='PWIC' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="PPDoc" 
+        xpath="count(instance('ins')/PPDoc[. = '' and instance('ins')/concentProcess='PARPERM'])" xpathSS="count(PPDoc[. = '' and //concentProcess='PARPERM' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="ASSENTDoc" 
+        xpath="count(instance('ins')/ASSENTDoc[. = '' and instance('ins')/concentProcess='WRTASNT'])" xpathSS="count(ASSENTDoc[. = '' and //concentProcess='WRTASNT' and //consentObt='1'])"/>
+    <e type="direct" toptab="11A" tab="16" err="docTypeAssent" 
+        xpath="count(instance('ins')/docTypeAssent[. = '' and instance('ins')/concentProcess='WRTASNT'])" xpathSS="count(docTypeAssent[. = '' and //concentProcess='WRTASNT' and //consentObt='1'])"/>
+   
+   
+    <e type="direct" toptab="11A" tab="3" err="descPHI" 
+        xpath="count(instance('ins')/descPHI[. = ''])" xpathSS="count(descPHI[. = '' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="identSourcesPHI" 
+        xpath="count(instance('ins')/identSourcesPHI[. = ''])" xpathSS="count(identSourcesPHI[. = '' and //involvePHI='1'])"/>       
+    <e type="direct" toptab="11A" tab="3" err="describeSourcesPHI" 
+        xpath="count(instance('ins')/describeSourcesPHI[. = '' and instance('ins')/identSourcesPHI='OTHER'])" xpathSS="count(describeSourcesPHI[. = '' and //identSourcesPHI='OTHER' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="receivePHI" 
+        xpath="count(instance('ins')/receivePHI[. = ''])" xpathSS="count(receivePHI[. = '' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="sharePHI" 
+        xpath="count(instance('ins')/sharePHI[. = ''])" xpathSS="count(sharePHI[. = '' and //involvePHI='1'])"/>      
+    <e type="direct" toptab="11A" tab="3" err="shareWithPHI" 
+        xpath="count(instance('ins')/shareWithPHI[. = '' and instance('ins')/sharePHI='1'])" xpathSS="count(shareWithPHI[. = '' and //sharePHI='1' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="describeSharePHI" 
+        xpath="count(instance('ins')/describeSharePHI[. = '' and instance('ins')/shareWithPHI='OTHER' and instance('ins')/sharePHI='1'])" xpathSS="count(describeSharePHI[. = '' and //shareWithPHI='OTHER' and //sharePHI='1' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="shareHowPHI" 
+        xpath="count(instance('ins')/shareHowPHI[. = '' and instance('ins')/sharePHI='1'])" xpathSS="count(shareHowPHI[. = '' and //sharePHI='1' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="accessPHI" 
+        xpath="count(instance('ins')/accessPHI[. = ''])" xpathSS="count(accessPHI[. = '' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="explainMinRiskPHI" 
+        xpath="count(instance('ins')/explainMinRiskPHI[. = '' and instance('ins')/accessPHI='hipaaWaiver'])" xpathSS="count(explainMinRiskPHI[. = '' and //accessPHI='hipaaWaiver' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="descPlanToProtectPHI" 
+        xpath="count(instance('ins')/descPlanToProtectPHI[. = '' and instance('ins')/accessPHI='hipaaWaiver'])" xpathSS="count(descPlanToProtectPHI[. = '' and //accessPHI='hipaaWaiver' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="descPlanToDestroyPHI" 
+        xpath="count(instance('ins')/descPlanToDestroyPHI[. = '' and instance('ins')/accessPHI='hipaaWaiver'])" xpathSS="count(descPlanToDestroyPHI[. = '' and //accessPHI='hipaaWaiver' and //involvePHI='1'])"/>
+    <e type="direct" toptab="11A" tab="3" err="explainHipaaWaiver" 
+        xpath="count(instance('ins')/explainHipaaWaiver[. = '' and instance('ins')/accessPHI='hipaaWaiver'])" xpathSS="count(explainHipaaWaiver[. = '' and //accessPHI='hipaaWaiver' and //involvePHI='1'])"/>
+    
+    
+    
+    <e type="direct" toptab="7X" tab="7" err="noFundingSource" 
+        xpath="count(*[not(instance('ins')/fundingSourceComp)])" xpathSS="count(*[not(//fundingSourceComp) and //researchFunded='1'])"/>
+    <e type="direct" toptab="7X" tab="7" err="fundingContractDoc" 
+        xpath="count(instance('ins')/fundingSourceComp/contractDoc[. = ''])" xpathSS="count(fundingSourceComp/contractDoc[. = '' and //researchFunded='1'])"/>
+    <e type="direct" toptab="7X" tab="7" err="fundingStatus" 
+        xpath="count(instance('ins')/fundingSourceComp/grantName[. = ''])" xpathSS="count(fundingSourceComp/grantName[. = '' and //researchFunded='1'])"/>
+    <e type="direct" toptab="7X" tab="7" err="fundingStatus" 
+        xpath="count(instance('ins')/fundingSourceComp/grantNum[. = ''])" xpathSS="count(fundingSourceComp/grantNum[. = '' and //researchFunded='1'])"/>
+    <e type="direct" toptab="7X" tab="7" err="fundingStatus" 
+        xpath="count(instance('ins')/fundingSourceComp/fundingStatus[. = ''])" xpathSS="count(fundingSourceComp/fundingStatus[. = '' and //researchFunded='1'])"/>
+    <!--<e type="direct" toptab="7" tab="7" err="fundingCat" 
+        xpath="count(instance('ins')/fundingSourceComp/fundingCat[. = ''])" xpathSS="count(fundingSourceComp/fundingCat[. = '' and //researchFunded='1'])"/>-->
+    <e type="direct" toptab="7X" tab="7" err="projInitiatedBy" 
+        xpath="count(instance('ins')/fundingSourceComp/projInitiatedBy[. = ''])" xpathSS="count(fundingSourceComp/projInitiatedBy[. = '' and //researchFunded='1'])"/>   
+    <e type="direct" toptab="7X" tab="7" err="pi" 
+        xpath="count(instance('ins')/fundingSourceComp[not(Person)])" xpathSS="count(fundingSourceComp[not(Person) and //researchFunded='1'])"/>        
+    <e type="direct" toptab="7X" tab="7" err="org" 
+        xpath="count(instance('ins')/fundingSourceComp[not(Organization)])" xpathSS="count(fundingSourceComp[not(Organization) and //researchFunded='1'])"/>       
+    <e type="direct" toptab="7X" tab="7" err="fundingMatchesProposal" 
+        xpath="count(instance('ins')/fundingSourceComp/fundingMatchesProposal[. = ''])" xpathSS="count(fundingSourceComp/fundingMatchesProposal[. = '' and //researchFunded='1'])"/>            
+    <e type="direct" toptab="7X" tab="7" err="fundingMatchesProposal" 
+        xpath="count(instance('ins')/fundingSourceComp/subDiffsFundingProposal[. = '' and ../fundingMatchesProposal='0'])" xpathSS="count(fundingSourceComp/subDiffsFundingProposal[. = '' and ../fundingMatchesProposal='0' and //researchFunded='1'])"/>           
+
+    <e type="direct" toptab="7X" tab="7b" err="invoiceContact" 
+        xpath="count(instance('ins')/invoiceContact[. = '' and count(instance('ins')/fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR'])])" xpathSS="count(invoiceContact[. = '' and count(//fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR']) and //researchFunded='1'])"/>
+
+    <e type="direct" toptab="7X" tab="7b" err="invoiceAddress1" 
+        xpath="count(instance('ins')/invoiceAddress1[. = '' and count(instance('ins')/fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR'])])" 
+        xpathSS="count(invoiceAddress1[. = '' and count(//fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR']) and //researchFunded='1'])"/>
+
+    <e type="direct" toptab="7X" tab="7b" err="invoiceCity" 
+        xpath="count(instance('ins')/invoiceCity[. = '' and count(instance('ins')/fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR'])])" 
+        xpathSS="count(invoiceCity[. = '' and count(//fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR']) and //researchFunded='1'])"/>
+        
+    <e type="direct" toptab="7X" tab="7b" err="invoiceState" 
+        xpath="count(instance('ins')/invoiceState[. = '' and count(instance('ins')/fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR'])])" 
+        xpathSS="count(invoiceState[. = '' and count(//fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR']) and //researchFunded='1'])"/>
+       
+    <e type="direct" toptab="7X" tab="7b" err="invoiceZip" 
+        xpath="count(instance('ins')/invoiceZip[. = '' and count(instance('ins')/fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR'])])" 
+        xpathSS="count(invoiceZip[. = '' and count(//fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR']) and //researchFunded='1'])"/>
+    
+    <e type="direct" toptab="7X" tab="7b" err="invoicePhone" 
+        xpath="count(instance('ins')/invoicePhone[. = '' and count(instance('ins')/fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR'])])" 
+        xpathSS="count(invoicePhone[. = '' and count(//fundingSourceComp[Organization/fundingCat='Industry' and projInitiatedBy='SPONSOR']) and //researchFunded='1'])"/>
+       
+    
+    <!-- Documents -->
+    <e type="direct" toptab="18" tab="18" err="noLabel" 
+        xpath="count(instance('ins')/document[@label = '' and @type='user'])" xpathSS="count(document[@label = '' and @type='user'])"/>
+
+    <e type="direct" toptab="18" tab="18" err="noDoc" 
+        xpath="count(instance('ins')/document[@uri = '' and @type='user'])" xpathSS="count(document[@uri = '' and @type='user'])"/>
+    
+    
+</validations>

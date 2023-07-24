@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">
+    <tab id="7" label="New Information" form="/home/configs/IRB/forms/newInformationCommRO.xfrm" sourceXML="/newInformation.xml" formType="general" formName="newInformation"/>
+    
+    
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReviewSugg.xfrm"/>
+    
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subCommDiffs.xfrm"/>
+    
+    <tab id="DI" color="light purple" label="Deferrable Issues Communications" form="/home/configs/IRB/forms/deferrableIssues.xfrm" when="defissues"/>
+    <tab id="LC" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm" when="offmicro"/>
+    <tab id="LC2" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm" when="onmicro"/>
+    
+    <switches>
+        <!-- Sprint 10B Start -->
+        <defissues>0</defissues>
+        <!-- Sprint 10B End -->
+        <offmicro>1</offmicro>
+        <onmicro>0</onmicro>
+        <participant>0</participant> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <violation>0</violation>
+        <changeToProtocol>0</changeToProtocol>
+        <!--<violation2>0</violation2>-->
+        <submit>1</submit>
+    </switches>
+</tabs>

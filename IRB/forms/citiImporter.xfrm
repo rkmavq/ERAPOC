@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+ <xf:model id="fmodel">
+   
+    <xf:instance id="form">
+      <data xmlns="">
+        <excelTemplate></excelTemplate>
+        <message></message>
+      </data> 
+    </xf:instance>
+   
+      <!-- JS Setup -->
+    <script ev:event="xforms-model-construct-done">
+      
+      //This tells the page where to stick any uploaded documents
+      document.__TARGETURI = "/ideate/configs/Certifications/imports";
+      model.rebuild();
+      model.recalculate();
+      model.refresh();
+    </script> 
+    
+    <xf:bind type="ix:file" nodeset="instance('form')/excelTemplate"/>    
+  </xf:model>
+  
+  <div class="wikiView">
+  
+    <xf:group ref=".">
+      <h4>Step 1: Attach the CITI spreadsheet: </h4>
+      <xf:input id="docUpload" ref="instance('form')/excelTemplate"><xf:label>Upload:</xf:label></xf:input>
+      <br/>
+      <h4>Step 2: <xf:trigger style="width:120px;"><xf:label style="width:120px;">Import Data</xf:label>
+        <script ev:event="DOMActivate">
+          var doc = model.getValue("instance('form')/excelTemplate");
+          //alert(doc);
+          if(doc == ""){
+            alert("Please attach the spreadsheet and try again.");
+          }else{
+            model.__waiting = new waitingBox();
+            //Add the spinner logic around this from other 'wait' things
+            //If they actually uploaded something, send the name to the CertificationsManagement service
+            res = callSharedServiceInf("CertificationsManagement", {"op":"importFromCitiSpreadSheet", ssUri:doc}, "text"); 
+            //Write the result returned by the service call into the message area
+            model.setValue("instance('form')/message", res);
+            model.__waiting.stop();
+            model.rebuild();
+            model.recalculate();
+            model.refresh();
+            
+          }
+        </script>
+      </xf:trigger></h4>
+      
+      <!-- Display some kind of 'result', you could use  xf:output value=""  to display it directly on the page, i just used a textarea for simplicity -->
+      <div>
+        <a target="_blank"><ix:attr name="style" value="if(instance('form')/message!='','color:blue;cursor:pointer;text-decoration:underline;','display:none')"/>
+          <ix:attr name="href" value="concat('/fil' , instance('form')/message)"/>
+          Click here to view the results.
+        </a>
+      </div>
+    </xf:group>
+  </div>
+</form>

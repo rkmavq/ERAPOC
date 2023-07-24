@@ -1,0 +1,45 @@
+
+/*
+ https://osm.etsi.org/gitweb/?p=osm/IM.git;a=blob;f=models/yang/vnfd.yang;h=f1229e7a06b89be6f804338bcb1eeb0fd463c95c;hb=HEAD
+ */
+
+module vnfd
+{
+  namespace "urn:ietf:params:xml:ns:yang:nfvo:vnfd";
+  prefix "vnfd";
+
+  import vnfd-base {
+    prefix "vnfd-base";
+  }
+
+  revision 2017-02-28 {
+    description
+      "Update model to support projects.";
+  }
+
+  revision 2015-09-10 {
+    description
+      "Initial revision. This YANG file defines
+       the Virtual Network Function (VNF)";
+    reference
+      "Derived from earlier versions of base YANG files";
+  }
+  container vnfd-catalog {
+    description
+      "Virtual Network Function Descriptor (VNFD).";
+
+    leaf schema-version {
+      description "Schema version for the VNFD. If unspecified, it assumes v3.0";
+      type string;
+      default "v3.0";
+    }
+
+    list vnfd {
+      key "id";
+
+      uses vnfd-base:vnfd-descriptor;
+    }
+  }
+}
+
+// vim: sw=2

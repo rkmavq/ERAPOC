@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+    
+    <tab id="LC" label="Lifecycle Event Manager" form="/../fil/home/configs/IRB/forms/actions.xfrm"/>    
+    
+    <tab id="Comms" label="Communications" form="/../fil/home/configs/IRB/forms/gatheredComms.xfrm"/> 
+    
+    <tab id="20" label="Enrolled">
+        <tab id="20a" label="Summary" form="/../fil/home/configs/IRB/forms/dshbrd_enrolled_summaryView.xfrm"/>
+        <tab id="20b" label="Age Range(s)" form="/../fil/home/configs/IRB/forms/dshbrd_enrolled_age.xfrm"/>
+        <tab id="20c" label="Population(s)" form="/../fil/home/configs/IRB/forms/dshbrd_enrolled_pop.xfrm"/>
+        <tab id="20d" label="Ethnic Categories" form="/../fil/home/configs/IRB/forms/dshbrd_enrolled_ethnic.xfrm"/>
+        <tab id="20e" label="Race(s)" form="/../fil/home/configs/IRB/forms/dshbrd_enrolled_race.xfrm"/>
+    </tab>
+    
+    <tab id="1" label="Summary" form="/../fil/home/configs/IRB/forms/dshbrd_irbsummaryView.xfrm"/>
+    <tab id="2" label="Research Design">
+        <tab id="2a" label="Overview" form="/../fil/home/configs/IRB/forms/dshbrd_researchDesignView.xfrm"/>
+        <tab id="5" label="Risks and Benefits" form="/../fil/home/configs/IRB/forms/dshbrd_risksView.xfrm"/>
+    </tab> 
+    <tab id="4" label="Personnel">
+        <tab id="4b" label="Research Personnel" form="/../fil/home/configs/IRB/forms/dshbrd_personnel.xfrm"/>
+        <tab id="4a" label="Research Personnel" form="/../fil/home/configs/IRB/forms/dshbrd_personnelProxy.xfrm" when="pipending"/>
+        <tab id="4c" label="Other Personnel" form="/../fil/home/configs/IRB/forms/dshbrd_personnelOther.xfrm"/>
+    </tab>
+    <tab id="6A" label="Protocol Components">
+        <tab id="6" label="Performance Sites" form="/../fil/home/configs/IRB/forms/dshbrd_sitesView.xfrm"/>
+        <tab id="8" label="Drugs" form="/../fil/home/configs/IRB/forms/dshbrd_drugsView.xfrm"/>
+        <tab id="9" label="Devices" form="/../fil/home/configs/IRB/forms/dshbrd_devicesView.xfrm"/>
+        <tab id="10" label="Biologics" form="/../fil/home/configs/IRB/forms/dshbrd_biologicsView.xfrm"/>
+        <!--<tab id="8" label="Drugs" form="/../fil/home/configs/IRB/forms/dshbrd_drugsView.xfrm" when="drugs"/>
+        <tab id="9" label="Devices" form="/../fil/home/configs/IRB/forms/dshbrd_devicesView.xfrm" when="devices"/>
+        <tab id="10" label="Biologics" form="/../fil/home/configs/IRB/forms/dshbrd_biologicsView.xfrm" when="bios"/>
+        --><tab id="17" label="Procedures" form="/../fil/home/configs/IRB/forms/dshbrd_procedures.xfrm"/>
+    </tab>
+    
+    <tab id="11A" label="Participants">
+        <tab id="11" label="Populations" form="/../fil/home/configs/IRB/forms/dshbrd_subjects.xfrm"/>
+        <tab id="12" label="Eligibility" form="/../fil/home/configs/IRB/forms/dshbrd_eligibility.xfrm"/>
+        <tab id="13" label="Enrollment" form="/../fil/home/configs/IRB/forms/dshbrd_enroll.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/../fil/home/configs/IRB/forms/dshbrd_recuitment.xfrm"/>
+        <tab id="14" label="Compensation" form="/../fil/home/configs/IRB/forms/dshbrd_compensation.xfrm"/>
+        
+        <tab id="16" label="Consent" form="/../fil/home/configs/IRB/forms/dshbrd_consent.xfrm"/>
+        <tab id="3" label="PHI" form="/../fil/home/configs/IRB/forms/dshbrd_healthrecords.xfrm"/>
+    </tab>
+    <tab id="7" label="Funding" form="/../fil/home/configs/IRB/forms/dshbrd_fundingView.xfrm"/>
+    <tab id="18" label="Attachments" form="/../fil/home/configs/IRB/forms/dshbrd_attachments.xfrm"/>
+    
+    <!--
+        <tab id="19" label="Submissions" form="/home/configs/IRB/forms/submissions.xfrm"/>
+        <tab id="20" label="Reviews" form="/home/configs/IRB/forms/reviews.xfrm"/>
+        <tab id="21" label="Review Details" form="/home/configs/IRB/forms/reviewDetails.xfrm"/>-->
+    <!--
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/irbsubmit.xfrm" when="submit"/>
+    <tab id="23" label="Send to PI" form="/home/configs/IRB/forms/irbsubmitproxy.xfrm" when="submitproxy"/>-->
+    
+    <switches>
+        <comms>0</comms>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <bios>0</bios>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

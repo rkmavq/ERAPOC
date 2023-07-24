@@ -1,0 +1,1738 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms" xmlns:id8="http://ideate.com"><xf:model id="fmodel">
+    <xf:instance id="ins"><data xmlns=""/></xf:instance>
+  <xf:instance id="ent"><data xmlns=""/></xf:instance>
+  <xf:instance id="lc"><data xmlns=""/></xf:instance>
+	<xf:instance id="reviews"><data xmlns=""/></xf:instance>
+	<xf:instance id="sub"><data xmlns=""/></xf:instance>
+  <xf:instance id="routing" src="../routing.xml"/>
+	<xf:instance id="boards" src="../../../../../entity/recordList?entity=IRB%20Board"/>
+	<xf:instance id="boardDetails"><data xmlns=""/></xf:instance>  
+  <xf:instance id="form">
+  	<data xmlns="">
+  		<target></target>  		
+  		<assignment></assignment>
+  		<loggedInUser></loggedInUser>
+  		<assignedIRB></assignedIRB>
+  		<assignedCoord></assignedCoord>
+  		<orders></orders>
+  		
+  		<sType></sType>
+  		<mouseOverLabel></mouseOverLabel>
+  		<mouseOverVal></mouseOverVal>
+	    <status>x</status>
+	    <status>x</status>
+	    <actor>x</actor>
+	    <action>1</action>
+    	<actions>1</actions>
+    	<reviewer></reviewer>
+  		<pi></pi>
+  		<reviewercanmake></reviewercanmake>
+  		<newStatus></newStatus>
+  		<caseuri></caseuri>
+  		
+  		<searchText/>
+  		<records/>
+  		<fullSearchText/>
+  		<fullSearchRecords/>
+  		<col1/>
+  		<col2/>
+  		<col3/>
+  		<!-- Archita -->
+  		<selectedAction></selectedAction>
+  		<actionTitle></actionTitle>
+  		<reason></reason>
+  		<person></person>
+  		<!-- Who we are reassigning the task to -->
+  		<proxy id='' uri=''/>
+  	</data>
+  </xf:instance>
+	<xf:instance id="state">
+		<data xmlns=""/>
+	</xf:instance>
+	<xf:instance id="cats">
+		<data xmlns=""/>
+	</xf:instance>
+        		
+	<xf:instance id="bootstrap">
+		<data xmlns="">
+			<js>/resources/services/appForms/main.js</js>
+		</data>
+	</xf:instance>
+        		
+    <script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "general");
+      loadInstance(model, "ins", "/data/irb.xml");
+      loadInstance(model, "ent", "/data.xml");
+      loadInstance(model, "lc", "/lifecycle.xml");
+      loadInstance(model, "reviews", "/reviews.xml");
+      loadInstance(model, "cats", "/data/catagories.xml");
+      
+      s = model.getValue("instance('ent')/status");
+      model.__state = s;
+      
+      //Grab Security
+      model.USA = new irbProtocol(model); 
+      model.USA.caseSecurity = model.__XformSet.getRoot().model.TS.caseSecurity; 
+      
+      //Identify PI or Signing Authority
+      if(model.USA.hasToken("canMake")){
+      model.setValue("instance('form')/pi", "1");
+      SH.print("isPI");
+      }
+      
+      //Identify Administrator
+      if(model.USA.hasToken("canReview") &amp;&amp; !model.USA.hasToken("canMake")){
+      model.setValue("instance('form')/reviewer", "1");
+      SH.print("isReviewer");
+      }
+      
+      //Identify Administrator
+      if(model.USA.hasToken("canReview")){
+      model.setValue("instance('form')/reviewercanmake", "1");
+      SH.print("isReviewer");
+      }
+      
+      
+      tempBrd = model.getValue("instance('form')/assignedIRB")
+      if(!tempBrd){
+      brd = model.getValue("instance('ins')//Board/@id[.!='']");
+      model.setValue("instance('form')/assignedIRB", brd);
+      }
+      tempCoord = model.getValue("instance('form')/assignedCoor")
+      if(!tempCoord){
+      coord = model.getValue("instance('ins')//Coordinator/@uri");
+      model.setValue("instance('form')/assignedCoor", coord);
+      }
+      
+      var tui = model.__XformSet.getRoot().targetURI;
+      model.setValue("instance('ent')/primaryEntityURI", tui);
+      var status = model.getValue("instance('ent')/status");
+      
+      if(tui == model.__XformSet.getRoot().orgTargetURI){
+      	model.setValue("instance('form')/target", "IA");
+      }else{
+      	model.setValue("instance('form')/target", model.__XformSet.getRoot().orgTargetURI);      	
+      }
+      
+      model.recalculate();
+      model.rebuild();
+      
+    </script>
+  
+   <xf:bind nodeset="instance('ent')/stage" readonly="true()" relevant="false()"/>
+  <xf:bind nodeset="instance('ent')/status" readonly="true()" relevant="false()"/>
+  
+    <script ev:event="ix-activity-save">
+			model.submit("submit1");
+		</script>
+    <xf:submission id="submit1" instance="ent" replace="none" method="put">tabs
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Submit done.</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem submitting...</xf:message>
+			</xf:action>
+		</xf:submission>
+</xf:model>
+  
+	<ix:template name="QuickSearch">
+		<div style="padding:8px;width:400px">
+			<table style="width:240px">
+				<tr>
+					<td>
+						<xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px">
+							<xf:label style="width:50px">Lookup:</xf:label>
+						</xf:input>
+					</td>
+					<td>
+						<div style="margin-right:20px;">
+							<u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+							<script ev:event="click"> model.Frm.executeQuickSearch(); </script>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<hr/>
+			<xf:switch>
+				<xf:case exf:if="1" id="hide-quicksearch"/>
+				<xf:case id="show-quicksearch">
+					<exf:variable name="records" value="instance('form')/records//rec"/>
+					<div>
+						<ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+						<h1>No Matches</h1>
+					</div>
+					<div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"
+					/><h1>Too Many Matches</h1>Please refine your search.</div>
+					<table class="quickSearchMatches">
+						<ix:attr
+							value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+							name="style"/>
+						<tr>
+							<th style="text-align:left;">
+								<xf:output value="instance('form')/col1"/>
+							</th>
+							<th style="text-align:left;padding-left:20px">
+								<xf:output value="instance('form')/col2"/>
+							</th>
+							<th style="text-align:left;padding-left:20px">
+								<xf:output value="instance('form')/col3"/>
+							</th>
+						</tr>
+						<xf:repeat nodeset="$records">
+							<tr>
+								<td style="vertical-align:top; width:33%">
+									<u class="clickable">
+										<xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+										<xf:close ev:event="click"/>
+										<script ev:event="click"> var indx = model.getValue("@id", contextNode); var val
+											= model.getValue("@name", contextNode); if(val == "") val =
+											model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+											contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+											model.Frm.quickSearch.code; if(code) eval(code);
+											if(model.Frm.quickSearch.save) model.Frm.saveAll(); event.stopPropagation();
+										</script>
+									</u>
+								</td>
+								<td style="vertical-align:top;padding-left:20px; width:30%">
+									<xf:output
+										value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+									/>
+								</td>
+								<td style="vertical-align:top;padding-left:20px; width:30%">
+									<xf:output
+										value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+									/>
+								</td>
+							</tr>
+						</xf:repeat>
+					</table>
+					<br/>
+					<br/>
+				</xf:case>
+			</xf:switch>
+		</div>
+	</ix:template>
+  
+  <style>
+    div.main div.xfctrl{
+      background:none;
+    }
+    
+    div.main div.xftrl td.combo {color:black};
+    
+    
+    .wikiView div.actionsPulldown2{
+    width:210px;
+    padding:1px;
+    }
+
+
+	.wikiView div.actionsPulldown2 table.actionsPulldown2{
+	width:190px;
+	}
+
+
+
+.wikiView div.statusPulldown{
+background:none;
+padding:1px;
+}
+
+.wikiView div.statusPulldown table.statusPulldown{
+width:98%;
+}
+
+
+    
+    .actionsGo{
+    
+	height: 28px;
+    font-size: 14px;
+    color: white;
+    padding: 0px 20px 0px 20px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 5px;
+	}
+	
+	.table-header {
+		text-align: left;
+		background: #F3F3F3;
+		padding: 7px;
+		color: #141414DE;
+		font-weight: 500;
+	}
+	.table-row {
+		padding: 7px;
+		text-align: left;
+	}
+    
+  </style>
+  
+  <div class="main" style="">
+  
+	
+		<xf:group ref="." style="border:none;">
+		  		  		
+	   <table style="width:100%">
+	     <tr>
+	     	<td style="width:120px; vertical-align:middle"> 
+	     		<div><ix:attr name="style" value="if(instance('ent')/stage = 'protocol', 'display:none', '')"/>
+	         	<b>Stage:</b>
+	         	<xf:output value="if(instance('ent')/stage='application', 'Application',
+	         	if(instance('ent')/stage='protocol', 'Protocol', ''))"/>
+	     			
+	     			
+	         </div>
+	       </td>
+	     	<td style="width:120px; vertical-align:middle">
+	     		<div><ix:attr name="style" value="if(instance('ent')/stage = 'protocol', 'display:none', '')"/>
+	         	<b>Status:</b>
+	         	<xf:output value="if(instance('ent')/status='inDev', 'In Development',
+	         		if(instance('ent')/status='deptReview' or instance('ent')/status='intakeReview' or instance('ent')/status='adminReview' or instance('ent')/status='directorReview', 'Under Review',
+	         		if(instance('ent')/status='boardReview', 'Board Review',
+	         		if(instance('ent')/status='active', 'Active',
+	         		if(instance('ent')/status='expired', 'Expired',
+	         		if(instance('ent')/status='suspended', 'Suspended',
+	         		if(instance('ent')/status='terminated', 'Terminated',
+	         		if(instance('ent')/status='rejected', 'Rejected',
+	         		if(instance('ent')/status='withdrawn', 'Withdrawn',
+	         		if(instance('ent')/status='exempt', 'Exempt',
+	         		if(instance('ent')/status='completed', 'Completed',
+	         		if(instance('ent')/status='closed', 'Closed',
+	         		''))))))))))))"/>
+         	</div>
+	     	</td>
+	     	
+	     	<td style="width:180px; vertical-align:middle">
+	     	</td>
+	     	
+	     	
+	     	<td style="width:300px; vertical-align:middle">
+	     		
+	     		
+	     		
+	     		<table style="margin:0px;padding:0px;">
+	     			<tr>
+	     				<td>
+	     					<exf:variable value="instance('routing')[instance('form')/actions='1']/fragment[@linkedWhen=instance('ent')/status
+	     						and ((@id!='renewal' and @id!='finalrep') or not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]))
+	     						]" name="actions"/>
+	     					<!--<xf:select1 ref="instance('form')/action" class="actionsPulldown2">
+	     						<ix:attr name="style" value="if(count($actions)&gt; 0, 'width:250px', 'display:none')"/>
+	     						<xf:label style="width:45px">Actions</xf:label>
+	     						<xf:repeat nodeset="$actions">
+	     							<xf:item>
+	     								<xf:label><xf:output value="@launchLabel"/><xf:output value="if(@type='continuation', '*', '')"/></xf:label>
+	     								<xf:value><xf:output value="position()"/></xf:value>
+	     							</xf:item> 
+	     						</xf:repeat>  
+	     					</xf:select1>-->
+	     					<xf:select1 ref="instance('form')/action" class="actionsPulldown2">
+	     						<ix:attr name="style" value="if(1, 'width:250px', 'display:none')"/>
+	     						<xf:label style="width:45px ; font-weight: 500 !important; margin-top: 5px; margin-right: 10px;">Actions</xf:label>
+	     						<xf:item>
+	     							<xf:label>-No Available Actions-</xf:label>
+	     							<xf:value>1</xf:value>
+	     						</xf:item>
+	     					</xf:select1>
+	     					
+	     					
+	     				</td>
+	     				<td>
+	     					<xf:trigger class="actionsGo">
+	     						<xf:label>Go</xf:label>
+	     						<script ev:event="DOMActivate">
+	     							var val = model.getValue("instance('form')/action");
+	     							var msg = model.getValue("instance('routing')/fragment[@linkedWhen=instance('ent')/status	and ((@id!='renewal' and @id!='finalrep') or not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]))][" + val + "]/@launchMessage");
+	     							var frag = model.getValue("instance('routing')/fragment[@linkedWhen=instance('ent')/status	and ((@id!='renewal' and @id!='finalrep') or not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]))][" + val + "]/@id");
+	     							if(msg == ""){
+	     							alert("Sorry, no actions available!");
+	     							return;
+	     							}
+	     							var x = confirm(msg);
+	     							if(!x) return;
+	     							trg = model.__XformSet.getRoot().targetURI;
+	     							if(!trg) trg = model.getForm()._TARGET;
+	     							var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+	     							var res = callSharedService("processLauncher",{"app":"IRB", "fragment":frag, "id":model.getValue("instance('ins')/id8ID"), "primeEntityID":id, "entURI":trg}, "json");
+	     							if(res &amp;&amp; res.response == "passed")
+	     							runActivity(res.output.id, res.output.segment);
+	     							else
+	     							alert("Process Not Found");
+	     						</script>
+	     					</xf:trigger>	     					
+	     				</td>
+	     				<!--<td>
+	     					
+	     					<xf:trigger class="actionsGo">
+	     						<xf:label>Remove the protocol and Kill any outstanding task(s)</xf:label>
+	     						<script ev:event="DOMActivate">
+	     							trg = model.__XformSet.getRoot().targetURI;
+	     							if(!trg) trg = model.getForm()._TARGET;
+	     							var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+	     							resY=callSharedService("protocolRouting",{"op":"withdrawCaseBill", "targetURI":trg, "app":"IRB"}, "json");
+	     							if(resY) alert(resY.output);
+	     						</script>
+	     					</xf:trigger>
+	     					
+	     				</td>-->
+	     			</tr>
+	     		</table>
+			</td>
+
+	     </tr>
+	   </table>
+			
+			<xf:switch>
+				<xf:case exf:if="1" id="show-main">  
+			<table style="width:100%"><ix:attr name="style" value="if(instance('ent')/stage = 'protocol', 'width:100%', 'display:none')"/>
+				<tr>
+					<td style="width:15%; vertical-align:top"> 
+						<div>
+							<b>Stage:</b>
+							<xf:output value="if(instance('ent')/stage='application', 'Application',
+								if(instance('ent')/stage='protocol', 'Protocol', ''))"/>
+						</div>
+					</td>
+					<td style="width:25%;vertical-align:top"> 
+						<div>
+							<b>Approval Start:</b> <xf:output value="local-date(instance('ins')/approvalStart)"/>
+						</div>
+					</td>
+					
+					
+					<td style="width:30%; vertical-align:top">
+						<div>
+							<span><ix:attr name="style" value="if(instance('ins')/riskLevel='greater', 'color:black', '')"/>
+								<b>Risk Level:</b> <xf:output value="if(instance('ins')/riskLevel='min', 'Minimal Risk', 'Greater than Minimal Risk')"/>
+							</span>
+						</div>
+					</td>
+					
+					<td style="vertical-align:top">
+						<div><span><ix:attr name="style" value="if(instance('ins')/exemptCategories!='', 'display:none', 'width:100%')"/>
+							<b>Review Frequency:</b> <xf:output value="instance('ins')/revFreq"/> days
+						</span></div>
+					</td>
+					
+					
+				</tr>
+				<tr>
+					
+					<td style="width:15%; vertical-align:middle">
+						<div>
+							<b>Status:</b>
+							<xf:output value="if(instance('ent')/status='inDev', 'In Development',
+								if(instance('ent')/status='deptReview', 'Dept Review',
+								if(instance('ent')/status='adminReview', 'Under Review',
+								if(instance('ent')/status='intakeReview', 'Under Review',
+								if(instance('ent')/status='boardReview', 'Under Review',
+								if(instance('ent')/status='active', 'Active',
+								if(instance('ent')/status='ACT', 'Active',
+								if(instance('ent')/status='expired', 'Expired',
+								if(instance('ent')/status='suspended', 'Suspended',
+								if(instance('ent')/status='terminated', 'Terminated',
+								if(instance('ent')/status='rejected', 'Rejected',
+								if(instance('ent')/status='withdrawn', 'Withdrawn',
+								if(instance('ent')/status='exempt', 'Exempt',
+								if(instance('ent')/status='completed', 'Completed',
+								if(instance('ent')/status='closed', 'Completed',
+								if(instance('ent')/status='TRANS', 'Trans to l/tf/u study',
+								if(instance('ent')/status='DEVONLY', 'Development Only',
+								if(instance('ent')/status='expsus', 'Expired/Suspended',
+								''))))))))))))))))))"/>
+						</div>
+					</td>
+					<td style="width:25%;vertical-align:middle">
+						<span><ix:attr name="style" value="if(instance('ent')/status='active', 'display:none;', '')"/>
+							<b>Approval End:</b> <xf:output value="local-date(instance('ins')/approvalEnd)"/>
+						</span>
+						<span><ix:attr name="style" value="if(instance('ent')/status='active', '', 'display:none;')"/>
+							<b>Approval End:</b> <u style="color:blue;cursor:pointer;"><!--<script ev:event="click">if(confirm("For demo purposes, you can manually change the status of the protocol to expired.\n\nAre you sure that's what you're like to do?")){
+								var res = callSharedService("protocolRouting",{"op":"makeExpired", "targetURI":model.__XformSet.getRoot().targetURI}, "json");
+								if(res &amp;&amp; res.response == "passed"){
+									alert(res.output);
+									location.href = ".";
+								}
+								};</script>--><script ev:event="click">
+									newDate = prompt("For demo purposes, you can manually change the expiration date of the protocol.\n\nPlease enter the new date or cancel.\n\n", model.getValue("instance('ins')/approvalEnd"));
+									
+									if(!newDate) return;
+									
+									var res = callSharedService("protocolRouting",{"op":"changeExDate", "newdate":newDate, "targetURI":model.__XformSet.getRoot().targetURI}, "json");
+									if(res &amp;&amp; res.response == "passed"){
+										alert(res.output);
+										location.href = ".";
+									}
+								</script><xf:output value="instance('ins')/approvalEnd"/></u>
+						</span>
+					</td>
+					
+					<td style="width:30%; vertical-align:middle">
+						<div>
+							<span>
+								<b>Assigned IRB:</b> <xf:output value="instance('ins')/board"/>
+							</span>
+						</div>
+					</td>
+					
+					<td style=";vertical-align:middle">
+						<span>
+							<b>Original Approval Date:</b> <xf:output value="instance('ins')/orgApprovalDate"/>
+						</span>
+					</td>
+					
+				</tr>
+				<tr>
+					<td style="vertical-align:top" colspan="4">
+						<div><span><ix:attr name="style" value="if(instance('ins')/wirbProtocolNumber!='', 'width:100%', 'display:none')"/>
+							<b>WIRB Protocol Number:</b> <xf:output value="instance('ins')/wirbProtocolNumber"/>
+						</span></div>
+					</td>
+				</tr>
+			</table>
+					
+				</xf:case>
+				<xf:case id="hide-main"/>
+			</xf:switch>  
+		<hr/>
+
+		<br/>
+			<div><ix:attr name="style" value="if(count(instance('ent')/parentLink)=0, 'display:none', '')"/>
+				<h3>Study</h3>
+				<br/>
+				<table style="margin-left:30px;">
+					<tr>
+						<th style="padding-left:5px;width:120px;">ID</th>
+						<th style="padding-left:10px;width:200px;">Name</th>
+						<th style="padding-left:10px;width:80px;">Status</th>
+						<th style="padding-left:10px;;">Details</th>
+					</tr>
+					<xf:repeat nodeset="instance('ent')/parentLink">
+						<script>
+							var studyURI = model.getValue("instance('ent')/parentLink/@uri");
+							var res = callSharedServiceInf("masterCase",{"op":"normalizeLinks", "uri":studyURI}, "text");
+							
+							model.setInstanceIdSrc("study", "/fil" + studyURI + "/data.xml");
+						</script>
+						<tr>
+							<td style="vertical-align:top;padding-left:5px;"><xf:output value="@id"/></td>
+							<td style="vertical-align:top;padding-left:10px;"><xf:output value="instance('study')/title"/></td>
+							<td style="vertical-align:top;padding-left:10px;">
+								<xf:output value="if(instance('study')/status='inDev', 'In Development',
+									if(instance('study')/status='deptReview', 'Dept Review',
+									if(instance('study')/status='boardReview', 'Under Review',
+									if(instance('study')/status='active', 'Active',
+									if(instance('study')/status='ACT', 'Active',
+									if(instance('study')/status='expired', 'Expired',
+									if(instance('study')/status='suspended', 'Suspended',
+									if(instance('study')/status='terminated', 'Terminated',
+									if(instance('study')/status='rejected', 'Rejected',
+									if(instance('study')/status='withdrawn', 'Withdrawn',
+									if(instance('study')/status='exempt', 'Exempt',
+									if(instance('study')/status='completed', 'Completed',
+									if(instance('study')/status='closed', 'Completed',
+									if(instance('study')/status='TRANS', 'Trans to l/tf/u study',
+									if(instance('study')/status='DEVONLY', 'Development Only',
+									if(instance('study')/status='expsus', 'Expired/Suspended',
+									''))))))))))))))))"/>	
+								<!--<xf:output value="if(instance('study')/status='accepted', 'Active', if(instance('study')/status='active', 'Active', instance('study')/status))"/>--></td>
+							<td style="vertical-align:top;padding-left:10px;">
+								<u style="cursor:pointer;color:blue">View
+									<ix:action ev:event="click">
+										<script>
+											var caseUri = model.getValue("instance('ent')/parentLink/@uri");
+											var caseType = "masterCase";
+											var xfrmURI = "/configs/" + caseType + "/forms/viewActionsAlone.xfrm";
+											launchXformWindow(xfrmURI, caseUri, caseUri, "examineCase", 900, 600);										
+										</script>
+									</ix:action>
+								</u>
+							</td>
+						</tr>         
+					</xf:repeat>  
+				</table>
+				<br/>
+				<hr/>
+			</div>	
+			<br/>
+			
+			<div><ix:attr name="style" value="if(count(instance('study')/child[@uri!=instance('form')/caseuri and @type!='People'])=0, 'display:none', '')"/>
+				<h3>Linked Cases</h3>
+				
+				<br/>
+				
+				<table style="margin-left:30px;">
+					<tr>
+						<th style="padding-left:5px;width:120px;">ID</th>
+						<th style="padding-left:5px;width:80px;">Type</th>
+						<th style="padding-left:10px;width:200px;">Name</th>
+						<!--<th style="padding-left:10px;width:80px;">Status</th>-->
+						<th style="padding-left:10px;;">Details</th>
+					</tr>
+					<xf:repeat nodeset="instance('study')/child[@uri!=instance('form')/caseuri]">
+						<script>
+							model.setInstanceIdSrc("children", "/fil" + model.getValue("@uri", contextNode) + "/data.xml");
+						</script>
+						<tr>
+							<td style="vertical-align:top;padding-left:5px;"><xf:output value="@id"/></td>
+							<td style="vertical-align:top;padding-left:5px;"><xf:output value="if(@type='Proposals', 'Award', @type)"/></td>
+							<td style="vertical-align:top;padding-left:10px;"><xf:output value="instance('children')/title"/></td>
+							<!--<td style="vertical-align:top;padding-left:10px;">
+								<exf:variable name="cstatus" value="instance('children')/status"/>
+								<exf:variable name="lookupStatus" value="instance('cats')/statusTypes/type[@id=$cstatus]/@name"/>
+								<xf:output value="if($lookupStatus='', $cstatus, $lookupStatus)"/>
+								</td>-->
+							<td style="vertical-align:top;padding-left:10px;"><u style="cursor:pointer;color:blue">View<ix:action ev:event="click"><script>
+								var caseUri = model.getValue("@uri", contextNode);
+								caseUriSplit = caseUri.split("/");
+								var caseType = caseUriSplit[3];
+								//var caseType = model.getValue("@type", contextNode);
+								if(caseType == "Proposals") caseType = "USProject";
+								var xfrmURI = "/configs/" + caseType + "/forms/viewActionsAlone.xfrm";
+								launchXformWindow(xfrmURI, caseUri, caseUri, "examineCase", 900, 600);										
+							</script></ix:action></u>
+							</td>
+						</tr>         
+					</xf:repeat>  
+				</table>
+				<br/>
+				<hr/>
+			</div>
+			
+			<br/>
+			
+			<table style="width:100%;padding:5px;">
+				<tr>
+					<td style="width:75%;vertical-align:top;">
+						<h3>Submissions</h3>
+						<xf:switch>
+							<xf:case exf:if="1" id="show-subs">  
+								<table style="width:100%;padding:5px;border-collapse:collapse;">
+							<tr>
+								<th class="table-header"></th>
+								<th class="table-header" style="text-align:left;">Type</th>
+								<th class="table-header">Receipt Date</th>
+								<th class="table-header">Summary</th>
+								<!--<th style="text-align:left;">Owner</th>-->
+								<th class="table-header">Status</th>
+								<th class="table-header">Decision</th>
+								<th class="table-header">Lifecycle</th>
+								<th class="table-header">Details</th>
+								<th class="table-header">Actions</th>
+							</tr>
+								
+							<script>x = 2;</script>
+							<exf:variable value="count(instance('lc')/linkedOpp[@opType!='externalReview'])" name="LinkedOpsCount"/>
+							<xf:repeat nodeset="instance('lc')/linkedOpp[@opType!='externalReview']">
+								<tr><ix:attr name="style" value="if(instance('form')/target=@uri, 'border: 2px solid red; margin-top:2px; margin-bottom:2px', '')"></ix:attr>
+									
+									<td class="table-row"><xf:output value="position() + 1"></xf:output></td>
+									<td class="table-row"><xf:output value="@name"/></td>
+									<!--<td>View</td>-->
+									
+									<td class="table-row" style="text-align:left;">
+										<exf:variable name="rd2" value="(event[contains(@name, 'Being Processed') or (contains(@name, 'Review') and contains(@name, 'Revisions'))])[last()]/@start"/>
+										<!--<xf:output value="substring($rd2, 4, string-length($rd2) - 27)"/>-->
+										<xf:output value="if(@who='CONVERSION',local-date(@receiptdate),local-js-date(@receiptdate))"/>
+									</td>
+									
+									
+									<!-- Dynamic Pull -->
+									<td class="table-row">
+									<span class="dialogOverInteractive" style="color:black">
+										<script ev:event="mouseover">
+											//Extract Context
+											lopUri = model.getValue("@uri", contextNode);
+											lopUriSplit = lopUri.split("/");
+											op = lopUriSplit[lopUriSplit.length - 2];
+											//alert(lopUri + " - " + op);
+											
+											//Save it to the form
+											model.setValue("instance('form')/sType", op);
+											
+											//Repoint the instance
+											if(op == "problems"){
+												model.setInstanceIdSrc("sub", "/fil" + lopUri + "/problem.xml");
+												model.setValue("instance('form')/mouseOverLabel", "Event Description");
+												model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/eventDescription"));
+											}
+											if(op == "amendments"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/amd.xml");
+											model.setValue("instance('form')/mouseOverLabel", "Lay Summary");
+											model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/laysummary"));
+											}
+											if(op == "renewals"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/renewal.xml");
+											model.setValue("instance('form')/mouseOverLabel", "Research Progress");
+											model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/researchProgress"));
+											}
+											if(op == "finalreps"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/finalrep.xml");
+											model.setValue("instance('form')/mouseOverLabel", "Lay Summary");
+											model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/laysummary"));
+											}
+											//Do others
+											
+											//Refresh so you can use it
+											model.refresh(); 
+											model.recalculate(); 
+											model.rebuild();
+											
+											model.setValue("instance('form')/sType", "");
+
+										</script>																				
+										<u style="cursor:pointer;color:blue">View</u>
+										<div style="width:400px;">
+											<p>
+												<h4><xf:output value="instance('form')/mouseOverLabel"/></h4>
+												<!-- Perhapse here you might use multiple tables and use ix:attr to show/hide based on the sType? -->
+												<table style="background-color:white;width:350px;">													
+													<tr>
+														<td style="background-color:white;vertical-align:top;">
+															<xf:output value="instance('form')/mouseOverVal"/>
+														</td>														
+													</tr>
+												</table>
+											</p>
+										</div></span>
+									</td>
+									
+									
+									<!--<td><xf:output value="@who"/></td>-->
+								
+								<td class="table-row"><span>
+									<ix:attr name="style" value="if(@status='inProcess', '', if(@status='inProgress', '',
+										if(@status='inDev', '',
+										if(@status='deptReview', '',
+										if(@status='boardReview', '',
+										if(@status='processingBoardRev', '',
+										if(@status='active', '',
+										if(@status='expired', '',
+										if(@status='suspended', '',
+										if(@status='terminated', '',
+										if(@status='rejected', 'color:red;',
+										if(@status='withdrawn', '',
+										if(@status='exempt', '',
+										if(@status='completed', '',
+										if(@status='closed', 'color:red',
+										if(@status='revisions', 'color:red',
+										if(@status='routing', '',
+										'')))))))))))))))))"/>
+									<!--<xf:output  value="if(@status='inProcess', 'Development', if(@status='inProgress', 'Development',
+										if(@status='inDev', 'Development',
+										if(@status='deptReview', 'Review',
+										if(@status='boardReview', 'Review',
+										if(@status='processingBoardRev', 'Review',
+										if(@status='active', 'Active',
+										if(@status='expired', 'Expired',
+										if(@status='suspended', 'Suspended',
+										if(@status='terminated', 'Terminated',
+										if(@status='rejected', 'Rejected',
+										if(@status='withdrawn', 'Withdrawn',
+										if(@status='exempt', 'Exempt',
+										if(@status='completed', 'Completed',
+										if(@status='closed', 'Closed',
+										if(@status='revisions', 'Being Revised',
+										if(@status='routing', 'Routing',
+										'')))))))))))))))))"/>-->
+									<xf:output  value="if(@status='inProcess', 'In Development', if(@status='inProgress', 'In Development',
+										if(@status='inDev', 'In Development',
+										if(@status='deptReview', 'Under Review',
+										if(@status='boardReview', 'Under Review',
+										if(@status='processingBoardRev', 'Under Review',
+										if(@status='active', 'Completed',
+										if(@status='expired', 'Expired',
+										if(@status='suspended', 'Suspended',
+										if(@status='terminated', 'Terminated',
+										if(@status='rejected', 'Rejected',
+										if(@status='withdrawn', 'Withdrawn',
+										if(@status='exempt', 'Exempt',
+										if(@status='completed', 'Completed',
+										if(@status='closed', 'Closed',
+										if(@status='revisions', 'Being Revised',
+										if(@status='routing', 'Under Review',
+										if(@status='extReceivedSubmission', 'Received Submission',
+										if(@status='extReceived', 'Received',
+										if(@status='extProcessing', 'Processing',
+										if(@status='extReviewing', 'Reviewing',
+										if(@status='extPostPanel', 'Post panel processing',
+										if(@status='extTrans', 'Transmitted',
+										if(@status='extCompleted', 'Completed',
+										''))))))))))))))))))))))))"/>									
+										</span>
+									</td>
+								
+									<td class="table-row" style="text-align:center !important;">
+										<ix:attr name="style" value="if(@decision='apr' or @decision='ack', 'background: #D7F5E9;color: #038551; border-radius: 20px; border: 15px solid white;', if(@decision='' and @status!='withdrawn', 'background: #FFE6C9;color: #BF6700; border-radius: 20px; border: 15px solid white;', if(@decision='rej', 'background: #FFDDD9;color: #D81800; border-radius: 20px; border: 15px solid white;','')))"/>
+										<exf:variable value="@decision" name="cec"/>
+										<xf:output value="if($cec='' and @status!='withdrawn', 'Pending', instance('cats')/decisionTypes/type[@id=$cec]/@name)"/>
+										<xf:output value="if(@status='withdrawn', 'N/A', '')"/>
+									</td>
+									
+								
+									<td class="table-row">
+										<u style="cursor:pointer;color:blue">View<xf:dialog ev:event="click" title="Lifecycle History" width="500px" style="background-color:white;width:500px;">
+											<div style="vertical-align:top;">
+												<div style="padding-left:20px;padding-right:20px;">
+													<xf:group ref="." style="border:none">
+														<xf:group ref="." style="align:center">
+															<xf:label style="font-weight: bold; font-size: 100%">
+																Event #1: <xf:output value="@name"/> Created
+															</xf:label>
+															<table style="width:100%">
+																<tr>
+																	<td style="width:30%">
+																		<xf:output value="@who">
+																			<xf:label>Who: </xf:label>
+																		</xf:output>	
+																	</td>
+																	<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																		<xf:label style="width:35px;">Start: </xf:label>
+																	</xf:output>
+																	</td>
+																</tr> 
+																<tr><ix:attr name="style" value="if(event[1], '', 'display:none')"/>
+																	<td style="width:30%"/>
+																	<td><xf:output value="substring(event[1]/@start, 1, string-length(event[1]/@start) - 15)">
+																		<xf:label style="width:35px;">End: </xf:label>
+																	</xf:output>
+																		<br/>
+																		<br/>
+																	</td>
+																</tr>            
+																<tr><ix:attr name="style" value="if(event[1], '', 'display:none')"/>
+																	<td colspan="2">
+																		<b><!--<xf:output value="'Submission Completed'">
+																			<xf:label>Result: </xf:label>
+																		</xf:output>--><xf:output value="if(contains(event[1]/@name,'Submission Assigned'), 'Submission Reassigned', 'Submission Completed')">
+																			<xf:label>Result: </xf:label>
+																		</xf:output></b>
+																	</td>
+																</tr>                        
+															</table>
+														</xf:group>
+														<exf:variable name="evnts" value="count(event[@name!=''])"/>
+														<exf:variable name="whowith" value="if(who and who != '', who, '-1')"/>
+														<exf:variable name="whowith" value="if(who and who != '', who, if(@who and @who !='', @who, '-1'))"/>
+														<xf:repeat nodeset="event[@name!='']">
+															<exf:variable name="i" value="position()"/>
+															<exf:variable name="perid" value="if($i = $evnts, $evnts, $i + 1)"/>
+															
+															<!--<h1>i = <xf:output value="$i"/> - perid = <xf:output value="$perid"/> - evnts = <xf:output value="$evnts"/></h1>-->
+															
+															<div style="text-align:center"> V<br/>
+															</div>
+															<xf:group ref="." style="align:center">
+																<xf:label style="font-weight: bold; font-size: 100%">
+																	Event #<xf:output value="$i + 1"/>: <xf:output value="@name"/>
+																</xf:label>
+																<table style="width:100%">
+																	<ix:attr name="style" value="if(@end='', 'display:none', '')"/>
+																	<tr>
+																		<td style="width:30%">
+																			<xf:output value="((../event[@name!=''])[position()=$perid])/@who">
+																				<xf:label>Who: </xf:label>
+																			</xf:output>	
+																		</td>
+																		<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																			<xf:label style="width:35px;">Start: </xf:label>
+																		</xf:output>
+																		</td>
+																	</tr> 
+																	<tr>
+																		<td style="width:30%"/>
+																		<td><xf:output value="substring(@end, 1, string-length(@end) - 15)">
+																			<xf:label style="width:35px;">End: </xf:label>
+																		</xf:output>
+																			<br/>
+																			<br/>
+																		</td>
+																	</tr>            
+																	<tr>
+																		<td colspan="2">
+																			<b><xf:output value="@result">
+																				<xf:label>Result: </xf:label>
+																			</xf:output></b>
+																		</td>
+																	</tr>                        
+																</table>
+																<table style="width:100%">
+																	<ix:attr name="style" value="if(@end!='', 'display:none', '')"/>
+																	<tr><ix:attr name="style" value="if($whowith = '-1', '', 'display:none')"/>
+																		<td style="width:30%">
+																			<xf:output value="((event[@name!=''])[$perid])/@who">
+																				<xf:label>Who: </xf:label>
+																			</xf:output>
+																		</td>
+																		<td>
+																			<xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																				<xf:label style="width:35px;">Start: </xf:label>
+																			</xf:output>
+																		</td>
+																	</tr>
+																	<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																		<td>
+																			<xf:output style="color:red;padding-left:10px;" value="$whowith">
+																				<xf:label>Currently with: </xf:label>
+																			</xf:output></td></tr>
+																	<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																		<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																			<xf:label style="width:35px;">Started: </xf:label>
+																		</xf:output>
+																		</td>
+																	</tr>
+																</table>
+															</xf:group>
+															
+														</xf:repeat>
+													</xf:group>
+													
+												</div>
+												
+												
+											</div>
+										</xf:dialog></u>
+									</td>
+								
+								
+									<td class="table-row">
+									<ix:attr name="style" value="if(@who='CONVERSION', 'display:none', '')"/>
+									<span>
+										<ix:attr name="style" value="if(count(instance('reviews')/review) &gt; 0 and instance('form')/reviewer = 1, '', 'display:none')"/>
+										<u style="cursor:pointer;color:blue">View<ix:action ev:event="click"><script>
+											optyp = model.getValue("@id", contextNode);
+											optyp2 = model.getValue("@opType", contextNode);
+											n = model.getValue("@rev", contextNode);
+											n2 = model.getValue("@uri", contextNode);
+											tui = model.__XformSet.getRoot().targetURI;
+											//alert(n2);
+											//alert(tui);
+											
+											//Extract Context
+											lopUri = model.getValue("@uri", contextNode);
+											lopUriSplit = lopUri.split("/");
+											op = lopUriSplit[lopUriSplit.length - 2];
+											//alert(lopUri + " - " + op);
+											
+											//Save it to the form
+											//model.setValue("instance('form')/sType", op);
+											
+											//Repoint the instance
+											if(op == "problems"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/problem.xml");											
+											xfrmURI = "/configs/IRB/forms/up_viewReviewAlone.xfrm";
+											launchXformWindow(xfrmURI, n2, tui, "examine", 900, 600);
+											}
+											if(op == "amendments"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/amd.xml");											
+											xfrmURI = "/configs/IRB/forms/amd_viewReviewAlone.xfrm";
+											launchXformWindow(xfrmURI, n2, tui, "examine", 900, 600);											
+											}
+											if(op == "renewals"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/renewal.xml");
+											xfrmURI = "/configs/IRB/forms/ren_viewReviewAlone.xfrm";
+											launchXformWindow(xfrmURI, n2, tui, "examine", 900, 600);
+											}
+											if(op == "finalreps"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/finalrep.xml");											
+											xfrmURI = "/configs/IRB/forms/fr_viewReviewAlone.xfrm";
+											launchXformWindow(xfrmURI, n2, tui, "examine", 900, 600);											
+											}
+											
+											//Refresh so you can use it
+											model.refresh(); 
+											model.recalculate(); 
+											model.rebuild();
+											
+										</script></ix:action></u>
+									</span>
+								</td>
+									<td class="table-row">
+										<span>
+											<ix:attr name="style" value="if((@decision='' and @status!='revisions' and @status!='withdrawn' and @status!='intakeReview' and @status!='inDev') and instance('form')/target=@uri, '', 'display:none')"/>
+											
+											<u style="cursor:pointer;color:blue">Reassign Administrator<xf:dialog ev:event="click" title="Reassign IRB" width="400px" height="280px;" style="background-color:white;width:400px;height:280px">
+												<div style="vertical-align:top;">
+													<div style="padding-left:20px;padding-right:20px;">
+														<xf:group ref="." style="border:none">
+															<xf:select1 ref="instance('form')/assignment">
+																<xf:label>Action:</xf:label>
+																<xf:item>
+																	<xf:label>-Select-</xf:label>
+																	<xf:value></xf:value>
+																</xf:item>
+																<!--<xf:item>
+																	<xf:label>Send to Intake</xf:label>
+																	<xf:value>in</xf:value>
+																</xf:item>
+																<xf:item>
+																	<xf:label>Send to Analyst22</xf:label>
+																	<xf:value>ad</xf:value>
+																</xf:item>-->
+																<!--<xf:item>
+																	<xf:label>Send to Director</xf:label>
+																	<xf:value>dir</xf:value>
+																</xf:item>
+																<xf:item>
+																	<xf:label>Reassign Existing Task</xf:label>
+																	<xf:value>reass</xf:value>
+																</xf:item>-->
+																<xf:item>
+																	<xf:label>Send to Administrator</xf:label>
+																	<xf:value>recoord</xf:value>
+																</xf:item>
+																<script ev:event="xforms-value-changed">
+																	//x = constructEntityURI("IRB Board", model.getValue("instance('form')/assignedIRB")) + '/data.xml';
+																	//model.setInstanceIdSrc("boardDetails", x);
+																	//model.reloadInstanceId("boardDetails");
+																	model.setValue("instance('form')/assignedCoord", "");
+																	model.refresh();
+																	model.rebuild();
+																	model.recalculate();
+																	if(model.getValue(".", contextNode) == "ad"){
+																	model.activateCase("hide-coord");
+																	model.activateCase("show-coord");
+																	}
+																	
+																</script>
+															</xf:select1>
+															
+															<!--<xf:switch>
+																<xf:case exf:if="1" id="hide-coord">
+																</xf:case>
+																<xf:case id="show-coord">
+																	<div>
+																		<xf:select1 ref="instance('form')/assignedIRB">
+																			<xf:label>IRB Board:</xf:label>
+																			<xf:repeat nodeset="instance('boards')/record">
+																				<xf:item>
+																					<xf:label><xf:output value="name"/></xf:label>
+																					<xf:value><xf:output value="@id"/></xf:value>
+																				</xf:item>
+																			</xf:repeat>
+																			<script ev:event="xforms-value-changed">
+																				x = constructEntityURI("IRB Board", model.getValue("instance('form')/assignedIRB")) + '/data.xml';
+																				model.setInstanceIdSrc("boardDetails", x);
+																				model.reloadInstanceId("boardDetails");
+																				model.activateCase("hide-coord");
+																				model.setValue("instance('form')/assignedCoord", "");
+																				model.refresh();
+																				model.recalculate();
+																				model.rebuild();
+																				model.activateCase("show-coord");
+																			</script>
+																		</xf:select1>
+																	</div>
+																	<div>
+																		<xf:select1 ref="instance('form')/assignedCoord">
+																			<xf:label>IRB Admin:</xf:label>
+																			<xf:item>
+																				<xf:label>-Select-</xf:label>
+																				<xf:value></xf:value>
+																			</xf:item>
+																			<xf:repeat nodeset="instance('boardDetails')/coordinator">
+																				<xf:item>
+																					<xf:label><xf:output value="@name"/></xf:label>
+																					<xf:value><xf:output value="@uri"/></xf:value>
+																				</xf:item>
+																			</xf:repeat>
+																			<script ev:event="xforms-value-changed">
+																			</script>
+																		</xf:select1>
+																	</div>
+																</xf:case>
+															</xf:switch>-->														
+															
+															
+															<!--<xf:textarea ref="orders" style="width:300px;height:100px;"><xf:label>Instructions:</xf:label></xf:textarea>-->
+															<!--<xf:trigger class="actionsGo"><ix:attr name="style" value="if(instance('form')/assignment = 'reass', 'margin-left:4px;', 'display:none')">																
+															</ix:attr>
+																<xf:label>Reassign</xf:label>
+																<script ev:event="DOMActivate">
+																	var val = model.getValue("instance('form')/assignment");
+																	var coord = model.getValue("instance('form')/assignedCoord");
+																	var linkedUri = model.getValue("@uri", contextNode);
+																	//alert(linkedUri); 
+																	return;
+																	if(val == "ad" &amp;&amp; coord == ""){
+																	alert("You need to pick a new administrator.");
+																	return;
+																	}
+																	if(!confirm("Are you sure you want to reassign this task?")) return;
+																	
+																	if(val == "in"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedService("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:"sendToIntake", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	}
+																	
+																	if(val == "ad"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedService("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoord"), NEXT:"sendToCoord", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	}
+																	
+																	if(val == "dir"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedService("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:"sendToDirector", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	}
+																	
+																	//alert("Send to: " + val);
+																	return;
+																</script>
+															</xf:trigger>-->															
+															<div><ix:attr name="style" value="if(instance('form')/assignment = 'reass', 'margin-left:4px;', 'display:none')"></ix:attr>
+																<br/>
+																<b>Reassign to:</b> <u class="clickable" style="color:blue;cursor:pointer;margin-left:10px;"><xf:action ev:event="click"><ix:dialog
+																	style="height:300px;" id="results" title="Lookup Person"
+																	class="quickSearchDialog"><ix:include template="QuickSearch" ref="."
+																	/></ix:dialog>
+																	<script>
+																		model.remapNameTemp = function(){
+																		var proxy = this.getValue("instance('form')/proxy/@id");
+																		if(!confirm("Are you sure you want to reassign this task to " + this.getValue("instance('form')/proxy") + "?")) return;
+																		model.__waiting = new waitingBox();
+																		var puri = constructEntityURI("People", proxy).replace("/fil/home", "/ideate");
+																		var res = callSharedServiceInf("protocolRouting",{op:"transferAdminTaskLEM", "baseURI":model.__XformSet.getRoot().targetURI, linkedOpURI:model.getValue("@uri", contextNode), app:"IRB", transferTo:puri, admin:"1"}, "text");
+																		alert("Task Reassigned");
+																		window.location = "../home";
+																		};
+																		model.Frm.configureQuickSearch("People",
+																		"replaceValueAndID", "instance('form')/proxy", "", "", "Name",
+																		"ID", "Department", "", "", 'model.remapNameTemp();', '');
+																		model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+																	</script></xf:action><xf:output value="if(instance('form')/proxy='', 'Select', instance('form')/proxy)"/></u>
+																<br/>
+																<br/>
+															</div>
+															<div><ix:attr name="style" value="if(instance('form')/assignment = 'recoord', 'margin-left:4px;', 'display:none')"></ix:attr>
+																<br/>
+																<b>Reassign to:</b> <u class="clickable" style="color:blue;cursor:pointer;margin-left:10px;"><xf:action ev:event="click"><ix:dialog
+																	style="height:300px;" id="results" title="Lookup Person"
+																	class="quickSearchDialog"><ix:include template="QuickSearch" ref="."
+																	/></ix:dialog>
+																	<script>
+																		model.remapNameTemp = function(){
+																		var proxy = this.getValue("instance('form')/proxy/@id");
+																		if(!confirm("Are you sure you want to reassign this task to " + this.getValue("instance('form')/proxy") + "?")) return;
+																		model.__waiting = new waitingBox();
+																		var puri = constructEntityURI("People", proxy).replace("/fil/home", "/ideate");
+																		var res = callSharedServiceInf("protocolRouting",{op:"transferAdminTaskLEM", "baseURI":model.__XformSet.getRoot().targetURI, linkedOpURI:model.getValue("@uri", contextNode), app:"IRB", transferTo:puri, admin:"1"}, "text");
+																		alert("Task Reassigned");
+																		window.location = "../home";
+																		};
+																		model.Frm.configureQuickSearch("PeopleIRBCoord",
+																		"replaceValueAndID", "instance('form')/proxy", "", "", "Name",
+																		"ID", "Department", "", "", 'model.remapNameTemp();', '');
+																		model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+																	</script></xf:action><xf:output value="if(instance('form')/proxy='', 'Select', instance('form')/proxy)"/></u>
+																<br/>
+																<br/>
+															</div>
+															<!--<span><ix:attr name="style" value="if(instance('form')/assignment != 'reass' and instance('form')/assignment !='', '', 'display:none')"/>
+																<xf:textarea ref="orders" style="width:300px;height:100px;"><xf:label>Instructions:</xf:label></xf:textarea>
+																<xf:trigger class="actionsGo">
+																	<xf:label>Reassign.</xf:label>
+																	<script ev:event="DOMActivate">
+																		var val = model.getValue("instance('form')/assignment");
+																		var coord = model.getValue("instance('form')/assignedCoord");
+																		var linkedUri = model.getValue("@uri", contextNode);
+																		//alert(linkedUri); 
+																		//alert(model.getValue("@status", contextNode));
+																		
+																		
+																		lopUriSplit = linkedUri.split("/");
+																		op = lopUriSplit[lopUriSplit.length - 2];
+																		
+																		var lead = "";
+																		if(op == "problems") lead = "up_";
+																		else if(op == "amendments") lead = "amd_";
+																		else if(op == "renewals") lead = "ren_";
+																		else if(op == "finalreps") lead = "fr_"
+																		
+																		
+																		if((val == "ad" || val =="change") &amp;&amp; coord == ""){
+																		alert("You need to pick a new administrator.");
+																		return;
+																		}
+																		if(!confirm("Are you sure?")) return;
+																		model.__waiting = new waitingBox();
+																		if(val == "in"){
+																		trg = model.__XformSet.getRoot().targetURI;
+																		if(!trg) trg = model.getForm()._TARGET;
+																		var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																		var res = callSharedServiceInf("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:lead+"sendToIntake", instr:model.getValue("instance('form')/orders"), "targetURI":trg, 'linkedUri':linkedUri}, "text");
+																		alert("Task Reassigned");
+																		window.location = "../home";
+																		}
+																		
+																		if(val == "ad"){
+																		trg = model.__XformSet.getRoot().targetURI;
+																		if(!trg) trg = model.getForm()._TARGET;
+																		var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																		var res = callSharedServiceInf("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoord"), NEXT:lead+"sendToCoord", instr:model.getValue("instance('form')/orders"), "targetURI":trg, 'linkedUri':linkedUri}, "text");
+																		alert("Task Reassigned");
+																		window.location = "../home";
+																		}
+																		
+																		if(val == "change"){
+																		
+																		trg = model.__XformSet.getRoot().targetURI;
+																		if(!trg) trg = model.getForm()._TARGET;
+																		var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																		var res = callSharedServiceInf("protocolRouting",{op:"reassignCoordinatorLOP", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoord"), NEXT:lead+"sendToCoord", instr:model.getValue("instance('form')/orders"), "targetURI":trg, 'linkedUri':linkedUri}, "text");
+																		alert("Submission Administrator Reassigned for Future Tasks");
+																		window.location = "../home";
+																		}
+																		
+																		if(val == "dir"){
+																		trg = model.__XformSet.getRoot().targetURI;
+																		if(!trg) trg = model.getForm()._TARGET;
+																		var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																		var res = callSharedServiceInf("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:lead+"sendToDirector", instr:model.getValue("instance('form')/orders"), "targetURI":trg, 'linkedUri':linkedUri}, "text");
+																		alert("Task Reassigned");
+																		window.location = "../home";
+																		}
+																		
+																		//alert("Send to: " + val);
+																		return;
+																	</script>
+																</xf:trigger>
+															</span>-->
+															
+														</xf:group>
+														
+													</div>
+													
+													
+												</div>
+											</xf:dialog></u>
+										</span>
+									</td>									
+								</tr>
+							
+							
+							</xf:repeat>
+							<tr><ix:attr name="style" value="if(instance('form')/target='IA', 'border: 2px solid red; margin-top:2px; margin-bottom:2px', '')"></ix:attr>
+							<td class="table-row">1</td>
+								<td class="table-row">Initial Application</td>
+								
+								<td class="table-row" style="text-align:left;">
+									<!--<exf:variable name="rd" value="instance('lc')/event[contains(@name, 'Being Processed')]/@start"/>-->
+									<exf:variable name="rd" value="(instance('lc')/event[contains(@name, 'Being Processed') or (contains(@name, 'Review') and contains(@name, 'Revisions'))])[last()]/@start"/>
+									<!--<xf:output value="substring($rd, 4, string-length($rd) - 27)"/>-->									
+									<xf:output value="local-js-date($rd)"/>									
+								</td>
+								
+								<!-- AB 11/20/2019 fixed class below to be same as actions.xfrm so mouseover shows without being cut off -->
+								<td class="table-row">
+									<span class="dialogOverInteractiveLeft" style="color:black">
+										<span style="color:blue">View</span>
+										<div style="width:400px;">
+											<p>
+												<h4>Lay Summary</h4>
+												
+												<table style="background-color:white;">
+													<tr>
+														<td style="background-color:white;vertical-align:top;width:350px;">
+															<xf:output value="instance('ins')/laysummary"/>
+														</td>														
+													</tr>
+												</table>
+											</p>
+										</div></span>
+								</td>
+								<!--<td><xf:output value="instance('ent')/PI"/></td>-->
+								
+								<td class="table-row"><span>
+
+									<ix:attr name="style" value="if(instance('ent')/status='inDev', '',
+										if(instance('ent')/status='deptReview', '',
+										if(instance('ent')/status='boardReview', '',
+										if(instance('ent')/status='adminReview', '',
+										if(instance('ent')/status='intakeReview', '',
+										if(instance('ent')/status='active', '',
+										if(instance('ent')/status='expired', '',
+										if(instance('ent')/status='suspended', '',
+										if(instance('ent')/status='terminated', '',
+										if(instance('ent')/status='rejected', '',
+										if(instance('ent')/status='withdrawn', '',
+										if(instance('ent')/status='exempt', '',
+										if(instance('ent')/status='completed', '',
+										if(instance('ent')/status='closed', '',
+										''))))))))))))))"/>
+									
+									<xf:output  value="if(instance('ent')/status='inDev', 'In Development',
+										if(instance('ent')/status='deptReview', 'Under Review',
+										if(instance('ent')/status='boardReview', 'Under Review',
+										if(instance('ent')/status='adminReview', 'Under Review',
+										if(instance('ent')/status='intakeReview', 'Under Review',
+										if(instance('ent')/status='active', 'Completed',
+										if(instance('ent')/status='expired', 'Completed',
+										if(instance('ent')/status='suspended', 'Completed',
+										if(instance('ent')/status='terminated', 'Completed',
+										if(instance('ent')/status='rejected', 'Rejected',
+										if(instance('ent')/status='withdrawn', 'Withdrawn',
+										if(instance('ent')/status='exempt', 'Completed',
+										if(instance('ent')/status='completed', 'Completed',
+										if(instance('ent')/status='closed', 'Completed',
+										if(instance('ent')/status='extReceivedSubmission', 'Received Submission',
+										if(instance('ent')/status='extReceived', 'Received',
+										if(instance('ent')/status='extProcessing', 'Processing',
+										if(instance('ent')/status='extReviewing', 'Reviewing',
+										if(instance('ent')/status='extPostPanel', 'Post panel processing',
+										if(instance('ent')/status='extTrans', 'Transmitted',
+										if(instance('ent')/status='extCompleted', 'Completed',
+										'')))))))))))))))))))))"/>									
+								</span>
+								</td>
+								
+								<td class="table-row" style="text-align:center;">
+									<ix:attr name="style" value="if(@decision='apr' or @decision='ack', 'background: #D7F5E9;color: #038551; border-radius: 20px; border: 15px solid white;', if(@decision='' and @status!='withdrawn', 'background: #FFE6C9;color: #BF6700; border-radius: 20px; border: 15px solid white;', if(@decision='rej', 'background: #FFDDD9;color: #D81800; border-radius: 20px; border: 15px solid white;','')))"/>
+									<exf:variable value="instance('ent')/decision" name="revDecisionMA"/>
+									<exf:variable value="instance('cats')/decisionTypes/type[@id=$revDecisionMA]/@name" name="revDecisionTxt"/>
+									<xf:output value="if(($revDecisionTxt = '' or not($revDecisionTxt)) and instance('ent')/status!='withdrawn', 'Pending', concat('', $revDecisionTxt))"/>
+									<xf:output value="if(instance('ent')/status='withdrawn', 'N/A', '')"/>									
+								</td>
+									
+								<td class="table-row">
+									<u style="cursor:pointer;color:blue">View<xf:dialog ev:event="click" title="Lifecycle History" width="500px" style="background-color:white;width:500px;">
+										<div style="vertical-align:top;">
+											<div style="padding-left:20px;padding-right:20px;">
+												<xf:group ref="instance('lc')" style="border:none">
+													<exf:variable name="evnts" value="count(instance('lc')/event[@name!=''])"/>
+													<exf:variable name="whowith" value="if(instance('lc')/who and instance('lc')/who != '', instance('lc')/who, '-1')"/>
+													<xf:repeat nodeset="instance('lc')/event[@name!='']">
+														<exf:variable name="i" value="position()"/>
+														<exf:variable name="perid" value="if($i = 1, 1, if($i = $evnts, $evnts, $i + 1))"/>
+														<div style="text-align:center"> V<br/>
+														</div>
+														<xf:group ref="." style="align:center">
+															<xf:label style="font-weight: bold; font-size: 100%">
+																Event #<xf:output value="$i"/>: <xf:output value="@name"/>
+															</xf:label>
+															<table style="width:100%">
+																<ix:attr name="style" value="if(@end='', 'display:none', '')"/>
+																<tr>
+																	<td style="width:30%">
+																		<xf:output value="((instance('lc')/event[@name!=''])[position()=$perid])/@who">
+																			<xf:label>Who: </xf:label>
+																		</xf:output>	
+																	</td>
+																	<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																		<xf:label style="width:35px;">Start: </xf:label>
+																	</xf:output>
+																	</td>
+																</tr> 
+																<tr>
+																	<td style="width:30%"/>
+																	<td><xf:output value="substring(@end, 1, string-length(@end) - 15)">
+																		<xf:label style="width:35px;">End: </xf:label>
+																	</xf:output>
+																		<br/>
+																		<br/>
+																	</td>
+																</tr>            
+																<tr>
+																	<td colspan="2">
+																		<b><!--<xf:output value="@result">
+																			<xf:label>Result: </xf:label>
+																		</xf:output>-->
+																		<xf:output value="if(contains(event[1]/@name,'Submission Assigned'), 'Submission Reassigned', @result)">
+																			<xf:label>Result: </xf:label>
+																		</xf:output></b>
+																	</td>
+																</tr>                        
+															</table>
+															<table style="width:100%">
+																<ix:attr name="style" value="if(@end!='', 'display:none', '')"/>
+																<tr><ix:attr name="style" value="if($whowith = '-1', '', 'display:none')"/>
+																	<td style="width:30%">
+																		<xf:output value="((instance('lc')/event[@name!=''])[$perid])/@who">
+																			<xf:label>Who: </xf:label>
+																		</xf:output>
+																	</td>
+																	<td>
+																		<xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																			<xf:label style="width:35px;">Start: </xf:label>
+																		</xf:output>
+																	</td>
+																</tr>
+																<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																	<td>
+																		<xf:output style="color:red;padding-left:10px;" value="$whowith">
+																			<xf:label>Currently with: </xf:label>
+																		</xf:output></td></tr>
+																<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																	<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																		<xf:label style="width:35px;">Started: </xf:label>
+																	</xf:output>
+																	</td>
+																</tr>
+															</table>
+														</xf:group>
+														
+													</xf:repeat>
+												</xf:group>
+												
+											</div>
+											
+											
+										</div>
+										</xf:dialog></u>
+								</td>
+									
+								<td class="table-row">
+									<span><ix:attr name="style" value="if(instance('lc')/@who='CONVERSION', 'display:none', '')"/>
+										<u style="cursor:pointer;color:blue">View<ix:action ev:event="click"><script>
+											tui = model.__XformSet.getRoot().targetURI;	
+											xfrmURI = "/configs/IRB/forms/viewReviewAlone.xfrm";
+											launchXformWindow(xfrmURI, tui, 1, "examine", 900, 600);
+										</script></ix:action></u>
+									</span>
+								</td>
+								<td class="table-row">
+									<span>
+										<ix:attr name="style" value="if((not(instance('ent')/decision) and instance('form')/target='IA' and instance('ent')/status!='revisions' and instance('ent')/status!='withdrawn' and instance('ent')/status!='inDev') or instance('form')/target='IA' and (instance('ent')/decision and instance('ent')/decision='') and instance('ent')/status!='revisions' and instance('ent')/status!='withdrawn' and instance('ent')/status!='inDev' and instance('ent')/status!='intakeReview', '', 'display:none')"/>
+										<u style="cursor:pointer;color:blue">Reassign Administrator<xf:dialog ev:event="click" title="Reassign IRB" width="400px" height="280px;" style="background-color:white;width:400px;height:280px">
+											<div style="vertical-align:top;">
+												<div style="padding-left:20px;padding-right:20px;">
+													<xf:group ref="instance('form')" style="border:none">
+														<xf:select1 ref="instance('form')/assignment">
+															<xf:label>Action:</xf:label>
+															<xf:item>
+																<xf:label>-Select-</xf:label>
+																<xf:value></xf:value>
+															</xf:item>
+															<!--<xf:item>
+																<xf:label>Send to Intake</xf:label>
+																<xf:value>in</xf:value>
+															</xf:item>
+															<xf:item>
+																<xf:label>Send to Analyst</xf:label>
+																<xf:value>ad</xf:value>
+															</xf:item>-->
+															<!--<xf:item>
+																<xf:label>Send Director</xf:label>
+																<xf:value>dir</xf:value>
+															</xf:item>
+															<xf:item>
+																<xf:label>Reassign Existing Task</xf:label>
+																<xf:value>reass</xf:value>
+															</xf:item>-->
+															<xf:item>
+																	<xf:label>Send to Administrator</xf:label>
+																	<xf:value>recoord</xf:value>
+																</xf:item>
+															<script ev:event="xforms-value-changed">
+																//x = constructEntityURI("IRB Board", model.getValue("instance('form')/assignedIRB")) + '/data.xml';
+																//model.setInstanceIdSrc("boardDetails", x);
+																//model.reloadInstanceId("boardDetails");
+																model.setValue("instance('form')/assignedCoord", "");
+																model.refresh();
+																model.rebuild();
+																model.recalculate();
+																if(model.getValue(".", contextNode) == "ad"){
+																model.activateCase("hide-coord");
+																model.activateCase("show-coord");
+																}
+																
+															</script>
+														</xf:select1>
+														
+														<!--<xf:switch>
+															<xf:case exf:if="1" id="hide-coord">
+															</xf:case>
+															<xf:case id="show-coord">
+																<div>
+																	<!-\-<xf:select1 ref="instance('form')/assignedIRB">
+																		<xf:label>IRB Board:</xf:label>
+																		<xf:repeat nodeset="instance('boards')/record">
+																			<xf:item>
+																				<xf:label><xf:output value="name"/></xf:label>
+																				<xf:value><xf:output value="@id"/></xf:value>
+																			</xf:item>
+																		</xf:repeat>
+																		<script ev:event="xforms-value-changed">
+																			x = constructEntityURI("IRB Board", model.getValue("instance('form')/assignedIRB")) + '/data.xml';
+																			model.setInstanceIdSrc("boardDetails", x);
+																			model.reloadInstanceId("boardDetails");
+																			model.activateCase("hide-coord");
+																			model.setValue("instance('form')/assignedCoord", "");
+																			model.refresh();
+																			model.recalculate();
+																			model.rebuild();
+																			model.activateCase("show-coord");
+																		</script>
+																		</xf:select1>-\->
+																	<xf:select1 ref="instance('form')/assignedIRB">
+																		<xf:label style="width:45px;">IRB Board:</xf:label>
+																		<xf:repeat nodeset="instance('boards')/record">
+																			<xf:item>
+																				<xf:label><xf:output value="name"/></xf:label>
+																				<xf:value><xf:output value="@id"/></xf:value>
+																			</xf:item>
+																		</xf:repeat>
+																		<script ev:event="xforms-value-changed">			
+																			x = constructEntityURI("IRB Board", model.getValue("instance('form')/assignedIRB")) + '/data.xml';
+																			model.setInstanceIdSrc("boardDetails", x);
+																			model.reloadInstanceId("boardDetails");
+																			model.activateCase("hide-coord");
+																			model.setValue("instance('form')/assignedCoord", "");
+																			model.refresh();
+																			model.recalculate();
+																			model.rebuild();
+																			model.activateCase("show-coord");
+																		</script>
+																	</xf:select1>
+																</div>
+																<div>
+																	<xf:select1 ref="instance('form')/assignedCoord">
+																		<xf:label>IRB Admin:</xf:label>
+																		<xf:item>
+																			<xf:label>-Select-</xf:label>
+																			<xf:value></xf:value>
+																		</xf:item>
+																		<xf:repeat nodeset="instance('boardDetails')/coordinator[@apptType='coor_current']">
+																			<xf:item>
+																				<xf:label><xf:output value="@name"/></xf:label>
+																				<xf:value><xf:output value="@uri"/></xf:value>
+																			</xf:item>
+																		</xf:repeat>
+																		<script ev:event="xforms-value-changed">
+																		</script>
+																	</xf:select1>
+																</div>
+															</xf:case>
+														</xf:switch>-->														
+														
+														
+														<!--<xf:textarea ref="orders" style="width:300px;height:100px;"><xf:label>Instructions:</xf:label></xf:textarea>
+														<xf:trigger class="actionsGo">
+															<xf:label>Reassign</xf:label>
+															<script ev:event="DOMActivate">
+																var val = model.getValue("instance('form')/assignment");
+																var coord = model.getValue("instance('form')/assignedCoord");
+																if(val == "ad" &amp;&amp; coord == ""){
+																	alert("You need to pick a new administrator.");
+																	return;
+																}
+																if(!confirm("Are you sure you want to reassign this task?")) return;
+																
+																if(val == "in"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedService("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:"sendToIntake", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																}
+																
+																if(val == "ad"){
+																trg = model.__XformSet.getRoot().targetURI;
+																if(!trg) trg = model.getForm()._TARGET;
+																var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																var res = callSharedService("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoord"), NEXT:"sendToCoord", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																alert("Task Reassigned");
+																window.location = "../home";
+																}
+																
+																if(val == "dir"){
+																trg = model.__XformSet.getRoot().targetURI;
+																if(!trg) trg = model.getForm()._TARGET;
+																var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																var res = callSharedService("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:"sendToDirector", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																alert("Task Reassigned");
+																window.location = "../home";
+																}
+																
+																//alert("Send to: " + val);
+																return;
+															</script>
+														</xf:trigger>
+													-->
+														<div><ix:attr name="style" value="if(instance('form')/assignment = 'reass', 'margin-left:4px;', 'display:none')"></ix:attr>
+															<br/>
+															<b>Reassign to:</b> <u class="clickable" style="color:blue;cursor:pointer;margin-left:10px;"><xf:action ev:event="click"><ix:dialog
+																style="height:300px;" id="results" title="Lookup Person"
+																class="quickSearchDialog"><ix:include template="QuickSearch" ref="."
+																/></ix:dialog>
+																<script>
+																	model.remapNameTemp = function(){
+																	var proxy = this.getValue("instance('form')/proxy/@id");
+																	if(!confirm("Are you sure you want to reassign this task to " + this.getValue("instance('form')/proxy") + "?")) return;
+																	model.__waiting = new waitingBox();
+																	var puri = constructEntityURI("People", proxy).replace("/fil/home", "/ideate");
+																	var res = callSharedServiceInf("protocolRouting",{op:"transferMainTaskAdmin", "baseURI":model.__XformSet.getRoot().targetURI, app:"IRB", transferTo:puri}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	};
+																	
+																	model.Frm.configureQuickSearch("People",
+																	"replaceValueAndID", "instance('form')/proxy", "", "", "Name",
+																	"ID", "Department", "", "", 'model.remapNameTemp();', '');
+																	model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+																</script></xf:action><xf:output value="if(instance('form')/proxy='', 'Select', instance('form')/proxy)"/></u>
+															<br/>
+															<br/>
+														</div>
+														<div><ix:attr name="style" value="if(instance('form')/assignment = 'recoord', 'margin-left:4px;', 'display:none')"></ix:attr>
+																<br/>
+																<b>Reassign to:</b> <u class="clickable" style="color:blue;cursor:pointer;margin-left:10px;"><xf:action ev:event="click"><ix:dialog
+																	style="height:300px;" id="results" title="Lookup Person"
+																	class="quickSearchDialog"><ix:include template="QuickSearch" ref="."
+																	/></ix:dialog>
+																	<script>
+																		model.remapNameTemp = function(){
+																		var proxy = this.getValue("instance('form')/proxy/@id");
+																		if(!confirm("Are you sure you want to reassign this task to " + this.getValue("instance('form')/proxy") + "?")) return;
+																		model.__waiting = new waitingBox();
+																		var puri = constructEntityURI("People", proxy).replace("/fil/home", "/ideate");
+																		var res = callSharedServiceInf("protocolRouting",{op:"transferMainTaskAdmin", "baseURI":model.__XformSet.getRoot().targetURI, app:"IRB", transferTo:puri}, "text");
+																		alert("Task Reassigned");
+																		window.location = "../home";
+																		};
+																		model.Frm.configureQuickSearch("PeopleIRBCoord",
+																		"replaceValueAndID", "instance('form')/proxy", "", "", "Name",
+																		"ID", "Department", "", "", 'model.remapNameTemp();', '');
+																		model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+																	</script></xf:action><xf:output value="if(instance('form')/proxy='', 'Select', instance('form')/proxy)"/></u>
+																<br/>
+																<br/>
+															</div>
+														<!--<span><ix:attr name="style" value="if(instance('form')/assignment != 'reass' and instance('form')/assignment !='', '', 'display:none')"/>
+															<xf:textarea ref="orders" style="width:300px;height:100px;"><xf:label>Instructions:</xf:label></xf:textarea>
+															<xf:trigger class="actionsGo">
+																<xf:label>Reassign</xf:label>
+																<script ev:event="DOMActivate">
+																	var val = model.getValue("instance('form')/assignment");
+																	var coord = model.getValue("instance('form')/assignedCoord");
+																	if((val == "ad" || val =="change") &amp;&amp; coord == ""){
+																	alert("You need to pick a new administrator.");
+																	return;
+																	}
+																	if(!confirm("Are you sure?")) return;
+																	
+																	model.__waiting = new waitingBox();
+																	
+																	if(val == "in"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedServiceInf("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:"sendToIntake", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	}
+																	
+																	if(val == "ad"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedServiceInf("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoord"), NEXT:"sendToCoord", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	}
+																	
+																	if(val == "change"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedServiceInf("protocolRouting",{op:"reassignCoordinator", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoord"), NEXT:"sendToCoord", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	//alert("Submission Coordinator Reassigned");
+																	alert("Submission Administrator Reassigned for Future Tasks");
+																	window.location = "../home";
+																	}
+																	
+																	if(val == "dir"){
+																	trg = model.__XformSet.getRoot().targetURI;
+																	if(!trg) trg = model.getForm()._TARGET;
+																	var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+																	var res = callSharedServiceInf("protocolRouting",{op:"advanceProcessDirect", newIRB:model.getValue("instance('form')/assignedIRB"), newCoord:model.getValue("instance('form')/assignedCoor"), NEXT:"sendToDirector", instr:model.getValue("instance('form')/orders"), "targetURI":trg}, "text");
+																	alert("Task Reassigned");
+																	window.location = "../home";
+																	}
+																	
+																	//alert("Send to: " + val);
+																	return;
+																</script>
+															</xf:trigger>
+														</span>-->
+														
+													</xf:group>
+													
+												</div>
+												
+												
+											</div>
+										</xf:dialog></u>
+									</span>
+								</td>
+							</tr>         
+							
+						</table>
+							</xf:case>
+							<xf:case id="hide-subs"/>
+						</xf:switch>  
+					</td>
+				</tr>
+			</table>
+		  	
+		  <br/><br/>
+	  </xf:group>
+	  
+
+	</div>
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+</form>

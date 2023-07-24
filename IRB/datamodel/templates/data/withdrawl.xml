@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Project Summary Details --><data>
+
+  <!-- Summary -->
+  <id8ID/>
+  <title></title>
+  <shortTitle></shortTitle>
+  <createDate/>
+  
+  <PIName/>
+  <contextGroup/>
+  
+  <status>inDev</status>
+  <riskLevel/>
+  <researchType/>
+  <assignedIRB/>
+  <approvalStart/>
+  <approvalEnd/>
+  <revFreq/>
+  <orgApprovalDate/>
+  <laysummary/>
+  
+  <!-- Research Design -->
+  <researchHyp/>
+  <studyPurpose/>
+  <expiditedCats/>
+  <exemptCats/>
+  <phase/>
+  <invRadio/>
+  <subToRSC/>
+  <link name="rscProt" type="entity" object="" title="" id="" uri="" state=""/>
+  
+  <invRDNA/>
+  <subToIBC/>
+  <link name="ibcProt" type="entity" object="" title="" id="" uri="" state=""/>
+  
+  <invBiologics/>
+  <subToIBCBio/>
+  <link name="ibcBioProt" type="entity" object="" title="" id="" uri="" state=""/>
+  
+  <invEmb/>
+  <subToESCRO/>
+  <link name="escroProt" type="entity" object="" title="" id="" uri="" state=""/>
+  
+  <invDrugs/>
+  <invDevs/>
+  
+  <!-- PHI -->
+  <invPHI/>
+  <phiPro/>
+  <phiDoc uri=""/>
+  
+  <!-- Risks and Benefits -->
+  <anticipatedRisks/>
+  <potentialBenefits/>
+  <benefitToSociety/>
+  <benefitsOfTreatment/>
+  
+  <!-- Funding -->
+  <researchFunded/>
+  <link name="grant" type="entity" object="" title="" id="" uri="" state=""/>
+  
+  <!-- Subjects -->
+  <ageRange en="0"/>
+  <population en="0"/>
+  <ethnicCat en="0"/>
+  <race en="0"/>
+  <recMethod description=""/>
+  <recMaterial/>
+  
+  <!-- Eligability -->
+  <inclusionCriteria/>
+  <exclusionCriteria/>
+  
+  <!-- Enrollment -->
+  <enrollAllSites>0</enrollAllSites>
+  <enrollThisSite>0</enrollThisSite>
+  <enrollTotal>0</enrollTotal>
+  
+  <!-- Compensation -->
+  <compensation amount="0" justification="" description=""/>
+  
+  <!-- Enrolled to Date -->
+  <totalEnrolled>0</totalEnrolled>
+
+  <!-- Consent -->
+  <concentProcess/>
+  <concentWaiver/>
+  <suitableLanguageWillBeUsed/>
+  <whereWhenConcent/>
+  <stepToMinimizeCoercion/>
+  <reqWaiverForAll/>
+  <reqWaiverForReq/>
+  <whyMinimalRisk/>
+  <willWaiverAlterRights/>
+  <possibleWithoutWaiver/>
+  <provideInformationAtLaterDate/>
+  <justifyAlterationNeed/>
+  <justificationsBeingUsed/>
+  <justificationExplanation/>
+  
+  
+  
+
+  <!-- Signoff Temp -->
+  <submissionNotes/>
+  <signOff signedWhen="" signedBy=""/>
+  <signOffProxy signedWhen="" signedBy=""/>
+  <subType>init</subType>
+  
+  <!-- Org Details -->
+  <Organization id="33">
+    <OrgID>Ideate</OrgID>
+    <OrganizationName>Consilience International</OrganizationName>
+    <OHRP_IORG>12345</OHRP_IORG>
+    <OHRP_FWA>67890</OHRP_FWA>
+    <IRB_InstOfficial_uri>/ideate/entity/People/records/000022</IRB_InstOfficial_uri>
+    <IRB_RegContact_uri>/ideate/entity/People/records/000022</IRB_RegContact_uri>
+  </Organization>
+  <id8Ref/>
+  <id8ref/>
+  <!--added by nividous: sprint 6 starts here-->
+	<modificationSummary/>
+	<modificationJustification/>
+	<modificationChangesConsent/>
+	<modificationChangesConsentDescription/>
+	<modificationReConsent/>
+	<modificationReConsentPlan/>
+	<modificationReConsentNotNecesary/>
+	<!--added by nividous: sprint 6 ends here-->
+</data>

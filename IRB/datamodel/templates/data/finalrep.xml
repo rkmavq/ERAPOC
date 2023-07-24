@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Final Report Details -->
+<data>
+	<laysummary/>
+	<!-- Summary -->  
+	<!-- UMMC Changes -->
+	<studyObjectivesAttained/>
+	<numberParticipantsEnrolled/>
+	<whoTerminates/>
+	<reasonForTermination/>
+	<summaryOutcomes/>
+	<fdaApproval/>
+	<fdaApprovalItem/>
+	<additionalRisks/>
+	<publicationForm/>
+	<publishedLiterature/>
+	<nonEnglishParticipants/>
+	<numberNonEnglish/>
+	<nonEnglishLanguage/>
+	<nonEnglishLanguageConsent/>
+	<!--  <publicationElement date='' title=''>
+    <document uri="" id=""/>
+  </publicationElement>-->
+	<!-- End UMMC Changes -->
+
+	<smallEnrol/>
+	<smallJust/>
+
+	<!-- Events -->
+	<!-- Events - Participants -->
+	<anyComplaints/>
+	<anyComplaintsDesc/>
+	<anyWithdrawls/>
+	<noWithdrawls/>
+	<anyWithdrawlsDesc/>
+
+	<!-- UMMC Changes -->
+	<participantsWithdrawnInvest/>
+	<noInvestWithdrawls/>
+	<anyIvestWithdrawlsDesc/>
+	<!-- End UMMC Changes -->
+
+	<!-- Events - General -->
+	<anyUnantiProbs/>
+	<researchAudit/>
+	<auditDoc uri="" status="" docLink=""/>
+
+	<!-- UMMC Updates -->
+	<anyAudits/>
+	<auditBy/>
+	<auditComplete/>
+	<auditReport/>
+	<!-- End UMMC Updates -->
+
+	<!-- Events - Suspensions -->
+	<anySuspensions/>
+	<anySuspensionsDesc/>
+	<adminHoldNotReported/>
+	<adminHoldNotReportedDesc/>
+
+	<!-- Signoff Temp -->
+	<submissionNotes/>
+	<submissionNotesCentral/>
+	<signOff signedWhen="" signedBy=""/>
+	<signOffProxy signedWhen="" signedBy=""/>
+	<signatureCentral signedWhen="" signedBy=""/>
+	<subType>rinal</subType>
+
+	<!-- Documents -->
+
+	<!-- Automatically Populated by Docs Attached in other Locations within the Case -->
+	<section type="attached" label="Accumulated Docs">
+
+	</section>
+
+	<!-- Additional Docs "Attached" in place -->
+	<section type="new" label="Documents">
+
+	</section>  
+	<section type="new" label="Documents">
+
+	</section>
+	<id8ID></id8ID>
+	
+	<!--added by nividous: sprint 6 starts here-->
+	<protocolTransfer/>
+	<protocolTransferDate/>
+	<SubjectsHarm/>
+	<SubjectsHarmDescription/>
+	<SubjectsBenefit/>
+	<SubjectsBenefitDescription/>
+	<SubjectsProblems/>
+	<SubjectsProblemsDescription/>
+	<SubjectsWithdrawn/>
+	<SubjectsWithdrawnExplanation/>
+	<SubjectsComplained/>
+	<SubjectsComplainedDescription/>
+	<Publications/>
+	<PublicationsDescription/>
+	<Findings/>
+	<FindingsDescription/>
+	<MultiCenterReports/>
+	<MultiCenterReportsDescription/>
+	<DSMBReports/>
+	<DSMBReportsDescription/>
+	<OtherInfo/>
+	<OtherInfoDescription/>
+	<RiskBenefitChanges/>
+	<RiskBenefitChangesDescription/>
+	<RiskBenefitChangesExplanation/>
+	<ProblemsNotReported/>
+	<ProblemsNotReportedDescription/>
+	<ProblemsNotReportedExplanation/>
+	<totalScreeningFailure/>
+	<totalScreeningSuccesses/>
+	<totalSubjectsEnrolled/>
+	<totalPrevScreeningFailure/>
+	<totalPrevScreeningSuccesses/>
+	<totalPrevSubjectsEnrolled/>
+	<!--added by nividous: sprint 6 ends here-->
+</data>

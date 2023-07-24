@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch=""> 
+    <tab id="1" label="Details" form="/home/configs/IRB/forms/irbsummaryOTEURO.xfrm"/>
+    <tab id="21A" label="Documents" form="/home/configs/IRB/forms/legacyIADocs.xfrm"/>
+
+    <switches>
+        <invoicesPI></invoicesPI>
+        <isPI>0</isPI>
+        <isCoord>0</isCoord>
+        <isDirector>0</isDirector>
+        <isIntake>0</isIntake>
+        <staticPersonnel>0</staticPersonnel>
+        <seeComments>0</seeComments>
+        <seeRiscLogs>0</seeRiscLogs>
+        
+        <comms>0</comms>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+        
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <bios>0</bios>
+        <radio>0</radio>
+        <biologics>0</biologics>
+        <biological>0</biological>
+        <retroCharts>0</retroCharts>
+        
+        <funding>0</funding>
+        <invoiced>0</invoiced>
+        <comp>0</comp>
+        <phi>0</phi>
+        <consentObt>0</consentObt>
+        
+        <active>0</active>
+        
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

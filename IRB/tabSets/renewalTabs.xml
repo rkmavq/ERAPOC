@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/ren_personnelAMDComm.xfrm" printlabel="Research Personnel" sourceXML="/ren_personnel.xml" formType="personnelCrossTab" formName="ren_personnel" mode=""/>
+	<tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapproval.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapproval.xml" formType="general" formName="sincelastapproval" special="general" mode=""/>
+
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatus.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusPrintCR.xml" formType="enrollmentCrossTab" formName="enrollmentstatusPrintCR" special="special" when="enrollment" mode=""/>
+
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatus.xfrm" printlabel="Protocol Status" sourceXML="/protocolstatus.xml" formType="general" formName="protocolstatus" special="general" mode=""/>
+
+	<tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachmentsREN.xfrm" printlabel="Attachments" sourceXML="/printAttachments.xml" formType="crossTab" formName="printAttachmentsCR" mode=""/>
+    
+    <tab id="LC2" color="silver" label="Reference Materials" form="/home/configs/IRB/forms/checklists.xfrm"/>
+
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/ren_irbsubmit.xfrm" printlabel="Submit" sourceXML="/ren_submit.xml" formType="general" formName="ren_submit"/>
+    
+    <switches>
+        <full>1</full>
+        <notfull>0</notfull>
+        <enrollment>0</enrollment>
+    </switches>
+</tabs>

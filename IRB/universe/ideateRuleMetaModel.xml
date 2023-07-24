@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ideateMM>
+    <element name="app" type="composition" description="Basic building block within the Ideate Framework">
+        <element name="universe" type="schema" description="Fields and functions for an application"/>
+        <element name="rules" type="composition" description="Modifications on the universe for a given context">
+            
+        </element>
+    </element>
+    
+    <element name="ruleLevels" type="list">
+        <type id="app" name="Application Level"/>
+        <type id="institution" name="Institution"/>
+        <type id="department" name="Department"/>
+        <type id="sponsor" name="Sponsor"/>
+        <type id="foa" name="FOA"/>
+    </element>
+    
+    <element name="ruleTypes" type="list">
+        <type id="field" name="field values"/>
+        <type id="" name=""/>
+        <type id="" name=""/>
+        <type id="" name=""/>
+        <type id="" name=""/>
+        <type id="" name=""/>
+        <type id="" name=""/>
+    </element>    
+    
+    <element name="fieldTypes" type="list">
+        <type id="text" name="text" xsd="xsd:string"/>
+        <type id="currency" name="currency" xsd="ix:currencyUSD"/>
+        <type id="percent" name="percent" xsd="ix:percentage"/>
+        <type id="integer" name="integer" xsd="xsd:integer"/>
+        <type id="number" name="number" xsd="xsd:float"/>
+        <type id="file" name="file" xsd="ix:file"/>
+        <type id="email" name="email" xsd="ix:email"/>
+        <type id="composite" name="composite" xsd="ix:composite"/>
+        <type id="array" name="array" xsd="xsd:string:array"/>
+        <type id="uri" name="uri" xsd="xsd:string"/>
+        <type id="list" name="lookup" xsd="xsd:string"/>
+        <type id="lookup" name="lookup" xsd="xsd:string"/>
+        <type id="signature" name="signature" xsd="id:signature"/>
+        <type id="date" name="date" xsd="xsd:date"/>
+        <type id="yesno" name="yesno" xsd="xsd:boolean"/>
+        <type id="link" name="link" xsd="id:link"/>
+    </element>   
+   
+</ideateMM>

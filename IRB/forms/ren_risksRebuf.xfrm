@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "ren_risks");
+      
+        //model.Frm.loadAppFile('ins', "/renewal.xml", "1");
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadAppFile('review', "/data/comments.xml", "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr><td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>, <xf:output value="instance('form')/form/@createdBy"/></td><td class="updated"><ix:attr value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+                Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output value="instance('form')/form/@updatedBy"/></td></tr></table><div class="body"><h1/><table class="basicColLayout"><tr class="box"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/anticipatedRisks/@revIndex" name="revIndex"/><exf:variable value="(instance('ins')/anticipatedRisks[@revIndex=$revIndex])" name="thisNodeNeedle"/><exf:variable value="instance('ins')/anticipatedRisks" name="thisNode"/><exf:variable value="(instance('ins')/original/anticipatedRisks[@revIndex=$revIndex])" name="orgNode"/><exf:variable value="(instance('ins')/suggestions/anticipatedRisks[@revIndex=$revIndex])" name="sugNodeSet"/><exf:variable value="(instance('ins')/suggestions/anticipatedRisks[@revIndex=$revIndex])" name="sugNode"/><xf:textarea class="" ref="instance('ins')/anticipatedRisks"><xf:label>Anticipated Risks</xf:label></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/anticipatedRisks)"/></div></td><td class="errors custError"><div><ix:attr value="if($sugNode = $orgNode and $thisNodeNeedle/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p></div></span></div><div><ix:attr value="if($sugNode != $orgNode, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNode != $thisNode, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNode = $sugNode, 'Using Suggested Change', if($thisNode = $orgNode, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedle/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedle/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Original Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/anticipatedRisks", "", tempRevIndex, "fill", 'org', "", "", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNode"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/anticipatedRisks", "", tempRevIndex, "fill", 'sug', "", "", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNode"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="box"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/potentialBenefits/@revIndex" name="revIndex"/><exf:variable value="(instance('ins')/potentialBenefits[@revIndex=$revIndex])" name="thisNodeNeedle"/><exf:variable value="instance('ins')/potentialBenefits" name="thisNode"/><exf:variable value="(instance('ins')/original/potentialBenefits[@revIndex=$revIndex])" name="orgNode"/><exf:variable value="(instance('ins')/suggestions/potentialBenefits[@revIndex=$revIndex])" name="sugNodeSet"/><exf:variable value="(instance('ins')/suggestions/potentialBenefits[@revIndex=$revIndex])" name="sugNode"/><xf:textarea class="" ref="instance('ins')/potentialBenefits"><xf:label>Potential Benefits</xf:label></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/potentialBenefits)"/></div></td><td class="errors custError"><div><ix:attr value="if($sugNode = $orgNode and $thisNodeNeedle/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p></div></span></div><div><ix:attr value="if($sugNode != $orgNode, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNode != $thisNode, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNode = $sugNode, 'Using Suggested Change', if($thisNode = $orgNode, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedle/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedle/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Original Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/potentialBenefits", "", tempRevIndex, "fill", 'org', "", "", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNode"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/potentialBenefits", "", tempRevIndex, "fill", 'sug', "", "", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNode"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="box"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/benefitToSociety/@revIndex" name="revIndex"/><exf:variable value="(instance('ins')/benefitToSociety[@revIndex=$revIndex])" name="thisNodeNeedle"/><exf:variable value="instance('ins')/benefitToSociety" name="thisNode"/><exf:variable value="(instance('ins')/original/benefitToSociety[@revIndex=$revIndex])" name="orgNode"/><exf:variable value="(instance('ins')/suggestions/benefitToSociety[@revIndex=$revIndex])" name="sugNodeSet"/><exf:variable value="(instance('ins')/suggestions/benefitToSociety[@revIndex=$revIndex])" name="sugNode"/><xf:textarea class="" ref="instance('ins')/benefitToSociety"><xf:label>Benefit to Society</xf:label></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/benefitToSociety)"/></div></td><td class="errors custError"><div><ix:attr value="if($sugNode = $orgNode and $thisNodeNeedle/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p></div></span></div><div><ix:attr value="if($sugNode != $orgNode, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNode != $thisNode, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNode = $sugNode, 'Using Suggested Change', if($thisNode = $orgNode, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedle/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedle/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Original Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/benefitToSociety", "", tempRevIndex, "fill", 'org', "", "", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNode"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/benefitToSociety", "", tempRevIndex, "fill", 'sug', "", "", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNode"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="box"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/benefitsOfTreatment/@revIndex" name="revIndex"/><exf:variable value="(instance('ins')/benefitsOfTreatment[@revIndex=$revIndex])" name="thisNodeNeedle"/><exf:variable value="instance('ins')/benefitsOfTreatment" name="thisNode"/><exf:variable value="(instance('ins')/original/benefitsOfTreatment[@revIndex=$revIndex])" name="orgNode"/><exf:variable value="(instance('ins')/suggestions/benefitsOfTreatment[@revIndex=$revIndex])" name="sugNodeSet"/><exf:variable value="(instance('ins')/suggestions/benefitsOfTreatment[@revIndex=$revIndex])" name="sugNode"/><xf:textarea class="" ref="instance('ins')/benefitsOfTreatment"><xf:label>Benefits Related to an Experimental Treatment</xf:label></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/benefitsOfTreatment)"/></div></td><td class="errors custError"><div><ix:attr value="if($sugNode = $orgNode and $thisNodeNeedle/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comment</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="$thisNodeNeedle/@comment"/></span></p></div></span></div><div><ix:attr value="if($sugNode != $orgNode, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNode != $thisNode, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNode = $sugNode, 'Using Suggested Change', if($thisNode = $orgNode, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedle/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedle/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Original Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/benefitsOfTreatment", "", tempRevIndex, "fill", 'org', "", "", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNode"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedle/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/benefitsOfTreatment", "", tempRevIndex, "fill", 'sug', "", "", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNode"/></span><br/></td></tr></table></p></div></span></div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

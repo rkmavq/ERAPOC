@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "summary");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+            if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+            }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+            }
+          model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '1')
+          //model.USA.registerChangeLog('ins', '1')
+          model.USA.registerChangeLog('comments', '1')
+      </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/name"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/><xf:bind readonly="true()" relevant="false()" nodeset="Person[invitation/@status='author']/name"/>
+  <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')//*"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')//@*[name()!='@addcomment' and name()!='@comment' and name()!='comment']"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr><td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>, <xf:output value="instance('form')/form/@createdBy"/></td><td class="updated"><ix:attr value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+                Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output value="instance('form')/form/@updatedBy"/></td></tr></table><div class="body"><h1/><table class="basicColLayout"><tr class="box"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/title/@revIndex" name="revIndexptitle"/><exf:variable value="(instance('ins')/title[@revIndex=$revIndexptitle])" name="thisNodeNeedleptitle"/><exf:variable value="instance('ins')/title" name="thisNodeptitle"/><exf:variable value="(instance('ins')/original/title[@revIndex=$revIndexptitle])" name="orgNodeptitle"/><exf:variable value="(instance('ins')/suggestions/title[@revIndex=$revIndexptitle])" name="sugNodeSetptitle"/><exf:variable value="(instance('ins')/suggestions/title[@revIndex=$revIndexptitle])" name="sugNodeptitle"/><xf:textarea class="" ref="instance('ins')/title"><xf:label>Protocol Title</xf:label><script ev:event="xforms-value-changed">model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;</script><xf:action ev:event="xforms-value-changed" exf:if="$thisNodeptitle = $orgNodeptitle"><xf:setvalue ref="$thisNodeNeedleptitle/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodeptitle = $orgNodeptitle and $thisNodeNeedleptitle/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodeptitle != $orgNodeptitle"><xf:setvalue ref="$thisNodeNeedleptitle/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodeptitle != $orgNodeptitle and $thisNodeNeedleptitle/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/title)"/></div></td><td class="errors custError"><div><ix:attr value="if($thisNodeptitle != $orgNodeptitle, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedleptitle/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedleptitle/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedleptitle/@comment"/></div></div></td></tr><tr class="field"><td class="component  widenLabel"><exf:variable value="instance('ins')/shortTitle/@revIndex" name="revIndexstitle"/><exf:variable value="(instance('ins')/shortTitle[@revIndex=$revIndexstitle])" name="thisNodeNeedlestitle"/><exf:variable value="instance('ins')/shortTitle" name="thisNodestitle"/><exf:variable value="(instance('ins')/original/shortTitle[@revIndex=$revIndexstitle])" name="orgNodestitle"/><exf:variable value="(instance('ins')/suggestions/shortTitle[@revIndex=$revIndexstitle])" name="sugNodeSetstitle"/><exf:variable value="(instance('ins')/suggestions/shortTitle[@revIndex=$revIndexstitle])" name="sugNodestitle"/><xf:input class="wide" ref="instance('ins')/shortTitle"><xf:label>Short Title</xf:label><xf:action ev:event="xforms-value-changed" exf:if="$thisNodestitle = $orgNodestitle"><xf:setvalue ref="$thisNodeNeedlestitle/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodestitle = $orgNodestitle and $thisNodeNeedlestitle/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodestitle != $orgNodestitle"><xf:setvalue ref="$thisNodeNeedlestitle/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodestitle != $orgNodestitle and $thisNodeNeedlestitle/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/shortTitle)"/></div></td><td class="errors custError"><div><ix:attr value="if($thisNodestitle != $orgNodestitle, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlestitle/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlestitle/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlestitle/@comment"/></div></div></td></tr><tr class="line"><td><hr/></td></tr><xf:switch><xf:case exf:if="1" id="show-peps"><tr class="field"><td class="component  widenLabel"><exf:variable value="(instance('ins')/original/Person[role='PI'])/@revIndex" name="revIndexpi"/><exf:variable value="(instance('ins')/Person[role='PI'][@revIndex=$revIndexpi])" name="thisNodeNeedlepi"/><exf:variable value="instance('ins')/Person[role='PI']/name" name="thisNodepi"/><exf:variable value="(instance('ins')/original/Person[role='PI'][@revIndex=$revIndexpi])/name" name="orgNodepi"/><exf:variable value="(instance('ins')/suggestions/Person[role='PI'][@revIndex=$revIndexpi])" name="sugNodeSetpi"/><exf:variable value="(instance('ins')/suggestions/Person[role='PI'][@revIndex=$revIndexpi])/name" name="sugNodepi"/><xf:input class="wide" ref="instance('ins')/Person[role='PI']/name"><xf:label>Principal Investigator</xf:label><xf:action ev:event="xforms-value-changed" exf:if="$thisNodepi = $orgNodepi"><xf:setvalue ref="$thisNodeNeedlepi/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodepi = $orgNodepi and $thisNodeNeedlepi/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodepi != $orgNodepi"><xf:setvalue ref="$thisNodeNeedlepi/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodepi != $orgNodepi and $thisNodeNeedlepi/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"><div class="clickable">
+    replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Find PI" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+            model.Frm.configureQuickSearch("People", "replaceEntity", "instance('ins')/Person[role='PI'][1]", "/applications/IRB/js/addPI", "pi", "Name", "ID","Department", "1", "researcher",  'model.setValue("PIName", model.getValue("Person[role=\'PI\']/name"));model.Frm.formSet.getRoot().model.TS.refreshHeader();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;model.activateCase("hide-peps");model.rebuild();model.recalculate();model.activateCase("show-peps"); model.USA.rebuildTabs();', '0');
+            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+            </script></xf:action></div></td><td class="errors custError"><div><ix:attr value="if($thisNodepi != $orgNodepi, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlepi/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlepi/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlepi/@comment"/></div></div></td></tr><tr class="html"><ix:attr value="if(Person[role='PI']/creatorIsPI = '0', '', 'display:none')" name="style"/><td><visible xmlns="" xpath="Person[role='PI']/creatorIsPI = '0'"></visible><i xmlns="" style="margin-left:10px;color:red">When the application is complete, it will be sent to the PI for validation</i><br xmlns=""></br><br xmlns=""></br></td></tr><tr class="field"><td class="component  widenLabel"><exf:variable value="(instance('ins')/original/Person[invitation/@status='author'])/@revIndex" name="revIndexcont"/><exf:variable value="(instance('ins')/Person[invitation/@status='author'][@revIndex=$revIndexcont])" name="thisNodeNeedlecont"/><exf:variable value="instance('ins')/Person[invitation/@status='author']/name" name="thisNodecont"/><exf:variable value="(instance('ins')/original/Person[invitation/@status='author'][@revIndex=$revIndexcont])/name" name="orgNodecont"/><exf:variable value="(instance('ins')/suggestions/Person[invitation/@status='author'][@revIndex=$revIndexcont])" name="sugNodeSetcont"/><exf:variable value="(instance('ins')/suggestions/Person[invitation/@status='author'][@revIndex=$revIndexcont])/name" name="sugNodecont"/><xf:input class="wide" ref="instance('ins')/Person[invitation/@status='author']/name"><xf:label>Created By</xf:label><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecont = $orgNodecont"><xf:setvalue ref="$thisNodeNeedlecont/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecont = $orgNodecont and $thisNodeNeedlecont/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecont != $orgNodecont"><xf:setvalue ref="$thisNodeNeedlecont/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecont != $orgNodecont and $thisNodeNeedlecont/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodecont != $orgNodecont, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlecont/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlecont/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlecont/@comment"/></div></div></td></tr><tr class="dropdown"><ix:attr value="if(Person[role='PI']/creatorIsPI = '0', '', 'display:none')" name="style"/><td class="component  widenLabel"><exf:variable value="(instance('ins')/original/Person)/@revIndex" name="revIndexcreator"/><exf:variable value="(instance('ins')/Person[@revIndex=$revIndexcreator])" name="thisNodeNeedlecreator"/><exf:variable value="instance('ins')/Person[invitation/@status='author']/role" name="thisNodeVcreator"/><exf:variable value="instance('cats')/allRoles/type[@id=$thisNodeVcreator]/@name" name="thisNodecreator"/><exf:variable value="(instance('ins')/original/Person[@revIndex=$revIndexcreator])[invitation/@status='author']/role" name="orgNodeVcreator"/><exf:variable value="instance('cats')/allRoles/type[@id=$orgNodeVcreator]/@name" name="orgNodecreator"/><exf:variable value="(instance('ins')/suggestions/Person[@revIndex=$revIndexcreator])" name="sugNodeSetcreator"/><exf:variable value="(instance('ins')/suggestions/Person[@revIndex=$revIndexcreator])[invitation/@status='author']/role" name="sugNodeVcreator"/><exf:variable value="instance('cats')/allRoles/type[@id=$sugNodeVcreator]/@name" name="sugNodecreator"/><exf:variable value="instance('cats')/allRoles/type[@id=$sugNodeVcreator]/@name" name="sugNodecreator"/><xf:select1 ref="instance('ins')/Person[invitation/@status='author']/role"><xf:label>Role</xf:label><xf:repeat nodeset="instance('cats')/allRoles/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecreator = $orgNodecreator"><xf:setvalue ref="$thisNodeNeedlecreator/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecreator = $orgNodecreator and $thisNodeNeedlecreator/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecreator != $orgNodecreator"><xf:setvalue ref="$thisNodeNeedlecreator/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodecreator != $orgNodecreator and $thisNodeNeedlecreator/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodecreator != $orgNodecreator, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlecreator/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlecreator/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlecreator/@comment"/></div></div></td></tr></xf:case><xf:case id="hide-peps"/></xf:switch><tr class="line"><td><hr/></td></tr><tr class="field"><td class="component  widenLabel"><exf:variable value="instance('ins')/contextGroup/@revIndex" name="revIndexdepartment"/><exf:variable value="(instance('ins')/contextGroup[@revIndex=$revIndexdepartment])" name="thisNodeNeedledepartment"/><exf:variable value="instance('ins')/contextGroup" name="thisNodedepartment"/><exf:variable value="(instance('ins')/original/contextGroup[@revIndex=$revIndexdepartment])" name="orgNodedepartment"/><exf:variable value="(instance('ins')/suggestions/contextGroup[@revIndex=$revIndexdepartment])" name="sugNodeSetdepartment"/><exf:variable value="(instance('ins')/suggestions/contextGroup[@revIndex=$revIndexdepartment])" name="sugNodedepartment"/><xf:input class="wide" ref="instance('ins')/contextGroup"><xf:label>Primary Department</xf:label><xf:action ev:event="xforms-value-changed" exf:if="$thisNodedepartment = $orgNodedepartment"><xf:setvalue ref="$thisNodeNeedledepartment/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodedepartment = $orgNodedepartment and $thisNodeNeedledepartment/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodedepartment != $orgNodedepartment"><xf:setvalue ref="$thisNodeNeedledepartment/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodedepartment != $orgNodedepartment and $thisNodeNeedledepartment/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"><div style="margin-top:-2px;" class="clickable">replace<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Lookup Department" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+        model.Frm.configureQuickSearch("Departments", "replaceValue", "instance('ins')/contextGroup[1]", "", "department", "Name", "ID","Division", "", "", 'model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;', '');
+        model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+      </script></xf:action></div></td><td class="errors custError"><div><ix:attr value="if($thisNodedepartment != $orgNodedepartment, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedledepartment/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedledepartment/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedledepartment/@comment"/></div></div></td></tr><tr class="dropdown"><td class="component  widenLabel"><exf:variable value="instance('ins')/researchType/@revIndex" name="revIndexrt"/><exf:variable value="(instance('ins')/researchType[@revIndex=$revIndexrt])" name="thisNodeNeedlert"/><exf:variable value="instance('ins')/researchType" name="thisNodeVrt"/><exf:variable value="instance('cats')/researchTypes/type[@id=$thisNodeVrt]/@name" name="thisNodert"/><exf:variable value="(instance('ins')/original/researchType[@revIndex=$revIndexrt])" name="orgNodeVrt"/><exf:variable value="instance('cats')/researchTypes/type[@id=$orgNodeVrt]/@name" name="orgNodert"/><exf:variable value="(instance('ins')/suggestions/researchType[@revIndex=$revIndexrt])" name="sugNodeSetrt"/><exf:variable value="(instance('ins')/suggestions/researchType[@revIndex=$revIndexrt])" name="sugNodeVrt"/><exf:variable value="instance('cats')/researchTypes/type[@id=$sugNodeVrt]/@name" name="sugNodert"/><exf:variable value="instance('cats')/researchTypes/type[@id=$sugNodeVrt]/@name" name="sugNodert"/><xf:select1 ref="instance('ins')/researchType"><xf:label>Research Type</xf:label><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/researchTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action ev:event="xforms-value-changed" exf:if="$thisNodert = $orgNodert"><xf:setvalue ref="$thisNodeNeedlert/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodert = $orgNodert and $thisNodeNeedlert/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodert != $orgNodert"><xf:setvalue ref="$thisNodeNeedlert/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodert != $orgNodert and $thisNodeNeedlert/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodert != $orgNodert, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlert/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlert/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlert/@comment"/></div></div></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/laysummary/@revIndex" name="revIndexlay"/><exf:variable value="(instance('ins')/laysummary[@revIndex=$revIndexlay])" name="thisNodeNeedlelay"/><exf:variable value="instance('ins')/laysummary" name="thisNodelay"/><exf:variable value="(instance('ins')/original/laysummary[@revIndex=$revIndexlay])" name="orgNodelay"/><exf:variable value="(instance('ins')/suggestions/laysummary[@revIndex=$revIndexlay])" name="sugNodeSetlay"/><exf:variable value="(instance('ins')/suggestions/laysummary[@revIndex=$revIndexlay])" name="sugNodelay"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/laysummary"><xf:label>Lay Summary</xf:label><xf:hint>The lay summary should be written so that it can be understood by those whose primary concerns and training are non-scientific</xf:hint><xf:action ev:event="xforms-value-changed" exf:if="$thisNodelay = $orgNodelay"><xf:setvalue ref="$thisNodeNeedlelay/@changed"/></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodelay = $orgNodelay and $thisNodeNeedlelay/@addcomment = ''"><script>model.USA.removeChange();</script></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodelay != $orgNodelay"><xf:setvalue ref="$thisNodeNeedlelay/@changed">1</xf:setvalue></xf:action><xf:action ev:event="xforms-value-changed" exf:if="$thisNodelay != $orgNodelay and $thisNodeNeedlelay/@addcomment = ''"><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"><div>character count: <xf:output value="string-length(instance('ins')/laysummary)"/></div></td><td class="errors custError"><div><ix:attr value="if($thisNodelay != $orgNodelay, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlelay/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlelay/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlelay/@comment"/></div></div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

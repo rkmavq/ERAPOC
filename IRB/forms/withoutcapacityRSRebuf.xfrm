@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="review"><data/></xf:instance><xf:instance id="form"><data><tabID>31d</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "withoutcapacity");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        
+        
+        
+    		  if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+    		  model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+          
+          if (model.Frm.formSet.getRoot().__REVURI.indexOf("/reviews") &gt; -1) model.Frm.revewMode = -1;
+          
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '31d')
+          //model.USA.registerChangeLog('ins', '31d')
+          model.USA.registerChangeLog('comments', '31d')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:none;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:none;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:none;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="yesnobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/directBenefitToSubjects/@revIndex" name="revIndexdirectBenefitToSubjects"/><exf:variable value="(instance('ins')/amendmentNodes/directBenefitToSubjects[@revIndex=$revIndexdirectBenefitToSubjects])" name="amdNodeNeedledirectBenefitToSubjects"/><exf:variable value="(instance('ins')/directBenefitToSubjects[@revIndex=$revIndexdirectBenefitToSubjects])" name="thisNodeNeedledirectBenefitToSubjects"/><exf:variable value="instance('ins')/directBenefitToSubjects" name="thisNodedirectBenefitToSubjects"/><exf:variable value="(instance('ins')/original/directBenefitToSubjects[@revIndex=$revIndexdirectBenefitToSubjects])" name="orgNodedirectBenefitToSubjects"/><exf:variable value="(instance('ins')/original/directBenefitToSubjects[@revIndex=$revIndexdirectBenefitToSubjects])" name="orgNodeVdirectBenefitToSubjects"/><exf:variable value="(instance('ins')/suggestions/directBenefitToSubjects[@revIndex=$revIndexdirectBenefitToSubjects])" name="sugNodeSetdirectBenefitToSubjects"/><exf:variable value="(instance('ins')/suggestions/directBenefitToSubjects[@revIndex=$revIndexdirectBenefitToSubjects])" name="sugNodedirectBenefitToSubjects"/><exf:variable value="instance('ins')/previous/review/directBenefitToSubjects/@revIndex" name="revIndexOdirectBenefitToSubjects"/><exf:variable value="(instance('ins')/previous/review/directBenefitToSubjects[@revIndex=$revIndexOdirectBenefitToSubjects])" name="thisNodeNeedleOlddirectBenefitToSubjects"/><exf:variable value="instance('ins')/previous/review/directBenefitToSubjects" name="thisNodeOlddirectBenefitToSubjects"/><exf:variable value="(instance('ins')/previous/review/original/directBenefitToSubjects[@revIndex=$revIndexOdirectBenefitToSubjects])" name="orgNodeOlddirectBenefitToSubjects"/><exf:variable value="(instance('ins')/previous/review/suggestions/directBenefitToSubjects[@revIndex=$revIndexOdirectBenefitToSubjects])" name="sugNodeSetOlddirectBenefitToSubjects"/><exf:variable value="(instance('ins')/previous/review/suggestions/directBenefitToSubjects[@revIndex=$revIndexOdirectBenefitToSubjects])" name="sugNodeOlddirectBenefitToSubjects"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/directBenefitToSubjects" appearance="full" class="selectYes" id="directBenefitToSubjects"><xf:label>There is Anticipated Direct Benefit to the Subjects</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/directBenefitToSubjects" appearance="full" id="directBenefitToSubjects"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+			if(x == '0') {
+				model.setValue("instance('ins')/riskToSubjects", "");
+			}
+			model.recalculate();
+			model.refresh();
+			model.rebuild();
+		</script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action exf:if="$thisNodeNeedledirectBenefitToSubjects/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...X");</script><xf:setvalue ref="$thisNodeNeedledirectBenefitToSubjects/@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedledirectBenefitToSubjects/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedledirectBenefitToSubjects/@req = 'change' or $thisNodeNeedledirectBenefitToSubjects/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">
+                
+                Change <xf:output value="if($thisNodeNeedledirectBenefitToSubjects/@req = 'change', 'Required', 'Suggested')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedledirectBenefitToSubjects/@comment"/></span></p><span><ix:attr value="if($sugNodedirectBenefitToSubjects != $thisNodedirectBenefitToSubjects, '', 'display:none')" name="style"/><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedledirectBenefitToSubjects/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                   // model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedledirectBenefitToSubjects/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedledirectBenefitToSubjects/@justification='', 'color:red', 'color:green')" name="style"/>Justification <xf:output value="if($thisNodeNeedledirectBenefitToSubjects/@justification='', '(Required)', '')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedledirectBenefitToSubjects/@comment"/></span></p><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedledirectBenefitToSubjects/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                    //model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></div></span></div><div><ix:attr value="if($thisNodeNeedledirectBenefitToSubjects/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedledirectBenefitToSubjects/@comment"/></span></p></div></span></div><div><ix:attr value="if(not($thisNodeNeedledirectBenefitToSubjects/@req) and $thisNodeNeedledirectBenefitToSubjects/@addcomment = '1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedledirectBenefitToSubjects/@comment"/></span></p></div></span></div><div><ix:attr value="if(concat($thisNodedirectBenefitToSubjects,'') != concat($orgNodedirectBenefitToSubjects,''), 'color:red', 'display:none')" name="style"/>Using New Value</div></td></tr><tr class="radiobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/assentRequiredOf/@revIndex" name="revIndexassentRequiredOf"/><exf:variable value="(instance('ins')/amendmentNodes/assentRequiredOf[@revIndex=$revIndexassentRequiredOf])" name="amdNodeNeedleassentRequiredOf"/><exf:variable value="(instance('ins')/assentRequiredOf[@revIndex=$revIndexassentRequiredOf])" name="thisNodeNeedleassentRequiredOf"/><exf:variable value="instance('ins')/assentRequiredOf" name="thisNodeVassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$thisNodeVassentRequiredOf]/@name" name="thisNodeassentRequiredOf"/><exf:variable value="(instance('ins')/original/assentRequiredOf[@revIndex=$revIndexassentRequiredOf])" name="orgNodeVassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$orgNodeVassentRequiredOf]/@name" name="orgNodeassentRequiredOf"/><exf:variable value="(instance('ins')/suggestions/assentRequiredOf[@revIndex=$revIndexassentRequiredOf])" name="sugNodeSetassentRequiredOf"/><exf:variable value="(instance('ins')/suggestions/assentRequiredOf[@revIndex=$revIndexassentRequiredOf])" name="sugNodeVassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$sugNodeVassentRequiredOf]/@name" name="sugNodeassentRequiredOf"/><exf:variable value="instance('ins')/previous/review/assentRequiredOf/@revIndex" name="revIndexOassentRequiredOf"/><exf:variable value="(instance('ins')/previous/review/assentRequiredOf[@revIndex=$revIndexOassentRequiredOf])" name="thisNodeNeedleOldassentRequiredOf"/><exf:variable value="instance('ins')/previous/review/assentRequiredOf" name="thisNodeVOldassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$thisNodeVOldassentRequiredOf]/@name" name="thisNodeOldassentRequiredOf"/><exf:variable value="(instance('ins')/previous/review/original/assentRequiredOf[@revIndex=$revIndexOassentRequiredOf])" name="orgNodeVOldassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$orgNodeVOldassentRequiredOf]/@name" name="orgNodeOldassentRequiredOf"/><exf:variable value="(instance('ins')/previous/review/suggestions/assentRequiredOf[@revIndex=$revIndexOassentRequiredOf])" name="sugNodeSetOldassentRequiredOf"/><exf:variable value="(instance('ins')/previous/review/suggestions/assentRequiredOf[@revIndex=$revIndexOassentRequiredOf])" name="sugNodeVOldassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$sugNodeVOldassentRequiredOf]/@name" name="sugNodeOldassentRequiredOf"/><exf:variable value="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive=''][@id=$sugNodeVOldassentRequiredOf]/@name" name="sugNodeOldassentRequiredOf"/><xf:select1 ref="instance('ins')/assentRequiredOf" appearance="full" id="assentRequiredOf"><xf:label>Assent is Required of</xf:label><xf:repeat nodeset="instance('cats')/assentRequiredOf/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action exf:if="$thisNodeNeedleassentRequiredOf/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...X");</script><xf:setvalue ref="$thisNodeNeedleassentRequiredOf/@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedleassentRequiredOf/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedleassentRequiredOf/@req = 'change' or $thisNodeNeedleassentRequiredOf/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">
+                
+                Change <xf:output value="if($thisNodeNeedleassentRequiredOf/@req = 'change', 'Required', 'Suggested')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedleassentRequiredOf/@comment"/></span></p><span><ix:attr value="if($sugNodeassentRequiredOf != $thisNodeassentRequiredOf, '', 'display:none')" name="style"/><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleassentRequiredOf/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                   // model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleassentRequiredOf/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleassentRequiredOf/@justification='', 'color:red', 'color:green')" name="style"/>Justification <xf:output value="if($thisNodeNeedleassentRequiredOf/@justification='', '(Required)', '')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedleassentRequiredOf/@comment"/></span></p><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleassentRequiredOf/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                    //model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></div></span></div><div><ix:attr value="if($thisNodeNeedleassentRequiredOf/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleassentRequiredOf/@comment"/></span></p></div></span></div><div><ix:attr value="if(not($thisNodeNeedleassentRequiredOf/@req) and $thisNodeNeedleassentRequiredOf/@addcomment = '1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleassentRequiredOf/@comment"/></span></p></div></span></div><div><ix:attr value="if(concat($thisNodeassentRequiredOf,'') != concat($orgNodeassentRequiredOf,''), 'color:red', 'display:none')" name="style"/>Using New Value</div></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/directBenefitToSubjects = '1', '', 'display:none')" name="style"/><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		<visible whenComponent="directBenefitToSubjects" hasValue="1"/>
+		Select Which of the Following Best Describes the Risk to Subjects <br/>
+		* Intervention: the risk to the subjects is presented by an intervention or procedure that holds out the prospect of direct benefit for the individual subject.  <br/>
+		* Monitoring Procedure: more than minimal risk to subjects is presented by a monitoring procedure that is likely to contribute to the subject's well-being.  <br/>
+		<option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="radiobuttons"><ix:attr value="if(instance('ins')/directBenefitToSubjects = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><exf:variable value="instance('ins')/riskToSubjects/@revIndex" name="revIndexriskToSubjects"/><exf:variable value="(instance('ins')/amendmentNodes/riskToSubjects[@revIndex=$revIndexriskToSubjects])" name="amdNodeNeedleriskToSubjects"/><exf:variable value="(instance('ins')/riskToSubjects[@revIndex=$revIndexriskToSubjects])" name="thisNodeNeedleriskToSubjects"/><exf:variable value="instance('ins')/riskToSubjects" name="thisNodeVriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$thisNodeVriskToSubjects]/@name" name="thisNoderiskToSubjects"/><exf:variable value="(instance('ins')/original/riskToSubjects[@revIndex=$revIndexriskToSubjects])" name="orgNodeVriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$orgNodeVriskToSubjects]/@name" name="orgNoderiskToSubjects"/><exf:variable value="(instance('ins')/suggestions/riskToSubjects[@revIndex=$revIndexriskToSubjects])" name="sugNodeSetriskToSubjects"/><exf:variable value="(instance('ins')/suggestions/riskToSubjects[@revIndex=$revIndexriskToSubjects])" name="sugNodeVriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$sugNodeVriskToSubjects]/@name" name="sugNoderiskToSubjects"/><exf:variable value="instance('ins')/previous/review/riskToSubjects/@revIndex" name="revIndexOriskToSubjects"/><exf:variable value="(instance('ins')/previous/review/riskToSubjects[@revIndex=$revIndexOriskToSubjects])" name="thisNodeNeedleOldriskToSubjects"/><exf:variable value="instance('ins')/previous/review/riskToSubjects" name="thisNodeVOldriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$thisNodeVOldriskToSubjects]/@name" name="thisNodeOldriskToSubjects"/><exf:variable value="(instance('ins')/previous/review/original/riskToSubjects[@revIndex=$revIndexOriskToSubjects])" name="orgNodeVOldriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$orgNodeVOldriskToSubjects]/@name" name="orgNodeOldriskToSubjects"/><exf:variable value="(instance('ins')/previous/review/suggestions/riskToSubjects[@revIndex=$revIndexOriskToSubjects])" name="sugNodeSetOldriskToSubjects"/><exf:variable value="(instance('ins')/previous/review/suggestions/riskToSubjects[@revIndex=$revIndexOriskToSubjects])" name="sugNodeVOldriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$sugNodeVOldriskToSubjects]/@name" name="sugNodeOldriskToSubjects"/><exf:variable value="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive=''][@id=$sugNodeVOldriskToSubjects]/@name" name="sugNodeOldriskToSubjects"/><xf:select1 ref="instance('ins')/riskToSubjects" appearance="full" id="riskToSubjects"><xf:label>Risk to Subjects</xf:label><xf:repeat nodeset="instance('cats')/riskToSubjects/type[not(@inactive) or @inactive='']"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><xf:action exf:if="$thisNodeNeedleriskToSubjects/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...X");</script><xf:setvalue ref="$thisNodeNeedleriskToSubjects/@changed">-1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedleriskToSubjects/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedleriskToSubjects/@req = 'change' or $thisNodeNeedleriskToSubjects/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">
+                
+                Change <xf:output value="if($thisNodeNeedleriskToSubjects/@req = 'change', 'Required', 'Suggested')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedleriskToSubjects/@comment"/></span></p><span><ix:attr value="if($sugNoderiskToSubjects != $thisNoderiskToSubjects, '', 'display:none')" name="style"/><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleriskToSubjects/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                   // model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleriskToSubjects/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleriskToSubjects/@justification='', 'color:red', 'color:green')" name="style"/>Justification <xf:output value="if($thisNodeNeedleriskToSubjects/@justification='', '(Required)', '')"/></u><div style="width:300px;"><p><h5>Requirement:</h5><span style="color:black"><xf:output value="$thisNodeNeedleriskToSubjects/@comment"/></span></p><hr/><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleriskToSubjects/@justification" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                    //model.rebuild();
+                    //model.refresh();
+                    //model.recalculate();
+                  </script></xf:textarea></span></div></span></div><div><ix:attr value="if($thisNodeNeedleriskToSubjects/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleriskToSubjects/@comment"/></span></p></div></span></div><div><ix:attr value="if(not($thisNodeNeedleriskToSubjects/@req) and $thisNodeNeedleriskToSubjects/@addcomment = '1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleriskToSubjects/@comment"/></span></p></div></span></div><div><ix:attr value="if(concat($thisNoderiskToSubjects,'') != concat($orgNoderiskToSubjects,''), 'color:red', 'display:none')" name="style"/>Using New Value</div></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/directBenefitToSubjects = '1', '', 'display:none')" name="style"/><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		<visible whenComponent="directBenefitToSubjects" hasValue="1"/>
+		PI must attest that all of the following are true. <br/>
+		* The risk is justified by the anticipated benefit to the subjects.  <br/>
+		* The relation of the anticipated benefit to the risk is at least as favorable to the subjects as that presented by available alternative approaches. <br/>
+		* The assessment of the capacity to consent will be performed by a qualified attending physician with appropriate training, licensing and certification, with special attention paid to qualifications re: assessing incapacity due to mental illness, mental retardation or developmental disability. <br/>
+		* The proposed plan for the assessment of capacity includes the assessment of the cause and extent of the incapacity and likelihood that the subject will regain capacity. <br/>
+		* The PI has indicated that he/she will document this determination with the above details of the assessment appropriately (eg. In the medical record when applicable and in research record). <br/>
+		* The consent document includes a signature line for a legally authorized representative.
+		<option type="widestLabel"/>
+	</component></font></h4></span></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/directBenefitToSubjects = '0', '', 'display:none')" name="style"/><td colspan="4"><span><h4><font size="2"><component type="instructions">
+		<visible whenComponent="directBenefitToSubjects" hasValue="0"/>
+		PI must attest that all of the following are true.  <br/>
+		* The proposed plan for the assessment of the capacity to consent is adequate. <br/>
+		* The objectives of the trial cannot be met by means of study of subjects who can give consent personally. <br/>
+		* The foreseeable risks to the subjects are low.  <br/>
+		* The negative impact on the subject's well-being is minimized and low. <br/>
+		* The trial is not prohibited by law. <br/>
+		* Subjects have a disease or condition for which the procedures involved in the research are intended. <br/>
+		* Subjects will be particularly closely monitored. <br/>
+		* Subjects will be withdrawn if they appear to be unduly distressed. <br/>
+		* The assessment of the capacity to consent will be performed by a qualified attending physician with appropriate training, licensing and certification, with special attention paid to qualifications re: assessing incapacity due to mental illness, mental retardation or developmental disability. <br/>
+		* The proposed plan for the assessment of capacity includes the assessment of the cause and extent of the incapacity and likelihood that the subject will regain capacity. <br/>
+		* The PI has indicated that he/she will document this determination with the above details of the assessment appropriately (eg. In the medical record when applicable and in research record). <br/>
+		* The consent document includes a signature line for a legally authorized representative. <br/>
+		<option type="widestLabel"/>
+	</component></font></h4></span></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations tabset="errorSetScreen">
+    <e type="direct" toptab="1" tab="1a" err="researchProgress" message="required"
+        xpath="count(instance('ins')/researchProgress[. = ''])" xpathSS="count(researchProgress[. = ''])"/>
+    <e type="direct" toptab="1" tab="1a" err="rschConductedAsOutlined" message="required"
+        xpath="count(instance('ins')/rschConductedAsOutlined[. = ''])" xpathSS="count(rschConductedAsOutlined[. = ''])"/>
+    
+    <e type="direct" toptab="2x" tab="2x" err="smallJust" message="required"
+        xpath="count(instance('ins')/smallJust[. = ''])" xpathSS="count(smallJust[. = '' and //ENREXCEEDSMALL='1'])"/>
+</validations>

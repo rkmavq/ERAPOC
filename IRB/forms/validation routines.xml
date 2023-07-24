@@ -1,0 +1,1583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validationsgathered>
+    <init>
+
+        <!--<e type="direct" toptab="1" tab="1" err="ptitle" 
+            xpath="count(instance('ins')/title[. = ''])" xpathSS="count(title[. = ''])"/>-->        
+                
+            
+            <e type="direct" toptab="4" tab="4b" err="ptitle" 
+                xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = ''])"/>
+            <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:ix="http://itensil.com/ns/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+    <formType>drillIn</formType>
+    <formName>personnel</formName>
+    <formID>personnel</formID>
+    <tabName>Protocol Personnel</tabName>
+    
+    <options>
+        <protocol>1</protocol>
+        <validationInstance>ins</validationInstance>
+        <tabID>4b</tabID>
+        
+        <genAmendment>1</genAmendment>
+        <genResponse>1</genResponse>
+        <genReview>1</genReview>
+        <genValidation>1</genValidation>
+        <genReadonly>1</genReadonly>
+        <versioned>1</versioned>
+        <title></title>
+        <trackPageInitiated>1</trackPageInitiated>
+        <trackLastUpdate>1</trackLastUpdate>
+        <saveOnExit>1</saveOnExit>
+        <bottomBack>1</bottomBack>
+        <bottomNext>1</bottomNext>
+        <stretchedLayout>1</stretchedLayout>
+    </options>
+    
+    <insertBindings>
+        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/name"/>
+        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/uniStatus"/>
+        <xf:bind type="xsd:date" nodeset="instance('ins')/Person/startDate"/>
+        <xf:bind type="xsd:date" nodeset="instance('ins')/Person/endDate"/>
+        <xf:bind type="ix:file" nodeset="instance('ins')/Person/coiDisclosure"/>
+    </insertBindings>
+    
+    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+    <dataSource ins="meta" ref="/data/projectData.xml"/>
+    <dataSource ins="cats" ref="/data/catagories.xml"/>
+    
+    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+    
+    <recordSet source="ins" xml="Person[role!='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]" key="@id"/>
+
+    <col id="name" totalLineLabel="Totals" xml="name" label="Name" inout="out" type="text" width="mediumplus" align="left"/>
+    <col id="uniStatus" xml="uniStatus" label="University Status" inout="in" type="dropdown" width="mediumlarge" align="left">
+        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+            <xmlInstance source="cats" nodeset="UniversityStatus/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+    </col>
+    <col id="dprt" xml="department" label="Department" inout="in" type="manual" width="mediumplus" align="left">
+        <xf:select1 ref="department/@selected" style="width:100%">
+            <xf:repeat nodeset="../dept">
+                <xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@value"/></xf:value></xf:item>
+            </xf:repeat>
+        </xf:select1>
+    </col>
+    <col id="role" xml="role" label="Role" inout="in" type="dropdown" width="mediumlarge" align="left">
+        <option type="dual"/>
+        <dataList type="xmlInstance" emptyValueLabel="" case="role='PI'">
+            <xmlInstance source="cats" nodeset="personnelRoleTypesPI/type" labelXML="@name" valueXML="@id"/>
+        </dataList>
+        <dataList type="xmlInstance" emptyValueLabel="-Select-" case="role!='PI'">
+            <xmlInstance source="cats" nodeset="personnelRoleTypes/type[@id!='PI']" labelXML="@name" valueXML="@id"/>
+        </dataList>
+    </col>
+
+    <!--<col id="startDate" xml="startDate" label="Start" inout="in" type="manual" width="mediumsmall" align="center">
+        <div style="width:105px;">
+            <xf:input style="width:70px;" ref="startDate"/>
+        </div>
+    </col>
+    <col id="endDate" xml="endDate" label="End" inout="in" type="manual" width="mediumsmall" align="center">
+        <div style="width:105px;">
+            <xf:input style="width:70px;" ref="endDate"/>
+        </div>
+    </col>-->
+    <col id="contact" xml="contact" label="cc" inout="in" type="checkbox" width="tiny" align="center" if="role!='PI'"><help>Check this to have the individual copied on communications from the IRB.</help></col>
+    <col id="access" xml="access" label="Access" inout="in" type="checkbox" width="tiny" align="center" if="role!='PI'"/>
+    <col id="sigAuthority" xml="sigAuthority" label="Signature Authority" inout="in" type="manual" width="tiny" align="center" widthPx='60'>
+        <help>Signature authority will allow another member of the study team to sign off on future IRB submissions.  Please note, if the person creating the application does not have signature authority the Principal Investigator is required to sign off on the submission.</help>
+        <div style=""><ix:attr name="style" value="if(role='PI', 'display:none', '')"/>
+            <exf:variable name="signAuth" value="@uri"/>
+            <xf:select1 appearance="full" ref="instance('ins')/Person[role='PI']/sigAuthority" class="bare">
+                <xf:item><xf:value><xf:output value="$signAuth"/></xf:value></xf:item>
+            </xf:select1>
+        </div>
+    </col>
+<!--    <col id="status" xml="status" label="Status" inout="in" type="manual" width="mediumplus" align="center">
+        <span style=""><ix:attr name="style" value="if(invitation/@status='invited', 'color:red', if(invitation/@status='author' or invitation/@status='na', 'color:green', ''))"/>
+            <xf:output value="if(invitation/@status='invited', 'Authorization Pending', if(invitation/@status='author', 'N/A (App Creator)', if(invitation/@status='na', 'N/A', 'PI Submission Req')))"/>           
+        </span>
+    </col>-->
+    <col id="status" xml="status" label="Participation" inout="in" type="manual" width="mediumplus" align="center">
+        <help>Identifies if individuals have elected to participate in the research study.</help>
+        <span style=""><ix:attr name="style" value="if(invitation/@status='invited' or invitation/@status='decline', 'color:red', if(invitation/@status='author' or invitation/@status='na' or invitation/@status='accept', 'color:green', ''))"/>
+            <xf:output value="if(invitation/@status='invited', 'Pending', if(invitation/@status='author', 'N/A (App Creator)', if(invitation/@status='na', 'N/A', if(invitation/@status='decline', 'Declined', if(invitation/@status='accept', 'Accepted', 'PI Submission Req')))))"/>           
+        </span>
+    </col>
+    
+    <col id="coiDisclosure" xml="coiDisclosure" label="COI" inout="in" type="manual" width="tiny" align="center">
+        <help>If a potential conflict of interest is identified you must disclose the potential conflict to the Conflict of Interest Committee (This disclosure is in addition to and separate from the yearly disclosure requirement) and provide verification from the committee that a management plan is in place.  IRB approval cannot be granted until all potential conflicts have been disclosed and managed.</help>
+        <div><ix:attr name="style" value="if(hasRelationship!='' or hasCOI!='', '', 'display:none')"/>
+            <span class="dialogOverInteractive" style="color:blue"><b><u><xf:output value="if(hasRelationship='1' or hasCOI='1', 'Yes', 'No')"/></u></b>
+            <div style="width:400px;">
+                <p>
+                    <h4>Conflict of Interest</h4>
+                    
+                    <table style="background-color:white;">
+                        <tr>
+                            <td style="background-color:white;vertical-align:top;width:350px;">
+                                Does the investigator or a family member serve as an officer, hold a managerial role or otherwise have a significant relationship (financial or non-financial, including consulting) with the research sponsor or any subcontract recipient?
+                            </td>
+                           <td style="background-color:white;vertical-align:top;">
+                                <span><ix:attr name="style" value="if(hasRelationship='1', 'color:red', '')"/><xf:output value="if(hasRelationship='1', 'Yes', 'No')"/></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:white;vertical-align:top;width:350px;">
+                                Does the investigator or a family member have any other relationships, commitments (including assignments of Intellectual Property Rights), activities (including uncompensated activities) or financial/fiduciary interests that present potential or apparent conflicts of interest or commitment with this study, or are there any other potential conflicts of interest with the study (for example, research on a product, technology or process in which the investigator or family member was involved? 
+                            </td>
+                            <td style="background-color:white;vertical-align:top;">
+                                <span><ix:attr name="style" value="if(hasCOI='1', 'color:red', '')"/><xf:output value="if(hasCOI='1', 'Yes', 'No')"/></span>
+                            </td>
+                        </tr>
+                        <tr><ix:attr name="style" value="if(coiDisclosure/@uri and coiDisclosure/@uri != '', '', 'display:none')"/>
+                            <td style="background-color:white;" colspan="2">
+                                <br/>
+                                <b>COI Disclosure:</b>  <a target="_blank_">
+                                    <ix:attr name="href" value="coiDisclosure/@uri"/> 
+                                    Download
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <span><ix:attr name="style" value="if(role='PI', '', 'display:none')"/>
+                    <hr/>
+                    <u class="clickable">
+                        [Change/Update]
+                        <xf:action ev:event="click">
+                            <ix:dialog class="detailsDialogBox" title="Disclose Conflict of Interest" id="picoi" width="560px" height="250px" style="width:560px;height:250px">
+                                <xf:group ref="." style="border:none;">
+                                    <table style="width:500px;">
+                                        <tr style="vertical-align:top">
+                                            <td style="vertical-align:top">
+                                                <xf:select1 style="width:450px;" ref="hasRelationship"
+                                                    appearance="full">
+                                                    <xf:label style="width:400px;">
+                                                        Does the investigator or a family member serve as an officer, hold a managerial role or otherwise have a significant relationship (financial or non-financial, including consulting) with the research sponsor or any subcontract recipient?</xf:label>
+                                                    <xf:item>
+                                                        <xf:label>Yes</xf:label>
+                                                        <xf:value>1</xf:value>
+                                                    </xf:item>
+                                                </xf:select1>
+                                                <br/>
+                                            </td>
+                                            <td style="vertical-align:top">
+                                                <xf:select1 ref="hasRelationship"
+                                                    appearance="full" style="width:50px;">
+                                                    <xf:label/>
+                                                    <xf:item>
+                                                        <xf:label>No</xf:label>
+                                                        <xf:value>0</xf:value>
+                                                    </xf:item>
+                                                </xf:select1>
+                                            </td>
+                                        </tr>
+                                        <tr style="vertical-align:top">
+                                            <td style="vertical-align:top">
+                                                <xf:select1 style="width:450px;" ref="hasCOI" appearance="full">
+                                                    <xf:label style="width:400px;">Does the investigator or a family member have any other relationships, commitments (including assignments of Intellectual Property Rights), activities (including uncompensated activities) or financial/fiduciary interests that present potential or apparent conflicts of interest or commitment with this study, or are there any other potential conflicts of interest with the study (for example, research on a product, technology or process in which the investigator or family member was involved? </xf:label>
+                                                    <xf:item>
+                                                        <xf:label>Yes</xf:label>
+                                                        <xf:value>1</xf:value>
+                                                    </xf:item>
+                                                </xf:select1>
+                                                <br/>
+                                            </td>
+                                            <td style="vertical-align:top">
+                                                <xf:select1 ref="hasCOI" appearance="full" style="width:50px;">
+                                                    <xf:label/>
+                                                    <xf:item>
+                                                        <xf:label>No</xf:label>
+                                                        <xf:value>0</xf:value>
+                                                    </xf:item>
+                                                </xf:select1>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div>
+                                        <hr/>
+                                        <br/>
+                                        <span>
+                                        <ix:attr
+                                                value="if(hasCOI='1' or hasRelationship='1', 'margin-left:20px;margin-top:20px;', 'display:none')"
+                                                name="style"/>
+                                            <b>COI Disclosure:</b>
+                                                <span>
+                                                    <ix:attr
+                                                        value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', '', 'display:none')"
+                                                        name="style"/>
+                                                    <a target="_blank_">
+                                                        <ix:attr value="instance('ins')/Person[role='PI']/coiDisclosure/@uri"
+                                                            name="href"/>
+                                                        View</a>
+                                                </span>
+                                                   <span class="clickable" style=""><ix:attr
+                                                       value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', 'display:none', 'color:blue;cursor:pointer;')"
+                                                    name="style"/><script ev:event="click">
+                                                        //ARCHITA: added manually here:///////////////////////
+                                                        model.Frm.DOC_NEW_STATUS = "New";            /////////
+                                                        model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                                                        //////////////////////////////////////////////////////
+                                                        model.Frm.docUpload.manualLabel = "COI for " + model.getValue("instance('ins')/Person[role='PI']/name");
+                                                        model.Frm.configureDocUpload("replaceValue",
+                                                        "instance('ins')/Person[role='PI']/coiDisclosure", "", "",
+                                                        event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                                                        model.Frm.executeDocUpload(); </script> <u>Attach</u> <img
+                                                            src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span>
+                                                   <span class="remove clickable" style=""><ix:attr
+                                                       value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', 'color:red;cursor:pointer;', 'display:none')"
+                                                       name="style"/><b>X</b><xf:action ev:event="click" ref=".">
+                                                        <xf:setvalue ref="instance('ins')/Person[role='PI']/coiDisclosure"/>
+                                                        <xf:setvalue ref="instance('ins')/Person[role='PI']/coiDisclosure/@uri"/>
+                                                    </xf:action></span>
+                                        </span>
+                                    </div>
+                                </xf:group>
+                            </ix:dialog>
+                        </xf:action>
+                    </u>
+                    </span>
+                </p>
+            </div>
+            </span>
+            
+        </div>
+        <div><ix:attr name="style" value="if(hasRelationship='' and hasCOI ='' and role='PI', '', 'display:none')"/>
+                            <u class="clickable">
+                                [Specify]
+                                <xf:action ev:event="click">
+                                    <ix:dialog class="detailsDialogBox" title="Disclose Conflict of Interest" id="picoi" width="560px" height="250px" style="width:560px;height:250px">
+                                        <xf:group ref="." style="border:none;">
+                                            <table style="width:500px;">
+                                                <tr style="vertical-align:top">
+                                                    <td style="vertical-align:top">
+                                                        <xf:select1 style="width:450px;" ref="hasRelationship"
+                                                            appearance="full">
+                                                            <xf:label style="width:400px;">Does the investigator or a family member serve as an officer, hold a managerial role or otherwise have a significant relationship (financial or non-financial, including consulting) with the research sponsor or any subcontract recipient?</xf:label>
+                                                            <xf:item>
+                                                                <xf:label>Yes</xf:label>
+                                                                <xf:value>1</xf:value>
+                                                            </xf:item>
+                                                        </xf:select1>
+                                                        <br/>
+                                                    </td>
+                                                    <td style="vertical-align:top">
+                                                        <xf:select1 ref="hasRelationship"
+                                                            appearance="full" style="width:50px;">
+                                                            <xf:label/>
+                                                            <xf:item>
+                                                                <xf:label>No</xf:label>
+                                                                <xf:value>0</xf:value>
+                                                            </xf:item>
+                                                        </xf:select1>
+                                                    </td>
+                                                </tr>
+                                                <tr style="vertical-align:top">
+                                                    <td style="vertical-align:top">
+                                                        <xf:select1 style="width:450px;" ref="hasCOI" appearance="full">
+                                                            <xf:label style="width:400px;">Does the investigator or a family member have any other relationships, commitments (including assignments of Intellectual Property Rights), activities (including uncompensated activities) or financial/fiduciary interests that present potential or apparent conflicts of interest or commitment with this study, or are there any other potential conflicts of interest with the study (for example, research on a product, technology or process in which the investigator or family member was involved? </xf:label>
+                                                            <xf:item>
+                                                                <xf:label>Yes</xf:label>
+                                                                <xf:value>1</xf:value>
+                                                            </xf:item>
+                                                        </xf:select1>
+                                                        <br/>
+                                                    </td>
+                                                    <td style="vertical-align:top">
+                                                        <xf:select1 ref="hasCOI" appearance="full" style="width:50px;">
+                                                            <xf:label/>
+                                                            <xf:item>
+                                                                <xf:label>No</xf:label>
+                                                                <xf:value>0</xf:value>
+                                                            </xf:item>
+                                                        </xf:select1>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div>
+                                                <hr/>
+                                                <br/>
+                                                <span>
+                                                    <ix:attr
+                                                        value="if(hasCOI='1' or hasRelationship='1', 'margin-left:20px;margin-top:20px;', 'display:none')"
+                                                        name="style"/>
+                                                    <b>COI Disclosure:</b>
+                                                    <span>
+                                                        <ix:attr
+                                                            value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', '', 'display:none')"
+                                                            name="style"/>
+                                                        <a target="_blank_">
+                                                            <ix:attr value="instance('ins')/Person[role='PI']/coiDisclosure/@uri"
+                                                                name="href"/>
+                                                            View</a>
+                                                    </span>
+                                                    <span class="clickable" style=""><ix:attr
+                                                        value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', 'display:none', 'color:blue;cursor:pointer;')"
+                                                        name="style"/><script ev:event="click">
+                                                            //ARCHITA: added manually here:///////////////////////
+                                                            model.Frm.DOC_NEW_STATUS = "New";            /////////
+                                                            model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                                                            //////////////////////////////////////////////////////
+                                                            model.Frm.docUpload.manualLabel = "COI for " + model.getValue("instance('ins')/Person[role='PI']/name");
+                                                            model.Frm.configureDocUpload("replaceValue",
+                                                            "instance('ins')/Person[role='PI']/coiDisclosure", "", "",
+                                                            event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                                                            model.Frm.executeDocUpload(); </script> <u>Attach</u> <img
+                                                                src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span>
+                                                    <span class="remove clickable" style=""><ix:attr
+                                                        value="if(instance('ins')/Person[role='PI']/coiDisclosure != '', 'color:red;cursor:pointer;', 'display:none')"
+                                                        name="style"/><b>X</b><xf:action ev:event="click" ref=".">
+                                                            <xf:setvalue ref="instance('ins')/Person[role='PI']/coiDisclosure"/>
+                                                            <xf:setvalue ref="instance('ins')/Person[role='PI']/coiDisclosure/@uri"/>
+                                                        </xf:action></span>
+                                                </span>
+                                            </div>
+                                        </xf:group>
+                                    </ix:dialog>
+                                </xf:action>
+                            </u>
+        </div>
+    </col>
+    
+    <dialog label="Contact Details" id="Details" type='standardContactInfo' title="Contact Details" width="360px" height="" >
+    
+    </dialog>
+    
+    
+    
+    <delete>
+        <option type='confirmDelete' message='Are you sure you want to delete this person?'/>
+        <option type="hideWhen">role='PI' or invitation/@status='author'</option>
+        <option type='codeOnDelete'>model.USA.deletePerson(contextNode);</option>
+        <option type='saveInsOnDelete'>ins</option>
+    </delete>
+
+    <addButton type="quickSearch" label="Lookup Person">
+        <quickSearch entity="People" dialogTitle="Find Person" importScript="/applications/IRB/js/addPerson" col1="Name" col2="ID" col3="Department" filter1="1" filter2="researcher" save="1" checkDupes="1" addNew="{entName:'person', ent:'People', split:true, code:'temp'}">model.USA.rebuildTabs();</quickSearch>
+    </addButton>
+
+</form>
+                
+                
+        <e type="direct" toptab="4" tab="4a" err="ptitle" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = ''])"/>
+        <!-- Proxy People -->
+        
+        
+        <e type="direct" toptab="4" tab="4c" err="ptitle" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = ''])"/>
+                <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:ix="http://itensil.com/ns/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+                    
+                    <formType>drillIn</formType>
+                    <formName>personnelOther</formName>
+                    <formID>personnelOther</formID>
+                    <tabName>Other Personnel</tabName>
+                    
+                    <formVariable name="newTemp"/>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>4c</tabID>
+                        
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                        <stretchedLayout>1</stretchedLayout>
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/name"/>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/uniStatus"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Person/startDate"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Person/endDate"/>
+                        <xf:bind type="ix:file" nodeset="instance('ins')/Person/coiDisclosure"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <recordSet source="ins" xml="Person[role='nonProtocol' and (invitation/@status!='author' or @uri != instance('ins')/Person[role='PI']/@uri)]" key="@id"/>
+                    
+                    <col id="name" totalLineLabel="Totals" xml="name" label="Name" inout="out" type="text" width="mediumplus" align="left"/>
+                    <col id="uniStatus" xml="uniStatus" label="University Status" inout="in" type="dropdown" width="mediumlarge" align="left">
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="UniversityStatus/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                    </col>
+                    <col id="dprt" xml="department" label="Department" inout="in" type="manual" width="mediumplus" align="left">
+                        <xf:select1 ref="department/@selected" style="width:100%">
+                            <xf:repeat nodeset="../dept">
+                                <xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@value"/></xf:value></xf:item>
+                            </xf:repeat>
+                        </xf:select1>
+                    </col>
+                    
+                    <!--<col id="startDate" xml="startDate" label="Start" inout="in" type="manual" width="mediumsmall" align="center">
+                        <div style="width:105px;">
+                        <xf:input style="width:70px;" ref="startDate"/>
+                        </div>
+                        </col>
+                        <col id="endDate" xml="endDate" label="End" inout="in" type="manual" width="mediumsmall" align="center">
+                        <div style="width:105px;">
+                        <xf:input style="width:70px;" ref="endDate"/>
+                        </div>
+                        </col>-->
+                    <col id="contact" xml="contact" label="cc" inout="in" type="checkbox" width="tiny" align="center" if="role!='PI'"><help>Check this to have the individual copied on communications from the IRB.</help></col>
+                    <col id="access" xml="access" label="Access" inout="in" type="checkbox" width="tiny" align="center" if="role!='PI'"/>
+                    
+                    <col id="status" xml="status" label="Participation" inout="in" type="manual" width="mediumplus" align="center">
+                        <help>Identifies if individuals have elected to participate in the research study.</help>
+                        <span style=""><ix:attr name="style" value="if(invitation/@status='invited' or invitation/@status='decline', 'color:red', if(invitation/@status='author' or invitation/@status='na' or invitation/@status='accept', 'color:green', ''))"/>
+                            <xf:output value="if(invitation/@status='invited', 'Pending', if(invitation/@status='author', 'N/A (App Creator)', if(invitation/@status='na', 'N/A', if(invitation/@status='decline', 'Declined', if(invitation/@status='accept', 'Accepted', 'PI Submission Req')))))"/>           
+                        </span>
+                    </col>
+                    
+                    <dialog label="Contact Details" id="Details" type='standardContactInfo' title="Contact Details" width="360px" height="" >
+                        
+                    </dialog>
+                    
+                    <delete>
+                        <option type='confirmDelete' message='Are you sure you want to delete this person?'/>
+                        <option type="hideWhen">role='PI' or invitation/@status='author'</option>
+                        <option type='codeOnDelete'>model.USA.deletePerson(contextNode);</option>
+                        <option type='saveInsOnDelete'>ins</option>
+                    </delete>
+                    
+                    <addButton type="quickSearch" label="Lookup Person">
+                        <quickSearch entity="People" dialogTitle="Find Person" importScript="/applications/IRB/js/addPersonNonProtocol" col1="Name" col2="ID" col3="Department" filter1="1" filter2="researcher" save="1" checkDupes="1" addNew="{entName:'person', ent:'People', split:true, code:'temp'}">model.USA.rebuildTabs();</quickSearch>
+                    </addButton>
+                    
+                </form>
+            
+            
+        <e type="direct" toptab="6A" tab="6" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = ''])"/>
+                <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ix="http://itensil.com/ns/xforms" > 
+                    
+                    <formType>drillIn</formType>
+                    <formName>sites</formName>
+                    <formID>sites</formID>
+                    <tabName>Performance Sites</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>6</tabID>
+                        
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/>
+                        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <recordSet source="ins" xml="Location" key="@id"/>
+                    
+                    <col id="name" xml="@name" label="Name" inout="out" type="text" width="mediumlarge" align="left"/>
+                    <col id="sublocation" xml="sublocation" label="Sub-Location" inout="in" type="manual" width="tiny" align="center">
+                        <xf:select1 ref="@sublocation"><ix:attr name="style" value="if(../onsite='1', '', 'display:none')"/>
+                            <xf:repeat nodeset="../sublocation">
+                                <xf:item>
+                                    <xf:label><xf:output value="@label"/></xf:label>
+                                    <xf:value><xf:output value="@value"/></xf:value>
+                                </xf:item>    
+                            </xf:repeat>
+                        </xf:select1>
+                    </col>
+                    <col id="fwa" xml="fwa" label="FWA" inout="in" type="text" width="medium" align="left"><help>Please refer to OHRP's website to locate FWA number <a href="http://ohrp.cit.nih.gov/search/fwasearch.aspx?styp=bsc" target="_blank">OHRP FWAs</a> </help></col>
+                    <col id="iorg" xml="iorg" label="IORG Identifier" inout="in" type="text" width="medium" align="left"><help>Please refer to OHRP's website to locate IORG identifiers <a href="http://ohrp.cit.nih.gov/search/search.aspx?styp=bsc" target="_blank">OHRP IORGs</a></help></col>  
+                    
+                    <dialog label="Contact Details" id="Details" type='generated' title="Contact Details" width="360px" height="" >
+                        <option type='conditional' xpath="onsite!='1'"/>
+                        <line>
+                            <item label="Phone" xml="phone"/>
+                            <item label="Fax" xml="fax"/>
+                        </line>
+                        <fullLine label="Email" xml="email"/>
+                        <fullLine label="Address 1" xml="address1"/>
+                        <fullLine label="Address 2" xml="address2"/>
+                        <fullLine label="Address 3" xml="address2"/>
+                        <line>
+                            <item label="City" xml="city"/>
+                            <item label="State" xml="state"/>
+                        </line>
+                        <line>
+                            <item label="Zip" xml="zip"/>
+                        </line>
+                    </dialog>
+                    
+                    <delete>
+                        <option type='confirmDelete' message='Are you sure you want to delete this site?'/>
+                    </delete>
+                    
+                    <addButton type="quickSearch" label="Lookup Site">
+                        <quickSearch entity="Locations" dialogTitle="Find Performance Site" importScript="/applications/IRB/js/addLocation" col1="Name" col2="ID" col3="Building" filter1="" filter2="" save="1" checkDupes="" addNew="{entName:'site', ent:'Locations', split:false, code:'site'}"></quickSearch>
+                    </addButton>
+                </form>
+                
+        <e type="direct" toptab="6A" tab="6B" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = '' and //retroChartReview='1'])"/>     
+                <form xmlns:xf="http://www.w3.org/2002/xforms"> 
+                    
+                    <formType>general</formType>
+                    <formName>retrochartreviews</formName>
+                    <formID>retrochartreviews</formID>
+                    <tabName>Retrospective Chart Reviews</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>6B</tabID>
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>        
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>        
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/>
+                        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    
+                    <component type="html">
+                        <h3>Data Generation Period:</h3>
+                    </component>
+                    
+                    <component id="retroStartDate" type="date" source="ins" xml="retroStartDate" label="Start Date">
+                        <option type="widenLabel"/>
+                        <onchange>
+                            x = new Date(model.getValue(".", contextNode));
+                            y = new Date();
+                            if (x &gt; y)
+                            {
+                            alert ("Future date are not allowed");
+                            model.setValue(".", irbProtocol.prototype.scrambleDate(y), contextNode);
+                            }
+                        </onchange>
+                    </component>
+                    
+                    <component id="retroEndDate" type="date" source="ins" xml="retroEndDate" label="End Date">
+                        <option type="widenLabel"/>
+                        <onchange>
+                            x = new Date(model.getValue(".", contextNode));
+                            y = new Date();
+                            if (x &gt; y)
+                            {
+                            alert ("Future date are not allowed");
+                            model.setValue(".", irbProtocol.prototype.scrambleDate(y), contextNode);
+                            }
+                        </onchange>
+                    </component>
+                    
+                    <component id="retroIdentifierRecorded" type="yesnobuttons" source="ins" xml="retroIdentifierRecorded" label="Will Identifiers be recorded?">        
+                        <option type="widenLabel"/>
+                        <comment id="e3"/>
+                    </component>
+                    
+                    
+                </form>
+                
+        <e type="direct" toptab="6A" tab="10B" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = '' and //invBiologics='1'])"/>      
+                <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:ix="http://itensil.com/ns/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+                    
+                    <formType>drillIn</formType>
+                    <formName>biologics</formName>
+                    <formID>biologics</formID>
+                    <tabName>Biologics</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>10B</tabID>        
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Biologic/fdaDate"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Biologic/approvedDate501"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Biologic/PMAApprovalDate"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <recordSet source="ins" xml="Biologic" key="@id"/>   
+                    
+                    <col id="name" xml="name" label="Name" inout="out" type="text" width="mediumlarge" align="left"/>
+                    <col id="appr" xml="fdaApproved" label="FDA Approved?" inout="out" type="checkboxexplicit" width="tiny" align="center"/>
+                    <col id="fdaStatus" xml="fdaStatus" label="FDA Status" inout="in" type="manual" width="medium" align="center">
+                        <div><ix:attr name="style" value="if(fdaApproved='', '', 'display:none')"/>
+                            <xf:select1 ref="fdaStatus">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:repeat
+                                    nodeset="instance('cats')/FDATypes/type">
+                                    <xf:item>
+                                        <xf:label><xf:output value="@name"/></xf:label>
+                                        <xf:value><xf:output value="@id"/></xf:value>
+                                    </xf:item>
+                                </xf:repeat>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    <col id="fdaDate" xml="fdaDate" label="FDA Status Date" inout="in" type="manual" width="mediumsmall" align="center">
+                        <div style="width:105px;">
+                            <xf:input style="width:70px;" ref="fdaDate"/>
+                        </div>
+                    </col>
+                    <col id="fdaDoc" xml="fdaDoc" label="FDA Determination Letter" docLabel="'FDA Determination Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center"/>
+                    
+                    
+                    <col id="app501" xml="approved501" label="510k Approved" inout="in" type="checkbox" width="tiny" align="center"/>
+                    <help>A 510k claim by the sponsor indicates that the biologic is "substantially equivalent" to a predicate biologic.  A biologic cleared by the FDA under a 510k can join the predicate biologic on the market and can be sold without demonstration of safety or efficacy.</help>
+                    <col id="app501Date" xml="approvedDate501" label="510k Approval Date" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Biologic/approved501[.='1']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(approved501='1', 'width:105px', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="approvedDate501"/>
+                        </div>
+                    </col>
+                    <col id="app501Doc" xml="app501Doc" label="FDA 510k Determination Letter" docLabel="'FDA 510k Determination Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Biologic/approved501[.='1']) &gt; 0"/>
+                    
+                    
+                    <col id="preMarkApp" xml="preMarketApproval" label="Pre Market Approval" inout="in" type="checkbox" width="tiny" align="center"/>
+                    <col id="preMarkDate" xml="PMAApprovalDate" label="PMA Approval Date" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Biologic/preMarketApproval[.='1']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(preMarketApproval='1', 'width:105px', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="PMAApprovalDate"/>
+                        </div>
+                    </col>
+                    <col id="preMarkDoc" xml="preMarkDoc" label="FDA PMA Letter" docLabel="'FDA PMA Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Biologic/preMarketApproval[.='1']) &gt; 0"/>
+                    
+                    
+                    
+                    <delete>
+                        <option type='confirmDelete' message='Are you sure you want to delete this biologic?'/>
+                    </delete>
+                    
+                    <addButton type="quickSearch" label="Lookup Biologic">
+                        <quickSearch entity="Biologic" dialogTitle="Find Biologic" importScript="/applications/IRB/js/addBiologics" col1="Name" col2="ID" col3="Investigational Name" filter1="" filter2="" save="1" checkDupes="" addNew="{entName:'biologic', ent:'Biologic', split:false, code:'bio'}"></quickSearch>
+                    </addButton>
+                </form>
+                
+        <e type="direct" toptab="6A" tab="10" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = '' and //invBiological='1'])"/>           
+                <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events"
+                    xmlns:ix="http://itensil.com/ns/xforms" xmlns:exf="http://www.exforms.org/exf/1-0"
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                    
+                    <formType>general</formType>
+                    <formName>biological</formName>
+                    <formID>biological</formID>
+                    <tabName>biological</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>10</tabID>
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title/>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Biologic/fdaDate"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save="1" main="1"/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <component id="Biological" type="entryTable" source="ins" xml="Biological"> <!--  label="Biological Samples" -->
+                        <col label="Type" widthpx="70px" inout="in" xml="biologicType" type="dropdown" width="medium" align="left">
+                            <recordSource nodeset="instance('cats')/biologicType/type" label="@name" value="@id"/>
+                        </col>
+                        <col id="amount" xml="amount" label="Amount" inout="in" type="text" width="medium" align="left"><help>The Amount per collection</help></col>
+                        <col id="frequency" xml="frequency" label="Frequency" inout="in" type="text" width="medium" align="left"/>
+                        <col id="futureResearch" refresh='1' xml="futureResearch" label="Samples will be stored for future research" inout="in" type="checkbox" width="small" align="center"/>
+                        <!--<col label="Purpose" visibleWhen="@futureResearch='1'" inout="out" xml="purpose" type="textarea" cutoff="40" width="wide" align="left"/>-->
+                        <col label="Purpose" visibleWhen="@futureResearch='1'" inout="in" xml="purpose" type="manual" cutoff="40" width="wide" align="left">
+                            <xf:select1 ref="@purpose">
+                                <xf:item><xf:label>-Select-</xf:label><xf:value></xf:value></xf:item>
+                                <xf:item><xf:label>Study Related</xf:label><xf:value>studyRelated</xf:value></xf:item>
+                                <xf:item><xf:label>Other</xf:label><xf:value>other</xf:value></xf:item>
+                            </xf:select1>
+                        </col>
+                        <col label="Describe" visibleWhen="@futureResearch='1'" inout="out" xml="describe" type="textarea" cutoff="40" width="wide" align="left"/>
+                        <col id="storagelength" visibleWhen="@futureResearch='1'" xml="storagelength" label="Length of time samples will be stored" inout="in" type="text" width="medium" align="left"/>
+                        <col label="Form of sample identification" visibleWhen="@futureResearch='1'" widthpx="70px" inout="in" xml="sampleIdentification" type="dropdown" width="medium" align="left">
+                            <recordSource nodeset="instance('cats')/sampleIdentification/type" label="@name" value="@id"/>
+                        </col>
+                        <col id="outsideUMMC" refresh='1' xml="outsideUMMC" label="Samples will be sent outside of UMMC" inout="in" type="checkbox" width="small" align="center"/>
+                        <col label="Identify the recipient" visibleWhen="@outsideUMMC='1'" inout="out" xml="outsideRecipient" type="textarea" cutoff="40" width="wide" align="left"/>
+                        <delete>
+                            <option type="confirmDelete" message="Are you sure you want to delete this biological sample?"/>
+                        </delete>
+                        <addButton importScript="/applications/IRB/js/addBiological"/>
+                    </component>
+                </form>
+        
+        <e type="direct" toptab="6A" tab="8" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = '' and //invDrugs='1'])"/>
+                <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:ix="http://itensil.com/ns/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+                    
+                    <formType>drillIn</formType>
+                    <formName>drugs</formName>
+                    <formID>drugs</formID>
+                    <tabName>Drugs</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>8</tabID>
+                        
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                        <qslist>1</qslist>
+                        <stretchedLayout>1</stretchedLayout>
+                    </options>
+                    
+                    <formVariable name="dp1" initialValue="513"/>
+                    <formVariable name="dp2" initialValue=""/>
+                    <formVariable name="dp3" initialValue=""/>
+                    <formVariable name="dp4" initialValue=""/>
+                    
+                    <insertBindings>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Drug/fdaDate"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <insertXformsAfterMeta>
+                        <style>
+                            .wikiView div.xfctrl{
+                            background:none;
+                            }
+                        </style>
+                        <br/>
+                        <script>
+                            phaseis = model.getValue("instance('ins')/phase");
+                            parts = phaseis.split(" ");
+                            for(p = 0; p &lt; parts.length; p++){
+                            if(parts[p]=="i") model.setValue("instance('form')/dp1", "i");
+                            if(parts[p]=="ii") model.setValue("instance('form')/dp2", "ii");
+                            if(parts[p]=="iii") model.setValue("instance('form')/dp3", "iii");
+                            if(parts[p]=="iv") model.setValue("instance('form')/dp4", "iv");
+                            }
+                        </script>
+                        
+                        
+                        <div style="width:800px;">If you or your funding source intend to report study results to the FDA to support a new indication, new formulation, labeling change, or change in advertising for a licensed drug an IND application must be filed with the FDA.  If the study changes dose, route of administration or target population of a licensed drug an IND or an amendment to an existing IND is required.</div><br/><br/>
+                        
+                        <table style="margin-left:10px;background-color:">
+                            <tr>
+                                <td>
+                                    <xf:select ref="instance('form')/dp1" appearance="full" style="width:200px">
+                                        <xf:label style="width:100px;"><b>Phase:</b></xf:label>
+                                        <xf:item>
+                                            <xf:label>Phase I</xf:label>
+                                            <xf:value>i</xf:value>
+                                        </xf:item>
+                                        <script ev:event="xforms-value-changed">
+                                            dp1 = model.getValue("instance('form')/dp1");
+                                            dp2 = model.getValue("instance('form')/dp2");
+                                            dp3 = model.getValue("instance('form')/dp3");
+                                            dp4 = model.getValue("instance('form')/dp4");
+                                            model.setValue("instance('ins')/phase", dp1 + " " + dp2 + " " + dp3 + " " + dp4);
+                                        </script>
+                                    </xf:select>
+                                </td>
+                                <td>
+                                    <xf:select ref="instance('form')/dp2" appearance="full" style="width:100px">
+                                        <xf:item>
+                                            <xf:label>Phase II</xf:label>
+                                            <xf:value>ii</xf:value>
+                                        </xf:item>
+                                        <script ev:event="xforms-value-changed">
+                                            dp1 = model.getValue("instance('form')/dp1");
+                                            dp2 = model.getValue("instance('form')/dp2");
+                                            dp3 = model.getValue("instance('form')/dp3");
+                                            dp4 = model.getValue("instance('form')/dp4");
+                                            model.setValue("instance('ins')/phase", dp1 + " " + dp2 + " " + dp3 + " " + dp4);
+                                        </script>
+                                    </xf:select>
+                                </td>
+                                <td>
+                                    <xf:select ref="instance('form')/dp3" appearance="full" style="width:100px">
+                                        <xf:item>
+                                            <xf:label>Phase III</xf:label>
+                                            <xf:value>iii</xf:value>
+                                        </xf:item>
+                                        <script ev:event="xforms-value-changed">
+                                            dp1 = model.getValue("instance('form')/dp1");
+                                            dp2 = model.getValue("instance('form')/dp2");
+                                            dp3 = model.getValue("instance('form')/dp3");
+                                            dp4 = model.getValue("instance('form')/dp4");
+                                            model.setValue("instance('ins')/phase", dp1 + " " + dp2 + " " + dp3 + " " + dp4);
+                                        </script>
+                                    </xf:select>
+                                </td>
+                                <td>
+                                    <xf:select ref="instance('form')/dp4" appearance="full" style="width:100px">
+                                        <xf:item>
+                                            <xf:label>Phase IV</xf:label>
+                                            <xf:value>iv</xf:value>
+                                        </xf:item>
+                                        <script ev:event="xforms-value-changed">
+                                            dp1 = model.getValue("instance('form')/dp1");
+                                            dp2 = model.getValue("instance('form')/dp2");
+                                            dp3 = model.getValue("instance('form')/dp3");
+                                            dp4 = model.getValue("instance('form')/dp4");
+                                            model.setValue("instance('ins')/phase", dp1 + " " + dp2 + " " + dp3 + " " + dp4);
+                                        </script>
+                                    </xf:select>
+                                </td>
+                            </tr>
+                        </table>        
+                    </insertXformsAfterMeta>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <recordSet source="ins" xml="Drug" key="@id"/>
+                    
+                    <col id="name" xml="name" label="Name" inout="out" type="text" width="wide" align="left"><help>The word "experimental" must appear in the consent form to modify the drug name(s).  See 21 CFR 312</help></col>
+                    <col id="appr" xml="fdaApproved" label="FDA Approved" inout="in" type="manual" width="tiny" align="center">
+                        <div><ix:attr name="style" value="if(fdaApproved='1', '', 'display:none')"/>Yes</div>
+                    </col>
+                    <col id="manufacturerName" xml="marketData/manufacturerName" label="Manufacturer Name" inout="out" type="text" width="tiny" align="center"/>
+                    
+                    <col id="form" xml="form" label="Form" inout="in" type="manual" width="wide" align="center">
+                        <div>
+                            <xf:select1 ref="form">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:repeat
+                                    nodeset="../marketData">
+                                    <xf:item>
+                                        <xf:label><xf:output value="dosageFormRoute"/> - <xf:output value="strength"/></xf:label>
+                                        <xf:value><xf:output value="fdaApplicationNumber"/></xf:value>
+                                    </xf:item>
+                                </xf:repeat>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    <col id="onLabel" xml="onLabel" label="On label use?" inout="in" type="manual" width="tiny" align="center">
+                        <div>
+                            <xf:select1 ref="onLabel">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Yes</xf:label>
+                                    <xf:value>1</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>No</xf:label>
+                                    <xf:value>0</xf:value>
+                                </xf:item>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    
+                    <col id="fdaStatus" xml="fdaStatus" label="FDA Status" inout="in" type="manual" width="medium" align="center"  colVisWhen="count(instance('ins')/Drug/onLabel[.='0']) &gt; 0">
+                        <div><ix:attr name="style" value="if(onLabel='0', '', 'display:none')"/>
+                            <xf:select1 ref="fdaStatus">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:repeat
+                                    nodeset="instance('cats')/FDATypes/type">
+                                    <xf:item>
+                                        <xf:label><xf:output value="@name"/></xf:label>
+                                        <xf:value><xf:output value="@id"/></xf:value>
+                                    </xf:item>
+                                </xf:repeat>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    <col id="fdaDate" xml="fdaDate" label="FDA Status Date" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Drug/onLabel[.='0']) &gt; 0">
+                        <div style="width:105px;">
+                            <ix:attr name="style" value="if(onLabel='0', '', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="fdaDate"/>
+                        </div>
+                    </col>
+                    <col id="indNum" xml="indNum" label="IND Number" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Drug/onLabel[.='0']) &gt; 0 and count(instance('ins')/Drug/fdaStatus[.='investigational']) &gt; 0">
+                        <div>
+                            <ix:attr name="style" value="if(onLabel='0' and fdaStatus='investigational', '', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="indNum"/>
+                        </div>
+                    </col>
+                    <col id="indHolder" xml="indHolder" label="IND Holder" inout="in" type="manual" width="medium" align="center" colVisWhen="count(instance('ins')/Drug/onLabel[.='0']) &gt; 0 and count(instance('ins')/Drug/fdaStatus[.='investigational']) &gt; 0">
+                        <div>
+                            <ix:attr name="style" value="if(onLabel='0' and fdaStatus='investigational', '', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="indHolder"/>
+                        </div>
+                    </col>
+                    <col id="drugDocument" xml="drugDocument" label="FDA Determination Letter" docLabel="'FDA Determination Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" visWhen="onLabel='0'" colVisWhen="count(instance('ins')/Drug/onLabel[.='0']) &gt; 0">
+                    </col>
+                    <delete>
+                        <option type='confirmDelete' message='Are you sure you want to delete this drug?'/>
+                    </delete>
+                    
+                    <addButton type="quickSearch" label="Lookup Drug">
+                        <quickSearch entity="Drug" dialogTitle="Find Drug" importScript="/applications/IRB/js/addDrug" col1="Name" col2="" col3="" filter1="" filter2="" save="1" checkDupes="" addNew="{entName:'drug', ent:'Drug', split:false, code:'drug'}"></quickSearch>
+                    </addButton>
+                    
+                </form>
+                
+                
+        <e type="direct" toptab="6A" tab="9" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = '' and //invDevs='1'])"/>
+                <form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:ix="http://itensil.com/ns/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+                    
+                    <formType>drillIn</formType>
+                    <formName>devices</formName>
+                    <formID>devices</formID>
+                    <tabName>Devices</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>9</tabID>
+                        
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Device/fdaDate"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Device/approvedDate501"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Device/PMAApprovalDate"/>
+                        <xf:bind type="xsd:date" nodeset="instance('ins')/Device/fdaDetDate"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <recordSet source="ins" xml="Device" key="@id"/>
+                    
+                    <col id="name" xml="name" label="Name" inout="out" type="text" width="mediumlarge" align="left"/>
+                    <col id="manufacturer" xml="manufacturer" label="Manufacturer" inout="out" type="text" width="mediumlarge" align="left"/>
+                    <!--<col id="manufacturer" xml="manufacturer" label="Manufacturer" inout="in" type="manual" width="large" align="center">
+                        <div>
+                        <div><ix:attr name="style" value="if(manufacturer = '', '', 'display:none')"></ix:attr>
+                        <u class="clickable" style="color:blue;cursor:pointer"><xf:action ev:event="click"><ix:dialog
+                        style="height:300px;" id="results" title="Lookup Manufacturer"
+                        class="quickSearchDialog"><ix:include template="QuickSearch" ref="."
+                        /></ix:dialog>
+                        <script>
+                        pa = model.getValue("@id", contextNode);
+                        model.Frm.configureQuickSearch("Organizations",
+                        "replaceValue", "instance('ins')/Device[@id='" + pa + "']/manufacturer ", "", "", "Name",
+                        "ID", "", "", "", '', '');
+                        model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                        </script></xf:action>Lookup</u>
+                        </div>
+                        <div><ix:attr name="style" value="if(manufacturer = '', 'display:none', '')"/><xf:output value="manufacturer"/>
+                        <b class="clickable" style="color:red;cursor:pointer"><xf:action ev:event="click">
+                        <script>
+                        pa = model.getValue("@id", contextNode);
+                        model.setValue("instance('ins')/Device[@id='" + pa + "']/manufacturer", "");
+                        model.refresh(); model.recalculate(); model.rebuild();
+                        </script></xf:action>X</b>
+                        </div>
+                        </div>
+                        </col>-->
+                    
+                    
+                    <!--Vamshi commented this out for UMMC-->
+                    <!--<col id="appr" xml="fdaApproved" label="FDA Approved?" inout="out" type="checkboxexplicit" width="tiny" align="center"/>-->
+                    <col id="fdaClass" xml="fdaClass" label="FDA Classification" inout="in" type="manual" width="medium" align="center">
+                        <div>
+                            <xf:select1 ref="fdaClass">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Class&#160;I</xf:label>
+                                    <xf:value>I</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Class&#160;II</xf:label>
+                                    <xf:value>II</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Class&#160;III</xf:label>
+                                    <xf:value>III</xf:value>
+                                </xf:item>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    
+                    
+                    <col id="riskDetermination" xml="riskDetermination" label="Risk Determination" inout="in" type="manual" width="medium" align="center">
+                        <help width="400px;">What is a significant risk device?  Under 21 CFR 812.3(m), a SR device means an investigational device that:    ·is intended as an implant and presents a potential for serious risk to the health, safety or welfare of a participant ·is purported or represented to be for use supporting or sustaining human life and presente a potential for serious risk to the health, safety or welfare of a participant  · is for a use of substantial importance diagnosing, curing mitigating or treating disease, or otherwise preventable impairment of human health and presents a potential for serious risk to the health safety or welfare of a participant or · otherwise presente a potential for serious risk to the health, safety or welfare of a participant</help>
+                        <reviewGuide>Is the status of the device (significant risk or nonsignificant risk) appropriate?  <br/><br/>Are the safety and efficacy data sufficient to support the proposed testing?</reviewGuide>
+                        <div>
+                            <xf:select1 ref="riskDetermination">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:repeat
+                                    nodeset="instance('cats')/riskDetermination/type">
+                                    <xf:item>
+                                        <xf:label><xf:output value="@name"/></xf:label>
+                                        <xf:value><xf:output value="@id"/></xf:value>
+                                    </xf:item>
+                                </xf:repeat>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    <col id="riskDeterminer" xml="riskDeterminer" label="Determined by" inout="in" type="manual" width="medium" align="center">
+                        <help>Who decides?  Sponsors are responsible for making the initial determination and presenting it to the IRB for review.  If the FDA has already made a risk determination, the FDA's determination is final.</help>
+                        <div>
+                            <xf:select1 ref="riskDeterminer">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:repeat
+                                    nodeset="instance('cats')/riskDeterminer/type">
+                                    <xf:item>
+                                        <xf:label><xf:output value="@name"/></xf:label>
+                                        <xf:value><xf:output value="@id"/></xf:value>
+                                    </xf:item>
+                                </xf:repeat>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    <col id="fdaStatus" xml="fdaStatus" label="FDA Status" inout="in" type="manual" width="medium" align="center">
+                        <div>
+                            <xf:select1 ref="fdaStatus">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:repeat
+                                    nodeset="instance('cats')/FDATypes/type">
+                                    <xf:item>
+                                        <xf:label><xf:output value="@name"/></xf:label>
+                                        <xf:value><xf:output value="@id"/></xf:value>
+                                    </xf:item>
+                                </xf:repeat>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    <col id="fdaDate" xml="fdaDate" label="FDA Status Date" inout="in" type="manual" width="mediumsmall" align="center">
+                        <div style="width:105px;">
+                            <xf:input style="width:70px;" ref="fdaDate"/>
+                        </div>
+                    </col>
+                    
+                    
+                    <col id="routeToMarket" xml="routeToMarket" label="Route to Market" inout="in" type="manual" width="medium" align="center">
+                        <div>
+                            <xf:select1 ref="routeToMarket">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>PMA</xf:label>
+                                    <xf:value>pma</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>510k</xf:label>
+                                    <xf:value>510k</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>HUD</xf:label>
+                                    <xf:value>hud</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Exempt</xf:label>
+                                    <xf:value>exempt</xf:value>
+                                </xf:item>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    
+                    <col id="fadExemption" xml="fadExemption" label="Exemption Type" inout="in" type="manual" width="medium" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='exempt']) &gt; 0">
+                        <div><ix:attr name="style" value="if(routeToMarket='exempt', 'width:105px', 'display:none')"/>
+                            <xf:select1 ref="fdaExemption">
+                                <xf:label/>
+                                <xf:item>
+                                    <xf:label>-Select-</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>IDE</xf:label>
+                                    <xf:value>IDE</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Exemption</xf:label>
+                                    <xf:value>exemption</xf:value>
+                                </xf:item>
+                            </xf:select1>
+                        </div>
+                    </col>
+                    <col id="ideNum" xml="ideNum" label="IDE Number" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/fdaExemption[.='IDE']) &gt; 0 and count(instance('ins')/Device/routeToMarket[.='exempt']) &gt; 0">
+                        <help>Significant risk devices:  an IDE application must be submitted to the FDA and approved before the study may begin. (See 21 CFR 812.20(a)(1) and (2)</help>
+                        <span><ix:attr name="style" value="if(routeToMarket='exempt', '', 'display:none')"/>
+                            <div><ix:attr name="style" value="if(fdaExemption='IDE', 'width:105px', 'display:none')"/>
+                                <xf:input style="width:70px;" ref="ideNum"/>
+                            </div>
+                        </span>
+                    </col>
+                    <col id="medicareReim" xml="medicareReim" label="Medicare Reimbursement" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/fdaExemption[.='IDE']) &gt; 0 and count(instance('ins')/Device/routeToMarket[.='exempt']) &gt; 0">
+                        <span><ix:attr name="style" value="if(routeToMarket='exempt', '', 'display:none')"/>
+                            <div><ix:attr name="style" value="if(fdaExemption='IDE', 'width:105px', 'display:none')"/>
+                                <xf:select1 ref="medicareReim">
+                                    <xf:label/>
+                                    <xf:item>
+                                        <xf:label>-Select-</xf:label>
+                                        <xf:value/>
+                                    </xf:item>
+                                    <xf:item>
+                                        <xf:label>Category A</xf:label>
+                                        <xf:value>A</xf:value>
+                                    </xf:item>
+                                    <xf:item>
+                                        <xf:label>Category B</xf:label>
+                                        <xf:value>B</xf:value>
+                                    </xf:item>
+                                </xf:select1>
+                            </div>
+                        </span>
+                    </col>
+                    <col id="fdaDetDate" xml="fdaDetDate" label="FDA Determination Date" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='exempt']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(routeToMarket='exempt', 'width:105px', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="fdaDetDate"/>
+                        </div>
+                    </col>
+                    <col id="fdaDoc" xml="fdaDoc" label="FDA Determination Letter" docLabel="'FDA Determination Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='exempt']) &gt; 0" visWhen="routeToMarket[.='exempt']"/>
+                    
+                    <!--<col id="hud" xml="hud" label="HUD" inout="in" type="checkbox" width="tiny" align="center">
+                        <help break="1">To qualify for designation as a humanitarian use device (HUD) the device must be for a disease or indication that affects fewer than 4,000 people in the United States per year.  To obtain HUD designation, application for  humanitarian device exemption (HDE) must be sumbitted to the FDA and approved.  Once approved, the HUD may be marketed, however, the labeling must state that the device is an HUD and that the effectiveness of the device has not been demonstrated.  FDA regulations require IRB review and approval of the use of the HUD to treat or diagnose a medical condition as specified in the HDE application.</help>
+                        </col>-->
+                    
+                    <col id="hudNum" xml="hudNum" label="HDE Number" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='hud']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(routeToMarket='hud', 'width:105px', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="hudNum"/>
+                        </div>
+                    </col>
+                    <col id="hudDoc" xml="hudDoc" label="FDA HDE Letter" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='hud']) &gt; 0" visWhen="routeToMarket[.='hud']"/>
+                    
+                    <!--<col id="hde" xml="hde" label="HDE" inout="in" type="checkbox" width="tiny" align="center"/>
+                        <col id="hdeNum" xml="hdeNum" label="HDE Number" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/hde[.='1']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(hde='1', 'width:105px', 'display:none')"/>
+                        <xf:input style="width:70px;" ref="hudNum"/>
+                        </div>
+                        </col>
+                        <col id="hdeDoc" xml="hdeDoc" label="FDA HDE Letter" docLabel="'FDA HDE Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Device/hde[.='1']) &gt; 0"/>
+                    -->
+                    
+                    <!--<col id="app501" xml="approved501" label="510k Approved" inout="in" type="checkbox" width="tiny" align="center"/>-->
+                    <!--<help>A 510k claim by the sponsor indicates that the device is "substantially equivalent" to a predicate device.  A device cleared by the FDA under a 510k can join the predicate device on the market and can be sold without demonstration of safety or efficacy.</help>-->
+                    <col id="app501Date" xml="approvedDate501" label="510k Approval Date" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='510k']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(routeToMarket='510k', 'width:105px', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="approvedDate501"/>
+                        </div>
+                    </col>
+                    <col id="app501Doc" xml="app501Doc" label="FDA 510k Determination Letter" docLabel="'FDA 510k Determination Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='510k']) &gt; 0" visWhen="routeToMarket[.='510k']"/>
+                    
+                    
+                    <!--<col id="preMarkApp" xml="preMarketApproval" label="Pre Market Approval" inout="in" type="checkbox" width="tiny" align="center"/>-->
+                    <col id="preMarkDate" xml="PMAApprovalDate" label="PMA Approval Date" inout="in" type="manual" width="mediumsmall" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='pma']) &gt; 0">
+                        <div style="width:105px;"><ix:attr name="style" value="if(routeToMarket='pma', 'width:105px', 'display:none')"/>
+                            <xf:input style="width:70px;" ref="PMAApprovalDate"/>
+                        </div>
+                    </col>
+                    <col id="preMarkDoc" xml="preMarkDoc" label="FDA PMA Letter" docLabel="'FDA PMA Letter (' + model.getValue('name', contextNode) + ')'" inout="in" type="document" width="medium" align="center" colVisWhen="count(instance('ins')/Device/routeToMarket[.='pma']) &gt; 0" visWhen="routeToMarket[.='pma']"/>
+                    
+                    
+                    <delete>
+                        <option type='confirmDelete' message='Are you sure you want to delete this device?'/>
+                    </delete>
+                    
+                    <addButton type="quickSearch" label="Lookup Device">
+                        <quickSearch entity="Device" dialogTitle="Find Device" importScript="/applications/IRB/js/addDevice" col1="Name" col2="ID" col3="Investigational Name" filter1="" filter2="" save="1" checkDupes="" addNew="{entName:'device', ent:'Device', split:false, code:'device'}"></quickSearch>
+                    </addButton>
+                </form>
+                
+        <e type="direct" toptab="6A" tab="17a" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = '' and //invRadio='1'])"/>
+                <form xmlns:xf="http://www.w3.org/2002/xforms"> 
+                    
+                    <formType>general</formType>
+                    <formName>radiation</formName>
+                    <formID>radiation</formID>
+                    <tabName>Radiation</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>17a</tabID>
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>    
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>    
+                        
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/>
+                        <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/>
+                        <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    
+                    <component type="html">
+                        <h3>Clinical Exposure to Diagnostic Radiation</h3>
+                    </component>
+                    
+                    <component id="radiationEquipment" type="dropdownlist" source="ins" xml="radiationEquipment" label="Radiation Emitting Equipment">
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="radiationEquipment/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <option type="widenLabel"/>
+                        <comment id="f1"/>
+                    </component>
+                    
+                    <component type="line"/>
+                    
+                    <component id="radioactiveMaterials" type="dropdownlist" source="ins" xml="radioactiveMaterials" label="Radioactive Materials">
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="radioactiveMaterials/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <option type="widenLabel"/>
+                        <comment id="f2"/>
+                    </component>
+                    
+                    <component type="line"/>
+                    
+                    <component id="otherProcedures" type="yesnobuttons" source="ins" xml="otherProcedures" label="Other Procedures">        
+                        <validation type="required" message="required"/>
+                        <option type="widenLabel"/>
+                        <comment id="f3"/>
+                    </component>
+                    
+                    <component id="otherProceduresDesc" type="entryTable" source="ins" xml="otherProceduresDesc" label="Describe Other Procedures">
+                        <visible whenComponent="otherProcedures" hasValue="1"/>
+                        <col id="describe" xml="describe" label="Description" inout="out" type="textarea" cutoff="40" width="wide" align="left"/>
+                        <col id="procedure" xml="procedure" label="Procedure" inout="in" type="text" width="medium" align="left"/>
+                        <col id="perYearSOC" xml="perYearSOC" label="# per year for standard of care" inout="in" type="text" width="medium" align="left"/>
+                        <col id="perYearResearch" xml="perYearResearch" label="# per year for Research" inout="in" type="text" width="medium" align="left"/>
+                        <col id="totalProcedures" xml="totalProcedures" label="Total # participant will receive if he/she completes the study (standard care + research)" inout="in" type="text" width="medium" align="left"/>
+                        <col id="totalProceduresRes" xml="totalProceduresRes" label="Total # participants will receive for research purposes only if he/she completes the study" inout="in" type="text" width="medium" align="left"/>
+                        <addButton importScript="/applications/IRB/js/addRadiationOtherProcs"/>
+                        <comment id="f4"/>
+                    </component>
+                    
+                    <component type="line"/>
+                    
+                    <component id="radOncology" type="yesnobuttons" source="ins" xml="radOncology" label="Radiation Oncology">        
+                        <validation type="required" message="required"/>
+                        <option type="widenLabel"/>
+                        <comment id="f5"/>
+                    </component>
+                    
+                    <component id="otherRadioactiveTreatment" type="entryTable" source="ins" xml="otherRadioactiveTreatment" label="Sites to be treated">
+                        <visible whenComponent="radOncology" hasValue="1"/>
+                        <col id="treated" xml="treated" label="Site(s) to be treated" inout="in" type="text" width="medium" align="left"/>
+                        <col id="dose" xml="dose" label="Dose" inout="in" type="text" width="medium" align="left"/>
+                        <col id="treatment" xml="treatment" label="Dose/Treatment" inout="in" type="text" width="medium" align="left"/>
+                        <col id="frequency" xml="frequency" label="Frequency of Treatment" inout="in" type="text" width="medium" align="left"/>
+                        <col id="number" xml="number" label="Number of Treatments" inout="in" type="text" width="medium" align="left"/>
+                        <col id="numberWithout" xml="numberWithout" label="With/Without Chemotherapy" inout="in" type="text" width="medium" align="left"/>
+                        <addButton importScript="/applications/IRB/js/addRadiationTreatment"/>
+                        <comment id="f6"/>
+                    </component>
+                    
+                    <!--<component type="line"/>
+                        
+                        <component type="html">
+                        <h3>Standard of Care Certification</h3>
+                        </component>
+                        
+                        <component id="treatmentOutsideStudy" type="yesnobuttons" source="ins" xml="treatmentOutsideStudy" label="Will participants receive the x-ray or nuclear medicine procedures identified, if they are not in this study?">        
+                        <validation type="required" message="required"/>
+                        <option type="widenLabel"/>
+                        <comment id="f7"/>
+                        </component>
+                        
+                        <component type="line"/>
+                        
+                        <component id="addlTreatmentInStudy" type="yesnobuttons" source="ins" xml="addlTreatmentInStudy" label="Will participants receive additional procedures as a result of participating in the study?">        
+                        <validation type="required" message="required"/>
+                        <option type="widenLabel"/>
+                        <comment id="f8"/>
+                        </component>-->
+                    
+                </form>
+            
+       
+        <e type="direct" toptab="11A" tab="11" err="" 
+            xpath="count(instance('ins')/[. = ''])" xpathSS="count([. = ''])"/>
+            
+                <form xmlns:xf="http://www.w3.org/2002/xforms"> 
+                    
+                    <formType>general</formType>
+                    <formName>subjects</formName>
+                    <formID>subjects</formID>
+                    <tabName>Subjects</tabName>
+                    
+                    <options>
+                        <protocol>1</protocol>
+                        <validationInstance>ins</validationInstance>
+                        <tabID>11</tabID>        
+                        <genAmendment>1</genAmendment>
+                        <genResponse>1</genResponse>    
+                        <genReview>1</genReview>
+                        <genValidation>1</genValidation>
+                        <genReadonly>1</genReadonly>
+                        <versioned>1</versioned>
+                        <title></title>
+                        <trackPageInitiated>1</trackPageInitiated>
+                        <trackLastUpdate>1</trackLastUpdate>
+                        <saveOnExit>1</saveOnExit>
+                        <bottomBack>1</bottomBack>
+                        <bottomNext>1</bottomNext>
+                    </options>
+                    
+                    <insertBindings>
+                        <xf:bind type="xsd:integer" nodeset="instance('ins')//@en"/>
+                    </insertBindings>
+                    
+                    <dataSource ins="ins" ref="/data/irb.xml" save='1' main='1'/>
+                    <dataSource ins="meta" ref="/data/projectData.xml"/>
+                    <dataSource ins="cats" ref="/data/catagories.xml"/>
+                    
+                    <logicSource ins="USA" obj="irbProtocol" ref="/applications/IRB/js/clientSideFunctions.js"/>
+                    
+                    <component id="ageRange" type="dropdownlist" source="ins" xml="ageRange" label="Age Range(s)">
+                        <help>Pursuant to federal regulations, 45 CFR 46, subpart D) a study that proposes to include minors must meet one of the following for risk/benefit assessment:  (404) Minimal Risk  (405) Greater than minimal risk, but holds prospect of direct benefit to participants  (406) Greater than minimal risk, no prospect of direct benefit to participants but likely to yield generalizable knowledge about the disorder or condition.</help>
+                        <reviewGuide>If minors are involved:  Are adequate provisions made for soliciting assent?  <br/><br/>Are adequate provision made for soliciting permission from one or both parents or a legally authorized representative?  <br/><br/>If the research involves more than minimal risk, does it present the prospect of direct benefit to the individual participant (45 CFR 46.405)?  <br/><br/>Is the relation of the anticipated benefit to the risk at least as favorable as that presented by available alternatives?  <br/><br/>If the research involves more than minimal risk with no prospect of direct benefit to individual participants, is is likely to yield generalizable knowledge about the participant's disorder, disease or condition (45 CFR 46.406)?  <br/><br/>Is the intervention or procedure likely to yield generalizable knowledge about the participant's disorder or condition that is of vital importance for the understanding or amelioration of the participant's disorder or condition?  Adequate provisions must be made for soliciting the assent of the minor and the permission of both parents, unless one parent is deceased, unknown, incompetent or not reasonably available, or when one parent has legal responsibility for the care and custody of the child.</reviewGuide>
+                        <comment id="f1"/>
+                        <!--<option type="0orMore"/>--> 
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="ageRangeTypes/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <!--<additionalCol xml="en" type="xform" title="Enrolled" class="dropdown">
+                            <xf:input ref="@en" style="width:40px"/>
+                            </additionalCol>-->
+                        <option type="widenLabel"/>
+                    </component>
+                    
+                    <component type="break"/>
+                    
+                    <component id="population" type="dropdownlist" source="ins" xml="population" label="Targeted Population(s)">
+                        <reviewGuide>Is the study population appropriate for the question being asked?  <br/><br/>The targeting or inclusion of potentially vulnerable populations (mentally/emotionally/developmentally disabled, minority group(s)/Non-English speakers, 65 and older) in reearch may require special considerations for obtaining consent and determining competency.</reviewGuide>
+                        <comment id="f2"/>
+                        <!--<option type="0orMore"/>--> 
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="populationTypes/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <!--<additionalCol xml="en" type="xform" title="Enrolled" class="dropdown">
+                            <xf:input ref="@en" style="width:40px"/>
+                            </additionalCol>-->
+                        <option type="widenLabel"/>
+                    </component>
+                    
+                    <component type="break"/>
+                    
+                    <component id="ethnicCat" type="dropdownlist" source="ins" xml="ethnicCat" label="Ethnicity">
+                        <comment id="f3"/>
+                        <!--<option type="0orMore"/>--> 
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="ethnicCategoryTypes/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <!--<additionalCol xml="en" type="xform" title="Enrolled" class="dropdown">
+                            <xf:input ref="@en" style="width:40px"/>
+                            </additionalCol>-->
+                        <option type="widenLabel"/>
+                    </component>
+                    
+                    <component type="break"/>
+                    
+                    <component id="race" type="dropdownlist" source="ins" xml="race" label="Race(s)">
+                        <comment id="f4"/>
+                        <!--<option type="0orMore"/>--> 
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                            <xmlInstance source="cats" nodeset="raceTypes/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <!--<additionalCol xml="en" type="xform" title="Enrolled" class="dropdown">
+                            <xf:input ref="@en" style="width:40px"/>
+                            </additionalCol>-->
+                        <option type="widenLabel"/>
+                    </component>
+                    
+                    <!--  <component type="line">
+                        </component>
+                        
+                        <component type="html">
+                        <h3>Recruitment</h3>
+                        </component>
+                        
+                        <component id="recMethod" type="dropdownlist" source="ins" xml="recMethod" label="Method(s)">
+                        <comment id="f5"/>
+                        <!-\-<option type="0orMore"/>-\-> 
+                        <option type='colTitle'>Type</option>
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                        <xmlInstance source="cats" nodeset="methodTypes/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <!-\-<additionalCol xml="description" type="xform" title="Description" class="dropdown">
+                        <xf:textarea style="width:300px; height:4em; margin-top:0px;" ref="@description"/>
+                        </additionalCol>-\->
+                        <option type="widenLabel"/>
+                        </component>
+                        
+                        <component type="break"/>
+                        
+                        <component id="recMaterial" type="dropdownlist" source="ins" xml="recMaterial" label="Material(s)">
+                        <comment id="f6"/>
+                        <!-\-<option type="0orMore"/>-\-> 
+                        <dataList type="xmlInstance" emptyValueLabel="-Select-">
+                        <xmlInstance source="cats" nodeset="advertTypes/type" labelXML="@name" valueXML="@id"/>
+                        </dataList>
+                        <option type="widenLabel"/>
+                        </component>
+                    -->
+                </form>
+          
+    </init>
+</validationsgathered>

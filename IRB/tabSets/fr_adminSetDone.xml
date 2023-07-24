@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    <!-- To be loaded into adminSetDone.xfrm - you'll need to clone this for each segment you plan to use -->
+    
+    
+    <!-- Make sure all tabsets for this phase (and the return from the board meeting) use this form for the reviews -->
+    <tab id="LC" label="Review Dashboard" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>
+    
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalFR.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusFR.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusFR.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+ 
+    
+    <!-- Please replace this tab with nicely built tabs that say what's happening - i.e. "By clickign tihs button you will include the modifications and update the case -->
+    <tab id="COV" label="Update Case" form="/home/configs/IRB/forms/fr_boardsubmitUC.xfrm" when="updateCase"/>
+    
+    <switches>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+        <updateCase>0</updateCase>
+    </switches>
+</tabs>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><viewBy>year</viewBy><focus/><lastFocus/><temp/><comp uri=""/><dummy/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "externalSites");
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+		  if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+            }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+            }
+			model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//@*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//@*"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                        var indx = model.getValue("@id", contextNode);
+                        var val = model.getValue("@name", contextNode);
+                        if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                        model.Frm.quickSearchSelect(indx, val);
+                        var code = model.Frm.quickSearch.code;
+                        if(code) eval(code);
+                        if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                        event.stopPropagation();
+                      </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><script ev:event="xforms-value-changed">model.USA.updateErrs('ins', 'recordTable');</script><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><style>
+            .wikiView div.xfctrl{
+                background:none;
+            }
+		</style><br/><div style="width:800px;">Add each site for which the Mount Sinai Principal Investigator will bear responsibility for the conduct of research, including the Icahn School of Medicine at Mount Sinai (ISMMS), Mount Sinai Hospital, Mount Sinai affiliates, and any other external sites.</div><br/><br/><div class="body"><xf:switch><xf:case exf:if="1" id="show-recordTable"><exf:variable value="instance('ins')/externalSiteApprovals[@id = instance('form')/focus or instance('form')/focus = '']" name="recs"/><h1/><table class="fullColLayout"><ix:attr value="if(count($recs) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th class="small delete center"/><th class=" in manual wide left">Site Name</th><th class=" in manual  left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. = 'Other']) &gt; 0, '', 'display:none')" name="style"/>Other External Site Name</th><th class="Details in manual  "><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/>Contact Details</th><th class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/>Approved</th><th class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteApproval[. = '1']) &gt; 0, '', 'display:none')" name="style"/>Approval Document</th><th class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/>Funded By Mount Sinai</th><th class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/>Reviewed By<span class="helpdialogOverTable" style="cursor:help;color:blue">  [?]
+          <div style="width:200px"><p><span style="color:black"><help>
+				For Veterans Administration (VA) research, requests to rely on Mount Sinai IRB or other IRBs is not allowed.
+		</help></span></p></div></span></th><th class=" in manual  left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/reviewResearch[. = '3']) &gt; 0, '', 'display:none')" name="style"/>Other IRB</th></tr><xf:repeat nodeset="$recs"><exf:variable value="(.)" name="this"/><exf:variable value="@id" name="indx"/><tr><td class="small delete center"><u class="clickable">X<xf:action exf:if="script('confirm(&quot;Are you sure you want to delete this site?&quot;)')" ev:event="click"><script/><xf:destroy ref="."/></xf:action></u></td><td class=" in manual wide left"><ix:attr value="if(siteName='' ,'border:2px solid red', '')" name="style"/><print type="dropdown" nodeset="siteName/type" evaluate="0" condition=""/><xf:select1 id="siteName" ref="siteName">							
+			<xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item>
+			<xf:repeat nodeset="instance('cats')/siteName/type">
+				<xf:item>
+					<xf:label><xf:output value="@name"/></xf:label>
+					<xf:value><xf:output value="@id"/></xf:value>
+				</xf:item>
+			</xf:repeat>
+			<script ev:event="xforms-value-changed">				
+				var ref = model.getValue("../@ref",contextNode);
+				var x = model.getValue(".",contextNode);
+				var siteName = model.getValue("instance('cats')/siteName/type[@id='" + x + "']/@name",null);
+				model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/siteNameText",siteName);				
+				if(x == '1' || x == '2') {
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/otherIRBDesc","");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/reviewResearch","");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/passThrough","");
+					var dl3 = model.getValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@docLink",null);
+					if(dl3) model.Frm.deleteDocumentRef(dl3, 'ins');
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@uri", "");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@docLink", "");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc", ""); 
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/siteApproval","");
+				}
+				if(x != 'Other') {
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/siteNameOther","");
+				}
+				model.recalculate();
+				model.rebuild();
+				model.refresh();
+			</script>	
+		</xf:select1></td><td class=" in manual  left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. = 'Other']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. = 'Other']) &gt; 0, if(siteNameOther='' ,'border:2px solid red', ''), 'display:none')" name="style"/><print type="box" nodeset="" evaluate="0" condition=""/><div style="width:150px;">
+			<ix:attr value="if(siteName != 'Other', 'display:none', '')" name="style"/>
+			<xf:input style="width:140px;" ref="siteNameOther"/>
+		</div></td><td class="Details in manual  "><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/><u class="clickable">Contact Details<xf:action ev:event="click">
+			<ix:attr value="if(siteName != '1' and siteName != '2' and siteName != '', '', 'display:none')" name="style"/>
+				<ix:dialog style="width:360px;height:" height="" width="360px" id="detailsDetails" title="Contact Details" class="detailsDialogBox">
+					<xf:group style="border:none;" ref=".">
+						<h3/>
+						<xf:switch>
+							<xf:case exf:if="1" id="show-dialog">
+								<table class="detailsDialog">
+									<tr>
+										<td>
+											<xf:input ref="contactName" class="halfLine">
+												<xf:label>
+													<span style="padding-left:30px;">Name</span>
+												</xf:label>
+											</xf:input>
+										</td>
+										<td style="padding-left:10px">
+											<xf:input ref="contactPhone" class="halfLine">
+												<xf:label>Phone</xf:label>
+											</xf:input>
+										</td>										
+									</tr>
+									<tr>
+										<td colspan="2" style="padding-left:10px">
+											<div>												
+												<xf:input ref="contactEmail" class="fullLine">
+													<xf:label>Email</xf:label>
+												</xf:input>
+											</div>											
+											<hr/>
+										</td>
+									</tr>									
+								</table>
+							</xf:case>
+							<xf:case id="hide-dialog"/>
+						</xf:switch>
+					</xf:group>
+					<xf:trigger style="float:bottom; width:100%; background-color:#DDDDDD;border-color:black;">
+						<xf:label>Close Details</xf:label>
+						<xf:close ev:event="DOMActivate"/>
+					</xf:trigger>
+				</ix:dialog>
+			</xf:action>
+		</u></td><td class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, if(siteApproval='' ,'border:2px solid red', ''), 'display:none')" name="style"/><table class="horizontalSelects">
+			<ix:attr value="if(siteName != '1' and siteName != '2' and siteName != '', '', 'display:none')" name="style"/>
+			<tr>
+				<td class="yesBox">
+					<xf:select1 appearance="full" id="siteApproval" ref="siteApproval">
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>1</xf:value>
+						</xf:item>
+						<script ev:event="xforms-value-changed">
+							var ref = model.getValue("../@ref",contextNode);
+							var x = model.getValue(".",contextNode);
+							if(x != '1') {
+								var dl3 = model.getValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@docLink",null);
+					if(dl3) model.Frm.deleteDocumentRef(dl3, 'ins');
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@uri", "");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@docLink", "");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc", ""); 
+							} 
+							model.recalculate();
+							model.rebuild();
+							model.refresh();
+						</script>	
+					</xf:select1>
+				</td>
+				<td class="noBox">
+					<xf:select1 appearance="full" id="siteApproval" ref="siteApproval">
+						<xf:label/>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>0</xf:value>
+						</xf:item>
+						<script ev:event="xforms-value-changed">
+							var ref = model.getValue("../@ref",contextNode);
+							var x = model.getValue(".",contextNode);
+							if(x != '1') {
+								var dl3 = model.getValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@docLink",null);
+					if(dl3) model.Frm.deleteDocumentRef(dl3, 'ins');
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@uri", "");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc/@docLink", "");
+					model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/approvalDoc", ""); 
+							} 
+							model.recalculate();
+							model.rebuild();
+							model.refresh();
+						</script>	
+					</xf:select1>
+				</td>
+			</tr>
+		</table></td><td class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteApproval[. = '1']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteApproval[. = '1']) &gt; 0, if(approvalDoc='' ,'border:2px solid red', ''), 'display:none')" name="style"/><table class="oneToManyBox">
+			<ix:attr value="if(siteApproval != '1', 'display:none', 'width:150px')" name="style"/>
+			<tr>
+				<td class="">
+					<span>
+						<ix:attr value="if(approvalDoc != '', '', 'display:none')" name="style"/>
+						<a target="_blank_">
+							<ix:attr value="approvalDoc/@uri" name="href"/>
+							<xf:output class="" value="approvalDoc"/>
+						</a>
+					</span>
+					<span class="clickable">
+						<ix:attr value="if(approvalDoc != '', 'display:none', 'cusor:pointer;color:blue')" name="style"/>
+						<script ev:event="click">
+                                // added manually here:///////////////////////
+                                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                                model.Frm.DOC_REFRESHSECTION= "approvalDoc";
+                                //////////////////////////////////////////////////////
+                                model.Frm.docUpload.manualLabel = "Approval Document";
+
+                                po = model.getValue("@ref", contextNode);
+                                if(po==""){                                
+                                return;
+                                }
+                                //model.Frm..docUpload.dSkip = true;
+                                model.Frm.configureDocUpload("replaceValue",
+                                "instance('ins')/externalSiteApprovals[@ref='" + po + "']/approvalDoc", "", "",
+                                event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                                model.Frm.executeDocUpload(); 
+						</script> 
+						Attach 
+					</span>
+				</td>                    
+			</tr>
+		</table></td><td class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, if(passThrough='' ,'border:2px solid red', ''), 'display:none')" name="style"/><table class="horizontalSelects">
+			<ix:attr value="if(siteName != '1' and siteName != '2' and siteName != '', '', 'display:none')" name="style"/>
+			<tr>
+				<td class="yesBox">
+					<xf:select1 appearance="full" id="passThrough" ref="passThrough">
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>1</xf:value>
+						</xf:item>
+						<script ev:event="xforms-value-changed">
+											model.recalculate();
+											model.rebuild();
+											model.refresh();
+						</script>
+					</xf:select1>
+				</td>
+				<td class="noBox">
+					<xf:select1 appearance="full" id="passThrough" ref="passThrough">
+						<xf:label/>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>0</xf:value>
+						</xf:item>
+						<script ev:event="xforms-value-changed">
+											model.recalculate();
+											model.rebuild();
+											model.refresh();
+						</script>
+					</xf:select1>
+				</td>
+			</tr>
+		</table></td><td class=" in manual wide left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/externalSiteApprovals/siteName[. != '1' and . != '2' and . != '']) &gt; 0, if(reviewResearch='' ,'border:2px solid red', ''), 'display:none')" name="style"/><print type="dropdown" nodeset="researchReviewBy/type" evaluate="1" condition="siteName != '1' and siteName != '2' and siteName != ''"/><div style="width:100px;">
+			<ix:attr value="if(siteName != '1' and siteName != '2' and siteName != '', '', 'display:none')" name="style"/>
+			<xf:select1 id="reviewResearch" ref="reviewResearch">							
+				<xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item>
+				<xf:repeat nodeset="instance('cats')/researchReviewBy/type">
+					<xf:item>
+						<xf:label><xf:output value="@name"/></xf:label>
+						<xf:value><xf:output value="@id"/></xf:value>
+					</xf:item>
+				</xf:repeat>				
+				<script ev:event="xforms-value-changed">
+					var ref = model.getValue("../@ref",contextNode);
+					var x = model.getValue(".",contextNode);
+					if(x != '3') {
+						model.setValue("instance('ins')/externalSiteApprovals[@ref='" + ref + "']/otherIRBDesc","");
+					}
+					model.recalculate();
+					model.rebuild();
+					model.refresh();
+				</script>
+			</xf:select1>			
+		</div></td><td class=" in manual  left"><ix:attr value="if(count(instance('ins')/externalSiteApprovals/reviewResearch[. = '3']) &gt; 0, '', 'display:none')" name="style"/><ix:attr value="if(count(instance('ins')/externalSiteApprovals/reviewResearch[. = '3']) &gt; 0, if(otherIRBDesc='' ,'border:2px solid red', ''), 'display:none')" name="style"/><print type="box" nodeset="" evaluate="0" condition=""/><div style="width:150px;">
+			<ix:attr value="if(reviewResearch != '3', 'display:none', '')" name="style"/>
+			<xf:input style="width:140px;" ref="otherIRBDesc"/>
+		</div></td></tr></xf:repeat></table><table class="addButtons"><ix:attr value="if(instance('form')/focus = '', '', 'display:none')" name="style"/><tr><td><xf:trigger><xf:label>Add Site</xf:label><xf:action ev:event="DOMActivate"><script>
+                          model.Frm.revewMode = null;
+                          
+        var xmlDoc = model.Frm.processDoc("", "/applications/IRB/js/addExternalSiteApprovals", {}, "script", "xml");
+        var ref = model.getValue("instance('ins')/externalSiteApprovals[last()]/@ref") * 1;
+		ref = ref &lt; 0 ? (-1 * ref) + 1 : ref + 1;        
+		xmlDoc.documentElement.setAttribute("ref", ref);    
+        var n = model.selectNodeList("instance('ins')", null);
+        n[0].appendChild(xmlDoc.documentElement);
+        model.refresh();
+        model.rebuild();
+        model.recalculate();
+		model.Frm.save();
+        model.activateCase("hide-" + "recordTable");
+        model.activateCase("show-" + "recordTable");        
+	</script></xf:action></xf:trigger></td></tr></table></xf:case><xf:case id="hide-recordTable"/></xf:switch></div><div/></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

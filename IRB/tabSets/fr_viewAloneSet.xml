@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+  <!--PIVIEW is a reserved tabset id. If you set a tab to this id, the Review Dashboard will show up in limited view (no checkboxes)-->
+  <tab id="PIVIEW" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/> 
+  <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalFRView.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+  <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusFRView.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+  <tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusFRView.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+  
+  <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachmentsFRView.xfrm"/>
+   <!-- <tab id="COV" label="Update Protocol Case" form="/home/configs/IRB/forms/returnsubmitView.xfrm"/>-->
+    <switches>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+    </switches>
+</tabs>

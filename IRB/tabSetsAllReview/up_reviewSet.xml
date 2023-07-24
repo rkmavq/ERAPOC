@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/up_irbsummaryComm.xfrm"/>
+    <tab id="2" label="Participant" form="/home/configs/IRB/forms/up_subjectComm.xfrm"/>
+    <tab id="3" label="Protocol Violations/Noncompliance" form="/home/configs/IRB/forms/up_noncomplianceComm.xfrm"/>
+    <tab id="4" label="Actions" form="/home/configs/IRB/forms/up_actionsComm.xfrm"/>
+    <tab id="5" label="Additional Reports" form="/home/configs/IRB/forms/up_addlreportsComm.xfrm"/>
+<!--    <tab id="6" label="Submit" form="/home/configs/IRB/forms/up_irbsubmit.xfrm" when="submit"/>
+    <tab id="7" label="Send to PI" form="/home/configs/IRB/forms/up_irbsubmitproxy.xfrm" when="submitproxy"/>-->
+    
+    
+    <switches>
+        <subject>0</subject> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

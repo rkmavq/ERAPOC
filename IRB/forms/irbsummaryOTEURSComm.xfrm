@@ -1,0 +1,1917 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><searchAddNew/><t t="" l="" i="1"/><t t="" l="" i="2"/><t t="" l="" i="3"/><t t="" l="" i="4"/><t t="" l="" i="5"/><t t="" l="" i="6"/><t t="" l="" i="7"/><t t="" l="" i="8"/><t t="" l="" i="9"/><t t="" l="" i="10"/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+  bootstrapSharedXfrm(model);
+  model.Frm = new appForm(model, "summary");
+  
+  //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+  
+  if(model.Frm.formSet.getRoot().__AMND){
+  model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+  }else{
+  model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+  }
+  model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+  if(model.Frm.formSet.getRoot().__AMND){
+  model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+  }else{
+  model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+  }
+  
+  model.Frm.loadMetaData();
+  
+  
+  includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+  model.USA = new irbProtocol(model);
+  
+  model.refresh();
+  model.rebuild();
+  model.recalculate();
+  model.USA.registerChangeLog('comments', '1')
+</script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission>
+  <xf:bind relevant="true()" readonly="false()" nodeset="instance('ins')//*"/>
+  <xf:bind relevant="true()" readonly="true()" nodeset="instance('ins')//name"/>
+  <xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/title"/>
+  
+  <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/name"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/>
+  
+  <!-- date -->
+  <xf:bind nodeset="instance('ins')/oteuDateofdiagnosis" type="xsd:date"/>
+  <xf:bind nodeset="instance('ins')/oteuPlannedtreatmentdate" type="xsd:date"/>
+  <xf:bind nodeset="instance('ins')/oteuInformedConsentDoc" type="ix:file"/>
+  
+  
+  <xf:bind readonly="true()" relevant="false()" nodeset="Person[invitation/@status='author']/name"/></xf:model>
+  
+  <style>
+    div.formFrame div.commentBox{
+    background-color:white;
+    border: 2px solid gray;
+    padding: 5px;
+    width: 500px;
+    }
+    
+    div.formFrame div.commentBox div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame div.commentBox div.xfctrl label{
+    width:100px;
+    }
+    
+    div.formFrame div.commentBox div.xfctrl textarea{
+    width:390px;
+    }
+    
+    
+    div.formFrame td.custError{
+    background-color:white;
+    border:none;
+    vertical-align:top;
+    width:200px;
+    padding-left:10px;
+    color:red;
+    font-weight:bold;
+    }
+    
+    div.formFrame td.custError div.xfctrl tr{
+    background-color:white;
+    }
+    
+    div.formFrame td.custError div.xfctrl tr td{
+    background-color:white;
+    }
+    
+    div.formFrame tr td.custError div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame td.custError div{
+    background-color:white;
+    }
+    
+    div.formFrame td.custError .xfctrl{
+    background:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+    background-color:white;
+    }
+    
+    
+    .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+    margin-top:10px;
+    }
+    
+    .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+    position:static;
+    border-color:white;
+    }
+    div.formFrame tr td.custError div.xfctrl{
+    position:static;
+    border-color:white;
+    }          
+    
+    .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+    margin-top:10px;
+    }
+    
+  </style>
+  
+  
+  
+  <ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+    model.Frm.executeQuickSearch();  
+  </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+      
+      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+        model.Frm.addFromQuickSearch();
+      </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+        var indx = model.getValue("@id", contextNode);
+        var val = model.getValue("@name", contextNode);
+        if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+        model.Frm.quickSearchSelect(indx, val);
+        var code = model.Frm.quickSearch.code;
+        if(code) eval(code);
+        if(model.Frm.quickSearch.save) model.Frm.saveAll();
+        event.stopPropagation();
+      </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat><tr><ix:attr value="if(instance('form')/searchAddNew='1', '', 'display:none')" name="style"/><td colspan="3"><br/><hr/><u style="cursor:pointer;color:blue">request<xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+        model.Frm.addFromQuickSearch();
+      </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u> the addition of this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> to the system.
+      </td></tr></table><br/><br/></xf:case></xf:switch></div></ix:template>
+  <div class="formFrame"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="box">
+                  
+                  <td class="component textarea   widenLabel"><xf:textarea class="" ref="instance('ins')/title"><xf:label>Title:</xf:label><script ev:event="xforms-value-changed">model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;</script></xf:textarea></td>
+                  <td class="options"></td></tr>
+                  
+                  <tr class="line"><td><hr/></td></tr><xf:switch><xf:case exf:if="1" id="show-peps"><tr class="field"><td class="component  widenLabel"><xf:input class="wide" ref="instance('ins')/Person[role='PI']/name"><xf:label>Principal Investigator</xf:label></xf:input></td><td class="options"><!--<div class="clickable">
+    replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Find PI" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+            model.Frm.configureQuickSearch("People", "replaceEntity", "instance('ins')/Person[role='PI'][1]", "/applications/IRB/js/addPI", "pi", "Name", "ID","Department", "1", "researcher",  'model.setValue("PIName", model.getValue("Person[role=\'PI\']/name"));model.Frm.formSet.getRoot().model.TS.refreshHeader();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;model.activateCase("hide-peps");model.rebuild();model.recalculate();model.activateCase("show-peps"); model.USA.rebuildTabs();', '0');
+            model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+    </script></xf:action></div>--></td></tr>
+                    
+                    
+                    
+                  </xf:case><xf:case id="hide-peps"/></xf:switch>
+                  
+                  <tr class="field"><td class="component  widenLabel"><xf:input class="wide" ref="instance('ins')/contextGroup"><xf:label>Primary Department</xf:label></xf:input></td><td class="options"><!--<div style="margin-top:-2px;" class="clickable">replace<img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click"><ix:dialog style="height:300px;" id="results" title="Lookup Department" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>
+        model.Frm.configureQuickSearch("Departments", "replaceValue", "instance('ins')/contextGroup[1]", "", "department", "Name", "ID","Division", "", "", 'model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;', '');
+        model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                  </script></xf:action></div>--></td></tr>
+                  
+                  
+                  
+                  
+                  
+                  <tr class="line"><td><hr/></td></tr>
+                  
+                  <tr class=""><td><h3>Details:</h3></td></tr>
+                  
+                  <!--<tr class="dropdown"><td class="component  widenLabel"><xf:select1 appearance="full" ref="instance('ins')/oteuType"><xf:label>Type</xf:label><xf:repeat nodeset="instance('cats')/oteuTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat>
+                  <script ev:event="xforms-value-changed">t = model.getValue(".", contextNode); 
+                    model.setValue("instance('ins')/invDrugs", t == 'Drug' ? "1" : "");
+                    model.setValue("instance('ins')/invDevs", t == 'Device' ? "1" : "");
+                    model.setValue("instance('ins')/invBiologics", t == 'Biologic' ? "1" : "");
+                    model.USA.rebuildTabs();                
+                  </script>
+                    
+                    
+                  </xf:select1></td></tr>-->
+                  
+                  <xf:switch>
+                    <xf:case exf:if="1" id="show-obj">
+                            <tr class="field"><ix:attr name="style" value="if(instance('ins')/oteuType = 'Biologic', '', 'display:none')"></ix:attr>
+                                <xf:repeat nodeset="instance('ins')/Biologic">
+                                  <td class="component widenLabel">
+                            <xf:input class="wide top" ref="name">
+                              <xf:label style="width:140px">Biologic Name</xf:label>
+                            </xf:input></td><td class="options"><div class="clickable"><!--<span style="">Replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                              <ix:dialog style="height:300px;" id="results" title="Find Biologic"
+                                class="quickSearchDialog">
+                                <ix:include template="QuickSearch" ref="."/>
+                              </ix:dialog>
+                              <script> 
+                                model.setValue("instance('form')/searchText", "");
+                                model.refresh();
+                                
+                                model.Frm.configureQuickSearch("Biologic", "replaceEntity",
+                                "instance('ins')/Biologic",
+                                "/applications/IRB/js/addBiologics", "obj", "Name", "ID","Investigational Name", "",
+                                "", 'x="(" + model.getValue("PIName").split(" ")[1] + ") " + model.getValue("Biologic/name"); model.setValue("title", x); model.recalculate();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;',
+                                '0'); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                              </script>
+                            </xf:action></span>--></div>
+                            </td> </xf:repeat></tr>
+                          
+                      <tr class="field"><ix:attr name="style" value="if(instance('ins')/oteuType = 'Biologic', '', 'display:none')"></ix:attr>
+                        <td class="component widenLabel">
+                          
+                          <div class=""><ix:attr name="style"
+                            value="if(instance('ins')/Biologic, 'display:none', 'font-family:Arial,Helvetica,Sans-Serif;font-size:12px;font-weight:normal;color:black;')"/>Biologic Name <span style="margin-left:72px;font-weight:normal;color:blue;cursor:pointer">Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                              <ix:dialog style="height:300px;" id="results" title="Find Biologic"
+                                class="quickSearchDialog">
+                                <ix:include template="QuickSearch" ref="."/>
+                              </ix:dialog>
+                              <script> 
+                                model.setValue("instance('form')/searchText", "");
+                                model.refresh();
+                                model.Frm.configureQuickSearch("Biologic", "insertEntity",
+                                "instance('ins')",
+                                "/applications/IRB/js/addBiologics", "obj", "Name", "ID","Investigational Name", "",
+                                "", 'x="(" + model.getValue("PIName").split(" ")[1] + ") " + model.getValue("Biologic/name"); model.setValue("title", x); model.recalculate();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;',
+                                '0', false, "{entName:'biologic', ent:'Biologic', fields:[{name:'Name',xpath:'name'}, {name:'FDA Approved',xpath:'fdaApproved',type:'yesno'}]}"); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                              </script>
+                            </xf:action></span></div>
+                        </td>
+                      </tr>    
+                      
+                      
+                      <tr class="field"><ix:attr name="style" value="if(instance('ins')/oteuType = 'Drug', '', 'display:none')"></ix:attr>
+                        <xf:repeat nodeset="instance('ins')/Drug">
+                          <td class="component widenLabel">
+                            <xf:input class="wide top" ref="name">
+                              <xf:label style="width:140px">Drug Name</xf:label>
+                            </xf:input></td><td class="options"><!--<div class="clickable"><span style="">Replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                              <ix:dialog style="height:300px;" id="results" title="Find Drug"
+                                class="quickSearchDialog">
+                                <ix:include template="QuickSearch" ref="."/>
+                              </ix:dialog>
+                              <script> 
+                                model.setValue("instance('form')/searchText", "");
+                                model.refresh();
+                                
+                                model.Frm.configureQuickSearch("Drug", "replaceEntity",
+                                "instance('ins')/Drug",
+                                "/applications/IRB/js/addDrug", "obj", "Name", "ID","Investigational Name", "",
+                                "", 'x="(" + model.getValue("PIName").split(" ")[1] + ") " + model.getValue("Drug/name"); model.setValue("title", x); model.recalculate();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;',
+                                '0'); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                              </script>
+                            </xf:action></span></div>-->
+                            </td> </xf:repeat></tr>
+                      
+                      <tr class="field"><ix:attr name="style" value="if(instance('ins')/oteuType = 'Drug', '', 'display:none')"></ix:attr>
+                        <td class="component widenLabel">
+                          
+                          <div class=""><ix:attr name="style"
+                            value="if(instance('ins')/Drug, 'display:none', 'font-family:Arial,Helvetica,Sans-Serif;font-size:12px;font-weight:normal;color:black;')"/>Drug Name <span style="margin-left:90px;font-weight:normal;color:blue;cursor:pointer">Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                              <ix:dialog style="height:300px;" id="results" title="Find Drug"
+                                class="quickSearchDialog">
+                                <ix:include template="QuickSearch" ref="."/>
+                              </ix:dialog>
+                              <script> 
+                                model.setValue("instance('form')/searchText", "");
+                                model.refresh();
+                                model.Frm.configureQuickSearch("Drug", "insertEntity",
+                                "instance('ins')",
+                                "/applications/IRB/js/addDrug", "obj", "Name", "ID","Investigational Name", "",
+                                "", 'x="(" + model.getValue("PIName").split(" ")[1] + ") " + model.getValue("Drug/name"); model.setValue("title", x); model.recalculate();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;',
+                                '0', false, "{entName:'drug', ent:'Drug', split:false, code:'drug', fields:[{name:'Generic Name',xpath:'name'}, {name:'FDA Approved',xpath:'fdaApproved',type:'yesno'}, {name:'Manufacturer',xpath:'manufacturer'}]}"); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                              </script>
+                            </xf:action></span></div>
+                        </td>
+                      </tr>    
+                      
+                      <tr class="field"><ix:attr name="style" value="if(instance('ins')/oteuType = 'Device', '', 'display:none')"></ix:attr>
+                        <xf:repeat nodeset="instance('ins')/Device">
+                          <td class="component widenLabel">
+                            <xf:input class="wide top" ref="name">
+                              <xf:label style="width:140px">Device Name</xf:label>
+                            </xf:input></td><td class="options"><!--<div class="clickable"><span style="">Replace <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                              <ix:dialog style="height:300px;" id="results" title="Find Device"
+                                class="quickSearchDialog">
+                                <ix:include template="QuickSearch" ref="."/>
+                              </ix:dialog>
+                              <script> 
+                                model.setValue("instance('form')/searchText", "");
+                                model.refresh();
+                                
+                                model.Frm.configureQuickSearch("Device", "replaceEntity",
+                                "instance('ins')/Device",
+                                "/applications/IRB/js/addDevice", "obj", "Name", "ID","Investigational Name", "",
+                                "", 'x="(" + model.getValue("PIName").split(" ")[1] + ") " + model.getValue("Device/name"); model.setValue("title", x); model.recalculate();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;',
+                                '0'); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                              </script>
+                            </xf:action></span></div>-->
+                            </td> </xf:repeat></tr>
+                      
+                      <tr class="field"><ix:attr name="style" value="if(instance('ins')/oteuType = 'Device', '', 'display:none')"></ix:attr>
+                        <td class="component widenLabel">
+                          
+                          <div class=""><ix:attr name="style"
+                            value="if(instance('ins')/Device, 'display:none', 'font-family:Arial,Helvetica,Sans-Serif;font-size:12px;font-weight:normal;color:black;')"/>Device Name <span style="margin-left:72px;font-weight:normal;color:blue;cursor:pointer">Lookup <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><xf:action ev:event="click">
+                              <ix:dialog style="height:300px;" id="results" title="Find Device"
+                                class="quickSearchDialog">
+                                <ix:include template="QuickSearch" ref="."/>
+                              </ix:dialog>
+                              <script> 
+                                model.setValue("instance('form')/searchText", "");
+                                model.refresh();
+                                model.Frm.configureQuickSearch("Device", "insertEntity",
+                                "instance('ins')",
+                                "/applications/IRB/js/addDevice", "obj", "Name", "ID","Investigational Name", "",
+                                "", 'x="(" + model.getValue("PIName").split(" ")[1] + ") " + model.getValue("Device/name"); model.setValue("title", x); model.recalculate();model.Frm.updateSolr=true;model.Frm.save();model.Frm.updateSolr=false;',
+                                '0', false, "{entName:'device', ent:'Device', split:false, code:'device', fields:[{name:'Generic Name',xpath:'name'}, {name:'FDA Approved',xpath:'fdaApproved',type:'yesno'}, {name:'Manufacturer',xpath:'manufacturer'}]}"); model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                              </script>
+                            </xf:action></span></div>
+                        </td>
+                      </tr>    
+                      
+                      
+                    </xf:case>
+                    <xf:case id="hide-obj"/>
+                  </xf:switch>                  
+                  
+                  
+                  <tr class="bigbox"><td class="component textarea widenLabel">
+                    <exf:variable value="instance('ins')/oteuReason/@revIndex" name="revIndexMLLM1"/>
+                    <exf:variable value="(instance('ins')/oteuReason[@revIndex=$revIndexMLLM1])"
+                      name="thisNodeNeedleMLLM1"/>
+                    <exf:variable value="instance('ins')/oteuReason" name="thisNodeMLLM1"/>
+                    <exf:variable value="(instance('ins')/original/oteuReason[@revIndex=$revIndexMLLM1])"
+                      name="orgNodeMLLM1"/>
+                    <exf:variable value="(instance('ins')/suggestions/oteuReason[@revIndex=$revIndexMLLM1])"
+                      name="sugNodeSetMLLM1"/>
+                    <exf:variable value="(instance('ins')/suggestions/oteuReason[@revIndex=$revIndexMLLM1])"
+                    name="sugNodeMLLM1"/>
+                    
+                    <exf:variable value="instance('ins')/previous/review/oteuReason/@revIndex" name="revIndexOpMLLM1"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuReason[@revIndex=$revIndexOpMLLM1])"
+                      name="thisNodeNeedleOldMLLM1"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuReason" name="thisNodeOldMLLM1"/>
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuReason[@revIndex=$revIndexMLLM1])"
+                      name="orgNodeOldMLLM1"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuReason[@revIndex=$revIndexMLLM1])"
+                      name="sugNodeSetOldMLLM1"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuReason[@revIndex=$revIndexOpMLLM1])"
+                      name="sugNodeOldMLLM1"/>
+                     
+                    
+                    
+                    <table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/oteuReason"><xf:label style="">Reason why conventional therapy/treatment cannot be used:</xf:label>
+                    <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM1 = $orgNodeMLLM1">
+                      <xf:setvalue ref="$thisNodeNeedleMLLM1/@changed"/>
+                    </xf:action>
+                    <xf:action ev:event="xforms-value-changed"
+                      exf:if="$thisNodeMLLM1 = $orgNodeMLLM1 and $thisNodeNeedleMLLM1/@addcomment = ''">
+                      <script>model.USA.removeChange();</script>
+                    </xf:action>
+                    <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM1 != $orgNodeMLLM1">
+                      <xf:setvalue ref="$thisNodeNeedleMLLM1/@changed">1</xf:setvalue>
+                    </xf:action>
+                    <xf:action ev:event="xforms-value-changed"
+                      exf:if="$thisNodeMLLM1 != $orgNodeMLLM1 and $thisNodeNeedleMLLM1/@addcomment = ''">
+                      <script>model.USA.addChange();</script>
+                    </xf:action>
+                  </xf:textarea></td>
+                    </tr></table></td>                    
+                    <td class="options">
+                      
+                    </td>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM1[(.) != $orgNodeMLLM1]" name="othersMLLM1"/>
+                      
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM1/@req = '' and ($thisNodeNeedleMLLM1/@comment !='' or count($othersMLLM1) != 0), 'color:red', if($thisNodeNeedleMLLM1/@req = '' and ($thisNodeNeedleMLLM1/@comment ='' and count($othersMLLM1) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM1/@req ='', 'Set Action', if($thisNodeNeedleMLLM1/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM1/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM1/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM1/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM1/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM1) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM1/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuReason", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM1", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeMLLM1"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM1">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM1/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuReason", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM1", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                      
+                    </td></tr>
+                              
+                  
+                  
+                  
+                  
+                  <tr class="line"><td><hr/></td></tr>
+                  
+                  <tr class=""><td><h3>Patient Info:</h3></td></tr>
+                  
+                  <tr class="field"><td class="component  widenLabel">
+                    <exf:variable value="instance('ins')/oteuInitials/@revIndex" name="revIndexMLLM2"/>
+                    <exf:variable value="(instance('ins')/oteuInitials[@revIndex=$revIndexMLLM2])"
+                      name="thisNodeNeedleMLLM2"/>
+                    <exf:variable value="instance('ins')/oteuInitials" name="thisNodeMLLM2"/>
+                    <exf:variable value="(instance('ins')/original/oteuInitials[@revIndex=$revIndexMLLM2])"
+                      name="orgNodeMLLM2"/>
+                    <exf:variable value="(instance('ins')/suggestions/oteuInitials[@revIndex=$revIndexMLLM2])"
+                      name="sugNodeMLLM2"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuInitials/@revIndexOp" name="revIndexOpOldMLLM2"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuInitials[@revIndex=$revIndexOpOldMLLM2])"
+                      name="thisNodeNeedleOldMLLM2"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuInitials" name="thisNodeOldMLLM2"/>
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuInitials[@revIndex=$revIndexOpOldMLLM2])"
+                      name="orgNodeOldMLLM2"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuInitials[@revIndex=$revIndexOpOldMLLM2])"
+                    name="sugNodeOldMLLM2"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuInitials[@revIndex=$revIndexMLLM2])"
+                    name="sugNodeSetMLLM2"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuInitials[@revIndex=$revIndexOpOldMLLM2])"
+                      name="sugNodeSetOldMLLM2"/>
+                    
+                    
+                    <xf:input style="width:80px" class="wide" ref="instance('ins')/oteuInitials"><xf:label>Initials:</xf:label> <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM2 = $orgNodeMLLM2">
+                      <xf:setvalue ref="$thisNodeNeedleMLLM2/@changed"/>
+                    </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM2 = $orgNodeMLLM2 and $thisNodeNeedleMLLM2/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM2 != $orgNodeMLLM2">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM2/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM2 != $orgNodeMLLM2 and $thisNodeNeedleMLLM2/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action></xf:input></td>
+                    <td class="options"></td><td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM2[(.) != $orgNodeMLLM2]" name="othersMLLM2"/>
+                      
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM2/@req = '' and ($thisNodeNeedleMLLM2/@comment !='' or count($othersMLLM2) != 0), 'color:red', if($thisNodeNeedleMLLM2/@req = '' and ($thisNodeNeedleMLLM2/@comment ='' and count($othersMLLM2) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM2/@req ='', 'Set Action', if($thisNodeNeedleMLLM2/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM2/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM2/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM2/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM2/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM2) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM2/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuInitials", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM2", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeMLLM2"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM2">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM2/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuInitials", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM2", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                      
+                    </td></tr>
+                  
+                  <!-- itneger -->
+                  <tr class="field"><td class="component  widenLabel"> <exf:variable value="instance('ins')/oteuAge/@revIndex" name="revIndexMLLM3"/>
+                    <exf:variable value="(instance('ins')/oteuAge[@revIndex=$revIndexMLLM3])"
+                      name="thisNodeNeedleMLLM3"/>
+                    <exf:variable value="instance('ins')/oteuAge" name="thisNodeMLLM3"/>
+                    <exf:variable value="(instance('ins')/original/oteuAge[@revIndex=$revIndexMLLM3])"
+                      name="orgNodeMLLM3"/>
+                    <exf:variable value="(instance('ins')/suggestions/oteuAge[@revIndex=$revIndexMLLM3])"
+                    name="sugNodeMLLM3"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuAge/@revIndexOp" name="revIndexOpOldMLLM3"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuAge[@revIndex=$revIndexOpOldMLLM3])"
+                      name="thisNodeNeedleOldMLLM3"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuAge" name="thisNodeOldMLLM3"/>
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuAge[@revIndex=$revIndexOpOldMLLM3])"
+                      name="orgNodeOldMLLM3"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuAge[@revIndex=$revIndexOpOldMLLM3])"
+                      name="sugNodeOldMLLM3"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuAge[@revIndex=$revIndexMLLM3])"
+                      name="sugNodeSetMLLM3"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuAge[@revIndex=$revIndexOpOldMLLM3])"
+                      name="sugNodeSetOldMLLM3"/>
+                    
+                    <xf:input class="wide" style="width:80px" ref="instance('ins')/oteuAge"><xf:label>Age:</xf:label>    <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM3 = $orgNodeMLLM3">
+                      <xf:setvalue ref="$thisNodeNeedleMLLM3/@changed"/>
+                    </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM3 = $orgNodeMLLM3 and $thisNodeNeedleMLLM3/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM3 != $orgNodeMLLM3">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM3/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM3 != $orgNodeMLLM3 and $thisNodeNeedleMLLM3/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action></xf:input></td>
+                    <td class="options"></td>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM3[(.) != $orgNodeMLLM3]" name="othersMLLM3"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM3/@req = '' and ($thisNodeNeedleMLLM3/@comment !='' or count($othersMLLM3) != 0), 'color:red', if($thisNodeNeedleMLLM3/@req = '' and ($thisNodeNeedleMLLM3/@comment ='' and count($othersMLLM3) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM3/@req ='', 'Set Action', if($thisNodeNeedleMLLM3/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM3/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM3/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM3/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM3/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM3) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM3/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuAge", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM3", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeMLLM3"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM3">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM3/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuAge", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM3", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td></tr>
+                  
+                  <tr class="dropdown"><td class="component  widenLabel">    <exf:variable value="instance('ins')/oteuSex/@revIndex" name="revIndexMLLM5"/>
+                    <exf:variable value="(instance('ins')/oteuSex[@revIndex=$revIndexMLLM5])"
+                      name="thisNodeNeedleMLLM5"/>
+                    
+                    <exf:variable value="instance('ins')/oteuSex" name="thisNodeVMLLM5"/>
+                    <exf:variable value="if($thisNodeVMLLM5='m', 'Male', 'Female')"
+                      name="thisNodeMLLM5"/>
+                    
+                    <exf:variable value="(instance('ins')/original/oteuSex[@revIndex=$revIndexMLLM5])"
+                      name="orgNodeVMLLM5"/>
+                    <exf:variable value="if($orgNodeVMLLM5='m', 'Male', 'Female')"
+                      name="orgNodeMLLM5"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/suggestions/oteuSex[@revIndex=$revIndexMLLM5])"
+                      name="sugNodeVMLLM5"/>
+                    <exf:variable value="if($sugNodeVMLLM5='m', 'Male', 'Female')"
+                    name="sugNodeMLLM5"/>
+                    
+                    <exf:variable value="(instance('ins')/previous/review/oteuSex[@revIndex=$revIndexOpOldMLLM5])"
+                      name="thisNodeNeedleOldMLLM5"/>
+                    
+                    <exf:variable value="instance('ins')/previous/review/oteuSex" name="thisNodeVOldMLLM5"/>
+                    <exf:variable value="if($thisNodeVOldMLLM5='m', 'Male', 'Female')"
+                      name="thisNodeOldMLLM5"/>
+                    
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuSex[@revIndex=$revIndexOpOldMLLM5])"
+                      name="orgNodeVOldMLLM5"/>
+                    <exf:variable value="if($orgNodeVOldMLLM5='m', 'Male', 'Female')"
+                      name="orgNodeOldMLLM5"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/previous/review/suggestions/oteuSex[@revIndex=$revIndexOpOldMLLM5])"
+                      name="sugNodeVOldMLLM5"/>
+                    <exf:variable value="if($sugNodeVOldMLLM5='m', 'Male', 'Female')"
+                      name="sugNodeOldMLLM5"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuSex[@revIndex=$revIndexMLLM5])"
+                      name="sugNodeSetMLLM5"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuSex[@revIndex=$revIndexOpOldMLLM5])"
+                      name="sugNodeSetOldMLLM5"/>
+                    
+                    <xf:select1 appearance="full" ref="instance('ins')/oteuSex"><xf:label>Sex:</xf:label>
+                      <xf:item><xf:label>Male</xf:label><xf:value>m</xf:value></xf:item>
+                      <xf:item><xf:label>Female</xf:label><xf:value>f</xf:value></xf:item>  <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM5 = $orgNodeMLLM5">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM5/@changed"/>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM5 = $orgNodeMLLM5 and $thisNodeNeedleMLLM5/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM5 != $orgNodeMLLM5">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM5/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM5 != $orgNodeMLLM5 and $thisNodeNeedleMLLM5/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action>
+                    </xf:select1></td>
+                  <td class="options"/>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM5[(.) != $orgNodeVMLLM5]" name="othersMLLM5"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>                            
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM5/@req = '' and ($thisNodeNeedleMLLM5/@comment !='' or count($othersMLLM5) != 0), 'color:red', if($thisNodeNeedleMLLM5/@req = '' and ($thisNodeNeedleMLLM5/@comment ='' and count($othersMLLM5) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM5/@req ='', 'Set Action', if($thisNodeNeedleMLLM5/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM5/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM5/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM5/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM5/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM5) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM5/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuSex", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM5", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeMLLM5"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM5">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM5/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuSex", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM5", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="if((.) = 'm', 'Male', 'Female')"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td></tr>
+                  
+                  <tr class="field"><td class="component  widenLabel"> <exf:variable value="instance('ins')/oteuMedicalRecord/@revIndex" name="revIndexMLLM6"/>
+                    <exf:variable value="(instance('ins')/oteuMedicalRecord[@revIndex=$revIndexMLLM6])"
+                      name="thisNodeNeedleMLLM6"/>
+                    <exf:variable value="instance('ins')/oteuMedicalRecord" name="thisNodeMLLM6"/>
+                    <exf:variable value="(instance('ins')/original/oteuMedicalRecord[@revIndex=$revIndexMLLM6])"
+                      name="orgNodeMLLM6"/>
+                    <exf:variable value="(instance('ins')/suggestions/oteuMedicalRecord[@revIndex=$revIndexMLLM6])"
+                      name="sugNodeMLLM6"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuMedicalRecord/@revIndexOp" name="revIndexOpOldMLLM6"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuMedicalRecord[@revIndex=$revIndexOpOldMLLM6])"
+                      name="thisNodeNeedleOldMLLM6"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuMedicalRecord" name="thisNodeOldMLLM6"/>
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuMedicalRecord[@revIndex=$revIndexOpOldMLLM6])"
+                      name="orgNodeOldMLLM6"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuMedicalRecord[@revIndex=$revIndexOpOldMLLM6])"
+                      name="sugNodeOldMLLM6"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuMedicalRecord[@revIndex=$revIndexOpOldMLLM6])"
+                      name="sugNodeSetMLLM6"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuMedicalRecord[@revIndex=$revIndexOpOldMLLM6])"
+                      name="sugNodeSetOldMLLM6"/>
+                    
+                    <xf:input class="wide" ref="instance('ins')/oteuMedicalRecord"><xf:label>Medical Record #</xf:label>  <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM6 = $orgNodeMLLM6">
+                      <xf:setvalue ref="$thisNodeNeedleMLLM6/@changed"/>
+                    </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM6 = $orgNodeMLLM6 and $thisNodeNeedleMLLM6/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM6 != $orgNodeMLLM6">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM6/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM6 != $orgNodeMLLM6 and $thisNodeNeedleMLLM6/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action></xf:input></td>
+                    <td class="options"></td>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM6[(.) != $orgNodeMLLM6]" name="othersMLLM6"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM6/@req = '' and ($thisNodeNeedleMLLM6/@comment !='' or count($othersMLLM6) != 0), 'color:red', if($thisNodeNeedleMLLM6/@req = '' and ($thisNodeNeedleMLLM6/@comment ='' and count($othersMLLM6) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM6/@req ='', 'Set Action', if($thisNodeNeedleMLLM6/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM6/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM6/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM6/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM6/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM6) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM6/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuMedicalRecord", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM6", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeMLLM6"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM6">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM6/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuMedicalRecord", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM6", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td></tr>
+                  
+                  <!-- FIX HERE -->
+                  <tr class="bigbox"><td class="component textarea   widenLabel"> <exf:variable value="instance('ins')/oteuDiagnosis/@revIndex" name="revIndexMLLM7"/>
+                    <exf:variable value="(instance('ins')/oteuDiagnosis[@revIndex=$revIndexMLLM7])"
+                      name="thisNodeNeedleMLLM7"/>
+                    <exf:variable value="instance('ins')/oteuDiagnosis" name="thisNodeMLLM7"/>
+                    <exf:variable value="(instance('ins')/original/oteuDiagnosis[@revIndex=$revIndexMLLM7])"
+                      name="orgNodeMLLM7"/>
+                    <exf:variable value="(instance('ins')/suggestions/oteuDiagnosis[@revIndex=$revIndexMLLM7])"
+                    name="sugNodeMLLM7"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuDiagnosis/@revIndexOp" name="revIndexOpOldMLLM7"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuDiagnosis[@revIndex=$revIndexOpOldMLLM7])"
+                      name="thisNodeNeedleOldMLLM7"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuDiagnosis" name="thisNodeOldMLLM7"/>
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuDiagnosis[@revIndex=$revIndexOpOldMLLM7])"
+                      name="orgNodeOldMLLM7"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuDiagnosis[@revIndex=$revIndexOpOldMLLM7])"
+                      name="sugNodeOldMLLM7"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuDiagnosis[@revIndex=$revIndexMLLM7])"
+                      name="sugNodeSetMLLM7"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuDiagnosis[@revIndex=$revIndexOpOldMLLM7])"
+                      name="sugNodeSetOldMLLM7"/>
+                    
+                    <xf:textarea style="height:10em;" class="" ref="instance('ins')/oteuDiagnosis"><xf:label>Diagnosis:</xf:label> <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM7 = $orgNodeMLLM7">
+                      <xf:setvalue ref="$thisNodeNeedleMLLM7/@changed"/>
+                    </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM7 = $orgNodeMLLM7 and $thisNodeNeedleMLLM7/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM7 != $orgNodeMLLM7">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM7/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM7 != $orgNodeMLLM7 and $thisNodeNeedleMLLM7/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action>
+                    </xf:textarea></td><td class="options"></td><td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM7[(.) != $orgNodeMLLM7]" name="othersMLLM7"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM7/@req = '' and ($thisNodeNeedleMLLM7/@comment !='' or count($othersMLLM7) != 0), 'color:red', if($thisNodeNeedleMLLM7/@req = '' and ($thisNodeNeedleMLLM7/@comment ='' and count($othersMLLM7) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM7/@req ='', 'Set Action', if($thisNodeNeedleMLLM7/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM7/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM7/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM7/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM7/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM7) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM7/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuDiagnosis", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM7", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeMLLM7"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM7">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM7/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuDiagnosis", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM7", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td></tr>
+                  
+                  
+                  <!-- date -->
+                  <!--<tr class="field"><td class="component  widenLabel">
+                    <xf:input style="width:80px" class="wide" ref="instance('ins')/oteuDateofdiagnosis"><xf:label></xf:label></xf:input></td>
+                    <td class="options"></td></tr>-->
+                  
+                  
+                  <tr class="date"><td class="component  widenLabel">
+                    <exf:variable value="instance('ins')/oteuDateofdiagnosis/@revIndex" name="revIndexMLLM9"/>
+                    <exf:variable value="(instance('ins')/oteuDateofdiagnosis[@revIndex=$revIndexMLLM9])"
+                      name="thisNodeNeedleMLLM9"/>
+                    
+                    <exf:variable value="instance('ins')/oteuDateofdiagnosis" name="thisNodeVMLLM9"/>
+                    <exf:variable value="concat(substring($thisNodeVMLLM9, 6, 2), '/', substring($thisNodeVMLLM9, 9, 2), '/', substring($thisNodeVMLLM9, 1, 4))"
+                      name="thisNodeMLLM9"/>
+                    
+                    <exf:variable value="(instance('ins')/original/oteuDateofdiagnosis[@revIndex=$revIndexMLLM9])"
+                      name="orgNodeVMLLM9"/>
+                    <exf:variable value="concat(substring($orgNodeVMLLM9, 6, 2), '/', substring($orgNodeVMLLM9, 9, 2), '/', substring($orgNodeVMLLM9, 1, 4))"
+                      name="orgNodeMLLM9"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/suggestions/oteuDateofdiagnosis[@revIndex=$revIndexMLLM9])"
+                      name="sugNodeVMLLM9"/>
+                    <exf:variable value="concat(substring($sugNodeVMLLM9, 6, 2), '/', substring($sugNodeVMLLM9, 9, 2), '/', substring($sugNodeVMLLM9, 1, 4))"
+                    name="sugNodeMLLM9"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuDateofdiagnosis/@revIndexOp" name="revIndexOpOldMLLM9"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuDateofdiagnosis[@revIndex=$revIndexOpOldMLLM9])"
+                      name="thisNodeNeedleOldMLLM9"/>
+                    
+                    <exf:variable value="instance('ins')/previous/review/oteuDateofdiagnosis" name="thisNodeVOldMLLM9"/>
+                    <exf:variable value="concat(substring($thisNodeVOldMLLM9, 6, 2), '/', substring($thisNodeVOldMLLM9, 9, 2), '/', substring($thisNodeVOldMLLM9, 1, 4))"
+                      name="thisNodeOldMLLM9"/>
+                    
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuDateofdiagnosis[@revIndex=$revIndexOpOldMLLM9])"
+                      name="orgNodeVOldMLLM9"/>
+                    <exf:variable value="concat(substring($orgNodeVOldMLLM9, 6, 2), '/', substring($orgNodeVOldMLLM9, 9, 2), '/', substring($orgNodeVOldMLLM9, 1, 4))"
+                      name="orgNodeOldMLLM9"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/previous/review/suggestions/oteuDateofdiagnosis[@revIndex=$revIndexOpOldMLLM9])"
+                      name="sugNodeVOldMLLM9"/>
+                    <exf:variable value="concat(substring($sugNodeVOldMLLM9, 6, 2), '/', substring($sugNodeVOldMLLM9, 9, 2), '/', substring($sugNodeVOldMLLM9, 1, 4))"
+                    name="sugNodeOldMLLM9"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuDateofdiagnosis[@revIndex=$revIndexMLLM9])"
+                      name="sugNodeSetMLLM9"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuDateofdiagnosis[@revIndex=$revIndexOpOldMLLM9])"
+                      name="sugNodeSetOldMLLM9"/>
+                    
+                    
+                    
+                    
+                    <table class="date"><tr><td class="label">Date of diagnosis:</td><td class="dateBox"><div><xf:output value="if(instance('ins')/oteuDateofdiagnosis != '', concat(substring(instance('ins')/oteuDateofdiagnosis, 6, 2), '/', substring(instance('ins')/oteuDateofdiagnosis, 9, 2), '/', substring(instance('ins')/oteuDateofdiagnosis, 1, 4)), '-')"/></div></td><td class="dateCtrl"><xf:input ref="instance('ins')/oteuDateofdiagnosis">
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM9 = $orgNodeMLLM9">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM9/@changed"/>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM9 = $orgNodeMLLM9 and $thisNodeNeedleMLLM9/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM9 != $orgNodeMLLM9">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM9/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM9 != $orgNodeMLLM9 and $thisNodeNeedleMLLM9/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action>
+                    </xf:input></td></tr></table></td>
+                    <td class="options"> </td>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM9[(.) != $orgNodeVMLLM9]" name="othersMLLM9"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM9/@req = '' and ($thisNodeNeedleMLLM9/@comment !='' or count($othersMLLM9) != 0), 'color:red', if($thisNodeNeedleMLLM9/@req = '' and ($thisNodeNeedleMLLM9/@comment ='' and count($othersMLLM9) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM9/@req ='', 'Set Action', if($thisNodeNeedleMLLM9/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM9/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM9/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM9/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM9/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM9) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM9/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuDateofdiagnosis", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM9", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeVMLLM9"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM9">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM9/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuDateofdiagnosis", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM9", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                  
+                  
+                  <!-- date -->
+                  <!--<tr class="field"><td class="component  widenLabel">
+                    <xf:input style="width:80px" class="wide" ref="instance('ins')/oteuPlannedtreatmentdate"><xf:label>Planned treatment date:</xf:label></xf:input></td>
+                    <td class="options"></td></tr>-->
+                  
+                  
+                  <tr class="date"><td class="component  widenLabel">        
+                    
+                    <exf:variable value="instance('ins')/oteuPlannedtreatmentdate/@revIndex" name="revIndexMLLM8"/>
+                    <exf:variable value="(instance('ins')/oteuPlannedtreatmentdate[@revIndex=$revIndexMLLM8])"
+                    name="thisNodeNeedleMLLM8"/>
+                    <exf:variable value="instance('ins')/oteuPlannedtreatmentdate" name="thisNodeVMLLM8"/>
+                    <exf:variable value="concat(substring($thisNodeVMLLM8, 6, 2), '/', substring($thisNodeVMLLM8, 9, 2), '/', substring($thisNodeVMLLM8, 1, 4))"
+                      name="thisNodeMLLM8"/>
+                    
+                    <exf:variable value="(instance('ins')/original/oteuPlannedtreatmentdate[@revIndex=$revIndexMLLM8])"
+                      name="orgNodeVMLLM8"/>
+                    <exf:variable value="concat(substring($orgNodeVMLLM8, 6, 2), '/', substring($orgNodeVMLLM8, 9, 2), '/', substring($orgNodeVMLLM8, 1, 4))"
+                      name="orgNodeMLLM8"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/suggestions/oteuPlannedtreatmentdate[@revIndex=$revIndexMLLM8])"
+                      name="sugNodeVMLLM8"/>
+                    <exf:variable value="concat(substring($sugNodeVMLLM8, 6, 2), '/', substring($sugNodeVMLLM8, 9, 2), '/', substring($sugNodeVMLLM8, 1, 4))"
+                    name="sugNodeMLLM8"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuPlannedtreatmentdate/@revIndexOp" name="revIndexOpOldMLLM8"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuPlannedtreatmentdate[@revIndex=$revIndexOpOldMLLM8])"
+                      name="thisNodeNeedleOldMLLM8"/>
+                    <exf:variable value="instance('ins')/previous/review/oteuPlannedtreatmentdate" name="thisNodeVOldMLLM8"/>
+                    <exf:variable value="concat(substring($thisNodeVOldMLLM8, 6, 2), '/', substring($thisNodeVOldMLLM8, 9, 2), '/', substring($thisNodeVOldMLLM8, 1, 4))"
+                      name="thisNodeOldMLLM8"/>
+                    
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuPlannedtreatmentdate[@revIndex=$revIndexOpOldMLLM8])"
+                      name="orgNodeVOldMLLM8"/>
+                    <exf:variable value="concat(substring($orgNodeVOldMLLM8, 6, 2), '/', substring($orgNodeVOldMLLM8, 9, 2), '/', substring($orgNodeVOldMLLM8, 1, 4))"
+                      name="orgNodeOldMLLM8"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/previous/review/suggestions/oteuPlannedtreatmentdate[@revIndex=$revIndexOpOldMLLM8])"
+                      name="sugNodeVOldMLLM8"/>
+                    <exf:variable value="concat(substring($sugNodeVOldMLLM8, 6, 2), '/', substring($sugNodeVOldMLLM8, 9, 2), '/', substring($sugNodeVOldMLLM8, 1, 4))"
+                      name="sugNodeOldMLLM8"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuPlannedtreatmentdate[@revIndex=$revIndexMLLM8])"
+                      name="sugNodeSetMLLM8"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuPlannedtreatmentdate[@revIndex=$revIndexOpOldMLLM8])"
+                      name="sugNodeSetOldMLLM8"/>
+                    
+                    <table class="date"><tr><td class="label">Planned treatment date:</td><td class="dateBox"><div><xf:output value="if(instance('ins')/oteuPlannedtreatmentdate != '', concat(substring(instance('ins')/oteuPlannedtreatmentdate, 6, 2), '/', substring(instance('ins')/oteuPlannedtreatmentdate, 9, 2), '/', substring(instance('ins')/oteuPlannedtreatmentdate, 1, 4)), '-')"/></div></td><td class="dateCtrl"><xf:input ref="instance('ins')/oteuPlannedtreatmentdate">
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM8 = $orgNodeMLLM8">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM8/@changed"/>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM8 = $orgNodeMLLM8 and $thisNodeNeedleMLLM8/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeMLLM8 != $orgNodeMLLM8">
+                        <xf:setvalue ref="$thisNodeNeedleMLLM8/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeMLLM8 != $orgNodeMLLM8 and $thisNodeNeedleMLLM8/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action>
+                      
+                    </xf:input></td></tr></table></td>
+                    <td class="options"> </td>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetMLLM8[(.) != $orgNodeVMLLM8]" name="othersMLLM8"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleMLLM8/@req = '' and ($thisNodeNeedleMLLM8/@comment !='' or count($othersMLLM8) != 0), 'color:red', if($thisNodeNeedleMLLM8/@req = '' and ($thisNodeNeedleMLLM8/@comment ='' and count($othersMLLM8) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleMLLM8/@req ='', 'Set Action', if($thisNodeNeedleMLLM8/@req = 'change', 'Change Required', if($thisNodeNeedleMLLM8/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleMLLM8/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleMLLM8/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleMLLM8/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersMLLM8) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleMLLM8/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuPlannedtreatmentdate", "",
+                                            tempRevIndex, "fill", 'org', -1, "MLLM8", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeVMLLM8"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersMLLM8">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleMLLM8/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuPlannedtreatmentdate", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "MLLM8", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="(.)"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td>
+                    
+                    
+                  </tr>
+                  
+                  <tr class="dropdown"><td class="component  widenLabel">
+                    
+                    <exf:variable value="instance('ins')/oteuInformedConsent/@revIndex" name="revIndexEM1"/>
+                    <exf:variable value="(instance('ins')/oteuInformedConsent[@revIndex=$revIndexEM1])"
+                      name="thisNodeNeedleEM1"/>
+                    
+                    <exf:variable value="instance('ins')/oteuInformedConsent" name="thisNodeVEM1"/>
+                    <exf:variable value="instance('cats')/oteuConsent/type[@id=$thisNodeVEM1]/@name"
+                      name="thisNodeEM1"/>
+                    
+                    
+                    <exf:variable value="(instance('ins')/original/oteuInformedConsent[@revIndex=$revIndexEM1])"
+                      name="orgNodeVEM1"/>
+                    <exf:variable value="instance('cats')/oteuConsent/type[@id=$orgNodeVEM1]/@name"
+                      name="orgNodeEM1"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/suggestions/oteuInformedConsent[@revIndex=$revIndexEM1])"
+                      name="sugNodeVEM1"/>
+                    <exf:variable value="instance('cats')/oteuConsent/type[@id=$sugNodeVEM1]/@name"
+                    name="sugNodeEM1"/>
+                    
+                    <exf:variable value="instance('ins')/previous/review/oteuInformedConsent/@revIndexOp" name="revIndexOpOldEM1"/>
+                    <exf:variable value="(instance('ins')/previous/review/oteuInformedConsent[@revIndex=$revIndexOpOldEM1])"
+                      name="thisNodeNeedleOldEM1"/>
+                    
+                    <exf:variable value="instance('ins')/previous/review/oteuInformedConsent" name="thisNodeVOldEM1"/>
+                    <exf:variable value="instance('cats')/oteuConsent/type[@id=$thisNodeVOldEM1]/@name"
+                      name="thisNodeOldEM1"/>
+                    
+                    
+                    <exf:variable value="(instance('ins')/previous/review/original/oteuInformedConsent[@revIndex=$revIndexOpOldEM1])"
+                      name="orgNodeVOldEM1"/>
+                    <exf:variable value="instance('cats')/oteuConsent/type[@id=$orgNodeVOldEM1]/@name"
+                      name="orgNodeOldEM1"/>
+                    
+                    <exf:variable
+                      value="(instance('ins')/previous/review/suggestions/oteuInformedConsent[@revIndex=$revIndexOpOldEM1])"
+                      name="sugNodeVOldEM1"/>
+                    <exf:variable value="instance('cats')/oteuConsent/type[@id=$sugNodeVOldEM1]/@name"
+                      name="sugNodeOldEM1"/>
+                    
+                    <exf:variable value="(instance('ins')/suggestions/oteuInformedConsent[@revIndex=$revIndexEM1])"
+                      name="sugNodeSetEM1"/>
+                    <exf:variable value="(instance('ins')/previous/review/suggestions/oteuInformedConsent[@revIndex=$revIndexOpOldEM1])"
+                      name="sugNodeSetOldEM1"/>
+                    
+                    <xf:select1 appearance="full" ref="instance('ins')/oteuInformedConsent"><xf:label>Informed Consent:</xf:label><xf:repeat nodeset="instance('cats')/oteuConsent/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeEM1 = $orgNodeEM1">
+                        <xf:setvalue ref="$thisNodeNeedleEM1/@changed"/>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeEM1 = $orgNodeEM1 and $thisNodeNeedleEM1/@addcomment = ''">
+                        <script>model.USA.removeChange();</script>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed" exf:if="$thisNodeEM1 != $orgNodeEM1">
+                        <xf:setvalue ref="$thisNodeNeedleEM1/@changed">1</xf:setvalue>
+                      </xf:action>
+                      <xf:action ev:event="xforms-value-changed"
+                        exf:if="$thisNodeEM1 != $orgNodeEM1 and $thisNodeNeedleEM1/@addcomment = ''">
+                        <script>model.USA.addChange();</script>
+                      </xf:action>
+                      
+                    
+                    </xf:select1></td>
+                    <td class="options"> </td>
+                    <td class="errors custError">
+                      <exf:variable value="$sugNodeSetEM1[(.) != $orgNodeVEM1]" name="othersEM1"/>
+                      <div>
+                        <span class="dialogOverInteractive">
+                          <u>
+                            <ix:attr
+                              value="if($thisNodeNeedleEM1/@req = '' and ($thisNodeNeedleEM1/@comment !='' or count($othersEM1) != 0), 'color:red', if($thisNodeNeedleEM1/@req = '' and ($thisNodeNeedleEM1/@comment ='' and count($othersEM1) = 0), 'color:black', 'color:blue'))"
+                              name="style"/>
+                            <xf:output
+                              value="if($thisNodeNeedleEM1/@req ='', 'Set Action', if($thisNodeNeedleEM1/@req = 'change', 'Change Required', if($thisNodeNeedleEM1/@req = 'changeSug', 'Change Suggested', if($thisNodeNeedleEM1/@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"
+                            />
+                          </u>
+                          <div style="width:300px;">
+                            <p>
+                              <h5>Action:</h5>
+                              <xf:select1 appearance="full" ref="$thisNodeNeedleEM1/@req">
+                                <xf:item>
+                                  <xf:label>Comment Only</xf:label>
+                                  <xf:value>commentOnly</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Justification</xf:label>
+                                  <xf:value>comment</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Suggested</xf:label>
+                                  <xf:value>changeSug</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                  <xf:label>Change Required</xf:label>
+                                  <xf:value>change</xf:value>
+                                </xf:item>
+                                <script ev:event="xforms-value-changed"> //SH.print("OUT");
+                                  model.USA.addChange(); model.rebuild(); model.refresh();
+                                  model.recalculate(); //SH.print("IN"); </script>
+                              </xf:select1>
+                              <hr/>
+                              <br/>
+                              <i style="font-size:7pt;color:black;">Response Comments:</i>
+                              <span style="color:black">
+                                <xf:textarea ref="$thisNodeNeedleEM1/@comment"
+                                  style="width:260px;height:100px;"/>
+                              </span>
+                              <span>
+                                <ix:attr value="if(count($othersEM1) = 0, 'display:none', '')" name="style"/>
+                                <hr/>
+                                <br/>
+                                <i style="font-size:7pt;color:black;">Select new value:</i>
+                                <br/>
+                                <br/>
+                                <table style="background-color:white;">
+                                  <tr>
+                                    <td style="background-color:white;vertical-align:top;">
+                                      <b>
+                                        <u style="color:red;cursor:pointer">Prior Value</u>
+                                        <xf:action ev:event="click">
+                                          <xf:setvalue value="$thisNodeNeedleEM1/@revIndex"
+                                            ref="instance('form')/tempRevIndex"/>
+                                          <script> tempRevIndex =
+                                            model.getValue("instance('form')/tempRevIndex");
+                                            model.USA.writeOverTagExplicit("instance('ins')/oteuInformedConsent", "",
+                                            tempRevIndex, "fill", 'org', -1, "EM1", "false"); </script>
+                                        </xf:action>
+                                      </b>
+                                    </td>
+                                    <td style="background-color:white;vertical-align:top;color:black">
+                                      <span>
+                                        <xf:output value="$orgNodeEM1"/>
+                                      </span>
+                                      <br/>
+                                    </td>
+                                  </tr>
+                                  <xf:repeat nodeset="$othersEM1">
+                                    <exf:variable name="igt" value="(.)"/>
+                                    <tr>
+                                      <td style="background-color:white;vertical-align:top;">
+                                        <b>
+                                          <u style="color:green;cursor:pointer">
+                                            <xf:output value="../@username"/>
+                                            <xf:action ev:event="click">
+                                              <xf:setvalue value="$thisNodeNeedleEM1/@revIndex"
+                                                ref="instance('form')/tempRevIndex"/>
+                                              <xf:setvalue value="$igt/../@username"
+                                                ref="instance('form')/tempSugIndex"/>
+                                              <script> tempRevIndex =
+                                                model.getValue("instance('form')/tempRevIndex"); tempSugIndex
+                                                = model.getValue("instance('form')/tempSugIndex");
+                                                model.USA.writeOverTagExplicit("instance('ins')/oteuInformedConsent", "",
+                                                tempRevIndex, "fill", 'sug', tempSugIndex, "EM1", "false");
+                                              </script>
+                                            </xf:action>
+                                          </u>
+                                        </b>
+                                      </td>
+                                      <td style="background-color:white;vertical-align:top;color:black">
+                                        <span>
+                                          <xf:output value="instance('cats')/oteuConsent/type[@id=$igt]/@name"/>
+                                        </span>
+                                        <br/>
+                                      </td>
+                                    </tr>
+                                  </xf:repeat>
+                                </table>
+                              </span>
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </td> 
+                    
+                  </tr>
+                  
+                  
+                  <tr class="document">
+                    <ix:attr name="style" value="if(instance('ins')/oteuInformedConsent = 'has', '', 'display:none')"></ix:attr>
+                    <td class="component stretchLabel ">
+                      <table class="oneToManyBox">
+                        <tr>
+                          <td class="label">Upload a copy of consent document with pt name redacted</td>
+                          <td class="">
+                            <span>
+                              <ix:attr
+                                value="if(instance('ins')/oteuInformedConsentDoc != '', '', 'display:none')"
+                                name="style"/>
+                              <a target="_blank_">
+                                <ix:attr
+                                  value="instance('ins')/oteuInformedConsentDoc/@uri"
+                                  name="href"/>
+                                <xf:output class=""
+                                  value="instance('ins')/oteuInformedConsentDoc"/>
+                              </a>
+                            </span>
+                            <span class="clickable"><ix:attr
+                              value="if(instance('ins')/oteuInformedConsentDoc != '', 'display:none', '')"
+                              name="style"/><script ev:event="click">
+                                model.Frm.DOC_NEW_STATUS = "New"; /////////
+                                model.Frm.DOC_NEW_DECISION = "Pending"; /////////
+                                //////////////////////////////////////////////////////
+                                model.Frm.docUpload.manualLabel = "Informed Consent Document";
+                                model.Frm.DOC_REFRESHSECTION = "docs";
+                                model.Frm.configureDocUpload("replaceValue",
+                                "instance('ins')/oteuInformedConsentDoc", "", "",
+                                event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                                model.Frm.DOC_REFRESHSECTION = "docs";
+                                model.Frm.executeDocUpload(); </script> Attach <img
+                                  src="../fil/system/resources/ideate/imgs/dialogGraphic.png"
+                                /></span>
+                          </td>
+                          <td classs="control">
+                            <!--<span class="remove clickable">X <ix:attr
+                              value="if(instance('ins')/oteuInformedConsentDoc != '', '', 'display:none')"
+                              name="style"/><xf:action ev:event="click" ref=".">
+                                <xf:setvalue
+                                  ref="instance('ins')/oteuInformedConsentDoc"/>
+                                <xf:setvalue
+                                  ref="instance('ins')/oteuInformedConsentDoc/@uri"
+                                />
+                              </xf:action></span>-->
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  
+                  
+                  <!-- doc -->
+                  <!--<tr class="field"><td class="component  widenLabel"><ix:attr name="style" value="if(instance('ins')/oteuInformedConsent = 'has', '', 'display:none')"></ix:attr>
+                    <xf:input class="wide" ref="instance('ins')/oteuInformedConsentDoc"><xf:label>Upload a copy of consent document with pt name redacted</xf:label></xf:input></td>
+                    <td class="options"></td></tr>-->
+                  
+                  
+                  <tr class="document">
+                    <ix:attr name="style" value="if(instance('ins')/oteuInformedConsent = 'cant', '', 'display:none')"></ix:attr>
+                    <td class="component stretchLabel ">
+                      <xf:switch><xf:case exf:if="1" id="show-docs">
+                      <table class="oneToManyBox">
+                        <tr>
+                          <td class="label">Upload certification from investigator and disinterested physician</td>
+                          <td class="">
+                            <span>
+                              <ix:attr
+                                value="if(instance('ins')/oteuInformedConsentDoc != '', '', 'display:none')"
+                                name="style"/>
+                              <a target="_blank_">
+                                <ix:attr
+                                  value="instance('ins')/oteuInformedConsentDoc/@uri"
+                                  name="href"/>
+                                <xf:output class=""
+                                  value="instance('ins')/oteuInformedConsentDoc"/>
+                              </a>
+                            </span>
+                            <span class="clickable"><ix:attr
+                              value="if(instance('ins')/oteuInformedConsentDoc != '', 'display:none', '')"
+                              name="style"/><script ev:event="click">
+                                model.Frm.DOC_NEW_STATUS = "New"; /////////
+                                model.Frm.DOC_NEW_DECISION = "Pending"; /////////
+                                //////////////////////////////////////////////////////
+                                model.Frm.docUpload.manualLabel = "Informed Consent Document";
+                                model.Frm.DOC_REFRESHSECTION = "docs";
+                                model.Frm.configureDocUpload("replaceValue",
+                                "instance('ins')/oteuInformedConsentDoc", "", "",
+                                event.uiEvent.clientX, event.uiEvent.clientY, '', '');
+                                model.Frm.executeDocUpload(); </script> Attach <img
+                                  src="../fil/system/resources/ideate/imgs/dialogGraphic.png"
+                                /></span>
+                          </td>
+                          <td classs="control">
+                            <span class="remove clickable">X <ix:attr
+                              value="if(instance('ins')/oteuInformedConsentDoc != '', '', 'display:none')"
+                              name="style"/><xf:action ev:event="click" ref=".">
+                                <xf:setvalue
+                                  ref="instance('ins')/oteuInformedConsentDoc"/>
+                                <xf:setvalue
+                                  ref="instance('ins')/oteuInformedConsentDoc/@uri"
+                                />
+                              </xf:action></span>
+                          </td>
+                        </tr>
+                      </table>
+                      </xf:case>
+                      <xf:case id="hide-docs"/>
+                    </xf:switch>
+                    </td>
+                  </tr>
+                  
+                  
+                  <!--<tr class="field"><td class="component  widenLabel"><ix:attr name="style" value="if(instance('ins')/oteuInformedConsent = 'cant', '', 'display:none')"></ix:attr>
+                    <xf:input class="wide" ref="instance('ins')/oteuInformedConsentDoc"><xf:label>Upload certification from investigator and disinterested physician</xf:label></xf:input></td>
+                    <td class="options"></td></tr>-->
+                                
+                
+                </table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

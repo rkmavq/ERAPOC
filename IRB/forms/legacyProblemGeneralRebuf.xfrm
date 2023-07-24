@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "legacyProblemGeneral");
+      
+        //model.Frm.loadAppFile('ins', "/problem.xml", "1");
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '3')
+          //model.USA.registerChangeLog('ins', '3')
+          model.USA.registerChangeLog('comments', '3')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind nodeset="instance('ins')/legacy/EventDate" type="xsd:date"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/legacy/*"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="html"><td><h2 xmlns=""><b>Type</b></h2></td></tr><tr class="checkboxes"><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/AdverseEvent" appearance="full" id="AdverseEvent"><xf:label>Adverse Event</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="checkboxes"><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/UnantProblem" appearance="full" id="UnantProblem"><xf:label>Unanticipated Problem</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="checkboxes"><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/SubComplaint" appearance="full" id="SubComplaint"><xf:label>Subject Complaints</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="checkboxes"><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/SafetyReport" appearance="full" id="SafetyReport"><xf:label>Safety Report</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="line"><td><hr/></td></tr><tr class="radiobuttons"><td class="component  widenLabel"><exf:variable value="instance('ins')/legacy/AEType/@revIndex" name="revIndexAEType"/><exf:variable value="(instance('ins')/legacy/AEType[@revIndex=$revIndexAEType])" name="thisNodeNeedleAEType"/><exf:variable value="instance('ins')/legacy/AEType" name="thisNodeVAEType"/><exf:variable value="if($thisNodeVAEType='Initial', 'Initial',if($thisNodeVAEType='Follow-up', 'Follow-up',
+            ''))" name="thisNodeAEType"/><exf:variable value="(instance('ins')/original/legacy/AEType[@revIndex=$revIndexAEType])" name="orgNodeVAEType"/><exf:variable value="if($orgNodeVAEType='Initial', 'Initial',if($orgNodeVAEType='Follow-up', 'Follow-up',
+            ''))" name="orgNodeAEType"/><exf:variable value="(instance('ins')/suggestions/legacy/AEType[@revIndex=$revIndexAEType])" name="sugNodeSetAEType"/><exf:variable value="(instance('ins')/suggestions/legacy/AEType[@revIndex=$revIndexAEType])" name="sugNodeVAEType"/><exf:variable value="if($sugNodeVAEType='Initial', 'Initial',if($sugNodeVAEType='Follow-up', 'Follow-up',
+            ''))" name="sugNodeAEType"/><exf:variable value="instance('ins')/previous/review/legacy/AEType/@revIndex" name="revIndexOAEType"/><exf:variable value="(instance('ins')/previous/review/legacy/AEType[@revIndex=$revIndexOAEType])" name="thisNodeNeedleOldAEType"/><exf:variable value="instance('ins')/previous/review/legacy/AEType" name="thisNodeVOldAEType"/><exf:variable value="if($thisNodeVOldAEType='Initial', 'Initial',if($thisNodeVOldAEType='Follow-up', 'Follow-up',
+            ''))" name="thisNodeOldAEType"/><exf:variable value="(instance('ins')/previous/review/original/legacy/AEType[@revIndex=$revIndexOAEType])" name="orgNodeVOldAEType"/><exf:variable value="if($orgNodeVOldAEType='Initial', 'Initial',if($orgNodeVOldAEType='Follow-up', 'Follow-up',
+            ''))" name="orgNodeOldAEType"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/AEType[@revIndex=$revIndexOAEType])" name="sugNodeSetOldAEType"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/AEType[@revIndex=$revIndexOAEType])" name="sugNodeVOldAEType"/><exf:variable value="if($sugNodeVOldAEType='Initial', 'Initial',if($sugNodeVOldAEType='Follow-up', 'Follow-up',
+            ''))" name="sugNodeOldAEType"/><exf:variable value="if($sugNodeVOldAEType='Initial', 'Initial',if($sugNodeVOldAEType='Follow-up', 'Follow-up',
+            ''))" name="sugNodeOldAEType"/><xf:select1 ref="instance('ins')/legacy/AEType" appearance="full" id="AEType"><xf:label>Report Type</xf:label><xf:item><xf:label>Initial</xf:label><xf:value>Initial</xf:value></xf:item><xf:item><xf:label>Follow-up</xf:label><xf:value>Follow-up</xf:value></xf:item><xf:action exf:if="$thisNodeNeedleAEType/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedleAEType/@changed">-1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeAEType = $orgNodeAEType or $thisNodeNeedleAEType/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeAEType != $orgNodeAEType and $sugNodeAEType = $orgNodeAEType, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeAEType != $orgNodeAEType and $sugNodeAEType = $orgNodeAEType, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleAEType/@comment !='' and ($thisNodeAEType = $orgNodeAEType or not($orgNodeAEType)) and ($thisNodeAEType = $sugNodeAEType or not($sugNodeAEType) or $sugNodeAEType='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleAEType/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleAEType/@comment"/></span></p><span><ix:attr value="if($thisNodeAEType != $orgNodeAEType, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleAEType/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/AEType", "", tempRevIndex, "fill", 'org', "", "AEType", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeAEType"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeAEType!='' and $sugNodeAEType!='//' and $sugNodeAEType != $orgNodeAEType, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeAEType != $thisNodeAEType, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeAEType = $sugNodeAEType, 'Using Suggested Change', if($thisNodeAEType = $orgNodeAEType, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleAEType/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleAEType/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleAEType/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/AEType", "", tempRevIndex, "fill", 'org', "", "AEType", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeAEType"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleAEType/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/AEType", "", tempRevIndex, "fill", 'sug', "", "AEType", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeAEType"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="line"><td><hr/></td></tr><tr class="checkboxes"><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/UICLocation" appearance="full" id="UICLocation"><xf:label>UMMC Site</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="checkboxes"><ix:attr value="if(instance('ins')/legacy/UICLocation = 'Y', '', 'display:none')" name="style"/><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/VALocation" appearance="full" id="VALocation"><xf:label/><xf:item><xf:label>UMC</xf:label><xf:value>N</xf:value></xf:item><xf:item><xf:label>VA</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="checkboxes"><td class="component  widenLabel"><xf:select ref="instance('ins')/legacy/NonUICLocation" appearance="full" id="NonUICLocation"><xf:label>Non-UMMC Site</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>Y</xf:value></xf:item></xf:select></td></tr><tr class="line"><td><hr/></td></tr><tr class="date"><td class="component  widenLabel"><exf:variable value="instance('ins')/legacy/EventDate/@revIndex" name="revIndexEventDate"/><exf:variable value="(instance('ins')/legacy/EventDate[@revIndex=$revIndexEventDate])" name="thisNodeNeedleEventDate"/><exf:variable value="instance('ins')/legacy/EventDate" name="thisNodeVEventDate"/><exf:variable value="concat(substring($thisNodeVEventDate, 6, 2), '/', substring($thisNodeVEventDate, 9, 2), '/', substring($thisNodeVEventDate, 1, 4))" name="thisNodeEventDate"/><exf:variable value="(instance('ins')/original/legacy/EventDate[@revIndex=$revIndexEventDate])" name="orgNodeVEventDate"/><exf:variable value="concat(substring($orgNodeVEventDate, 6, 2), '/', substring($orgNodeVEventDate, 9, 2), '/', substring($orgNodeVEventDate, 1, 4))" name="orgNodeEventDate"/><exf:variable value="(instance('ins')/suggestions/legacy/EventDate[@revIndex=$revIndexEventDate])" name="sugNodeSetEventDate"/><exf:variable value="(instance('ins')/suggestions/legacy/EventDate[@revIndex=$revIndexEventDate])" name="sugNodeVEventDate"/><exf:variable value="concat(substring($sugNodeVEventDate, 6, 2), '/', substring($sugNodeVEventDate, 9, 2), '/', substring($sugNodeVEventDate, 1, 4))" name="sugNodeEventDate"/><exf:variable value="instance('ins')/previous/review/legacy/EventDate/@revIndex" name="revIndexOEventDate"/><exf:variable value="(instance('ins')/previous/review/legacy/EventDate[@revIndex=$revIndexOEventDate])" name="thisNodeNeedleOldEventDate"/><exf:variable value="instance('ins')/previous/review/legacy/EventDate" name="thisNodeVOldEventDate"/><exf:variable value="concat(substring($thisNodeVOldEventDate, 6, 2), '/', substring($thisNodeVOldEventDate, 9, 2), '/', substring($thisNodeVOldEventDate, 1, 4))" name="thisNodeOldEventDate"/><exf:variable value="(instance('ins')/previous/review/original/legacy/EventDate[@revIndex=$revIndexOEventDate])" name="orgNodeVOldEventDate"/><exf:variable value="concat(substring($orgNodeVOldEventDate, 6, 2), '/', substring($orgNodeVOldEventDate, 9, 2), '/', substring($orgNodeVOldEventDate, 1, 4))" name="orgNodeOldEventDate"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/EventDate[@revIndex=$revIndexOEventDate])" name="sugNodeSetOldEventDate"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/EventDate[@revIndex=$revIndexOEventDate])" name="sugNodeVOldEventDate"/><exf:variable value="concat(substring($sugNodeVOldEventDate, 6, 2), '/', substring($sugNodeVOldEventDate, 9, 2), '/', substring($sugNodeVOldEventDate, 1, 4))" name="sugNodeOldEventDate"/><table class="date"><tr><td class="label">Date Event Date</td><td class="dateBox"><div><xf:output value="if(instance('ins')/legacy/EventDate != '', concat(substring(instance('ins')/legacy/EventDate, 6, 2), '/', substring(instance('ins')/legacy/EventDate, 9, 2), '/', substring(instance('ins')/legacy/EventDate, 1, 4)), '-')"/></div></td><td class="dateCtrl"><xf:input ref="instance('ins')/legacy/EventDate"><script ev:event="xforms-value-changed">
+        
+        
+            x = new Date(model.getValue(".", contextNode));
+            y = new Date();
+            if (x &gt; y)
+            {
+            alert ("Future date are not allowed");
+            model.setValue(".", irbProtocol.prototype.scrambleDate(y), contextNode);
+            }
+        
+    </script></xf:input></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeEventDate = $orgNodeEventDate or $thisNodeNeedleEventDate/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeEventDate != $orgNodeEventDate and $sugNodeEventDate = $orgNodeEventDate, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeEventDate != $orgNodeEventDate and $sugNodeEventDate = $orgNodeEventDate, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleEventDate/@comment !='' and ($thisNodeEventDate = $orgNodeEventDate or not($orgNodeEventDate)) and ($thisNodeEventDate = $sugNodeEventDate or not($sugNodeEventDate) or $sugNodeEventDate='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleEventDate/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleEventDate/@comment"/></span></p><span><ix:attr value="if($thisNodeEventDate != $orgNodeEventDate, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleEventDate/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/EventDate", "", tempRevIndex, "fill", 'org', "", "EventDate", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeEventDate"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeEventDate!='' and $sugNodeEventDate!='//' and $sugNodeEventDate != $orgNodeEventDate, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeEventDate != $thisNodeEventDate, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeEventDate = $sugNodeEventDate, 'Using Suggested Change', if($thisNodeEventDate = $orgNodeEventDate, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleEventDate/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleEventDate/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleEventDate/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/EventDate", "", tempRevIndex, "fill", 'org', "", "EventDate", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeEventDate"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleEventDate/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/EventDate", "", tempRevIndex, "fill", 'sug', "", "EventDate", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeEventDate"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="line"><td><hr/></td></tr><tr class="entryTable"><xf:switch><xf:case exf:if="1" id="show-ae_description"><td class="component  "><exf:variable value="instance('ins')/legacy/ae_description" name="nsae_description"/><exf:variable value="instance('ins')/legacy/ae_description[1]/@revIndex" name="revIndexae_description"/><exf:variable value="(instance('ins')/legacy/ae_description[@revIndex=$revIndexae_description])" name="thisNodeNeedleae_description"/><exf:variable value="concat(
+          if(instance('ins')/legacy/ae_description[1], concat('(' 
+          ,
+            instance('ins')/legacy/ae_description[1]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_description[2], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_description[2]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_description[3], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_description[3]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_description[4], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_description[4]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_description[5], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_description[5]/@name , ')'), '')
+          )" name="thisNodeae_description"/><exf:variable value="concat(
+          if(instance('ins')/original/legacy/ae_description[1], concat('(' 
+          ,
+            instance('ins')/original/legacy/ae_description[1]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_description[2], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_description[2]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_description[3], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_description[3]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_description[4], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_description[4]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_description[5], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_description[5]/@name , ')'), '')
+          )" name="orgNodeae_description"/><exf:variable value="(instance('ins')/suggestions/legacy/ae_description[@revIndex=$revIndexae_description])" name="sugNodeSetae_description"/><exf:variable value="concat(
+          if(instance('ins')/suggestions/legacy/ae_description[1], concat('(' 
+          ,
+            instance('ins')/suggestions/legacy/ae_description[1]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_description[2], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_description[2]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_description[3], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_description[3]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_description[4], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_description[4]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_description[5], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_description[5]/@name , ')'), '')
+          )" name="sugNodeae_description"/><exf:variable value="instance('ins')/previous/review/legacy/ae_description/@revIndex" name="revIndexOae_description"/><exf:variable value="(instance('ins')/legacy/ae_description[@revIndex=$revIndexae_description])" name="thisNodeNeedleOldae_description"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/legacy/ae_description[1], concat('(' 
+          ,
+            instance('ins')/previous/review/legacy/ae_description[1]/@name , ')'), ''),
+          if(instance('ins')/previous/review/legacy/ae_description[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/legacy/ae_description[2]/@name , ')'), '')
+          )" name="thisNodeOldae_description"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/original/legacy/ae_description[1], concat('(' 
+          ,
+            instance('ins')/previous/review/original/legacy/ae_description[1]/@name , ')'), ''),
+          if(instance('ins')/previous/review/original/legacy/ae_description[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/original/legacy/ae_description[2]/@name , ')'), '')
+          )" name="orgNodeOldae_description"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/suggestions/legacy/ae_description[1], concat('(' 
+          ,
+            instance('ins')/previous/review/suggestions/legacy/ae_description[1]/@name , ')'), ''),
+          if(instance('ins')/previous/review/suggestions/legacy/ae_description[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/suggestions/legacy/ae_description[2]/@name , ')'), '')
+          )" name="sugNodeOldae_description"/><h5>Description</h5><table class="ideatetable entrytable"><ix:attr value="if(count($nsae_description) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th/><th style="text-align:center;">Value</th></tr><xf:repeat nodeset="$nsae_description"><tr><td classs="control"><b style="color:red;cursor:pointer;">X<xf:destroy ev:event="click" ref="."/></b></td><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class="in textarea wide center"><span><xf:input ref="@name"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "legacy/ae_description", "ae_description");
+                            </script></xf:input></span></td></tr></xf:repeat></table><br/></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeae_description = $orgNodeae_description or $thisNodeNeedleae_description/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeae_description != $orgNodeae_description and $sugNodeae_description = $orgNodeae_description, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeae_description != $orgNodeae_description and $sugNodeae_description = $orgNodeae_description, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleae_description/@comment !='' and ($thisNodeae_description = $orgNodeae_description or not($orgNodeae_description)) and ($thisNodeae_description = $sugNodeae_description or not($sugNodeae_description) or $sugNodeae_description='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleae_description/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleae_description/@comment"/></span></p><span><ix:attr value="if($thisNodeae_description != $orgNodeae_description, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_description/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_description", "", tempRevIndex, "swap", 'org', "", "ae_description", "true");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeae_description"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeae_description!='' and $sugNodeae_description!='//' and $sugNodeae_description != $orgNodeae_description, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeae_description != $thisNodeae_description, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeae_description = $sugNodeae_description, 'Using Suggested Change', if($thisNodeae_description = $orgNodeae_description, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleae_description/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleae_description/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_description/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_description", "", tempRevIndex, "swap", 'org', "", "ae_description", "true");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeae_description"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_description/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_description", "", tempRevIndex, "swap", 'sug', "", "ae_description", "true");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeae_description"/></span><br/></td></tr></table></p></div></span></div></td></xf:case><xf:case id="hide-ae_description"/></xf:switch></tr><tr class="line"><td><hr/></td></tr><tr class="entryTable"><xf:switch><xf:case exf:if="1" id="show-ae_outcome"><td class="component  "><exf:variable value="instance('ins')/legacy/ae_outcome" name="nsae_outcome"/><exf:variable value="instance('ins')/legacy/ae_outcome[1]/@revIndex" name="revIndexae_outcome"/><exf:variable value="(instance('ins')/legacy/ae_outcome[@revIndex=$revIndexae_outcome])" name="thisNodeNeedleae_outcome"/><exf:variable value="concat(
+          if(instance('ins')/legacy/ae_outcome[1], concat('(' 
+          ,
+            instance('ins')/legacy/ae_outcome[1]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_outcome[2], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_outcome[2]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_outcome[3], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_outcome[3]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_outcome[4], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_outcome[4]/@name , ')'), ''),
+          if(instance('ins')/legacy/ae_outcome[5], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_outcome[5]/@name , ')'), '')
+          )" name="thisNodeae_outcome"/><exf:variable value="concat(
+          if(instance('ins')/original/legacy/ae_outcome[1], concat('(' 
+          ,
+            instance('ins')/original/legacy/ae_outcome[1]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_outcome[2], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_outcome[2]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_outcome[3], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_outcome[3]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_outcome[4], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_outcome[4]/@name , ')'), ''),
+          if(instance('ins')/original/legacy/ae_outcome[5], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_outcome[5]/@name , ')'), '')
+          )" name="orgNodeae_outcome"/><exf:variable value="(instance('ins')/suggestions/legacy/ae_outcome[@revIndex=$revIndexae_outcome])" name="sugNodeSetae_outcome"/><exf:variable value="concat(
+          if(instance('ins')/suggestions/legacy/ae_outcome[1], concat('(' 
+          ,
+            instance('ins')/suggestions/legacy/ae_outcome[1]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_outcome[2], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_outcome[2]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_outcome[3], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_outcome[3]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_outcome[4], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_outcome[4]/@name , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_outcome[5], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_outcome[5]/@name , ')'), '')
+          )" name="sugNodeae_outcome"/><exf:variable value="instance('ins')/previous/review/legacy/ae_outcome/@revIndex" name="revIndexOae_outcome"/><exf:variable value="(instance('ins')/legacy/ae_outcome[@revIndex=$revIndexae_outcome])" name="thisNodeNeedleOldae_outcome"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/legacy/ae_outcome[1], concat('(' 
+          ,
+            instance('ins')/previous/review/legacy/ae_outcome[1]/@name , ')'), ''),
+          if(instance('ins')/previous/review/legacy/ae_outcome[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/legacy/ae_outcome[2]/@name , ')'), '')
+          )" name="thisNodeOldae_outcome"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/original/legacy/ae_outcome[1], concat('(' 
+          ,
+            instance('ins')/previous/review/original/legacy/ae_outcome[1]/@name , ')'), ''),
+          if(instance('ins')/previous/review/original/legacy/ae_outcome[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/original/legacy/ae_outcome[2]/@name , ')'), '')
+          )" name="orgNodeOldae_outcome"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/suggestions/legacy/ae_outcome[1], concat('(' 
+          ,
+            instance('ins')/previous/review/suggestions/legacy/ae_outcome[1]/@name , ')'), ''),
+          if(instance('ins')/previous/review/suggestions/legacy/ae_outcome[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/suggestions/legacy/ae_outcome[2]/@name , ')'), '')
+          )" name="sugNodeOldae_outcome"/><h5>Subsequent Decision</h5><table class="ideatetable entrytable"><ix:attr value="if(count($nsae_outcome) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th/><th style="text-align:center;">Value</th></tr><xf:repeat nodeset="$nsae_outcome"><tr><td classs="control"><b style="color:red;cursor:pointer;">X<xf:destroy ev:event="click" ref="."/></b></td><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class="in textarea wide center"><span><xf:input ref="@name"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "legacy/ae_outcome", "ae_outcome");
+                            </script></xf:input></span></td></tr></xf:repeat></table><br/></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeae_outcome = $orgNodeae_outcome or $thisNodeNeedleae_outcome/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeae_outcome != $orgNodeae_outcome and $sugNodeae_outcome = $orgNodeae_outcome, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeae_outcome != $orgNodeae_outcome and $sugNodeae_outcome = $orgNodeae_outcome, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleae_outcome/@comment !='' and ($thisNodeae_outcome = $orgNodeae_outcome or not($orgNodeae_outcome)) and ($thisNodeae_outcome = $sugNodeae_outcome or not($sugNodeae_outcome) or $sugNodeae_outcome='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleae_outcome/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleae_outcome/@comment"/></span></p><span><ix:attr value="if($thisNodeae_outcome != $orgNodeae_outcome, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_outcome/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_outcome", "", tempRevIndex, "swap", 'org', "", "ae_outcome", "true");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeae_outcome"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeae_outcome!='' and $sugNodeae_outcome!='//' and $sugNodeae_outcome != $orgNodeae_outcome, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeae_outcome != $thisNodeae_outcome, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeae_outcome = $sugNodeae_outcome, 'Using Suggested Change', if($thisNodeae_outcome = $orgNodeae_outcome, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleae_outcome/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleae_outcome/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_outcome/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_outcome", "", tempRevIndex, "swap", 'org', "", "ae_outcome", "true");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeae_outcome"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_outcome/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_outcome", "", tempRevIndex, "swap", 'sug', "", "ae_outcome", "true");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeae_outcome"/></span><br/></td></tr></table></p></div></span></div></td></xf:case><xf:case id="hide-ae_outcome"/></xf:switch></tr><tr class="line"><td><hr/></td></tr><tr class="entryTable"><xf:switch><xf:case exf:if="1" id="show-ae_drug_device"><td class="component  "><exf:variable value="instance('ins')/legacy/ae_drug_device" name="nsae_drug_device"/><exf:variable value="instance('ins')/legacy/ae_drug_device[1]/@revIndex" name="revIndexae_drug_device"/><exf:variable value="(instance('ins')/legacy/ae_drug_device[@revIndex=$revIndexae_drug_device])" name="thisNodeNeedleae_drug_device"/><exf:variable value="concat(
+          if(instance('ins')/legacy/ae_drug_device[1], concat('(' 
+          ,
+            instance('ins')/legacy/ae_drug_device[1]/@name,' / ',
+            instance('ins')/legacy/ae_drug_device[1]/@type , ')'), ''),
+          if(instance('ins')/legacy/ae_drug_device[2], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_drug_device[2]/@name,' / ',
+            instance('ins')/legacy/ae_drug_device[2]/@type , ')'), ''),
+          if(instance('ins')/legacy/ae_drug_device[3], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_drug_device[3]/@name,' / ',
+            instance('ins')/legacy/ae_drug_device[3]/@type , ')'), ''),
+          if(instance('ins')/legacy/ae_drug_device[4], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_drug_device[4]/@name,' / ',
+            instance('ins')/legacy/ae_drug_device[4]/@type , ')'), ''),
+          if(instance('ins')/legacy/ae_drug_device[5], concat(', (' 
+          ,
+            instance('ins')/legacy/ae_drug_device[5]/@name,' / ',
+            instance('ins')/legacy/ae_drug_device[5]/@type , ')'), '')
+          )" name="thisNodeae_drug_device"/><exf:variable value="concat(
+          if(instance('ins')/original/legacy/ae_drug_device[1], concat('(' 
+          ,
+            instance('ins')/original/legacy/ae_drug_device[1]/@name,' / ',
+            instance('ins')/original/legacy/ae_drug_device[1]/@type , ')'), ''),
+          if(instance('ins')/original/legacy/ae_drug_device[2], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_drug_device[2]/@name,' / ',
+            instance('ins')/original/legacy/ae_drug_device[2]/@type , ')'), ''),
+          if(instance('ins')/original/legacy/ae_drug_device[3], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_drug_device[3]/@name,' / ',
+            instance('ins')/original/legacy/ae_drug_device[3]/@type , ')'), ''),
+          if(instance('ins')/original/legacy/ae_drug_device[4], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_drug_device[4]/@name,' / ',
+            instance('ins')/original/legacy/ae_drug_device[4]/@type , ')'), ''),
+          if(instance('ins')/original/legacy/ae_drug_device[5], concat(', (' 
+          ,
+            instance('ins')/original/legacy/ae_drug_device[5]/@name,' / ',
+            instance('ins')/original/legacy/ae_drug_device[5]/@type , ')'), '')
+          )" name="orgNodeae_drug_device"/><exf:variable value="(instance('ins')/suggestions/legacy/ae_drug_device[@revIndex=$revIndexae_drug_device])" name="sugNodeSetae_drug_device"/><exf:variable value="concat(
+          if(instance('ins')/suggestions/legacy/ae_drug_device[1], concat('(' 
+          ,
+            instance('ins')/suggestions/legacy/ae_drug_device[1]/@name,' / ',
+            instance('ins')/suggestions/legacy/ae_drug_device[1]/@type , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_drug_device[2], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_drug_device[2]/@name,' / ',
+            instance('ins')/suggestions/legacy/ae_drug_device[2]/@type , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_drug_device[3], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_drug_device[3]/@name,' / ',
+            instance('ins')/suggestions/legacy/ae_drug_device[3]/@type , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_drug_device[4], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_drug_device[4]/@name,' / ',
+            instance('ins')/suggestions/legacy/ae_drug_device[4]/@type , ')'), ''),
+          if(instance('ins')/suggestions/legacy/ae_drug_device[5], concat(', (' 
+          ,
+            instance('ins')/suggestions/legacy/ae_drug_device[5]/@name,' / ',
+            instance('ins')/suggestions/legacy/ae_drug_device[5]/@type , ')'), '')
+          )" name="sugNodeae_drug_device"/><exf:variable value="instance('ins')/previous/review/legacy/ae_drug_device/@revIndex" name="revIndexOae_drug_device"/><exf:variable value="(instance('ins')/legacy/ae_drug_device[@revIndex=$revIndexae_drug_device])" name="thisNodeNeedleOldae_drug_device"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/legacy/ae_drug_device[1], concat('(' 
+          ,
+            instance('ins')/previous/review/legacy/ae_drug_device[1]/@name,' / ',
+            instance('ins')/previous/review/legacy/ae_drug_device[1]/@type , ')'), ''),
+          if(instance('ins')/previous/review/legacy/ae_drug_device[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/legacy/ae_drug_device[2]/@name,' / ',
+            instance('ins')/previous/review/legacy/ae_drug_device[2]/@type , ')'), '')
+          )" name="thisNodeOldae_drug_device"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/original/legacy/ae_drug_device[1], concat('(' 
+          ,
+            instance('ins')/previous/review/original/legacy/ae_drug_device[1]/@name,' / ',
+            instance('ins')/previous/review/original/legacy/ae_drug_device[1]/@type , ')'), ''),
+          if(instance('ins')/previous/review/original/legacy/ae_drug_device[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/original/legacy/ae_drug_device[2]/@name,' / ',
+            instance('ins')/previous/review/original/legacy/ae_drug_device[2]/@type , ')'), '')
+          )" name="orgNodeOldae_drug_device"/><exf:variable value="concat(
+          if(instance('ins')/previous/review/suggestions/legacy/ae_drug_device[1], concat('(' 
+          ,
+            instance('ins')/previous/review/suggestions/legacy/ae_drug_device[1]/@name,' / ',
+            instance('ins')/previous/review/suggestions/legacy/ae_drug_device[1]/@type , ')'), ''),
+          if(instance('ins')/previous/review/suggestions/legacy/ae_drug_device[2], concat(', (' 
+          ,
+            instance('ins')/previous/review/suggestions/legacy/ae_drug_device[2]/@name,' / ',
+            instance('ins')/previous/review/suggestions/legacy/ae_drug_device[2]/@type , ')'), '')
+          )" name="sugNodeOldae_drug_device"/><h5>Drugs</h5><table class="ideatetable entrytable"><ix:attr value="if(count($nsae_drug_device) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th/><th style="text-align:center;">Value</th><th style="text-align:center;">Type</th></tr><xf:repeat nodeset="$nsae_drug_device"><tr><td classs="control"><b style="color:red;cursor:pointer;">X<xf:destroy ev:event="click" ref="."/></b></td><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class="in textarea wide center"><span><xf:input ref="@name"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "legacy/ae_drug_device", "ae_drug_device");
+                            </script></xf:input></span></td><td class="in textarea wide center"><span><xf:input ref="@type"><script ev:event="xforms-value-changed">
+                              model.USA.checkMutation("ins", "legacy/ae_drug_device", "ae_drug_device");
+                            </script></xf:input></span></td></tr></xf:repeat></table><br/></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeae_drug_device = $orgNodeae_drug_device or $thisNodeNeedleae_drug_device/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeae_drug_device != $orgNodeae_drug_device and $sugNodeae_drug_device = $orgNodeae_drug_device, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeae_drug_device != $orgNodeae_drug_device and $sugNodeae_drug_device = $orgNodeae_drug_device, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleae_drug_device/@comment !='' and ($thisNodeae_drug_device = $orgNodeae_drug_device or not($orgNodeae_drug_device)) and ($thisNodeae_drug_device = $sugNodeae_drug_device or not($sugNodeae_drug_device) or $sugNodeae_drug_device='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleae_drug_device/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleae_drug_device/@comment"/></span></p><span><ix:attr value="if($thisNodeae_drug_device != $orgNodeae_drug_device, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_drug_device/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_drug_device", "", tempRevIndex, "swap", 'org', "", "ae_drug_device", "true");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeae_drug_device"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeae_drug_device!='' and $sugNodeae_drug_device!='//' and $sugNodeae_drug_device != $orgNodeae_drug_device, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeae_drug_device != $thisNodeae_drug_device, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeae_drug_device = $sugNodeae_drug_device, 'Using Suggested Change', if($thisNodeae_drug_device = $orgNodeae_drug_device, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleae_drug_device/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleae_drug_device/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_drug_device/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_drug_device", "", tempRevIndex, "swap", 'org', "", "ae_drug_device", "true");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeae_drug_device"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleae_drug_device/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/ae_drug_device", "", tempRevIndex, "swap", 'sug', "", "ae_drug_device", "true");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeae_drug_device"/></span><br/></td></tr></table></p></div></span></div></td></xf:case><xf:case id="hide-ae_drug_device"/></xf:switch></tr><tr class="line"><td><hr/></td></tr><tr class="html"><td><h1 xmlns="">Assessment</h1></td></tr><tr class="radiobuttons"><td class="component  widenLabel"><exf:variable value="instance('ins')/legacy/Expected/@revIndex" name="revIndexExpected"/><exf:variable value="(instance('ins')/legacy/Expected[@revIndex=$revIndexExpected])" name="thisNodeNeedleExpected"/><exf:variable value="instance('ins')/legacy/Expected" name="thisNodeVExpected"/><exf:variable value="if($thisNodeVExpected='E', 'Expected',if($thisNodeVExpected='U', 'Unexpected',
+            ''))" name="thisNodeExpected"/><exf:variable value="(instance('ins')/original/legacy/Expected[@revIndex=$revIndexExpected])" name="orgNodeVExpected"/><exf:variable value="if($orgNodeVExpected='E', 'Expected',if($orgNodeVExpected='U', 'Unexpected',
+            ''))" name="orgNodeExpected"/><exf:variable value="(instance('ins')/suggestions/legacy/Expected[@revIndex=$revIndexExpected])" name="sugNodeSetExpected"/><exf:variable value="(instance('ins')/suggestions/legacy/Expected[@revIndex=$revIndexExpected])" name="sugNodeVExpected"/><exf:variable value="if($sugNodeVExpected='E', 'Expected',if($sugNodeVExpected='U', 'Unexpected',
+            ''))" name="sugNodeExpected"/><exf:variable value="instance('ins')/previous/review/legacy/Expected/@revIndex" name="revIndexOExpected"/><exf:variable value="(instance('ins')/previous/review/legacy/Expected[@revIndex=$revIndexOExpected])" name="thisNodeNeedleOldExpected"/><exf:variable value="instance('ins')/previous/review/legacy/Expected" name="thisNodeVOldExpected"/><exf:variable value="if($thisNodeVOldExpected='E', 'Expected',if($thisNodeVOldExpected='U', 'Unexpected',
+            ''))" name="thisNodeOldExpected"/><exf:variable value="(instance('ins')/previous/review/original/legacy/Expected[@revIndex=$revIndexOExpected])" name="orgNodeVOldExpected"/><exf:variable value="if($orgNodeVOldExpected='E', 'Expected',if($orgNodeVOldExpected='U', 'Unexpected',
+            ''))" name="orgNodeOldExpected"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/Expected[@revIndex=$revIndexOExpected])" name="sugNodeSetOldExpected"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/Expected[@revIndex=$revIndexOExpected])" name="sugNodeVOldExpected"/><exf:variable value="if($sugNodeVOldExpected='E', 'Expected',if($sugNodeVOldExpected='U', 'Unexpected',
+            ''))" name="sugNodeOldExpected"/><exf:variable value="if($sugNodeVOldExpected='E', 'Expected',if($sugNodeVOldExpected='U', 'Unexpected',
+            ''))" name="sugNodeOldExpected"/><xf:select1 ref="instance('ins')/legacy/Expected" appearance="full" id="Expected"><xf:label/><xf:item><xf:label>Expected</xf:label><xf:value>E</xf:value></xf:item><xf:item><xf:label>Unexpected</xf:label><xf:value>U</xf:value></xf:item><xf:action exf:if="$thisNodeNeedleExpected/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedleExpected/@changed">-1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeExpected = $orgNodeExpected or $thisNodeNeedleExpected/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeExpected != $orgNodeExpected and $sugNodeExpected = $orgNodeExpected, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeExpected != $orgNodeExpected and $sugNodeExpected = $orgNodeExpected, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleExpected/@comment !='' and ($thisNodeExpected = $orgNodeExpected or not($orgNodeExpected)) and ($thisNodeExpected = $sugNodeExpected or not($sugNodeExpected) or $sugNodeExpected='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleExpected/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleExpected/@comment"/></span></p><span><ix:attr value="if($thisNodeExpected != $orgNodeExpected, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleExpected/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Expected", "", tempRevIndex, "fill", 'org', "", "Expected", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeExpected"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeExpected!='' and $sugNodeExpected!='//' and $sugNodeExpected != $orgNodeExpected, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeExpected != $thisNodeExpected, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeExpected = $sugNodeExpected, 'Using Suggested Change', if($thisNodeExpected = $orgNodeExpected, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleExpected/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleExpected/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleExpected/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Expected", "", tempRevIndex, "fill", 'org', "", "Expected", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeExpected"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleExpected/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Expected", "", tempRevIndex, "fill", 'sug', "", "Expected", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeExpected"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="radiobuttons"><td class="component  widenLabel"><exf:variable value="instance('ins')/legacy/Serious/@revIndex" name="revIndexSerious"/><exf:variable value="(instance('ins')/legacy/Serious[@revIndex=$revIndexSerious])" name="thisNodeNeedleSerious"/><exf:variable value="instance('ins')/legacy/Serious" name="thisNodeVSerious"/><exf:variable value="if($thisNodeVSerious='S', 'Serious',if($thisNodeVSerious='N', 'Non-Serious',
+            ''))" name="thisNodeSerious"/><exf:variable value="(instance('ins')/original/legacy/Serious[@revIndex=$revIndexSerious])" name="orgNodeVSerious"/><exf:variable value="if($orgNodeVSerious='S', 'Serious',if($orgNodeVSerious='N', 'Non-Serious',
+            ''))" name="orgNodeSerious"/><exf:variable value="(instance('ins')/suggestions/legacy/Serious[@revIndex=$revIndexSerious])" name="sugNodeSetSerious"/><exf:variable value="(instance('ins')/suggestions/legacy/Serious[@revIndex=$revIndexSerious])" name="sugNodeVSerious"/><exf:variable value="if($sugNodeVSerious='S', 'Serious',if($sugNodeVSerious='N', 'Non-Serious',
+            ''))" name="sugNodeSerious"/><exf:variable value="instance('ins')/previous/review/legacy/Serious/@revIndex" name="revIndexOSerious"/><exf:variable value="(instance('ins')/previous/review/legacy/Serious[@revIndex=$revIndexOSerious])" name="thisNodeNeedleOldSerious"/><exf:variable value="instance('ins')/previous/review/legacy/Serious" name="thisNodeVOldSerious"/><exf:variable value="if($thisNodeVOldSerious='S', 'Serious',if($thisNodeVOldSerious='N', 'Non-Serious',
+            ''))" name="thisNodeOldSerious"/><exf:variable value="(instance('ins')/previous/review/original/legacy/Serious[@revIndex=$revIndexOSerious])" name="orgNodeVOldSerious"/><exf:variable value="if($orgNodeVOldSerious='S', 'Serious',if($orgNodeVOldSerious='N', 'Non-Serious',
+            ''))" name="orgNodeOldSerious"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/Serious[@revIndex=$revIndexOSerious])" name="sugNodeSetOldSerious"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/Serious[@revIndex=$revIndexOSerious])" name="sugNodeVOldSerious"/><exf:variable value="if($sugNodeVOldSerious='S', 'Serious',if($sugNodeVOldSerious='N', 'Non-Serious',
+            ''))" name="sugNodeOldSerious"/><exf:variable value="if($sugNodeVOldSerious='S', 'Serious',if($sugNodeVOldSerious='N', 'Non-Serious',
+            ''))" name="sugNodeOldSerious"/><xf:select1 ref="instance('ins')/legacy/Serious" appearance="full" id="Serious"><xf:label/><xf:item><xf:label>Serious</xf:label><xf:value>S</xf:value></xf:item><xf:item><xf:label>Non-Serious</xf:label><xf:value>N</xf:value></xf:item><xf:action exf:if="$thisNodeNeedleSerious/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedleSerious/@changed">-1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeSerious = $orgNodeSerious or $thisNodeNeedleSerious/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeSerious != $orgNodeSerious and $sugNodeSerious = $orgNodeSerious, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeSerious != $orgNodeSerious and $sugNodeSerious = $orgNodeSerious, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleSerious/@comment !='' and ($thisNodeSerious = $orgNodeSerious or not($orgNodeSerious)) and ($thisNodeSerious = $sugNodeSerious or not($sugNodeSerious) or $sugNodeSerious='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleSerious/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleSerious/@comment"/></span></p><span><ix:attr value="if($thisNodeSerious != $orgNodeSerious, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleSerious/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Serious", "", tempRevIndex, "fill", 'org', "", "Serious", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeSerious"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeSerious!='' and $sugNodeSerious!='//' and $sugNodeSerious != $orgNodeSerious, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeSerious != $thisNodeSerious, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeSerious = $sugNodeSerious, 'Using Suggested Change', if($thisNodeSerious = $orgNodeSerious, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleSerious/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleSerious/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleSerious/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Serious", "", tempRevIndex, "fill", 'org', "", "Serious", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeSerious"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleSerious/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Serious", "", tempRevIndex, "fill", 'sug', "", "Serious", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeSerious"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="field"><td class="component  widenLabel"><exf:variable value="instance('ins')/legacy/Relationship/@revIndex" name="revIndexRelationship"/><exf:variable value="(instance('ins')/legacy/Relationship[@revIndex=$revIndexRelationship])" name="thisNodeNeedleRelationship"/><exf:variable value="instance('ins')/legacy/Relationship" name="thisNodeRelationship"/><exf:variable value="(instance('ins')/original/legacy/Relationship[@revIndex=$revIndexRelationship])" name="orgNodeRelationship"/><exf:variable value="(instance('ins')/suggestions/legacy/Relationship[@revIndex=$revIndexRelationship])" name="sugNodeSetRelationship"/><exf:variable value="(instance('ins')/suggestions/legacy/Relationship[@revIndex=$revIndexRelationship])" name="sugNodeRelationship"/><exf:variable value="instance('ins')/previous/review/legacy/Relationship/@revIndex" name="revIndexORelationship"/><exf:variable value="(instance('ins')/previous/review/legacy/Relationship[@revIndex=$revIndexORelationship])" name="thisNodeNeedleOldRelationship"/><exf:variable value="instance('ins')/previous/review/legacy/Relationship" name="thisNodeOldRelationship"/><exf:variable value="(instance('ins')/previous/review/original/legacy/Relationship[@revIndex=$revIndexORelationship])" name="orgNodeOldRelationship"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/Relationship[@revIndex=$revIndexORelationship])" name="sugNodeSetOldRelationship"/><exf:variable value="(instance('ins')/previous/review/suggestions/legacy/Relationship[@revIndex=$revIndexORelationship])" name="sugNodeOldRelationship"/><xf:input class="wide" ref="instance('ins')/legacy/Relationship"><xf:label>Relationship</xf:label><xf:action exf:if="$thisNodeNeedleRelationship/@changed=''" ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedleRelationship/@changed">-1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($sugNodeRelationship = $orgNodeRelationship or $thisNodeNeedleRelationship/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeRelationship != $orgNodeRelationship and $sugNodeRelationship = $orgNodeRelationship, 'color:red', 'color:blue')" name="style"/><xf:output value="if($thisNodeRelationship != $orgNodeRelationship and $sugNodeRelationship = $orgNodeRelationship, 'Using New Value', '')"/><xf:output value="if($thisNodeNeedleRelationship/@comment !='' and ($thisNodeRelationship = $orgNodeRelationship or not($orgNodeRelationship)) and ($thisNodeRelationship = $sugNodeRelationship or not($sugNodeRelationship) or $sugNodeRelationship='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedleRelationship/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedleRelationship/@comment"/></span></p><span><ix:attr value="if($thisNodeRelationship != $orgNodeRelationship, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleRelationship/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Relationship", "", tempRevIndex, "fill", 'org', "", "Relationship", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeRelationship"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodeRelationship!='' and $sugNodeRelationship!='//' and $sugNodeRelationship != $orgNodeRelationship, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeRelationship != $thisNodeRelationship, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodeRelationship = $sugNodeRelationship, 'Using Suggested Change', if($thisNodeRelationship = $orgNodeRelationship, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedleRelationship/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedleRelationship/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleRelationship/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Relationship", "", tempRevIndex, "fill", 'org', "", "Relationship", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeRelationship"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedleRelationship/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/legacy/Relationship", "", tempRevIndex, "fill", 'sug', "", "Relationship", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeRelationship"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="line"><td><hr/></td></tr></table></div></div></form>

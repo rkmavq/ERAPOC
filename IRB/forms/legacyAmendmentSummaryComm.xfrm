@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "legacyAmendmentSummary");
+      
+        //model.Frm.loadAppFile('ins', "/amd.xml", "1");
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '2')
+          //model.USA.registerChangeLog('ins', '2')
+          model.USA.registerChangeLog('comments', '2')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/legacy/*"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="box"><td class="component textarea   widenLabel"><exf:variable value="instance('ins')//legacy/laysummary/@revIndex" name="revIndexlaysummary"/><exf:variable value="(instance('ins')//legacy/laysummary[@revIndex=$revIndexlaysummary])" name="thisNodeNeedlelaysummary"/><exf:variable value="instance('ins')//legacy/laysummary" name="thisNodelaysummary"/><exf:variable value="(instance('ins')/original//legacy/laysummary[@revIndex=$revIndexlaysummary])" name="orgNodelaysummary"/><exf:variable value="(instance('ins')/suggestions//legacy/laysummary[@revIndex=$revIndexlaysummary])" name="sugNodeSetlaysummary"/><exf:variable value="(instance('ins')/suggestions//legacy/laysummary[@revIndex=$revIndexlaysummary])" name="sugNodelaysummary"/><exf:variable value="instance('ins')/previous/review//legacy/laysummary/@revIndex" name="revIndexOlaysummary"/><exf:variable value="(instance('ins')/previous/review//legacy/laysummary[@revIndex=$revIndexOlaysummary])" name="thisNodeNeedleOldlaysummary"/><exf:variable value="instance('ins')/previous/review//legacy/laysummary" name="thisNodeOldlaysummary"/><exf:variable value="(instance('ins')/previous/review/original//legacy/laysummary[@revIndex=$revIndexOlaysummary])" name="orgNodeOldlaysummary"/><exf:variable value="(instance('ins')/previous/review/suggestions//legacy/laysummary[@revIndex=$revIndexOlaysummary])" name="sugNodeSetOldlaysummary"/><exf:variable value="(instance('ins')/previous/review/suggestions//legacy/laysummary[@revIndex=$revIndexOlaysummary])" name="sugNodeOldlaysummary"/><xf:textarea class="" ref="instance('ins')//legacy/laysummary"><xf:label>Summary</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating...");</script><xf:setvalue ref="$thisNodeNeedlelaysummary/@changed">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeNeedlelaysummary/@officeComm and $thisNodeNeedlelaysummary/@officeComm !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Office Comment</u><div style="width:300px;"><p><span style="color:black"><h5>Office Comments:</h5><xf:output value="$thisNodeNeedlelaysummary/@officeComm"/></span></p></div></span><br/><br/></div><div><ix:attr value="if($thisNodeNeedlelaysummary/@amdchanged and $thisNodeNeedlelaysummary/@amdchanged ='1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:green">Amended</u><div style="width:300px;"><p><span style="color:black"><h5>Justification:</h5><xf:output value="if($thisNodeNeedlelaysummary/@amdcomment!='', $thisNodeNeedlelaysummary/@amdcomment, 'none provided')"/></span></p></div></span><br/><br/></div><div><ix:attr value="if($thisNodelaysummary != $orgNodelaysummary, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedlelaysummary/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedlelaysummary/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedlelaysummary/@comment"/></div></div><div><ix:attr value="if($thisNodeNeedleOldlaysummary/@req = 'change' or $thisNodeNeedleOldlaysummary/@req = 'changeSug', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodeOldlaysummary != $thisNodeOldlaysummary and $thisNodeNeedleOldlaysummary/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Change was <xf:output value="if($thisNodeNeedleOldlaysummary/@req = 'change', 'Required', 'Suggested')"/><xf:output value="if($sugNodeOldlaysummary = $thisNodeOldlaysummary, '', ' (Ignored)')"/></u><div style="width:300px;"><p><ix:attr value="if($sugNodeOldlaysummary = $thisNodeOldlaysummary, 'display:none', '')" name="style"/><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldlaysummary/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldlaysummary/@justification!='', $thisNodeNeedleOldlaysummary/@justification, 'None provided')"/></p></p><hr/><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+                     Prior Value
+                   </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeOldlaysummary"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b>Suggested Revision</b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodeOldlaysummary"/></span><br/></td></tr></table><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldlaysummary/@comment != '', $thisNodeNeedleOldlaysummary/@comment, 'none')"/></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleOldlaysummary/@req = 'comment', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleOldlaysummary/@acceptjust='', 'color:red', 'color:green')" name="style"/>
+             Justification was Required</u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if($thisNodeNeedleOldlaysummary/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if($thisNodeNeedleOldlaysummary/@justification!='', $thisNodeNeedleOldlaysummary/@justification, 'None provided')"/></p><xf:select ref="$thisNodeNeedleOldlaysummary/@acceptjust" appearance="full"><xf:item><xf:label>Accept Justification</xf:label><xf:value>1</xf:value></xf:item></xf:select></p><span><hr/><br/><i style="font-size:7pt;color:black;">Comments/Requirement:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedleOldlaysummary/@comment != '', $thisNodeNeedleOldlaysummary/@comment, 'none')"/></span></span></div></span></div><div><ix:attr value="if($thisNodeNeedleOldlaysummary/@req = 'commentOnly', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Previous Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleOldlaysummary/@comment"/></span></p></div></span></div><div><ix:attr value="if(($thisNodeOldlaysummary != $orgNodeOldlaysummary) and ($thisNodeNeedleOldlaysummary/@req = '' or $thisNodeNeedleOldlaysummary/@req = 'commentOnly' or $thisNodeNeedleOldlaysummary/@req = 'comment'), 'color:red', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:red">Using New Value</u><div style="width:300px;"><p><i style="font-size:7pt;color:black;">Change History:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;">
+                       Prior Value
+                     </td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodeOldlaysummary"/></span><br/></td></tr></table></p></div></span></div></td></tr></table></div></div></form>

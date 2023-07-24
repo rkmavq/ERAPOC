@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+  
+  <xf:model id="fmodel">
+    <xf:instance id="ins" src="{activity}/rules.xml"/>
+    <xf:instance id="lc"><data xmlns=""/></xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+      </data> 
+    </xf:instance>    
+    <xf:instance id="ent"><data xmlns=""/></xf:instance> 
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <css>/resources/applications/IRB/css/main.css</css>
+        <js>/resources/services/appTabSet/appTabSet.js</js>
+      </data>
+    </xf:instance>
+    
+    <script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      
+    </script>    
+    
+    <script ev:event="xforms-ready">
+      
+    </script>
+    
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+        <script>;</script>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+  </xf:model>
+  
+  
+  <table>
+    <tr>
+      <td style="width:600px;vertical-align:top;margin-right:20px;margin-top:20px;padding-right:10px;padding-top:10px;">
+        
+        <span style="font-size:15pt">
+          
+          <xf:output value="instance('ins')/revMessage"/>
+          <br/><br/>
+          <span>
+            <ix:attr name="style" value="if(instance('ins')/reviewType!='board', '', 'display:none')"/>
+            Click <span style='color:blue;cursor:pointer'>
+            <xf:action ev:event="click">
+              <script>
+                if(model.SUBMITTED) return; 
+                model.__waiting = new waitingBox(); 
+                model.SUBMITTED = true; 
+                try{ 
+                  ActivityTree.callBackForRedirect = true; //this line forces the system to direct the browser to the task's URI after submisison is complete
+                  ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false); } 
+                  catch(e)
+                  { 
+                    model.__waiting.stop(); 
+                    model.SUBMITTED = false; 
+                    return;
+                  }; 
+              </script>
+            </xf:action>here</span> to return to the task to process it.
+          </span>
+          
+          <span>
+            <ix:attr name="style" value="if(instance('ins')/reviewType='board', '', 'display:none')"/>
+            Click <span style='color:blue;cursor:pointer'>
+              <xf:action ev:event="click">
+                <script>
+                  if(model.SUBMITTED) return; 
+                  model.__waiting = new waitingBox(); 
+                  model.SUBMITTED = true; 
+                  try{ 
+                  ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false); } 
+                  catch(e)
+                  { 
+                  model.__waiting.stop(); 
+                  model.SUBMITTED = false; 
+                  return;
+                  }; 
+                </script>
+              </xf:action>here</span> to remove this message.
+          </span>
+        </span>
+      
+      </td>
+    </tr>
+  </table>
+  
+  
+</form>

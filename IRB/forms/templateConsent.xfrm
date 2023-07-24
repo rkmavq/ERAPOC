@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "templateConsent");
+      model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person/name"/><xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/><xf:bind readonly="true()" relevant="false()" nodeset="Person[invitation/@status='author']/name"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                  
+                  <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                model.Frm.addFromQuickSearch();
+                              </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 150 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                        var indx = model.getValue("@id", contextNode);
+                        var val = model.getValue("@name", contextNode);
+                        if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                        model.Frm.quickSearchSelect(indx, val);
+                        var code = model.Frm.quickSearch.code;
+                        if(code) eval(code);
+                        if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                        event.stopPropagation();
+                      </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat><tr><ix:attr value="if(instance('form')/searchAddNew='1', '', 'display:none')" name="style"/><td colspan="3"><br/><hr/><u style="cursor:pointer;color:blue">request<xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                  model.Frm.addFromQuickSearch();
+                                </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u> the addition of this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> to the system.
+                </td></tr></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="html"><td><h3>Consent Information</h3></td></tr><tr class="line"><td><hr/></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/subjectWithdrawal"><xf:label>Withdrawal of Subjects</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe anticipated circumstances under which subjects will be withdrawn from the research without their consent.<br/> 
+            Describe any procedures for orderly termination. <br/>
+            Describe procedures that will be followed when subjects withdraw from the research, including partial withdrawal from procedures with continued data collection.<br/>
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="line"><td><hr/></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentObtain" appearance="full" id="consentObtain"><xf:label>Will Consent be obtained?</xf:label><xf:hint>Select "Yes" if you plan to obtain consent (written or oral)</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentObtain" appearance="full" id="consentObtain"><xf:label/><xf:hint>Select "Yes" if you plan to obtain consent (written or oral)</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+                model.setValue("instance('ins')/consentSetting", "");
+                model.setValue("instance('ins')/consentWaiting", "");
+                model.setValue("instance('ins')/consentSOPHRP", "");
+                model.setValue("instance('ins')/consentChildren", "");
+                model.setValue("instance('ins')/consentDescribe", "");
+                model.setValue("instance('ins')/consentAll", "");
+                model.setValue("instance('ins')/consentDocument", "");
+                model.setValue("instance('ins')/consentMiscDescribe", "");
+            }
+            if (x == "1"){
+                model.setValue("instance('ins')/consentWaiver", "");
+            }
+            model.recalculate();
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>Select "Yes" if you plan to obtain consent (written or oral)</help></span></p></div></span></td></tr></table></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentObtain = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentSetting"><xf:label>Consent Setting</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe the setting of the consent process
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentObtain = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentWaiting"><xf:label>Waiting Period for obtaining Consent</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe any waiting period available between informing the prospective subject and obtaining the consent.
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentObtain = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentSOPHRP" appearance="full" id="consentSOPHRP"><xf:label>Is SOP HRP-090 Informed Consent Process for Research being used?</xf:label><xf:hint>If you will be following "SOP HRP-090 Informed Consent Process for Research", simply indicate this. Otherwise, describe:</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentSOPHRP" appearance="full" id="consentSOPHRP"><xf:label/><xf:hint>If you will be following "SOP HRP-090 Informed Consent Process for Research", simply indicate this. Otherwise, describe:</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            model.USA.rebuildTabs();
+            x = model.getValue(".", contextNode);
+            if(x == "1"){
+                model.setValue("instance('ins')/consentDescribe", "");
+                model.recalculate();
+            }
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>If you will be following "SOP HRP-090 Informed Consent Process for Research", simply indicate this. Otherwise, describe:</help></span></p></div></span></td></tr></table></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentSOPHRP = '0', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentDescribe"><xf:label>Describe</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe the role of the individuals listed in the application as being involved in the consent process. 
+            The time that will be devoted to the consent discussion. 
+            Steps that will be taken to minimize the possibility of coercion or undue influence.
+            Steps that will be taken to ensure the subjects' understanding.
+            Describe any tools that will be utilized during the consent process
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="line"><ix:attr value="if(consentObtain='1', '', 'display:none')" name="style"/><td><ix:attr value="if(consentObtain='1', '', 'display:none')" name="style"/><hr/></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentObtain = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentChildren" appearance="full" id="consentChildren"><xf:label>Does the research involve Children?</xf:label><xf:hint>
+            Federal regulations define "children" as persons who have not attained the legal age for consent to treatments or procedures involved in the 
+            research [clinical investigation] under the applicable law of the jurisdiction in which the research [clinical investigation] will be 
+            conducted (45 CFR 46.402(a) and [21 CFR 50(o)]).  We recommend that you review the "CHECKLIST HRP-421 Criteria for Research Involving Children" 
+            to ensure that your protocol has sufficiently addressed these additional regulatory criteria for approval.
+        </xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentChildren" appearance="full" id="consentChildren"><xf:label/><xf:hint>
+            Federal regulations define "children" as persons who have not attained the legal age for consent to treatments or procedures involved in the 
+            research [clinical investigation] under the applicable law of the jurisdiction in which the research [clinical investigation] will be 
+            conducted (45 CFR 46.402(a) and [21 CFR 50(o)]).  We recommend that you review the "CHECKLIST HRP-421 Criteria for Research Involving Children" 
+            to ensure that your protocol has sufficiently addressed these additional regulatory criteria for approval.
+        </xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "1"){
+                model.setValue("instance('ins')/consentUnderAge", "");
+                model.setValue("instance('ins')/consentParentalPermission", "");
+                model.setValue("instance('ins')/consentOtherDescribe", "");
+                model.setValue("instance('ins')/consentAll", "");
+                model.setValue("instance('ins')/consentDocument", "");
+                model.setValue("instance('ins')/consentMiscDescribe", "");
+                model.setValue("instance('ins')/consentWhich", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Federal regulations define "children" as persons who have not attained the legal age for consent to treatments or procedures involved in the 
+            research [clinical investigation] under the applicable law of the jurisdiction in which the research [clinical investigation] will be 
+            conducted (45 CFR 46.402(a) and [21 CFR 50(o)]).  We recommend that you review the "CHECKLIST HRP-421 Criteria for Research Involving Children" 
+            to ensure that your protocol has sufficiently addressed these additional regulatory criteria for approval.
+        </help></span></p></div></span></td></tr></table></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentChildren = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentUnderAge"><xf:label>Criteria used to determine whether a subject has attained the legal age</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe the criteria that will be used to determine whether a prospective subject has not attained the legal age 
+            for consent to treatments or procedures involved in the Human Research under the applicable law of the jurisdiction 
+            in which the Human Research will be conducted (e.g., individuals under the age of 18 years).
+            NOTE: For research conducted in New York State, review "SOP HRP-013- Legally Authorized Representatives, Children, and Guardians" to be aware of which individuals 
+            in the state meet the DHHS and FDA definition of "children" in New York State.
+            NOTE: For research conducted outside of New York State, obtain consultation from Mount Sinai legal counsel as to the definition of "minor" 
+            in the jurisdiction(s) where you are performing your research, given the treatments and procedures involved in the Human Research. 
+            [Contact the PPHS Office regarding how to obtain a Legal consultation.]  
+            After receiving consultation with Legal, provide an explanation in this section about whether you will be enrolling subjects 
+            who are defined as minors in other jurisdictions and the basis for your conclusion that they are not legally capable of 
+            consenting to the treatments or  procedures involved in the research.
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="radiobuttons"><ix:attr value="if(instance('ins')/consentChildren = '1', '', 'display:none')" name="style"/><td class="component  widenLabel"><xf:select1 ref="instance('ins')/consentParentalPermission" appearance="full" id="consentParentalPermission"><xf:label>Parental Permisson Obtained from:</xf:label><xf:item><xf:label>Both parents unless one parent is deceased, unknown, incompetent, or not reasonably available, or when only one parent has legal responsibility for the care and custody of the child.</xf:label><xf:value>both</xf:value></xf:item><xf:item><xf:label>One parent even if the other parent is alive, known, competent, reasonably available, and shares legal responsibility for the care and custody of the child.</xf:label><xf:value>single</xf:value></xf:item><xf:item><xf:label>Individuals other than parents</xf:label><xf:value>other</xf:value></xf:item><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "other"){
+                model.setValue("instance('ins')/consentOtherDescribe", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentParentalPermission = 'other', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentOtherDescribe"><xf:label>Describe the process of obtaining consent from someone other than parent</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe the process used to determine these individuals' authority to consent to each child's general medical care.
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="radiobuttons"><ix:attr value="if(instance('ins')/consentChildren = '1', '', 'display:none')" name="style"/><td class="component  widenLabel"><xf:select1 ref="instance('ins')/consentAll" appearance="full" id="consentAll"><xf:label>Assent obtained for:</xf:label><xf:item><xf:label>All Subjects</xf:label><xf:value>all</xf:value></xf:item><xf:item><xf:label>Some Subjects</xf:label><xf:value>some</xf:value></xf:item><xf:item><xf:label>None of the Subjects</xf:label><xf:value>none</xf:value></xf:item><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "some"){
+            model.setValue("instance('ins')/consentWhich", "");
+            }
+            model.recalculate();
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentAll = 'some', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentWhich"><xf:label>Indicate which children will be required to assent</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Indicate which children will be required to assent
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentChildren = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentDocument"><xf:label>Describe documentation of assent</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            When assent of children is obtained describe whether and how it will be documented
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentChildren = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentMiscDescribe"><xf:label>Describe process if child subjects may be expected to attain legal age prior to completion of the study</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe whether child subjects may be expected to attain legal age to consent to the procedures of the 
+            research prior to the completion of their participation in the research (including storage of samples). 
+            If so, describe the process that will be used to obtain their legal consent to continue participation in the study.  
+            Describe the timing of this process, and what will occur if consent is not obtained from the now-adult subjects
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="line"><ix:attr value="if(consentObtain='1', '', 'display:none')" name="style"/><td><ix:attr value="if(consentObtain='1', '', 'display:none')" name="style"/><hr/></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentObtain = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentAdults" appearance="full" id="consentAdults"><xf:label>Does the research involve Cognitively Impaired Adults?</xf:label><xf:hint>If the Human Research involves adults who may be unable to consent, describe the process to determine whether an individual is capable of consent.
+        </xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentAdults" appearance="full" id="consentAdults"><xf:label/><xf:hint>If the Human Research involves adults who may be unable to consent, describe the process to determine whether an individual is capable of consent.
+        </xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "1"){
+            model.setValue("instance('ins')/consentAdPerm", "");
+            model.setValue("instance('ins')/assentAllSome", "");
+            model.setValue("instance('ins')/assentWhich", "");
+            model.setValue("instance('ins')/assentNone", "");
+            model.setValue("instance('ins')/assentProcess", "");
+            model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>If the Human Research involves adults who may be unable to consent, describe the process to determine whether an individual is capable of consent.
+        </help></span></p></div></span></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentAdults = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentAdPerm" appearance="full" id="consentAdPerm"><xf:label>Consent Obtained from legally authorized Representative?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentAdPerm" appearance="full" id="consentAdPerm"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "1"){
+                model.setValue("instance('ins')/consentAdPerm", "");
+                model.setValue("instance('ins')/consentAdList", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/consentAdPerm = '1', '', 'display:none')" name="style"/><td colspan="4"><div><component type="instructions">
+        <visible whenComponent="consentAdPerm" hasValue="1"/>
+        For research conducted in New York State, review "SOP HRP-013 Legally Authorized Representatives, Children, and Guardians" 
+        to be aware of which individuals in the state meet the DHHS and FDA definition of "legally authorized representative."
+        For research conducted outside of New York State, obtain consultation from Mount Sinai legal counsel as to the definition of 
+        "legally authorized representative" in the jurisdiction(s) where you are performing your research. 
+        [Contact the PPHS Office regarding how to obtain a Legal consultation.]  
+        After receiving consultation with Legal, provide an explanation in this section about which individuals are authorized 
+        under applicable law to consent on behalf of a prospective subject to their participation in the procedure(s) involved 
+        in this Human Research.
+    </component></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentAdPerm = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentAdList"><xf:label>List the individuals from whom permission will be obtained, in order of priority</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            List the individuals from whom permission will be obtained in order of priority. (E.g., durable power of attorney for health care, court appointed 
+            guardian for health care decisions, spouse, and adult child.) 
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr><tr class="radiobuttons"><ix:attr value="if(instance('ins')/consentAdults = '1', '', 'display:none')" name="style"/><td class="component  widenLabel"><xf:select1 ref="instance('ins')/assentAllSome" appearance="full" id="assentAllSome"><xf:label>Indicate if assent is required for all, some, or none of the subjects</xf:label><xf:item><xf:label>All Subjects</xf:label><xf:value>all</xf:value></xf:item><xf:item><xf:label>Some Subjects</xf:label><xf:value>some</xf:value></xf:item><xf:item><xf:label>None of the Subjects</xf:label><xf:value>none</xf:value></xf:item><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "some"){
+                model.setValue("instance('ins')/assentWhich", "");
+            }
+            if(x != "none"){
+                model.setValue("instance('ins')/assentNone", "");
+            }
+            model.recalculate();
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/assentAllSome = 'some', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/assentWhich"><xf:label>Indicate which subjects will be required to assent and which will not</xf:label></xf:textarea></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/assentAllSome = 'none', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/assentNone"><xf:label>Explain why none of the subjects will required to assent</xf:label></xf:textarea></td><td class="options"/></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentAdults = 'none', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/assentProcess"><xf:label>Describe process to document assent</xf:label></xf:textarea></td><td class="options"/></tr><tr class="line"><ix:attr value="if(consentObtain='1', '', 'display:none')" name="style"/><td><ix:attr value="if(consentObtain='1', '', 'display:none')" name="style"/><hr/></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentObtain = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentNonEnglish" appearance="full" id="consentNonEnglish"><xf:label>Does the research involve Non-English Speaking Subjects?</xf:label><xf:hint>
+            Indicate what language(s) other than English are understood by prospective subjects or representatives. 
+            If subjects who do not speak English will be enrolled, describe the process to ensure that the oral and written information 
+            provided to those subjects will be in that language. 
+            If you intend to exclude potential participants who do not speak English, provide a justification for doing so.
+        </xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentNonEnglish" appearance="full" id="consentNonEnglish"><xf:label/><xf:hint>
+            Indicate what language(s) other than English are understood by prospective subjects or representatives. 
+            If subjects who do not speak English will be enrolled, describe the process to ensure that the oral and written information 
+            provided to those subjects will be in that language. 
+            If you intend to exclude potential participants who do not speak English, provide a justification for doing so.
+        </xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "1"){
+                model.setValue("instance('ins')/consentNEDesc", "");
+                model.setValue("instance('ins')/consentNEExclude", "");
+                model.setValue("instance('ins')/consentNEExcludeJust", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Indicate what language(s) other than English are understood by prospective subjects or representatives. 
+            If subjects who do not speak English will be enrolled, describe the process to ensure that the oral and written information 
+            provided to those subjects will be in that language. 
+            If you intend to exclude potential participants who do not speak English, provide a justification for doing so.
+        </help></span></p></div></span></td></tr></table></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentNonEnglish = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentNEDesc"><xf:label>Describe process</xf:label></xf:textarea></td><td class="options"/></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentNonEnglish = '1', '', 'display:none')" name="style"/><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentNEExclude" appearance="full" id="consentNEExclude"><xf:label>Excluding Non-English Speaking Subjects?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentNEExclude" appearance="full" id="consentNEExclude"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "1"){
+                model.setValue("instance('ins')/consentNEExcludeJust", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentNEExclude = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentNEExcludeJust"><xf:label>Justify</xf:label></xf:textarea></td><td class="options"/></tr><tr class="line"><ix:attr value="if(consentObtain='0', '', 'display:none')" name="style"/><td><ix:attr value="if(consentObtain='0', '', 'display:none')" name="style"/><hr/></td></tr><tr class="yesnobuttons"><ix:attr value="if(instance('ins')/consentObtain = '0', '', 'display:none')" name="style"/><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/consentWaiver" appearance="full" id="consentWaiver"><xf:label>Does the research involve a request for a Waiver or Alteration of the Consent Process?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/consentWaiver" appearance="full" id="consentWaiver"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x != "1"){
+                model.setValue("instance('ins')/consentWaiverJust", "");
+                model.recalculate();
+            }
+            model.USA.rebuildTabs();
+        </script></xf:select1></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(instance('ins')/consentWaiver = '1', '', 'display:none')" name="style"/><td colspan="4"><div><component type="instructions">
+        <visible whenComponent="consentWaiver" hasValue="1"/>
+        If the Human Research involves a request for a waiver or alteration of the consent process, review the "CHECKLIST HRP-415 Criteria for Waiver or Alteration of the Consent Process" 
+        and make sure your submission provides adequate information for the IRB to assess the criteria for approval. 
+        It is highly recommended that you provide additional information here to address each of the criteria for approval (e.g. impracticability).  
+        Examples of when a waiver or alteration of the consent process may be applicable:
+        Research that does not obtain consent from subjects 
+        Research that omits some information that is required in the consent template
+        Research that involves deception 
+        Research that involves obtaining private information about third parties who have not provided consent
+        Research that requests a waiver of the consent process for planned emergency research.  Please review the “CHECKLIST HRP-424 Criteria for Waiver of the Consent Process for Planned Emergency Research” to ensure you have provided sufficient information for the IRB to make these determinations.
+    </component></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/consentWaiver = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentWaiverJust"><xf:label>Justify</xf:label></xf:textarea></td><td class="options"/></tr><tr class="line"><td><hr/></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><table style="margin-left:-3px;"><tr><td><xf:textarea style="height:10em;" class="" ref="instance('ins')/consentWritten"><xf:label>Process to Document Consent in Writing</xf:label></xf:textarea></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>
+            Describe whether and how consent of the subject will be documented in writing. 
+            If using the standard PPHS consent template, simply indicate this.
+            If the consent process will not be documented in writing (consent will be obtained but the subject or representative will not sign a consent document) 
+            review the "CHECKLIST HRP-416 Criteria for Waiver of Written Documentation of Consent" 
+            and address each of the criteria for approval. 
+            Describe whether you will be using a consent document without a signature page, some other kind of script, etc.
+        </help></span></p></div></span></td></tr></table></td><td class="options"/></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">©<xf:output value="script('copywrite(2012);')"/></div></div></form>

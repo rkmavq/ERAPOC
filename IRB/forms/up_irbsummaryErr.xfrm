@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "up_summary");
+      model.Frm.loadOpFile('ins', "/problem.xml", "1");
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind nodeset="instance('ins')/eventDate" type="xsd:date"/><xf:bind nodeset="instance('ins')/PINotifiedDate" type="xsd:date"/></xf:model><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><script ev:event="xforms-value-changed">model.USA.updateErrs('ins', 'recordTable');</script><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="instructions"><td colspan="4"><div><component id="upInstructions" type="instructions">
+        <font size="3">To qualify for submission, an Unanticipated Problem must meet the following criteria:</font>
+        <font size="2"><ol>    <li>Unexpected - Not expected in terms of its nature, severity or frequency; <font color="red"><b><u>AND</u></b></font></li>
+            <li>Related - Reasonable possibility that the event or information may have been caused by or is linked in a significant way to the research; <font color="red"><b><u>AND</u></b></font></li>
+            <li>Greater Risk of Harm - The event or information suggests that the research places Participants or others at greater risk of harm then was previously known or recognized.</li>
+        </ol>
+        </font>        
+    </component></div></td></tr><tr class="line"><td><hr/></td></tr><tr class="date"><td class="component  widenLabel"><table class="date"><tr><td class="label">Date of Event</td><td class="dateBox"><div><xf:output value="if(instance('ins')/eventDate != '', concat(substring(instance('ins')/eventDate, 6, 2), '/', substring(instance('ins')/eventDate, 9, 2), '/', substring(instance('ins')/eventDate, 1, 4)), '-')"/></div></td><td class="dateCtrl"><xf:input ref="instance('ins')/eventDate"><script ev:event="xforms-value-changed">
+        
+        
+         
+    </script></xf:input></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventDate = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="date"><td class="component  widenLabel"><table class="date"><tr><td class="label">Date Principal Investigator Notified of Event</td><td class="dateBox"><div><xf:output value="if(instance('ins')/PINotifiedDate != '', concat(substring(instance('ins')/PINotifiedDate, 6, 2), '/', substring(instance('ins')/PINotifiedDate, 9, 2), '/', substring(instance('ins')/PINotifiedDate, 1, 4)), '-')"/></div></td><td class="dateCtrl"><xf:input ref="instance('ins')/PINotifiedDate"><script ev:event="xforms-value-changed">
+        
+        
+         
+    </script></xf:input></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/PINotifiedDate = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="dropdown"><td class="component  widenLabel "><xf:select1 ref="instance('ins')/eventType"><xf:label>Event Type</xf:label><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/unantiProbType/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat><script ev:event="xforms-value-changed">              
+            model.refresh();
+            model.rebuild();
+            model.recalculate();
+            model.USA.rebuildTabs();
+        </script></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventType = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="bigbox"><td class="component textarea   widenLabel"><xf:textarea style="height:10em;" class="" ref="instance('ins')/eventDescription"><xf:label>Provide a brief description of the event or problem:</xf:label></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventDescription = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/eventUnexpected" appearance="full" id="eventUnexpected"><xf:label>Was the event or problem UNEXPECTED?</xf:label><xf:hint>The specificity, severity or frequency of the event is not expected based on (a) information contained in the protocol, investigator's brochure, informed consent document, drug or device product information or other research materials; and (b) the characteristics of the subjects, including natural progression of any underlying diseases. </xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/eventUnexpected" appearance="full" id="eventUnexpected"><xf:label/><xf:hint>The specificity, severity or frequency of the event is not expected based on (a) information contained in the protocol, investigator's brochure, informed consent document, drug or device product information or other research materials; and (b) the characteristics of the subjects, including natural progression of any underlying diseases. </xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/eventUnexpectedDesc", "");
+            model.recalculate();
+            alert("STOP: Do not complete this form. \n\n The event must be \"UNEXPECTED\" inorder to submit to the IRB."); 
+            }
+            
+            model.USA.rebuildTabs();
+            model.refresh();model.rebuild();model.recalculate();
+            
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>The specificity, severity or frequency of the event is not expected based on (a) information contained in the protocol, investigator's brochure, informed consent document, drug or device product information or other research materials; and (b) the characteristics of the subjects, including natural progression of any underlying diseases. </help></span></p></div></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventUnexpected = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/eventRelated" appearance="full" id="eventRelated"><xf:label>Was the event or problem RELATED or POSSIBLY RELATED to the study?</xf:label><xf:hint>The event is more likely than not to have been caused by the procedures associated with the research.</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/eventRelated" appearance="full" id="eventRelated"><xf:label/><xf:hint>The event is more likely than not to have been caused by the procedures associated with the research.</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/eventRelatedDesc", "");
+            model.recalculate();
+            alert("STOP: Do not complete this form. \n\n The event must be \"RELATED or POSSIBLY RELATED\" inorder to submit to the IRB.");
+            }
+            
+            model.USA.rebuildTabs();
+            model.refresh();model.rebuild();model.recalculate();
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>The event is more likely than not to have been caused by the procedures associated with the research.</help></span></p></div></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventRelated = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table style="margin-left:-3px;"><tr><td><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/eventIncreasedriskOfHarm" appearance="full" id="eventIncreasedriskOfHarm"><xf:label>Does the event or problem suggest GREATER RISK OF HARM than previously expected?</xf:label><xf:hint>The research causes harm (including physical, psychological, economic, legal or social harm) to subjects or others (e.g., family members, co-workers, study staff) or places them at a greater risk of harm than was previously known or recognized.</xf:hint><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/eventIncreasedriskOfHarm" appearance="full" id="eventIncreasedriskOfHarm"><xf:label/><xf:hint>The research causes harm (including physical, psychological, economic, legal or social harm) to subjects or others (e.g., family members, co-workers, study staff) or places them at a greater risk of harm than was previously known or recognized.</xf:hint><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            alert("STOP: Do not complete this form.  \n\n The event must suggest \"GREATER RISK OF HARM\" than previously expected inorder to submit to the IRB."); 
+            }
+            
+            model.USA.rebuildTabs();
+            model.refresh();model.rebuild();model.recalculate();
+        </script></xf:select1></td></tr></table></td><td><span class="helpdialogOver" style="cursor:help;color:blue;padding:3px;"><img src="../fil/system/resources/ideate/imgs/questionMark.jpg"/><div style="width:200px"><p><span style="color:black"><help>The research causes harm (including physical, psychological, economic, legal or social harm) to subjects or others (e.g., family members, co-workers, study staff) or places them at a greater risk of harm than was previously known or recognized.</help></span></p></div></span></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventIncreasedriskOfHarm = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="html"><ix:attr value="if(instance('ins')/eventUnexpected='0' or instance('ins')/eventRelated='0' or instance('ins')/eventIncreasedriskOfHarm='0', '', 'display:none')" name="style"/><td><visible xmlns="" xpath="instance('ins')/eventUnexpected='0' or instance('ins')/eventRelated='0' or instance('ins')/eventIncreasedriskOfHarm='0'"></visible><h1 style="color:red"><blink>STOP: Do not complete this form</blink></h1></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/eventSubjectRelated" appearance="full" id="eventSubjectRelated"><xf:label>Is the event in relation to a specific Participant of the study?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/eventSubjectRelated" appearance="full" id="eventSubjectRelated"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            model.USA.rebuildTabs();
+            model.refresh();model.rebuild();model.recalculate();
+        </script></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/eventSubjectRelated = '', '', 'display:none')" name="style"/>Required</div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/changeToProtocol" appearance="full" id="changeToProtocol"><xf:label>Will changes to the protocol or consent document(s) be made as a result of the event?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/changeToProtocol" appearance="full" id="changeToProtocol"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            model.USA.rebuildTabs();
+            model.refresh();model.rebuild();model.recalculate();
+        </script></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/changeToProtocol = '', '', 'display:none')" name="style"/>Required</div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:exf="http://www.exforms.org/exf/1-0"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ix="http://itensil.com/ns/xforms">
+
+	<xf:model id="fmodel">
+		<xf:instance id="form">
+			<data xmlns="">
+				<id8ID/>
+				<primeEntityURI/>
+				<focus/> <!-- THIS WILL HOLD THE URI OF THE SUB - i.e. the needle to select the proper invoice element in the invoices.xml file -->
+				<folderNumber/>
+			</data>
+		</xf:instance>
+		<xf:instance id="invoices">	<!-- This will have invoices.xml -->
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="cats">	<!-- This will have categories.xml for the case -->
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="irb">  <!-- This will have the main irb.xml for the case -->
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="lc">  <!-- This will have the lifecycle.xml for the case -->
+			<data xmlns=""/>
+		</xf:instance>
+		<xf:instance id="bootstrap">
+			<data xmlns="">
+				<css>/resources/applications/IRB/css/main.css</css>
+				<js>/resources/services/appTabSet/appTabSet.js</js>
+			</data>
+		</xf:instance>
+		
+
+		<!-- JS Setup -->
+		<script ev:event="xforms-model-construct-done">
+			
+			//Normal Bootstrapping - this also extracts the passed in "URI" of the record clicked on in the livelist, we'll pull that URI apart below
+			bootstrapSharedXfrm(model); 
+			var ix = model.__XformSet.getRoot();
+			ix.___dashboard = 1; 
+			model.setValue("instance('form')/id8ID", ix.id8ID);
+			
+			//Strip the URI and determine if it's pointing to a sub, and if it is, "compensate"
+			uriParts = ix.targetURI.split("/");
+			
+			//It's a sub
+			if(uriParts.length == 8){
+				model.setValue("instance('form')/focus", ix.targetURI);
+				ix.targetURI = "/" + uriParts[1] + "/" + uriParts[2] + "/" + uriParts[3] + "/" + uriParts[4] + "/" + uriParts[5];
+				//alert(ix.targetURI);
+				model.setValue("instance('form')/primeEntityURI", ix.targetURI);
+			
+			}else if(uriParts.length == 6){
+			//It's pointing to the main case/initial application, so no mod nessassary
+				model.setValue("instance('form')/focus", ix.targetURI);
+				model.setValue("instance('form')/primeEntityURI", ix.targetURI);		
+			}else{
+			//It shouldn't be here at all
+				alert("This one is a bad record in solr, please remove it!");			
+			}
+			
+			
+			var primeURI = model.getValue("instance('form')/primeEntityURI");
+			var folderNumber = (primeURI.substring(primeURI.length - 6, primeURI.length));
+			folderNumber = folderNumber * 1;
+			//alert(folderNumber);
+			model.setValue("instance('form')/folderNumber", folderNumber);
+			
+			//Load the XML Documents
+			model.setInstanceIdSrc('invoices', "/fil" + ix.targetURI + "/invoices.xml");
+			model.setInstanceIdSrc('irb', "/fil" + ix.targetURI + "/data/irb.xml");
+			model.setInstanceIdSrc('cats', "/fil" + ix.targetURI + "/data/catagories.xml");
+			model.setInstanceIdSrc('lc', "/fil" + ix.targetURI + "/lifecycle.xml");
+						
+		    //Add the clientside code, just in case
+			includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+			model.USA = new irbProtocol(model);
+			model.rebuild(); model.recalculate(); model.refresh();
+		</script>
+
+		<xf:submission instance="invoices" method="put" replace="none" id="submit1">
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Invoices saved</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem saving...</xf:message>
+			</xf:action>
+		</xf:submission>
+		<xf:bind nodeset="instance('invoices')/invoice/PaymentDate" type="xsd:date"/>
+		<xf:bind nodeset="instance('invoices')/invoice/fee" type="xsd:float"/>
+	</xf:model>
+	<style> 
+		div.formFrame table.fullColLayout table.budgetTool td .xftext{ background-color:white; }
+	    div.formFrame table.budgetTool td .xftext{ background-color:white; } div.formFrame
+	    table.fullColLayout div.headerselect{ background:none; } div.formFrame table.fullColLayout
+	    div.headerselect table.headerselect{ background:none; border:none; } div.formFrame
+	    table.fullColLayout div.headerselect table.headerselect tr{ background:none; border:none;
+	    color:white; } div.formFrame table.fullColLayout div.headerselect table.headerselect tr td{
+	    border:none; padding:none; vertical-align:middle; } div.formFrame table.fullColLayout
+	    tr.periodbreak td{ border-bottom: medium solid black; } div.formFrame table.optionsheader
+	    div.xfctrl{ } div.questions div.xfctrl{ background:none; width:auto; } div.questions
+	    table.selection div.xfctrl{ background:none; width:450px; } div.questions div.xfctrl input{
+	    width:500px;; font-size:12px; } div.questions div.xfctrl textarea{ width:500px;; font-size:14px;
+	    } .wikiView div.questions div.xfctrl label{ width:200px; padding-right:5px; font-size:14px; }
+	    .wikiView div.questions div.viewOnly table{ font-size:14px; } .wikiView div.questions
+	    div.viewOnly table td.label{ width:200px; padding-right:5px; font-weight:bold;
+	    vertical-align:top; padding-bottom:15px; } .wikiView div.questions div.viewOnly table td.value{
+	    width:500px; vertical-align:top; padding-bottom:15px; } 
+	  
+	  
+	  .wikiView div.repeater table td{
+	    
+	  }
+	  
+	  .wikiView div.repeater table th{
+	  font-weight:normal;
+	  }
+	  
+	  
+	  .wikiView div.repeater table td div.xfctrl{
+	    padding:0px;
+	  }
+	  
+	  .wikiView div.xfctrl{
+	    margin-left:4px;
+	    background-color:white;
+	  }
+	  
+	  table.apps th{
+	  padding-left:10px;
+	  }
+	  table.apps td{
+	  padding-left:10px;
+	  }
+	  u.clickable{
+	  cursor:pointer;
+	  }
+	  div.diagXf div.dialog{
+	  background:none;
+	  width:100%;
+	  border:none;
+	  }
+	  div.diagXf div.dialog div.xfctrl label{
+	  font-weight:normal;
+	  width:150px;
+	  }
+	  
+	  div.main div.xfctrl label{
+	    font-weight:normal;
+	  }
+	  
+	  .wikiView div.main div.xfctrl textarea{
+	    width:380px;
+	    height:100px;
+	  }
+	</style>
+	
+	<xf:group ref="instance('invoices')/invoice[@uri=instance('form')/focus]" style="border: 1px solid black">
+		<xf:label><h4>Invoice Information</h4></xf:label>
+		<br/>
+		
+		<div>
+			<table style="width:100%;padding-5px;">
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Protocol Number:</b></td>
+					<td style="margin-left:10px;vertical-align:top;">
+						<span><xf:output value="instance('invoices')/id8ID"/></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Invoice Number:</b></td>
+					<td style="margin-left:10px;vertical-align:top;">
+						<span><xf:output value="instance('invoices')/invoice[@uri=instance('form')/focus]/number"/></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Submission:</b></td>
+					<td style="margin-left:10px;vertical-align:top;">
+						<span><xf:output value="instance('invoices')/invoice[@uri=instance('form')/focus]/submission"/></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Invoice:</b></td>
+					<td class="status in manual medium left"><span><a target="_blank_" style="color:blue"><ix:attr name="href" value="concat('../fil', instance('invoices')/invoice[@uri=instance('form')/focus]/doc/@uri)"/>View</a></span></td>		
+				</tr>	
+			</table>	
+		</div>
+		<br/>
+	</xf:group>
+	
+	<xf:group ref="instance('invoices')" style="border: 1px solid black">
+		<xf:label><h4>Waiver</h4></xf:label>
+		<br/>
+		
+		<div>
+			<table class="horizontalSelects">
+				<tr>
+					<td class="yesBox" style="width:185px">
+						<xf:select1 style="width:180px" ref="waiveFees" appearance="full">
+							<xf:label style="130px;">Waive Review Fees</xf:label>
+							<xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item>
+							<script ev:event="xforms-value-changed">
+								x = model.getValue(".", contextNode);
+								model.setValue("instance('ins')/waiveNotes", "");
+								model.recalculate();
+								model.refresh();
+								model.rebuild();
+							</script>
+						</xf:select1>
+					</td>
+					<td class="noBox">
+						<xf:select1 ref="waiveFees" appearance="full"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item></xf:select1>
+					</td>
+				</tr>
+			</table>
+			<br/>
+		</div>
+		<br/>
+	</xf:group>
+	
+	
+	<xf:group ref="instance('invoices')/invoice[@uri=instance('form')/focus]" style="border: 1px solid black">
+		<xf:label><h4>Payment Information</h4></xf:label>
+		<br/>
+		
+		<div>
+			<table style="width:100%;padding-5px;">
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Invoice Paid:</b></td>
+					<td style="margin-left:100px;vertical-align:top;">
+						<span>
+							<xf:select1 ref="instance('invoices')/invoice[@uri=instance('form')/focus]/@status" appearance="full">
+								<xf:item><xf:label>Yes</xf:label><xf:value>Paid</xf:value></xf:item>
+								<xf:item><xf:label>No</xf:label><xf:value>sent</xf:value></xf:item>
+							</xf:select1>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Payment Amount:</b></td>
+					<td style="margin-left:10px;vertical-align:top;">
+						<span><xf:input ref="instance('invoices')/invoice[@uri=instance('form')/focus]/fee"/></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Payment Date:</b></td>
+					<td style="margin-left:10px;vertical-align:top;">
+						<span><xf:input ref="instance('invoices')/invoice[@uri=instance('form')/focus]/PaymentDate"/></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Payment Method:</b></td>
+					<td style="margin-left:100px;vertical-align:top;">
+						<span>
+							<xf:select1 ref="instance('invoices')/invoice[@uri=instance('form')/focus]/PaymentMethod" appearance="full">
+								<xf:item><xf:label>Check</xf:label><xf:value>CHECK</xf:value></xf:item>
+								<xf:item><xf:label>Cash</xf:label><xf:value>CASH</xf:value></xf:item>
+							</xf:select1>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:100px;vertical-align:middle;"><b>Payment Notes:</b></td>
+					<td style="margin-left:10px;vertical-align:top;">
+						<span><xf:textarea ref="instance('invoices')/invoice[@uri=instance('form')/focus]/PaymentNotes" style="width:300px;"></xf:textarea></span>
+					</td>
+				</tr>
+			</table>	
+		</div>
+		<br/>
+		<xf:trigger style="margine-left:2px;">
+			<xf:label>Save Invoice</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<script>
+				<!--if (confirm("Would you like to update the Payment Status to Paid?"))
+				{
+					model.setValue("instance('invoices')/invoice[@uri=instance('form')/focus]/@status", "Paid");
+					}-->	
+					//alert(model.getValue("instance('form')/folderNumber"));
+				model.submit('submit1');
+				resX = callSharedService("protocolRouting",{op:"manualInvoiceReindex",id:model.getValue("instance('form')/folderNumber")}, "text");
+			</script>
+			</xf:action>
+		</xf:trigger>
+	</xf:group>
+	<br/>
+</form>

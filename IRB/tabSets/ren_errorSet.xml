@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1">	
+    <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/ren_personnelAMDErr.xfrm" printlabel="Research Personnel" sourceXML="/ren_personnel.xml" formType="drillIn" formName="ren_personnel"/>
+    
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalErr.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapproval.xml" formType="general" formName="sincelastapproval"/>
+	
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusErr.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatus.xml" formType="general" formName="enrollmentstatus" when="enrollment"/>
+	
+    <tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusErr.xfrm" printlabel="Protocol Status" sourceXML="/protocolstatus.xml" formType="general" formName="protocolstatus"/>
+		
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/ren_attachmentsManErrs.xfrm"/>
+    
+    <tab id="LC2" color="silver" label="Reference Materials" form="/home/configs/IRB/forms/checklists.xfrm"/>
+    
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/ren_irbsubmit.xfrm"/>
+    
+    <switches>
+        <full>0</full>
+        <notfull>0</notfull>
+		<enrollment>0</enrollment>
+    </switches>
+</tabs>

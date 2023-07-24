@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="form"><data><tabID>4</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "protocolstatus");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      
+                if(model.Frm.getApplicationURI()=="/data/irb.xml"){
+                
+                }else{
+                    model.Frm.loadOpFile('ins', '/amd.xml', "1");
+                }
+              
+              if(model.Frm.formSet.getRoot().__VERSIONCHANGED){
+                model.Frm.formSet.getRoot().__VERSIONCHANGING = false;
+                model.reloadInstanceId('ins');
+              }
+            model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '4')
+          //model.USA.registerChangeLog('ins', '4')
+          model.USA.registerChangeLog('comments', '4')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission>
+        if(model.Frm.getApplicationURI()=="/data/irb.xml"){
+          <xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission>
+        }
+      <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:none;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:none;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:none;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><script ev:event="xforms-value-changed">model.USA.updateErrs('ins', 'recordTable');</script><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="radiobuttons"><td class="component  widenLabel "><exf:variable value="instance('ins')/protocolStatus/@revIndex" name="revIndexprotocolStatus"/><exf:variable value="(instance('ins')/amendmentNodes/protocolStatus[@revIndex=$revIndexprotocolStatus])" name="amdNodeNeedleprotocolStatus"/><exf:variable value="(instance('ins')/protocolStatus[@revIndex=$revIndexprotocolStatus])" name="thisNodeNeedleprotocolStatus"/><exf:variable value="instance('ins')/protocolStatus" name="thisNodeVprotocolStatus"/><exf:variable value="if($thisNodeVprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($thisNodeVprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($thisNodeVprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($thisNodeVprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($thisNodeVprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="thisNodeprotocolStatus"/><exf:variable value="(instance('ins')/original/protocolStatus[@revIndex=$revIndexprotocolStatus])" name="orgNodeVprotocolStatus"/><exf:variable value="if($orgNodeVprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($orgNodeVprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($orgNodeVprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($orgNodeVprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($orgNodeVprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="orgNodeprotocolStatus"/><exf:variable value="(instance('ins')/suggestions/protocolStatus[@revIndex=$revIndexprotocolStatus])" name="sugNodeSetprotocolStatus"/><exf:variable value="(instance('ins')/suggestions/protocolStatus[@revIndex=$revIndexprotocolStatus])" name="sugNodeVprotocolStatus"/><exf:variable value="if($sugNodeVprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($sugNodeVprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($sugNodeVprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($sugNodeVprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($sugNodeVprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="sugNodeprotocolStatus"/><exf:variable value="instance('ins')/previous/review/protocolStatus/@revIndex" name="revIndexOprotocolStatus"/><exf:variable value="(instance('ins')/previous/review/protocolStatus[@revIndex=$revIndexOprotocolStatus])" name="thisNodeNeedleOldprotocolStatus"/><exf:variable value="instance('ins')/previous/review/protocolStatus" name="thisNodeVOldprotocolStatus"/><exf:variable value="if($thisNodeVOldprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($thisNodeVOldprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($thisNodeVOldprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($thisNodeVOldprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($thisNodeVOldprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="thisNodeOldprotocolStatus"/><exf:variable value="(instance('ins')/previous/review/original/protocolStatus[@revIndex=$revIndexOprotocolStatus])" name="orgNodeVOldprotocolStatus"/><exf:variable value="if($orgNodeVOldprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($orgNodeVOldprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($orgNodeVOldprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($orgNodeVOldprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($orgNodeVOldprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="orgNodeOldprotocolStatus"/><exf:variable value="(instance('ins')/previous/review/suggestions/protocolStatus[@revIndex=$revIndexOprotocolStatus])" name="sugNodeSetOldprotocolStatus"/><exf:variable value="(instance('ins')/previous/review/suggestions/protocolStatus[@revIndex=$revIndexOprotocolStatus])" name="sugNodeVOldprotocolStatus"/><exf:variable value="if($sugNodeVOldprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($sugNodeVOldprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($sugNodeVOldprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($sugNodeVOldprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($sugNodeVOldprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="sugNodeOldprotocolStatus"/><exf:variable value="if($sugNodeVOldprotocolStatus='1', 'The remaining research activities are limited only to data analysis.',if($sugNodeVOldprotocolStatus='2', 'No subjects have ever been enrolled at any site under HonorHealth IRB oversight.',if($sugNodeVOldprotocolStatus='3', 'Enrollment or review of records/specimens continues.',if($sugNodeVOldprotocolStatus='4', 'Research is permanently closed to enrollment, but research activities continue.',if($sugNodeVOldprotocolStatus='5', 'Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).',             '')))))" name="sugNodeOldprotocolStatus"/><xf:select1 ref="instance('ins')/protocolStatus" appearance="full" id="protocolStatus"><xf:label>Current Protocol Status</xf:label><xf:item><xf:label>The remaining research activities are limited only to data analysis.</xf:label><xf:value>1</xf:value></xf:item><xf:item><xf:label>No subjects have ever been enrolled at any site under HonorHealth IRB oversight.</xf:label><xf:value>2</xf:value></xf:item><xf:item><xf:label>Enrollment or review of records/specimens continues.</xf:label><xf:value>3</xf:value></xf:item><xf:item><xf:label>Research is permanently closed to enrollment, but research activities continue.</xf:label><xf:value>4</xf:value></xf:item><xf:item><xf:label>Research is permanently closed to enrollment, subjects have completed all research-related  interventions, and the study remains active only for long-term follow-up of subjects (only determining mortality of subjects or collection of data from the medical record).</xf:label><xf:value>5</xf:value></xf:item><script ev:event="xforms-value-changed">
+			x = model.getValue(".", contextNode);
+            if(x != "4"){
+				model.setValue("instance('ins')/continuingActivitiesDescription", "");				
+            }
+			model.refresh();
+			model.recalculate();
+		</script><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedleprotocolStatus/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:select1></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/protocolStatus = '', '', 'display:none')" name="style"/>Required</div><div><ix:attr value="if(concat($orgNodeprotocolStatus,'') != concat($thisNodeprotocolStatus,''), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleprotocolStatus/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if($thisNodeNeedleprotocolStatus/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleprotocolStatus/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/protocolStatus = '4', '', 'display:none')" name="style"/><td class="component textarea  widenLabel "><exf:variable value="instance('ins')/continuingActivitiesDescription/@revIndex" name="revIndexcontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/amendmentNodes/continuingActivitiesDescription[@revIndex=$revIndexcontinuingActivitiesDescription])" name="amdNodeNeedlecontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/continuingActivitiesDescription[@revIndex=$revIndexcontinuingActivitiesDescription])" name="thisNodeNeedlecontinuingActivitiesDescription"/><exf:variable value="instance('ins')/continuingActivitiesDescription" name="thisNodecontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/original/continuingActivitiesDescription[@revIndex=$revIndexcontinuingActivitiesDescription])" name="orgNodecontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/suggestions/continuingActivitiesDescription[@revIndex=$revIndexcontinuingActivitiesDescription])" name="sugNodeSetcontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/suggestions/continuingActivitiesDescription[@revIndex=$revIndexcontinuingActivitiesDescription])" name="sugNodecontinuingActivitiesDescription"/><exf:variable value="instance('ins')/previous/review/continuingActivitiesDescription/@revIndex" name="revIndexOcontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/previous/review/continuingActivitiesDescription[@revIndex=$revIndexOcontinuingActivitiesDescription])" name="thisNodeNeedleOldcontinuingActivitiesDescription"/><exf:variable value="instance('ins')/previous/review/continuingActivitiesDescription" name="thisNodeOldcontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/previous/review/original/continuingActivitiesDescription[@revIndex=$revIndexOcontinuingActivitiesDescription])" name="orgNodeOldcontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/previous/review/suggestions/continuingActivitiesDescription[@revIndex=$revIndexOcontinuingActivitiesDescription])" name="sugNodeSetOldcontinuingActivitiesDescription"/><exf:variable value="(instance('ins')/previous/review/suggestions/continuingActivitiesDescription[@revIndex=$revIndexOcontinuingActivitiesDescription])" name="sugNodeOldcontinuingActivitiesDescription"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/continuingActivitiesDescription"><xf:label>Description of the Continuing Research Activities</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="$thisNodeNeedlecontinuingActivitiesDescription/@changed">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if(instance('ins')/continuingActivitiesDescription = '', '', 'display:none')" name="style"/>Required</div><div><ix:attr value="if(concat($orgNodecontinuingActivitiesDescription,'') != concat($thisNodecontinuingActivitiesDescription,''), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedlecontinuingActivitiesDescription/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+                Amended <xf:output value="if($thisNodeNeedlecontinuingActivitiesDescription/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedlecontinuingActivitiesDescription/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                        model.rebuild();
+                        model.refresh();
+                        model.recalculate();
+                      </script></xf:textarea></span></span></div></span></div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

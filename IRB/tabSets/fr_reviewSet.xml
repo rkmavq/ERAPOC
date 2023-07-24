@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="6" label="Since Last Annual Approval" form="/home/configs/IRB/forms/sincelastapprovalFRCommRO.xfrm" printlabel="Since Last Annual Approval" sourceXML="/sincelastapprovalFR.xml" formType="general" formName="sincelastapprovalFR"/>
+    <tab id="7" label="Enrollment Status" form="/home/configs/IRB/forms/enrollmentstatusFRCommRO.xfrm" printlabel="Enrollment Status" sourceXML="/enrollmentstatusFR.xml" formType="general" formName="enrollmentstatusFR" when="enrollment"/>
+	<tab id="4" label="Protocol Status" form="/home/configs/IRB/forms/protocolstatusFRCommRO.xfrm" sourceXML="/protocolstatusFR.xml" formType="general" formName="protocolstatus"/>
+
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReview.xfrm"/>
+    
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subReviewDiffs.xfrm"/>
+    
+    <tab id="LC3" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/>
+    <!--Added by Don 5/12/2017 for MSSM onsite for Dr. Martin-->
+    <tab id="LEM" color="" label="Case History" form="/home/configs/IRB/forms/actionsThin.xfrm"/>    
+    <switches>
+        <enrollment>0</enrollment>
+        <submit>1</submit>
+        <full>1</full>
+        <notfull>0</notfull>
+    </switches>
+</tabs>

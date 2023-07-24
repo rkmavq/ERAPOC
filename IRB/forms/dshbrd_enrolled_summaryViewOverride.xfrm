@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="insm"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance>
+  <xf:instance id="form">
+    <data xmlns="">
+      <unlockable></unlockable>
+      <locked>1</locked>
+      <form updatedBy="" updated="" createdBy="" created=""/>
+      <tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "dshbrd_enrolled_summary");
+      model.Frm.loadAppFile('insm', "/data/irb.xml", "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.Frm.loadMetaData();
+      
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      
+      model.USA.caseSecurity = model.__XformSet.getRoot().model.TS.caseSecurity; 
+           
+      //Identify Administrator or Signing Authority
+      model.locked = true;
+      if(model.USA.hasToken("canReview") &amp;&amp; !model.USA.hasToken("canMake")){
+      model.setValue("instance('form')/unlockable", "1");
+      SH.print("isReviewer");
+      model.locked = false;
+      }
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script>
+  
+  <script ev:event="xforms-ready">
+    if(model.locked){
+      document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);', 300);
+    }
+  </script>
+  
+  <xf:submission id="submitinsm" instance="insm" replace="none" method="put">tabs
+    <xf:action ev:event="xforms-submit-done">
+      <xf:message level="ephemeral">Submit done.</xf:message>
+    </xf:action>
+    <xf:action ev:event="xforms-submit-error">
+      <xf:message level="ephemeral">Problem submitting...</xf:message>
+    </xf:action>
+  </xf:submission>
+  
+       <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+        <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+        <xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/>
+  <xf:bind relevant="instance('form')/locked!='1'" readonly="instance('form')/locked='1'" nodeset="instance('insm')/enrollAllSites" type="xsd:integer"/>
+  <xf:bind relevant="instance('form')/locked!='1'" readonly="instance('form')/locked='1'" nodeset="instance('insm')/enrollThisSite" type="xsd:integer"/>
+  <!--<xf:bind relevant="false()" readonly="true()" nodeset="instance('insm')/enrollTotal" type="xsd:integer" calculate="sum(../ageRange/@en)"/>-->
+  <xf:bind relevant="instance('form')/locked!='1'" readonly="instance('form')/locked='1'" nodeset="instance('insm')/enrollTotal" type="xsd:integer"/>
+</xf:model>
+  
+  
+  <ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                            </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="html"><td>
+                              <h3 xmlns="">Approved Enrollment</h3></td></tr>
+                              
+                              <tr class="number">
+                                <td class="component number stretchLabel  ">
+                                  <xf:input style="width:80px" ref="instance('insm')/enrollAllSites"><xf:label>Total Approved for All Sites:</xf:label></xf:input>
+                                </td></tr>
+                              <tr class="number">
+                                <td class="component number stretchLabel  ">
+                                  <xf:input style="width:80px" ref="instance('insm')/enrollThisSite"><xf:label>Total Approved for This Site:</xf:label></xf:input>
+                                </td></tr>
+                              <tr class="number">
+                                <td class="component number stretchLabel  ">
+                                  <xf:input style="width:80px" ref="instance('insm')/enrollTotal"><xf:label>Total Enrolled To Date:</xf:label></xf:input>
+                                </td></tr></table></div></div>
+<div>
+  <ix:attr name="style" value="if(instance('form')/unlockable='1', '', 'display:none')"/>
+  <xf:trigger style="margin-left:2px;">
+    <xf:label><xf:output value="if(instance('form')/locked='1', 'Unlock', 'Update / Lock')"/></xf:label>
+    <script ev:event="DOMActivate">
+        var md = model.getValue("instance('form')/locked");
+        if(md == "1"){
+          model.setValue("instance('form')/locked", "");
+        }else{
+          model.submit('submitinsm');
+          model.setValue("instance('form')/locked", "1");
+        }
+        model.refresh();
+        model.rebuild();
+        model.recalculate();
+    </script>
+  </xf:trigger>
+</div>
+
+
+</form>

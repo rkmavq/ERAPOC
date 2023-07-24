@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 c
+    * @version 1.0.0
+    */
+  -->
+  
+  
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+      <xf:instance id="routing" src="../routing.xml"/>
+      <xf:instance id="lc"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <departments/>
+          <currency></currency>
+          <version/>
+          <departments/>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+       
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        model.__XformSet.getRoot().targetURI = model.getValue("primeEntityURI");
+        
+        loadInstance(model, "lc", "/lifecycle.xml");
+        
+        model.rebuild();
+        model.recalculate();
+        model.refresh();
+      </script>    
+
+      <script ev:event="xforms-ready">
+        
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      model.submit("submitins");
+      //alert("saved");
+    </script>
+    
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>	
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+        <script>;</script>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+        
+  </xf:model>
+ 
+ <style>
+   div.diagXf table.xfctrl td{
+    vertical-align:top;
+    padding-bottom:8px;
+    padding-left:3px;
+   }   
+ </style>
+   
+  <style>
+     div.formFrame table.fullColLayout table.budgetTool td .xftext{ background-color:white; }
+     div.formFrame table.budgetTool td .xftext{ background-color:white; } div.formFrame
+     table.fullColLayout div.headerselect{ background:none; } div.formFrame table.fullColLayout
+     div.headerselect table.headerselect{ background:none; border:none; } div.formFrame
+     table.fullColLayout div.headerselect table.headerselect tr{ background:none; border:none;
+     color:white; } div.formFrame table.fullColLayout div.headerselect table.headerselect tr td{
+     border:none; padding:none; vertical-align:middle; } div.formFrame table.fullColLayout
+     tr.periodbreak td{ border-bottom: medium solid black; } div.formFrame table.optionsheader
+     div.xfctrl{ } div.questions div.xfctrl{ background:none; width:auto; } div.questions
+     table.selection div.xfctrl{ background:none; width:450px; } div.questions div.xfctrl input{
+     width:500px;; font-size:12px; } div.questions div.xfctrl textarea{ width:500px;; font-size:11px;
+     } .wikiView div.questions div.xfctrl label{ width:200px; padding-right:5px; font-size:11px; }
+     .wikiView div.questions div.viewOnly table{ font-size:11px; } .wikiView div.questions
+     div.viewOnly table td.label{ width:200px; padding-right:5px; font-weight:bold;
+     vertical-align:top; padding-bottom:15px; } .wikiView div.questions div.viewOnly table td.value{
+     width:500px; vertical-align:top; padding-bottom:15px; } 
+          
+     .wikiView div.repeater table td{
+     
+     }
+     
+     .wikiView div.repeater table td div.xfctrl{
+     padding:0px;
+     }
+     
+     .wikiView div.repeater table.small td div.xfctrl{
+     padding:0px;
+     }
+     
+     .wikiView div.repeater table.small td div.xfctrl input{
+     width:80px;
+     }
+     
+     .wikiView div.xfctrl input {
+     margin-top:0px;
+     }
+     
+     .wikiView div.xfctrl textarea {
+     margin-top:0px;
+     }
+     
+     .wikiView div.repeater table.small td.thin div.xfctrl input{
+     width:40px;
+     }
+     
+     .wikiView div.repeater table.small tr.member{
+     padding-top:10px;
+     }
+     
+     table.easyLayout th {
+     text-align:left;	
+     }
+     
+     table.easyLayout th.tight {
+     width:60px;
+     text-align:center;
+     }
+     
+     table.easyLayout th.medium {
+     width:200px;
+     }
+     
+     table.easyLayout th.wide {
+     width:300px;
+     }
+     
+     table.easyLayout td.tight {
+     width:60px;
+     text-align:center;
+     }
+     
+     table.easyLayout td.medium {
+     width:200px;
+     }
+     
+     table.easyLayout td.wide {
+     width:300px;
+     }
+     
+     table.easyLayout tr.odd td {
+     background-color: #FAF0E6; 
+     }
+     
+     table.easyLayout tr.odd td.complete {
+     background-color: white;
+     }
+     
+     .wikiView table.easyLayout div.xfctrl{
+     background:none;
+     }
+     
+     //AB new style sheet -  START
+     
+     body
+     {
+     line-height: 1.6em;
+     }
+     
+     table.one-column-emphasis
+     {
+     font-family: Arial, Sans-Serif;
+     font-size: 12px;
+     margin: 15px;
+     width: 680px;
+     text-align: left;
+     border-collapse: collapse;
+     }
+     table.one-column-emphasis th
+     {
+     font-size: 12px;
+     font-weight: bold;
+     padding: 12px 15px;
+     color: #039;
+     background: #eff2ff;
+     }
+     
+     //table.one-column-emphasis tbody.tr
+     //{
+     //border-top: 1px solid #d0dafd;
+     //}     
+     
+     .trBottom
+     {
+     border-bottom: 1px solid #d0dafd;
+     }  
+     
+     table.one-column-emphasis td
+     {
+     padding: 5px 10px;
+     color: #669;
+     //border-top: 1px solid #e8edff;
+     border-top: 0px solid #eff2ff;
+     }
+     .oce-first
+     {
+     background: #eff2ff;
+     border-right:0px solid transparent;
+     border-left: 0px solid transparent;
+     }
+     table.one-column-emphasis tr:hover td
+     {
+     //color: #339;
+     //background: #eff2ff;
+     color: #039;
+     background: #d0dafd;
+     }
+     
+     .wikiView div.xfctrl{
+     background:none;
+     }
+     .outer-box{
+      background: #F3F6FB;
+      border-radius:6px;
+      padding: 10px;
+      font-size: 14px;
+      font-style:roboto;
+     }
+     
+     //AB new style sheet -  END
+   </style>
+
+  <!--<xf:trigger>
+    <xf:label>Save</xf:label>
+    <script ev:event="DOMActivate">
+      model.submit("submitins");
+    </script>
+  </xf:trigger>-->
+  <div class="formFrame">
+   <h1><xf:output value="subject"/></h1>
+   <br/>
+   <table class="outer-box">
+     <tr>
+       <td style="vertical-align:top;width:80px;"><b>From:</b></td>
+       <td style="vertical-align:top"><xf:output value="from"/><br/><br/></td>
+     </tr>
+     <!--<tr>
+       <td style="vertical-align:top"><b>Message:</b></td>
+       <td style="vertical-align:top"><div style="width:400px;"><xf:output value="message"/></div><br/></td>
+       </tr>-->
+     <tr style="vertical-align:top" valign="top">
+       <ix:attr name="style" value="if(commFor='RSNotification' or commFor='', '', 'display:none')"/>
+       <td><b>Message:  </b></td>
+       <td><span id="tempSpot"></span><br/><br/></td>
+     </tr>
+     <script>
+       var tempSpot = model.getUiElementById("tempSpot"); //Gets the place with the id = tempSpot in this case a span up above
+       var html = model.getValue("message", contextNode); //Reset its inner HTML to whatever was read from the rules.xml file
+       tempSpot.innerHTML = html;
+     </script>
+     <tr><ix:attr name="style" value="if(instance('ins')/notificationType='30day' and instance('ins')/primeEntity='IACUC', '', 'display:none')"/>
+       <td style="vertical-align:top" colspan="2"><div style="width:400px;"><b>FINAL NOTICE</b></div><br/><br/></td>       
+     </tr>
+     <tr>
+       <td style="vertical-align:top" colspan="2"><b>
+         <span><ix:attr name="style" value="if(attachment!='', '', 'display:none')"/>
+           Download Document: <a target="_blank_"><ix:attr name="href" value="concat('../fil', attachment)"/>here</a>
+         </span></b><br/><br/></td>
+     </tr>
+     <tr>
+       <td style="vertical-align:top" colspan="2"><ix:attr name="style" value="if(count(attach)>0, '', 'display:none')"/>
+         <span>
+           <b>Download Other Attachments:</b> 
+         </span><br/><br/></td>
+     </tr>  
+     <tr>
+       <td colspan="2"><ix:attr name="style" value="if(count(attach)>0, '', 'display:none')"/>
+       <table>
+         <xf:repeat nodeset="attach">
+           <tr>
+             <td><xf:label style="background-color:none"><xf:output value="@name"/></xf:label></td>
+             <td><a target="_blank_"><ix:attr name="href" value="concat('..', @uri)"/>Download</a></td>
+           </tr>
+         </xf:repeat>
+       </table>
+         <br/><br/><br/></td>
+     </tr>
+     
+     <!--AB Sprint 3 HH hide action for WIRB notifications-->          
+     <tr><ix:attr name="style" value="if(not(instance('ins')/notificationType[contains(., 'SUBMISSION')]) and not(instance('ins')/notificationType[contains(., 'term')]) and not(instance('ins')/notificationType[contains(., 'FAIL')]) and not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]), '', 'display:none')"/>
+       <!--<ix:attr name="style" value="if(instance('ins')/notificationType='30day', '', 'display:none')"/>-->
+       <td style="vertical-align:top;"><b>Action:</b></td>
+       <td style="vertical-align:top"><u style="cursor:pointer; color: #376DC8;"><script ev:event="click">
+         action = "renewal";
+         var msg = model.getValue("instance('routing')/fragment[@id='" + action + "']/@launchMessage");
+         if(msg == "") x = 1;
+         else x = confirm(msg);
+         if(!x) return;
+         
+         trg = model.__XformSet.getRoot().targetURI;
+         if(!trg) trg = model.getForm()._TARGET;
+         var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+         var res = callSharedService("processLauncher",{"app":"IRB", "fragment":action, "id":model.getValue("instance('ins')/id8ID"), "primeEntityID":id, "entURI":trg}, "json");
+         if(res &amp;&amp; res.response == "passed")
+         runActivity(res.output.id, res.output.segment);
+         else
+         alert("Process Not Found");
+       </script>Create Continuing Review</u><br/><br/></td>
+     </tr>   
+     <!--AB Sprint 3 HH hide action for WIRB notifications-->         
+     <tr><ix:attr name="style" value="if(not(instance('ins')/notificationType[contains(., 'SUBMISSION')]) and not(instance('ins')/notificationType[contains(., 'FAIL')]) and not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]), '', 'display:none')"/>
+       <td style="vertical-align:top"></td>
+       <td style="vertical-align:top"><u style="cursor:pointer; color: #376DC8;"><script ev:event="click">
+         action = "finalrep";
+         var msg = model.getValue("instance('routing')/fragment[@id='" + action + "']/@launchMessage");
+         if(msg == "") x = 1;
+         else x = confirm(msg);
+         if(!x) return;
+         
+         trg = model.__XformSet.getRoot().targetURI;
+         if(!trg) trg = model.getForm()._TARGET;
+         var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+         var res = callSharedService("processLauncher",{"app":"IRB", "fragment":action, "id":model.getValue("instance('ins')/id8ID"), "primeEntityID":id, "entURI":trg}, "json");
+         if(res &amp;&amp; res.response == "passed")
+         runActivity(res.output.id, res.output.segment);
+         else
+         alert("Process Not Found");
+       </script>Create Final Report</u><br/></td>
+     </tr>   
+     <!--AB Sprint 3 HH hide action for WIRB notifications-->         
+     <tr><ix:attr name="style" value="if(instance('lc')/linkedOpp[(@opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')], '', 'display:none')"/>
+       <td style="vertical-align:top"><b>Action:</b></td>
+       <td style="vertical-align:top">Continuing Review Created<br/></td>
+     </tr>   
+
+     <tr><ix:attr name="style" value="if(instance('lc')/linkedOpp[(@opType='finrepOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')], '', 'display:none')"/>
+       <td style="vertical-align:top"><b>Action:</b></td>
+       <td style="vertical-align:top">Final Report Created<br/></td>
+     </tr>   
+
+
+   </table>
+   
+    <!--<h1><xf:output value="instance('ins')/notificationType"/></h1>-->
+ <br/>
+  <br/>
+  <a title="Submit" href="#" class="submit1">
+    <xf:action ev:event="click">
+        <script>location.href = ENV_URL + "/home";
+        </script>
+    </xf:action>
+  <div class="cap"/>Close</a>
+  <br/> 
+  
+  
+
+
+  </div>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+      
+         
+
+
+
+
+  
+
+
+      </form>

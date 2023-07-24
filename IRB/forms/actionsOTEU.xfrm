@@ -1,0 +1,1177 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms" xmlns:id8="http://ideate.com"><xf:model id="fmodel">
+    <xf:instance id="ins"><data xmlns=""/></xf:instance>
+  <xf:instance id="ent"><data xmlns=""/></xf:instance>
+  <xf:instance id="lc"><data xmlns=""/></xf:instance>
+	<xf:instance id="reviews"><data xmlns=""/></xf:instance>
+	<xf:instance id="sub"><data xmlns=""/></xf:instance>
+  <xf:instance id="routing" src="../routing.xml"/>
+  <xf:instance id="form">
+  	<data xmlns="">
+  		<sType></sType>
+  		<mouseOverLabel></mouseOverLabel>
+  		<mouseOverVal></mouseOverVal>
+	    <status>x</status>
+	    <status>x</status>
+	    <actor>x</actor>
+	    <action>1</action>
+    	<actions>1</actions>
+    	<reviewer></reviewer>
+  		<pi></pi>
+  		<showProbs>0</showProbs>
+  	</data>
+  </xf:instance>
+	<xf:instance id="state">
+		<data xmlns=""/>
+	</xf:instance>
+	<xf:instance id="cats">
+		<data xmlns=""/>
+	</xf:instance>
+        		
+    <script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+
+      loadInstance(model, "ins", "/data/irb.xml");
+      loadInstance(model, "ent", "/data.xml");
+      loadInstance(model, "lc", "/lifecycle.xml");
+      loadInstance(model, "reviews", "/reviews.xml");
+      loadInstance(model, "cats", "/data/catagories.xml");
+      
+      s = model.getValue("instance('ent')/status");
+      <!--if(s == "active"){
+      	loadInstance(model, 'state', "/data/snapshots/tracking.xml", "0");
+      }-->
+      
+      model.setValue("instance('form')/reviewer", "1");
+      
+      /*
+      model.__XformSet.getRoot().model.TS.setTabVariable("comms", 0);
+      if(UserTree.getUserName(UserTree.getSelfId()) == "Ray Charles"){
+      	model.setValue("instance('form')/reviewer", "1");
+      	model.__XformSet.getRoot().model.TS.setTabVariable("comms", 1);
+      }
+      
+      //identify PI here
+      pi_uid = model.getValue("instance('lc')/devDetails/@uid");
+      if(pi_uid == "" || UserTree.getSelfId() == pi_uid){
+      	model.setValue("instance('form')/pi", "1");
+      }
+        
+      */
+      
+      
+      var tui = model.__XformSet.getRoot().targetURI;
+      model.setValue("instance('ent')/primaryEntityURI", tui);
+      var status = model.getValue("instance('ent')/status");
+      model.recalculate();
+      model.rebuild();
+      
+      App.__model = model;
+      
+    </script>
+  
+   <xf:bind nodeset="instance('ent')/stage" readonly="true()" relevant="false()"/>
+  <xf:bind nodeset="instance('ent')/status" readonly="true()" relevant="false()"/>
+  
+    <script ev:event="ix-activity-save">
+			model.submit("submit1");
+		</script>
+    <xf:submission id="submit1" instance="ent" replace="none" method="put">tabs
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Submit done.</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem submitting...</xf:message>
+			</xf:action>
+		</xf:submission>
+</xf:model>
+  
+  <style>
+    div.main div.xfctrl{
+      background:none;
+    }
+    
+    div.main div.xftrl td.combo {color:black};
+    
+    
+    .wikiView div.actionsPulldown2{
+    width:210px;
+    padding:1px;
+    }
+
+
+	.wikiView div.actionsPulldown2 table.actionsPulldown2{
+	width:190px;
+	}
+
+
+
+.wikiView div.statusPulldown{
+background:none;
+padding:1px;
+}
+
+.wikiView div.statusPulldown table.statusPulldown{
+width:98%;
+}
+
+
+    
+    .actionsGo{
+    height:19px;
+    font-size:10px;
+    }
+    
+  </style>
+  
+  <div class="main" style="">
+  
+	
+		<xf:group ref=".">
+		  		  		
+	   <table style="width:100%">
+	     <tr>
+	     	<td style="width:120px; vertical-align:middle"> 
+	     		<div><ix:attr name="style" value="if(instance('ent')/stage = 'protocol', 'display:none', '')"/>
+	         	<b>Stage:</b>
+	         	<xf:output value="if(instance('ent')/stage='application', 'Application',
+	         	if(instance('ent')/stage='protocol', 'Protocol', ''))"/>
+	     			
+	     			
+	         </div>
+	       </td>
+	     	<td style="width:120px; vertical-align:middle">
+	     		<div><ix:attr name="style" value="if(instance('ent')/stage = 'protocol', 'display:none', '')"/>
+	         	<b>Status:</b>
+	         	<xf:output value="if(instance('ent')/status='inDev', 'In Development',
+	         		if(instance('ent')/status='deptReview' or instance('ent')/status='intakeReview' or instance('ent')/status='adminReview' or instance('ent')/status='directorReview', 'Under Review',
+	         		if(instance('ent')/status='boardReview', 'Board Review',
+	         		if(instance('ent')/status='active', 'Active',
+	         		if(instance('ent')/status='ACT', 'Active',
+	         		if(instance('ent')/status='expired', 'Expired',
+	         		if(instance('ent')/status='suspended', 'Suspended',
+	         		if(instance('ent')/status='terminated', 'Terminated',
+	         		if(instance('ent')/status='rejected', 'Rejected',
+	         		if(instance('ent')/status='withdrawn', 'Withdrawn',
+	         		if(instance('ent')/status='exempt', 'Exempt',
+	         		if(instance('ent')/status='completed', 'Completed',
+	         		if(instance('ent')/status='closed', 'Closed',
+	         		'')))))))))))))"/>
+         	</div>
+	     	</td>
+	     	
+	     	<td style="width:180px; vertical-align:middle">
+	     	</td>
+	     	
+	     	
+	     	<td style="width:300px; vertical-align:middle">
+	     		
+	     		
+	     		
+	     		<table style="margin:0px;padding:0px;">
+	     			<tr>
+	     				<td>
+	     					<exf:variable value="instance('routing')[instance('form')/actions='1']/fragment[@linkedWhen=instance('ent')/status
+	     						and ((@id!='renewal' and @id!='finalrep') or not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]))
+	     						]" name="actions"/>
+	     					<xf:select1 ref="instance('form')/action" class="actionsPulldown2">
+	     						<ix:attr name="style" value="if(count($actions)&gt; 0, 'width:250px', 'display:none')"/>
+	     						<xf:label style="width:45px">Actions</xf:label>
+	     						<xf:repeat nodeset="$actions">
+	     							<xf:item>
+	     								<xf:label><xf:output value="@launchLabel"/><xf:output value="if(@type='continuation', '*', '')"/></xf:label>
+	     								<xf:value><xf:output value="position()"/></xf:value>
+	     							</xf:item> 
+	     						</xf:repeat>  
+	     					</xf:select1>
+	     					<xf:select1 ref="instance('form')/action" class="actionsPulldown2">
+	     						<ix:attr name="style" value="if(count($actions)= 0 or instance('form')/actions='0', 'width:250px', 'display:none')"/>
+	     						<xf:label style="width:45px">Actions</xf:label>
+	     						<xf:item>
+	     							<xf:label>-No Available Actions-</xf:label>
+	     							<xf:value>1</xf:value>
+	     						</xf:item>
+	     					</xf:select1>
+	     					
+	     					
+	     				</td>
+	     				<td>
+	     					<xf:trigger class="actionsGo">
+	     						<xf:label>Go</xf:label>
+	     						<script ev:event="DOMActivate">
+	     							var val = model.getValue("instance('form')/action");
+	     							var msg = model.getValue("instance('routing')/fragment[@linkedWhen=instance('ent')/status	and ((@id!='renewal' and @id!='finalrep') or not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]))][" + val + "]/@launchMessage");
+	     							var frag = model.getValue("instance('routing')/fragment[@linkedWhen=instance('ent')/status	and ((@id!='renewal' and @id!='finalrep') or not(instance('lc')/linkedOpp[(@opType='finrepOp' or @opType='renewalOp') and (@status = 'deptReview' or @status = 'boardReview' or @status = 'revisions' or @status = 'routing' or @status = 'processingBoardRev' or @status = 'inDev' or @status = 'inProcess' or @status = 'inProgress')]))][" + val + "]/@id");
+	     							if(msg == ""){
+	     							alert("Sorry, no actions available!");
+	     							return;
+	     							}
+	     							var x = confirm(msg);
+	     							if(!x) return;
+	     							trg = model.__XformSet.getRoot().targetURI;
+	     							if(!trg) trg = model.getForm()._TARGET;
+	     							var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+	     							var res = callSharedService("processLauncher",{"app":"IRB", "fragment":frag, "id":model.getValue("instance('ins')/id8ID"), "primeEntityID":id, "entURI":trg}, "json");
+	     							if(res &amp;&amp; res.response == "passed")
+	     							runActivity(res.output.id, res.output.segment);
+	     							else
+	     							alert("Process Not Found");
+	     						</script>
+	     					</xf:trigger>	     					
+	     				</td>
+	     				<!--<td>
+	     					
+	     					<xf:trigger class="actionsGo">
+	     						<xf:label>Remove the protocol and Kill any outstanding task(s)</xf:label>
+	     						<script ev:event="DOMActivate">
+	     							trg = model.__XformSet.getRoot().targetURI;
+	     							if(!trg) trg = model.getForm()._TARGET;
+	     							var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+	     							resY=callSharedService("protocolRouting",{"op":"withdrawCaseBill", "targetURI":trg, "app":"IRB"}, "json");
+	     							if(resY) alert(resY.output);
+	     						</script>
+	     					</xf:trigger>
+	     					
+	     				</td>-->
+	     			</tr>
+	     		</table>
+			</td>
+
+	     </tr>
+	   </table>
+			
+			<xf:switch>
+				<xf:case exf:if="1" id="show-main">  
+			<table style="width:100%"><ix:attr name="style" value="if(instance('ent')/stage = 'protocol', 'width:100%', 'display:none')"/>
+				<tr>
+					<td style="width:15%; vertical-align:top"> 
+						<div>
+							<b>Stage:</b>
+							<xf:output value="if(instance('ent')/stage='application', 'Application',
+								if(instance('ent')/stage='protocol', 'Protocol', ''))"/>
+						</div>
+					</td>
+					<td style="width:25%;vertical-align:top"> 
+						<div>
+							<b>Approval Start:</b> <xf:output value="instance('ins')/approvalStart"/>
+						</div>
+					</td>
+					
+					
+					<td style="width:30%; vertical-align:top">
+						<div>
+							<span><ix:attr name="style" value="if(instance('ins')/riskLevel='greater', 'color:red', '')"/>
+								<b>Risk Level:</b> <xf:output value="if(instance('ins')/riskLevel='min', 'Minimal Risk', 'Greater than Minimal Risk')"/>
+							</span>
+						</div>
+					</td>
+					
+					<td style="vertical-align:top">
+						<span>
+							<b>Review Frequency:</b> <xf:output value="instance('ins')/revFreq"/> days
+						</span>
+					</td>
+					
+					
+				</tr>
+				<tr>
+					
+					<td style="width:15%; vertical-align:middle">
+						<div>
+							<b>Status:</b>
+							<xf:output value="if(instance('ent')/status='inDev', 'In Development',
+								if(instance('ent')/status='deptReview', 'Dept Review',
+								if(instance('ent')/status='boardReview', 'Board Review',
+								if(instance('ent')/status='active', 'Active',
+								if(instance('ent')/status='ACT', 'Active',
+								if(instance('ent')/status='expired', 'Expired',
+								if(instance('ent')/status='suspended', 'Suspended',
+								if(instance('ent')/status='terminated', 'Terminated',
+								if(instance('ent')/status='rejected', 'Rejected',
+								if(instance('ent')/status='withdrawn', 'Withdrawn',
+								if(instance('ent')/status='exempt', 'Exempt',
+								if(instance('ent')/status='completed', 'Completed',
+								if(instance('ent')/status='closed', 'Closed',
+								'')))))))))))))"/>
+						</div>
+					</td>
+					<td style="width:25%;vertical-align:middle">
+						<span><ix:attr name="style" value="if(instance('ent')/status='active' or instance('ent')/status='ACT', 'display:none;', '')"/>
+							<b>Approval End:</b> <xf:output value="instance('ins')/approvalEnd"/>
+						</span>
+						<span><ix:attr name="style" value="if(instance('ent')/status='active' or instance('ent')/status='ACT', '', 'display:none;')"/>
+							<b>Approval End:</b> <u style="color:blue;cursor:pointer;"><!--<script ev:event="click">if(confirm("For demo purposes, you can manually change the status of the protocol to expired.\n\nAre you sure that's what you're like to do?")){
+								var res = callSharedService("protocolRouting",{"op":"makeExpired", "targetURI":model.__XformSet.getRoot().targetURI}, "json");
+								if(res &amp;&amp; res.response == "passed"){
+									alert(res.output);
+									location.href = ".";
+								}
+								};</script>--><script ev:event="click">
+									newDate = prompt("For demo purposes, you can manually change the expiration date of the protocol.\n\nPlease enter the new date or cancel.\n\n", model.getValue("instance('ins')/approvalEnd"));
+									
+									if(!newDate) return;
+									
+									var res = callSharedService("protocolRouting",{"op":"changeExDate", "newdate":newDate, "targetURI":model.__XformSet.getRoot().targetURI}, "json");
+									if(res &amp;&amp; res.response == "passed"){
+										alert(res.output);
+										location.href = ".";
+									}
+								</script><xf:output value="instance('ins')/approvalEnd"/></u>
+						</span>
+					</td>
+					
+					<td style="width:30%; vertical-align:middle">
+						<div>
+							<span>
+								<b>Assigned IRB:</b> <xf:output value="instance('ins')/board"/>
+							</span>
+						</div>
+					</td>
+					
+					<td style=";vertical-align:middle">
+						<span>
+							<b>Original Approval Date:</b> <xf:output value="instance('ins')/orgApprovalDate"/>
+						</span>
+					</td>
+					
+				</tr>
+			</table>
+					
+				</xf:case>
+				<xf:case id="hide-main"/>
+			</xf:switch>  
+		<hr/>
+
+			<div><ix:attr name="style" value="if(count(instance('lc')/linkedOpp[@opType='problemOp']) = 0, 'display:none', '')"/>
+				<br/>
+				<xf:select appearance="full" ref="instance('form')/showProbs">
+					<xf:item><xf:label>Show Unanticipated Problems (<xf:output value="count(instance('lc')/linkedOpp[@opType='problemOp'])"/>)</xf:label><xf:value>1</xf:value></xf:item>
+					<script ev:event="xforms-value-changed">
+						model.activateCase('hide-subs')
+						model.refresh();
+						model.rebuild();
+						model.recalculate();
+						model.activateCase('show-subs')   
+					</script>
+				</xf:select>
+				<br/>
+			</div>
+
+		<br/>
+			
+			<table style="width:100%;padding:5px;">
+				<tr>
+					<td style="width:75%;vertical-align:top;">
+						<h3>Submissions</h3>
+						<xf:switch>
+							<xf:case exf:if="1" id="show-subs">  
+						<table style="width:600px;padding:5px;">
+							<tr>
+								<th></th>
+								<th style="text-align:left;">Type</th>
+								<th style="text-align:left;">Receipt Date</th>
+								<th style="text-align:left;">Summary</th>
+								<!--<th style="text-align:left;">Owner</th>-->
+								<th style="text-align:left;">Status</th>
+								<th style="text-align:left;">Decision</th>
+								<th style="text-align:left;">Lifecycle</th>
+								<th><ix:attr name="style" value="if(count(instance('reviews')/review) &gt; 0 and instance('form')/reviewer = 1, 'text-align:left;', 'display:none')"/>Reviews</th>
+								<th><ix:attr name="style" value="if((instance('ent')/status='inDev' or @status='inProgress' or instance('ent')/status='deptReview' or instance('ent')/status='boardReview' or instance('ent')/status='processingBoardRev' or @status='routing' or @status='deptReview' or @status='boardReview' or @status='processingBoardRev' or @status='routing') and instance('form')/pi = 1, 'text-align:left;', 'display:none')"/></th>
+								<th><ix:attr name="style" value="if(instance('form')/pi = 1, 'text-align:left;', 'display:none')"/></th>
+								<!--<th><ix:attr name="style" value="if((instance('ent')/status='inDev' or @status='inProgress' or instance('ent')/status='deptReview' or instance('ent')/status='boardReview' or instance('ent')/status='processingBoardRev' or @status='routing' or @status='deptReview' or @status='boardReview' or @status='processingBoardRev' or @status='routing')  and instance('form')/pi = 1, 'text-align:left;', 'display:none')"/>Actions</th>-->
+								<!--<th><ix:attr name="style" value="if((instance('ent')/status='inDev' or @status='inDev') and instance('form')/pi = 1, 'text-align:left;', 'display:none')"/></th>-->
+								<th><ix:attr name="style" value="if(instance('form')/pi = 1, 'text-align:left;', 'display:none')"/>Actions</th>
+							</tr>
+							
+							         
+								
+							<script>x = 2;</script>
+							<xf:repeat nodeset="instance('lc')/linkedOpp[@opType!='externalReview' and (instance('form')/showProbs='1' or (instance('form')/showProbs!='1' and @opType!='problemOp'))]">
+								<tr>
+									
+									<td><xf:output value="position()"></xf:output></td>
+									<td><xf:output value="@name"/></td>
+									<!--<td>View</td>-->
+									
+									<td style="text-align:left;">
+										<!--<exf:variable name="rd2" value="(event[contains(@who, 'CONVERSION') or (contains(@name, 'Being Processed') or (contains(@name, 'Review') and contains(@name, 'Revisions')))])[last()]/@start"/>
+										<xf:output value="substring($rd2, 4, string-length($rd2) - 27)"/> - - --> 
+										<!-- (&quot;$tempDate&quot;) -->
+										<xf:output value="script('a = new Date(App.__model.getValue(&quot;event[last()]/@start&quot;, contextNode)); a = formatDate(a); a;')"/>
+									</td>
+									
+									
+									<!-- Dynamic Pull -->
+									<td>
+										<span class="dialogOverInteractive" style="color:black">
+											<span style="color:blue">View<!--<ix:action ev:event="click"><script>
+												who = model.getValue("who", contextNode);
+												if(who != "CONVERSION") return;
+												
+												optyp = model.getValue("@id", contextNode);
+												optyp2 = model.getValue("@opType", contextNode);
+												n2 = model.getValue("@uri", contextNode);
+												tui = model.__XformSet.getRoot().targetURI;
+												
+												//Extract Context
+												lopUri = model.getValue("@uri", contextNode);
+												lopUriSplit = lopUri.split("/");
+												op = lopUriSplit[lopUriSplit.length - 2];
+												
+												xfrmURI = "/configs/IRB/forms";
+												
+												//Repoint the instance
+												if(op == "problems") xfrmURI += "/legacyProblem.xfrm";
+												if(op == "amendments") xfrmURI += "/legacyAmendment.xfrm";	
+												if(op == "renewals") xfrmURI += "/legacyRenewal.xfrm";	
+												if(op == "finalreps") xfrmURI += "/legacyFinalRep.xfrm";	
+												
+												launchXformWindow(xfrmURI, lopUri, tui, "view", 900, 600);
+												
+											</script></ix:action>-->
+										<script ev:event="mouseover">
+																						
+											//Extract Context
+											lopUri = model.getValue("@uri", contextNode);
+											lopUriSplit = lopUri.split("/");
+											op = lopUriSplit[lopUriSplit.length - 2];
+											//alert(lopUri + " - " + op);
+											
+											//Save it to the form
+											model.setValue("instance('form')/sType", op);
+											
+											//Repoint the instance
+											if(op == "problems"){
+												model.setInstanceIdSrc("sub", "/fil" + lopUri + "/problem.xml");
+												model.setValue("instance('form')/mouseOverLabel", "Event Description");
+												model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/eventDescription"));
+											}
+											if(op == "amendments"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/amd.xml");
+											model.setValue("instance('form')/mouseOverLabel", "Lay Summary");
+											model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/laysummary"));
+											}
+											if(op == "renewals"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/renewal.xml");
+											model.setValue("instance('form')/mouseOverLabel", "Research Progress");
+											model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/researchProgress"));
+											}
+											if(op == "finalreps"){
+											model.setInstanceIdSrc("sub", "/fil" + lopUri + "/finalrep.xml");
+											model.setValue("instance('form')/mouseOverLabel", "Lay Summary");
+											model.setValue("instance('form')/mouseOverVal", model.getValue("instance('sub')/laysummary"));
+											}
+											//Do others
+											
+											//Refresh so you can use it
+											model.refresh(); 
+											model.recalculate(); 
+											model.rebuild();
+											
+											model.setValue("instance('form')/sType", "");
+
+										</script>																				
+										<div style="width:400px;color:black;">
+											<p>
+												<h4><xf:output value="instance('form')/mouseOverLabel"/></h4>
+												<!-- Perhapse here you might use multiple tables and use ix:attr to show/hide based on the sType? -->
+												<table style="background-color:white;width:350px;">													
+													<tr>
+														<td style="background-color:white;vertical-align:top;">
+															<xf:output value="instance('form')/mouseOverVal" style="color:black"/>
+														</td>														
+													</tr>
+												</table>
+											</p>
+										</div></span></span>
+									</td>
+									
+									
+									<!--<td><xf:output value="@who"/></td>-->
+								
+								<td><span>
+									<ix:attr name="style" value="if(@status='inProcess', '', if(@status='inProgress', '',
+										if(@status='inDev', '',
+										if(@status='deptReview', '',
+										if(@status='boardReview', '',
+										if(@status='processingBoardRev', '',
+										if(@status='active', '',
+										if(@status='expired', '',
+										if(@status='suspended', '',
+										if(@status='terminated', '',
+										if(@status='rejected', '',
+										if(@status='withdrawn', '',
+										if(@status='exempt', '',
+										if(@status='completed', '',
+										if(@status='closed', '',
+										if(@status='revisions', '',
+										if(@status='routing', '',
+										'')))))))))))))))))"/>
+									<!--<xf:output  value="if(@status='inProcess', 'Development', if(@status='inProgress', 'Development',
+										if(@status='inDev', 'Development',
+										if(@status='deptReview', 'Review',
+										if(@status='boardReview', 'Review',
+										if(@status='processingBoardRev', 'Review',
+										if(@status='active', 'Active',
+										if(@status='expired', 'Expired',
+										if(@status='suspended', 'Suspended',
+										if(@status='terminated', 'Terminated',
+										if(@status='rejected', 'Rejected',
+										if(@status='withdrawn', 'Withdrawn',
+										if(@status='exempt', 'Exempt',
+										if(@status='completed', 'Completed',
+										if(@status='closed', 'Closed',
+										if(@status='revisions', 'Being Revised',
+										if(@status='routing', 'Routing',
+										'')))))))))))))))))"/>-->
+									
+									<xf:output  value="if(
+										@status='inProgress', 'In Development',
+										if(@status='inDev', 'In Development',
+										if(@status='revisions', 'Being Revised',
+										if(@status='deptReview', 'Dept Review',
+										if(@status='intakeReview', 'Dept Review',
+										if(@status='adminReview', 'Admin Review',
+										if(@status='directorReview', 'Director Review',
+										
+										if(@status='boardReview', 'Under Review',
+										if(@status='active', 'Completed',
+										if(@status='expired', 'Completed',
+										if(@status='suspended', 'Completed',
+										if(@status='terminated', 'Completed',
+										if(@status='rejected', 'Rejected',
+										if(@status='withdrawn', 'Withdrawn',
+										if(@status='exempt', 'Completed',
+										if(@status='completed', 'Completed',
+										if(@status='closed', 'Completed',
+										'')))))))))))))))))"/>
+									
+									<!--<xf:output  value="if(@status='inProcess', 'In Development', if(@status='inProgress', 'In Development',
+										if(@status='inDev', 'In Development',
+										if(@status='deptReview', 'Under Review',
+										if(@status='boardReview', 'Under Review',
+										if(@status='processingBoardRev', 'Under Review',
+										if(@status='active', 'Completed',
+										if(@status='expired', 'Expired',
+										if(@status='suspended', 'Suspended',
+										if(@status='terminated', 'Terminated',
+										if(@status='rejected', 'Rejected',
+										if(@status='withdrawn', 'Withdrawn',
+										if(@status='exempt', 'Exempt',
+										if(@status='completed', 'Completed',
+										if(@status='closed', 'Closed',
+										if(@status='revisions', 'Being Revised',
+										if(@status='routing', 'Under Review',
+										'')))))))))))))))))"/>-->									
+										</span>
+									</td>
+								
+									<td>
+										<exf:variable value="@decision" name="cec"/>
+										<xf:output value="if($cec='' and @status!='withdrawn', 'Pending', instance('cats')/decisionTypes/type[@id=$cec]/@name)"/>
+										<xf:output value="if(@status='withdrawn', 'N/A', '')"/>
+									</td>
+									
+								
+									<td>
+										<u style="cursor:pointer;color:blue">View<xf:dialog ev:event="click" title="Lifecycle History" width="500px" style="background-color:white;width:500px;">
+											<div style="vertical-align:top;">
+												<div style="padding-left:20px;padding-right:20px;">
+													<xf:group ref="." style="border:none">
+														<xf:group ref="." style="align:center">
+															<xf:label style="font-weight: bold; font-size: 100%">
+																Event #1: <xf:output value="@name"/> Created
+															</xf:label>
+															<table style="width:100%">
+																<tr>
+																	<td style="width:30%">
+																		<xf:output value="@who">
+																			<xf:label>Who: </xf:label>
+																		</xf:output>	
+																	</td>
+																	<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																		<xf:label style="width:35px;">Start: </xf:label>
+																	</xf:output>
+																	</td>
+																</tr> 
+																<tr><ix:attr name="style" value="if(event[1], '', 'display:none')"/>
+																	<td style="width:30%"/>
+																	<td><xf:output value="substring(event[1]/@start, 1, string-length(event[1]/@start) - 15)">
+																		<xf:label style="width:35px;">End: </xf:label>
+																	</xf:output>
+																		<br/>
+																		<br/>
+																	</td>
+																</tr>            
+																<tr><ix:attr name="style" value="if(event[1], '', 'display:none')"/>
+																	<td colspan="2">
+																		<b><xf:output value="'Submission Completed'">
+																			<xf:label>Result: </xf:label>
+																		</xf:output></b>
+																	</td>
+																</tr>                        
+															</table>
+														</xf:group>
+														<exf:variable name="evnts" value="count(event[@name!=''])"/>
+														<exf:variable name="whowith" value="if(who and who != '', who, '-1')"/>
+														<xf:repeat nodeset="event[@name!='']">
+															<exf:variable name="i" value="position()"/>
+															<exf:variable name="perid" value="if($i = $evnts, $evnts, $i + 1)"/>
+															
+															<!--<h1>i = <xf:output value="$i"/> - perid = <xf:output value="$perid"/> - evnts = <xf:output value="$evnts"/></h1>-->
+															
+															<div style="text-align:center"> V<br/>
+															</div>
+															<xf:group ref="." style="align:center">
+																<xf:label style="font-weight: bold; font-size: 100%">
+																	Event #<xf:output value="$i + 1"/>: <xf:output value="@name"/>
+																</xf:label>
+																<table style="width:100%">
+																	<ix:attr name="style" value="if(@end='', 'display:none', '')"/>
+																	<tr>
+																		<td style="width:30%">
+																			<xf:output value="((../event[@name!=''])[position()=$perid])/@who">
+																				<xf:label>Who: </xf:label>
+																			</xf:output>	
+																		</td>
+																		<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																			<xf:label style="width:35px;">Start: </xf:label>
+																		</xf:output>
+																		</td>
+																	</tr> 
+																	<tr>
+																		<td style="width:30%"/>
+																		<td><xf:output value="substring(@end, 1, string-length(@end) - 15)">
+																			<xf:label style="width:35px;">End: </xf:label>
+																		</xf:output>
+																			<br/>
+																			<br/>
+																		</td>
+																	</tr>            
+																	<tr>
+																		<td colspan="2">
+																			<b><xf:output value="@result">
+																				<xf:label>Result: </xf:label>
+																			</xf:output></b>
+																		</td>
+																	</tr>                        
+																</table>
+																<table style="width:100%">
+																	<ix:attr name="style" value="if(@end!='', 'display:none', '')"/>
+																	<tr><ix:attr name="style" value="if($whowith = '-1', '', 'display:none')"/>
+																		<td style="width:30%">
+																			<xf:output value="((event[@name!=''])[$perid])/@who">
+																				<xf:label>Who: </xf:label>
+																			</xf:output>
+																		</td>
+																		<td>
+																			<xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																				<xf:label style="width:35px;">Start: </xf:label>
+																			</xf:output>
+																		</td>
+																	</tr>
+																	<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																		<td>
+																			<xf:output style="color:red;padding-left:10px;" value="$whowith">
+																				<xf:label>Currently with: </xf:label>
+																			</xf:output></td></tr>
+																	<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																		<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																			<xf:label style="width:35px;">Started: </xf:label>
+																		</xf:output>
+																		</td>
+																	</tr>
+																</table>
+															</xf:group>
+															
+														</xf:repeat>
+													</xf:group>
+													
+												</div>
+												
+												
+											</div>
+										</xf:dialog></u>
+									</td>
+								
+								
+								<td>
+									<span>
+										<ix:attr name="style" value="if(@status!='inProcess' and @status!='inProgress' and count(instance('reviews')/review) &gt; 0 and instance('form')/reviewer = 1, '', 'display:none')"/>
+										<u style="cursor:pointer;color:blue">Examine<ix:action ev:event="click"><script>
+											optyp = model.getValue("@id", contextNode);
+											optyp2 = model.getValue("@opType", contextNode);
+											n = model.getValue("@rev", contextNode);
+											n2 = model.getValue("@uri", contextNode);
+											tui = model.__XformSet.getRoot().targetURI;
+											
+											//Extract Context
+											lopUri = model.getValue("@uri", contextNode);
+											lopUriSplit = lopUri.split("/");
+											op = lopUriSplit[lopUriSplit.length - 2];
+											
+											
+											xfrmURI = "/configs/IRB/forms/sub_viewReviewAlone.xfrm";
+											conv = model.getValue("count(instance('lc')[//who='CONVERSION'])") * 1;
+											if(conv > 0) xfrmURI = "/configs/IRB/forms/legacy_viewReviewAlone.xfrm"; 
+											
+											//Repoint the instance
+											if(op == "problems"){
+												model.setInstanceIdSrc("sub", "/fil" + lopUri + "/problem.xml");											
+												//xfrmURI = "/configs/IRB/forms/up_viewReviewAlone.xfrm";	
+											}
+											if(op == "amendments"){
+												model.setInstanceIdSrc("sub", "/fil" + lopUri + "/amd.xml");											
+												//xfrmURI = "/configs/IRB/forms/amd_viewReviewAlone.xfrm";											
+											}
+											if(op == "renewals"){
+												model.setInstanceIdSrc("sub", "/fil" + lopUri + "/renewal.xml");
+												//xfrmURI = "/configs/IRB/forms/ren_viewReviewAlone.xfrm";
+											}
+											if(op == "finalreps"){
+												model.setInstanceIdSrc("sub", "/fil" + lopUri + "/finalrep.xml");											
+												//xfrmURI = "/configs/IRB/forms/fr_viewReviewAlone.xfrm";
+											}
+											launchXformWindow(xfrmURI, n2, tui, "examine", 900, 600);
+											
+											//Refresh so you can use it
+											model.refresh(); 
+											model.recalculate(); 
+											model.rebuild();
+											<!--if(optyp == "externalReview"){
+												xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";							
+												launchXformWindow(xfrmURI, tui, n, "examine", 900, 600);
+											}else{
+												xfrmURI = "";
+												if(optyp2 == "problemOp") xfrmURI = "/configs/IRB/forms/up_viewReviewAlone.xfrm";
+												if(optyp2 == "amendmentOp") xfrmURI = "/configs/IRB/forms/amd_viewReviewAlone.xfrm";
+												if(optyp2 == "renewalOp") xfrmURI = "/configs/IRB/forms/ren_viewReviewAlone.xfrm";
+												if(optyp2 == "finrepOp") xfrmURI = "/configs/IRB/forms/fr_viewReviewAlone.xfrm";
+												if(!xfrmURI) return;
+												alert(tui + " - - - " + n2);
+												launchXformWindow(xfrmURI, tui, n2, "examine", 900, 600);
+											}-->
+										</script></ix:action></u>
+									</span>
+								</td>
+									<td>
+										<span>
+											<ix:attr name="style" value="if((@status='deptReview' or @status='intakeReview' or @status='adminReview' or @status='directorReview' or @status='boardReview' or @status='processingBoardRev' or @status='routing' or @status='deptReview' or @status='boardReview' or @status='processingBoardRev' or @status='routing')  and instance('form')/pi = 1, '', 'display:none')"/>
+											<u style="cursor:pointer;color:blue">Withdraw<ix:action ev:event="click">											
+												<script>
+												y = confirm("Are you sure you wish to Withdraw this submission? \nThis action cannot be reversed.");
+												if(!y) return;
+												//Extract Context
+												lopUri = model.getValue("@uri", contextNode);
+												lopUriSplit = lopUri.split("/");
+												lop = lopUriSplit[lopUriSplit.length - 2];
+												//alert(lopUri + " - " + op);
+												tui = model.__XformSet.getRoot().targetURI;
+												
+												resY=callSharedService("protocolRouting",{"op":"withdrawSubmission", "linkedOpURI":lopUri, "linkedOp":lop, "baseURI":tui, "app":"IRB"}, "json");
+												//alert(resY.output);
+												//Refresh so you can use it
+												model.reloadInstanceId('lc');
+												model.activateCase('hide-subs')
+												model.refresh();
+												model.rebuild();
+												model.recalculate();
+												model.activateCase('show-subs')    
+												
+												model.refresh(); 
+												model.recalculate(); 
+												model.rebuild();
+								
+											</script></ix:action></u>
+										</span>
+										<span>
+											<ix:attr name="style" value="if((@status='inProgress')  and instance('form')/pi = 1, '', 'display:none')"/>
+											<u style="cursor:pointer;color:blue">Delete<ix:action ev:event="click">											
+												<script>
+													y = confirm("Are you sure you wish to Delete this submission? \nThis action cannot be reversed.");
+													if(!y) return;
+													//Extract Context
+													lopUri = model.getValue("@uri", contextNode);
+													lopUriSplit = lopUri.split("/");
+													lop = lopUriSplit[lopUriSplit.length - 2];
+													//alert(lopUri + " - " + lop);
+													tui = model.__XformSet.getRoot().targetURI;
+													
+													resY=callSharedService("protocolRouting",{"op":"deleteLinkedOp", "linkedOpURI":lopUri, "linkedOp":lop, "baseURI":tui, "app":"IRB"}, "json");
+													//alert(resY.output);
+													window.location.href = window.location.href;
+													//Refresh so you can use it
+													<!--model.reloadInstanceId('lc');
+													model.activateCase('hide-subs')
+													model.refresh();
+													model.rebuild();
+													model.recalculate();
+													model.activateCase('show-subs')    
+													
+													model.refresh(); 
+													model.recalculate(); 
+													model.rebuild();-->
+													
+												</script></ix:action></u>
+										</span>
+										<!--<span><u style="cursor:pointer;color:blue">Withdraw Bill<ix:action ev:event="click">											
+											<script>
+												y = confirm("Are you sure you wish to Withdraw this submission? \nThis action cannot be reversed.");
+												if(!y) return;
+												//Extract Context
+												//lopUri = model.getValue("@uri", contextNode);
+												//lopUriSplit = lopUri.split("/");
+												//lop = lopUriSplit[lopUriSplit.length - 2];
+												//alert(lopUri + " - " + op);
+												tui = model.__XformSet.getRoot().targetURI;
+												lopUri = model.getValue("@uri", contextNode);
+												resY=callSharedService("protocolRouting",{"op":"withdrawSubmissionBill", "linkedOpURI":lopUri, "targetURI":tui, "app":"IRB"}, "json");
+												
+												alert(resY.output);
+																								
+												//Refresh so you can use it
+												model.reloadInstanceId('lc');
+												model.reloadInstanceId('ent');
+												model.reloadInstanceId('ins');
+												model.activateCase('hide-main')												
+												model.activateCase('hide-subs')
+												model.refresh();
+												model.rebuild();
+												model.recalculate();
+												model.activateCase('show-main')
+												model.activateCase('show-subs')    
+												model.refresh(); 
+												model.recalculate(); 
+												model.rebuild();
+											</script></ix:action></u></span>-->
+									</td>									
+								
+								
+								
+								
+									<!--<td>
+										<span>
+											<u style="cursor:pointer;color:blue">UMMC Legacy Form<ix:action ev:event="click"><script>
+												optyp = model.getValue("@id", contextNode);
+												optyp2 = model.getValue("@opType", contextNode);
+												n2 = model.getValue("@uri", contextNode);
+												tui = model.__XformSet.getRoot().targetURI;
+												
+												//Extract Context
+												lopUri = model.getValue("@uri", contextNode);
+												lopUriSplit = lopUri.split("/");
+												op = lopUriSplit[lopUriSplit.length - 2];
+												formName = "test1";
+												//formName = prompt("Name of the form to view \n\n(from the /ideate/vamshi folder, .xfrm will be appended): ", formName);
+												
+												xfrmURI = "/configs/IRB/forms";
+												
+												//Repoint the instance
+												if(op == "problems") xfrmURI += "/legacyProblem.xfrm";
+												if(op == "amendments") xfrmURI += "/legacyAmendment.xfrm";	
+												if(op == "renewals") xfrmURI += "/legacyRenewal.xfrm";	
+												if(op == "finalreps") xfrmURI += "/legacyFinalRep.xfrm";	
+												
+												/*alert(xfrmURI);
+												alert(lopUri);
+												alert(tui);*/
+												launchXformWindow(xfrmURI, lopUri, tui, "view", 900, 600);
+												
+											</script></ix:action></u>
+										</span>
+									</td>-->
+								
+								
+								</tr>
+							
+							
+							</xf:repeat>
+							
+							
+							<tr>
+								<td><xf:output value="count(instance('lc')/linkedOpp[@opType!='externalReview' and (instance('form')/showProbs='1' or (instance('form')/showProbs!='1' and @opType!='problemOp'))]) + 1"/></td>
+								<td>Initial Application</td>
+								
+								<td style="text-align:left;">
+									<!--<exf:variable name="rd" value="instance('lc')/event[contains(@name, 'Being Processed')]/@start"/>-->
+									<!--<exf:variable name="rd" value="(instance(&apos;lc&apos;)/event[contains(@who, 'CONVERSION') or (contains(@name, 'Being Processed') or (contains(@name, 'Review') and contains(@name, 'Revisions')))])[last()]/@start"/>
+									<xf:output value="substring($rd, 4, string-length($rd) - 27)"/><exf:variable name="rd2" value="instance('lc')/receiptDate"/>
+									<xf:output value="$rd2"/>-->
+									
+									<xf:output value="script('a = new Date(App.__model.getValue(&quot;instance(\&quot;lc\&quot;)/event[last()]/@start&quot;, contextNode)); a = formatDate(a); a;')"/>
+									
+								</td>
+								
+								<td>
+									<span class="dialogOverInteractive" style="color:black">
+										<span style="color:blue">View</span>
+										<div style="width:400px;">
+											<p>
+												<h4>Lay Summary</h4>
+												
+												<table style="background-color:white;">
+													<tr>
+														<td style="background-color:white;vertical-align:top;width:350px;">
+															<xf:output value="instance('ins')/laysummary"/>
+														</td>														
+													</tr>
+												</table>
+											</p>
+										</div></span>
+								</td>
+								<!--<td><xf:output value="instance('ent')/PI"/></td>-->
+								
+								<td><span>
+									<!--									<ix:attr name="style" value="if(instance('ent')/status='inDev', '',
+										if(instance('ent')/status='deptReview', '',
+										if(instance('ent')/status='boardReview', '',
+										if(instance('ent')/status='active', 'color:green',
+										if(instance('ent')/status='expired', '',
+										if(instance('ent')/status='suspended', '',
+										if(instance('ent')/status='terminated', '',
+										if(instance('ent')/status='rejected', 'color:red;',
+										if(instance('ent')/status='withdrawn', 'color:red;',
+										if(instance('ent')/status='exempt', '',
+										if(instance('ent')/status='completed', 'color:green',
+										if(instance('ent')/status='closed', 'color:red',
+										''))))))))))))"/>
+										<xf:output  value="if(instance('ent')/status='inDev', 'Development',
+										if(instance('ent')/status='deptReview', 'Review',
+										if(instance('ent')/status='boardReview', 'Review',
+										if(instance('ent')/status='active', 'Active',
+										if(instance('ent')/status='expired', 'Expired',
+										if(instance('ent')/status='suspended', 'Suspended',
+										if(instance('ent')/status='terminated', 'Terminated',
+										if(instance('ent')/status='rejected', 'Rejected',
+										if(instance('ent')/status='withdrawn', 'Withdrawn',
+										if(instance('ent')/status='exempt', 'Exempt',
+										if(instance('ent')/status='completed', 'Completed',
+										if(instance('ent')/status='closed', 'Closed',
+										''))))))))))))"/>-->
+									<ix:attr name="style" value="if(instance('ent')/status='inDev', '',
+										if(instance('ent')/status='deptReview', '',
+										if(instance('ent')/status='boardReview', '',
+										if(instance('ent')/status='active', '',
+										if(instance('ent')/status='ACT', 'Active',
+										if(instance('ent')/status='expired', '',
+										if(instance('ent')/status='suspended', '',
+										if(instance('ent')/status='terminated', '',
+										if(instance('ent')/status='rejected', '',
+										if(instance('ent')/status='withdrawn', '',
+										if(instance('ent')/status='exempt', '',
+										if(instance('ent')/status='completed', '',
+										if(instance('ent')/status='closed', '',
+										'')))))))))))))"/>
+									<xf:output  value="if(instance('ent')/status='inDev', 'In Development',
+										if(instance('ent')/status='revisions', 'Being Revised',
+										if(instance('ent')/status='deptReview', 'Dept Review',
+										if(instance('ent')/status='intakeReview', 'Dept Review',
+										if(instance('ent')/status='adminReview', 'Admin Review',
+										if(instance('ent')/status='directorReview', 'Director Review',
+										
+										if(instance('ent')/status='boardReview', 'Under Review',
+										if(instance('ent')/status='active', 'Completed',
+										if(instance('ent')/status='ACT', 'Completed',
+										if(instance('ent')/status='expired', 'Completed',
+										if(instance('ent')/status='suspended', 'Completed',
+										if(instance('ent')/status='terminated', 'Completed',
+										if(instance('ent')/status='rejected', 'Rejected',
+										if(instance('ent')/status='withdrawn', 'Withdrawn',
+										if(instance('ent')/status='exempt', 'Completed',
+										if(instance('ent')/status='completed', 'Completed',
+										if(instance('ent')/status='closed', 'Completed',
+										'')))))))))))))))))"/>									
+								</span>
+								</td>
+								
+								<td>
+									<exf:variable value="instance('ent')/decision" name="revDecisionMA"/>
+									<exf:variable value="instance('cats')/decisionTypes/type[@id=$revDecisionMA]/@name" name="revDecisionTxt"/>
+									<!--<xf:output value="if($revDecisionTxt = '' or not($revDecisionTxt), 'Pending', concat('', $revDecisionTxt))"/>-->
+									<xf:output value="if(($revDecisionTxt = '' or not($revDecisionTxt)) and instance('ent')/status!='withdrawn', 'Pending', concat('', $revDecisionTxt))"/>
+									<xf:output value="if(instance('ent')/status='withdrawn', 'N/A', '')"/>									
+								</td>
+								
+								<td>
+									<u style="cursor:pointer;color:blue">View<xf:dialog ev:event="click" title="Lifecycle History" width="500px" style="background-color:white;width:500px;">
+										<div style="vertical-align:top;">
+											<div style="padding-left:20px;padding-right:20px;">
+												<xf:group ref="instance('lc')" style="border:none">
+													<exf:variable name="evnts" value="count(instance('lc')/event[@name!=''])"/>
+													<exf:variable name="whowith" value="if(instance('lc')/who and instance('lc')/who != '', instance('lc')/who, '-1')"/>
+													<xf:repeat nodeset="instance('lc')/event[@name!='']">
+														<exf:variable name="i" value="position()"/>
+														<exf:variable name="perid" value="if($i = 1, 1, if($i = $evnts, $evnts, $i + 1))"/>
+														<div style="text-align:center"> V<br/>
+														</div>
+														<xf:group ref="." style="align:center">
+															<xf:label style="font-weight: bold; font-size: 100%">
+																Event #<xf:output value="$i"/>: <xf:output value="@name"/>
+															</xf:label>
+															<table style="width:100%">
+																<ix:attr name="style" value="if(@end='', 'display:none', '')"/>
+																<tr>
+																	<td style="width:30%">
+																		<xf:output value="((instance('lc')/event[@name!=''])[position()=$perid])/@who">
+																			<xf:label>Who: </xf:label>
+																		</xf:output>	
+																	</td>
+																	<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																		<xf:label style="width:35px;">Start: </xf:label>
+																	</xf:output>
+																	</td>
+																</tr> 
+																<tr>
+																	<td style="width:30%"/>
+																	<td><xf:output value="substring(@end, 1, string-length(@end) - 15)">
+																		<xf:label style="width:35px;">End: </xf:label>
+																	</xf:output>
+																		<br/>
+																		<br/>
+																	</td>
+																</tr>            
+																<tr>
+																	<td colspan="2">
+																		<b><xf:output value="@result">
+																			<xf:label>Result: </xf:label>
+																		</xf:output></b>
+																	</td>
+																</tr>                        
+															</table>
+															<table style="width:100%">
+																<ix:attr name="style" value="if(@end!='', 'display:none', '')"/>
+																<tr><ix:attr name="style" value="if($whowith = '-1', '', 'display:none')"/>
+																	<td style="width:30%">
+																		<xf:output value="((instance('lc')/event[@name!=''])[$perid])/@who">
+																			<xf:label>Who: </xf:label>
+																		</xf:output>
+																	</td>
+																	<td>
+																		<xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																			<xf:label style="width:35px;">Start: </xf:label>
+																		</xf:output>
+																	</td>
+																</tr>
+																<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																	<td>
+																		<xf:output style="color:red;padding-left:10px;" value="$whowith">
+																			<xf:label>Currently with: </xf:label>
+																		</xf:output></td></tr>
+																<tr><ix:attr name="style" value="if($whowith = '-1', 'display:none', '')"/>
+																	<td><xf:output value="substring(@start, 1, string-length(@start) - 15)">
+																		<xf:label style="width:35px;">Started: </xf:label>
+																	</xf:output>
+																	</td>
+																</tr>
+															</table>
+														</xf:group>
+														
+													</xf:repeat>
+												</xf:group>
+												
+											</div>
+											
+											
+										</div>
+									</xf:dialog></u>
+								</td>
+								
+								<td>
+									<span><!--<ix:attr name="style" value="if(instance('ent')/status!='inDev' and instance('ent')/status!='deptReview' and instance('form')/reviewer = 1, '', 'display:none')"/>-->
+										<!-- AB changed this --><ix:attr name="style" value="if(count(instance('reviews')/review) &gt; 0 and instance('form')/reviewer = 1, '', 'display:none')"/>
+										<u style="cursor:pointer;color:blue">Examine<ix:action ev:event="click"><script>
+											tui = model.__XformSet.getRoot().targetURI;
+											xfrmURI = "/configs/IRB/forms/viewReviewAlone.xfrm";
+											
+											xfrmURI = "/configs/IRB/forms/sub_viewReviewAlone.xfrm";
+											conv = model.getValue("count(instance('lc')[//who='CONVERSION'])") * 1;
+											if(conv > 0) xfrmURI = "/configs/IRB/forms/legacy_viewReviewAlone.xfrm"; 
+											launchXformWindow(xfrmURI, tui, 1, "examine", 900, 600);
+											
+											
+											
+											/*
+											if(optyp == "externalReview"){
+											xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";							
+											launchXformWindow(xfrmURI, tui, n, "examine", 900, 600);
+											}else{
+											if(optyp2 == "problemOp") xfrmURI = "/configs/IRB/forms/up_viewReviewAlone.xfrm";
+											if(optyp2 == "amendmentOp") xfrmURI = "/configs/IRB/forms/amd_viewReviewAlone.xfrm";
+											if(optyp2 == "renewalOp") xfrmURI = "/configs/IRB/forms/ren_viewReviewAlone.xfrm";
+											if(optyp2 == "finrepOp") xfrmURI = "/configs/IRB/forms/fr_viewReviewAlone.xfrm";
+											launchXformWindow(xfrmURI, tui, n2, "examine", 900, 600);
+											}
+											*/
+										</script></ix:action></u>
+									</span>
+								</td>
+								<th><ix:attr name="style" value="if(instance('form')/pi = 1, 'text-align:left;', 'display:none')"/></th>
+								<td>
+									<span><ix:attr name="style" value="if((instance('ent')/status='deptReview' or instance('ent')/status='intakeReview' or instance('ent')/status='adminReview' or instance('ent')/status='directorReview' or instance('ent')/status='boardReview' or instance('ent')/status='processingBoardRev' or @status='routing' or @status='deptReview' or @status='boardReview' or @status='processingBoardRev' or @status='routing')  and instance('form')/pi = 1, '', 'display:none')"/>
+										<u style="cursor:pointer;color:blue">Withdraw<ix:action ev:event="click">											
+											<script>
+												y = confirm("Are you sure you wish to Withdraw this submission? \nThis action cannot be reversed.");
+												if(!y) return;
+												
+												tui = model.__XformSet.getRoot().targetURI;
+												
+												resY=callSharedService("protocolRouting",{"op":"withdrawSubmission", "linkedOpURI":"", "linkedOp":"main", "baseURI":tui, "app":"IRB"}, "json");
+												//alert(resY.output);
+												//Refresh so you can use it
+												model.reloadInstanceId('lc');
+												model.reloadInstanceId('ent');
+												model.reloadInstanceId('ins');
+												model.activateCase('hide-main')												
+												model.activateCase('hide-subs')
+												model.refresh();
+												model.rebuild();
+												model.recalculate();
+												model.activateCase('show-main')
+												model.activateCase('show-subs')    
+												model.refresh(); 
+												model.recalculate(); 
+												model.rebuild();
+											</script></ix:action></u>
+									</span>
+									<span>
+										<ix:attr name="style" value="if((instance('ent')/status='inDev')  and instance('form')/pi = 1, '', 'display:none')"/>
+										<u style="cursor:pointer;color:blue">Delete<ix:action ev:event="click">											
+											<script>
+												y = confirm("Are you sure you wish to Delete this Protocol? \nThis action cannot be reversed.");
+												if(!y) return;
+												
+												tui = model.__XformSet.getRoot().targetURI;
+												trg = model.__XformSet.getRoot().targetURI;
+												if(!trg) trg = model.getForm()._TARGET;
+												var id = trg.substr(trg.lastIndexOf('/') + 1) * 1;
+												resY=callSharedService("protocolRouting",{"op":"deleteCase", "linkedOpURI":"", "linkedOp":"main", "baseURI":tui, "targetURI":trg, "app":"IRB"}, "json");
+												window.location.href = window.location.href;
+												
+												//Refresh so you can use it
+												//model.reloadInstanceId('lc');
+												//model.activateCase('hide-subs')
+												//model.refresh();
+												//model.rebuild();
+												//model.recalculate();
+												//model.activateCase('show-subs')    
+												
+												//model.refresh(); 
+												//model.recalculate(); 
+												//model.rebuild();
+												
+											</script></ix:action></u>
+									</span>
+								</td>
+							</tr>
+							
+						</table>
+							</xf:case>
+							<xf:case id="hide-subs"/>
+						</xf:switch>  
+					</td>
+				</tr>
+			</table>
+		  	
+		  <br/><br/>
+  	</xf:group>
+	</div></form>

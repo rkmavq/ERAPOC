@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    <tab id="1" label="Summary"> 
+        <tab id="1a" label="Overview" form="/home/configs/IRB/forms/ren_irbsummaryRSRebuf.xfrm"/>
+        <tab id="1b" label="Consent Documents" form="/home/configs/IRB/forms/ren_consentRSRebuf.xfrm"/>        
+    </tab>
+    
+    <tab id="2" label="Enrollment">
+        <tab id="2a" label="Summary" form="/home/configs/IRB/forms/ren_enrolled_summaryRSRebuf.xfrm"/>
+        <tab id="2b" label="Age Range(s)" form="/home/configs/IRB/forms/ren_enrolled_ageRSRebuf.xfrm"/>
+        <tab id="2c" label="Population(s)" form="/home/configs/IRB/forms/ren_enrolled_popRSRebuf.xfrm"/>
+        <tab id="2d" label="Ethnic Categories" form="/home/configs/IRB/forms/ren_enrolled_ethnicRSRebuf.xfrm"/>
+        <tab id="2e" label="Race(s)" form="/home/configs/IRB/forms/ren_enrolled_raceRSRebuf.xfrm"/>
+    </tab>
+    
+    <tab id="3" label="Events">
+        <tab id="3a" label="Participants" form="/home/configs/IRB/forms/ren_eventsParticipantsRSRebuf.xfrm"/>
+        <tab id="3b" label="General" form="/home/configs/IRB/forms/ren_eventsGeneralRSRebuf.xfrm"/>
+        <tab id="3c" label="Suspensions" form="/home/configs/IRB/forms/ren_eventsSuspensionsRSRebuf.xfrm"/>
+        <tab id="3d" label="Unanticipated Problems" form="/home/configs/IRB/forms/ren_eventsProblemsRSRebuf.xfrm"/>
+<!--        <tab id="3e" label="Local Serious Adverse Events" form="/home/configs/IRB/forms/ren_eventsSAEsRSRebuf.xfrm"/>-->
+    </tab> 
+    
+        <!-- Please create a better, targetted Submit page, maybe "Return Response Submission to Coordinator with Changes..."  -->
+    <tab id="22" label="Submit" form="/home/configs/IRB/forms/ren_irbsubmitRS.xfrm"/>
+    
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <bios>0</bios>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <board>1</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+    </switches>
+</tabs>

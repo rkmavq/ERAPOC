@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><xf:instance id="baseOp"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "mssmDrugs");
+      model.setValue("instance('form')/AMD", "1"); model.__AMD = true;
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '8')
+          //model.USA.registerChangeLog('ins', '8')
+          model.USA.registerChangeLog('comments', '8')
+        </script></script><script ev:event="xforms-ready">document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);', 300);</script><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Organization//@*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//*"/><xf:bind readonly="true()" nodeset="instance('ins')/fundingSourceComp/Person//@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@comment"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@addcomment"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="field"><td class="component  widenLabel "><exf:variable value="instance('ins')/studyFundAccount/@revIndex" name="revIndexstudyFundAccount"/><exf:variable value="(instance('ins')/studyFundAccount[@revIndex=$revIndexstudyFundAccount])" name="thisNodeNeedlestudyFundAccount"/><exf:variable value="instance('ins')/studyFundAccount" name="thisNodestudyFundAccount"/><exf:variable value="(instance('ins')/original/studyFundAccount[@revIndex=$revIndexstudyFundAccount])" name="orgNodestudyFundAccount"/><exf:variable value="(instance('ins')/suggestions/studyFundAccount[@revIndex=$revIndexstudyFundAccount])" name="sugNodeSetstudyFundAccount"/><exf:variable value="(instance('ins')/suggestions/studyFundAccount[@revIndex=$revIndexstudyFundAccount])" name="sugNodestudyFundAccount"/><exf:variable value="instance('ins')/previous/review/studyFundAccount/@revIndex" name="revIndexOstudyFundAccount"/><exf:variable value="(instance('ins')/previous/review/studyFundAccount[@revIndex=$revIndexOstudyFundAccount])" name="thisNodeNeedleOldstudyFundAccount"/><exf:variable value="instance('ins')/previous/review/studyFundAccount" name="thisNodeOldstudyFundAccount"/><exf:variable value="(instance('ins')/previous/review/original/studyFundAccount[@revIndex=$revIndexOstudyFundAccount])" name="orgNodeOldstudyFundAccount"/><exf:variable value="(instance('ins')/previous/review/suggestions/studyFundAccount[@revIndex=$revIndexOstudyFundAccount])" name="sugNodeSetOldstudyFundAccount"/><exf:variable value="(instance('ins')/previous/review/suggestions/studyFundAccount[@revIndex=$revIndexOstudyFundAccount])" name="sugNodeOldstudyFundAccount"/><xf:input class="wide" ref="instance('ins')/studyFundAccount"><xf:label>Study Fund Account (or alternate departmental / fund account, if study is not yet established)</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...X");</script><xf:setvalue ref="$thisNodeNeedlestudyFundAccount/@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodestudyFundAccount != $sugNodestudyFundAccount or $thisNodeNeedlestudyFundAccount/@amdcomment!='' or $thisNodeNeedlestudyFundAccount/@amdchanged='1', '', 'display:none')" name="style"/><span style="color:green" class="dialogOverInteractive"><u>
+              Amended</u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><br/><span style="color:black"><xf:output value="if($thisNodeNeedlestudyFundAccount/@amdcomment!='', $thisNodeNeedlestudyFundAccount/@amdcomment, 'None provided')"/></span></span></div></span></div><div><ix:attr value="if($sugNodestudyFundAccount = $orgNodestudyFundAccount or $thisNodeNeedlestudyFundAccount/@comment !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodestudyFundAccount != $orgNodestudyFundAccount and $sugNodestudyFundAccount = $orgNodestudyFundAccount, 'color:red', 'color:blue')" name="style"/><xf:output value="if(concat($thisNodestudyFundAccount,'') != concat($orgNodestudyFundAccount,''), 'Using New Value', '')"/><xf:output value="if($thisNodeNeedlestudyFundAccount/@comment !='' and ($thisNodestudyFundAccount = $orgNodestudyFundAccount or not($orgNodestudyFundAccount)) and ($thisNodestudyFundAccount = $sugNodestudyFundAccount or not($sugNodestudyFundAccount) or $sugNodestudyFundAccount='//'), 'Review Comment', '')"/></u><div style="width:300px;"><p><span><ix:attr value="if($thisNodeNeedlestudyFundAccount/@comment !='', 'color:black', 'display:none')" name="style"/><h5>Review Comments:</h5><xf:output value="$thisNodeNeedlestudyFundAccount/@comment"/></span></p><span><ix:attr value="if($thisNodestudyFundAccount != $orgNodestudyFundAccount, '', 'display:none')" name="style"/><br/><i style="font-size:7pt;color:black;">Change made:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlestudyFundAccount/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/studyFundAccount", "", tempRevIndex, "fill", 'org', "", "studyFundAccount", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodestudyFundAccount"/></span><br/></td></tr></table></span></div></span></div><div><ix:attr value="if($sugNodestudyFundAccount!='' and $sugNodestudyFundAccount!='//' and $sugNodestudyFundAccount != $orgNodestudyFundAccount, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($sugNodestudyFundAccount != $thisNodestudyFundAccount, 'color:red', 'color:green')" name="style"/><xf:output value="if($thisNodestudyFundAccount = $sugNodestudyFundAccount, 'Using Suggested Change', if($thisNodestudyFundAccount = $orgNodestudyFundAccount, 'Ignoring Suggestion', 'Using New Value'))"/></u><div style="width:300px;"><p><h5>Review:</h5><span style=""><ix:attr value="if($thisNodeNeedlestudyFundAccount/@comment !='', 'color:black', 'display:none')" name="style"/><xf:output value="$thisNodeNeedlestudyFundAccount/@comment"/><br/><br/></span><hr/><i style="font-size:7pt;color:black;">Select value to use:</i><br/><br/><table style="background-color:white;"><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:red;cursor:pointer">Prior Value</u><xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlestudyFundAccount/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/studyFundAccount", "", tempRevIndex, "fill", 'org', "", "studyFundAccount", "false");
+                            </script></xf:action></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$orgNodestudyFundAccount"/></span><br/></td></tr><tr><td style="background-color:white;vertical-align:top;"><b><u style="color:green;cursor:pointer">Suggested Revision
+                          <xf:action ev:event="click"><xf:setvalue value="$thisNodeNeedlestudyFundAccount/@revIndex" ref="instance('form')/tempRevIndex"/><script>
+                              tempRevIndex = model.getValue("instance('form')/tempRevIndex");
+                              model.USA.writeOverTagExplicit("instance('ins')/studyFundAccount", "", tempRevIndex, "fill", 'sug', "", "studyFundAccount", "false");
+                            </script></xf:action></u></b></td><td style="background-color:white;vertical-align:top;color:black"><span><xf:output value="$sugNodestudyFundAccount"/></span><br/></td></tr></table></p></div></span></div></td></tr><tr class="instructions"><td colspan="4"><span><div><component type="instructions">
+		A fund number is required before the IDS will sign off on any forms or initiate any procedures. For those studies which an alternate departmental fund number is provided, IDS will delay billing by 6 months.
+		<option type="widenLabel"/>
+	</component></div></span></td></tr><tr class="instructions"><td colspan="4"><span><div><component type="instructions">
+        Add all drugs and biological agents whose use is specifically prescribed in the research.  This includes approved drugs that are supplied or paid for by the company for this research, approved drugs that are not given under routine care guidelines, and all investigational drugs.  Approved drugs whose use is up to the discretion of an attending physician as part of medical care do not need to be added.  Contact the Investigational Drug Service (IDS) if unsure (http://www.mssm.edu/ids).
+		<option type="widestLabel"/>
+	</component></div></span></td></tr><tr class="repeaterTitle"><td><h1/></td></tr><tr class="repeater"><td class="repeatedSection" colspan="3"><xf:switch><xf:case exf:if="1" id="show-main2"><exf:variable value="instance('ins')/Drug" name="nsmain2"/><xf:repeat nodeset="$nsmain2"><exf:variable value="@ref" name="nsXMLKEYmain2"/><exf:variable value="@ref" name="nsXMLKEY"/><table><tr><td><table class="basicColLayout"><tr class="field"><td class="component subcomponent  widenLabel "><xf:input class="wide" ref="nonRoutineDrugsGenericName"><xf:label>Generic Name</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr><tr class="field"><td class="component subcomponent  widenLabel "><xf:input class="wide" ref="nonRoutineDrugsBrandName"><xf:label>Brand Name</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr><tr class="yesnobuttons"><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Drug Has Valid IND</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(drugValidIND = '1', 'Yes', if(drugValidIND = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+		<visible xpath="drugValidIND = '1'"/>
+            For each drug / biologic with an IND number, ensure that the application includes one of the following. <br/>
+			* Sponsor protocol with the IND number. <br/>
+			* Communication from the sponsor or the FDA with the IND number.<br/>
+	</subcomponent></div></td></tr><tr class="field"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><xf:input class="wide" ref="nonRoutineDrugsINDNumber"><xf:label>IND Number</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr><tr class="field"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><xf:input class="wide" ref="nonRoutineDrugsINDHolder"><xf:label>Name of IND Holder</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></td></tr><tr class="radiobuttons"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Type of IND Holder</span></td><td class="noBox readonly"><span style="value"><xf:output value="'unknown'"/></span></td></tr></table></td></tr><tr class="document"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><table class="oneToManyBox"><tr><td class="label">Sponsor Protocol Imprinted with IND Number</td><td class=""><span><ix:attr value="if(sponsorProtocolINDNumber != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="sponsorProtocolINDNumber/@uri" name="href"/><xf:output class="" value="sponsorProtocolINDNumber"/></a></span><span class="clickable"><ix:attr value="if(sponsorProtocolINDNumber != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "sponsorProtocolINDNumber";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Sponsor Protocol Imprinted with IND Number";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Drug[@ref='" + key + "']/sponsorProtocolINDNumber", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(sponsorProtocolINDNumber != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="sponsorProtocolINDNumber"/><xf:setvalue ref="sponsorProtocolINDNumber/@uri"/><script>
+                      toDel = model.getValue("sponsorProtocolINDNumber/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="sponsorProtocolINDNumber/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="document"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><table class="oneToManyBox"><tr><td class="label">Written Communication from the Sponsor Documenting the IND Number</td><td class=""><span><ix:attr value="if(sponsorCommunicationINDNumber != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="sponsorCommunicationINDNumber/@uri" name="href"/><xf:output class="" value="sponsorCommunicationINDNumber"/></a></span><span class="clickable"><ix:attr value="if(sponsorCommunicationINDNumber != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "sponsorCommunicationINDNumber";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Written Communication from the Sponsor Documenting the IND Number";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Drug[@ref='" + key + "']/sponsorCommunicationINDNumber", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(sponsorCommunicationINDNumber != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="sponsorCommunicationINDNumber"/><xf:setvalue ref="sponsorCommunicationINDNumber/@uri"/><script>
+                      toDel = model.getValue("sponsorCommunicationINDNumber/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="sponsorCommunicationINDNumber/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="document"><ix:attr value="if(drugValidIND = '1', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><table class="oneToManyBox"><tr><td class="label">Written Communication from the FDA Documenting the IND Number</td><td class=""><span><ix:attr value="if(FDACommunicationINDNumber != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="FDACommunicationINDNumber/@uri" name="href"/><xf:output class="" value="FDACommunicationINDNumber"/></a></span><span class="clickable"><ix:attr value="if(FDACommunicationINDNumber != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "FDACommunicationINDNumber";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Written Communication from the FDA Documenting the IND Number";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Drug[@ref='" + key + "']/FDACommunicationINDNumber", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(FDACommunicationINDNumber != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="FDACommunicationINDNumber"/><xf:setvalue ref="FDACommunicationINDNumber/@uri"/><script>
+                      toDel = model.getValue("FDACommunicationINDNumber/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="FDACommunicationINDNumber/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(drugValidIND = '0', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Drug Meets One of the Following Categories for Exemption</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(drugMeetsExemptionCategory = '1', 'Yes', if(drugMeetsExemptionCategory = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(drugValidIND = '0', '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+		<visible xpath="drugValidIND = '0'"/>
+            Category 1: <br/>
+			* The drug is lawfully marketed in the United States. <br/>
+			* The research is not intended to be reported to the FDA as a well-controlled study in support of a new indication for use nor intended to be used to support any other significant change in the labeling for the drug. <br/>
+			* The research is not intended to support a significant change in the advertising for the product. <br/>
+			* The research does not involve a route of administration or dosage level or use in a patient population or other factor that significantly increases the risks (or decreases the acceptability of the risks) associated with the use of the drug. <br/>
+			* The research is conducted in compliance with the marketing limitations described in 21 CFR §312.7. <br/>
+			  <br/>
+			Category 2: <br/>
+			* A clinical investigation for an in vitro diagnostic biological product that involves one or more of the following: (1) Blood grouping serum; (2) Reagent red blood cells; or (3) Anti-human globulin. <br/>
+			* The diagnostic test is intended to be used in a diagnostic procedure that confirms the diagnosis made by another, medically established, diagnostic product or procedure. <br/>
+			* The diagnostic test is shipped in compliance with 21 CFR §312.160. <br/>
+			  <br/>
+			Category 3: <br/>
+			* A clinical investigation involving use of a placebo when the investigation does not otherwise require submission of an IND. <br/>
+	</subcomponent></div></td></tr><tr class="radiobuttons"><ix:attr value="if(drugMeetsExemptionCategory = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Category for Exemption</span></td><td class="noBox readonly"><span style="value"><xf:output value="'unknown'"/></span></td></tr></table></td></tr><tr class="box"><ix:attr value="if(drugMeetsExemptionCategory = '1', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="drugExemptionCategoryJustification"><xf:label>Justification for Meeting Criteria</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="document"><ix:attr value="if(drugExemptionCategory = '1', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><table class="oneToManyBox"><tr><td class="label">Package Insert Document</td><td class=""><span><ix:attr value="if(drugDocument != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="drugDocument/@uri" name="href"/><xf:output class="" value="drugDocument"/></a></span><span class="clickable"><ix:attr value="if(drugDocument != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "drugDocument";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "Package Insert Document (DRUG NAME)";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Drug[@ref='" + key + "']/drugDocument", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(drugDocument != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="drugDocument"/><xf:setvalue ref="drugDocument/@uri"/><script>
+                      toDel = model.getValue("drugDocument/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="drugDocument/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="readOnlyField"><td class="component subcomponent  widenLabel "><div class="line"><div class="label"> </div><div class="value"><xf:output value=""/></div></div></td><td class="options"><div style="margin-left: 30px;" class="clickable"><span><ix:attr value="if(@showdetails = 1, 'display:none;', 'color:blue')" name="style"/>
+      Show Details <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><script ev:event="click">
+          model.setValue("@showdetails", "1", contextNode);
+          model.recalculate();
+      </script></span><span><ix:attr value="if(@showdetails = 1, 'color:blue', 'display:none;')" name="style"/>
+        Hide Details <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/><script ev:event="click">
+          model.setValue("@showdetails", "", contextNode);
+          model.recalculate();
+        </script></span></div></td></tr><tr class="instructions"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+		<visible xpath="@showdetails = '1'"/>
+            To be a coordinating center, the Mount Sinai investigator is the Principal Investigator for multi-site participation in the trial. The Investigational Drug Service (IDS) may support trials as the coordinating center. IDS services include but are not limited to randomizing for other sites, storing and shipping drugs to participating sites, etc.
+	</subcomponent></div></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Icahn School of Medicine at Mount Sinai (ISMMS) Is the Coordinating Center</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(coordinatingCenter = '1', 'Yes', if(coordinatingCenter = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1' and coordinatingCenter = '1', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="coordinatingCenterRole"><xf:label>Role of the Investigational Drug Service (IDS)</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="drugBiologicDesc"><xf:label>Drug / Biologic Description (Manufacturer/Generic Name/Form/Strength)</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Controlled Substance</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(controlledSubstance = '1', 'Yes', if(controlledSubstance = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="radiobuttons"><ix:attr value="if(@showdetails = '1' and controlledSubstance = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Schedule</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(controlledSubstanceSchedule='1', '1',if(controlledSubstanceSchedule='2', '2',if(controlledSubstanceSchedule='3', '3',if(controlledSubstanceSchedule='4', '4',if(controlledSubstanceSchedule='5', '5',
+                '')))))"/></span></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(@showdetails = '1' and controlledSubstance = '1', '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+	<visible xpath="@showdetails = '1' and controlledSubstance = '1'"/>
+            In order for the Icahn School of Medicine at Mount Sinai (ISMMS) to be compliant with the regulations regarding controlled substance research, a New York State Department of Health-issued Researcher license and DEA-issued Researcher Registration Number must be on file for each trial using controlled substances. The Investigational Drug Service maintains these licences and will make them available to our investigators to support our research. Refer to <a href="http://www.health.ny.gov/professionals/narcotic/" target="_blank">www.health.state.ny.us/professionals/narcotic</a> and <a href="http://firstclinical.com/journal/2011/1112_DEA.pdf" target="_blank">http://firstclinical.com/journal/2011/1112_DEA.pdf</a> for more information.
+</subcomponent></div></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1' and controlledSubstance = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Using Investigational Drug Service (IDS) Research License</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(useIDSLicense = '1', 'Yes', if(useIDSLicense = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="document"><ix:attr value="if(@showdetails = '1' and useIDSLicense = '0', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><table class="oneToManyBox"><tr><td class="label">PI's New York State Department of Health Controlled Substance Researcher License </td><td class=""><span><ix:attr value="if(controlledSubstancePIResearchLicense != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="controlledSubstancePIResearchLicense/@uri" name="href"/><xf:output class="" value="controlledSubstancePIResearchLicense"/></a></span><span class="clickable"><ix:attr value="if(controlledSubstancePIResearchLicense != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "controlledSubstancePIResearchLicense";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "New York State Department of Health Controlled Substance Researcher License ";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Drug[@ref='" + key + "']/controlledSubstancePIResearchLicense", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(controlledSubstancePIResearchLicense != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="controlledSubstancePIResearchLicense"/><xf:setvalue ref="controlledSubstancePIResearchLicense/@uri"/><script>
+                      toDel = model.getValue("controlledSubstancePIResearchLicense/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="controlledSubstancePIResearchLicense/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="document"><ix:attr value="if(@showdetails = '1' and useIDSLicense = '0', '', 'display:none')" name="style"/><td class="component subcomponent  widenLabel "><table class="oneToManyBox"><tr><td class="label">PI's DEA Researcher Registration Certificate</td><td class=""><span><ix:attr value="if(controlledSubstancePICertificate != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="controlledSubstancePICertificate/@uri" name="href"/><xf:output class="" value="controlledSubstancePICertificate"/></a></span><span class="clickable"><ix:attr value="if(controlledSubstancePICertificate != '', 'display:none', '')" name="style"/><script ev:event="click"> 
+              var key = model.getValue("@ref", contextNode);
+              
+                model.Frm.DOC_NEW_STATUS = "New";            /////////
+                model.Frm.DOC_NEW_DECISION = "Pending";      /////////
+                //model.Frm.DOC_REFRESHSECTION= "controlledSubstancePICertificate";
+                //////////////////////////////////////////////////////
+                model.Frm.docUpload.manualLabel = "DEA Researcher Registration Certificate";
+                            
+              model.Frm.configureDocUpload("replaceValue", "instance('ins')/Drug[@ref='" + key + "']/controlledSubstancePICertificate", "", "", event.uiEvent.clientX, event.uiEvent.clientY);
+              model.Frm.executeDocUpload(); 
+            </script> 
+            Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/></span></td><td classs="control"><span class="remove clickable">X
+            <ix:attr value="if(controlledSubstancePICertificate != '', '', 'display:none')" name="style"/><xf:action ev:event="click" ref="."><xf:setvalue ref="controlledSubstancePICertificate"/><xf:setvalue ref="controlledSubstancePICertificate/@uri"/><script>
+                      toDel = model.getValue("controlledSubstancePICertificate/@docLink", contextNode);
+                      model.Frm.deleteDocumentRef(toDel, 'ins');
+                    </script><xf:setvalue ref="controlledSubstancePICertificate/@docLink"/></xf:action></span></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Use of this Drug / Biologic Is Considered Standard of Care</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(drugBiologicStandardOfCare = '1', 'Yes', if(drugBiologicStandardOfCare = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="checkboxes"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Requested Pharmacy Services</span></td><td class="noBox readonly"><script>
+              var tempCompare = ' ' + model.getValue("requestedPharmacyServices", contextNode) + ' ';
+              var tempList = "";
+              
+                var val = "1";
+                var lbl = "Dispensation";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "2";
+                var lbl = "Storage";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "3";
+                var lbl = "Randomization";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "4";
+                var lbl = "Compounding";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "5";
+                var lbl = "Destruction";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "6";
+                var lbl = "Randomization";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "7";
+                var lbl = "Site Visits";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "8";
+                var lbl = "Repack";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "9";
+                var lbl = "Label";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+                var val = "10";
+                var lbl = "Other";
+                if(tempCompare.indexOf(" " + val + " ") &gt;= 0){
+                  if(tempList != "") tempList += ", ";
+                  tempList += lbl;
+                }
+              
+              model.tempMergedValueString = tempList;
+            </script><span style="value"><xf:output value="script('model.tempMergedValueString;')"/></span></td></tr></table></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1' and contains(requestedPharmacyServices,'10'), '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="requestedPharmacyServicesSpecify"><xf:label>Specify Other Requested Pharmacy Services</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="radiobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Drug / Biologic Will Be Supplied By</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(drugBiologicSupplier='1', 'Sponsor',if(drugBiologicSupplier='2', 'IDS (Purchased by Study Funds)',if(drugBiologicSupplier='3', 'Commercially Available/Sourced by Hospital',if(drugBiologicSupplier='4', 'Patients Own Supply',if(drugBiologicSupplier='5', 'Other',
+                '')))))"/></span></td></tr></table></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1' and drugBiologicSupplier = '5', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="drugBiologicSupplierSpecify"><xf:label>Specify Other Drug / Biologic Supplier</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Using Placebo</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(usingPlacebo = '1', 'Yes', if(usingPlacebo = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="radiobuttons"><ix:attr value="if(usingPlacebo = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Placebo Will Be Supplied By</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(placeboSupplier='1', 'Sponsor',if(placeboSupplier='2', 'IDS',
+                ''))"/></span></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(placeboSupplier = '2', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Compounding Required (Paid for by Study Funds)</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(compoundingRequired = '1', 'Yes', if(compoundingRequired = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="radiobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Where Drug / Biologic Will Be Administered</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(whereDrugBiologicAdministered='1', 'Inpatient Hospital',if(whereDrugBiologicAdministered='2', 'Outpatient Clinic',if(whereDrugBiologicAdministered='3', 'Outpatient Faculty Practice Associates (FPA)',if(whereDrugBiologicAdministered='4', 'Private Office (ISMMS or Offsite Location)',
+                ''))))"/></span></td></tr></table></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1' and whereDrugBiologicAdministered = '4', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="whereDrugBiologicAdministeredSpecify"><xf:label>Specify Location of Private Office</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="radiobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Storage Requirements of Drug / Biologic</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(storageRequirements='1', 'Controlled Room Temperature (15 - 30°C)',if(storageRequirements='2', 'Refrigerated (2-8°C)',if(storageRequirements='3', 'Frozen (-20°C)',if(storageRequirements='4', 'Deep Freeze (-80°C)',
+                ''))))"/></span></td></tr></table></td></tr><tr class="radiobuttons"><ix:attr value="if(@showdetails = '1', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">Where Drug / Biologic Will Be Stored</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(whereDrugBiologicStored='1', 'The IDS Pharmacy',if(whereDrugBiologicStored='2', 'Patients Own Supply',if(whereDrugBiologicStored='3', 'Hospital Areas',if(whereDrugBiologicStored='4', 'By Research Personnel at a Site Outside of Hospital Areas',
+                ''))))"/></span></td></tr></table></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1' and whereDrugBiologicStored='4', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">ALL of the Following Storage Criteria Are Met</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(storageCriteriaMet = '1', 'Yes', if(storageCriteriaMet = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(@showdetails = '1' and whereDrugBiologicStored='4', '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+	<visible xpath="@showdetails = '1' and whereDrugBiologicStored='4'"/>
+            * The storage area is well maintained, provides adequate lighting, ventilation, sanitation, space and security. <br/>
+			* The temperature in the storage area is controlled and monitored using calibrated monitoring devices. <br/>
+			* The temperature monitoring system has sensors for continuous monitoring and alarms set at the points representing the temperature extremes. <br/>
+			* Records of temperatures and alarms are maintained and all excursions outside the labeled storage conditions are appropriately investigated and reported to the sponsor. <br/>
+</subcomponent></div></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1' and storageCriteriaMet = '0', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="storageCriteriaNotMetJustification"><xf:label>Justification Why Any of the Above Storage Criteria Cannot Be Met</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr><tr class="yesnobuttons"><ix:attr value="if(@showdetails = '1' and whereDrugBiologicStored='4', '', 'display:none')" name="style"/><td class="subcomponent component  widenLabel "><table class="horizontalSelects"><tr><td class="yesBox readonly"><span style="label">ALL of the Following Distribution Criteria Are Met</span></td><td class="noBox readonly"><span style="value"><xf:output value="if(distributionCriteriaMet = '1', 'Yes', if(distributionCriteriaMet = '0', 'No', ''))"/></span></td></tr></table></td></tr><tr class="instructions"><ix:attr value="if(@showdetails = '1' and whereDrugBiologicStored='4', '', 'display:none')" name="style"/><td colspan="4" class="subcomponent"><div><subcomponent type="instructions">
+	<visible xpath="@showdetails = '1' and whereDrugBiologicStored='4'"/>
+            * The investigator will not dispense the investigational agent to any person not authorized under the protocol to receive it. <br/>
+			* The drug, agent, biologic may only be used in subjects under the investigator's personal supervision or under the supervision of a physician who is directly responsible to the investigator. <br/>
+			* The investigator will maintain adequate records for the receipt, storage, and disposition of the drug, including dates, quantity, and use by subjects. <br/>
+			* The investigational agents will be stored in a secure area and in such a way to restrict access to authorized personnel only as defined in the protocol.  Additionally, all associated records will be stored in a restricted area and/or locked. <br/>
+</subcomponent></div></td></tr><tr class="box"><ix:attr value="if(@showdetails = '1' and distributionCriteriaMet = '0', '', 'display:none')" name="style"/><td class="subcomponent component textarea   widenLabel "><xf:textarea class="" ref="distributionCriteriaNotMetJustification"><xf:label>Justification Why Any of the Above Distribution Criteria Cannot Be Met</xf:label><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@amdchanged">1</xf:setvalue><script>if(model.skipRebuild){return;};model.skipRebuild = true;model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();model.USA.rebuildArea('main2');setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:textarea></td></tr></table></td><td class="errors custError"><exf:variable value="@ref" name="rowIndex"/><exf:variable value="concat(.,'')" name="theCurrentValue"/><exf:variable value="@ref" name="nsXMLKEY"/><exf:variable value="concat(instance('ins')/original/Drug[@ref=$nsXMLKEY]/.,'')" name="thePreviousValue"/><exf:variable value="concat(instance('ins')/suggestions/Drug[@ref=$nsXMLKEY]/.,'')" name="theSuggestedValue"/><exf:variable value="concat(instance('ins')/previous/review/original/Drug[@ref=$nsXMLKEY]/.,'')" name="thePreviousOrgValue"/><exf:variable value="instance('ins')/previous/review/Drug[@ref=$nsXMLKEY]" name="thisNodeNeedleOld"/><div><ix:attr value="if(normalize-space($theCurrentValue) != normalize-space($thePreviousValue), '', 'display:none')" name="style"/><span class="dialogOverInteractive"><ix:attr value="if(@amdcomment='', 'color:red', 'color:green')" name="style"/><u>                            
+                Amended <xf:output value="if(@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                        model.setValue("../@amdchanged", "1", contextNode);
+                        model.rebuild();
+                        model.refresh();
+                        model.recalculate();
+                        SH.print("Updated");
+                      </script></xf:textarea></span></span></div></span></div></td></tr></table></xf:repeat></xf:case><xf:case id="hide-main2"/></xf:switch></td></tr></table></div></div></form>

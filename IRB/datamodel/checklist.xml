@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <!--Review Stuff-->
+    <revImplant/>
+    <revLife/>
+    <revCure/>
+    <revOtherRisk/>
+    <revNoneCrit/>
+    <revRationale/>
+
+    <revClinical/>
+    <revClinicalDesc/>
+    <revOne/>
+    <revOneDesc/>
+    <revProspect/>
+    <revProspectDesc/>
+    <revObject/>
+    <revObjectDesc/>
+    <revBenefit/>
+    <revBenefitDesc/>
+    <revTemp/>
+    <revTempDesc/>
+    <revNeo/>
+    <revNeoDesc/>
+    <revPart/>
+    <revPartDesc/>
+    <revMonetary/>
+    <revMonetaryDesc/>
+    <revTiming/>
+    <revTimingDesc/>
+    <revViability/>
+    <revViabilityDesc/>
+
+    <revPrisResearch/>
+    <revPrisEffects/>
+    <revPrisBen/>
+    <revPrisBenDesc/>
+    <revPrisMag/>
+    <revPrisMagDesc/>
+    <revPrisVol/>
+    <revPrisVolDesc/>
+    <revPrisArb/>
+    <revPrisArbDesc/>
+    <revPrisPop/>
+    <revPrisPopDesc/>
+    <revPrisPart/>
+    <revPrisPartDesc/>
+    <revPrisExam/>
+    <revPrisExamDesc/>
+    
+    <revExpDet/>
+    <revExpCrit1/>
+    <revExpCrit2/>
+    <revExpFinalDet/>
+    <revExpNum/>
+    <revExpRadio/>
+    <revExpDesc/>
+
+    <eliGenCrit/>
+    <eliModNotAffect/>
+    <eliMinRisk/>
+    <eliAdd/>
+    <eliResAct/>
+    <eliIdSub/>
+    <eliResNot/>
+    <eliResCheck/>
+    <!--Review Stuff-->
+</data>

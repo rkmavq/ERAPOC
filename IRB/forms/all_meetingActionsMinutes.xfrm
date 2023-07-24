@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms">
+  <xf:model id="fmodel">
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="meta">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="pro">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="snap">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="state">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="cont">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="comp">
+      <data xmlns=""/>
+    </xf:instance>    
+    <xf:instance id="proDat">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="boards" src="../../../../../entity/recordList?entity=IRB%20Board"/>
+    <xf:instance id="reviews">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">        
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <col3/>
+        <document/>
+        <temp/>
+        <comp uri=""/>
+        <meetingDate></meetingDate>
+        
+        
+        <Meeting>
+          <date></date>
+          <uri/>
+          <status>scheduled</status>
+          <agenda/>
+          <minutes/>
+        </Meeting>
+        
+        <PAoperation/>
+        <PAid/>
+        <PAwork/>
+        <PAwith/>
+        <PAwithout/>
+        
+        <PAMode>0</PAMode>
+        <PAToolFA>0</PAToolFA>
+        <PAToolPeriods>all</PAToolPeriods>
+        <view>snap</view>
+        <period>all</period>
+        <dur>periods</dur>
+        <comps>1</comps>
+        <test/>
+        <sendTo></sendTo>
+        <commMess></commMess>
+                
+        <admin1>Announcements</admin1>
+        <admin2>Review Previous Minutes</admin2>
+        <admin3></admin3>
+        <admin4></admin4>
+        <commentsForCount/>
+        <generated/>
+        <minutes></minutes>
+        <minutesSent></minutesSent>
+        <processing></processing>        
+        <processURI_form></processURI_form>
+      </data>
+    </xf:instance>
+
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <script ev:event="xforms-model-construct-done"> 
+      //Initialize Form
+      bootstrapSharedXfrm(model);         
+      model.setValue("instance('ins')/primeEntityURI", document.__refUri);       
+      
+      //This is another place where tabSet could be a problem, lets see
+      //Need to manually load appTabSet object (usually you only have one or other (it's either a set of tabs, or a form inside the set (a single tap/appForm)))
+            
+      includeSharedJS("/resources/services/appTabSet/appTabSet.js");        
+      includeSharedJS("/resources/services/appForms/main.js");      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      
+      //AB 03/05/2019 always use meeting.xml
+      model.setInstanceIdSrc("proDat", "/fil" + document.__refUri + document.__refName);      
+      model.Frm = new appForm(model, "reviews");
+      model.Frm.loadAppFile('reviews', document.__refName, "1");
+      model.Frm.loadAppFile('ins', "/data.xml", "1");            
+      model.setInstanceIdSrc("cats", "/fil/home/configs/IRB/datamodel/templates/data/catagories.xml");
+      
+      //Load Form Logic
+      boardURI =  document.__refUri + "/data.xml";	
+      meetingURI =  document.__refUri + document.__refName;
+      
+      model.reloadInstanceId("proDat");
+      model.Frm.reloadAndRepaint("proDat","meeting");
+      model.refresh(); 
+      model.rebuild(); 
+      model.recalculate(); 
+      
+    </script>
+    <script xmlns="" ev:event="xforms-ready"/>
+    <xf:submission instance="proDat" id="submitproDat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved!</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (proDat)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>	
+    <xf:submission instance="reviews" id="submitreviews" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (reviews)</xf:message>
+      </xf:action>
+    </xf:submission>
+
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('ins')/Reviewer/type"/>
+  </xf:model>
+  
+  <style>
+  
+    div.formFrame table.fullColLayout table.budgetTool td .xftext{ background-color:white; }
+    div.formFrame table.budgetTool td .xftext{ background-color:white; } div.formFrame
+    table.fullColLayout div.headerselect{ background:none; } div.formFrame table.fullColLayout
+    div.headerselect table.headerselect{ background:none; border:none; } div.formFrame
+    table.fullColLayout div.headerselect table.headerselect tr{ background:none; border:none;
+    color:white; } div.formFrame table.fullColLayout div.headerselect table.headerselect tr td{
+    border:none; padding:none; vertical-align:middle; } div.formFrame table.fullColLayout
+    tr.periodbreak td{ border-bottom: medium solid black; } div.formFrame table.optionsheader
+    div.xfctrl{ } div.questions div.xfctrl{ background:none; width:auto; } div.questions
+    table.selection div.xfctrl{ background:none; width:450px; } div.questions div.xfctrl input{
+    width:500px;; font-size:12px; } div.questions div.xfctrl textarea{ width:500px;; font-size:11px;
+    } .wikiView div.questions div.xfctrl label{ width:200px; padding-right:5px; font-size:11px; }
+    .wikiView div.questions div.viewOnly table{ font-size:11px; } .wikiView div.questions
+    div.viewOnly table td.label{ width:200px; padding-right:5px; font-weight:bold;
+    vertical-align:top; padding-bottom:15px; } .wikiView div.questions div.viewOnly table td.value{
+    width:500px; vertical-align:top; padding-bottom:15px; } 
+    
+    
+    .wikiView div.repeater table td{
+    
+    }
+    
+    .wikiView div.repeater table td div.xfctrl{
+    padding:0px;
+    }
+    
+    .wikiView div.repeater table.small td div.xfctrl{
+    padding:0px;
+    }
+    
+    .wikiView div.repeater table.small td div.xfctrl input{
+    width:80px;
+    }
+    
+    .wikiView div.xfctrl input {
+    margin-top:0px;
+    }
+    
+    .wikiView div.xfctrl textarea {
+    margin-top:0px;
+    }
+    
+    .wikiView div.repeater table.small td.thin div.xfctrl input{
+    width:40px;
+    }
+    
+    .wikiView div.repeater table.small tr.member{
+    padding-top:10px;
+    }
+
+	table.easyLayout th {
+		text-align:left;	
+	}
+
+	table.easyLayout th.tight {
+		width:60px;
+		text-align:center;
+	}
+	
+	table.easyLayout th.medium {
+		width:200px;
+	}
+	
+	table.easyLayout th.wide {
+		width:600px;
+	}
+
+	table.easyLayout td.tight {
+		width:60px;
+		text-align:center;
+	}
+	
+	table.easyLayout td.medium {
+		width:200px;
+	}
+	
+	table.easyLayout td.wide {
+		width:600px;
+	}
+	
+	table.easyLayout tr.odd td {
+	background-color: #FAF0E6; 
+	}
+
+	table.easyLayout tr.odd td.complete {
+		background-color: white;
+	}
+
+	.wikiView table.easyLayout div.xfctrl{
+		background:none;
+	}
+	/* ARCHITA: Sample added CSS */
+	span.dialogOverInteractive div{
+	font-size:12px;
+	}
+	span.dialogOverInteractive td{
+	font-size:12px;
+	}
+	
+	//AB new style sheet -  START
+	
+	body
+	{
+	line-height: 1.6em;
+	}
+	
+	table.one-column-emphasis
+	{
+	font-family: Arial, Sans-Serif;
+	font-size: 12px;
+	margin: 15px;
+	width: 780px;
+	text-align: left;
+	border-collapse: collapse;
+	}
+	table.one-column-emphasis th
+	{
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 15px;
+	color: #039;
+	background: #eff2ff;
+	}
+	
+	//table.one-column-emphasis tbody.tr
+	//{
+	//border-top: 1px solid #d0dafd;
+	//}     
+	
+	.trBottom
+	{
+	border-bottom: 1px solid #d0dafd;
+	}  
+	
+	table.one-column-emphasis td
+	{
+	padding: 5px 10px;
+	color: #669;
+	//border-top: 1px solid #e8edff;
+	border-top: 0px solid #eff2ff;
+	}
+	.oce-first
+	{
+	background: #eff2ff;
+	border-right:0px solid transparent;
+	border-left: 0px solid transparent;
+	}
+	table.one-column-emphasis tr:hover td
+	{
+	//color: #339;
+	//background: #eff2ff;
+	color: #039;
+	background: #d0dafd;
+	}
+	
+	.wikiView div.xfctrl{
+	background:none;
+	}
+	
+	//AB new style sheet -  END
+	
+  </style>
+<!--  
+     
+ 
+  <br/><br/>-->
+  
+<div class="formFrame">
+    <div style="display:none;">
+      <xf:input id="documentDrop" ref="instance('form')/document">
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+          <script> var n = model.getValue(".", contextNode); if(n != "") model.Frm.linkFile(n);
+          </script>
+        </xf:action>
+      </xf:input>
+    </div>
+    
+  <exf:variable name="nx" value="instance('ins')/Meeting[date=instance('proDat')/date]"/>
+  <xf:switch>
+    <xf:case exf:if="1" id="show-meeting">  
+          <!-- ARCHITA This is the main table to apply your styles too -->
+        <table class="one-column-emphasis" summary="Meetings">
+                  <colgroup>
+                    <col class="oce-first" />
+                  </colgroup>
+                  <thead>
+                    <tr class="trBottom">
+                      <th scope="col" style="text-align:center;"> </th>
+                      <th scope="col" style="text-align:center;" colspan="4"><span><h3>Minutes</h3></span></th>
+                      <th scope="col" style="text-align:center;"> </th>
+                    </tr>                    
+          <tr>
+            <th scope="col" style="text-align:center;"> </th>
+            <th scope="col" style="text-align:center;">Build Minutes</th>
+            <th scope="col" style="text-align:center;">Send Minutes</th>
+            <th scope="col" style="text-align:center;">View Minutes</th>
+            <th scope="col" style="text-align:center;">Sent Date</th>
+            <th scope="col" style="text-align:center;">History</th>
+          </tr>
+          </thead>
+               <tbody> 
+                 <xf:repeat nodeset="$nx">
+                   <exf:variable name="px" value="position()"/>        
+                 <tr>
+                   <td><b>Minutes</b></td> 
+                   <td style="text-align:center;">                     
+                     <span>
+                       <u>
+                         Build
+                         <xf:action ev:event="click">
+                           <script>
+                             model.setValue("instance('form')/commentsForCount", "");
+                             model.refresh();
+                           </script>
+                           <ix:dialog style="height:350px;width:250px;" id="MkComm" title="Build Minutes" class="commDialog">
+                             <br/>
+                             <div>
+                               <span>Building the minutes will add each Submission to the minutes, and you will be notified of the progress below.<br/><br/>
+                                 You can build the minutes an unlimited number of times, only the latest version will be sent to members/staff when you click the 'Send' button.</span>
+                             </div><br/>
+                             <div style="width:100%;" class="commGen">
+                               <span>
+                                 <xf:trigger style="margin-left:2px;">
+                                   <xf:label>Build</xf:label>
+                                   <xf:action ev:event="DOMActivate">
+                                     <script>
+                                       model.__waiting = new waitingBox("Building Minutes");
+                                       tui = model.__XformSet.getRoot().targetURI;	                         
+                                       meetingFile = model.getValue("uri", contextNode);
+                                       splts = meetingFile.split("/");
+                                       spx = "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/" + splts[6] + "/" + splts[7] + "/" + splts[8];	        							
+                                       boardURI =  "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5];	
+                                       meetingURI =  "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/" + splts[6] + "/" + splts[7];
+                                       //get the count of protocols to generate comments for
+                                       var commentsForCount=callSharedServiceInf("protocolRouting",{"op":"processMinutesIRBCount", "board":boardURI, "meetingURI":meetingURI, "meetDt":model.getValue("date", contextNode)}, "text") * 1;
+                                       
+                                       model.setValue("instance('form')/commentsForCount", commentsForCount);
+                                       model.setValue("instance('form')/generated", 1);
+                                       
+                                       model.refresh();
+                                       model.rebuild();
+                                       model.recalculate();
+                                       
+                                       for(var m = 1; m &lt;= commentsForCount; m++){ 
+                                       resY=callSharedServiceInf("protocolRouting",{"op":"processMinutesIRB", "n":m, "board":boardURI, "meetingURI":meetingURI, "meetDt":model.getValue("date", contextNode)}, "json");                                   
+                                       
+                                       model.setValue("instance('form')/generated", m);
+                                       model.setValue("instance('form')/processing",resY.output);
+                                       model.refresh();
+                                       model.rebuild();
+                                       model.recalculate();
+                                       }
+                                       
+                                       model.setValue("instance('form')/generated", 0);
+                                       //model.setValue("instance('form')/processing", "");                           
+                                       
+                                       model.__waiting.stop();                                       
+                                       model.__waiting = new waitingBox("Processing Minutes");
+                                       
+                                       resY = callSharedService("protocolRouting",{"op":"buildMinutesIRB", "board":boardURI, "meetingURI":meetingURI, "meetDt":model.getValue("date", contextNode) }, "text");
+                                       model.setValue("instance('form')/processing","All submissions processed");
+                                       var docUri = document.__refUri + document.__refName;                                       
+                                       alert("Minutes have been built. Please click on View to review.");
+
+                                       model.__waiting.stop();
+                                       model.activateCase('hide-meeting')
+                                       model.reloadInstanceId('ins');
+                                       model.reloadInstanceId('reviews');
+                                       model.reloadInstanceId('proDat');
+                                       model.refresh();
+                                       model.rebuild();
+                                       model.recalculate();
+                                       model.refresh();
+                                       model.rebuild();
+                                       model.recalculate();
+                                       model.activateCase('show-meeting');      
+								       window.opener.location = "../home";
+                                     </script>
+                                   </xf:action>
+                                   <xf:close/>
+                                 </xf:trigger>							
+                                 <xf:trigger>
+                                   <xf:label>Cancel</xf:label>
+                                   <xf:action ev:event="DOMActivate">
+                                     <xf:close/>
+                                   </xf:action>
+                                 </xf:trigger>                                 
+                               </span>                               
+                               <div><ix:attr name="style" value="if(instance('form')/commentsForCount='', 'display:none', 'margin-left:10px;')"/>
+                                 <br/><br/>
+                                 <b>Building Minutes...</b>
+                                 <br/>
+                                 <br/>
+                                 Adding Submission <xf:output value="instance('form')/generated"/> of <xf:output value="instance('form')/commentsForCount"/> to the minutes.
+                                 
+                               </div>                                         
+                             </div>
+                           </ix:dialog> 
+                         </xf:action>
+                       </u>                       
+                     </span>
+                </td>                              
+                   
+                   <td style="text-align:center;">
+                     <span>
+                       <u><ix:attr name="style" value="if(instance('proDat')/minutes!='','color:blue;cursor:pointer;text-decoration:underline;','display:none')"/>
+                         Send
+                         <xf:action ev:event="click">
+                           <script>
+                             model.setValue("instance('form')/commMess", "");
+                             model.refresh();
+                           </script>
+                           <ix:dialog style="height:400px;width:400px;" id="MkComm" title="Create Minutes" class="commDialog">
+                             <br/>
+                             <div style="width:400px;padding:5px;">To send minutes to select Members, please use the Attendance tab to select members in attendance, and choose the 'Members in attendance' option in the pick-list below.</div>
+                             <br/>
+                             <div style="width:100%;" class="commGen">
+                               <div>
+                                 <xf:select1 ref="instance('form')/sendTo"><xf:label>Send to:</xf:label>
+                                   <xf:item>
+                                     <xf:label>All Staff and All Members</xf:label>
+                                     <xf:value></xf:value>
+                                   </xf:item>
+                                   <xf:item>
+                                     <xf:label>All Staff and only Members in attendance</xf:label>
+                                     <xf:value>limited</xf:value>
+                                   </xf:item>
+                                 </xf:select1>
+                               </div>
+                               <div>
+                                 <br/><br/>
+                                 <b style="margin-left:5px;">Comment to send with the Minutes:</b>
+                                 <xf:textarea style="height:150px;width:300px;" ref="instance('form')/commMess"></xf:textarea>
+                               </div>
+                               <xf:trigger style="margin-left:2px;">
+                                 <xf:label>Send</xf:label>
+                                 <xf:action ev:event="DOMActivate">
+                                   <script>
+                                     model.__waiting = new waitingBox();
+                                     tui = model.__XformSet.getRoot().targetURI;	                         
+                                     meetingFile = model.getValue("uri", contextNode);
+                                     splts = meetingFile.split("/");
+                                     spx = "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/" + splts[6] + "/" + splts[7] + "/" + splts[8];	        							
+                                     boardURI =  "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5];	
+                                     meetingURI =  "/" + splts[1] + "/" + splts[2] + "/" + splts[3] + "/" + splts[4] + "/" + splts[5] + "/" + splts[6] + "/" + splts[7];
+                                     if(model.getValue("instance('form')/sendTo")=="limited"){
+                                        y = confirm("WARNING: You are about to Send the Minutes to only members in attendance. \nPlease ensure attendance has been set.");
+                                     }else{
+                                        y = confirm("WARNING: You are about to Send the Minutes.");
+                                     }
+                                     if(!y){
+                                        model.__waiting.stop();
+                                        return;
+                                     }                                       
+                                     resY=callSharedService("protocolRouting",{"op":"sendMinutes", "board":model.Frm.targetURI, "meetingURI":meetingURI, "meetDt":model.getValue("date", contextNode), "commMess":model.getValue("instance('form')/commMess"), "sendTo":model.getValue("instance('form')/sendTo")}, "json");
+                                     var docUri = document.__refUri + document.__refName;
+                                     alert("The Minutes of the meeting have been sent to the members. Their individual minutes approval will be noted on this screen as they are made.");                                    
+                                     model.__waiting.stop();
+                                     model.activateCase('hide-meeting')
+                                     model.reloadInstanceId('ins');
+                                     model.reloadInstanceId('proDat');
+                                     model.reloadInstanceId('reviews');
+                                     model.refresh();
+                                     model.rebuild();
+                                     model.recalculate();
+                                     model.refresh();
+                                     model.rebuild();
+                                     model.recalculate();
+                                     model.activateCase('show-meeting');           
+								     window.opener.location = "../home";
+                                   </script>                                 
+                                 </xf:action><xf:close/>
+                               </xf:trigger>							
+                               <xf:trigger>
+                                 <xf:label>Cancel</xf:label>
+                                 <xf:action ev:event="DOMActivate">
+                                   <xf:close/>
+                                 </xf:action>
+                               </xf:trigger>							
+                             </div>
+                           </ix:dialog> 
+                         </xf:action>
+                       </u>                       
+                   </span>
+                   </td>
+                   
+                   <td style="text-align:center;">
+                     <span><a target="_blank"><ix:attr name="style" value="if(instance('proDat')/minutes!='','color:blue;cursor:pointer;text-decoration:underline;','display:none')"/>
+                       <ix:attr name="href" value="concat('/fil' , instance('proDat')/minutes)"/>
+                       View
+                     </a></span>
+                   </td>
+                   
+                   <td style="text-align:center;">
+                     <span><ix:attr name="style" value="if(instance('proDat')/minutesSent='','display:none','')"/>
+                       <xf:output value="concat(substring(instance('proDat')/minutesSent, 6, 2), '/', substring(instance('proDat')/minutesSent, 9, 2), '/', substring(instance('proDat')/minutesSent, 1, 4))"/></span>                
+                   </td>
+                   
+                   
+                   
+                   <td style="text-align:center;">
+                     <span><!--<ix:attr name="style" value="if(instance('proDat')/minutes!='','','display:none')"/>-->
+                       <span class="dialogOverInteractive"><u style="color:blue;cursor:pointer;text-decoration:underline;">View</u>
+                         <div style="width:300px;">
+                             <br/>
+                             <exf:variable name="vers" value="instance('proDat')/minutesV"/>
+                             <h5><ix:attr name="style" value="if(count($vers)=0, 'display:none', 'background-color:white;')"/>Previous Versions</h5>
+                             <h5><ix:attr name="style" value="if(count($vers)=0, 'background-color:white;', 'display:none')"/>No Previous Versions</h5>
+                             <hr/>
+                             <br/>
+                             <table cellspacing="0" cellpadding="1" border="0" style=""><ix:attr name="style" value="if(count($vers)=0, 'display:none', 'background-color:white;')"/>
+                               <tr>
+                                 <td>Version #</td>
+                                 <td>Document</td>
+                                 <td>Sent Date</td>
+                               </tr>
+                               <xf:repeat nodeset="$vers">
+                                 <tr>
+                                   <td style="background-color:white;vertical-align:top;color:black;">
+                                     <b>v<xf:output value="@v"/></b>
+                                   </td>
+                                   <td style="background-color:white;vertical-align:top;color:black">
+                                     <a target="_blank">
+                                       <ix:attr name="href" value="concat('/fil' , @uri)"/>
+                                       Download
+                                     </a>
+                                   </td>
+                                   <td style="background-color:white;vertical-align:top;color:black;">
+                                     <span><ix:attr name="style" value="if(minutesSent='','display:none','')"/>
+                                       <b><xf:output value="if(@sent='','',concat(substring(@sent, 6, 2), '/', substring(@sent, 9, 2), '/', substring(@sent, 1, 4)))"/></b>
+                                     </span> 
+                                   </td>
+                                 </tr>
+                               </xf:repeat>
+                             </table>
+                         </div>
+                       </span>
+                       
+                     </span>
+                   </td>                   
+                 </tr>              
+                 </xf:repeat>
+               </tbody>
+          </table>
+    </xf:case>
+    <xf:case id="hide-meeting"/>
+  </xf:switch>
+</div>          
+</form>

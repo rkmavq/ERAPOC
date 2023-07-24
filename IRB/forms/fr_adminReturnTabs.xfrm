@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">
+    
+  <!-- IRB 1.0 -->
+    
+  
+  <xf:model id="fmodel">
+      <xf:instance id="ins" src="{activity}/rules.xml"/>
+    <xf:instance id="insx"><data xmlns=""/></xf:instance>  
+    <xf:instance id="proDat"><data xmlns=""/></xf:instance>
+    <xf:instance id="revs"><data xmlns=""/></xf:instance>
+      <xf:instance id="form">
+        <data xmlns="">
+          <currency></currency>
+          <version/>
+          <departments/>
+          <views>
+            <options>
+              <option label="Project" value="project"/>
+              <option label="Task 0" value="task0"/>
+            </options>
+          </views>
+          <focus/>
+          <searchText></searchText>
+          <responses>0</responses>
+          <btn>Submit</btn>
+        </data> 
+      </xf:instance>      
+      <xf:instance id="bootstrap">
+        <data xmlns="">
+          <css>/resources/applications/IRB/css/main.css</css>
+          <js>/resources/services/appTabSet/appTabSet.js</js>
+        </data>
+      </xf:instance>
+      <xf:instance id="config"><data xmlns=""/></xf:instance>
+    <xf:bind nodeset="instance('form')/version" readonly="instance('ins')/fragementName='preSubChecklist'" relevant="instance('ins')/fragementName!='preSubChecklist'"/>
+    
+      <!-- JS Setup -->
+      <script ev:event="xforms-model-construct-done">
+        bootstrapSharedXfrm(model);
+        model.setValue("instance('ins')/reviewID", 1); 
+        model.TS = new appTabSet(model, 'projectTabs');
+        model.TS.loadOpFile('proDat', "/finalrep.xml");
+        model.TS.loadAppFile('insy', "/data/irb.xml");
+        model.TS.loadOpFile('insx', "/finalrep.xml");
+        model.TS.loadOpFile('revs', "/reviews.xml");
+        model.TS.loadAppFile('cats', "/data/catagories.xml");
+        model.__XformSet.getRoot().__revMode = "out";
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+
+
+         //////////////////////////////NEW ADDITION - REQUIRED
+         model.__XformSet.getRoot().__revCommand = "buildMod";
+
+        model.USA.rebuildTabsStart();
+        model.USA.rebuildCheckReviewStart();
+        
+        model.TS.formSet.getRoot().__REVURI = "/data/reviews/" + model.getValue("instance('ins')/reviewID") + ".xml";
+        model.TS.formSet.getRoot().__COMPREVURI = "/reviews/" + model.getValue("instance('ins')/reviewID") + ".xml";
+        //model.TS.formSet.getRoot().__AMND = true;
+        model.rebuild();
+        model.recalculate();
+        model.refresh();  
+      </script>    
+
+      <script ev:event="xforms-ready">
+        
+      </script>
+    
+    <script ev:event="ix-activity-save">
+      model.TS.saveAll();      
+    </script>
+    
+    <xf:submission method="put" replace="none" id="submit1">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission method="put" replace="none" id="submitheader" instance="proDat">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Data saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving...</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+  </xf:model>
+    
+  <div class="tabSet">
+    
+    <!-- Consistant Header -->
+    <div class="header">
+      <table class="infoLine">
+        <tr>
+          <td style="text-align:left;">Protocol Number: <xf:output value="instance('insy')/id8ID"/></td>
+          <td style="text-align:center;"><xf:output value="instance('insy')/title"/></td>
+          <td style="text-align:right;">Final Report</td>
+        </tr>
+      </table>      
+      <xf:switch>
+      <xf:case id="show-tabHeader" exf:if="1">
+      <table class="infoBox">
+        <tr>
+          <td style="width:33%">
+            <table class="infoGroup">
+              <tr><td class="label"><b>Principal Investigator:</b></td><td class="text"><xf:output value="instance('insy')/Person[role='PI']/name"/></td></tr>
+            </table>
+          </td>
+          <td style="width:33%">
+            <!--<table class="infoGroup">
+              <exf:variable name="boardName" value="instance('insy')/Board/name"/>
+              <tr><td class="label"><b>Board:</b></td><td class="text"><xf:output value="if($boardName !='', $boardName, 'Pending')"/></td></tr>        
+            </table>-->
+          </td>
+          <td style="width:33%">
+            <!--<table class="infoGroup">
+              <tr><td class="label"><b>Status:</b></td><td class="text">Board Decision Processing</td></tr>    
+            </table>-->
+          </td>
+        </tr>
+      </table>
+      </xf:case>
+      <xf:case id="hide-tabHeader">
+      </xf:case>
+      </xf:switch>
+    </div>
+
+    <xf:switch>
+      <xf:case id="show-workscreen" exf:if="1">
+        <ix:subform form="{tabControl}" src="" id="projectTabs"/>
+      </xf:case>
+      <xf:case id="hide-workscreen">
+      </xf:case>
+    </xf:switch>
+    <ix:subform form="{tabContainer}" src="" id="projectTabs"/>
+  </div>
+</form>

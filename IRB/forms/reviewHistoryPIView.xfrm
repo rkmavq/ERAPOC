@@ -1,0 +1,1749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms">
+  <xf:model id="fmodel">
+  	<xf:instance id="temp" src="/fil/ideate/configs/IRB/docs/uploads.xml"/>
+  	<xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>
+  	<xf:instance id="insx">
+  		<data xmlns=""/>
+  	</xf:instance>
+  	<xf:instance id="lc">
+  		<data xmlns=""/>
+  	</xf:instance>
+    <xf:instance id="meta">
+      <data xmlns=""/>
+    </xf:instance>
+  	<xf:instance id="ent">
+  		<data xmlns=""/>
+  	</xf:instance>
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="boards" src="../../../../../entity/recordList?entity=IRB%20Board"/>
+    <xf:instance id="reviews">
+      <data xmlns=""/>
+    </xf:instance>
+  	<xf:instance id="brd">
+  		<data xmlns=""/>
+  	</xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+      	<suppressControls/>
+      	<saveButton></saveButton>
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <col3/>
+        <document/>
+        <viewBy>year</viewBy>
+        <focus/>
+        <focus2/>
+        <lastFocus/>
+        <temp/>
+        <comp uri=""/>
+      	<excludeSwitch>0</excludeSwitch>
+      	<submissionName>IRB Protocol Application</submissionName>
+      	<submissionType>INIT</submissionType>
+      	<commTo></commTo>
+      	<commCC></commCC>
+      	<commSubject></commSubject>
+      	<commLetter>none</commLetter>
+      	<commMessage>none</commMessage>
+      	<revStatus/>
+      	<revMode>in</revMode>
+      	<revCom></revCom>
+      	<linkedOp></linkedOp>
+      	<showCats>0</showCats>
+      	<showComms>0</showComms>
+      	
+      	<withDrawn>0</withDrawn>
+      	
+      	<legacy>1</legacy>
+      	
+      	<creating/>
+      	<mode>send</mode>
+      	<uri></uri>
+      	<import id="" uri="" name="" email=""/>
+      	<commTo></commTo>
+      	<commCC></commCC>
+      	<commSubject></commSubject>
+      	<commLetter>none</commLetter>
+      	<commMessage>none</commMessage>
+      	<email>
+      		<commLetter></commLetter>
+      		<creating>0</creating>
+      		<from name='' uri=''/>
+      		<!--<to name='' uri=''/>-->
+      		<subject></subject>
+      		<bodyHTML></bodyHTML>
+      		<bodyTXT></bodyTXT>
+      		<attachment uri=''></attachment>
+      		<sent></sent>
+      	</email>
+      	<OTEU></OTEU>
+      </data>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <script ev:event="xforms-model-construct-done"> 
+    	var isNew = "";
+      
+
+	  //Initialize Form
+      bootstrapSharedXfrm(model); 
+      model.Frm = new appForm(model, "reviews");
+      //alert(model.Frm.linkedOpType);
+	
+	
+	model.Frm.loadAppFile('lc', "/lifecycle.xml", "0");     
+	model.Frm.loadAppFile('case', "/data.xml");  
+	model.Frm.loadAppFile('ins', "/data/irb.xml");  
+	model.setValue("instance('form')/linkedOp", model.Frm.linkedOpType);
+		
+	if(model.Frm.formSet.getRoot().__DISCONNECTED){      
+		model.setValue("instance('form')/saveButton", 1);
+		model.__waiting = new waitingBox();
+		if(model.Frm.linkedOpType == ""){
+			vrv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"numberReviewsCheck"}, "service", "text");
+			model.setValue("instance('form')/revStatus", model.getValue("instance('case')/status"));
+		}else{
+			vrv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"numberReviewsCheckOp"}, "service", "text");
+			model.setValue("instance('form')/revStatus", model.getValue("instance('lc')/linkedOpp[@uri='" + model.Frm.linkedOpURI + "']/@status"));
+		}
+		
+		thisSec = callSharedService("caseSecurity", {"op":"canModifyReviews", "caseUri":model.Frm.targetURI}, "service", "text").output;
+		if(!thisSec){
+			model.setValue("instance('form')/suppressControls", 1);
+		}
+		
+		model.__waiting.stop();
+	}
+	
+	  
+	     
+            
+      //Load Form Logic
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js"); 
+      model.USA = new irbProtocol(model);
+      
+      model.versionTarget = model.Frm.linkedOpURI ? model.Frm.linkedOpURI : model.Frm.targetURI + "/data";
+            
+      //Load reviews and set anything special for linkedops (need to replace later with interference from context)
+      if(model.Frm.linkedOpType == ""){
+      	//vrv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"refreshMeetings"}, "service", "text");
+      	model.Frm.loadAppFile('insx', "/data/irb.xml", "1");
+      	model.Frm.loadAppFile('reviews', "/reviews.xml", "1");
+      	
+      	isNew = model.getValue("count(instance('reviews')/metaReview[@legacyDetNo])");
+      	if(!isNew){
+      		vrv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"numberReviews"}, "service", "text");
+      		model.Frm.reloadInst("reviews");
+      		model.setValue("instance('form')/legacy", "");
+      	}
+      	
+      	model.setValue("instance('form')/showCats", 1);		//Show prisoner / volnerable populations checklists
+      	model.setValue("instance('form')/showComms", 1);	//Show communications section
+      }else{
+      	model.Frm.loadOpFile('reviews', "/reviews.xml", "1");
+      	model.setValue("instance('form')/showCats", "0");
+      	model.setValue("instance('form')/excludeSwitch", "1");
+      	
+      	//Set LinkedOp specific switches here
+      	if(model.Frm.linkedOpType == "problems"){
+      		model.Frm.dUri = "/problem.xml";				//Set the data path for the linkedOp
+      		model.Frm.opTitle = "Unanticipated Problem";	//Set the name of the linkedOP Object
+      		model.Frm.opLead = "up";						//Set the prefix for the linkedOP
+      		model.setValue("instance('form')/submissionName", "Unanticipated Problem");
+      		model.setValue("instance('form')/submissionType", "advers");
+      	}else if(model.Frm.linkedOpType == "amendments"){
+	       	model.Frm.dUri = "/amd.xml";					//Set the data path for the linkedOp
+	       	model.Frm.opTitle = "Amendment";				//Set the name of the linkedOP Object
+	       	model.Frm.opLead = "amd";						//Set the prefix for the linkedOP       	
+	       	model.setValue("instance('form')/submissionName", "Protocol Amendment");
+	       	model.setValue("instance('form')/submissionType", "AMEND");
+	    }else if(model.Frm.linkedOpType == "renewals"){
+	       	model.Frm.dUri = "/renewal.xml";				//Set the data path for the linkedOp
+	       	model.Frm.opTitle = "Continuing Review";		//Set the name of the linkedOP Object
+	       	model.Frm.opLead = "ren";						//Set the prefix for the linkedOP       
+	       	model.setValue("instance('form')/submissionName", "Continuing Review");
+	       	model.setValue("instance('form')/submissionType", "CONT");
+	    }else if(model.Frm.linkedOpType == "finalreps"){
+	       	model.Frm.dUri = "/finalrep.xml";				//Set the data path for the linkedOp
+	       	model.Frm.opTitle = "Final Report";				//Set the name of the linkedOP Object
+	       	model.Frm.opLead = "fr";						//Set the prefix for the linkedOP   
+	       	model.setValue("instance('form')/submissionName", "Final Report");
+	       	model.setValue("instance('form')/submissionType", "rinal");
+       	}else{
+       		//alert("todo: need to add settings for " + model.Frm.linkedOpType + " to the reviewsCoor.xfrm file xforms-model-construct-done area");
+      	}
+      	
+      	//vrv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"refreshMeetingsOp", "dUri":model.Frm.dUri, "lop":model.Frm.linkedOpURI}, "service", "text");
+      	//model.Frm.reloadInst("reviews");
+      	isNew = model.getValue("count(instance('reviews')/metaReview[@legacyDetNo])");
+      	if(!isNew){
+      		vrv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"numberReviewsOp", "lop":model.Frm.linkedOpURI}, "service", "text");
+      		model.Frm.reloadInst("reviews");
+      		model.setValue("instance('form')/legacy", "");
+     	}
+      	model.Frm.loadOpFile('insx', model.Frm.dUri, "1");
+      }
+       
+      model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0"); 
+      model.Frm.loadMetaData();
+      
+      isOTEU = model.getValue("count(instance('ins')/OTEU)") * 1;
+      model.Frm.isOTEU = isOTEU;
+      model.setValue("instance('form')/OTEU", isOTEU); //Flips form flag for OTEU
+      if(isOTEU)
+      {
+      	model.Frm.dUri = "/data/irb.xml";	
+      	model.Frm.opTitle = "One Time Use";			
+      	model.Frm.opLead = "";						   
+      	model.setValue("instance('form')/submissionName", "One Time Emergency Use");
+      	model.setValue("instance('form')/submissionType", "comRequest");  //??This may have been why it wasn't showing up as a OTEU?
+      }
+      SH.print(model.getValue("instance('form')/submissionType"));
+      
+      model.setValue("instance('form')/revMode", model.__XformSet.getRoot().__revMode);
+      if(model.__XformSet.getRoot().__revCommand) model.setValue("instance('form')/revCom", model.__XformSet.getRoot().__revCommand);
+
+      if(model.__XformSet.getRoot().__revCommand &amp;&amp; model.__XformSet.getRoot().__revCommand=="buildMod"){
+      	model.USA.rebuildCheckReview();
+      }
+      
+      brdID = model.getValue("instance('ins')//Board/@id");
+      brdID2 = model.getValue("instance('ins')//assignedIRB");
+      
+      if(brdID == "1" || brdID2 == "IRB 1"){      
+      SH.print("loaded board: 1");
+      model.setInstanceIdSrc("brd", "/fil/ideate/entity/IRB Board/records/000001" + "/data.xml");
+      }else{
+      SH.print("loaded board: 2");
+      model.setInstanceIdSrc("brd", "/fil/ideate/entity/IRB Board/records/000012" + "/data.xml");
+      }
+      
+      model.isLeg = isNew &gt; 0 ? '1' : '0';
+      model.mailTo = callSharedService("caseSecurity", {"op":"getUsersAndNames", "caseUri":model.Frm.targetURI, "token":"mailTo"}, "service", "json").output;   
+      
+      includeSharedJS("/resources/services/email/forms/clientSideEmail.js");
+      model.COMM = new emailHandler(model);
+      
+ 
+ 
+ if(model.getValue("count(instance('reviews')/metaReview[@legacyDetNo])") == 0){
+ 	count = model.getValue("count(instance('reviews')/metaReview)");
+ 	ver = 0;
+ 	for(var c = 1; c &lt;= count; c++){	
+ 		revMarker = model.getValue("instance('reviews')/metaReview[" + c + "]/revMarker");
+ 		if(revMarker == "1"){
+ 			ver++;		
+ 		}
+ 		revVersion = model.getValue("instance('reviews')/metaReview[" + c + "]/revVersion");
+ 		if(revVersion != ver){
+ 			SH.print("Updated Rev to: " + ver);
+ 			model.setValue("instance('reviews')/metaReview[" + c + "]/revVersion", ver);
+ 		}
+ 	}
+ }
+ 
+ model.refresh(); model.rebuild(); model.recalculate();
+    </script>
+  	<xf:bind nodeset="instance('form')/email/attachment" type="ix:file"/>
+  	<xf:bind nodeset="instance('temp')/attachment" type="ix:file"/>
+  	<script ev:event="xforms-ready">
+    	if(model.__XformSet.getRoot().__revCommand){
+	    	if(model.__XformSet.getRoot().__revCommand=="open"){
+	    		ri = model.getValue("instance('reviews')/metaReview[@type='board']/@num") * 1;
+	    		if(ri == 0) ri = model.getValue("instance('reviews')/metaReview[@determining='1']/@num") * 1;
+	    		if(ri != 0){
+	    			model.setValue("instance('form')/focus", ri);
+	    			model.refresh(); model.rebuild(); model.recalculate();
+	    		}
+	    	}else if(model.__XformSet.getRoot().__revCommand=="complete" || false){
+	    		ri = model.getValue("instance('reviews')/metaReview[@type='board']/@num") * 1;
+	    		if(ri == 0) ri = model.getValue("instance('reviews')/metaReview[@previous!='1' and @determining='1']/@num") * 1;
+	    		if(ri != 0){
+	    			model.setValue("instance('form')/focus", ri);
+	    			model.refresh(); model.rebuild(); model.recalculate();
+	    		}
+	    	}
+    	}
+    </script>
+    <xf:submission instance="ins" id="submitins" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (ins)</xf:message>
+      </xf:action>
+    </xf:submission>
+  	<xf:submission instance="insx" id="submitinsx" replace="none" method="put">
+  		<xf:action ev:event="xforms-submit-done"/>
+  		<xf:action ev:event="xforms-submit-error">
+  			<xf:message level="ephemeral">Problem saving (insx)</xf:message>
+  		</xf:action>
+  	</xf:submission>
+    <xf:submission instance="reviews" id="submitreviews" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (reviews)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:submission instance="cats" id="submitcats" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done"/>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving (cats)</xf:message>
+      </xf:action>
+    </xf:submission>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/>
+    <xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/>
+    <xf:bind readonly="true()" nodeset="//link/@title"/>
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('ins')/Reviewer/type"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Person[role='PI']/name"/>
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/contextGroup"/>
+    <xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/status"/>
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')//reviewNotes/comments"/>
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')//reviewNotes/investigatorActions"/>
+  	
+  	<xf:bind readonly="true()" type="xsd:integer" nodeset="instance('reviews')//approvalPeriod/reviewFrequency"/>
+  	<xf:bind nodeset="instance('reviews')//approvalPeriod/approvalStart" readonly="true()" relevant="false()" type="xsd:date"/> <!-- type="xsd:date" -->
+  	<xf:bind nodeset="instance('reviews')//approvalPeriod/approvalEnd" readonly="true()" relevant="false()" type="xsd:date"/>
+  	<!-- AB removing the bind on the date to be readOnly to allow for staff to pick a meeting date. this became unusable when AB & BM attempted a fix on 10/27 to make meeting date read from date field instead of meeting/@selected -->
+  	<xf:bind nodeset="instance('reviews')//date" readonly="false()" relevant="false()" type="xsd:date"/>
+  	<!--<xf:bind nodeset="instance('reviews')//@actionDate" type="xsd:date" readonly="true()" relevant="false()"/>-->
+    
+  	<xf:bind readonly="true()" type="xsd:integer" nodeset="instance('reviews')//meetingInfo/@yes"/>
+  	<xf:bind readonly="true()" type="xsd:integer" nodeset="instance('reviews')//meetingInfo/@no"/>
+  	<xf:bind readonly="true()" type="xsd:integer" nodeset="instance('reviews')//meetingInfo/@abstained"/>
+  	<xf:bind readonly="true()" type="xsd:integer" nodeset="instance('reviews')//meetingInfo/@total"/>
+  	<xf:bind readonly="true()" type="xsd:integer" nodeset="instance('reviews')//meetingInfo/@recused"/>
+
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')//votes/@total" calculate="../@yes + ../@no + ../@abstained"/>
+	
+
+    <xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')/Coordinator/@name"/>
+  	
+  	
+  	<!--<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')/metaReview/agenda"/>-->
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')[instance('form')/revMode='out']//*"/>
+  	<xf:bind readonly="false()" relevant="true()" nodeset="instance('reviews')[instance('form')/revMode='out']/metaReview[@status='needsCompletion']/approvalPeriod/*"/>
+  	
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')//Board/@id"/>
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('ins')//Board/@id"/>
+  	
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')/metaReview/@type[.='intake' or .='staff' or .='director']"/>
+  	<xf:bind readonly="true()" relevant="true()" nodeset="instance('reviews')/metaReview/process[../@type='intake' or ../@type='staff' or ../@type='director']"/>
+  </xf:model>
+  
+  <style>
+    div.drillinForm div.xfctrl{
+      background:none;
+    }
+    
+    div.drillinForm div.xfctrl label{
+      color:black;
+    }
+    
+    div.formFrame div.drillinForm table.summary table.combo{
+      width:60%;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.thin table.combo{
+      width:80%
+    }
+    
+    div.formFrame div.drillinForm table.summary td.wide table.combo{
+      width:40%
+    }
+    
+    div.formFrame div.drillinForm td.tight div.xfctrl input{
+      width:15px;
+    }
+    
+    div.drillinForm table.summary td.tight td{
+      margin-left:0px;
+      padding-left:5px;
+      width:auto;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+      width:auto;
+    }
+    
+    div.formFrame div.drillinForm td.close div.xfctrl input{
+    	padding:0px;
+    	width:auto;
+    }
+    
+    div.diagXf table.xfctrl td{
+	    vertical-align:top;
+	    padding-bottom:8px;
+	    padding-left:3px;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+    	width:100px;
+    }
+    
+    td.diagContent div.diagContent {
+    	background-color:white;
+    }
+    
+    td.diagContent div.diagContent div.commGen{
+    }
+
+	td.diagContent div.diagContent div.commGen label{
+		margin-left:2px;
+		width:70px;
+	}
+
+	td.diagContent div.diagContent div.commGen input{
+		margin-left:2px;
+		width:300px;
+	}
+
+	td.diagContent div.diagContent div.commGen textarea{
+		margin-left:2px;
+		width:370px;
+		height:200px;
+	}
+
+  </style>
+  
+	<style>
+		div.main div.xfctrl{
+		background:none;
+		}
+		
+		div.main div.xftrl td.combo {color:black};
+		
+		
+		.wikiView div.actionsPulldown2{
+		width:210px;
+		padding:1px;
+		}
+		
+		
+		.wikiView div.actionsPulldown2 table.actionsPulldown2{
+		width:190px;
+		}
+		
+		
+		
+		.wikiView div.statusPulldown{
+		background:none;
+		padding:1px;
+		}
+		
+		.wikiView div.statusPulldown table.statusPulldown{
+		width:98%;
+		}
+		
+		
+		
+		.actionsGo{
+		height:19px;
+		font-size:10px;
+		}
+		
+		div.drillinForm div.xfctrl{
+		background:none;
+		}
+		
+		div.drillinForm div.xfctrl label{
+		color:black;
+		}
+		
+		div.formFrame div.drillinForm table.summary table.combo{
+		width:60%;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.thin table.combo{
+		width:80%
+		}
+		
+		div.formFrame div.drillinForm table.summary td.wide table.combo{
+		width:40%
+		}
+		
+		div.formFrame div.drillinForm td.tight div.xfctrl input{
+		width:15px;
+		}
+		
+		div.drillinForm table.summary td.tight td{
+		margin-left:0px;
+		padding-left:5px;
+		width:auto;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+		width:auto;
+		}
+		
+		div.formFrame div.drillinForm td.close div.xfctrl input{
+		padding:0px;
+		width:auto;
+		}
+		
+		div.diagXf table.xfctrl td{
+		vertical-align:top;
+		padding-bottom:8px;
+		padding-left:3px;
+		}
+		
+		div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+		width:100px;
+		}
+		
+		td.diagContent div.diagContent {
+		background-color:white;
+		}
+		
+		td.diagContent div.diagContent div.commGen{
+		}
+		
+		td.diagContent div.diagContent div.commGen label{
+		margin-left:2px;
+		width:70px;
+		}
+		
+		td.diagContent div.diagContent div.commGen input{
+		margin-left:2px;
+		width:300px;
+		}
+		
+		td.diagContent div.diagContent div.commGen textarea{
+		margin-left:2px;
+		width:370px;
+		height:200px;
+		}
+		
+		
+	</style>
+	
+	<style>
+		.wikiView table.email div.xfctrl {background-color:white;};
+		
+		table.email {
+		width: 400px;
+		font: 12px;
+		}
+		
+		table.email td.left {
+		vertical-align:top;
+		padding:2px;
+		text-align:right;
+		width: 60px;
+		font-weight: bold;
+		}
+		
+		table.email td.right {
+		padding:2px;
+		margin-left:10px;
+		vertical-align:top;
+		width: 330px;
+		border: 1px solid #999999;
+		background-color:white;
+		}
+		
+		table.email td.rightoutput {
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl{
+		padding:0px;
+		margin:0px;
+		margin-left:-1px;
+		margin-right:-1px;
+		width: 360px;
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl input{
+		margin:0px;
+		width: 358px;
+		}
+		
+		.clickable {cursor:pointer; color:blue;}
+		
+		.wikiView table.email div.xfctrl{
+		padding:0px;
+		}
+		
+	</style>
+  
+  <ix:template name="QuickSearch2">
+    <div style="padding:8px;width:400px">
+      <table style="width:300px">
+        <tr>
+          <td>
+            <xf:input id="searchBox" ref="instance('form')/searchText" style="width:130px">
+              <xf:label style="width:50px">Lookup:</xf:label>
+            </xf:input>
+          </td>
+          <td>
+            <div style="margin-right:20px;">
+              <u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+              <script ev:event="click"> model.Frm.executeQuickSearch(); </script>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <hr/>
+      <xf:switch>
+        <xf:case exf:if="1" id="hide-quicksearch">
+          <!--<h4>... or Select Board Member(s):</h4>-->
+        	<!--<exf:variable name="members" value="instance('reviews')/metaReview[@num=instance('form')/focus]/Board/BoardMember[irbChair!='1']|instance('reviews')/metaReview[@num=instance('form')/focus]/Board/BoardMember[irbChair='1']|instance('reviews')/metaReview[@num=instance('form')/focus]/Board/BoardMember[apptType='current']"/>-->
+        	<exf:variable name="members" value="instance('reviews')/metaReview[@num=instance('form')/focus]/Board/BoardMember[apptType='current']"/>
+        	
+        	<br/>
+        	<u style="color:blue;cursor:pointer;text-decoration:underline;">
+        		Add Selected Members
+        		<xf:action ev:event="click">
+        			<script> 
+        				model.USA.addReviewers();
+        				if(window &amp;&amp; window.opener &amp;&amp; window.opener.location) window.opener.location.href = window.opener.location.href;
+        			</script>               
+        		</xf:action>
+        		<xf:close/>
+        	</u>
+        	<br/>
+        	<br/>
+          <table class="quickSearchMatches">
+            <tr>
+              <th style="text-align:left;">Members</th>
+              <th style="text-align:left;padding-left:20px">Role</th>
+              <th style="text-align:left;padding-left:20px">Expertise</th>
+            </tr>
+            <xf:repeat nodeset="$members">
+            	<exf:variable name="memburi" value="@uri"/>
+              <tr>
+                <td style="vertical-align:top; width:35%">
+                  <xf:select appearance="full" ref="review/@include">
+                    <xf:item>
+                      <xf:label><xf:output value="../../name"/> <xf:output value="if(../../irbChair='1', '(Chair)', '')"/></xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                  </xf:select>
+                  
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:20%; padding-top:3px;">                  
+                	<xf:output value="if(instance('brd')/member[@uri=$memburi]/@irbChair='vicechair', 'Vice-Chair',
+                		if(instance('brd')/member[@uri=$memburi]/@irbChair='chair', 'Chair',
+                		if(instance('brd')/member[@uri=$memburi]/@irbChair='member', 'Member',
+                		'')))"/>
+                </td>
+              	<!-- need to bring over new expertise code from IBC - change all places where expertise is displayed-->
+              	<td style="vertical-align:top;padding-left:20px; width:40%; padding-top:3px;">
+              		<exf:variable name="expert" value="expertise"/>              		
+              		<xf:repeat nodeset="instance('cats')/boardMemberExpertise/type[contains($expert, @id)]">
+              			<xf:output value="concat(if(position()=1, '', ', '), @name)"/>  
+              		</xf:repeat>                	
+              		<!--<xf:output value="expertise"/>-->
+              	</td>
+              </tr>
+            </xf:repeat>
+          </table>
+          <br/>
+          <u style="color:blue;cursor:pointer;text-decoration:underline;">
+            Add Selected Members
+            <xf:action ev:event="click">
+              <script> 
+                model.USA.addReviewers();
+              </script>               
+            </xf:action>
+          	<xf:close/>
+          </u>
+        </xf:case>
+        <xf:case id="show-quicksearch">
+          <exf:variable name="records" value="instance('form')/records//rec"/>
+          <div>
+            <ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+            <h1>No Matches</h1>
+          </div>
+          <div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"
+              /><h1>Too Many Matches</h1>Please refine your search.</div>
+          <table class="quickSearchMatches">
+            <ix:attr
+              value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+              name="style"/>
+            <tr>
+              <th style="text-align:left;">
+                <xf:output value="instance('form')/col1"/>
+              </th>
+              <th style="text-align:left;padding-left:20px">
+                <xf:output value="instance('form')/col2"/>
+              </th>
+              <th style="text-align:left;padding-left:20px">
+                <xf:output value="instance('form')/col3"/>
+              </th>
+            </tr>
+            <xf:repeat nodeset="$records">
+              <tr>
+                <td style="vertical-align:top; width:33%">
+                  <u class="clickable">
+                    <xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+                    <xf:close ev:event="click"/>
+                    <script ev:event="click"> var indx = model.getValue("@id", contextNode); var val
+                      = model.getValue("@name", contextNode); if(val == "") val =
+                      model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+                      contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+                      model.Frm.quickSearch.code; if(code) eval(code);
+                      if(model.Frm.quickSearch.save) model.Frm.saveAll(); event.stopPropagation();
+                    </script>
+                  </u>
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:30%">
+                  <xf:output
+                    value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+                  />
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:30%">
+                  <xf:output
+                    value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+                  />
+                </td>
+              </tr>
+            </xf:repeat>
+          </table>
+          <br/>
+          <br/>
+        </xf:case>
+      </xf:switch>
+    </div>
+  </ix:template>
+  <ix:template name="QuickSearch">
+    <div style="padding:8px;width:400px">
+      <table style="width:240px">
+        <tr>
+          <td>
+            <xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px">
+              <xf:label style="width:50px">Lookup:</xf:label>
+            </xf:input>
+          </td>
+          <td>
+            <div style="margin-right:20px;">
+              <u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+              <script ev:event="click"> model.Frm.executeQuickSearch(); </script>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <hr/>
+      <xf:switch>
+        <xf:case exf:if="1" id="hide-quicksearch"/>
+        <xf:case id="show-quicksearch">
+          <exf:variable name="records" value="instance('form')/records//rec"/>
+          <div>
+            <ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+            <h1>No Matches</h1>
+          </div>
+          <div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"
+          /><h1>Too Many Matches</h1>Please refine your search.</div>
+          <table class="quickSearchMatches">
+            <ix:attr
+              value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+              name="style"/>
+            <tr>
+              <th style="text-align:left;">
+                <xf:output value="instance('form')/col1"/>
+              </th>
+              <th style="text-align:left;padding-left:20px">
+                <xf:output value="instance('form')/col2"/>
+              </th>
+              <th style="text-align:left;padding-left:20px">
+                <xf:output value="instance('form')/col3"/>
+              </th>
+            </tr>
+            <xf:repeat nodeset="$records">
+              <tr>
+                <td style="vertical-align:top; width:33%">
+                  <u class="clickable">
+                    <xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+                    <xf:close ev:event="click"/>
+                    <script ev:event="click"> var indx = model.getValue("@id", contextNode); var val
+                      = model.getValue("@name", contextNode); if(val == "") val =
+                      model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+                      contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+                      model.Frm.quickSearch.code; if(code) eval(code);
+                      if(model.Frm.quickSearch.save) model.Frm.saveAll(); event.stopPropagation();
+                    </script>
+                  </u>
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:30%">
+                  <xf:output
+                    value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+                  />
+                </td>
+                <td style="vertical-align:top;padding-left:20px; width:30%">
+                  <xf:output
+                    value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+                  />
+                </td>
+              </tr>
+            </xf:repeat>
+          </table>
+          <br/>
+          <br/>
+        </xf:case>
+      </xf:switch>
+    </div>
+  </ix:template>
+  
+  <ix:template name="detailsFrm2">
+  	<div id="details" class="drillinForm2" style="width:900px;border:1px solid black; background-color:#D3D3D3;">
+  		<exf:variable value="../@type" name="revTYPEM"/>	
+  		<exf:variable value="review/@num" name="revNum"/>
+			<exf:variable value="instance('reviews')/review[@num = $revNum]" name="REV"/>
+  		<exf:variable value="../process" name="revProcess2"/>  						
+		  		
+  		<!--<div style="width:800px;margin-left:20px"><ix:attr name="style" value="if($revTYPEM='intake' or $revTYPEM='staff' or $revTYPEM='director', 'display:none', 'width:800px;margin-left:20px')"/>
+		    <br/>
+		    <br/>
+		  	<xf:group ref="$REV/reviewNotes">
+		      <xf:label><h5>Review Notes</h5></xf:label>
+		      <table class="summary">
+		        <tr>
+		          <td style="vertical-align:top;width:390px">
+		            <span>Investigator Actions</span>
+		            <xf:textarea style="width:389px;height:100px;" ref="investigatorActions"/>
+		          </td>
+		          <td style="vertical-align:top;margin-left:20px;width:390px">
+		            <span>Review Comments</span>
+		            <xf:textarea style="width:389px;height:100px;" ref="comments"/>
+		          </td>
+		        </tr>
+		      </table>
+		    </xf:group>
+		  </div>-->
+			<br/>
+		</div>
+	</ix:template>
+  
+  
+<!--  <ix:template name="detailsFrm">
+	  	<exf:variable value="@type"	name="reviewType"/>
+  		<exf:variable value="@num"	name="TOP"/>
+  		<div id="details" class="drillinForm" style="width:1000px; background-color:#DBE1FF;">
+		  <br/>
+ 		<div><ix:attr name="style" value="if(@type!='PRE' and determination/decision='mod' or determination/decision='DEF', 'width:800px;', 'display:none')"></ix:attr>
+  				<exf:variable value="@num" name="resNum"/>  	
+  				<exf:variable
+  					value="../review[@num>$resNum and @def='res' and (@parent=$resNum or @parent=($resNum*1)-1)]"
+  					name="recs22"/>   
+  				<div>  			
+  					<xf:repeat nodeset="$recs22">
+  						<exf:variable
+  							value="position()"
+  							name="poi"/>
+  						<exf:variable value="local-name()" name="mtype"/>
+  						<exf:variable value="@name" name="nameM"/>
+  						<div>  		
+  							<u style="color:blue;cursor:pointer;text-decoration:underline;">Examine Response Submission
+  								<ix:action ev:event="click">
+  									<script>
+  										n = model.getValue("@num", contextNode);
+  										//alert("review num: " + n);
+  										//alert("metareview num: " + model.getValue("instance('form')/focus"));
+  										if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+  										xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+  										launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+  										}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+  										xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+  										launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+  										}else{
+  										xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+  										launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+  										}	
+  									</script>
+  								</ix:action>  						
+  							</u>
+  						</div>
+  					</xf:repeat>
+  				</div>
+  			</div>	
+  			<div><ix:attr name="style" value="if(@type='PRE' and (determination/decision='mod' or determination/decision='DEF'), 'width:800px;', 'display:none')"></ix:attr>
+  				<exf:variable value="@num" name="resNum"/>  	
+  				<exf:variable
+  					value="../review[@num=$resNum and @def='res' and @status='sent' and (@parent=$resNum or @parent=($resNum*1)-1)]"
+  					name="recs22"/>   
+  				<div>  			
+  					<xf:repeat nodeset="$recs22">
+  						<exf:variable
+  							value="position()"
+  							name="poi"/>
+  						<exf:variable value="local-name()" name="mtype"/>
+  						<exf:variable value="@name" name="nameM"/>
+  						<div>  		
+  							<!-\-<ix:attr value="if((@status='' or $mtype!='Reviewer' or $nameM='Response Submission') and $poi=1, '', 'display:none')"
+  								name="style"/>-\->
+  							<u style="color:blue;cursor:pointer;text-decoration:underline;">Examine Response Submission
+  								<ix:action ev:event="click">
+  									<script>
+  										n = model.getValue("@num", contextNode);
+  										//alert("review num: " + n);
+  										//alert("metareview num: " + model.getValue("instance('form')/focus"));
+  										if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+  										xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+  										launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+  										}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+  										xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+  										launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+  										}else{
+  										xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+  										launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+  										}	
+  									</script>
+  								</ix:action>  						
+  							</u>
+  						</div>
+  					</xf:repeat>
+  				</div>
+  			</div>	
+  			
+  			
+  			<div><ix:attr name="style" value="if(@type='hide' or @type='', 'display:none', 'width:800px;')"></ix:attr>
+		  <xf:switch>
+  		    <xf:case exf:if="1" id="show-memberTable">
+  		    	<exf:variable
+  		    		value="Board/BoardMember[(@id = instance('form')/focus2 or instance('form')/focus2 = '') and review/@include='1' and irbChair!='1']|Board/BoardMember[(@id = instance('form')/focus2 or instance('form')/focus2 = '') and review/@include='1' and irbChair='1']|Reviewer[(@id = instance('form')/focus2 or instance('form')/focus2 = '')]"
+  		    		name="recs2"/>  		    		    	
+  		    	<exf:variable
+  		    		value="@type"
+  		    		name="typeM"/>
+  		    	<h5><ix:attr name="style" value="if(count($recs2) = 0 and instance('form')/revMode='out', 'display:none', '')"/>Reviewer(s)</h5>
+  		    <table style="vertical-align:top;">
+  		    	<tr>
+  		    		<td style="vertical-align:top;width:800px">
+  		    			<table class="fullColLayout">
+  		    				<ix:attr value="if(count($recs2) &gt; 0, '', 'display:none')" name="style"/>
+  		    				<tr class="top">
+  		    					<th class="small delete center"/>
+  		    					<th class="name out text mediumlarge left">Name</th>
+  		    					<th class="type in dropdown mediumplus left">Assigned</th>
+  		    					<th class="status in manual medium left">Status</th>
+  		    					<th class="status in manual medium left">Review Date</th>
+  		    					<th class="status in manual medium left">Decision</th>
+  		    					<th class="small drillin center"/>
+  		    				</tr>
+  		    				<xf:repeat nodeset="$recs2">
+  		    					<exf:variable value="@id" name="mindx"/>
+  		    					<exf:variable value="local-name()" name="mtype"/>
+  		    					<tr>
+  		    						<td class="small delete center">
+  		    							<!-\-<u class="clickable"><ix:attr value="if(review/@status='Complete' or $mtype!='Reviewer' or $typeM='intake' or $typeM='staff' or $typeM='director', 'display:none', '')"
+  		    								name="style"/>X<xf:action
+  		    									exf:if="script('confirm(&quot;Are you sure you want to delete this review?&quot;)')"
+  		    									ev:event="click">
+  		    									<xf:destroy ref="."/>
+  		    									<script>
+  		    										model.USA.deleteReviewer(contextNode);
+  		    										if(window &amp;&amp; window.opener &amp;&amp; window.opener.location) window.opener.location.href = window.opener.location.href;
+  		    										model.USA.addReviewers();  		    										
+  		    									</script>
+  		    								</xf:action></u>
+  		    							
+  		    							<u class="clickable"><ix:attr value="if(review/@status='Complete' or $mtype='Reviewer', 'display:none', '')"
+  		    								name="style"/>X<xf:action
+  		    									exf:if="script('confirm(&quot;Are you sure you want to delete this review?&quot;)')"
+  		    									ev:event="click">
+  		    									<script>
+  		    										if(model.Frm.linkedOpType == ""){
+  		    											model.USA.deleteReviewer(contextNode);
+  		    											if(window &amp;&amp; window.opener &amp;&amp; window.opener.location) window.opener.location.href = window.opener.location.href;
+  		    										}else{
+  		    											model.USA.deleteReviewerOp(contextNode);
+  		    											if(window &amp;&amp; window.opener &amp;&amp; window.opener.location) window.opener.location.href = window.opener.location.href;
+  		    										}	
+  		    										model.setValue("review/@include", "", contextNode);
+  		    										model.setValue("review/@assigned", "", contextNode);
+  		    										model.setValue("review/@status", "Unassigned", contextNode);
+  		    										model.USA.refreshMembers(); 
+  		    										model.USA.addReviewers();  		    										
+  		    									</script>
+  		    								</xf:action></u>-\->
+  		    							
+  		    						</td>
+  		    						<td class="out text mediumlarge left name">
+  		    							<xf:output value="name"/>
+  		    						</td>
+  		    						<td class="status in manual medium center">
+  		    							<!-\-<span><!-\-<ix:attr name="style" value="if(instance('form')/saveButton = '1', 'display:none', '')"></ix:attr>-\->
+  		    							<u class="clickable"><ix:attr name="style" value="if(review/@assigned='', 'color:blue', 'display:none')"/>
+  		    								<script ev:event="click"> 
+  		    									model.__waiting = new waitingBox();
+  		    									md = model.getValue("../../../..//revVersion[.!=''][last()]", contextNode);
+  		    									if(model.Frm.linkedOpType == ""){
+  		    										model.USA.sendReview(contextNode, md);
+  		    									}else{
+  		    										model.USA.sendReviewOp(contextNode, model.Frm.opTitle, model.Frm.dUri, model.Frm.opLead + "_externalRev", md);
+  		    									}		
+  		    									model.__waiting.stop();
+  		    								</script>Send</u>
+  		    							</span>-\->
+  		    							<span><ix:attr name="style" value="if(review/@assigned='', 'display:none', '')"/><xf:output value="if(review/@assigned != '', concat(substring(review/@assigned, 6, 2), '/', substring(review/@assigned, 9, 2), '/', substring(review/@assigned, 1, 4)), '-')"/></span>
+  		    							<span><ix:attr name="style" value="if(review/@assigned='', '', 'display:none')"/>Not assigned</span>
+  		    						</td>
+  		    						<td class="status in manual medium left">
+  		    							<xf:output value="review/@status"/>
+  		    						</td>
+  		    						<td class="status in manual medium left">
+  		    							<xf:output value="if(review/@reviewDate != '', concat(substring(review/@reviewDate, 6, 2), '/', substring(review/@reviewDate, 9, 2), '/', substring(review/@reviewDate, 1, 4)), '')"/>
+  		    						</td>
+  		    						<td class="status in manual medium left">
+  		    							<exf:variable value="review/@decision" name="revDecisionM"/>
+  		    							<xf:output value="instance('cats')/decisionTypes/type[@id=$revDecisionM]/@name"/>
+  		    						</td>
+  		    						<td class="small drillin center close">
+  		    							<div><!-\-<ix:attr value="if(review/@status!='Complete', 'display:none', '')" name="style"/>-\->
+  		    								<div><ix:attr name="style" value="if($reviewType='intake' or $reviewType='staff' or $reviewType='director', 'display:none', '')"/>
+  		    								<xf:select ref="instance('form')/focus2" appearance="full" style="">
+  		    									<xf:item>
+  		    										<xf:label></xf:label>
+  		    										<xf:value><xf:output value="$mindx"/></xf:value>
+  		    									</xf:item>
+  		    								</xf:select>
+  		    								</div>
+  		    								<div><ix:attr name="style" value="if($reviewType='intake' or $reviewType='staff' or $reviewType='director', '', 'display:none')"/>
+  		    									
+  		    									<u style="color:blue;cursor:pointer;text-decoration:underline;">Examine Review
+  		    										<ix:action ev:event="click">
+  		    											<script>
+  		    												n = model.getValue("review/@num", contextNode);
+  		    												if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+  		    													xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+  		    													launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+  		    												}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+  		    													xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+  		    													launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+  		    												}else{
+  		    													xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+  		    													launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+  		    												}	
+  		    											</script>
+  		    										</ix:action>
+  		    										
+  		    									</u>
+  	    									</div>
+  		    							</div>
+  		    						</td>
+  		    					</tr>
+  		    				</xf:repeat>
+  		    			</table>
+  		    		</td>
+  		    		<td style="vertical-align:top;"><!-\- and ($hasBoardMeeting = 0 or callbackFrag) -\->
+  		    			<exf:variable
+  		    				value="if(instance('form')/saveButton != '1'  and 
+  		    				(
+  		    				(
+  		    				determination/Decision != '' and
+  		    				(
+  		    				determination/Decision != 'apr' or
+  		    				((approvalPeriod/reviewFrequency!='' and approvalPeriod/approvalStart!='' and approvalPeriod/approvalEnd!='') or instance('form')/submissionName = 'Protocol Amendment' or instance('form')/submissionName = 'Final Report')
+  		    				) and
+  		    				(process!='')
+  		    				)
+  		    				)
+  		    				, '1', '0')"
+  		    				name="canPromote"/>
+  		    			<!-\-<exf:variable
+  		    				value="if($hasBoardMeeting = 0 and 
+  		    				(
+		  		    				(
+			  		    				determination/Decision != '' and 
+			  		    				(
+			  		    					determination/riskLevel='greater' or (determination/riskLevel='min' and determination/exempt/@yesNo!='') 
+			  		    				) and
+			  		    				(
+			  		    					determination/Decision != 'apr' or
+			  		    					((approvalPeriod/reviewFrequency!='' and approvalPeriod/approvalStart!='' and approvalPeriod/approvalEnd!='') or instance('form')/submissionName = 'Protocol Amendment' or instance('form')/submissionName = 'Final Report')
+			  		    				) and
+			  		    				(process!='')
+  		    						)
+  		    				)
+  		    				, '1', '0')"
+  		    				name="canPromote"/>-\->
+  		    			
+  		    			<!-\-<h1><xf:output value="$canPromote"/></h1>-\->
+  		    			
+  		    			<!-\-<div style="margin-left:30px">
+  		    				<ix:attr name="style" value="if(instance('form')/saveButton != '1' and @determining!='1' and @status='pending' and @type='board' and meetingInfo/@selected!='', 'margin-left:30px', 'display:none;')"></ix:attr>
+  		    				<xf:trigger style="background-color:red; color:white; width:200px;">
+  		    					<xf:label style="width:190px;color:white;">Send to Board</xf:label>
+  		    					<script ev:event="DOMActivate">
+  		    						model.setValue("instance('reviews')/metaReview[@determining='1']/@determining", "");
+  		    						model.setValue("@determining", "1", contextNode);
+  		    						dec = model.getValue("determination/Decision", contextNode);
+  		    						//alert("x = " +  model.getValue("(Board/Meeting[status!='completed' and minutes =''])[1]/status", contextNode));  		    						
+  		    						//mting = model.getValue("(Board/Meeting[status!='completed' and minutes =''])[1]/date", contextNode);
+  		    	
+  		    						//AB changed this to be next meeting where agenda has not been sent out yet
+  		    						
+  		    						model.submit('submitreviews');
+  		    						if(!SH.is_ie || (dec != "mod" &amp;&amp; dec != "DEF")){
+  		    						model.USA.refreshMembers();
+  		    						model.USA.rebuildCheckReview();
+  		    						model.activateCase("hide-coord");
+  		    						model.activateCase("show-coord");
+  		    						model.setValue("instance('form')/focus", "");
+  		    						//model.Frm.formSet.getRoot().model.TS.model.setValue("instance('ins')/passFail", "board");
+  		    						model.Frm.setRootValue("instance('ins')/passFail", "board");
+  		    						model.Frm.saveAll();
+  		    						//ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+  		    						
+  		    						//try{ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);}
+  		    						//catch(e){model.SUBMITTED = false; return;};
+  		    						
+  		    						}else if(dec == "mod" || dec == "DEF"){
+  		    						SH.print("modneeded");
+  		    						rv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"generateReviewSubmission"}, "service", "text");
+  		    						model.Frm.reloadInst("reviews");
+  		    						//model.Frm.formSet.getRoot().model.TS.model.setValue("instance('ins')/reviewID", rv);
+  		    						//model.Frm.formSet.getRoot().model.TS.model.submit('submit1');
+  		    						model.refresh();
+  		    						model.recalculate();
+  		    						model.rebuild();
+  		    						model.Frm.formSet.getRoot().model.__currentControllerForm.switchTab("RS");
+  		    						//model.Frm.formSet.getRoot().model.TS.flipWorkscreen();
+  		    						
+  		    						}  	    		
+  		    						model.refresh();
+  		    						model.recalculate();
+  		    						model.rebuild();
+  		    					</script>
+  		    				</xf:trigger>
+  		    			</div>
+  		    			-\->
+  		    			<!-\-<span>.<xf:output value="$canPromote"/>  <xf:output value="$hasBoardMeeting"/></span>-\->
+  		    <!-\-			<div style="margin-left:30px">
+  		    				<ix:attr name="style" value="if((@determining!='1') and $canPromote = '1' and @status!='needsCompletion', 'margin-left:30px', 'display:none;')"></ix:attr>
+  		    			<xf:trigger style="background-color:red; color:white; width:200px;">
+  		    				<xf:label style="width:190px;color:white;">Set as Determining Review</xf:label>
+  		    				<script ev:event="DOMActivate">
+  		    					model.__waiting = new waitingBox();
+  		    					  		    					
+  		    					model.setValue("instance('reviews')/metaReview[@determining='1']/@determining", "");
+  		    					model.setValue("@determining", "1", contextNode);
+  		    					dec = model.getValue("determination/Decision", contextNode);
+  		    					//alert("x = " +  model.getValue("(Board/Meeting[status!='completed' and minutes =''])[1]/status", contextNode));
+  		    					
+  		    					//mting = model.getValue("(Board/Meeting[status!='completed' and minutes =''])[1]/date", contextNode);
+  		    					
+  		    					//AB changed this to be next meeting where agenda has not been sent out yet
+  		    					//mting = model.getValue("(Board/Meeting[status!='completed' and agendaSent=''])[1]/date", contextNode);
+  		    					//alert(mting);
+  		    					//model.setValue("agenda", mting.substr(0,10), contextNode);
+  		    					
+  		    					model.submit('submitreviews');
+  		    					if ((dec=="apr" || dec=="ack") &amp;&amp; model.Frm.linkedOpType=="amendments")
+				                {
+				                	//alert("Calculating approval periods");				                	
+				                  	model.USA.calculateApprovalPeriod(contextNode);
+				                }
+				                
+				                if(!SH.is_ie || (dec != "mod" &amp;&amp; dec != "DEF")){
+  		    						model.USA.refreshMembers();
+  		    						model.USA.rebuildCheckReview();
+  		    						model.activateCase("hide-coord");
+  		    						model.activateCase("show-coord");
+  		    						//model.setValue("instance('form')/focus", "");
+  		    						
+  		    						model.Frm.saveAll();
+  		    						//ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+  		    						
+  		    						model.USA.refreshReviewsCoord();
+  		    						
+  		    						/*
+  		    						try{ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);}
+  		    						catch(e){model.SUBMITTED = false; return;};
+  		    						*/
+  	    						}else if(dec == "mod" || dec == "DEF"){
+  	    							SH.print("modneeded2");
+  	    							rv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"generateReviewSubmission"}, "service", "text");
+  	    							model.Frm.reloadInst("reviews");
+  	    							//model.Frm.formSet.getRoot().model.TS.model.setValue("instance('ins')/reviewID", rv);
+  	    							//model.Frm.formSet.getRoot().model.TS.model.submit('submit1');
+  	    							model.refresh();
+  	    							model.recalculate();
+  	    							model.rebuild();
+  	    							model.Frm.formSet.getRoot().model.__currentControllerForm.switchTab("RS");
+		  	    					//model.Frm.formSet.getRoot().model.TS.flipWorkscreen();
+  	    							
+  	    						}  	    	
+  	    						SH.print("Before");
+  	    						model.refresh();
+  	    						model.recalculate();
+  	    						model.rebuild();
+  	    						SH.print("After");
+  		    				</script>
+  		    			</xf:trigger>
+  		    			</div>-\->
+  		    			
+  		    			
+  		    			<exf:variable
+  		    				value="if(
+  		    				((@type='board' and meetingInfo/@selected!='') or (@type !='board')) and
+  		    				determination/Decision != '' and
+  		    				(
+  		    					determination/Decision != 'apr' or
+  		    						((approvalPeriod/reviewFrequency!='' and approvalPeriod/approvalStart!='' and approvalPeriod/approvalEnd!='') or instance('form')/submissionName = 'Protocol Amendment' or instance('form')/submissionName = 'Final Report')
+  		    				) 
+  		    				, '1', '0')"
+  		    				name="canPromote2"/>
+  		    			
+  		    			<!-\-<div style="margin-left:30px">
+  		    				<ix:attr name="style" value="if((@determining!='1' or callbackFrag) and $canPromote = '1' and @status!='needsCompletion', 'margin-left:30px', 'display:none;')"></ix:attr>
+  		    				<xf:trigger style="background-color:red; color:white; width:200px;">
+  		    					<xf:label style="width:190px;color:white;">Set as Determining Reviewb</xf:label>
+  		    					<script ev:event="DOMActivate">
+  		    						model.__waiting = new waitingBox();
+  		    						
+  		    						model.setValue("instance('reviews')/metaReview[@determining='1']/@determining", "");
+  		    						model.setValue("@determining", "1", contextNode);
+  		    						dec = model.getValue("determination/Decision", contextNode);
+  		    						//alert("x = " +  model.getValue("(Board/Meeting[status!='completed' and minutes =''])[1]/status", contextNode));
+  		    						
+  		    						//mting = model.getValue("(Board/Meeting[status!='completed' and minutes =''])[1]/date", contextNode);
+  		    						
+  		    						//AB changed this to be next meeting where agenda has not been sent out yet
+  		    						//mting = model.getValue("(Board/Meeting[status!='completed' and agendaSent=''])[1]/date", contextNode);
+  		    						//alert(mting);
+  		    						//model.setValue("agenda", mting.substr(0,10), contextNode);
+  		    						
+  		    						model.submit('submitreviews');
+  		    						if ((dec=="apr" || dec=="ack") &amp;&amp; model.Frm.linkedOpType=="amendments")
+  		    						{
+  		    						//alert("Calculating approval periods");				                	
+  		    						model.USA.calculateApprovalPeriod(contextNode);
+  		    						}
+  		    						
+  		    						if(!SH.is_ie || dec != "mod" ){
+  		    						model.USA.refreshMembers();
+  		    						model.USA.rebuildCheckReview();
+  		    						model.activateCase("hide-coord");
+  		    						model.activateCase("show-coord");
+  		    						//model.setValue("instance('form')/focus", "");
+  		    						
+  		    						model.Frm.saveAll();
+  		    						//ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);
+  		    						
+  		    						model.USA.refreshReviewsCoord();
+  		    						
+  		    						/*
+  		    						try{ActivityTree.submit(App.activeActivityId, App.activeStepId , new Object(), null, false);}
+  		    						catch(e){model.SUBMITTED = false; return;};
+  		    						*/
+  		    						}else if(dec == "mod"){
+  		    						SH.print("modneeded3");
+  		    						rv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"generateReviewSubmission"}, "service", "text");
+  		    						model.Frm.reloadInst("reviews");
+  		    						//model.Frm.formSet.getRoot().model.TS.model.setValue("instance('ins')/reviewID", rv);
+  		    						//model.Frm.formSet.getRoot().model.TS.model.submit('submit1');
+  		    						model.refresh();
+  		    						model.recalculate();
+  		    						model.rebuild();
+  		    						model.Frm.formSet.getRoot().model.__currentControllerForm.switchTab("RS");
+  		    						//model.Frm.formSet.getRoot().model.TS.flipWorkscreen();
+  		    						
+  		    						}  	    	
+  		    						SH.print("Before");
+  		    						model.refresh();
+  		    						model.recalculate();
+  		    						model.rebuild();
+  		    						SH.print("After");
+  		    					</script>
+  		    				</xf:trigger>
+  		    			</div>-\->
+  		    			
+  		    			<!-\-<div style="margin-left:30px">
+  		    				<ix:attr name="style" value="if(instance('form')/saveButton = '1' and (@determining!='1' and $canPromote2 = '1') , 'margin-left:30px', 'display:none;')"></ix:attr>
+  		    				<xf:trigger style="background-color:red; color:white; width:200px;">
+  		    					<xf:label style="width:190px;color:white;">Set as Determining Review</xf:label>
+  		    					<script ev:event="DOMActivate">
+  		    						model.__waiting = new waitingBox();
+  		    						
+  		    						model.setValue("instance('reviews')/metaReview[@determining='1']/@determining", "");
+  		    						model.setValue("@determining", "1", contextNode);
+  		    						dec = model.getValue("determination/Decision", contextNode);
+  		    						model.submit('submitreviews');
+  		    						model.refresh();
+  		    						model.recalculate();
+  		    						model.rebuild();
+  		    						model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"outsideDetermining", dUri:model.Frm.dUri, "lop":model.Frm.linkedOpURI}, "service", "text");	  		    						
+  		    						model.__waiting.stop();					
+  		    						//alert("Please report this submission # to Ideate so that they can push your determinations into the case. Thank you");
+  		    					</script>
+  		    				</xf:trigger>
+  		    			</div>-\->
+  		    			
+  		    		</td>  		    		
+  		    	</tr>
+  		    </table>
+
+  		    	
+  		    </xf:case>
+		      <xf:case id="hide-memberTable"/>
+		  </xf:switch>
+	      	
+		    <xf:switch>
+  		    <xf:case exf:if="1" id="hide-drillin2"/>
+  		    <xf:case id="show-drillin2">
+  		      <ix:include template="detailsFrm2" ref="(Reviewer|Board/BoardMember)[@id=instance('form')/focus2]"/>
+  		    </xf:case>
+		    </xf:switch>
+			</div>
+			  			
+  			<!-\-<div><ix:attr name="style" value="if(@type='intake' or @type='' or (instance('form')/focus2!='' or (false() and @type='board' and not(callbackFrag))), 'display:none', 'width:800px;')"></ix:attr>
+		    <br/>
+		    <br/>
+		    <xf:group ref="reviewNotes" style="width:800px;">
+		      <xf:label><h5>Review Notes</h5></xf:label>
+		      <table class="summary">
+		        <tr>
+		          <td style="vertical-align:top;width:390px">
+		            <span>Investigator Actions</span>
+		            <xf:textarea style="width:389px;height:100px;" ref="investigatorActions"/>
+		          </td>
+		          <td style="vertical-align:top;margin-left:20px;width:390px">
+		            <span>Review Comments</span>
+		            <xf:textarea style="width:389px;height:100px;" ref="comments"/>
+		          </td>
+		        </tr>
+		      </table>
+		    </xf:group>
+	  		</div>-\->
+			
+  			<!-\-<div><ix:attr name="style" value="if(@type='intake' or @type='staff' or @type='director', 'width:800px;', 'display:none')"></ix:attr>
+	  			<br/>
+	  			<br/>
+	  			<xf:group ref="reviewNotes" style="width:800px;">
+	  				<xf:label><h5>General Comments</h5></xf:label>
+	  				<table class="summary">
+	  					<tr>
+	  						<td style="vertical-align:top;width:790px">
+	  							<xf:textarea style="width:789px;height:150px;" ref="instance('reviews')/review[@parent=$TOP]/reviewNotes/comments"/>
+	  						</td>
+	  					</tr>
+	  				</table>
+	  			</xf:group>
+	  		</div>-\->
+		  
+		</div>
+</ix:template>
+ -->   
+    
+  <!-- Main Body -->
+	<xf:switch>
+		<xf:case exf:if="1" id="show-ALL">
+		
+  <div class="formFrame">
+  	<exf:variable name="linkedOp" value="instance('form')/linkedOp"/>
+    
+  	<div style="display:none;">
+      	<!-- Document Dop Section -->
+  		<xf:input id="documentDrop" ref="instance('temp')/attachment">
+  			<script ev:event="xforms-value-changed"> 
+  				model.activateCase('hide-create');
+  				model.refresh();
+  				model.rebuild();
+  				model.recalculate();
+  				x = model.getValue(".", contextNode);
+  				SH.print("doc = " + x);
+  				sp = x.split("/"); x = sp[sp.length-1];
+  				model.setValue(".", x, contextNode);
+  				model.activateCase('show-create');
+  				model.activateCase('hide-docField');
+  				model.activateCase('show-docField');
+  				SH.print("flash");
+  			</script></xf:input>
+  		
+  		
+  			<xf:input id="documentDrop2" ref="instance('form')/document">
+  				<xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+  					<script>
+  						var n = model.getValue(".", contextNode); if(n != ""){ 
+  							
+  							model.__waiting = new waitingBox();
+  							model.setValue("instance('reviews')/metaReview[@legacyDetNo='" + model.SelectedRev +  "'][1]/docAttached", "1");
+  							
+  							if(model.Frm.linkedOpType == ""){
+  							rv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"addMetaReviewLegacyDoc", newVer:n, "revVersion":model.getValue("instance('reviews')/metaReview[last()]/revVersion"), "versionIn":model.SelectedRev}, "service", "text");
+  							}else{
+  							rv = model.Frm.processDoc("/data/irb.xml", "protocolRouting", {"op":"addMetaReviewOpLegacyDoc", newVer:n, dUri:model.Frm.dUri, "lop":model.Frm.linkedOpURI, "revVersion":model.getValue("instance('reviews')/metaReview[last()]/revVersion"), "versionIn":model.SelectedRev}, "service", "text");
+  							}
+  							model.setValue("instance('form')/focus", "");
+  							
+  							//model.activateCase("hide-ALL");
+  							//model.activateCase("show-ALL");  							
+  							
+  							model.__waiting.stop();
+  							model.setValue(".", "", contextNode);
+  							model.refresh();
+  							model.rebuild();
+  							model.recalculate();
+  						}
+  					</script>
+  				</xf:action>
+  			</xf:input>    
+  		
+      <!-- Drill-in Code -->
+      <xf:select ref="instance('form')/focus">
+        
+      	<script ev:event="xforms-value-changed">
+      		
+      		var focus = model.getValue(".", contextNode);
+      		
+      		if(focus == ""){
+      		model.activateCase("hide-" + "drillin");
+      		}else{
+      		
+      		model.setValue("instance('form')/focus2", "");
+      		model.activateCase("hide-" + "drillin");
+      		model.activateCase("show-" + "drillin");
+      		
+      		//event.stopPropagation();
+      		}
+      		
+      		model.activateCase("hide-" + "recordTable");
+      		model.activateCase("show-" + "recordTable"); 
+      		
+      		model.refresh(); model.rebuild(); model.recalculate(); model.refresh();
+      		
+      		event.stopPropagation();
+      	</script>
+      </xf:select>
+      <xf:select ref="instance('form')/focus2">
+        <script ev:event="xforms-value-changed">
+          var focus = model.getValue(".", contextNode);
+          
+          if(focus == ""){ 
+          //model.USA.leavePerson(focus); 
+          //model.refresh();
+          //model.rebuild(); model.recalculate(); model.refresh(); 
+          //event.stopPropagation();
+          //model.submit('submitreviews');
+          }
+                    
+          model.activateCase("hide-" + "memberTable");
+          model.activateCase("show-" + "memberTable"); 
+          
+          model.activateCase("hide-" + "drillin");
+          model.activateCase("show-" + "drillin"); 
+          
+          if(focus == ""){
+            model.activateCase("hide-" + "drillin2");
+          }else{
+          //model.USA.drillIntoPerson(focus);
+          //model.refresh();
+          //model.rebuild();
+          //model.recalculate(); model.refresh(); 
+          model.activateCase("show-" + "drillin2");
+          //model.refresh(); model.rebuild(); model.recalculate(); model.refresh();
+          	event.stopPropagation();
+          }
+        </script>
+      </xf:select>
+    </div>
+    
+    
+    <!-- Display Header info (Replace Coordinator, etc) -->
+    <div class="body">
+      <!-- Coordinator -->
+        
+    <br/>
+      <div>
+      
+      <!-- Display main table -->
+    	<xf:switch>
+      	<!--<xf:case exf:if="not(instance('insx')/Coordinator) or instance('insx')/Coordinator/@new!='1'" id="show-recordTable">-->
+      	<xf:case exf:if="1" id="show-recordTable">
+      		
+      		<exf:variable
+        		value="count(instance('reviews')/metaReview[@type='board' and @status!='needsCompletion'])"
+        		name="hasBoardMeeting"/>
+        	<exf:variable
+        		value="count(instance('reviews')/metaReview[@previous!='1' and @determining='1'])"
+        		name="hasDetermining"/>
+      		
+      		<exf:variable
+      			value="instance('reviews')/metaReview[instance('form')/focus = '' or (revVersion = instance('reviews')/metaReview[@num = instance('form')/focus]/revVersion) or (not(revMarker) and @legacyDetNo= instance('reviews')/metaReview[@num = instance('form')/focus]/@legacyDetNo)]"
+      			name="toprecsNew"/>
+      		
+      		<!--<h4 style="color:brown;">toprecsNew[revMarker='1'] # = <xf:output value="count($toprecsNew[revMarker='1'])"/></h4>-->
+      		
+      		<exf:variable
+      			value="instance('reviews')/metaReview[@num = instance('form')/focus or instance('form')/focus = '']"
+      			name="recsNew"/>
+      		
+	
+      		<div>
+      			<table class="fullColLayout" style="width:800px;">
+				<tr class="top" style="width:800px;">
+      					<th class="name out text medium left">Date</th>
+      					<th class="name out text medium left">Board</th>
+      					<th class="name out text medium left">Type</th>
+      					<th class="name out text medium left">Process</th>
+      					<th class="name out text mediumlarge left">Decision</th>
+      					<th class="name out text large center" colspan="2">Examine Submission</th>
+      				</tr>
+      				<tr class="top" style="width:800px;">
+      					<th colspan="5"></th>
+      					<th class="name out text medium center">Version</th>
+      					<th class="name out text medium center">Response</th>
+      					<!--<th class="name out text medium center">Print</th>-->
+      				</tr>    					
+      			<!--<xf:repeat nodeset="$toprecsNew[revMarker='1' or (not(revMarker) and @legacyRevNo='1')]" monster="ie">-->
+      			
+      			<exf:variable value="if(revVersion, revVersion, @legacyDetNo)" name="versionSelectorNew"/>
+      			<!--<h4 style="color:brown;">Revmarker = <xf:output value="$versionSelectorNew"/></h4>
+      			<br/>-->
+      			<!--<h4><ix:attr name="style" value="if(script('model.isLeg')=1, 'display:none;', '')"></ix:attr><!-\-<a target="NEW_PRINT_TAB"><ix:attr name="href" value="concat('../fil/', script('model.versionTarget;'), '/versions/' , $versionSelectorNew, '/printout.pdf')"></ix:attr>Version <xf:output value="$versionSelectorNew"/></a>-\->
+      				<u style="color:blue;cursor:pointer">Version <xf:output value="$versionSelectorNew"/>
+      				<script ev:event="click">
+      					var par = model.getValue("@num", contextNode);
+      					var n = model.getValue("instance('reviews')/review[@parent='" + par + "'][1]/@num");
+      					
+      					if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+      					xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+      					launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      					}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+      					xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+      					launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      					}else{
+      					xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+      					launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+      					}	
+      				</script>
+      				</u>
+      			</h4>-->
+      			<!--<table width="100%"><ix:attr name="style" value="if(script('model.isLeg')=1, '', 'display:none;')"></ix:attr><tr><td width="50%" align="left"><h4>Version <xf:output value="$versionSelectorNew"/>
+      				<span><ix:attr name="style" value="if(docAttached, '', 'display:none')"/> - 
+      					<span class="clickable"><ix:attr name="style" value="if(docAttached='', '', 'display:none')"/>
+      				    <script ev:event="click"> 
+      						var xm = model.getValue("@legacyDetNo", contextNode) * 1;
+      						model.SelectedRev = xm;
+      						var elmt = model.getUiElementById("documentDrop2");
+      						evt = new Object();
+      						evt.pageX = (document.documentElement.clientWidth * 1 - 218) / 2;
+      						evt.pageY = (document.documentElement.clientHeight * 1 - 135) / 2;
+      						elmt.lastChild.onclick(evt);
+      					</script> 
+      					Attach <img src="../fil/system/resources/ideate/imgs/dialogGraphic.png"/>
+      				</span>
+      				</span>
+      				<span><ix:attr name="style" value="if(docAttached!='', '', 'display:none')"/>
+      					<a target="NEW_PRINT_TAB"><ix:attr name="href" value="concat('../fil/', script('model.versionTarget;'), '/versions/' , $versionSelectorNew, '/printout.pdf')"></ix:attr>Attachment</a> 
+      					<span class="remove clickable">X
+      						<xf:action ev:event="click" exf:if="script('confirm(&quot;Are you sure?&quot;)')">
+      							<xf:setvalue ref="docAttached"></xf:setvalue>
+      						</xf:action>
+      					</span>
+      				</span>
+      			</h4></td>
+      				<td width="40%" align="right">
+      					<ix:attr name="style" value="if(Coordinator/@name and Coordinator/@name!='', '', 'display:none')"/><h4>IRB Coordinator: <xf:output value="Coordinator/@name"/></h4></td></tr>
+      			</table>-->
+      			
+      			
+      				
+      				<!--<xf:repeat nodeset="$recsNew[@fixed='' and revVersion=$versionSelectorNew or (not(revVersion) and @legacyDetNo=$versionSelectorNew)]" monster="ie">-->
+      				<xf:repeat nodeset="$recsNew[(@fixed='' or (not(revVersion))) and date!='']" monster="ie">
+      						<exf:variable value="if(revVersion, revVersion, @legacyDetNo)" name="versionSelectorNew"/>
+      					<exf:variable value="@num" name="indx"/>      					
+      					<exf:variable value="determination/decision" name="revDecision"/>
+      					<exf:variable value="instance('cats')/decisionTypes/type[@id=$revDecision]/@name" name="revDecisionText"/>      					
+      					<tr style="width:800px;">
+      						<td class="out text medium left name">
+      							<exf:variable value="if(date!='', date, @actionDate)" name="dateToUse"/>
+      							<xf:output value=" concat(substring($dateToUse, 6, 2), '/', substring($dateToUse, 9, 2), '/', substring($dateToUse, 1, 4))"/>
+      						</td>
+      						<td class="out text medium left name">
+      							<xf:output value="Board/name"/>
+      						</td>
+      						<td class="out text medium left name">
+      							<exf:variable value="@type" name="revType"/>
+      							<!--<h1>db=<xf:output value="@type"/></h1>-->
+      							<xf:output value="if($revType='intake', 'Intake', if($revType='staff', 'Staff', if($revType='director', 'Director', instance('cats')/reviewTypes/type[@id=$revType]/@name)))"/>
+      						</td>
+							<td class="out text medium left name">
+								<exf:variable value="process" name="revProcess"/>
+								<exf:variable value="@type" name="revTypeXX"/>
+								<span>
+									<ix:attr name="style" value="if(@determining='1', 'color:red', '')"/>
+									<xf:output value="if($revTypeXX='board', 'Convened', instance('cats')/reviewProcessTypes/type[@id=$revProcess]/@name)"/>
+									<!--<xf:output value="instance('cats')/reviewProcessTypes/type[@id=$revProcess]/@name"/>-->
+									<xf:output value="if(@determining='1', '*', '')"/>
+								</span>
+							</td>
+      						<td class="out text medium left name">      							
+      							<xf:output value="if($revDecisionText!='', $revDecisionText, @action)"/>
+      						</td>
+      						<td class="out text medium left center">
+      							<div>
+      								<exf:variable value="@num" name="resNum"/>  	
+      								<u style="color:blue;cursor:pointer"> <xf:output value="$versionSelectorNew"/>
+      									<script ev:event="click">
+      										var par = model.getValue("@num", contextNode) * 1;
+      										var rowver = model.getValue("revVersion", contextNode) * 1;
+      										//get metanum
+      										meta = model.getValue("(instance('reviews')/metaReview[@fixed='1' and revVersion='"+rowver+"'])[1]/@num")*1;
+      										//alert(meta);
+      										var n = 0;
+      										n = model.getValue("instance('reviews')/review[@parent='" + meta + "']/@num");    
+      										if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+      										xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+      										launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      										}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+      										xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+      										launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      										}else{
+      										xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+      										launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+      										}	
+      									</script>
+      								</u>
+      							</div>
+      						</td>
+      						<td class="out text medium left center">
+      							<div>
+      								<div><ix:attr name="style" value="if(@type!='PRE' and determination/decision='mod' or determination/decision='DEF', '', 'display:none')"></ix:attr>
+      									<exf:variable value="@num" name="resNum"/>  	
+      									<exf:variable
+      										value="../review[@num>$resNum and @def='res' and (@parent=$resNum or @parent=($resNum*1)-1)]"
+      										name="recs22"/>   
+      									<div>  			
+      										<xf:repeat nodeset="$recs22">
+      											<exf:variable
+      												value="position()"
+      												name="poi"/>
+      											<exf:variable value="local-name()" name="mtype"/>
+      											<exf:variable value="@name" name="nameM"/>
+      											<div>  		
+      												<u style="color:blue;cursor:pointer;text-decoration:underline;">View
+      													<ix:action ev:event="click">
+      														<script>
+      															n = model.getValue("@num", contextNode);
+      															//alert("review num: " + n);
+      															//alert("metareview num: " + model.getValue("instance('form')/focus"));
+      															if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+      															xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+      															launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      															}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+      															xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+      															launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      															}else{
+      															xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+      															launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+      															}	
+      														</script>
+      													</ix:action>  						
+      												</u>
+      											</div>
+      										</xf:repeat>
+      									</div>
+      								</div>	
+      								<div><ix:attr name="style" value="if(@type='PRE' and (determination/decision='mod' or determination/decision='DEF'), '', 'display:none')"></ix:attr>
+      									<exf:variable value="@num" name="resNum"/>  	
+      									<exf:variable
+      										value="../review[@num=$resNum and @def='res' and (@status='sent' or (@status='' and determining='')) or (@def='res' and (@parent=$resNum or @parent=($resNum*1)-1))]"
+      										name="recs22"/>   
+      									<div>  			
+      										<xf:repeat nodeset="$recs22">
+      											<exf:variable
+      												value="position()"
+      												name="poi"/>
+      											<exf:variable value="local-name()" name="mtype"/>
+      											<exf:variable value="@name" name="nameM"/>
+      											<div>  		
+      												<u style="color:blue;cursor:pointer;text-decoration:underline;">View
+      													<ix:action ev:event="click">
+      														<script>
+      															n = model.getValue("@num", contextNode);
+      															//alert("review num: " + n);
+      															//alert("metareview num: " + model.getValue("instance('form')/focus"));
+      															if(model.Frm.linkedOpType == "" &amp;&amp; !model.Frm.isOTEU){
+      															xfrmURI = "/configs/IRB/forms/viewTabsAlone.xfrm";
+      															launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      															}else if(model.Frm.linkedOpType == "" &amp;&amp; model.Frm.isOTEU){
+      															xfrmURI = "/configs/IRB/forms/viewTabsAloneO.xfrm";
+      															launchXformWindow(xfrmURI, model.USA.formSet.getRoot().model.getValue("instance('ins')/primeEntityURI"), n, "review", 800, 500);
+      															}else{
+      															xfrmURI = "/configs/IRB/forms/" + model.Frm.opLead + "_viewTabsAlone.xfrm";
+      															launchXformWindow(xfrmURI, model.Frm.linkedOpURI, n, "review", 800, 500);
+      															}	
+      														</script>
+      													</ix:action>  						
+      												</u>
+      											</div>
+      										</xf:repeat>
+      									</div>
+      								</div>
+      							</div>
+      						</td>
+      						<!--<td class="out text medium left center">  
+      							<exf:variable value="@num" name="resNum"/> 
+      							<exf:variable
+      								value="../review[@num=$resNum and @def='res' and (@status='sent' or (@status='' and determining='')) or (@def='res' and (@parent=$resNum or @parent=($resNum*1)-1))]"
+      								name="revuri"/> 
+      							<u style="color:blue;cursor:pointer;text-decoration:underline;"><!-\-<ix:attr value="if(@uri = '', '', 'display:none')" name="style"/>-\->
+      								<script ev:event="click">
+      									var par = model.getValue("@num", contextNode);      									
+      									//var n = model.getValue("instance('reviews')/review[@parent='" + par + "'][1]/@uri");
+      									var n = model.getValue("instance('reviews')/review[@num='" + par + "']/@uri");
+      									//alert(n);
+      									model.USA.printReview(n);      									                                  
+      								</script> View </u>      							
+      						</td>-->
+      					</tr>
+      				</xf:repeat>
+      			
+      			<!--</xf:repeat>    -->
+      		</table>
+      		</div>      		
+      	</xf:case>
+        <xf:case id="hide-recordTable"/>
+      </xf:switch>
+      
+      </div>
+    	
+    	<div>
+      	
+      	<xf:switch>
+      		<xf:case exf:if="instance('form')/focus != ''" id="show-drillin">
+      			<ix:include template="detailsFrm" ref="instance('reviews')/metaReview[@num=instance('form')/focus]"/>
+      		</xf:case>
+      		<xf:case exf:if="1" id="hide-drillin"/>
+        <!--<xf:case id="show-drillin">
+          <ix:include template="detailsFrm" ref="instance('reviews')/metaReview[@num=instance('form')/focus]"/>
+        </xf:case>-->
+      </xf:switch>
+      
+      </div>
+      
+    </div>
+  
+  </div>
+
+		</xf:case>
+		<xf:case id="hide-ALL"/>
+	</xf:switch>
+	
+	<div class="bottomNav">
+    
+    <br/>
+    <br/>
+		<div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div>
+  </div>
+</form>

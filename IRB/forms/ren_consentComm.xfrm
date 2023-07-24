@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><style>
+        .dialogOverInteractive:hover div.xfctrl{
+          position:relative;
+          margin:none;
+          background-color:white;
+          border:none;
+        }
+        
+        div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+          background-color:white;
+        }
+        
+        div.formFrame table.fullColLayout td.out table.catSelection{
+          width:100%;
+        }
+        
+        div.formFrame table.fullColLayout tr td.errors{
+          color:blue;
+          background-color:white;
+        }
+      </style><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+          position:static;
+          border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+          position:static;
+          border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+          margin-top:10px;
+          }
+          
+        </style><xf:model id="fmodel"><xf:instance id="docs"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><document/></data></xf:instance><xf:instance id="errs"><data xmlns=""></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "ren_consent");
+      
+        //model.Frm.loadAppFile('docs', "/renewal.xml", "1");
+        model.Frm.loadOpFile('docs', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      </script><script ev:event="xforms-ready"/><xf:submission instance="docs" id="submitdocs" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (docs)</xf:message></xf:action></xf:submission><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/></xf:model><div class="formFrame"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != ""){
+                model.Frm.linkFile(n);
+                
+                
+                  if(model.__checkFOR){
+                  needle = "instance('docs')/section/group/doc[@id='" + model.__checkFOR + "']";      
+                  needleOld = "instance('docs')/original/section/group/doc[@id='" + model.__checkFOR + "']";
+                  thisUri = model.getValue(needle + "/@uri");
+                  if(thisUri != "/fil" + n){return;}
+                  org = model.getValue(needleOld + "/@fileName");
+                  now = model.getValue(needle + "/@fileName");
+                  
+                  if(org == now) model.setValue(needle + "/@changed", ""); 
+                  else model.setValue(needle + "/@changed", "1");
+                  
+                  cnged = model.getValue(needle + "/@changed");
+                  com = model.getValue(needle + "/@addcomment");
+                  
+                  if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                  if(cnged &amp;&amp; !com) model.USA.addChange();
+                  model.recalculate();
+                  model.__checkFOR = "";
+                  }
+                
+                }
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><br/><exf:variable value="instance('docs')/section[@type='new']" name="sec1"/><xf:switch><xf:case id="show-new"><div><h3><xf:output value="$sec1/@label"/></h3><xf:repeat nodeset="$sec1/group"><br/><h5><xf:output value="@label"/></h5><table class="fullColLayout"><tr class="top"><th class="out text large left">Document</th><th class="in text large left">Name</th><th colspan="2" class="out doc large left">File</th><th class="out text small left"/></tr><xf:repeat nodeset="doc|docset|docset/doc[@uri!='']" monster="ie"><exf:variable name="dindx" value="@id"/><exf:variable value="(instance('docs')/original/section/group/doc[@id=$dindx])/@revIndex" name="revIndexEM"/><exf:variable value="(instance('docs')/section/group/doc[@revIndex=$revIndexEM])" name="thisNodeNeedleEM"/><exf:variable value="instance('docs')/section/group/doc[@id=$dindx]/@fileName" name="thisNodeEM"/><exf:variable value="instance('docs')/original/section/group/doc[@id=$dindx]/@fileName" name="orgNodeEM"/><exf:variable value="(instance('docs')/suggestions/section/group/doc[@revIndex=$revIndexEM])" name="sugNodeSetEM"/><exf:variable value="instance('docs')/suggestions/section/group/doc[@id=$dindx]/@fileName" name="sugNodeEM"/><tr><td class="out text large left"><xf:select1 class="catSelection" ref="@label"><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/docTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td class="in text large left"><span><ix:attr value="if(local-name(.)='doc', '', 'display:none')" name="style"/><xf:input ref="@name"/></span><span><ix:attr value="if(local-name(.)='doc', 'display:none', '')" name="style"/>
+                            Add New
+                          </span></td><td class="doc medium"><span><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="@uri" name="href"/><xf:output class="" value="@fileName"/></a></span><u class="clickable"><ix:attr value="if(@uri = '', '', 'display:none')" name="style"/><script ev:event="click"> 
+                          var id = model.getValue("@id", contextNode);
+                          model.__checkFOR = id;
+                          model.Frm.configureEnhancedDocUpload("replaceValue", contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                          model.Frm.executeDocUpload(); 
+                        </script> 
+                        Attach
+                      </u></td><td style="width:120px;border-left:none;text-align: right;"><u class="clickable"><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/><script ev:event="click"> 
+                          var id = model.getValue("@id", contextNode);
+                          model.__checkFOR = id;
+                          model.Frm.configureEnhancedDocUpload("replaceValue", contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                          model.Frm.executeDocUpload();
+                          //model.recalculate();
+                        </script> 
+                        Update</u><u class="docremove clickable"><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                        Remove
+                        <xf:action exf:if="script('confirm(&quot;Are you sure you want to delete this document?&quot;)')" ev:event="click"><script>
+                            model.Frm.removeFile(contextNode);
+                            //model.recalculate();
+                            
+                              /*
+                              var idxc = model.getValue("@id", contextNode);
+                              model.__checkFOR = idxc;
+                              
+                              needle = "instance('docs')/section/group/doc[@id='" + model.__checkFOR + "']";      
+                                needleOld = "instance('docs')/original/section/group/doc[@id='" + model.__checkFOR + "']";
+                                thisUri = model.getValue(needle + "/@uri");
+                                if(thisUri != "/fil" + n){alert("something crazy ahppened"); return;}
+                                org = model.getValue(needleOld + "/@fileName");
+                                now = model.getValue(needle + "/@fileName");
+                                
+                                if(org == now) model.setValue(needle + "/@changed", ""); 
+                                else model.setValue(needle + "/@changed", "1");
+                                
+                                cnged = model.getValue(needle + "/@changed");
+                                com = model.getValue(needle + "/@addcomment");
+                                
+                                if(org == now &amp;&amp; !com) model.USA.removeChange();
+                                if(org != now &amp;&amp; !com) model.USA.addChange();
+                                model.recalculate();
+                                */
+                            </script></xf:action></u></td><td><div><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/><span style="color:blue" class="dialogOverInteractive"><b><u>Details</u></b><div style="width:400px;"><p><h5>Comments:</h5><xf:textarea style="width:370px;height:8em;" ref="@comments"/><br/><h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5><table style="background-color:white;"><ix:attr value="if(version, 'background-color:white;', 'display:none')" name="style"/><tr><th>Version</th><th>Uploaded</th></tr><xf:repeat nodeset="version"><tr><td style="background-color:white;vertical-align:top;width:50px;">
+                                      1.<xf:output value="position()"/></td><td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="substring(@uploaded, 1, 10)"/>)
+                                    </td></tr></xf:repeat></table></p></div></span></div></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($thisNodeEM != $orgNodeEM, '', 'display:none')" name="style"/>Change Suggested</div><div><xf:select ref="$thisNodeNeedleEM/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item><script ev:event="xforms-value-changed">
+               cnged = model.getValue("../@changed", contextNode);
+               com = model.getValue(".", contextNode);
+               if(!cnged &amp;&amp; !com) model.USA.removeChange();
+               if(!cnged &amp;&amp; com) model.USA.addChange();
+               model.recalculate();
+             </script></xf:select><div><ix:attr value="if($thisNodeNeedleEM/@addcomment='1', 'margin-top:-10px;', 'display:none')" name="style"/><xf:textarea ref="$thisNodeNeedleEM/@comment"/></div></div></td></tr></xf:repeat></table></xf:repeat><xf:repeat nodeset="$sec1[doc|docset]" monster="ie"><table class="fullColLayout"><tr class="top"><th class="small delete center"/><th class="out text large left">Document</th><th class="in text large left">Name</th><th colspan="2" class="out doc large left">File</th><th class="out text small left"/></tr><xf:repeat nodeset="doc|docset|docset/doc[@uri!='']"><exf:variable name="dindx" value="@id"/><tr><td class="small delete center"/><td class="out text large left"><xf:select1 class="catSelection" ref="@label"><xf:label/><xf:item><xf:label>-Select-</xf:label><xf:value/></xf:item><xf:repeat nodeset="instance('cats')/docTypes/type"><xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item></xf:repeat></xf:select1></td><td class="in text large left"><span><ix:attr value="if(local-name(.)='doc', '', 'display:none')" name="style"/><xf:input ref="@name"/></span><span><ix:attr value="if(local-name(.)='doc', 'display:none', '')" name="style"/>
+                              Add New
+                            </span></td><td class="doc medium"><span><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/><a target="_blank_"><ix:attr value="@uri" name="href"/><xf:output class="" value="@fileName"/></a></span><u class="clickable"><ix:attr value="if(@uri = '', '', 'display:none')" name="style"/><script ev:event="click"> 
+                              var id = model.getValue("@id", contextNode);
+                              model.Frm.configureEnhancedDocUpload("replaceValue", contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                              model.Frm.executeDocUpload(); 
+                            </script> 
+                            Attach
+                          </u></td><td style="width:120px;border-left:none;text-align: right;"><u class="clickable"><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/><script ev:event="click"> 
+                              var id = model.getValue("@id", contextNode);
+                              model.Frm.configureEnhancedDocUpload("replaceValue", contextNode, "", "", event.uiEvent.clientX, event.uiEvent.clientY, '');
+                              model.Frm.executeDocUpload();
+                            </script> 
+                            Update</u><u class="docremove clickable"><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/>
+                            Remove
+                            <xf:action exf:if="script('confirm(&quot;Are you sure you want to delete this document?&quot;)')" ev:event="click"><script>
+                                model.Frm.removeFile(contextNode);
+                              </script></xf:action></u></td><td><div><ix:attr value="if(@uri != '', '', 'display:none')" name="style"/><span style="color:blue" class="dialogOverInteractive"><b><u>Details</u></b><div style="width:400px;"><p><h5>Comments:</h5><xf:textarea style="width:370px;height:8em;" ref="@comments"/><br/><h5><ix:attr value="if(version, '', 'display:none')" name="style"/>Document History:</h5><table style="background-color:white;"><ix:attr value="if(version, 'background-color:white;', 'display:none')" name="style"/><tr><th>Version</th><th>Uploaded</th></tr><xf:repeat nodeset="version"><tr><td style="background-color:white;vertical-align:top;width:50px;">
+                                          1.<xf:output value="position()"/></td><td style="background-color:white;vertical-align:top;width:200px;"><xf:output value="@uploadedBy"/> (<xf:output value="substring(@uploaded, 1, 10)"/>)
+                                        </td></tr></xf:repeat></table></p></div></span></div></td></tr></xf:repeat></table></xf:repeat><br/><br/></div></xf:case><xf:case id="hide-new"/></xf:switch></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2009</div></div></form>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<outputs num="1">
+    <output id="approval" name="Approval Letter" uri="/ideate/configs/IRB/outputs/Approval.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats"/>
+    <!-- the ones below are reminders and expiration notices -->
+	<output id="rem" name="Continuation Reminder" uri="/ideate/configs/IRB/outputs/continuationReminders.xsl" routines="addPDFBasics,addInstructionsToInvestigator,addSetupApproval,addMeetingDate"/>	
+	<output id="exnot" name="Expiration of PPHS Protocol Approval" uri="/ideate/configs/IRB/outputs/ExpirationOfApproval.xsl" routines="addPDFBasics,addInstructionsToInvestigator,addSetupApproval,addMeetingDate"/>
+	<output id="approvalPeriod" name="Approval Period Shortening" uri="/ideate/configs/IRB/outputs/ApprovPeriodShort.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="acknowledgementofInformation" name="Acknowledgement of Information" uri="/ideate/configs/IRB/outputs/AcknowledgementofInformation.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="closureAcknowledgement" name="Closure Acknowledgement" uri="/ideate/configs/IRB/outputs/ClosureAcknowledgement.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="Tabled" name="Tabled" uri="/ideate/configs/IRB/outputs/Tabled.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="ExternalIRBAcknowledgement" name="External IRB Acknowledgement" uri="/ideate/configs/IRB/outputs/ExternalIRBAcknowledgement.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="HUDApproval" name="HUD Approval" uri="/ideate/configs/IRB/outputs/HUDApproval.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="ReviewofInformationItem" name="Review of Information Item" uri="/ideate/configs/IRB/outputs/ReviewofInformationItem.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="DeterminationOfNOTHumanSubjectResearch" name="Determination Of NOT Human Subject Research" uri="/ideate/configs/IRB/outputs/DeterminationOfNOTHumanSubjectResearch.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="PendingFunding" name="Pending Funding" uri="/ideate/configs/IRB/outputs/PendingFunding.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+	<output id="EXEMPTResearchDetermination" name="Exempt Research Determination" uri="/ideate/configs/IRB/outputs/EXEMPT_Research_Determination.xsl" routines="addPDFBasics,addAmendDetails,addSetupApproval,addInstructionsToInvestigator,addExemptCats,addMeetingDate"/>
+    
+	<!-- Sprint 10B Deferrable Issues START -->
+	<output id="defIssues" name="Deferrable Issues Communication" uri="/ideate/configs/IRB/outputs/deferrableIssuesCommHTML.xsl" routines="addPDFBasics"/>	
+	<!-- Sprint 10B Deferrable Issues END -->
+	
+	<!-- AB 12132015: Add new letter in here. For any special coding scenario where you need to retrive data specific to the letter 
+    create a new routine (similar to addInstructionsToInvestigator in case.js) and add to @routines attribute for the letter -->
+	
+	<!-- Add the agenda pointer here. Move the communications_agenda.xsl to the ideate/configs/IRB/outputs folder. 
+		Add an attribute to identify if building RTF or PDF -->
+</outputs>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="7" label="New Information" form="/home/configs/IRB/forms/newInformationCommRO.xfrm" sourceXML="/newInformation.xml" formType="general" formName="newInformation"/>
+    <!--<tab id="18" label="Attachments" form="/home/configs/IRB/forms/up_attachments.xfrm" printlabel="Attachments" sourceXML="/printAttachments.xml" formType="crossTab" formName="printAttachments"/>-->
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/subAttachmentsManReview.xfrm"/>
+    <tab id="Diff" color="silver" label="Comments" form="/home/configs/IRB/forms/subReviewDiffs.xfrm"/>
+    <tab id="LC3" color="gray" label="Review Dashboard" form="/home/configs/IRB/forms/totallyGreatReviewsCoor.xfrm"/>
+    <!--Added by Don 5/12/2017 for MSSM onsite for Dr. Martin-->
+    <tab id="LEM" color="" label="Case History" form="/home/configs/IRB/forms/actionsThin.xfrm"/>    
+    <switches>
+        <participant>0</participant> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <violation>0</violation>
+        <changeToProtocol>0</changeToProtocol>
+        <!--<violation2>0</violation2>-->
+        <subject>0</subject> <!-- will switch on tab id 2 if eventSubjectRelated xml is = 1 -->
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+    </switches>
+</tabs>

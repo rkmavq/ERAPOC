@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data xmlns=""></data></xf:instance><xf:instance id="meta"><data xmlns=""></data></xf:instance><xf:instance id="cats"><data xmlns=""></data></xf:instance><xf:instance id="review"><data xmlns=""></data></xf:instance><xf:instance id="form"><data xmlns=""><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><comp uri=""/></data></xf:instance><xf:instance id="bootstrap"><data xmlns=""><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data xmlns=""></data></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "ren_eventsParticipants");
+      
+        //model.Frm.loadAppFile('ins', "/renewal.xml", "1");
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+        model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '3a')
+          //model.USA.registerChangeLog('ins', '3a')
+          model.USA.registerChangeLog('comments', '3a')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind nodeset="instance('ins')/noComplaints" type="xsd:integer"/><xf:bind nodeset="instance('ins')/noWithdrawls" type="xsd:integer"/><xf:bind nodeset="instance('ins')/noWithdrawlsByPi" type="xsd:integer"/><xf:bind nodeset="instance('ins')/noComplaints" type="xsd:integer"/><xf:bind nodeset="instance('ins')/noWithdrawls" type="xsd:integer"/><xf:bind nodeset="instance('ins')/noDeclined" type="xsd:integer"/></xf:model><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+          background-color:white;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:white;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+          background:none;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><div class="body"><h1/><table class="basicColLayout"><tr class="instructions"><td colspan="4"><div><component type="instructions">
+        <font size="3">Please identify the following since the last IRB Approval</font>
+    </component></div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/anyComplaints/@revIndex" name="revIndexanyComplaints"/><exf:variable value="(instance('ins')/anyComplaints[@revIndex=$revIndexanyComplaints])" name="thisNodeNeedleanyComplaints"/><exf:variable value="instance('ins')/anyComplaints" name="thisNodeVanyComplaints"/><exf:variable value="if($thisNodeVanyComplaints='1', 'Yes', if($thisNodeVanyComplaints='0', 'No', ''))" name="thisNodeanyComplaints"/><exf:variable value="(instance('ins')/original/anyComplaints[@revIndex=$revIndexanyComplaints])" name="orgNodeVanyComplaints"/><exf:variable value="if($orgNodeVanyComplaints='1', 'Yes', if($orgNodeVanyComplaints='0', 'No', ''))" name="orgNodeanyComplaints"/><exf:variable value="(instance('ins')/suggestions/anyComplaints[@revIndex=$revIndexanyComplaints])" name="sugNodeSetanyComplaints"/><exf:variable value="(instance('ins')/suggestions/anyComplaints[@revIndex=$revIndexanyComplaints])" name="sugNodeVanyComplaints"/><exf:variable value="if($sugNodeVanyComplaints='1', 'Yes', if($sugNodeVanyComplaints='0', 'No', ''))" name="sugNodeanyComplaints"/><exf:variable value="instance('ins')/previous/review/anyComplaints/@revIndex" name="revIndexOanyComplaints"/><exf:variable value="(instance('ins')/previous/review/anyComplaints[@revIndex=$revIndexOanyComplaints])" name="thisNodeNeedleOldanyComplaints"/><exf:variable value="instance('ins')/previous/review/anyComplaints" name="thisNodeVOldanyComplaints"/><exf:variable value="if($thisNodeVOldanyComplaints='1', 'Yes', if($thisNodeVOldanyComplaints='0', 'No', ''))" name="thisNodeOldanyComplaints"/><exf:variable value="(instance('ins')/previous/review/original/anyComplaints[@revIndex=$revIndexOanyComplaints])" name="orgNodeVOldanyComplaints"/><exf:variable value="if($orgNodeVOldanyComplaints='1', 'Yes', if($orgNodeVOldanyComplaints='0', 'No', ''))" name="orgNodeOldanyComplaints"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyComplaints[@revIndex=$revIndexOanyComplaints])" name="sugNodeSetOldanyComplaints"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyComplaints[@revIndex=$revIndexOanyComplaints])" name="sugNodeVOldanyComplaints"/><exf:variable value="if($sugNodeVOldanyComplaints='1', 'Yes', if($sugNodeVOldanyComplaints='0', 'No', ''))" name="sugNodeOldanyComplaints"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/anyComplaints" appearance="full" id="anyComplaints"><xf:label>Have any participants complained about the research?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/anyComplaints" appearance="full" id="anyComplaints"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/noComplaints", "");
+            model.setValue("instance('ins')/anyComplaintsDesc", "");
+            model.recalculate();
+            }
+        </script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanyComplaints/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeanyComplaints != $thisNodeanyComplaints, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanyComplaints/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedleanyComplaints/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanyComplaints/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="number"><ix:attr value="if(instance('ins')/anyComplaints = '1', '', 'display:none')" name="style"/><td class="component number   widestLabel"><exf:variable value="instance('ins')/noComplaints/@revIndex" name="revIndexnoComplaints"/><exf:variable value="(instance('ins')/noComplaints[@revIndex=$revIndexnoComplaints])" name="thisNodeNeedlenoComplaints"/><exf:variable value="instance('ins')/noComplaints" name="thisNodenoComplaints"/><exf:variable value="(instance('ins')/original/noComplaints[@revIndex=$revIndexnoComplaints])" name="orgNodenoComplaints"/><exf:variable value="(instance('ins')/suggestions/noComplaints[@revIndex=$revIndexnoComplaints])" name="sugNodeSetnoComplaints"/><exf:variable value="(instance('ins')/suggestions/noComplaints[@revIndex=$revIndexnoComplaints])" name="sugNodenoComplaints"/><exf:variable value="instance('ins')/previous/review/noComplaints/@revIndex" name="revIndexOnoComplaints"/><exf:variable value="(instance('ins')/previous/review/noComplaints[@revIndex=$revIndexOnoComplaints])" name="thisNodeNeedleOldnoComplaints"/><exf:variable value="instance('ins')/previous/review/noComplaints" name="thisNodeOldnoComplaints"/><exf:variable value="(instance('ins')/previous/review/original/noComplaints[@revIndex=$revIndexOnoComplaints])" name="orgNodeOldnoComplaints"/><exf:variable value="(instance('ins')/previous/review/suggestions/noComplaints[@revIndex=$revIndexOnoComplaints])" name="sugNodeSetOldnoComplaints"/><exf:variable value="(instance('ins')/previous/review/suggestions/noComplaints[@revIndex=$revIndexOnoComplaints])" name="sugNodeOldnoComplaints"/><xf:input style="width:80px" ref="instance('ins')/noComplaints"><xf:label>Number of participant Complaints:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedlenoComplaints/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodenoComplaints != $thisNodenoComplaints, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedlenoComplaints/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedlenoComplaints/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedlenoComplaints/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/anyComplaints = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/anyComplaintsDesc/@revIndex" name="revIndexanyComplaintsDesc"/><exf:variable value="(instance('ins')/anyComplaintsDesc[@revIndex=$revIndexanyComplaintsDesc])" name="thisNodeNeedleanyComplaintsDesc"/><exf:variable value="instance('ins')/anyComplaintsDesc" name="thisNodeanyComplaintsDesc"/><exf:variable value="(instance('ins')/original/anyComplaintsDesc[@revIndex=$revIndexanyComplaintsDesc])" name="orgNodeanyComplaintsDesc"/><exf:variable value="(instance('ins')/suggestions/anyComplaintsDesc[@revIndex=$revIndexanyComplaintsDesc])" name="sugNodeSetanyComplaintsDesc"/><exf:variable value="(instance('ins')/suggestions/anyComplaintsDesc[@revIndex=$revIndexanyComplaintsDesc])" name="sugNodeanyComplaintsDesc"/><exf:variable value="instance('ins')/previous/review/anyComplaintsDesc/@revIndex" name="revIndexOanyComplaintsDesc"/><exf:variable value="(instance('ins')/previous/review/anyComplaintsDesc[@revIndex=$revIndexOanyComplaintsDesc])" name="thisNodeNeedleOldanyComplaintsDesc"/><exf:variable value="instance('ins')/previous/review/anyComplaintsDesc" name="thisNodeOldanyComplaintsDesc"/><exf:variable value="(instance('ins')/previous/review/original/anyComplaintsDesc[@revIndex=$revIndexOanyComplaintsDesc])" name="orgNodeOldanyComplaintsDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyComplaintsDesc[@revIndex=$revIndexOanyComplaintsDesc])" name="sugNodeSetOldanyComplaintsDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyComplaintsDesc[@revIndex=$revIndexOanyComplaintsDesc])" name="sugNodeOldanyComplaintsDesc"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/anyComplaintsDesc"><xf:label>Please Describe:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanyComplaintsDesc/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeanyComplaintsDesc != $thisNodeanyComplaintsDesc, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanyComplaintsDesc/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedleanyComplaintsDesc/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanyComplaintsDesc/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/anyWithdrawls/@revIndex" name="revIndexanyWithdrawls"/><exf:variable value="(instance('ins')/anyWithdrawls[@revIndex=$revIndexanyWithdrawls])" name="thisNodeNeedleanyWithdrawls"/><exf:variable value="instance('ins')/anyWithdrawls" name="thisNodeVanyWithdrawls"/><exf:variable value="if($thisNodeVanyWithdrawls='1', 'Yes', if($thisNodeVanyWithdrawls='0', 'No', ''))" name="thisNodeanyWithdrawls"/><exf:variable value="(instance('ins')/original/anyWithdrawls[@revIndex=$revIndexanyWithdrawls])" name="orgNodeVanyWithdrawls"/><exf:variable value="if($orgNodeVanyWithdrawls='1', 'Yes', if($orgNodeVanyWithdrawls='0', 'No', ''))" name="orgNodeanyWithdrawls"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawls[@revIndex=$revIndexanyWithdrawls])" name="sugNodeSetanyWithdrawls"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawls[@revIndex=$revIndexanyWithdrawls])" name="sugNodeVanyWithdrawls"/><exf:variable value="if($sugNodeVanyWithdrawls='1', 'Yes', if($sugNodeVanyWithdrawls='0', 'No', ''))" name="sugNodeanyWithdrawls"/><exf:variable value="instance('ins')/previous/review/anyWithdrawls/@revIndex" name="revIndexOanyWithdrawls"/><exf:variable value="(instance('ins')/previous/review/anyWithdrawls[@revIndex=$revIndexOanyWithdrawls])" name="thisNodeNeedleOldanyWithdrawls"/><exf:variable value="instance('ins')/previous/review/anyWithdrawls" name="thisNodeVOldanyWithdrawls"/><exf:variable value="if($thisNodeVOldanyWithdrawls='1', 'Yes', if($thisNodeVOldanyWithdrawls='0', 'No', ''))" name="thisNodeOldanyWithdrawls"/><exf:variable value="(instance('ins')/previous/review/original/anyWithdrawls[@revIndex=$revIndexOanyWithdrawls])" name="orgNodeVOldanyWithdrawls"/><exf:variable value="if($orgNodeVOldanyWithdrawls='1', 'Yes', if($orgNodeVOldanyWithdrawls='0', 'No', ''))" name="orgNodeOldanyWithdrawls"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawls[@revIndex=$revIndexOanyWithdrawls])" name="sugNodeSetOldanyWithdrawls"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawls[@revIndex=$revIndexOanyWithdrawls])" name="sugNodeVOldanyWithdrawls"/><exf:variable value="if($sugNodeVOldanyWithdrawls='1', 'Yes', if($sugNodeVOldanyWithdrawls='0', 'No', ''))" name="sugNodeOldanyWithdrawls"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/anyWithdrawls" appearance="full" id="anyWithdrawls"><xf:label>Have any participants withdrawn from the research protocol?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/anyWithdrawls" appearance="full" id="anyWithdrawls"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+            x = model.getValue(".", contextNode);
+            if(x == "0"){
+            model.setValue("instance('ins')/noWithdrawls", "");
+            model.setValue("instance('ins')/anyWithdrawlsDesc", "");
+            model.recalculate();
+            }
+        </script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanyWithdrawls/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeanyWithdrawls != $thisNodeanyWithdrawls, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanyWithdrawls/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedleanyWithdrawls/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanyWithdrawls/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="number"><ix:attr value="if(instance('ins')/anyWithdrawls = '1', '', 'display:none')" name="style"/><td class="component number   widestLabel"><exf:variable value="instance('ins')/noWithdrawls/@revIndex" name="revIndexnoWithdrawls"/><exf:variable value="(instance('ins')/noWithdrawls[@revIndex=$revIndexnoWithdrawls])" name="thisNodeNeedlenoWithdrawls"/><exf:variable value="instance('ins')/noWithdrawls" name="thisNodenoWithdrawls"/><exf:variable value="(instance('ins')/original/noWithdrawls[@revIndex=$revIndexnoWithdrawls])" name="orgNodenoWithdrawls"/><exf:variable value="(instance('ins')/suggestions/noWithdrawls[@revIndex=$revIndexnoWithdrawls])" name="sugNodeSetnoWithdrawls"/><exf:variable value="(instance('ins')/suggestions/noWithdrawls[@revIndex=$revIndexnoWithdrawls])" name="sugNodenoWithdrawls"/><exf:variable value="instance('ins')/previous/review/noWithdrawls/@revIndex" name="revIndexOnoWithdrawls"/><exf:variable value="(instance('ins')/previous/review/noWithdrawls[@revIndex=$revIndexOnoWithdrawls])" name="thisNodeNeedleOldnoWithdrawls"/><exf:variable value="instance('ins')/previous/review/noWithdrawls" name="thisNodeOldnoWithdrawls"/><exf:variable value="(instance('ins')/previous/review/original/noWithdrawls[@revIndex=$revIndexOnoWithdrawls])" name="orgNodeOldnoWithdrawls"/><exf:variable value="(instance('ins')/previous/review/suggestions/noWithdrawls[@revIndex=$revIndexOnoWithdrawls])" name="sugNodeSetOldnoWithdrawls"/><exf:variable value="(instance('ins')/previous/review/suggestions/noWithdrawls[@revIndex=$revIndexOnoWithdrawls])" name="sugNodeOldnoWithdrawls"/><xf:input style="width:80px" ref="instance('ins')/noWithdrawls"><xf:label>Number of participants who withdrew from the protocol:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedlenoWithdrawls/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodenoWithdrawls != $thisNodenoWithdrawls, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedlenoWithdrawls/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedlenoWithdrawls/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedlenoWithdrawls/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/anyWithdrawls = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/anyWithdrawlsDesc/@revIndex" name="revIndexanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/anyWithdrawlsDesc[@revIndex=$revIndexanyWithdrawlsDesc])" name="thisNodeNeedleanyWithdrawlsDesc"/><exf:variable value="instance('ins')/anyWithdrawlsDesc" name="thisNodeanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/original/anyWithdrawlsDesc[@revIndex=$revIndexanyWithdrawlsDesc])" name="orgNodeanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawlsDesc[@revIndex=$revIndexanyWithdrawlsDesc])" name="sugNodeSetanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawlsDesc[@revIndex=$revIndexanyWithdrawlsDesc])" name="sugNodeanyWithdrawlsDesc"/><exf:variable value="instance('ins')/previous/review/anyWithdrawlsDesc/@revIndex" name="revIndexOanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/previous/review/anyWithdrawlsDesc[@revIndex=$revIndexOanyWithdrawlsDesc])" name="thisNodeNeedleOldanyWithdrawlsDesc"/><exf:variable value="instance('ins')/previous/review/anyWithdrawlsDesc" name="thisNodeOldanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/previous/review/original/anyWithdrawlsDesc[@revIndex=$revIndexOanyWithdrawlsDesc])" name="orgNodeOldanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawlsDesc[@revIndex=$revIndexOanyWithdrawlsDesc])" name="sugNodeSetOldanyWithdrawlsDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawlsDesc[@revIndex=$revIndexOanyWithdrawlsDesc])" name="sugNodeOldanyWithdrawlsDesc"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/anyWithdrawlsDesc"><xf:label>Please Describe:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanyWithdrawlsDesc/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeanyWithdrawlsDesc != $thisNodeanyWithdrawlsDesc, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanyWithdrawlsDesc/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedleanyWithdrawlsDesc/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanyWithdrawlsDesc/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="yesnobuttons"><td class="component   widestLabel"><exf:variable value="instance('ins')/anyWithdrawlsByPi/@revIndex" name="revIndexanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/anyWithdrawlsByPi[@revIndex=$revIndexanyWithdrawlsByPi])" name="thisNodeNeedleanyWithdrawlsByPi"/><exf:variable value="instance('ins')/anyWithdrawlsByPi" name="thisNodeVanyWithdrawlsByPi"/><exf:variable value="if($thisNodeVanyWithdrawlsByPi='1', 'Yes', if($thisNodeVanyWithdrawlsByPi='0', 'No', ''))" name="thisNodeanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/original/anyWithdrawlsByPi[@revIndex=$revIndexanyWithdrawlsByPi])" name="orgNodeVanyWithdrawlsByPi"/><exf:variable value="if($orgNodeVanyWithdrawlsByPi='1', 'Yes', if($orgNodeVanyWithdrawlsByPi='0', 'No', ''))" name="orgNodeanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawlsByPi[@revIndex=$revIndexanyWithdrawlsByPi])" name="sugNodeSetanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawlsByPi[@revIndex=$revIndexanyWithdrawlsByPi])" name="sugNodeVanyWithdrawlsByPi"/><exf:variable value="if($sugNodeVanyWithdrawlsByPi='1', 'Yes', if($sugNodeVanyWithdrawlsByPi='0', 'No', ''))" name="sugNodeanyWithdrawlsByPi"/><exf:variable value="instance('ins')/previous/review/anyWithdrawlsByPi/@revIndex" name="revIndexOanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/anyWithdrawlsByPi[@revIndex=$revIndexOanyWithdrawlsByPi])" name="thisNodeNeedleOldanyWithdrawlsByPi"/><exf:variable value="instance('ins')/previous/review/anyWithdrawlsByPi" name="thisNodeVOldanyWithdrawlsByPi"/><exf:variable value="if($thisNodeVOldanyWithdrawlsByPi='1', 'Yes', if($thisNodeVOldanyWithdrawlsByPi='0', 'No', ''))" name="thisNodeOldanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/original/anyWithdrawlsByPi[@revIndex=$revIndexOanyWithdrawlsByPi])" name="orgNodeVOldanyWithdrawlsByPi"/><exf:variable value="if($orgNodeVOldanyWithdrawlsByPi='1', 'Yes', if($orgNodeVOldanyWithdrawlsByPi='0', 'No', ''))" name="orgNodeOldanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawlsByPi[@revIndex=$revIndexOanyWithdrawlsByPi])" name="sugNodeSetOldanyWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawlsByPi[@revIndex=$revIndexOanyWithdrawlsByPi])" name="sugNodeVOldanyWithdrawlsByPi"/><exf:variable value="if($sugNodeVOldanyWithdrawlsByPi='1', 'Yes', if($sugNodeVOldanyWithdrawlsByPi='0', 'No', ''))" name="sugNodeOldanyWithdrawlsByPi"/><table class="horizontalSelects"><tr><td class="yesBox"><xf:select1 ref="instance('ins')/anyWithdrawlsByPi" appearance="full" id="anyWithdrawlsByPi"><xf:label>Have any participants been withdrawn from the research protocol by the investigator?</xf:label><xf:item><xf:label>Yes</xf:label><xf:value>1</xf:value></xf:item></xf:select1></td><td class="noBox"><xf:select1 ref="instance('ins')/anyWithdrawlsByPi" appearance="full" id="anyWithdrawlsByPi"><xf:label/><xf:item><xf:label>No</xf:label><xf:value>0</xf:value></xf:item><script ev:event="xforms-value-changed">
+                model.recalculate();
+                model.rebuild();
+                model.refresh();
+              </script><script ev:event="xforms-value-changed">
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                  SH.print("first...");
+                  model.recalculate();
+                  model.rebuild();
+                  model.refresh();
+                </script><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanyWithdrawlsByPi/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:select1></td></tr></table></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeanyWithdrawlsByPi != $thisNodeanyWithdrawlsByPi, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanyWithdrawlsByPi/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedleanyWithdrawlsByPi/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanyWithdrawlsByPi/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="number"><ix:attr value="if(instance('ins')/anyWithdrawlsByPi = '1', '', 'display:none')" name="style"/><td class="component number   widestLabel"><exf:variable value="instance('ins')/noWithdrawlsByPi/@revIndex" name="revIndexnoWithdrawlsByPi"/><exf:variable value="(instance('ins')/noWithdrawlsByPi[@revIndex=$revIndexnoWithdrawlsByPi])" name="thisNodeNeedlenoWithdrawlsByPi"/><exf:variable value="instance('ins')/noWithdrawlsByPi" name="thisNodenoWithdrawlsByPi"/><exf:variable value="(instance('ins')/original/noWithdrawlsByPi[@revIndex=$revIndexnoWithdrawlsByPi])" name="orgNodenoWithdrawlsByPi"/><exf:variable value="(instance('ins')/suggestions/noWithdrawlsByPi[@revIndex=$revIndexnoWithdrawlsByPi])" name="sugNodeSetnoWithdrawlsByPi"/><exf:variable value="(instance('ins')/suggestions/noWithdrawlsByPi[@revIndex=$revIndexnoWithdrawlsByPi])" name="sugNodenoWithdrawlsByPi"/><exf:variable value="instance('ins')/previous/review/noWithdrawlsByPi/@revIndex" name="revIndexOnoWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/noWithdrawlsByPi[@revIndex=$revIndexOnoWithdrawlsByPi])" name="thisNodeNeedleOldnoWithdrawlsByPi"/><exf:variable value="instance('ins')/previous/review/noWithdrawlsByPi" name="thisNodeOldnoWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/original/noWithdrawlsByPi[@revIndex=$revIndexOnoWithdrawlsByPi])" name="orgNodeOldnoWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/suggestions/noWithdrawlsByPi[@revIndex=$revIndexOnoWithdrawlsByPi])" name="sugNodeSetOldnoWithdrawlsByPi"/><exf:variable value="(instance('ins')/previous/review/suggestions/noWithdrawlsByPi[@revIndex=$revIndexOnoWithdrawlsByPi])" name="sugNodeOldnoWithdrawlsByPi"/><xf:input style="width:80px" ref="instance('ins')/noWithdrawlsByPi"><xf:label>Number of participants:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedlenoWithdrawlsByPi/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:input></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodenoWithdrawlsByPi != $thisNodenoWithdrawlsByPi, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedlenoWithdrawlsByPi/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedlenoWithdrawlsByPi/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedlenoWithdrawlsByPi/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr><tr class="bigbox"><ix:attr value="if(instance('ins')/anyWithdrawlsByPi = '1', '', 'display:none')" name="style"/><td class="component textarea   widenLabel"><exf:variable value="instance('ins')/anyWithdrawlsByPiDesc/@revIndex" name="revIndexanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/anyWithdrawlsByPiDesc[@revIndex=$revIndexanyWithdrawlsByPiDesc])" name="thisNodeNeedleanyWithdrawlsByPiDesc"/><exf:variable value="instance('ins')/anyWithdrawlsByPiDesc" name="thisNodeanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/original/anyWithdrawlsByPiDesc[@revIndex=$revIndexanyWithdrawlsByPiDesc])" name="orgNodeanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawlsByPiDesc[@revIndex=$revIndexanyWithdrawlsByPiDesc])" name="sugNodeSetanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/suggestions/anyWithdrawlsByPiDesc[@revIndex=$revIndexanyWithdrawlsByPiDesc])" name="sugNodeanyWithdrawlsByPiDesc"/><exf:variable value="instance('ins')/previous/review/anyWithdrawlsByPiDesc/@revIndex" name="revIndexOanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/previous/review/anyWithdrawlsByPiDesc[@revIndex=$revIndexOanyWithdrawlsByPiDesc])" name="thisNodeNeedleOldanyWithdrawlsByPiDesc"/><exf:variable value="instance('ins')/previous/review/anyWithdrawlsByPiDesc" name="thisNodeOldanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/previous/review/original/anyWithdrawlsByPiDesc[@revIndex=$revIndexOanyWithdrawlsByPiDesc])" name="orgNodeOldanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawlsByPiDesc[@revIndex=$revIndexOanyWithdrawlsByPiDesc])" name="sugNodeSetOldanyWithdrawlsByPiDesc"/><exf:variable value="(instance('ins')/previous/review/suggestions/anyWithdrawlsByPiDesc[@revIndex=$revIndexOanyWithdrawlsByPiDesc])" name="sugNodeOldanyWithdrawlsByPiDesc"/><xf:textarea style="height:10em;" class="" ref="instance('ins')/anyWithdrawlsByPiDesc"><xf:label>Please Describe:</xf:label><xf:action ev:event="xforms-value-changed"><script>SH.print("evaluating am...");</script><xf:setvalue ref="$thisNodeNeedleanyWithdrawlsByPiDesc/@amdchanged">1</xf:setvalue><script>model.USA.addChange();</script></xf:action></xf:textarea></td><td class="options"/><td class="errors custError"><div><ix:attr value="if($orgNodeanyWithdrawlsByPiDesc != $thisNodeanyWithdrawlsByPiDesc, '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if($thisNodeNeedleanyWithdrawlsByPiDesc/@amdcomment='', 'color:red', 'color:green')" name="style"/>
+             Amended <xf:output value="if($thisNodeNeedleanyWithdrawlsByPiDesc/@amdcomment='', '(Please Justify)', '')"/></u><div style="width:300px;"><span><br/><i style="font-size:7pt;color:black;">Justification:</i><span style="color:black"><xf:textarea ref="$thisNodeNeedleanyWithdrawlsByPiDesc/@amdcomment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                     model.rebuild();
+                     model.refresh();
+                     model.recalculate();
+                   </script></xf:textarea></span></span></div></span></div></td></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2010</div></div></form>

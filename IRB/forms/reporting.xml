@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataModel>	
+	<table tabID="" formName="solr" printlabel="baseTable" src="">
+		<field typ="text" xml="entity" cmp="solr">Entity</field>
+		<field typ="text" xml="id8ID" cmp="solr">Protocol Number</field>		
+		<field typ="text" xml="name" cmp="solr">Protocol Title</field>
+		<field typ="text" xml="PIName" cmp="solr">PIName</field>
+		<field typ="text" xml="status" cmp="solr">Status</field>
+		<field typ="text" xml="statusTranslated" cmp="solr">Status Translated</field>
+		<field typ="text" xml="category" cmp="solr">Board</field>
+		<field typ="text" xml="category2" cmp="solr">Primary Department</field>
+		<field typ="date" xml="timestamp" cmp="solr">Last Update Date</field>
+		<field typ="text" xml="startdate" cmp="solr">Approval Start Date</field>
+		<field typ="text" xml="stopdate" cmp="solr">Approval End Date</field>
+		<field typ="text" xml="irbFocus" cmp="solr">Protocol Focus</field>
+		<field typ="text" xml="priority" cmp="solr">Review Type</field>
+		<field typ="text" xml="irbSummary" cmp="solr">Lay Summary</field>
+		<field typ="text" xml="ifnumber" cmp="solr">IF Number</field>
+		<!--<field typ="text" xml="orgName" cmp="solr">Funding Source</field>		-->
+	</table>
+	<table tabID="1c" formName="setup" printlabel="Setup" src="/system/resources/applications/IRB/configs/forms/sprint6/setup.xml">
+		<field typ="yesno" xml="researchFunded" cmp="1c" lookup="" label="" value="">Funding Has Been Requested / Obtained</field>
+		<field typ="decode" xml="appType" cmp="1c" lookup="appType/type" label="@name" value="@id">Application Type</field>
+		<field typ="yesno" xml="externalIRBHIPAA" cmp="1c" lookup="" label="" value="">External IRB Will Make HIPAA-Related Considerations</field>
+		<field typ="decode" xml="researchInvolves" cmp="1c" lookup="researchInvolves/type" label="@name" value="@id">Research Involves</field>
+		<field typ="yesno" xml="consentingParticipants" cmp="1c" lookup="" label="" value="">Consenting Participants</field>
+		<field typ="yesno" xml="requestingWaiverForAnyProcedures" cmp="1c" lookup="" label="" value="">Requesting Waiver or Alteration of Informed Consent for Any Procedures</field>
+		<field typ="yesno" xml="useHUD" cmp="1c" lookup="" label="" value="">Humanitarian Use Device (HUD) Used Exclusively in the Course of Medical Practice</field>
+		<field typ="yesno" xml="invDevs" cmp="1c" lookup="" label="" value="">Use of an Investigational Device to Evaluate Its Safety or Effectiveness</field>
+		<field typ="yesno" xml="bankingSpecimens" cmp="1c" lookup="" label="" value="">Banking Specimens for Future Research</field>
+		<field typ="yesno" xml="instPRMC" cmp="1c" lookup="" label="" value="">Cancer Research that Requires Approval from the Protocol Review and Monitoring Committee (PRMC)</field>
+		<field typ="yesno" xml="clinicalTrial" cmp="1c" lookup="" label="" value="">Clinical Trial</field>
+		<field typ="yesno" xml="invDrugs" cmp="1c" lookup="" label="" value="">Drugs / Biologics </field>
+		<field typ="yesno" xml="radiologicalProcedures" cmp="1c" lookup="" label="" value="">Radiological Procedures</field>
+		<field typ="yesno" xml="involvesBiosafety" cmp="1c" lookup="" label="" value="">Hazardous Materials</field>
+		<field typ="yesno" xml="requestingCRUResources" cmp="1c" lookup="" label="" value="">Request Use of Clinical Research Unit Resources</field>
+	</table>
+	<table tabID="1b" formName="templateMain" printlabel="Background" src="/system/resources/applications/IRB/configs/forms/sprint6/templateMain.xml">
+		<field typ="text" xml="objective" cmp="1b">Objectives</field>
+		<field typ="text" xml="background" cmp="1b">Background</field>
+		<field typ="text" xml="primarySecondaryEndpoints" cmp="1b">Primary and Secondary Study Endpoints</field>
+		<field typ="yesno" xml="previouslyApprovedISMMS" cmp="1b" lookup="" label="" value="">Protocol Was Already Approved by the Icahn School of Medicine at Mount Sinai (ISMMS) Institutional Review Board (IRB) Under a Different Principal Investigator</field>
+		<field typ="text" xml="prevISSMSProtocolNumber" cmp="1b">Protocol # of Protocol Already Approved by the ISMMS IRB Under a Different Principal Investigator</field>
+		<field typ="yesno" xml="previouslySubmittedExternal" cmp="1b" lookup="" label="" value="">Protocol Was Previously Submitted to an External(non-ISMMS) IRB</field>
+		<field typ="text" xml="previouslySubmittedExternalIRBName" cmp="1b">External IRB Name</field>
+		<field typ="yesno" xml="previouslyApprovedExternal" cmp="1b" lookup="" label="" value="">Protocol Was Approved by the External IRB</field>
+		<field typ="text" xml="previousApprovalDoc" cmp="1b">External IRB Approval Document</field>
+		<field typ="text" xml="previouslySubmittedDetails" cmp="1b">Details of the Review Including the Date of Review and External IRB Contact Information</field>
+	</table>
+	<table tabID="4b" src="/system/resources/applications/IRB/configs/forms/sprint6/personnel.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="Person[role!=&apos;nonProtocol&apos;]" 
+			xml="Person" ident="name" cmp="4b">Research Personnel</field>
+	</table>
+	<table tabID="6X" src="/system/resources/applications/IRB/configs/forms/sprint6/externalSites.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="externalSiteApprovals" xml="externalSiteApprovals" ident="siteName" cmp="6X">Sites</field>
+	</table>
+	<table tabID="3a" formName="exempSummary" printlabel="Summary" src="/system/resources/applications/IRB/configs/forms/sprint6/exempSummary.xml">
+		<field typ="text" xml="exemptSummary" cmp="3a">Summary of the Research</field>
+		<field typ="text" xml="exemptLocation" cmp="3a">Location Where Research Will Be Carried Out</field>
+		<field typ="yesno" xml="exemptInteractionSubjects" cmp="3a" lookup="" label="" value="">There Will Be Interaction with Subjects</field>
+		<field typ="text" xml="exemptEquitableSelection" cmp="3a">Explanation of How Selection of Subjects Will Be Equitable</field>
+		<field typ="text" xml="exemptPrivacyProtected" cmp="3a">Explanation of How Subjects Privacy Will Be Protected</field>
+		<field typ="yesno" xml="exemptSurveyInstruments" cmp="3a" lookup="" label="" value="">Surveys Instruments Will Be Used</field>
+		<field typ="text" xml="exemptResearchInfoSheet" cmp="3a">Research Information Sheet</field>
+	</table>
+	<table tabID="3b" formName="exempCategory" printlabel="Category" src="/system/resources/applications/IRB/configs/forms/sprint6/exempCategory.xml">
+		<field typ="text" xml="exemptCategories" cmp="3b">Exemption Categories</field>
+	</table>
+	<table tabID="4" formName="externalIRB" printlabel="External IRB" src="/system/resources/applications/IRB/configs/forms/sprint6/externalIRB.xml">
+		<field typ="decode" xml="externalIRBName" cmp="4" lookup="externalIRBName/type" label="@name" value="@id">Research Will Be Reviewed By</field>
+		<field typ="text" xml="externalIRBOther" cmp="4">Specify Other IRB</field>
+		<field typ="yesno" xml="externalIRBMultiCenterNotPI" cmp="4" lookup="" label="" value="">Research is a Major Multi-Center Clinical Trial and the Mount Sinai PI is not the overall PI of the Trial</field>
+		<field typ="yesno" xml="externalIRBMultiCenterConsortium" cmp="4" lookup="" label="" value="">Research is a Major Multi-Center Research Consortium Project</field>
+		<field typ="yesno" xml="externalIRBMultiCenterCentralIRB" cmp="4" lookup="" label="" value="">Research is a Multi-Center Trial with a Central IRB</field>
+		<field typ="yesno" xml="externalIRBPIRoleNotIncludeSubjects" cmp="4" lookup="" label="" value="">Mount Sinai PI is a Collaborator on Human Research Primarily Conducted at Another Organization and PI’s Role does not Include Interaction or Intervention with Subjects</field>
+		<field typ="yesno" xml="externalIRBFederalFunds" cmp="4" lookup="" label="" value="">Mount Sinai is Engaged in the Human Research Solely Because it is Receiving Federal Funds</field>
+		<field typ="yesno" xml="externalIRBRequestFromFCOIR" cmp="4" lookup="" label="" value="">Request Comes from the Financial Conflict of Interest in Research (FCOIR) Committee</field>
+		<field typ="yesno" xml="externalIRBRequestFromPPHS" cmp="4" lookup="" label="" value="">Request Comes from the Program for Protection of Human Subjects (PPHS)</field>
+		<field typ="yesno" xml="externalIRBHIVTesting" cmp="4" lookup="" label="" value="">Research Requires HIV Testing</field>
+		<field typ="text" xml="externalIRBHIVConsent" cmp="4">HIV Research Consent Document</field>
+	</table>
+	<table tabID="11C" formName="enrollment" printlabel="Enrollment" src="/system/resources/applications/IRB/configs/forms/sprint6/enrollment.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="externalSiteApprovals" xml="externalSiteApprovals" cmp="11C"/>
+		<field typ="text" xml="totalEnrolled" cmp="11C">Total</field>
+	</table>
+	<table tabID="11B" formName="settings" printlabel="Setting and Resources" src="/system/resources/applications/IRB/configs/forms/sprint6/settings.xml">
+		<field typ="decodeChk" xml="settingResearch" cmp="11B" lookup="settingResearch/type" label="@name" value="@id">Setting of Human Research</field>
+		<field typ="text" xml="settingResearchOther" cmp="11B">Specify Other Setting of Human Research</field>
+		<field typ="text" xml="neededNumSubjects" cmp="11B">Total Number of Subjects Needed To Complete Study</field>
+		<field typ="text" xml="feasibilityRecruitmentGoals" cmp="11B">Feasibility of Meeting Recruitment Goals</field>
+		<field typ="text" xml="facilitiesForConductingResearch" cmp="11B">Facilities To Be Used for Conducting Research</field>
+		<field typ="yesno" xml="multiCenter" cmp="11B" lookup="" label="" value="">Multi-Center Study</field>
+		<field typ="yesno" xml="multiCenterISMPIResponsible" cmp="11B" lookup="" label="" value="">Mount Sinai Principle Investigator is Responsible for All Centers</field>
+		<field typ="text" xml="descMultiCenter" cmp="11B">Management of Multi-Center Study</field>
+		<field typ="yesno" xml="isCBPR" cmp="11B" lookup="" label="" value="">Community-Based Participant Research Study</field>
+		<field typ="text" xml="descCBPR" cmp="11B">Involvement of the Community in the Design and Conduct of Research</field>
+	</table>
+	<table tabID="11" formName="subjects" printlabel="Populations" src="/system/resources/applications/IRB/configs/forms/sprint6/subjects.xml">
+		<field typ="decodeChk" xml="ageRange" cmp="11" lookup="ageRangeTypes/type" label="@name" value="@id">Age Range(s)</field>
+		<field typ="decodeChk" xml="population" cmp="11" lookup="populationTypes/type" label="@name" value="@id">Targeted Population(s)</field>
+		<field typ="text" xml="inclusionCriteria" cmp="11">Inclusion Criteria</field>
+		<field typ="text" xml="exclusionCriteria" cmp="11">Exclusion Criteria</field>
+		<field typ="yesno" xml="enrollRestrictions" cmp="11" lookup="" label="" value="">Enrollment Restrictions Based Upon Gender, Pregnancy, Childbearing Potential, or Race</field>
+		<field typ="text" xml="justifyRestrictions" cmp="11">Justify Restriction(s)</field>
+		<field typ="text" xml="otherAspects" cmp="11">Other Aspects that Could Increase Subjects&apos; Vulnerability</field>
+		<field typ="text" xml="otherSafeguards" cmp="11">Safeguards to protect Subjects&apos; rights and welfare</field>
+	</table>
+	<table tabID="17" formName="enroll" printlabel="Participation" src="/system/resources/applications/IRB/configs/forms/sprint6/enroll.xml">
+		<field typ="text" xml="recMethod" cmp="17">Recruitment Method(s)</field>
+		<field typ="text" xml="studyTimeline" cmp="17">Duration of an Individual Subject&apos;s Participation in the Study</field>
+		<field typ="text" xml="studyTimelineA" cmp="17">Duration Anticipated to Enroll All Study Subjects</field>
+		<field typ="text" xml="studyTimelineB" cmp="17">Estimated Date for the Investigators to Complete This Study</field>
+		<field typ="text" xml="subjectWithdrawal" cmp="17">Procedures for Subjects to Request Withdrawal</field>
+		<field typ="text" xml="investigatorWithdrawSubjects" cmp="17">Procedures for Investigator to Withdraw Subjects</field>
+		<field typ="yesno" xml="recruitingParticipants" cmp="17" lookup="" label="" value="">Participants Will Be Recruited</field>
+		<field typ="text" xml="recMethodOther" cmp="17">Specify Other Recruitment Method</field>
+		<field typ="text" xml="howParticipantIdentified" cmp="17">How Participants Will Be Identified</field>
+		<field typ="decode" xml="approachParticipant" cmp="17" lookup="contactTypes/type" label="@name" value="@id">Who Will Initially Approach Potential Participants</field>
+		<field typ="text" xml="researchIntroduced" cmp="17">How Research Will Be Introduced to Participants</field>
+		<field typ="text" xml="howParticipantScreened" cmp="17">How Participants Will Be Screened</field>
+	</table>
+	<table tabID="0d" formName="templateSubjects" printlabel="Risk and Benefits" src="/system/resources/applications/IRB/configs/forms/sprint6/templateSubjects.xml">
+		<field typ="text" xml="subjectRisks" cmp="0d">Risks to Subjects</field>
+		<field typ="text" xml="proceduresToLessenRiskDescription" cmp="0d">Description of Procedures Taken to Lessen the Probability or Magnitude of Risks </field>
+		<field typ="text" xml="harmProvision" cmp="0d">Provisions for Research Related Harm / Injury</field>
+		<field typ="text" xml="subjectBenefits" cmp="0d">Expected Direct Benefit to Subjects</field>
+		<field typ="text" xml="subjectPayment" cmp="0d">Benefit to Society</field>
+		<field typ="text" xml="subjectPrivacy" cmp="0d">Provisions to Protect the Privacy Interests of Subjects</field>
+		<field typ="text" xml="subjectImpact" cmp="0d">Economic Impact on Subjects</field>
+	</table>
+	<table tabID="31a" formName="children" printlabel="Children" src="/system/resources/applications/IRB/configs/forms/sprint6/children.xml">
+		<field typ="text" xml="subGreat" cmp="31a">Risk Presented to Children</field>
+	</table>
+	<table tabID="31b" formName="pregnant" printlabel="Pregnant Women" src="/system/resources/applications/IRB/configs/forms/sprint6/pregnant.xml">
+		<field typ="yesno" xml="subPreg" cmp="31b" lookup="" label="" value="">Preclinical Studies Including Those on Pregnant Animals and Clinical Studies Including Those on Non-Pregnant Women Have Been Conducted</field>
+		<field typ="text" xml="subPregData" cmp="31b">Data for Assessing Potential Risks to Pregnant Women and Fetuses</field>
+	</table>
+	<table tabID="31c" formName="prisoners" printlabel="Prisoners" src="/system/resources/applications/IRB/configs/forms/sprint6/prisoners.xml">
+		<field typ="text" xml="prisonerCategoryResearchInstruction" cmp="31c">Category of Research (Select ALL that Apply)</field>
+		<field typ="text" xml="prisonerWhoMayBenefit" cmp="31c">Who May Benefit from Research on Practices</field>
+	</table>
+	<table tabID="31d" formName="withoutcapacity" printlabel="Adults Without Capacity" src="/system/resources/applications/IRB/configs/forms/sprint6/withoutcapacity.xml">
+		<field typ="yesno" xml="directBenefitToSubjects" cmp="31d" lookup="" label="" value="">There is Anticipated Direct Benefit to the Subjects</field>
+		<field typ="text" xml="assentRequiredOf" cmp="31d">Assent is Required of</field>
+		<field typ="text" xml="riskToSubjects" cmp="31d">Risk to Subjects</field>
+	</table>
+	<table tabID="32a" formName="narrative" printlabel="Narrative" src="/system/resources/applications/IRB/configs/forms/sprint6/narrative.xml">
+		<field typ="text" xml="studyDesignDescription" cmp="32a">Description of the Study Design</field>
+		<field typ="text" xml="proceduresDescription" cmp="32a">Description of Procedures Being Performed</field>
+		<field typ="text" xml="sourceRecordsDescription" cmp="32a">Description of the Source Records that Will Be Used to Collect Data About Subjects </field>
+		<field typ="text" xml="dataCollectedDescription" cmp="32a">Description of Data that Will Be Collected Including Long-Term Follow-Up</field>
+	</table>
+	<table tabID="32b" formName="genetic" printlabel="Genetic Testing" src="/system/resources/applications/IRB/configs/forms/sprint6/genetic.xml">
+		<field typ="yesno" xml="geneticTesting" cmp="32b" lookup="" label="" value="">Genetic Testing Will Be Performed</field>
+		<field typ="yesno" xml="geneticTestingForClinicalPurposes" cmp="32b" lookup="" label="" value="">Genetic Testing Will Be Performed for Clinical Purposes</field>
+	</table>
+	<table tabID="32c" formName="templateStudyDesign" printlabel="Details" src="/system/resources/applications/IRB/configs/forms/sprint6/templateStudyDesign.xml">
+		<field typ="yesno" xml="survey" cmp="32c" lookup="" label="" value="">Surveys or Interviews</field>
+		<field typ="text" xml="typeInstruments" cmp="32c">Type of Instruments Being Used</field>
+		<field typ="text" xml="standardizedInstruments" cmp="32c">Names of Standardized Instruments</field>
+		<field typ="text" xml="investigatorInstrumentsDescription" cmp="32c">Description of Instruments Created By Research Team</field>
+		<field typ="yesno" xml="avTaping" cmp="32c" lookup="" label="" value="">Audio / Photo / Video Recording</field>
+		<field typ="yesno" xml="avTapingSubjectsIdentifiable" cmp="32c" lookup="" label="" value="">Subjects Will Be Identifiable</field>
+		<field typ="yesno" xml="avTapingMediaDiscarded" cmp="32c" lookup="" label="" value="">Media Will Be Discarded When the Research Study is Completed</field>
+		<field typ="text" xml="avTapingMediaStorageDuration" cmp="32c">Duration Media Will Be Stored</field>
+		<field typ="text" xml="avTapingMediaStorageConfidentiality" cmp="32c">How Media Will Be Stored to Ensure Confidentiality</field>
+		<field typ="yesno" xml="avTapingMediaShared" cmp="32c" lookup="" label="" value="">Media Will Be Shared with Others</field>
+		<field typ="yesno" xml="avTapingRequiredForParticipation" cmp="32c" lookup="" label="" value="">Audio / Photo / Video Recording is Required for Participation</field>
+		<field typ="yesno" xml="deception" cmp="32c" lookup="" label="" value="">Deception</field>
+		<field typ="text" xml="deceptionNotes" cmp="32c">Describe:</field>
+		<field typ="yesno" xml="shareResults" cmp="32c" lookup="" label="" value="">Results of the Study Will Be Shared with Subjects or Others</field>
+		<field typ="text" xml="descShareResults" cmp="32c">How the Results Will Be Shared</field>
+		<field typ="text" xml="descShareResultsWhen" cmp="32c">When the Results Will Be Shared</field>
+	</table>
+	<table tabID="32d" formName="instruments" printlabel="Instruments" src="/system/resources/applications/IRB/configs/forms/sprint6/instruments.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="instruments" xml="instruments" cmp="32d">Instruments Created By Research Team</field>
+	</table>
+	<table tabID="32e" formName="compensation" printlabel="Compensation" src="/system/resources/applications/IRB/configs/forms/sprint6/compensation.xml">
+		<field typ="yesno" xml="compParticipation" cmp="32e" lookup="" label="" value="">Compensation for Participation</field>
+		<!--<field typ="text" message="[View Page]" xml="Compensation" cmp="32e">Compensation</field>-->
+		<field typ="oneToMany" message="[View Page]" xmlset="Compensation" xml="Compensation" cmp="32e">Compensation</field>
+		<field typ="text" xml="compTotal" cmp="32e">Total Compensation</field>
+		<field typ="text" xml="compTotalCRU" cmp="32e">Total Compensation Paid by CRU</field>
+	</table>
+	<table tabID="33a" formName="consent" printlabel="Obtaining Consent" src="/system/resources/applications/IRB/configs/forms/sprint6/consent.xml">
+		<field typ="text" xml="concentProcess" cmp="33a">Consent Process</field>
+		<field typ="text" xml="consentDoc" cmp="33a">Consent Document</field>
+		<field typ="text" xml="whereWhenConcent" cmp="33a">Where and When Consent Will Be Obtained</field>
+		<field typ="text" xml="consentWaiting" cmp="33a">Waiting Period for Obtaining Consent</field>
+		<field typ="yesno" xml="consentSOPHRP" cmp="33a" lookup="" label="" value="">SOP HRP-090 Informed Consent Process for Research Is Being Used</field>
+		<field typ="text" xml="consentDescribe" cmp="33a">Specify Why SOP HRP-090 Is Not Being Used</field>
+		<field typ="text" xml="consentWritten" cmp="33a">Process to Document Consent in Writing</field>
+		<field typ="yesno" xml="enrollNonEnglishSpeaking" cmp="33a" lookup="" label="" value="">Non-English Speaking Participants Will Be Enrolled</field>
+		<field typ="text" xml="languagesOtherThanEnglish" cmp="33a">What Languages Other Than English Will Be Used</field>
+		<field typ="text" xml="languagesConsentProcess" cmp="33a">What Process Will Be Used</field>
+		<field typ="text" xml="justificationNotEnrollingNonEnglishSpeaking" cmp="33a">Justification for Not Enrolling Non-English Speaking Participants</field>
+	</table>
+	<table tabID="33b" formName="parentalPermission" printlabel="Parental Permission" src="/system/resources/applications/IRB/configs/forms/sprint6/parentalPermission.xml">
+		<field typ="text" xml="consPermission" cmp="33b">Permission To Be Obtained From</field>
+		<field typ="text" xml="waiveParentalCriteriaSet" cmp="33b">Which of the Following Set of Criteria Applies</field>
+		<field typ="text" xml="waiveParentalCriteriaSetJustify" cmp="33b">Justify Why This Set of Criteria Applies</field>
+		<field typ="text" xml="PPDoc" cmp="33b">Parental Permission Document</field>
+		<field typ="text" xml="assentPermission" cmp="33b">Assent To Be Obtained From</field>
+		<field typ="text" xml="assentProcess" cmp="33b">Assent Process</field>
+		<field typ="text" xml="assentForm" cmp="33b">Assent Form</field>
+		<field typ="text" xml="assentDocumentProcess" cmp="33b">Process for Documentation</field>
+		<field typ="text" xml="assentDocumentDesc" cmp="33b">Specify Other Process for Documentation</field>
+		<field typ="text" xml="consCapability" cmp="33b">Which of the Following Are True (Choose At Least One)</field>
+		<field typ="text" xml="waiveAssentCriteriaSet" cmp="33b">Which of the Following Set of Criteria Applies</field>
+		<field typ="text" xml="waiveAssentCriteriaSetJustification" cmp="33b">Justify Why This Set of Criteria Applies</field>
+		<field typ="yesno" xml="designedBenefits" cmp="33b" lookup="" label="" value="">The Research or Demonstration Project is Designed to Study, Evaluate, or Otherwise Examine One or More of the Following</field>
+	</table>
+	<table tabID="33c" formName="legallyAuthorized" printlabel="Legally Authorized Representative" src="/system/resources/applications/IRB/configs/forms/sprint6/legallyAuthorized.xml">
+		<field typ="text" xml="indCapableOfConsent" cmp="33c">Process to Determine Whether an Individual is Capable of Consent</field>
+		<field typ="text" xml="permissionList" cmp="33c">Prioritized List of Individuals from whom Permission will be Obtained</field>
+		<field typ="text" xml="assentOfSubjects" cmp="33c">Process for Assent of the Subjects</field>
+	</table>
+	<table tabID="33d" formName="informedWaiver" printlabel="Waiver of Informed Consent" src="/system/resources/applications/IRB/configs/forms/sprint6/informedWaiver.xml">
+		<field typ="text" xml="requestingWaiverFor" cmp="33d">Requesting Waiver For</field>
+		<field typ="text" xml="consentWaiver" cmp="33d">Type of Waiver</field>
+		<field typ="text" xml="noMoreThanMinRisk" cmp="33d">How the Research Involves No More Than Minimal Risks to Participants</field>
+		<field typ="text" xml="waiverNotAffectParticipants" cmp="33d">How the Waiver / Alteration Will Not Adversely Affect the Rights and Welfare of Participants</field>
+		<field typ="text" xml="justifyWaiver" cmp="33d">Why It Is Not Practical To Conduct this Research Without a Waiver or Alteration of Informed Consent</field>
+		<field typ="text" xml="provideAdditionalInformation" cmp="33d">Plans for Providing Participants with Additional Pertinant Information After Participation Where Appropriate</field>
+		<field typ="text" xml="describeAlterationConsent" cmp="33d">How the Consent Process Will Be Altered</field>
+		<field typ="text" xml="justifyAlterationConsent" cmp="33d">Justify the Need for this Alteration</field>
+	</table>
+	<table tabID="33e" formName="signedConsent" printlabel="Waiver of Signed Consent" src="/system/resources/applications/IRB/configs/forms/sprint6/signedConsent.xml">
+		<field typ="text" xml="identJustification" cmp="33e">Which of the Following Justifications is Being Used to Request a Waiver of Documentation</field>
+		<field typ="text" xml="waiverOfSignedConsentJustification" cmp="33e">Explanation of Justification Being Used to Request a Waiver of Documentation</field>
+	</table>
+	<table tabID="33f" formName="consentDocs" printlabel="Documents" src="/system/resources/applications/IRB/configs/forms/sprint6/consentDocs.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="consentDocs" xml="consentDocs" cmp="33f">Consent Documents</field>
+	</table>
+	<table tabID="0p" formName="collection" printlabel="Collection" src="/system/resources/applications/IRB/configs/forms/sprint6/collection.xml">
+		<field typ="yesno" xml="healthInfoViewedRecorded" cmp="0p" lookup="" label="" value="">Health Related Information Will Be Viewed or Recorded</field>
+		<field typ="text" xml="healthInfoViewedRecordedDescription" cmp="0p">Description of Health Information That Will Be Viewed or Recorded</field>
+		<field typ="yesno" xml="nonHealthInfoViewedRecorded" cmp="0p" lookup="" label="" value="">Non-Health Related Information Will Be Viewed or Recorded</field>
+		<field typ="text" xml="nonHealthInfoViewedRecordedDescription" cmp="0p">Description of Non-Health Information That Will Be Viewed or Recorded</field>
+		<field typ="yesno" xml="HIVInfoViewedRecorded" cmp="0p" lookup="" label="" value="">HIV / AIDS Related Information Will Be Viewed or Recorded</field>
+		<field typ="yesno" xml="HIVInfoInformedConsent" cmp="0p" lookup="" label="" value="">Informed Consent Will Be Obtained to Access Identifiable HIV / AIDS Information</field>
+		<field typ="yesno" xml="dataRecord" cmp="0p" lookup="" label="" value="">Data That Will Be Viewed or Recorded Contains ANY of the Following Directly Identifiable Information</field>
+		<field typ="decode" xml="dataViewed" cmp="0p" lookup="dataRecord/type" label="@name" value="@id">Will Be Viewed</field>
+		<field typ="decode" xml="dataRecorded" cmp="0p" lookup="dataRecord/type" label="@name" value="@id">Will Be Recorded</field>
+		<field typ="text" xml="dataCollection" cmp="0p">Data Collection Sheet</field>
+		<field typ="decodeChk" xml="dataCollectionSources" cmp="0p" lookup="dataCollectionSourceTypes/type" label="@name" value="@id">Data Collection Source(s)</field>
+	</table>
+	<table tabID="0q" formName="hippa" printlabel="HIPAA" src="/system/resources/applications/IRB/configs/forms/sprint6/hippa.xml">
+		<field typ="yesno" xml="obtainingHIPAAAuthorization" cmp="0q" lookup="" label="" value="">Obtaining HIPAA Authorization</field>
+		<field typ="text" xml="requestingWaiverAlteration" cmp="0q">Requesting Waiver or Alteration</field>
+		<field typ="text" xml="explanationWhyNotWOWaiverAlteration" cmp="0q">Explanation Why Research Could Not Be Practicably Conducted Without a Waiver or Alteration of Authorization</field>
+		<field typ="yesno" xml="researchCouldBeConductedWithoutPHI" cmp="0q" lookup="" label="" value="">Research Could Be Practicably Conducted Without Access to and Use of Protected Health Information (PHI)</field>
+		<field typ="text" xml="explanationWhyNotWOPHI" cmp="0q">Explanation Why Research Could Not Be Practicably Conducted Without Access to and Use of PHI</field>
+		<field typ="text" xml="howPHIProtected" cmp="0q">How PHI Will Be Protected from Improper Use or Disclosure</field>
+		<field typ="yesno" xml="PHIDestroyed" cmp="0q" lookup="" label="" value="">PHI Will Be Destroyed at the Earliest Opportunity Consistent with the Research</field>
+		<field typ="text" xml="WhenHowPHIDestroyed" cmp="0q">When and How PHI Will Be Destroyed </field>
+		<field typ="text" xml="justificationRetainingPHI" cmp="0q">Justification for Retaining PHI Indefinitely</field>
+		<field typ="yesno" xml="PHIShared" cmp="0q" lookup="" label="" value="">PHI Will Be Shared</field>
+		<field typ="text" xml="PHISharedDescription" cmp="0q">Description of PHI that Will Be Shared</field>
+		<field typ="text" xml="PHISharedJustification" cmp="0q">Justification for Sharing PHI</field>
+		<field typ="text" xml="PHISharedWithWhom" cmp="0q">With Whom Directly PHI Will Be Shared</field>
+		<field typ="text" xml="PHIObtainedBy" cmp="0q">PHI Can Be Obtained By</field>
+	</table>
+	<table tabID="0r" src="/system/resources/applications/IRB/configs/forms/sprint6/hiv.xml">
+		<field code="" pre="" xmlset="HIVPerson" xml="HIVPerson" ident="name" cmp="0r">HIV/AIDS</field>
+	</table>
+	<table tabID="0c" formName="templateDataMan" printlabel="Storage" src="/system/resources/applications/IRB/configs/forms/sprint6/templateDataMan.xml">
+		<field typ="text" xml="dataStore" cmp="0c">Location Where Data Will Be Stored</field>
+		<field typ="text" xml="dataStoreHow" cmp="0c">How will the data be stored?</field>
+		<field typ="text" xml="dataStoreOther" cmp="0c">Specify How Data Will Be Stored</field>
+		<field typ="text" xml="dataLength" cmp="0c">Duration Data Will Be Stored</field>
+		<field typ="text" xml="dataSecure" cmp="0c">Steps That Will Be Taken to Secure the Data During Storage, Use, and Transmission</field>
+		<field typ="text" xml="dataAnalysis" cmp="0c">Data Analysis Plan Including Any Statistical Procedures</field>
+	</table>
+	<table tabID="0s" formName="monitoring" printlabel="Safety Monitoring" src="/system/resources/applications/IRB/configs/forms/sprint6/monitoring.xml">
+		<field typ="yesno" xml="safetyMonitor" cmp="0s" lookup="" label="" value="">More Than the Minimum Data Safety Monitoring Will Be Done</field>
+		<field typ="text" xml="primDataMan" cmp="0s">Principal Monitor</field>
+		<field typ="oneToMany" message="[View Page]" xmlset="addlDataMan" xml="addlDataMan" cmp="0s">Additional Monitors</field>
+		<field typ="text" xml="specificAims" cmp="0s">Specific Items That Will Be Monitored for Safety</field>
+		<field typ="text" xml="freqDataReview" cmp="0s">Frequency of Data Review</field>
+		<field typ="text" xml="altStudyDesign" cmp="0s">Rules for Alteration of Study Design</field>
+		<field typ="text" xml="minToxicity" cmp="0s">Selection Procedures to Minimize Toxicity</field>
+		<field typ="text" xml="gradingSystem" cmp="0s">Grading System to Evaluate Adverse Events</field>
+		<field typ="text" xml="dataAccuracy" cmp="0s">Procedures to Assure Data Accuracy</field>
+		<field typ="text" xml="suspensionReport" cmp="0s">Suspension Reported to</field>
+		<field typ="text" xml="subjectWithdraw" cmp="0s">Anticipated Circumstances of Subject Withdrawal</field>
+		<field typ="text" xml="primarySecondarySafetyEndpoints" cmp="0s">Primary or Secondary Safety Endpoints</field>
+		<field typ="text" xml="dmcDescription" cmp="0s">Description of Data Monitoring Committee (DMC)</field>
+		<field typ="yesno" xml="dmcCharterAvailable" cmp="0s" lookup="" label="" value="">DMC Charter Available</field>
+		<field typ="text" xml="dmcCharter" cmp="0s">DMC Charter</field>
+	</table>
+	<table tabID="0h" formName="retrochartreviews" printlabel="Retrospective Review" src="/system/resources/applications/IRB/configs/forms/sprint6/retrochartreviews.xml">
+		<field typ="text" xml="enrollThisSite" cmp="0h">Number of records to be reviewed</field>
+		<field typ="text" xml="retroStartDate" cmp="0h">Data Generation Period Start Date</field>
+		<field typ="text" xml="retroEndDate" cmp="0h">Data Generation Period End Date</field>
+		<field typ="yesno" xml="DataSubmittedFDAPermit" cmp="0h" lookup="" label="" value="">Data Regarding Subjects or Control Subjects Will Be Submitted to or Held for Inspection by FDA as Part of an Application for a Research or Marketing Permit</field>
+		<field typ="yesno" xml="DeviceUsedDataSubmittedFDAPermit" cmp="0h" lookup="" label="" value="">A Device Will Be Used on Specimens to Collect Data that will be Submitted to or Held for Inspection by FDA as Part of an Application for a Research or Marketing Permit</field>
+	</table>
+	<table tabID="9a" formName="investigationalDevices" printlabel="Investigational Devices" src="/system/resources/applications/IRB/configs/forms/sprint6/investigationalDevices.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="Device" xml="Device" cmp="9a">Device(s)</field>
+	</table>
+	<table tabID="9b" formName="humanDevices" printlabel="Humanitarian Use Devices" src="/system/resources/applications/IRB/configs/forms/sprint6/humanDevices.xml">
+		<field typ="text" xml="dataHUD" cmp="9b">Humanitarian Use Device (HUD) Name</field>
+		<field typ="text" xml="manufacturer" cmp="9b">Manufacturer</field>
+		<field typ="text" xml="hudNum" cmp="9b">Humanitarian Device Exemption (HDE) Number</field>
+		<field typ="text" xml="hudFDA" cmp="9b">FDA Approval Indication</field>
+		<field typ="text" xml="hudApprovalDoc" cmp="9b">FDA HDE Approval</field>
+		<field typ="text" xml="hudUseDoc" cmp="9b">HUD Use Summary</field>
+		<field typ="text" xml="hudProductDoc" cmp="9b">Product Labeling</field>
+		<field typ="text" xml="hudPatientDoc" cmp="9b">Patient Information Packet</field>
+	</table>
+	<table tabID="34" formName="specimenBanking" printlabel="Specimen Banking" src="/system/resources/applications/IRB/configs/forms/sprint6/specimenBanking.xml">
+		<field typ="text" xml="specDescribe" cmp="34">Where the Specimens Will Be Stored</field>
+		<field typ="text" xml="specLength" cmp="34">Duration Specimens Will Be Stored</field>
+		<field typ="text" xml="specAccess" cmp="34">How Researchers Will Gain Access to Specimens</field>
+		<field typ="text" xml="specInfo" cmp="34">Information To Be Stored or Associated with Each Specimen</field>
+		<field typ="yesno" xml="specimensWillBeReleased" cmp="34" lookup="" label="" value="">Specimens Will Be Released</field>
+		<field typ="text" xml="specRelease" cmp="34">Process for Researchers to Request Release of Specimens</field>
+		<field typ="text" xml="specApproval" cmp="34">Approvals Required for Release of Specimens</field>
+		<field typ="text" xml="specProvide" cmp="34">Information To Be Provided with Specimens</field>
+		<field typ="text" xml="specimensCanBeObtainedBy" cmp="34">Specimens Can Be Obtained By</field>
+	</table>
+	<table tabID="7" formName="funding" printlabel="Funding" src="/system/resources/applications/IRB/configs/forms/sprint6/funding.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="fundingSourceComp" xml="fundingSourceComp" ident="grantName" cmp="7">Funding</field>
+	</table>
+
+	<table tabID="2b" formName="instApprovals" printlabel="Cancer" src="/system/resources/applications/IRB/configs/forms/sprint6/instApprovals.xml">
+		<field typ="yesno" xml="instPRMCApp" cmp="2b" lookup="" label="" value="">PRMC Approval Has Been Obtained</field>
+		<field typ="text" xml="instPRMCAppLetter" cmp="2b">PRMC Approval Letter</field>
+	</table>
+	<table tabID="2d" formName="radiationsafety" printlabel="Radiation Safety" src="/system/resources/applications/IRB/configs/forms/sprint6/radiationsafety.xml">
+		<field typ="yesno" xml="radiologicalProceduresDosimetry" cmp="2d" lookup="" label="" value="">Research Involves Any of the Following Radiological Procedures Requiring Use of Dosimetry Chart</field>
+		<field typ="text" xml="dosimetryChart" cmp="2d">Completed Dosimetry Chart</field>
+		<field typ="yesno" xml="involvesRadiologicalProcedures" cmp="2d" lookup="" label="" value="">Research Involves Any of the Following Radiological Procedures</field>
+		<field typ="yesno" xml="involvesStandardCareRadiologicalProceduresOnly" cmp="2d" lookup="" label="" value="">Research Involves Any of the Following Standard of Care Radiological Procedures Only</field>
+	</table>
+	<table tabID="8" formName="mssmDrugs" printlabel="Drugs / Biologics" src="/system/resources/applications/IRB/configs/forms/sprint6/mssmDrugs.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="Drug" xml="Drug" cmp="8">Drugs / Biologics</field>
+		<field typ="text" xml="studyFundAccount" cmp="8">Study Fund Account</field>
+	</table>
+	<table tabID="37" formName="biosafety" printlabel="Biosafety" src="/system/resources/applications/IRB/configs/forms/sprint6/biosafety.xml">
+		<field typ="text" xml="dateOfInvolvingHazardousMaterials" cmp="37">Starting Date of Activity Involving Hazardous Materials</field>
+		<field typ="decode" xml="biosafetyLevel" cmp="37" lookup="biosafetyLevel/type" label="@name" value="@id">Biosafety Level</field>
+		<field typ="decode" xml="riskGroup" cmp="37" lookup="riskGroup/type" label="@name" value="@id">Risk Group</field>
+		<field typ="yesno" xml="geneTherapy" cmp="37" lookup="" label="" value="">Gene Therapy</field>
+		<field typ="yesno" xml="largeScaleProductionVectors" cmp="37" lookup="" label="" value="">Large Scale Production of Vectors</field>
+		<field typ="yesno" xml="vitroSysApplications" cmp="37" lookup="" label="" value="">In Vitro System Applications</field>
+		
+		<field typ="oneToMany" message="[View Page]" xmlset="Organism" xml="Organism" cmp="37">Organism</field>
+		<field typ="yesno" xml="codeForToxinOncogeneUnToxin" cmp="37" lookup="" label="" value="">Inserted Gene Will Code For Known Toxin, Known Oncogene or Uncharacterized Toxin</field>
+		<field typ="text" xml="descInsertedGeneWillCode" cmp="37">Description of What Inserted Gene Will Code</field>
+		<field typ="yesno" xml="insertedGeneWillAlterRangeOrCell" cmp="37" lookup="" label="" value="">Inserted Gene Will Alter Host Range or Known Cell Tropism</field>
+		<field typ="text" xml="descInsertedGeneWillAlter" cmp="37">Description of What Inserted Gene Will Alter</field>
+		<field typ="yesno" xml="geneHaveReplicationCapacityOfVirus" cmp="37" lookup="" label="" value="">Inserted Gene Will Have Replication Capacity of a Virus</field>
+		<field typ="yesno" xml="geneCapableOfAlteringHostCell" cmp="37" lookup="" label="" value="">Inserted Gene Will Be Capable of Altering the Host Cell Cycle</field>
+		<field typ="yesno" xml="wildVirusPresentInVector" cmp="37" lookup="" label="" value="">Wild Type Virus Sequence Present in Vector</field>
+		<field typ="decode" xml="fractionWildVirusPresentInVector" cmp="37" lookup="fractionWildVirusPresentInVector/type" label="@name" value="@id">Fraction of Wild Type Virus Sequence Present in Vector</field>
+	</table>
+	<table tabID="35a" formName="cruSummary" printlabel="Summary" src="/system/resources/applications/IRB/configs/forms/sprint6/cruSummary.xml">
+		<field typ="text" xml="studyWillUtilize" cmp="35a">Study Will Utilize</field>
+		<field typ="yesno" xml="includesStandardCare" cmp="35a" lookup="" label="" value="">Study Includes Standard of Care</field>
+		<field typ="yesno" xml="rareDiseaseStudy" cmp="35a" lookup="" label="" value="">Rare Disease Study</field>
+		<field typ="decode" xml="CRUPersonnel" cmp="35a" lookup="CRUPersonnel/type" label="@name" value="@id">CRU Personnel</field>
+		<field typ="decode" xml="CRUFacilities" cmp="35a" lookup="CRUFacilities/type" label="@name" value="@id">CRU Facilities</field>
+		<field typ="text" xml="descPerformedCRU" cmp="35a">Describe What Will Be Performed On the CRU</field>
+	</table>
+	<table tabID="35b" formName="cruRequirements" printlabel="Requirements" src="/system/resources/applications/IRB/configs/forms/sprint6/cruRequirements.xml">
+		<field typ="text" xml="totalNumberPatientsEvaluatedCRU" cmp="35b">Number of Patients  to be Evaluated at the Clinical Research Unit (CRU)</field>
+		<field typ="text" xml="outpatientVisits" cmp="35b">Outpatient Visits / Patient</field>
+		<field typ="text" xml="hoursPerVisit" cmp="35b">Hours / Visit</field>
+		<field typ="text" xml="uniqueSituations" cmp="35b">Explanation of Any Unique Situations</field>
+		<field typ="text" xml="timeDayTesting" cmp="35b">Time of Day Required for Testing</field>
+		<field typ="text" xml="timeDayTestingSpecify" cmp="35b">Specify Time of Day</field>
+		<field typ="yesno" xml="specialNursingReqs" cmp="35b" lookup="" label="" value="">Special Nursing Requirements</field>
+		<field typ="text" xml="specialNursingReqsSpecify" cmp="35b">Specify Special Nursing Requirements</field>
+		<field typ="yesno" xml="specialInfectionControlReqs" cmp="35b" lookup="" label="" value="">Special Infection Control Requirements</field>
+		<field typ="text" xml="specialInfectionControlReqsSpecify" cmp="35b">Specify Special Infection Control Requirements</field>
+		<field typ="yesno" xml="fallsPrecaution" cmp="35b" lookup="" label="" value="">Falls Precaution</field>
+		<field typ="yesno" xml="seizurePrecaution" cmp="35b" lookup="" label="" value="">Seizure Precaution</field>
+		<field typ="yesno" xml="patientsCareSelves" cmp="35b" lookup="" label="" value="">Patients Can Care For Selves</field>
+		<field typ="yesno" xml="requireNursingAssistance" cmp="35b" lookup="" label="" value="">Require Nursing Assistance</field>
+		<field typ="text" xml="requireNursingAssistanceSpecify" cmp="35b">Specify Nursing Assistance Requirements</field>
+		<field typ="yesno" xml="dietaryReqs" cmp="35b" lookup="" label="" value="">Dietary and Scheduling Requirements</field>
+		<field typ="text" xml="dietaryReqsSpecify" cmp="35b">Specify Dietary and Scheduling Requirements</field>
+	</table>
+	<table tabID="35c" formName="cruCosts" printlabel="Costs" src="/system/resources/applications/IRB/configs/forms/sprint6/cruCosts.xml">
+		<field typ="oneToMany" message="[View Page]" xmlset="Cost" xml="Cost" cmp="35c">Costs</field>
+		<field typ="text" xml="totalCosts" cmp="35c">Total Costs</field>
+		<field typ="text" xml="totalCRUCosts" cmp="35c">Total Costs Paid by CRU</field>
+		<field typ="text" xml="compTotalCRU" cmp="35c">Total Compensation Paid by CRU</field>
+		<field typ="text" xml="totalCRU" cmp="35c">Total Costs and Compensation Paid by CRU</field>
+	</table>
+	<table tabID="36" formName="financialAdmin" printlabel="Financial Administration" src="/system/resources/applications/IRB/configs/forms/sprint6/financialAdmin.xml">
+		<field typ="text" xml="FACTSClinicalResearchStudyCategory" cmp="36">Clinical Research Study Category</field>
+		<field typ="text" xml="facts_payment_option" cmp="36">Payment Option</field>
+		<field typ="text" xml="facts_payment_option_1" cmp="36">Payment Option 1</field>
+		<field typ="text" xml="facts_payment_option_2" cmp="36">Payment Option 2</field>
+		<field typ="text" xml="facts_payment_option_5" cmp="36">Payment Option 5</field>
+	</table>
+	<table tabID="18" formName="" printlabel="Attachments">
+		<field typ="oneToMany" message="[View Page]" xml="document" cmp="18"/>
+	</table>
+</dataModel>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations tabset="errorSetScreen">
+<!--    <e type="direct" toptab="1" tab="1a" err="fdaApproval" message="required"
+        xpath="count(instance('ins')/fdaApproval[. = ''])" xpathSS="count(fdaApproval[. = ''])"/>
+    
+    <e type="direct" toptab="1" tab="1a" err="recentLitOrFindings" message="required"
+        xpath="count(instance('ins')/recentLitOrFindings[. = ''])" xpathSS="count(recentLitOrFindings[. = ''])"/>
+    <!-\-<e type="direct" toptab="1" tab="1a" err="relevanceSummary" message="required"
+        xpath="count(instance('ins')/relevanceSummary[. = '' and instance('ins')/recentLitOrFindings='1'])" xpathSS="count(relevanceSummary[. = '' and //recentLitOrFindings='1'])"/>-\->
+    <!-\-<e type="direct" toptab="1" tab="1a" err="changeConsentReq" message="required"
+        xpath="count(instance('ins')/changeConsentReq[. = '' and instance('ins')/recentLitOrFindings='1'])" xpathSS="count(changeConsentReq[. = '' and //recentLitOrFindings='1'])"/>-\->
+    <e type="direct" toptab="1" tab="1a" err="changeExplaination" message="required"
+        xpath="count(instance('ins')/changeExplaination[. = '' and instance('ins')/changeConsentReq='1' and instance('ins')/recentLitOrFindings='1'])" xpathSS="count(changeExplaination[. = '' and //changeConsentReq='1' and //recentLitOrFindings='1'])"/>
+    
+    
+    <e type="direct" toptab="1" tab="1a" err="additionRisksIdentified" message="required"
+        xpath="count(instance('ins')/additionRisksIdentified[. = ''])" xpathSS="count(additionRisksIdentified[. = ''])"/>
+    <e type="direct" toptab="1" tab="1a" err="longTermFollowUp" message="required"
+        xpath="count(instance('ins')/longTermFollowUp[. = ''])" xpathSS="count(longTermFollowUp[. = ''])"/>
+    <e type="direct" toptab="1" tab="1a" err="interventionsComplete" message="required"
+        xpath="count(instance('ins')/interventionsComplete[. = ''])" xpathSS="count(interventionsComplete[. = ''])"/>
+    <e type="direct" toptab="1" tab="1a" err="dataAnlysisOnly" message="required"
+        xpath="count(instance('ins')/dataAnlysisOnly[. = ''])" xpathSS="count(dataAnlysisOnly[. = ''])"/>
+    
+    
+    <!-\- Documents -\->
+    <e type="direct" toptab="1" tab="1b" err="noLabel" 
+        xpath="count(instance('ins')/document[@label = '' and @type='user'])" xpathSS="count(document[@label = '' and @type='user'])"/>
+    <e type="direct" toptab="1" tab="1b" err="noDoc" 
+        xpath="count(instance('ins')/document[@uri = '' and @type='user'])" xpathSS="count(document[@uri = '' and @type='user'])"/>
+        
+    
+    
+    <e type="direct" toptab="2" tab="2a" err="enrollNewParticipants" message="required"
+        xpath="count(instance('ins')/enrollNewParticipants[. = ''])" xpathSS="count(enrollNewParticipants[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="enrollmentClosed" message="required"
+        xpath="count(instance('ins')/enrollmentClosed[. = ''])" xpathSS="count(enrollmentClosed[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="nonEnglishParticipants" message="required"
+        xpath="count(instance('ins')/nonEnglishParticipants[. = ''])" xpathSS="count(nonEnglishParticipants[. = ''])"/>
+    <e type="direct" toptab="2" tab="2a" err="numberNonEnglish" message="required"
+        xpath="count(instance('ins')/numberNonEnglish[. = '' and instance('ins')/nonEnglishParticipants='1'])" xpathSS="count(numberNonEnglish[. = '' and //nonEnglishParticipants='1'])"/>
+    <e type="direct" toptab="2" tab="2a" err="nonEnglishLanguage" message="required"
+        xpath="count(instance('ins')/nonEnglishLanguage[. = '' and instance('ins')/nonEnglishParticipants='1'])" xpathSS="count(nonEnglishLanguage[. = '' and //nonEnglishParticipants='1'])"/>
+    <e type="direct" toptab="2" tab="2a" err="nonEnglishLanguageConsent" message="required"
+        xpath="count(instance('ins')/nonEnglishLanguageConsent[. = '' and instance('ins')/nonEnglishParticipants='1'])" xpathSS="count(nonEnglishLanguageConsent[. = '' and //nonEnglishParticipants='1'])"/>
+      
+    
+    
+    
+    <e type="direct" toptab="2" tab="2f" err="explainEnrollmentExceeded" message="required"
+        xpath="count(instance('ins')/explainEnrollmentExceeded[. = ''])" xpathSS="count(explainEnrollmentExceeded[. = '' and //ENREXCEED='1'])"/>
+    
+<!-\-    <e type="direct" toptab="2x" tab="2x" err="smallJust" message="required"
+        xpath="count(instance('ins')/smallJust[. = ''])" xpathSS="count(smallJust[. = '' and //ENREXCEEDSMALL='1'])"/>-\->
+    
+    
+    <e type="direct" toptab="3" tab="3a" err="anyComplaints" message="required"
+        xpath="count(instance('ins')/anyComplaints[. = ''])" xpathSS="count(anyComplaints[. = ''])"/>
+    <e type="direct" toptab="3" tab="3a" err="noComplaints" message="required"
+        xpath="count(instance('ins')/noComplaints[. = '' and instance('ins')/anyComplaints='1'])" xpathSS="count(noComplaints[. = '' and //anyComplaints='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="anyComplaintsDesc" message="required"
+        xpath="count(instance('ins')/anyComplaintsDesc[. = '' and instance('ins')/anyComplaints='1'])" xpathSS="count(anyComplaintsDesc[. = '' and //anyComplaints='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="anyWithdrawls" message="required"
+        xpath="count(instance('ins')/anyWithdrawls[. = ''])" xpathSS="count(anyWithdrawls[. = ''])"/>
+    <e type="direct" toptab="3" tab="3a" err="noWithdrawls" message="required"
+        xpath="count(instance('ins')/noWithdrawls[. = '' and instance('ins')/anyWithdrawls='1'])" xpathSS="count(noWithdrawls[. = '' and //anyWithdrawls='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="anyWithdrawlsDesc" message="required"
+        xpath="count(instance('ins')/anyWithdrawlsDesc[. = '' and instance('ins')/anyWithdrawls='1'])" xpathSS="count(anyWithdrawlsDesc[. = '' and //anyWithdrawls='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="anyWithdrawlsByPi" message="required"
+        xpath="count(instance('ins')/anyWithdrawlsByPi[. = ''])" xpathSS="count(anyWithdrawlsByPi[. = ''])"/>
+    <e type="direct" toptab="3" tab="3a" err="noWithdrawlsByPi" message="required"
+        xpath="count(instance('ins')/noWithdrawlsByPi[. = '' and instance('ins')/anyWithdrawlsByPi='1'])" xpathSS="count(noWithdrawlsByPi[. = '' and //anyWithdrawlsByPi='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="anyWithdrawlsByPiDesc" message="required"
+        xpath="count(instance('ins')/anyWithdrawlsByPiDesc[. = '' and instance('ins')/anyWithdrawlsByPi='1'])" xpathSS="count(anyWithdrawlsByPiDesc[. = '' and //anyWithdrawlsByPi='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="declinedToParticipate" message="required"
+        xpath="count(instance('ins')/declinedToParticipate[. = ''])" xpathSS="count(declinedToParticipate[. = ''])"/>
+    <e type="direct" toptab="3" tab="3a" err="noDeclined" message="required"
+        xpath="count(instance('ins')/noDeclined[. = '' and instance('ins')/declinedToParticipate='1'])" xpathSS="count(noDeclined[. = '' and //declinedToParticipate='1'])"/>
+    <e type="direct" toptab="3" tab="3a" err="declinedToParticipateDesc" message="required"
+        xpath="count(instance('ins')/declinedToParticipateDesc[. = '' and instance('ins')/declinedToParticipate='1'])" xpathSS="count(declinedToParticipateDesc[. = '' and //declinedToParticipate='1'])"/>
+    
+    <e type="direct" toptab="3" tab="3b" err="anyAudits" message="required"
+        xpath="count(instance('ins')/anyAudits[. = ''])" xpathSS="count(anyAudits[. = ''])"/>
+    <e type="direct" toptab="3" tab="3b" err="auditBy" message="required"
+        xpath="count(instance('ins')/auditBy[. = ''])" xpathSS="count(auditBy[. = ''])"/>
+    <e type="direct" toptab="3" tab="3b" err="auditComplete" message="required"
+        xpath="count(instance('ins')/auditComplete[. = ''])" xpathSS="count(auditComplete[. = ''])"/>
+    <e type="direct" toptab="3" tab="3b" err="auditReport" message="required"
+        xpath="count(instance('ins')/auditReport[. = ''])" xpathSS="count(auditReport[. = ''])"/>
+    <e type="direct" toptab="3" tab="3b" err="anyUnantiProbs" message="required"
+        xpath="count(instance('ins')/anyUnantiProbs[. = ''])" xpathSS="count(anyUnantiProbs[. = ''])"/>
+    <e type="direct" toptab="3" tab="3b" err="researchAudit" message="required"
+        xpath="count(instance('ins')/researchAudit[. = ''])" xpathSS="count(researchAudit[. = ''])"/>
+    <e type="direct" toptab="3" tab="3b" err="auditDoc" message="required"
+        xpath="count(instance('ins')/auditDoc[. = '' and instance('ins')/researchAudit='1'])" xpathSS="count(auditDoc[. = '' and //researchAudit='1'])"/>
+    
+    
+    <e type="direct" toptab="3" tab="3c" err="anySuspensions" message="required"
+        xpath="count(instance('ins')/anySuspensions[. = ''])" xpathSS="count(anySuspensions[. = ''])"/>
+    <e type="direct" toptab="3" tab="3c" err="anySuspensionsDesc" message="required"
+        xpath="count(instance('ins')/anySuspensionsDesc[. = '' and instance('ins')/anySuspensions='1'])" xpathSS="count(anySuspensionsDesc[. = '' and //anySuspensions='1'])"/>
+    <e type="direct" toptab="3" tab="3c" err="adminHoldNotReported" message="required"
+        xpath="count(instance('ins')/adminHoldNotReported[. = ''])" xpathSS="count(adminHoldNotReported[. = ''])"/>
+    <e type="direct" toptab="3" tab="3c" err="adminHoldNotReportedDesc" message="required"
+        xpath="count(instance('ins')/adminHoldNotReportedDesc[. = '' and instance('ins')/adminHoldNotReported='1'])" xpathSS="count(adminHoldNotReportedDesc[. = '' and //adminHoldNotReported='1'])"/>-->
+</validations>

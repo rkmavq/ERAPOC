@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <uri/>
+    <tech1/>
+    <tech2/>
+    <tech3/>
+    <tech4/>
+    <tech5/>
+    <tech6/>
+    <tech7/>
+    <tech8/>
+    <tech9/>
+    <tech10/>
+    <tech14/>
+    <tech15/>
+    
+    <!--HH Fields-->
+    <feeWaiverRequested/>
+    <feeWaiverReason/>
+    <feeWaiverReasonOther/>
+    <educationalRequirements/>
+    <unfundedSource/>
+    <ipOfPI/>
+    <involveHHResources/>
+    <projectStrategy/>
+    <singleUseIND/>
+    <singlePatientINDNumber/>
+    <fda3926Doc uri="" docLink=""/>
+    <drugTreatmentPlanDoc uri="" docLink=""/>
+    <fda1572Doc uri="" docLink=""/>
+    <fdaOkToProceedDoc uri="" docLink=""/>
+    <idbDoc uri="" docLink=""/>
+    <numSubjectsCompleteStudy/>
+    <researchProlong/>
+    <describeProlong/>
+    <approachParticipantDescribe/>
+    <consentWrittenDescribe/>
+    <!--HH Fields-->
+    
+    
+    <!-- Project Summary Details -->
+    <justifyRestrictions/>
+    <primarySecondaryEndpoints/>
+    <previouslyApprovedISMMS/>
+    <prevISSMSProtocolNumber/>
+    <previouslySubmittedExternal/>
+    <previouslySubmittedExternalIRBName/>
+    <previouslyApprovedExternal/>
+    <previousApprovalDoc uri="" docLink=""/>
+    <previouslySubmittedDetails/>
+    <retroAndProspective/>
+    <requestingWaiverForAnyProcedures/>
+    <bankingSpecimens/>
+    <instPRMCAppLetter uri="" docLink=""/>
+    <routineDrugs/>
+    <useControlledSubstances/>
+    <drugsBiologicsSponsorSupplied/>
+    <involvesDosimetryChart/>
+    <instDosimetryChart uri="" docLink=""/>
+    <involvesRadiologicalProcedures/>
+    <involvesStandardCareRadiologicalProceduresOnly/>
+    <involvesBiosafety/>
+    <requestingCRUResources/>
+    <consentingHumanSubjects/>
+    <FACTSCriteria/>
+    <FACTSClinicalResearchStudyCategory/>
+    <feasibilityRecruitmentGoals/>
+    <facilitiesForConductingResearch/>
+    <totalNumberPatientsEvaluatedCRU/>
+    <investigatorWithdrawSubjects/>
+    <recruitingParticipants/>
+    <howParticipantIdentified/>
+    <howParticipantScreened/>
+    <proceduresToLessenRiskDescription/>
+    <prisonerCategoryResearchInstruction/>
+    <prisonerWhoMayBenefit/>
+    <directBenefitToSubjects/>
+    <assentRequiredOf/>
+    <riskToSubjects/>
+    <studyDesignDescription/>
+    <proceduresDescription/>
+    <sourceRecordsDescription/>
+    <dataCollectedDescription/>
+    <geneticTesting/>
+    <geneticTestingForClinicalPurposes/>
+    <typeInstruments/>
+    <standardizedInstruments/>
+    <investigatorInstrumentsDescription/>
+    <avTapingSubjectsIdentifiable/>
+    <avTapingMediaDiscarded/>
+    <avTapingMediaStorageDuration/>
+    <avTapingMediaStorageConfidentiality/>
+    <avTapingMediaShared/>
+    <avTapingRequiredForParticipation/>
+    <descShareResultsWhen/>
+    <consentDoc uri="" docLink=""/>
+    <languagesOtherThanEnglish/>
+    <languagesConsentProcess/>
+    <justificationNotEnrollingNonEnglishSpeaking/>
+    <waiveParentalCriteriaSet/>
+    <waiveParentalCriteriaSetJustify/>
+    <assentForm uri="" docLink=""/>
+    <waiveAssentCriteriaSetJustification/>
+    <waiveAssentCriteriaSet/>
+    <designedBenefits/>
+    <indCapableOfConsent/>
+    <permissionList/>
+    <assentOfSubjects/>
+    <requestingWaiverFor/>
+    <justifyAlterationConsent/>
+    <healthInfoViewedRecorded/>
+    <healthInfoViewedRecordedDescription/>
+    <nonHealthInfoViewedRecorded/>
+    <nonHealthInfoViewedRecordedDescription/>
+    <HIVInfoViewedRecorded/>
+    <HIVInfoInformedConsent/>
+    <dataViewed/>
+    <dataRecorded/>
+    <dataCollectionSources/>
+    <obtainingHIPAAAuthorization/>
+    <requestingWaiverAlteration/>
+    <researchCouldBeConductedWithoutWaiverAlteration/>
+    <explanationWhyNotWOWaiverAlteration/>
+    <researchCouldBeConductedWithoutPHI/>
+    <explanationWhyNotWOPHI/>
+    <howPHIProtected/>
+    <PHIDestroyed/>
+    <WhenHowPHIDestroyed/>
+    <justificationRetainingPHI/>
+    <PHIShared/>
+    <!-- AB Sprint 4 Item - Add the following the following under PHI Will Be Shared -->
+    <haveCopyOfDUA/>
+    <copyOfDUA uri="" docLink=""/>
+    <PHISharedDescription/>
+    <PHISharedJustification/>
+    <PHISharedWithWhom/>
+    <PHIObtainedBy/>
+    <primarySecondarySafetyEndpoints/>
+    <dmcCharterAvailable/>
+    <dmcCharter uri="" docLink=""/>
+    <dataCoordinatingCenter/>
+    <DataSubmittedFDAPermit/>
+    <DeviceUsedDataSubmittedFDAPermit/>
+    <specimensWillBeReleased/>
+    <specimensCanBeObtainedBy/>
+    <studyWillUtilize/>
+    <includesStandardCare/>
+    <rareDiseaseStudy/>
+    <CRUPersonnel/>
+    <CRUFacilities/>
+    <descPerformedCRU/>
+    <outpatientVisits/>
+    <hoursPerVisit/>
+    <uniqueSituations/>
+    <timeDayTesting/>
+    <timeDayTestingSpecify/>
+    <specialNursingReqs/>
+    <specialNursingReqsSpecify/>
+    <specialInfectionControlReqs/>
+    <specialInfectionControlReqsSpecify/>
+    <fallsPrecaution/>
+    <seizurePrecaution/>
+    <patientsCareSelves/>
+    <requireNursingAssistance/>
+    <requireNursingAssistanceSpecify/>
+    <dietaryReqs/>
+    <dietaryReqsSpecify/>
+    <facts_payment_option/>
+    <facts_payment_option_1/>
+    <facts_payment_option_2/>
+    <facts_payment_option_5/>
+    <compTotal/>
+    <totalCosts/>
+    <totalCRUCosts/>
+    <compTotalCRU/>
+    <totalCRU/>
+    <!-- MSSM new Fields by Zubin -->
+    <!--This is where the datamodel for each module is defined-->
+    <!--MSSM Master Form-->
+    <involveHS/>
+    <meetDefResearch/>
+    <meetDefIRB/>
+    <involveUseInvest/>
+    <involveCRU/>
+    <involveVertebrate/>
+    <!--instPRMC, consentObt, researchFunded, instIBC, instRad already exist in irb.xml-->
+    <!--MSSM Master Form-->
+    <!--MSSM Additions-->
+    <consPermission/>
+    <assentPermission/>
+    <consCapability/>
+    <assentDocument/>
+    <assentDocumentProcess/>
+    <assentDocumentDesc/>
+    <subGreat/>
+    <subPreg/>
+    <subPregData/>
+    <subMoney/>
+    <subMoneyDesc/>
+    <subTerm/>
+    <subTermDesc/>
+    <subNeo/>
+    <subNeoDesc/>
+    <specDescribe/>
+    <specLength/>
+    <specAccess/>
+    <specWhoAccess/>
+    <specInfo/>
+    <specRelease/>
+    <specApproval/>
+    <specObtain/>
+    <specProvide/>
+    <dateRevised/>
+    <objective/>
+    <background/>
+    <settingResearch/>
+    <settingResearchOther/>
+    <availableResources/>
+    <recruitMethods/>
+    <numSubjects/>
+    <neededNumSubjects/>
+    <studyTimeline/>
+    <studyTimelineA/>
+    <studyTimelineB/>
+    <endPoints/>
+    <otherProcs/>
+    <proceduresInvolved/>
+    <specimenBanking/>
+    <dataManagement/>
+    <dataInfo/>
+    <dataCollection uri="" docLink="" name="Data Collection Sheet" status="Data Collection Sheet"/>
+    <hipaaDoc uri="" docLink="" name="HIPAA Authorization" status="HIPAA Authorization"/>
+    <dataStore/>
+    <dataStoreHow/>
+    <dataStoreOther/>
+    <dataStoreWho/>
+    <dataLength/>
+    <dataAccess/>
+    <dataTrans/>
+    <dataSecure/>
+    <dataAnalysis/>
+    <dataRecord/>
+    <dataRecordMethod/>
+    <subjectWithdrawal/>
+    <safetyMonitor/>
+    <primManJustifiy/>
+    <specificAims/>
+    <freqDataReview/>
+    <altStudyDesign/>
+    <minToxicity/>
+    <gradingSystem/>
+    <dataAccuracy/>
+    <suspensionReport/>
+    <dmcDescription uri="" docLink=""/>
+    <subjectWithdraw/>
+    <subjectRisks/>
+    <harmProvision/>
+    <subjectBenefits/>
+    <subjectPrivacy/>
+    <subjectImpact/>
+    <subjectPayment/>
+    <consentObtain/>
+    <consentSetting/>
+    <consentWaiting/>
+    <consentSOPHRP/>
+    <!-- AB Sprint 4 -->
+    <consentType/>
+    <consentTypeOtherSpecify/>
+    
+    <consentDescribe/>
+    <consentChildren/>
+    <consentUnderAge/>
+    <consentParentalPermission/>
+    <consentOtherDescribe/>
+    <consentAll/>
+    <consentWhich/>
+    <consentDocument/>
+    <consentMiscDescribe/>
+    <consentAdults/>
+    <consentAdPerm/>
+    <consentAdList/>
+    <assentAllSome/>
+    <assentWhich/>
+    <assentNone/>
+    <assentProcess/>
+    <consentNonEnglish/>
+    <consentNEDesc/>
+    <consentNEExclude/>
+    <consentNEExcludeJust/>
+    <consentWaiver/>
+    <consentWaiverJust/>
+    <consentWritten/>
+    <adUnConsent/>
+    <teenConsent/>
+    <wardConsent/>
+    <pregConsent/>
+    <prisConsent/>
+    <otherAspects/>
+    <otherSafeguards/>
+    <multiCenter/>
+    <descMultiCenter/>
+    <isCBPR/>
+    <descCBPR/>
+    <shareResults/>
+    <descShareResults/>
+    <priorReview/>
+    <priorReviewIRB/>
+    <priorReviewApprove/>
+    <priorReviewDesc/>
+    <drugInvolve/>
+    <drugInvolveDesc/>
+    <useHUD/>
+    <useMedical/>
+    <useExternal/>
+    <submissionApproved/>
+    <instRad/>
+    <instRadApp/>
+    <instRadDesc/>
+    <instIBC/>
+    <instIBCApp/>
+    <instIBCDesc/>
+    <instPRMC/>
+    <instPRMCApp/>
+    <instPRMCDesc/>
+    <instFCO/>
+    <instFCOApp/>
+    <instFCODesc/>
+    <instPath/>
+    <instPathApp/>
+    <instPathDesc/>
+    <instESCRO/>
+    <instESCROApp/>
+    <instESCRODesc/>
+    <instReg/>
+    <instRegApp/>
+    <instRegDesc/>
+    <instGCO/>
+    <instGCOApp/>
+    <instGCODesc/>
+    <instCTBB/>
+    <instCTBBApp/>
+    <instCTBBDesc/>
+    <hudNum/>
+    <hudFDA/>
+    <hudApprovalDoc uri="" docLink="" name="FDA HDE Approval" status="FDA Determination"/>
+    <hudUseDoc uri="" docLink="" name="HUD Use Summary" status="HUD Use Summary"/>
+    <hudProductDoc uri="" docLink="" name="Product Labeling" status="Product Labeling"/>
+    <hudPatientDoc uri="" docLink="" name="Patient Information Packet"
+        status="Patient Information Packet"/>
+    <!--Review Stuff-->
+    <revImplant/>
+    <revLife/>
+    <revCure/>
+    <revOtherRisk/>
+    <revNoneCrit/>
+    <revRationale/>
+    <revClinical/>
+    <revClinicalDesc/>
+    <revOne/>
+    <revOneDesc/>
+    <revProspect/>
+    <revProspectDesc/>
+    <revObject/>
+    <revObjectDesc/>
+    <revBenefit/>
+    <revBenefitDesc/>
+    <revTemp/>
+    <revTempDesc/>
+    <revNeo/>
+    <revNeoDesc/>
+    <revPart/>
+    <revPartDesc/>
+    <revMonetary/>
+    <revMonetaryDesc/>
+    <revTiming/>
+    <revTimingDesc/>
+    <revViability/>
+    <revViabilityDesc/>
+    <revPrisResearch/>
+    <revPrisEffects/>
+    <revPrisBen/>
+    <revPrisBenDesc/>
+    <revPrisMag/>
+    <revPrisMagDesc/>
+    <revPrisVol/>
+    <revPrisVolDesc/>
+    <revPrisArb/>
+    <revPrisArbDesc/>
+    <revPrisPop/>
+    <revPrisPopDesc/>
+    <revPrisPart/>
+    <revPrisPartDesc/>
+    <revPrisExam/>
+    <revPrisExamDesc/>
+    <!--Review Stuff-->
+    <!--MSSM Additions-->
+    <PWCDoc uri="" docLink="" status=""/>
+    <PPDoc uri="" docLink="" status=""/>
+    <ASSENTDoc uri="" docLink="" status=""/>
+    <protocolUploadDoc uri="" name="Research Protocol" status="Research Protocol"/>
+    <docTypeAssent/>
+    <invoiceContact/>
+    <invoiceAddress1/>
+    <invoiceAddress2/>
+    <invoiceAddress3/>
+    <invoiceCity/>
+    <invoicePhone/>
+    <invoiceState/>
+    <invoiceZip/>
+    <!-- Bill's UMMC Additions - please move to right spot -->
+    <escroApprovalNotification id="" uri="" docLink="" status=""/>
+    <phiIdentifiers/>
+    <!-- Summary -->
+    <id8ID/>
+    <title/>
+    <shortTitle/>
+    <createDate/>
+    <PIName/>
+    <contextGroup/>
+    <status>inDev</status>
+    <riskLevel/>
+    <researchType/>
+    <assignedIRB/>
+    <approvalStart/>
+    <approvalEnd/>
+    <revFreq/>
+    <orgApprovalDate/>
+    <laysummary/>
+    <!-- Research Design -->
+    <compParticipation/>
+    <researchHyp/>
+    <studyPurpose/>
+    <expiditedCats/>
+    <exemptCats/>
+    <phase/>
+    <invRadio/>
+    <subToRSC/>
+    <link name="rscProt" type="entity" object="" title="" id="" uri="" state=""/>
+    <invRDNA/>
+    <!--UMMC modifications-->
+    <consentObt/>
+    <retroChartReview/>
+    <survey/>
+    <surveyNotes/>
+    <observation/>
+    <observationProc/>
+    <observationNotes/>
+    <avTaping/>
+    <avTapingNotes/>
+    <deception/>
+    <deceptionNotes/>
+    <preExistingData/>
+    <prospectiveDataCollection/>
+    <ibcRegistrationNo/>
+    <ibcRegistrationDate/>
+    <ibcStatus/>
+    <ibcApprovalNotification uri="" docLink="" status=""/>
+    <escroStatus/>
+    <involvePHI/>
+    <nonResearchData/>
+    <!--End UMMC modifications-->
+    <subToIBC/>
+    <link name="ibcProt" type="entity" object="" title="" id="" uri="" state=""/>
+    <invBiologics/>
+    <invBiological/>
+    <subToIBCBio/>
+    <link name="ibcBioProt" type="entity" object="" title="" id="" uri="" state=""/>
+    <invEmb/>
+    <subToESCRO/>
+    <link name="escroProt" type="entity" object="" title="" id="" uri="" state=""/>
+    <invDrugs/>
+    <studyFundAccount/>
+    <invDevs/>
+    <!-- PHI -->
+    <!--  <invPHI/>-->
+    <!--  <phiPro/>-->
+    <!--  <phiDoc uri="" docLink=""/>-->
+    <!--UMMC modifications-->
+    <identSourcesPHI/>
+    <describeSourcesPHI/>
+    <receivePHI/>
+    <sharePHI/>
+    <shareWithPHI/>
+    <describeSharePHI/>
+    <shareHowPHI/>
+    <accessPHI/>
+    <explainMinRiskPHI/>
+    <descPlanToProtectPHI/>
+    <descPlanToDestroyPHI/>
+    <explainHipaaWaiver/>
+    <descPHI/>
+    <!--End UMMC modifications-->
+    <recMethodOther/>
+    <!-- Risks and Benefits -->
+    <anticipatedRisks/>
+    <potentialBenefits/>
+    <benefitToSociety/>
+    <benefitsOfTreatment/>
+    <!--UMMC modifications-->
+    <dataSafetyMonitor/>
+    <dataMonitorMethod/>
+    <standardOfCare/>
+    <participantCosts/>
+    <injuryCompensationAvailable/>
+    <injuryCompDesc/>
+    <injuryCompJustify/>
+    <findingsProvidedToParticipants/>
+    <findingsDescReleaseInfo/>
+    <explainFindingsNotShared/>
+    <!--End UMMC modifications-->
+    <!--Retrospective Chart Reviews-->
+    <retroStartDate/>
+    <retroEndDate/>
+    <retroIdentifierRecorded/>
+    <!--Radiation-->
+    <radiationEquipment/>
+    <radioactiveMaterials/>
+    <otherProcedures/>
+    <radOncology/>
+    <treatmentOutsideStudy/>
+    <addlTreatmentInStudy/>
+    <!-- Funding  -->
+    <researchFunded/>
+    <link name="grant" type="entity" object="" title="" id="" uri="" state="">
+        <name/>
+        <num/>
+        <status/>
+        <description/>
+    </link>
+    <!--UMMC modifications-->
+    <fundingStatus/>
+    <fundingSource/>
+    <projInitiatedBy/>
+    <piGrantContract/>
+    <invContactName/>
+    <invAddress1/>
+    <invAddress2/>
+    <invAddress3/>
+    <invCity/>
+    <invState/>
+    <invZip/>
+    <invPhone/>
+    <invFax/>
+    <invEmail/>
+    <!--End UMMC modifications-->
+    <!-- Subjects -->
+    <ageRange en="0" males="0" females="0"/>
+    <population en="0" males="0" females="0"/>
+    <consentingMinor/>
+    <ethnicCat en="0" males="0" females="0"/>
+    <race en="0" males="0" females="0" unknown="0"/>
+    <recMethod description=""/>
+    <recMaterial/>
+    <!-- One Time Emergency Use -->
+    <oteuType/>
+    <oteuInitials/>
+    <oteuAge/>
+    <oteuSex/>
+    <oteuMedicalRecord/>
+    <oteuDiagnosis/>
+    <oteuDateofdiagnosis/>
+    <oteuPlannedtreatmentdate/>
+    <oteuInformedConsent uri="" id=""/>
+    <oteuInformedConsentDoc uri="" id="" status="" docLink=""/>
+    <oteuReason/>
+    <oteuDecision/>
+    <oteuComments/>
+    <!-- End One Time Emergency Use -->
+    <!--UMMC modifications-->
+    <approachParticipant per=""/>
+    <!--End UMMC modifications-->
+    <!-- Eligibility  Don Modifications-->
+    <inclusionCriteria/>
+    <exclusionCriteria/>
+    <!--UMMC modifications-->
+    <enrollRestrictions/>
+    <identRestrictions/>
+    <justifyExclusions/>
+    <selectEthnicRestrictions/>
+    <justifyEthnicRestrictions/>
+    <selectRaceRestrictions/>
+    <justifyRaceRestrictions/>
+    <!--End UMMC modifications-->
+    <!-- Enrollment -->
+    <enrollAllSites>0</enrollAllSites>
+    <enrollThisSite>0</enrollThisSite>
+    <enrollTotal>0</enrollTotal>
+    <!-- Enrolled to Date -->
+    <totalEnrolled>0</totalEnrolled>
+    <!-- Children and Prisoner categories -->
+    <childrensCats>
+        <HHS/>
+        <FDA/>
+    </childrensCats>
+    <prisonerCats/>
+    <!-- Compensation -->
+    <!--<compensation amount="0" justification="" description=""/>-->
+    <!-- Consent  -->
+    <concentProcess/>
+    <concentWaiver/>
+    <!--  <suitableLanguageWillBeUsed/>-->
+    <whereWhenConcent/>
+    <stepToMinimizeCoercion/>
+    <!--  <reqWaiverForAll/>-->
+    <!--  <reqWaiverForReq/>-->
+    <!--  <whyMinimalRisk/>-->
+    <!--  <willWaiverAlterRights/>-->
+    <!--  <possibleWithoutWaiver/>-->
+    <!--  <provideInformationAtLaterDate/>-->
+    <!--  <justifyAlterationNeed/>-->
+    <!--  <justificationsBeingUsed/>-->
+    <!--  <justificationExplanation/>-->
+    <!--UMMC modifications-->
+    <researchIntroduced/>
+    <enrollNonEnglishSpeaking/>
+    <identObtainConsent/>
+    <minCoercion/>
+    <waiverApplicableToAll/>
+    <noMoreThanMinRisk/>
+    <waiverNotAffectParticipants/>
+    <justifyWaiver/>
+    <provideAdditionalInformation/>
+    <describeAlterationConsent/>
+    <identJustification/>
+    <waiverOfSignedConsentJustification/>
+    <!--End UMMC modifications-->
+    <!-- Documents -->
+    <!-- Automatically Populated by Docs Attached in other Locations within the Case -->
+    <section type="attached" label="Accumulated Docs"/>
+    <!-- Additional Docs "Attached" in place -->
+    <section type="new" label="Documents"/>
+    <!-- Signoff Temp -->
+    <submissionNotes/>
+    <signOff signedWhen="" signedBy=""/>
+    <signOffProxy signedWhen="" signedBy=""/>
+    <signatureCentral signedWhen="" signedBy=""/>
+    <subType>init</subType>
+    <!-- Org Details -->
+    <Organization id="33">
+        <OrgID>Ideate</OrgID>
+        <OrganizationName>Consilience International</OrganizationName>
+        <OHRP_IORG>12345</OHRP_IORG>
+        <OHRP_FWA>67890</OHRP_FWA>
+        <IRB_InstOfficial_uri>/ideate/entity/People/records/000022</IRB_InstOfficial_uri>
+        <IRB_RegContact_uri>/ideate/entity/People/records/000022</IRB_RegContact_uri>
+    </Organization>
+    <researchProgress>
+        <!-- progress data that gets pushed up to the CASE from individual linkedOps --></researchProgress>
+    <id8Ref/>
+    <id8ref/>
+    <!--sprint-6 : Starts here-->
+    <appType/>
+    <externalIRBHIPAA/>
+    <researchInvolves/>
+    <consentingParticipants/>
+    <clinicalTrial/>
+    <radiologicalProcedures/>
+    <exemptSummary/>
+    <exemptLocation/>
+    <!--AB Sprint 4 new field Exemption - summary -->
+    <involveRetroDataBioSpecimens/>
+    <exemptInteractionSubjects/>
+    <exemptEquitableSelection/>
+    <exemptPrivacyProtected/>
+    <exemptSurveyInstruments/>
+    <exemptResearchInfoSheet uri="" docLink=""/>
+    <exemptCategories/>
+    <externalIRBName/>
+    <externalIRBOther/>
+    <externalIRBMultiCenterNotPI/>
+    <externalIRBMultiCenterConsortium/>
+    <externalIRBMultiCenterCentralIRB/>
+    <externalIRBPIRoleNotIncludeSubjects/>
+    <externalIRBFederalFunds/>
+    <externalIRBRequestFromFCOIR/>
+    <externalIRBRequestFromPPHS/>
+    <externalIRBHIVTesting/>
+    <externalIRBHIVConsent uri="" docLink=""/>
+    <multiCenterISMPIResponsible/>
+    <radiologicalProceduresDosimetry/>
+    <dosimetryChart uri="" docLink=""/>
+    <dateOfInvolvingHazardousMaterials/>
+    <biosafetyLevel/>
+    <riskGroup/>
+    <geneTherapy/>
+    <largeScaleProductionVectors/>
+    <vitroSysApplications/>
+    <codeForToxinOncogeneUnToxin/>
+    <descInsertedGeneWillCode/>
+    <insertedGeneWillAlterRangeOrCell/>
+    <descInsertedGeneWillAlter/>
+    <geneHaveReplicationCapacityOfVirus/>
+    <geneCapableOfAlteringHostCell/>
+    <wildVirusPresentInVector/>
+    <fractionWildVirusPresentInVector/>
+    <biosafetyData>
+        <vectorName/>
+        <cDNAInserts/>
+        <sizeAndSourceofInserts/>
+        <expressionProducts/>
+        <locationOfPreparation/>
+        <biosafetyRoom/>
+    </biosafetyData>
+    <dataHUD/>
+    <manufacturer/>
+    <ifnumber/>
+    <wirbProtocolNumber/>
+    <WIRBStudy/>
+    <CPUServices/>
+</data>

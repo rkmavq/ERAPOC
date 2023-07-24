@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2"
+    xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:exf="http://www.exforms.org/exf/1-0"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ix="http://itensil.com/ns/xforms">
+
+    <!-- 
+    /**
+    * @overview appTabSet - uses the appTabSet service to provide multi-level tab sets in process for US Projects.
+    * 
+    * @name test.xfrm
+    * @author wmalyk - (c) Consilience International LLC (2009)
+    * @date 2009 
+    * @version 1.0.0
+    */
+  --> 
+
+
+    <xf:model id="fmodel">
+        <!-- The data model consists of:
+        ins - process data
+        proDat - project data
+        form - form specific data
+        bootstrap - bootstraping data (pointers to aux files to attach
+        config - config data
+      -->
+        <!--<xf:instance id="ins" src="{activity}/rules.xml"/>-->
+        <xf:instance id="form">
+            <data xmlns="">
+                <isPI>1</isPI>
+
+                <currency/>
+                <version/>
+                <departments/>
+                
+                <focus/>
+                <searchText/>
+                <responses>0</responses>
+                <btn>Submit</btn>
+
+
+                <id8ID>2011-0418</id8ID>
+                <application>IRB</application>
+                <primeEntity>IRB</primeEntity>
+                <primeEntityURI></primeEntityURI>
+                <focus>project</focus>
+                <view>project</view>
+                <lastPage/>
+                <formConf>dashboardtabSet</formConf>
+                <v>1</v>
+                <title/>
+                <canMake>1</canMake>
+                <mailTo>1</mailTo>
+                <canAccess>1</canAccess>
+                <isCoord>1</isCoord>
+                <canReview>1</canReview>
+                <isDirector>1</isDirector>
+            </data>
+        </xf:instance>
+        <xf:instance id="proDat">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="lc">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="inv">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="bootstrap">
+            <data xmlns="">
+                <css>/resources/applications/IRB/css/main.css</css>
+                <js>/resources/services/appTabSet/appTabSet.js</js>
+            </data>
+        </xf:instance>
+        <xf:instance id="config">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:instance id="dummy">
+            <data xmlns=""/>
+        </xf:instance>
+        <xf:bind nodeset="instance('proDat')/version" readonly="true()"
+            relevant="false()"/>
+
+
+        <!-- JS Setup -->
+        <script ev:event="xforms-model-construct-done">
+            bootstrapSharedXfrm(model); var ix = model.__XformSet.getRoot();
+            ix.___dashboard = 1; ix.model.setValue("instance('ins')/lastPage",
+            ""); model.setValue("instance('form')/lastPage", "");
+            model.setValue("instance('form')/id8ID", ix.id8ID);
+            model.setValue("instance('form')/primeEntityURI", ix.targetURI);
+            model.TS = new appTabSet(model, 'projectTabs');
+            model.TS.loadAppFile('proDat', "/data/irb.xml");
+            model.TS.loadAppFile('dummy', "/data.xml");
+            model.TS.loadAppFile('lc', "/lifecycle.xml");
+            model.TS.loadAppFile('inv', "/invoices.xml");
+            model.__XformSet.getRoot().model.TS = model.TS;
+            
+            model.TS.formSet.getRoot().__REVURI = "/data/irb.xml";
+            
+            includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+            model.USA = new irbProtocol(model); 
+            
+            REPORT_ERROR_MESSAGE = "A problem with the system has been encountered. \n\n Please take a screen shot and send it to IRB administration.";
+            
+            model.USA.caseSecurity =
+            callSharedService("caseSecurity", {"op":"myTokens",
+            "caseUri":ix.targetURI}, "service", "json").output;
+            model.__XformSet.getRoot().model.TS.caseSecurity =
+            model.USA.caseSecurity; model.USA.rebuildCaseTabs();
+            //includeSharedJS("/resources/services/projectBackup/clientSideJS.js");
+            //model.vh = new versionHandler(model, model.TS.appURI);
+
+            //p4updates - wmalyk:April_4_2017 - Queues this for later use
+            callServiceAsynch(function(){}, "protocolRouting", {"op":"checkDeferrableFile", "fileUri":ix.targetURI}, "service", "json");
+            
+ 
+            /*
+            try{
+            var j = callSharedServiceInf_ThrowLockException("caseSecurity", {"op":"testLocks"}, "service", "json").output;
+            alert("J = " + j);
+            }catch(e){
+            alert(e);
+            if(e == "LockException"){
+            alert("Lock exception!");
+            }
+            }
+            */
+            
+
+            model.rebuild(); model.recalculate(); model.refresh(); </script>
+
+        <script ev:event="xforms-ready"> //Initialize form elements
+            //AD.setupForm(); </script>
+
+        <!--<script ev:event="ix-activity-save"> model.TS.saveAll(); </script>-->
+
+        <!--<xf:submission method="put" replace="none" id="submit1">
+            <xf:action ev:event="xforms-submit-done">
+                <xf:message level="ephemeral">Data saved</xf:message>
+            </xf:action>
+            <xf:action ev:event="xforms-submit-error">
+                <xf:message level="ephemeral">Problem saving...</xf:message>
+            </xf:action>
+        </xf:submission>-->
+
+    </xf:model>
+
+    <!--<h1>IS PI = <xf:output value="instance('form')/isPI"/></h1>-->
+
+    <div class="tabSet">
+
+        <!-- Consistant Header -->
+        <div class="header">
+            <xf:switch>
+                <xf:case id="hide-tabHeader"> </xf:case>
+            </xf:switch>
+        </div>
+        <xf:switch>
+
+            <xf:case id="show-workscreen" exf:if="1">
+                <ix:subform form="{tabControlFront}" src="" id="projectTabs"/>
+            </xf:case>
+            <!--
+      <xf:case id="hide-workscreen">
+      </xf:case>
+      -->
+        </xf:switch>
+        <ix:subform form="{tabContainerFront}" src="" id="projectTabs"/>
+    </div>
+
+</form>

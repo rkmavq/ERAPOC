@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="0"> 
+    <tab id="2" label="Summary" form="/home/configs/IRB/forms/legacyFinalRepSummary.xfrm"/>   
+    <tab id="3" label="General" form="/home/configs/IRB/forms/legacyFinalRepGeneral.xfrm"/> 
+    <tab id="1" label="Documents" form="/home/configs/IRB/forms/legacyDocs.xfrm"/>
+</tabs>

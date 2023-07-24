@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <!-- Make sure all tabsets for this phase (and the return from the board meeting) use this form for the reviews -->
+    <tab id="LC" label="Review(s)" form="/home/configs/IRB/forms/reviewsCoor.xfrm"/>
+    
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummary.xfrm"/>
+    <tab id="2" label="Research Design">
+        <tab id="2a" label="Overview" form="/home/configs/IRB/forms/researchDesign.xfrm"/>
+        <tab id="5" label="Risks and Benefits" form="/home/configs/IRB/forms/risks.xfrm"/>
+    </tab> 
+    <tab id="4" label="Personnel">
+        <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/personnel.xfrm"/>
+        <tab id="4c" label="Other Personnel" form="/home/configs/IRB/forms/personnelOther.xfrm"/>
+    </tab>
+    <tab id="6A" label="Protocol Components">
+        <tab id="6" label="Performance Sites" form="/home/configs/IRB/forms/sites.xfrm"/>
+        <tab id="8" label="Drugs" form="/home/configs/IRB/forms/drugs.xfrm" when="drugs"/>
+        <tab id="9" label="Devices" form="/home/configs/IRB/forms/devices.xfrm" when="devices"/>
+        <tab id="10" label="Biologics" form="/home/configs/IRB/forms/biologics.xfrm" when="bios"/>
+        <tab id="17" label="Procedures" form="/home/configs/IRB/forms/procedures.xfrm"/>
+    </tab>
+    
+    <tab id="11A" label="Subjects">
+        <tab id="11" label="Populations" form="/home/configs/IRB/forms/subjects.xfrm"/>
+        <tab id="12" label="Eligibility" form="/home/configs/IRB/forms/eligibility.xfrm"/>
+        <tab id="13" label="Enrollment" form="/home/configs/IRB/forms/enroll.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/home/configs/IRB/forms/recuitment.xfrm"/>
+        <tab id="14" label="Compensation" form="/home/configs/IRB/forms/compensation.xfrm"/>
+        <!--<tab id="15" label="Enrolled" form="/home/configs/IRB/forms/enrolled.xfrm"/>-->
+        <tab id="16" label="Consent" form="/home/configs/IRB/forms/consent.xfrm"/>
+        <tab id="3" label="PHI" form="/home/configs/IRB/forms/healthrecords.xfrm"/>
+    </tab>
+    <tab id="7" label="Funding" form="/home/configs/IRB/forms/funding.xfrm"/>
+    
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachments.xfrm"/>
+    
+    <!-- Reponse Submission Forms for irbsummary -->
+    <!--<tab id="1b" label="RS-Create" form="/home/configs/IRB/forms/irbsummaryRSComm.xfrm"/>
+    <tab id="1c" label="RS-Review" form="/home/configs/IRB/forms/irbsummaryRSRebuf.xfrm"/>
+    <tab id="1d" label="RS-Return" form="/home/configs/IRB/forms/irbsummaryRSViewRebuf.xfrm"/>-->
+    
+    <!-- Amendment Forms for irbsummary -->
+    <!--<tab id="1e" label="Amd-Make" form="/home/configs/IRB/forms/irbsummaryAMDComm.xfrm"/>
+    <tab id="1f" label="Amd-Review" form="/home/configs/IRB/forms/irbsummaryAMDRebuf.xfrm"/>
+    <tab id="1g" label="Amd-Return" form="/home/configs/IRB/forms/irbsummaryAMDViewRebuf.xfrm"/>-->
+    
+    <!-- Debug page, probably not useful -->
+    <!--<tab id="D" label="Debug/Testing" form="/home/configs/IRB/forms/debug.xfrm"/>-->
+    
+    
+    <tab id="COV" label="Send to Board Meeting" form="/home/configs/IRB/forms/boardsubmit.xfrm" when="boardrevPending"/>
+    
+    <!-- Please replace these two tabs with nicely built tabs that say what's happening - i.e. "By clickign tihs button you will submit the case, or by clicking you will now create the RS -->
+    <tab id="PA" label="Update Case" form="/home/configs/IRB/forms/boardsubmitUC.xfrm" when="updateCase"/>
+    <tab id="RS" label="Develop Response Submission" form="/home/configs/IRB/forms/boardsubmitRS.xfrm" when="mkRS"/>
+        <!--
+           This will go next to adminSetPrepareRS.xml - will be loaded into reviewTabsRS.xfrm (you'll need to clone this) - will run inside this process (look at the chart.flow for this fragment)
+           then to piRS.xml - will be loaded into reviseTabsRS.xfrm (you'll need to clone this) - will run in its own segment (see routing.xml)
+           then to returnRS.xml - will be loaded into reviewTabsRS.xfrm (you'll need to clone this) - will run in its own segment (see routing.xml)
+            - the first page of each shows the format/prefix for the corresponding Response Submission page.
+        -->
+    
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <bios>0</bios>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <board>1</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+    </switches>
+</tabs>

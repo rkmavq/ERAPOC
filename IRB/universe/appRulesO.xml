@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic>
+    <rules level="app">
+        
+        <mapping id="ApptoEntity">
+            <field target="PI" source="PI"/>
+            <field target="title" source="title"/>
+            <field target="sponsor" source="sponsor"/>
+            <field target="totalDirects" source="totalDirects"/>
+            <field target="totalIndirects" source="totalIndirects"/>
+            <field target="total">totalDirects + totalIndirects</field>            
+        </mapping>
+        
+        <mapping id="EntityToIndexes">
+            <field target="person" source="PI"/>
+            <field target="name" source="title"/>
+            <field target="sponsor" source="sponsor"/>
+        </mapping>
+        
+        <rule type="autoFillEntity" entity="PI"/>
+        <rule type="autoFillEntity" entity="Admin"/>
+        
+        <rule type="requireField" field="ProjectTitle"/>
+        <rule type="requireField" field="ShortTitle"/>
+        <rule type="requireField" field="ProjectDescription"/>
+        <rule type="requireField" field="projectType"/>
+        <rule type="requireField" field="AgreeType"/>
+        <rule type="requireField" field="ApplicationType"/>
+        <rule type="requireField" field="SubmissionType"/>
+        <rule type="requireField" field="hasPriorRelatedProposal"/>
+        <rule type="conditionalRequireField" field="relatedProposal" depedancy="hasPriorRelatedProposal" conditionValue="yes"/>
+        <rule type="requireField" field="subToOtherAgencies"/>
+        <rule type="conditionalRequireField" field="otherAgency" depedancy="subToOtherAgencies" conditionValue="yes"/>
+        <rule type="requireField" field="stateReview"/>
+        <rule type="conditionalRequireField" field="stateReviewDate" depedancy="stateReview" conditionValue="covered"/>
+
+        <rule type="conditionalRequireField" field="docFile">
+            <and>
+                <dependency field="docID" value="hum"/>
+                <dependency field="docID" value="hum"/>
+            </and>
+        </rule>
+        
+        <rule type="requireField" field="HumanSubjects"/>
+        <rule type="conditionalRequireField" field="IRBProtocol" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="Require">
+            <or>
+                <rule type="conditionalRequireField" field="IRBPending" depedancy="HumanSubjects" conditionValue="yes"/> 
+                <rule type="conditionalRequireField" field="IRBApprovalDate" depedancy="HumanSubjects" conditionValue="yes"/>
+            </or>        
+        </rule>
+        <rule type="conditionalShowField" field="IRBExemptions" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="hasClinicalTrial" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="ClinicalTrial">
+            <and>
+                <dependency field="HumanSubjects" value="yes"/>
+                <dependency field="hasClinicalTrial" value="yes"/>
+            </and>
+        </rule>
+        <rule type="conditionalRequireField" field="cancerRelated" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="stemCells" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="embryonicStemCells" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="embryonicStemCells">
+            <and>
+                <dependency field="HumanSubjects" value="yes"/>
+                <dependency field="embryonicStemCells" value="yes"/>
+            </and>
+        </rule>
+        <rule type="conditionalRequireField" field="specificLineNumbers">
+            <and>
+                <dependency field="HumanSubjects" value="yes"/>
+                <dependency field="embryonicStemCells" value="yes"/>
+            </and>
+        </rule>
+        <rule type="conditionalRequireField" field="specificLineCannotID">
+            <and>
+                <dependency field="HumanSubjects" value="yes"/>
+                <dependency field="embryonicStemCells" value="yes"/>
+            </and>
+        </rule>
+        <rule type="conditionalRequireField" field="HumandBloodFluidTissue" depedancy="HumanSubjects" conditionValue="yes"/>
+        <rule type="requireField" field="VertAnimals"/>
+        <rule type="conditionalRequireField" field="IACUC" depedancy="VertAnimals" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="IACUCPending" depedancy="VertAnimals" conditionValue="yes"/>
+        <rule type="conditionalRequireField" field="IACUCApprovalDate" depedancy="VertAnimals" conditionValue="yes"/>
+    
+        <rule type="requireField" field="Biohazards"/>
+        <rule type="conditionalRequireField" field="BiohazardsExplain" depedancy="Biohazards" conditionValue="yes"/>
+        
+        <rule type="requireField" field="SelectAgents"/>
+        <rule type="conditionalRequireField" field="SelectAgentsExplain" depedancy="SelectAgents" conditionValue="yes"/>
+
+        <rule type="requireField" field="PrivilegedInfo"/>
+        <rule type="conditionalRequireField" field="PrivilegedInfoExplain" depedancy="PrivilegedInfo" conditionValue="yes"/>
+        
+        <rule type="requireField" field="EnvImpact"/>
+        <rule type="conditionalRequireField" field="EnvImpactExplain" depedancy="EnvImpact" conditionValue="yes"/>
+        
+        <rule type="requireField" field="EnvExempt"/>
+        <rule type="conditionalRequireField" field="EnvExemptExplain" depedancy="EnvExempt" conditionValue="yes"/>
+        
+        <rule type="requireField" field="OutsideUS"/>
+        <rule type="conditionalRequireField" field="OutsideUSExplain" depedancy="OutsideUS" conditionValue="yes"/>
+        
+        <rule type="requireField" field="Lobbying"/>
+        <rule type="requireAnswer" field="Certified" value="yes"/>
+        <rule type="requireField" field="Entity"/>
+        <rule type="requireField" field="Conflict"/>
+        <rule type="requireAnswer" field="Debarred" value="no"/>
+        <rule type="requireField" field="ConflictIndicator"/>
+        <rule type="requireField" field="PITraining"/>
+        <rule type="requireField" field="PIWaiverReq"/>
+        <rule type="requireField" field="FacultyWaiverReq"/>
+        <rule type="requireField" field="IntegritAct"/>
+        
+        <rule type="requireEntity" field="FOA"/>
+        <rule type="requireEntity" field="Sponsor"/>
+    
+        <rule type="requireField" field="ExternalFunding"/>
+        <rule type="requireField" field="sponsorType"/>
+        <rule type="requireField" field="submissionDeadline"/>
+        
+        <rule type="requireField" field="startDate"/>
+        <rule type="requireField" field="endDate"/>
+        <rule type="requireFields" field1="startDate" field2="endDate" detail="endDate &gt; startDate"/>
+        
+        <rule type="requireField" field="OnCampus"/>
+        
+        <rule type="Require">
+            <or>
+                <rule type="conditionalRequireField" field="OnCampusLocation" depedancy="OnCampus" conditionValue="yes"/> 
+                <rule type="conditionalRequireField" field="OffCampusSite" depedancy="OnCampus" conditionValue="no"/>
+            </or>        
+        </rule>
+
+        <rule type="conditionalRequireField" field="RentalReq" depedancy="OnCampus" conditionValue="no"/>
+
+        <rule type="conditionalRequireField" field="RentalReqExplain">
+            <and>
+                <dependency field="RentalReq" value="yes"/>
+                <dependency field="OnCampus" value="no"/>
+            </and>
+        </rule>
+
+        <rule type="requireField" field="ModBudget"/>
+        <rule type="requireField" field="MultiPIs"/>
+        <rule type="requireField" field="Subcontracts"/>
+    
+    
+        <rule type="conditionalShowField" field="hasPatents" depedancy="ApplicationTypeCode" conditionValue="Renewal"/>
+        <rule type="conditionalShowField" field="reportedpats">
+            <and>
+                <dependency field="hasPatents" value="yes"/>
+                <dependency field="ApplicationTypeCode" value="Renewal"/>
+            </and>
+        </rule>
+        
+        <rule type="makeFieldReadonly" field="personRole" dependency="personRole" when="PI"/>
+        <rule type="inputStream" field1="personEff" field2="personMonths"/>
+        
+    </rules>
+    <rules level="institution">
+        <rule type="ReplaceFile" uri="facts.xml"/>        
+        <rule type="ReplaceFile" uri="rates.xml"/> 
+        
+        <rule type="autoFillEntity" entity="Organization"/>
+        
+        <rule type="requireField" field="StrategicPlanAlignment"/>
+    </rules>
+    <rules level="department">
+        
+        
+        
+    </rules>
+    <rules level="sponsor">
+        <rule type="ReplaceFile" uri="catagories.xml"/>
+        <rule type="maxFieldLength" field="ProjectTitle" condition="90"/>
+        
+        <rule type="conditionalRequireField" field="docFile" dependency="docID" value="int"/>
+        <rule type="requireFileType" field="docFile" value="pdf"/>
+        
+        <rule type="conditionalAddFields" dependency="sponsorID" value="NIH">
+            <field category="compliance" id="phaseIIITrail" label="NIH Phase III Trial?" name="HumanSubjects/nih3" xml="nihphase3" type="yesno" uri="compliance" nature="input"/>
+        </rule>
+        <rule type="conditionalAddRules" dependency="sponsorID" value="NIH">
+            <rule type="requireField" field="phaseIIITrail"/>
+        </rule>
+        
+        <rule type="conditionalAddFields" dependency="sponsorID" value="NSF">
+            <field category="cert" id="NIHNSFFinance" label="Have you submitted an internal financial disclosure? (NIH/NSF)" name="NIHNSFFinance" xml="NIHNSFFinance" type="yesno" uri="certs" nature="input"/>
+            <field category="cert" id="NSFBeginning" label="NSF Beginning Investigator?" name="NSFBeginning" xml="NSFBeginning" type="yesno" uri="certs" nature="input"/>
+        </rule>
+        <rule type="conditionalAddRule" dependency="sponsorID" value="NSF">
+            <rule type="requireField" field="NIHNSFFinance"/>
+            <rule type="requireField" field="NSFBeginning"/>
+        </rule>
+        
+        <rule type="conditionalAddFields" dependency="sponsorType" value="USFed">
+            <field category="project" id="A21Major" label="Administratively Intensive? (A21 Major Project)" name="A21Major" xml="A21Major" type="yesno" uri="projectData" nature="import"/>
+        </rule>
+        <rule type="conditionalAddRules" dependency="sponsorType" value="USFed">
+            <rule type="requireField" field="A21Major"/>
+        </rule>
+        
+        <rule type="salaryCap" field="personAppointmentSalary" value="91000"/>
+        
+    </rules>
+    <rules level="foa">
+        
+        <rule type="max" field="personAppointmentSalary" value="91000"/>
+        
+    </rules>
+</logic>

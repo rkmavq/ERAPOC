@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="review"><data/></xf:instance><xf:instance id="form"><data><tabID>32d</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><tempRevIndex>-1</tempRevIndex><tempSugIndex>1</tempSugIndex><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><temp/><someVariable id=""/><fragmentId/><comp uri=""/><loggedInUserId/><loggedInUserName/><pagemode/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "instruments");
+      
+      
+      
+      model.setValue("instance('form')/loggedInUserId", model.Frm.getLoggedInUserId()); 
+      model.setValue("instance('form')/loggedInUserName", model.Frm.getLoggedInUserName()); 
+      
+      model.setValue("instance('form')/pagemode", model.Frm.getMode()); 
+      
+      
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        
+        
+        
+        
+    		  if(model.Frm.formSet.getRoot().__AMND){
+            model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+            model.Frm.loadAppFile('ins', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+    		  model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+          if(model.Frm.formSet.getRoot().__AMND){
+          model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+          }else{
+          model.Frm.loadAppFile('review', model.Frm.formSet.getRoot().__REVURI, "1");
+          }
+          
+          if (model.Frm.formSet.getRoot().__REVURI.indexOf("/reviews") &gt; -1) model.Frm.revewMode = -1;
+          
+        
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '32d')
+          //model.USA.registerChangeLog('ins', '32d')
+          model.USA.registerChangeLog('comments', '32d')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@*"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@comment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@req"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@req"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']"/><xf:bind relevant="false()" readonly="true()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[@revIndex and local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@addcomment"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/@req"/><xf:bind readonly="false()" nodeset="instance('ins')/*[local-name()!='original' and local-name()!='suggestions' and local-name()!='previous']/*/@req"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+          div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl{
+          background-color:none;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl label{
+          width:100px;
+          }
+          
+          div.formFrame div.commentBox div.xfctrl textarea{
+          width:390px;
+          }
+          
+          
+          div.formFrame td.custError{
+          background-color:none;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div.xfctrl tr td{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame tr td.custError div.xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError div{
+          background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame td.custError .xfctrl{
+            background-color:#f3f6fb !important;
+          }
+          
+          div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:none;
+          }
+          
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+          }
+          
+          .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+            position:static;
+            border-color:white;
+          }
+          div.formFrame tr td.custError div.xfctrl{
+            position:static;
+            border-color:white;
+          }          
+          
+          .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+            margin-top:10px;
+          }
+          
+        </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td><div style="margin-right:20px;"><u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u><script ev:event="click">
+                  model.Frm.executeQuickSearch();  
+                </script></div></td></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1><div><ix:attr value="if(instance('form')/searchAddNew='1', 'margin-left:10px;margin-top:20px;', 'display:none')" name="style"/>...please refine your search, <br/><br/><span style="margin-left:20px;">or 
+                    <u style="cursor:pointer;color:blue">request that this <xf:output value="script('model.Frm.quickSearch.addNew.entName;')"/> be added to the system.
+                      
+                      <xf:action ev:event="click"><xf:setvalue value="instance('form')/searchText" ref="instance('form')/t[@i='1']"/><ix:dialog style="width:400px;" id="newValue" title="Add New Value" class="quickSearchDialog"><xf:repeat nodeset="instance('form')/t[@l!='']"><xf:input ref="."><ix:attr value="if(@t='text', 'width:400px;', 'display:none')" name="style"/><xf:label style="width:150px;"><xf:output value="@l"/></xf:label></xf:input><xf:select ref="." appearance="full"><ix:attr value="if(@t='yn', 'margin-left:150px;width:250px;', 'display:none')" name="style"/><xf:item><xf:label><xf:output value="@l"/></xf:label><xf:value>1</xf:value></xf:item></xf:select></xf:repeat><br/><table style=""><tr><td style="margin-right:10px;"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Add</xf:label><xf:action ev:event="DOMActivate"><script>
+                                      model.Frm.addFromQuickSearch();
+                                    </script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td><td style="width:50%"><xf:trigger style="background-color:#DDDDDD;border-color:black;"><xf:label>Cancel</xf:label><xf:action ev:event="DOMActivate"><script>model.Frm.resetQuickSearch()</script><xf:close ev:event="DOMActivate"/></xf:action></xf:trigger></td></tr></table></ix:dialog></xf:action></u></span></div></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                              var indx = model.getValue("@id", contextNode);
+                              var val = model.getValue("@name", contextNode);
+                              if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                              model.Frm.quickSearchSelect(indx, val);
+                              var code = model.Frm.quickSearch.code;
+                              if(code) eval(code);
+                              if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                              event.stopPropagation();
+                            </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame StretchedLayout" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+                document.__UPLOADTYPE = "";//Re-setting the value
+              </script></xf:action></xf:input></div><div class="body"><h1/><table class="basicColLayout"><tr class="entryTable"><xf:switch><xf:case exf:if="1" id="show-instruments"><td class="entryTable   widestLabel"><exf:variable value="instance('ins')/instruments" name="nsinstruments"/><h5>Instruments Created By Research Team</h5><div><ix:attr value="if(count(instance('ins')/instruments) = 0, '', 'display:none')" name="style"/><span style="color:red">At least 1 instrument is required</span></div><table class="fullColLayout"><ix:attr value="if(count($nsinstruments) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th/><th class=" in manual wide left">Type</th><th class=" in manual wide left">Name</th><th class=" in document wide left">Upload</th><td bgcolor="white"/></tr><xf:repeat nodeset="$nsinstruments"><exf:variable value="@id" name="nsXMLKEYinstruments"/><exf:variable value="@id" name="nsXMLKEY"/><tr valign="top"><td class="out text small center" style="vertical-align:middle;"><xf:output value="position()"/></td><td class=" in manual wide left"><span style="vertical-align:top;"><script>
+                            model.__readonly = true;
+                          </script><span><xf:textarea style="width:200px; height:3em;margin-top:0px;" ref="title"/></span><span style="display:none"><xf:input ref="title"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>
+                              if(model.skipRebuild){return;};model.skipRebuild = true;
+                              model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();
+                              //App.currentRepeater = 'nsinstruments'; //WM: 11/14/2019 - flag the area being rebuilt so the UI can redisocver the tab position if needed
+                              model.USA.rebuildArea('instruments');
+                              setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in manual wide left"><span style="vertical-align:top;"><script>
+                            model.__readonly = true;
+                          </script><span><xf:textarea style="width:200px; height:3em;margin-top:0px;" ref="name"/></span><span style="display:none"><xf:input ref="name"><xf:action ev:event="xforms-value-changed"><xf:setvalue ref="../@changed">-1</xf:setvalue><script>
+                              if(model.skipRebuild){return;};model.skipRebuild = true;
+                              model.USA.addChange();model.rebuild(); model.refresh();model.recalculate();
+                              //App.currentRepeater = 'nsinstruments'; //WM: 11/14/2019 - flag the area being rebuilt so the UI can redisocver the tab position if needed
+                              model.USA.rebuildArea('instruments');
+                              setTimeout(function(){model.skipRebuild = false}, 1000);</script></xf:action></xf:input></span></span></td><td class=" in document wide left"><span style="vertical-align:top;"><script>
+                            model.__readonly = true;
+                          </script><span><table style="width:150px;" class="oneToManyBox"><tr><td style="border:none;" class="control"><span><ix:attr name="style" value="if(document != '', '', 'display:none')"/><a target="_blank_"><ix:attr name="href" value="document/@uri"/><xf:output value="document" class=""/></a></span></td></tr></table></span></span></td><exf:variable value="@id" name="rowIndex"/><exf:variable value="concat(.,'')" name="theCurrentValue"/><exf:variable value="@id" name="nsXMLKEY"/><exf:variable value="concat(instance('ins')/original/instruments[@id=$nsXMLKEY]/.,'')" name="thePreviousValue"/><exf:variable value="concat(instance('ins')/previous/review/original/instruments[@id=$nsXMLKEY]/.,'')" name="thePreviousOrgValue"/><exf:variable value="concat(instance('ins')/suggestions/instruments[@id=$nsXMLKEY]/.,'')" name="theSuggestedValue"/><exf:variable value="instance('ins')/instruments[1]/@revIndex" name="revIndexinstruments"/><exf:variable value="(instance('ins')/amendmentNodes/instruments[@revIndex=$revIndexinstruments])" name="amdNodeNeedleinstruments"/><exf:variable value="(instance('ins')/instruments[@revIndex=$revIndexinstruments])" name="thisNodeNeedleinstruments"/><exf:variable value="concat(           if(instance('ins')/instruments[1], concat('('            ,             instance('ins')/instruments[1]/title,' / ',             instance('ins')/instruments[1]/name,' / ',             instance('ins')/instruments[1]/document , ')'), ''),           if(instance('ins')/instruments[2], concat(', ('            ,             instance('ins')/instruments[2]/title,' / ',             instance('ins')/instruments[2]/name,' / ',             instance('ins')/instruments[2]/document , ')'), ''),           if(instance('ins')/instruments[3], concat(', ('            ,             instance('ins')/instruments[3]/title,' / ',             instance('ins')/instruments[3]/name,' / ',             instance('ins')/instruments[3]/document , ')'), ''),           if(instance('ins')/instruments[4], concat(', ('            ,             instance('ins')/instruments[4]/title,' / ',             instance('ins')/instruments[4]/name,' / ',             instance('ins')/instruments[4]/document , ')'), ''),           if(instance('ins')/instruments[5], concat(', ('            ,             instance('ins')/instruments[5]/title,' / ',             instance('ins')/instruments[5]/name,' / ',             instance('ins')/instruments[5]/document , ')'), '')           )" name="thisNodeinstruments"/><exf:variable value="concat(           if(instance('ins')/original/instruments[1], concat('('            ,             instance('ins')/original/instruments[1]/title,' / ',             instance('ins')/original/instruments[1]/name,' / ',             instance('ins')/original/instruments[1]/document , ')'), ''),           if(instance('ins')/original/instruments[2], concat(', ('            ,             instance('ins')/original/instruments[2]/title,' / ',             instance('ins')/original/instruments[2]/name,' / ',             instance('ins')/original/instruments[2]/document , ')'), ''),           if(instance('ins')/original/instruments[3], concat(', ('            ,             instance('ins')/original/instruments[3]/title,' / ',             instance('ins')/original/instruments[3]/name,' / ',             instance('ins')/original/instruments[3]/document , ')'), ''),           if(instance('ins')/original/instruments[4], concat(', ('            ,             instance('ins')/original/instruments[4]/title,' / ',             instance('ins')/original/instruments[4]/name,' / ',             instance('ins')/original/instruments[4]/document , ')'), ''),           if(instance('ins')/original/instruments[5], concat(', ('            ,             instance('ins')/original/instruments[5]/title,' / ',             instance('ins')/original/instruments[5]/name,' / ',             instance('ins')/original/instruments[5]/document , ')'), '')           )" name="orgNodeinstruments"/><exf:variable value="(instance('ins')/suggestions/instruments[@revIndex=$revIndexinstruments])" name="sugNodeSetinstruments"/><exf:variable value="concat(           if(instance('ins')/suggestions/instruments[1], concat('('            ,             instance('ins')/suggestions/instruments[1]/title,' / ',             instance('ins')/suggestions/instruments[1]/name,' / ',             instance('ins')/suggestions/instruments[1]/document , ')'), ''),           if(instance('ins')/suggestions/instruments[2], concat(', ('            ,             instance('ins')/suggestions/instruments[2]/title,' / ',             instance('ins')/suggestions/instruments[2]/name,' / ',             instance('ins')/suggestions/instruments[2]/document , ')'), ''),           if(instance('ins')/suggestions/instruments[3], concat(', ('            ,             instance('ins')/suggestions/instruments[3]/title,' / ',             instance('ins')/suggestions/instruments[3]/name,' / ',             instance('ins')/suggestions/instruments[3]/document , ')'), ''),           if(instance('ins')/suggestions/instruments[4], concat(', ('            ,             instance('ins')/suggestions/instruments[4]/title,' / ',             instance('ins')/suggestions/instruments[4]/name,' / ',             instance('ins')/suggestions/instruments[4]/document , ')'), ''),           if(instance('ins')/suggestions/instruments[5], concat(', ('            ,             instance('ins')/suggestions/instruments[5]/title,' / ',             instance('ins')/suggestions/instruments[5]/name,' / ',             instance('ins')/suggestions/instruments[5]/document , ')'), '')           )" name="sugNodeinstruments"/><exf:variable value="(instance('ins')/previous/review/instruments[@revIndex=$revIndexinstruments])" name="revIndexOinstruments"/><exf:variable value="instance('ins')/previous/review/instruments[@id=$nsXMLKEY]" name="thisNodeNeedleOldinstruments"/><exf:variable value="concat(           if(instance('ins')/previous/review/instruments[1], concat('('            ,             instance('ins')/previous/review/instruments[1]/title,' / ',             instance('ins')/previous/review/instruments[1]/name,' / ',             instance('ins')/previous/review/instruments[1]/document , ')'), ''),           if(instance('ins')/previous/review/instruments[2], concat(', ('            ,             instance('ins')/previous/review/instruments[2]/title,' / ',             instance('ins')/previous/review/instruments[2]/name,' / ',             instance('ins')/previous/review/instruments[2]/document , ')'), '')           )" name="thisNodeOldinstruments"/><exf:variable value="concat(           if(instance('ins')/previous/review/original/instruments[1], concat('('            ,             instance('ins')/previous/review/original/instruments[1]/title,' / ',             instance('ins')/previous/review/original/instruments[1]/name,' / ',             instance('ins')/previous/review/original/instruments[1]/document , ')'), ''),           if(instance('ins')/previous/review/original/instruments[2], concat(', ('            ,             instance('ins')/previous/review/original/instruments[2]/title,' / ',             instance('ins')/previous/review/original/instruments[2]/name,' / ',             instance('ins')/previous/review/original/instruments[2]/document , ')'), '')           )" name="orgNodeOldinstruments"/><exf:variable value="concat(           if(instance('ins')/previous/review/suggestions/instruments[1], concat('('            ,             instance('ins')/previous/review/suggestions/instruments[1]/title,' / ',             instance('ins')/previous/review/suggestions/instruments[1]/name,' / ',             instance('ins')/previous/review/suggestions/instruments[1]/document , ')'), ''),           if(instance('ins')/previous/review/suggestions/instruments[2], concat(', ('            ,             instance('ins')/previous/review/suggestions/instruments[2]/title,' / ',             instance('ins')/previous/review/suggestions/instruments[2]/name,' / ',             instance('ins')/previous/review/suggestions/instruments[2]/document , ')'), '')           )" name="sugNodeOldinstruments"/><td bgcolor="white" class="errors custError"><td class="errors custError"><div><ix:attr value="if(not($thisNodeNeedleinstruments/@req) and $thisNodeNeedleinstruments/@addcomment = '1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Comment</u><div style="width:300px;"><p><h5>Comment:</h5><span style="color:black"><xf:output value="$thisNodeNeedleinstruments/@comment"/></span></p></div></span></div><div><div><ix:attr value="if(@officeComm and @officeComm !='', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Office Comment</u><div style="width:300px;"><p><span style="color:black"><h5>Office Comments:</h5><xf:output value="@officeComm"/></span></p></div></span><br/><br/></div><span class="dialogOverInteractive"><u><ix:attr value="if(@req != '' and @comment !='', 'color:blue', if(@req = '' and @comment ='', 'color:black', 'color:blue'))" name="style"/><xf:output value="if(@req ='', 'Set Action', if(@req = 'change', 'Change Required', if(@req = 'changeSug', 'Change Suggested', if(@req = 'commentOnly', 'Comment Provided', 'Justification Required'))))"/></u><div style="width:300px;"><p><h5>Action:</h5><xf:select1 appearance="full" ref="@req"><xf:item><xf:label>Comment Only</xf:label><xf:value>commentOnly</xf:value></xf:item><xf:item><xf:label>Justification</xf:label><xf:value>comment</xf:value></xf:item><script ev:event="xforms-value-changed">
+                                      //SH.print("OUT");
+                                      //model.USA.addChange();
+                                      model.USA.addChange(contextNode);
+                                      model.rebuild();
+                                      model.refresh();
+                                      model.recalculate();
+                                      //SH.print("IN");
+                                    </script></xf:select1><hr/><br/><i style="font-size:7pt;color:black;">Response Comments:</i><span style="color:black"><xf:textarea ref="@comment" style="width:260px;height:100px;"/></span></p></div></span></div><br/></td><div><ix:attr value="if($theCurrentValue != $thePreviousValue, 'color:red', 'display:none')" name="style"/><nobr>Using New Value</nobr></div><div><ix:attr value="if(instance('ins')/projectDates/@comment != '', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Review Comments</u><div style="width:300px;"><p><h5>Review Comments:</h5><span style="color:black"><xf:output value="instance('ins')/projectDates/@comment"/></span></p></div></span></div></td></tr></xf:repeat></table><br/></td></xf:case><xf:case id="hide-instruments"/></xf:switch></tr></table></div></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

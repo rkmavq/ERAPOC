@@ -1,0 +1,478 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms" xmlns:id8="http://ideate.com"><xf:model id="fmodel">
+	<!--<xf:instance id="routing" src="../routing.xml"/>-->
+	<xf:instance id="temp" src="/fil/ideate/configs/IRB/docs/uploads.xml"/>
+	<xf:instance id="ins"><data xmlns=""/></xf:instance>
+  <xf:instance id="ent"><data xmlns=""/></xf:instance>
+  <xf:instance id="lc"><data xmlns=""/></xf:instance>
+	<xf:instance id="comms"><data xmlns=""/></xf:instance>
+  <xf:instance id="form">
+    <data xmlns="">
+    <status>x</status>
+    <status>x</status>
+    <actor>x</actor>
+    <action>1</action>
+    	<actions>1</actions>
+    	<reviewer>1</reviewer>
+    	<isPI>0</isPI>
+    	<form updatedBy="" updated="" createdBy="" created=""/>
+    	<searchText/>
+    	<records/>
+    	<fullSearchText/>
+    	<fullSearchRecords/>
+    	<col1/>
+    	<col2/>
+    	<col3/>
+    	<document/>
+    	<viewBy>year</viewBy>
+    	<focus/>
+    	<focus2/>
+    	<lastFocus/>
+    	<temp/>
+    	<comp uri=""/>
+    	<excludeSwitch>0</excludeSwitch>
+    	<submissionName>IRB Protocol Application</submissionName>
+    	<commTo></commTo>
+    	<commCC></commCC>
+    	<commSubject></commSubject>
+    	<commLetter>none</commLetter>
+    	<commMessage>none</commMessage>
+    	
+    	<revMode>in</revMode>
+    	<revCom></revCom>
+    	<linkedOp></linkedOp>
+    	<showCats>0</showCats>
+    	<showComms>0</showComms>
+    
+    	<mode>send</mode>
+    	<uri></uri>
+    	<import id="" uri="" name="" email=""/>
+    	<email>
+    		<commLetter></commLetter>
+    		<creating>0</creating>
+    		<from name='' uri=''/>
+    		<!--<to name='' uri=''/>-->
+    		<subject></subject>
+    		<bodyHTML></bodyHTML>
+    		<bodyTXT></bodyTXT>
+    		<attachment uri=''></attachment>
+    		<sent></sent>
+    	</email>
+    
+    </data></xf:instance>
+	<xf:instance id="state">
+		<data xmlns=""/>
+	</xf:instance>
+	<xf:instance id="cats">
+		<data xmlns=""/>
+	</xf:instance>
+        		
+	<xf:instance id="bootstrap">
+		<data xmlns="">
+			<css>/resources/applications/USProject/css/main.css</css>
+		</data>
+	</xf:instance>
+        		
+    <script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+
+      s = model.getValue("instance('ent')/status");
+      var tui = model.__XformSet.getRoot().targetURI;
+      model.setValue("instance('ent')/primaryEntityURI", tui);
+      var status = model.getValue("instance('ent')/status");
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js"); 
+      model.USA = new irbProtocol(model);
+      
+      includeSharedJS("/resources/services/appForms/main.js");
+      model.Frm = new appForm(model, "general");
+
+	  model.mailTo = callSharedService("caseSecurity", {"op":"getUsersAndNames", "caseUri":model.__XformSet.getRoot().targetURI, "token":"mailTo"}, "service", "json").output;      
+ 	  //alert(JSON.stringify(model.COMM.mailTo));
+
+      res = callSharedService("configurator", {"op":"genComms", "protURI":tui}, "service", "text");
+      //alert(res.output);
+      includeSharedJS("/resources/services/email/forms/clientSideEmail.js");
+      model.COMM = new emailHandler(model);
+
+	  model.USA.isPI = callSharedService("caseSecurity", {"op":"isPI", "caseUri":model.__XformSet.getRoot().targetURI}, "service", "text").output;
+	  if(model.USA.isPI){
+	  	model.setValue("instance('form')/isPI", "1");
+	  }else{
+	  	model.setValue("instance('form')/isPI", "");
+	  }
+      
+      loadInstance(model, "comms", "/data/allcomms.xml");
+      loadInstance(model, "ins", "/data/irb.xml");
+      model.reloadInstanceId("comms");
+      
+      model.recalculate();
+      model.rebuild();
+      
+    </script>
+  
+   <xf:bind nodeset="instance('ent')/stage" readonly="true()" relevant="false()"/>
+  <xf:bind nodeset="instance('ent')/status" readonly="true()" relevant="false()"/>
+  
+	<xf:bind nodeset="instance('form')/email/attachment" type="ix:file"/>
+	<xf:bind nodeset="instance('temp')/attachment" type="ix:file"/>
+	<xf:bind nodeset="instance('form')/email/bodyHTML[instance('form')/mode='view']" readonly="true()"/>
+	<xf:bind nodeset="instance('form')/email/subject[instance('form')/mode='view']" readonly="true()"/>
+  
+    <script ev:event="ix-activity-save">
+			model.submit("submit1");
+		</script>
+    <xf:submission id="submit1" instance="comms" replace="none" method="put">
+			<xf:action ev:event="xforms-submit-done">
+				<xf:message level="ephemeral">Submit done.</xf:message>
+			</xf:action>
+			<xf:action ev:event="xforms-submit-error">
+				<xf:message level="ephemeral">Problem submitting...</xf:message>
+			</xf:action>
+		</xf:submission>
+</xf:model>
+  
+  <style>
+    div.main div.xfctrl{
+      background:none;
+    }
+    
+    div.main div.xftrl td.combo {color:black};
+    
+    
+    .wikiView div.actionsPulldown2{
+    width:210px;
+    padding:1px;
+    }
+
+
+	.wikiView div.actionsPulldown2 table.actionsPulldown2{
+	width:190px;
+	}
+
+
+
+.wikiView div.statusPulldown{
+background:none;
+padding:1px;
+}
+
+.wikiView div.statusPulldown table.statusPulldown{
+width:98%;
+}
+
+
+    
+    .actionsGo{
+    height:19px;
+    font-size:10px;
+    }
+    
+    div.drillinForm div.xfctrl{
+    background:none;
+    }
+    
+    div.drillinForm div.xfctrl label{
+    color:black;
+    }
+    
+    div.formFrame div.drillinForm table.summary table.combo{
+    width:60%;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.thin table.combo{
+    width:80%
+    }
+    
+    div.formFrame div.drillinForm table.summary td.wide table.combo{
+    width:40%
+    }
+    
+    div.formFrame div.drillinForm td.tight div.xfctrl input{
+    width:15px;
+    }
+    
+    div.drillinForm table.summary td.tight td{
+    margin-left:0px;
+    padding-left:5px;
+    width:auto;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.large.tight div.xfctrl input{
+    width:auto;
+    }
+    
+    div.formFrame div.drillinForm td.close div.xfctrl input{
+    padding:0px;
+    width:auto;
+    }
+    
+    div.diagXf table.xfctrl td{
+    vertical-align:top;
+    padding-bottom:8px;
+    padding-left:3px;
+    }
+    
+    div.formFrame div.drillinForm table.summary td.large div.xfctrl.shortenDate input {
+    width:100px;
+    }
+    
+    td.diagContent div.diagContent {
+    background-color:white;
+    }
+    
+    td.diagContent div.diagContent div.commGen{
+    }
+    
+    td.diagContent div.diagContent div.commGen label{
+    margin-left:2px;
+    width:70px;
+    }
+    
+    td.diagContent div.diagContent div.commGen input{
+    margin-left:2px;
+    width:300px;
+    }
+    
+    td.diagContent div.diagContent div.commGen textarea{
+    margin-left:2px;
+    width:370px;
+    height:200px;
+    }
+    
+    
+  </style>
+	<style>
+		.wikiView div.xfctrl {background-color:white;};
+		
+		table.email {
+		width: 400px;
+		font: 12px;
+		}
+		
+		table.email td.left {
+		vertical-align:top;
+		padding:2px;
+		text-align:right;
+		width: 60px;
+		font-weight: bold;
+		}
+		
+		table.email td.right {
+		padding:2px;
+		margin-left:10px;
+		vertical-align:top;
+		width: 330px;
+		border: 1px solid #999999;
+		background-color:white;
+		}
+		
+		table.email td.rightoutput {
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl{
+		padding:0px;
+		margin:0px;
+		margin-left:-1px;
+		margin-right:-1px;
+		width: 360px;
+		}
+		
+		.wikiView table.email td.rightoutput div.xfctrl input{
+		margin:0px;
+		width: 358px;
+		}
+		
+		.clickable {cursor:pointer; color:blue;}
+		
+		.wikiView table.email div.xfctrl{
+			padding:0px;
+		}
+		
+	</style>
+	
+	<ix:template name="QuickSearch">
+		<div style="padding:8px;width:400px">
+			<table style="width:240px">
+				<tr>
+					<td>
+						<xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px">
+							<xf:label style="width:50px">Lookup:</xf:label>
+						</xf:input>
+					</td>
+					<td>
+						<div style="margin-right:20px;">
+							<u class="link" style="color:blue;cursor:pointer;text-decoration:underline;">Go</u>
+							<script ev:event="click"> model.Frm.executeQuickSearch(); </script>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<hr/>
+			<xf:switch>
+				<xf:case exf:if="1" id="hide-quicksearch">
+					<br/>
+					<b><u>OR</u></b> <i> add additional/off-system email:</i>
+					<br/><br/>
+					
+					<xf:input ref="instance('form')/import/@name"><xf:label style="width:50px">Name:</xf:label></xf:input>
+					<xf:input ref="instance('form')/import/@email"><xf:label style="width:50px">Email:</xf:label></xf:input>
+					<xf:trigger style="margin-left:2px;">
+						<xf:label>Add</xf:label>
+						<xf:action ev:event="DOMActivate">
+							<script>
+								model.COMM.addRecip();
+							</script>
+							<xf:close/>
+						</xf:action>
+					</xf:trigger>
+				</xf:case>
+				<xf:case id="show-quicksearch">
+					<exf:variable name="records" value="instance('form')/records//rec"/>
+					<div>
+						<ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/>
+						<h1>No Matches</h1>
+					</div>
+					<div><ix:attr value="if(count($records) &gt; 50, '', 'display:none')" name="style"
+					/><h1>Too Many Matches</h1>Please refine your search.</div>
+					<table class="quickSearchMatches">
+						<ix:attr
+							value="if(count($records) &lt;= 50 and count($records) &gt; 0, '', 'display:none')"
+							name="style"/>
+						<tr>
+							<th style="text-align:left;">
+								<xf:output value="instance('form')/col1"/>
+							</th>
+							<th style="text-align:left;padding-left:20px">
+								<xf:output value="instance('form')/col2"/>
+							</th>
+							<th style="text-align:left;padding-left:20px">
+								<xf:output value="instance('form')/col3"/>
+							</th>
+						</tr>
+						<xf:repeat nodeset="$records">
+							<tr>
+								<td style="vertical-align:top; width:33%">
+									<u class="clickable">
+										<xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/>
+										<xf:close ev:event="click"/>
+										<script ev:event="click"> var indx = model.getValue("@id", contextNode); var val
+											= model.getValue("@name", contextNode); if(val == "") val =
+											model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]",
+											contextNode); model.Frm.quickSearchSelect(indx, val); var code =
+											model.Frm.quickSearch.code; if(code) eval(code);
+											if(model.Frm.quickSearch.save) model.Frm.saveAll(); event.stopPropagation();
+										</script>
+									</u>
+								</td>
+								<td style="vertical-align:top;padding-left:20px; width:30%">
+									<xf:output
+										value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"
+									/>
+								</td>
+								<td style="vertical-align:top;padding-left:20px; width:30%">
+									<xf:output
+										value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"
+									/>
+								</td>
+							</tr>
+						</xf:repeat>
+					</table>
+					<br/>
+					<br/>
+				</xf:case>
+			</xf:switch>
+		</div>
+	</ix:template>
+	
+	<div style="display:none;">
+		<xf:input id="documentDrop" ref="instance('temp')/attachment">
+			<script ev:event="xforms-value-changed"> 
+				model.activateCase('hide-create');
+				model.refresh();
+				model.rebuild();
+				model.recalculate();
+				x = model.getValue(".", contextNode);
+				sp = x.split("/"); x = sp[sp.length-1];
+				model.setValue(".", x, contextNode);
+				model.activateCase('show-create');
+			</script></xf:input></div>
+	
+	<xf:switch>
+		<xf:case exf:if="1" id="show-comms">
+  
+			<div class="main formFrame" style="">
+  
+	
+		<xf:group ref=".">
+				
+						<exf:variable
+							value="instance('comms')/logs/comm"
+							name="comSubLogs"/>
+						
+			<div><ix:attr value="if(count($comSubLogs) = 0, 'margin-left:10px;', 'display:none')" name="style"/><h3><i>None</i></h3></div>
+			<div><ix:attr value="if(count($comSubLogs)  &gt; 0, 'margin-left:10px;', 'display:none')" name="style"/><h3>RiSC Communication Log</h3><br/>
+							<i>The information contained in this tab was converted from RiSC and is provided for referential purposes only.</i></div>
+						
+						<div>
+							
+							<table class="fullColLayout">
+								<ix:attr value="if(count($comSubLogs) &gt; 0, '', 'display:none')" name="style"/>
+								<tr class="top">
+									<th class="small delete center"/>
+									<th class="status in manual medium left">Type</th>
+									<th class="name out text large left">Description</th>
+									<th class="type in dropdown medium left">From</th>
+									<th class="status in manual medium left">Create Date</th>
+									<th class="status in manual medium left">Sent Date</th>
+								</tr>
+								<xf:repeat nodeset="instance('comms')/logs/comm">
+									<!--<exf:sort select="@id" data-type="number" order="descending"/>			-->						
+									<exf:variable
+										value="position()"
+										name="poi2"/>
+									<tr>
+										<td class="small delete center">
+											<xf:output value="$poi2"/>										
+										</td>
+										<td class="status in manual medium left">
+											<xf:output value="if(@formOfComm='LTRMAIL', 'Letter/EMail',
+												if(@formOfComm='EMAIL', 'E-Mail',
+												if(@formOfComm='PHONE', 'Phone Call',
+												'')))"/>											
+										</td>
+										<td class="out text large left name">
+											<xf:output value="@name"/>
+										</td>
+										<td class="out text medium left name">
+											<xf:output value="@from"/>
+										</td>									
+										<td class="status in manual medium left"><nobr>
+											<xf:output value="if(@created != '', local-date(@created), '')"/>
+										</nobr></td>
+										<td class="status in manual medium center"><nobr>
+											<span><ix:attr name="style" value="if(@sentDate='', '', 'display:none')"/>
+												-</span>
+											<span><ix:attr name="style" value="if(@sentDate='', 'display:none', '')"/>
+												<!--<xf:output value="if(@sentDate != '', concat(substring(@sentDate, 6, 2), '/', substring(@sentDate, 9, 2), '/', substring(@sentDate, 1, 4)), '')"/>-->
+												<xf:output value="if(@sentDate != '', local-date(@sentDate), '')"/>
+											</span>
+										</nobr></td>										
+									</tr>									
+								</xf:repeat>
+							</table>
+							<br/><br/>
+						</div>
+						
+
+		  	
+		  <br/><br/>
+  	</xf:group>
+  </div>
+
+		</xf:case>
+		<xf:case id="hide-comms"/>
+	</xf:switch>
+
+
+</form>

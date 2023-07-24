@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:ix="http://itensil.com/ns/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:xf="http://www.w3.org/2002/xforms"><xf:model id="fmodel"><xf:instance id="ins"><data/></xf:instance><xf:instance id="meta"><data/></xf:instance><xf:instance id="cats"><data/></xf:instance><xf:instance id="review"><data/></xf:instance><xf:instance id="form"><data><tabID>0r</tabID><ping>0</ping><AMD/><form updatedBy="" updated="" createdBy="" created=""/><searchText/><searchAddNew/><records/><fullSearchText/><fullSearchRecords/><col1/><col2/><col3/><document/><viewBy>year</viewBy><focus/><lastFocus/><temp/><comp uri=""/><t t="" l="" i="1"/><t t="" l="" i="2"/><t t="" l="" i="3"/><t t="" l="" i="4"/><t t="" l="" i="5"/><t t="" l="" i="6"/><t t="" l="" i="7"/><t t="" l="" i="8"/><t t="" l="" i="9"/><t t="" l="" i="10"/><dummy/></data></xf:instance><xf:instance id="bootstrap"><data><js>/resources/services/appForms/main.js</js></data></xf:instance><xf:instance id="config"><data/></xf:instance><xf:instance id="baseOp"><data/></xf:instance><script ev:event="xforms-model-construct-done">
+      bootstrapSharedXfrm(model);
+      model.Frm = new appForm(model, "hiv");
+      model.setValue("instance('form')/AMD", "1"); model.__AMD = true;
+        //model.Frm.loadAppFile('ins', "/data/irb.xml", "1");
+        model.Frm.loadOpFile('ins', model.Frm.formSet.getRoot().__COMPREVURI, "1");model.Frm.loadAppFile('meta', "/data/projectData.xml", "0");model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");model.Frm.loadOpFile('review', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      model.Frm.loadMetaData();
+      
+      
+        includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+        model.USA = new irbProtocol(model);
+      
+    
+      model.refresh();
+      model.rebuild();
+      model.recalculate();
+      <script ev:event="xforms-value-changed">
+          //model.USA.registerChangeLog('review', '0r')
+          //model.USA.registerChangeLog('ins', '0r')
+          model.USA.registerChangeLog('comments', '0r')
+        </script></script><script ev:event="xforms-ready"/><xf:submission instance="ins" id="submitins" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (ins)</xf:message></xf:action></xf:submission><xf:submission instance="review" id="submitreview" replace="none" method="put"><xf:action ev:event="xforms-submit-done"/><xf:action ev:event="xforms-submit-error"><xf:message level="ephemeral">Problem saving (review)</xf:message></xf:action></xf:submission><xf:bind relevant="true()" readonly="false()" nodeset="instance(ins)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(meta)//*"/><xf:bind relevant="true()" readonly="false()" nodeset="instance(cats)//*"/><xf:bind readonly="true()" nodeset="//link/@title"/><xf:bind nodeset="instance('form')/document" type="ix:file"/><xf:bind readonly="true()" relevant="false()" nodeset="instance('ins')/Person/name"/></xf:model><script ev:event="xforms-value-changed">
+          model.USA.___EVAL_CHANGE_ON_SAVE = true;
+        </script><style>
+        div.formFrame div.commentBox{
+          background-color:white;
+          border: 2px solid gray;
+          padding: 5px;
+          width: 500px;
+        }
+        
+        div.formFrame div.commentBox div.xfctrl{
+          background-color:white;
+        }
+
+      div.formFrame div.commentBox div.xfctrl label{
+        width:100px;
+       }
+
+div.formFrame div.commentBox div.xfctrl textarea{
+       width:390px;
+       }
+        
+        
+        div.formFrame td.custError{
+          background-color:white;
+          border:none;
+          vertical-align:top;
+          width:200px;
+          padding-left:10px;
+          color:red;
+          font-weight:bold;
+        }
+        
+        div.formFrame td.custError div.xfctrl tr{
+          background-color:white;
+        }
+
+       div.formFrame td.custError div.xfctrl tr td{
+        background-color:white;
+       }
+
+        div.formFrame tr td.custError div.xfctrl{
+          background-color:white;
+        }
+        
+        div.formFrame td.custError div{
+          background-color:white;
+        }
+        
+        div.formFrame td.custError .xfctrl{
+          background:none;
+        }
+        
+        div.formFrame table.fullColLayout tr td.custError div.xfctrl{
+          background-color:white;
+        }
+        
+        .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl {
+          position:static;
+          border-color:white;
+        }
+        div.formFrame tr td.custError div.xfctrl{
+          position:static;
+          border-color:white;
+        }          
+        
+        .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea{
+          position:static;
+        
+        }
+        
+        .wikiView div.formFrame table.basicColLayout tr td.custError div.xfctrl textarea  {
+          margin-top:10px;
+        }
+        
+        .wikiView div.formFrame table.fullColLayout tr td.custError div.xfctrl textarea {
+          margin-top:10px;
+        }
+        
+      </style><ix:template name="QuickSearch"><div style="padding:8px;width:400px"><table style="width:240px"><tr><td><xf:input id="searchBox" ref="instance('form')/searchText" style="width:140px"><xf:label style="width:50px">Lookup:</xf:label></xf:input></td><td/></tr></table><hr/><xf:switch><xf:case exf:if="1" id="hide-quicksearch"/><xf:case id="show-quicksearch"><exf:variable name="records" value="instance('form')/records//rec"/><exf:variable name="pingVar" value="instance('form')/ping"/><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &gt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying the top 20 rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if($pingVar &gt; 0 and $pingVar &lt; 20, '', 'display:none')"/><h3><xf:output value="instance('form')/ping"/> records available, displaying <xf:output value="instance('form')/ping"/> rows. Please use the Lookup box to search.</h3></div><div><ix:attr name="style" value="if(count($records)=0, '', 'display:none')"/><h1>No Matches</h1></div><div><ix:attr value="if(count($records) &gt; 150, '', 'display:none')" name="style"/><h1>Too Many Matches</h1>Please refine your search.</div><table class="quickSearchMatches"><ix:attr value="if(count($records) &lt;= 500 and count($records) &gt; 0, '', 'display:none')" name="style"/><tr><th style="text-align:left;"><xf:output value="instance('form')/col1"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col2"/></th><th style="text-align:left;padding-left:20px"><xf:output value="instance('form')/col3"/></th></tr><xf:repeat nodeset="$records"><tr><td style="vertical-align:top; width:33%"><u class="clickable"><xf:output value="(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]"/><xf:close ev:event="click"/><script ev:event="click"> 
+                        var indx = model.getValue("@id", contextNode);
+                        var val = model.getValue("@name", contextNode);
+                        if(val == "") val = model.getValue("(attribute::node())[position()=script('SH.is_ie ? 4 : 3')]", contextNode);
+                        model.Frm.quickSearchSelect(indx, val);
+                        var code = model.Frm.quickSearch.code;
+                        if(code) eval(code);
+                        if(model.Frm.quickSearch.save) model.Frm.saveAll();
+                        event.stopPropagation();
+                      </script></u></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col2 and instance('form')/col2 != '', (attribute::node())[position()=script('SH.is_ie ? 3 : 2')], '')"/></td><td style="vertical-align:top;padding-left:20px; width:30%"><xf:output value="if(instance('form')/col3 and instance('form')/col3 != '', (attribute::node())[position()=script('SH.is_ie ? 2 : 1')], '')"/></td></tr></xf:repeat></table><br/><br/></xf:case></xf:switch></div></ix:template><div class="formFrame StretchedLayout" id="allcontrols"><div style="display:none;"><xf:input id="documentDrop" ref="instance('form')/document"><xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''"><script> 
+                var n = model.getValue(".", contextNode);
+                if(n != "") model.Frm.linkFile(n);
+              </script></xf:action></xf:input></div><table class="formMetaLine"><tr/></table><xf:switch><xf:case exf:if="1" id="show-XformsAfterMeta"><style>
+            .wikiView div.xfctrl{
+                background:none;
+            }
+        </style><br/><div style="width:800px;">Only those with institutionally sanctioned clinical / operational access to the indentifiable medical records may access them for research purposes. Indicate who will be providing the data to the research team and their clinical / administrative role which allows such access.</div><br/><br/></xf:case><xf:case id="hide-XformsAfterMeta"/></xf:switch><div class="body"><xf:switch><xf:case exf:if="1" id="show-recordTable"><exf:variable value="instance('ins')/HIVPerson[@id = instance('form')/focus or instance('form')/focus = '']" name="recs"/><h1/><table class="fullColLayout"><ix:attr value="if(count($recs) &gt; 0, '', 'display:none')" name="style"/><tr class="top"><th class="small delete center"/><th class="hivTableName out text mediumplus left">Name</th><th class="hivTableRole in manual wide center">Clinical / Adminstrative Role</th></tr><xf:repeat nodeset="$recs"><exf:variable value="(.)" name="this"/><exf:variable value="@id" name="indx"/><exf:variable value="@id" name="nsXMLKEY"/><exf:variable value="@revIndex" name="revIndex"/><exf:variable value="position()" name="pos"/><exf:variable value="instance('ins')/previous/review/HIVPerson[$pos]" name="srcOld"/><exf:variable value="" name="amendmentNode"/><exf:variable value="$srcOld/@id" name="nsXMLKEYOld"/><exf:variable value="$srcOld/@revIndex" name="revIndexOld"/><exf:variable value="instance('ins')/original/HIVPerson[@revIndex=$revIndex]" name="org"/><exf:variable value="instance('ins')/previous/review/original/HIVPerson[@revIndex=$revIndex]" name="orgOld"/><exf:variable value="instance('ins')/suggestions/HIVPerson[@revIndex=$revIndex]" name="sug"/><exf:variable value="instance('ins')/previous/review/suggestions/HIVPerson[@revIndex=$revIndex]" name="sugOld"/><exf:variable value="concat(hivTableName, ' / ', hivTableRole)" name="srcVal"/><exf:variable value="concat($org/hivTableName, ' / ', $org/hivTableRole)" name="orgVal"/><exf:variable value="instance('ins')/previous/review/HIVPerson[$pos]" name="srcValOld"/><exf:variable value="concat($orgOld/hivTableName, ' / ', $orgOld/hivTableRole)" name="orgValOld"/><exf:variable value="concat($sug/hivTableName, ' / ', $sug/hivTableRole)" name="sugVal"/><exf:variable value="$sugOld/@id" name="sugValOld"/><exf:variable value="(instance('ins')/suggestions/HIVPerson[@revIndex=$revIndex])" name="sugNodeSet"/><div style="display:none"/><tr><td class="small delete center"><u class="clickable">X<xf:action exf:if="script('confirm(&quot;Are you sure you want to delete this person?&quot;)')" ev:event="click"><script>model.Frm.tagDeletion(contextNode, "PI");</script><script>model.USA.deletePerson(contextNode);</script><xf:destroy ref="."/><script>
+                                      model.submit('submitins');
+                                    </script><script/></xf:action></u></td><td class="out text mediumplus left hivTableName"><xf:output value="hivTableName"/></td><td m="21" class="hivTableRole in manual wide center"><print type="text" nodeset="" evaluate="0" condition=""/><div>
+            <xf:input ref="hivTableRole" style="margin-top:0px;"/>
+        </div></td><td class="errors custError"><exf:variable value="$sugNodeSet[(.) != $orgVal]" name="others"/><div><ix:attr value="if(concat($orgVal,'') != concat($sugVal,'') , '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u><ix:attr value="if((.)/@acceptjust!='1', 'color:red', 'color:green')" name="style"/>
+              Amended <xf:output value="if((.)/@acceptjust='-1', '(Denied)', if((.)/@acceptjust='1', '(Accepted)', ''))"/></u><div style="width:300px;"><p><h5>Justification:</h5><p style="padding:5px;margin:5px;border:1px red solid; color:black"><ix:attr value="if((.)/@acceptjust='1', 'padding:5px;margin:5px;border:1px green solid; color:black', 'padding:5px;margin:5px;border:1px red solid; color:black')" name="style"/><xf:output value="if((.)/@justification!='', (.)/@justification, 'None provided')"/></p></p><hr/><span><hr/><br/><i style="font-size:7pt;color:black;">Comment:</i><span style="color:black"><xf:textarea ref="(.)/@comment" style="width:260px;height:100px;"><script ev:event="xforms-value-changed">
+                      model.rebuild();
+                      model.refresh();
+                      model.recalculate();
+                    </script></xf:textarea></span></span></div></span></div></td></tr></xf:repeat></table><table class="addButtons"><ix:attr value="if(instance('form')/focus = '', '', 'display:none')" name="style"/><tr><td><xf:trigger><xf:label>Add Person</xf:label><xf:action ev:event="DOMActivate"><ix:dialog style="height:300px;" id="results" title="Find Person" class="quickSearchDialog"><ix:include template="QuickSearch" ref="."/></ix:dialog><script>model.Frm.revewMode = -1;model.Frm.revewAmend=1;
+                          
+                          model.Frm.configureQuickSearch("People", "insertEntity", "instance('ins')", "/applications/IRB/js/addHIV", "recordTable", "Name", "ID", "", "1", "researcher", 'model.USA.rebuildTabs();', '1', false, "{entName:'person', ent:'People', fields:[{name:'Last Name',xpath:'LastName'}, {name:'First Name',xpath:'FirstName'}], code:'temp'}");
+                          model.Frm.registerKeypressCallback("searchBox", "quickSearchKeyPress");
+                          </script></xf:action></xf:trigger></td></tr></table><exf:variable name="recsOld" value="instance('ins')/original/HIVPerson[not(contains(script('sm=&quot;,&quot;;cnt=&quot;count(instance(\&quot;ins\&quot;)/HIVPerson)&quot;; xs=model.getValue(cnt)*1; for(m=1;m!=xs+1;m++){{sm+=model.getValue(&quot;instance(\&quot;ins\&quot;)/HIVPerson[&quot;+m+&quot;]/@revIndex&quot;)+&quot;,&quot;}};sm;'), concat(',', @revIndex, ',')))]"/><div><ix:attr value="if(count($recsOld)=0, 'display:none', '')" name="style"/><hr/><br/><h5>Deleted Items (<xf:output value="count($recsOld)"/>):</h5><table><xf:repeat nodeset="$recsOld"><exf:variable value="(.)" name="this"/><exf:variable value="@id" name="indx"/><exf:variable value="@id" name="nsXMLKEY"/><exf:variable value="@revIndex" name="revIndex"/><exf:variable value="position()" name="pos"/><exf:variable value="instance('ins')/previous/review/HIVPerson[$pos]" name="srcOld"/><exf:variable value="$srcOld/@revIndex" name="revIndexOld"/><exf:variable value="instance('ins')/original/HIVPerson[@revIndex=$revIndex]" name="org"/><exf:variable value="instance('ins')/previous/review/original/HIVPerson[@revIndex=$revIndex]" name="orgOld"/><exf:variable value="instance('ins')/suggestions/HIVPerson[@revIndex=$revIndex]" name="sug"/><exf:variable value="instance('ins')/previous/review/suggestions/HIVPerson[@revIndex=$revIndex]" name="sugOld"/><exf:variable value="concat(hivTableName, ' / ', hivTableRole)" name="srcVal"/><exf:variable value="concat($org/hivTableName, ' / ', $org/hivTableRole)" name="orgVal"/><exf:variable value="instance('ins')/previous/review/HIVPerson[$pos]" name="srcValOld"/><exf:variable value="concat($orgOld/hivTableName, ' / ', $orgOld/hivTableRole)" name="orgValOld"/><exf:variable value="concat($sug/hivTableName, ' / ', $sug/hivTableRole)" name="sugVal"/><exf:variable value="$sugOld/@id" name="sugValOld"/><exf:variable value="(instance('ins')/suggestions/HIVPerson[@revIndex=$revIndex])" name="sugNodeSet"/><div style="display:none"/><tr><td style="width:10px;vertical-align:top;"><xf:output value="position()"/></td><td style="width:200px;vertical-align:top;"><xf:output value="@id"/></td><td style="width:160px;vertical-align:top;"><span><ix:attr value="if(@delBy='reviewer', '', 'display:none')" name="style"/><b style="color:green;">Using Suggested Change </b></span><span><ix:attr value="if(@delBy='PI', '', 'display:none')" name="style"/><b style="color:red;">Newly Deleted </b></span></td><td style="width:100px;vertical-align:top;"><span><u style="margin-left:10px;cursor:pointer;color:blue">[Restore]<script ev:event="click">
+                          idm = model.getValue("@revIndex", contextNode);
+                          model.USA.insertOldTag("{$recordSet/@xml}", 'org', contextNode, "recordTable");
+                        </script></u></span></td><td class="errors custError"><span><ix:attr value="if(@addcomment ='1', '', 'display:none')" name="style"/><span class="dialogOverInteractive"><u style="color:blue">Previous Comment</u><div style="width:300px;"><p><span style="color:black"><xf:output value="@comment"/></span></p></div></span></span></td></tr></xf:repeat></table></div></xf:case><xf:case id="hide-recordTable"/></xf:switch></div><div/></div><div class="bottomNav"><table><tr><td class="back"><div class="nav" style="float:right"><script ev:event="click">
+                    model.Frm.navigateTo("previousTab");
+                  </script><div style="float:left" class="command">previous</div><img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/></div></td><td class="next"><div class="nav" style="float:left"><script ev:event="click">
+                    model.Frm.navigateTo("nextTab");
+                  </script><img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/><div style="float:right" class="command">next</div></div></td></tr></table><div style="text-align:center; font-size:10px;margin-top:30px;">© <xf:output value="script('copywrite(2012)')"/></div></div></form>

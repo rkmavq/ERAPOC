@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validations>    
+    <e type="direct" toptab="1X" tab="1X" err="willInform" message="required" xpath="count(instance('ins')/willInform[. = ''])" xpathSS="count(willInform[. = ''])"/>
+    <e type="direct" toptab="1X" tab="1X" err="willInformMethod" message="required" xpath="count(instance('ins')/willInformMethod[. = '' and instance('ins')/willInform='0'])"
+        xpathSS="count(willInformMethod[. = '' and //willInform='0'])"/>
+    <e type="direct" toptab="1X" tab="1X" err="noNessReason" message="required" xpath="count(instance('ins')/noNessReason[. = '' and instance('ins')/willInform='1'])" 
+        xpathSS="count(noNessReason[. = '' and //willInform='1'])"/>
+
+    <e type="direct" toptab="1X" tab="1X" err="willInformPast" message="required" xpath="count(instance('ins')/willInformPast[. = ''])" 
+        xpathSS="count(willInformPast[. = ''])"/>
+    <e type="direct" toptab="1X" tab="1X" err="noNessReasonPast" message="required" xpath="count(instance('ins')/noNessReasonPast[. = '' and instance('ins')/willInformPast='0'])" 
+        xpathSS="count(noNessReasonPast[. = '' and //willInformPast='0'])"/>
+    <e type="direct" toptab="1X" tab="1X" err="willInformPastMethod" message="required" xpath="count(instance('ins')/willInformPastMethod[. = '' and instance('ins')/willInformPast='1'])" 
+        xpathSS="count(willInformPastMethod[. = '' and //willInformPast='1'])"/>
+    
+    <!--<e type="direct" toptab="1" tab="1" err="" message="required" xpath="1" xpathSS="1"/>    -->
+    
+</validations>

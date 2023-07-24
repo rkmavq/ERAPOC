@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.w3.org/2002/06/xhtml2" xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:exf="http://www.exforms.org/exf/1-0" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ix="http://itensil.com/ns/xforms">  
+  <style>
+    .dialogOverInteractive:hover div.xfctrl{
+    position:relative;
+    margin:none;
+    background-color:white;
+    border:none;
+    }
+    
+    div.formFrame table.fullColLayout tr td .dialogOverInteractive:hover div.xfctrl{
+    background-color:white;
+    }
+    
+    div.formFrame table.fullColLayout td.out table.catSelection{
+    width:100%;
+    }
+    
+    div.formFrame table.fullColLayout tr td.errors{
+    <!--color:blue;-->
+    background-color:white;
+    }
+  </style>
+  <xf:model id="fmodel">
+    <xf:instance id="cats">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document id="" uri=""></document>
+      </data> 
+    </xf:instance>    
+    
+<!--    <xf:instance id="form">
+      <data xmlns="">
+        <form updatedBy="" updated="" createdBy="" created=""/>
+        <tempRevIndex>-1</tempRevIndex>
+        <tempSugIndex>1</tempSugIndex>
+        <searchText/>
+        <records/>
+        <fullSearchText/>
+        <fullSearchRecords/>
+        <col1/>
+        <col2/>
+        <document/>        
+      </data>
+    </xf:instance>-->
+    <xf:instance id="errs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="diffs">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="bootstrap">
+      <data xmlns="">
+        <js>/resources/services/appForms/main.js</js>
+      </data>
+    </xf:instance>
+    <xf:instance id="config">
+      <data xmlns=""/>
+    </xf:instance>
+    <xf:instance id="dat"><data xmlns=""/></xf:instance>
+    <xf:instance id="ins">
+      <data xmlns=""/>
+    </xf:instance>    
+    <script ev:event="xforms-model-construct-done"> 
+      bootstrapSharedXfrm(model);
+
+      model.Frm = new appForm(model, "docs");
+      
+      //ARCHITA: You'll have to load the appropriate datafile here that you want to attach the XML to as usual (change this to match wherever you're working)
+      
+      includeSharedJS("/resources/applications/IRB/js/clientSideFunctions.js");
+      model.USA = new irbProtocol(model);
+      
+      //needle = model.Frm.formSet.getRoot().__REVURI.split("/data/reviews/")[1].split(".xml")[0] + ".xml";
+      //resX=callSharedService("changeAgg",{op:"genAggs",testUri:needle}, "json");
+      //resX=callSharedService("changeAgg",{op:"genChanges",testUri:needle}, "json");
+      
+      if(model.Frm.formSet.getRoot().__AMND){
+        model.Frm.loadOpFile('dat', model.Frm.formSet.getRoot().__COMPREVURI, "1");
+      }else{
+        model.Frm.loadAppFile('dat', model.Frm.formSet.getRoot().__REVURI, "1");
+      }
+      
+      
+      //model.Frm.loadOpFile('dat', "/amd.xml", "1");
+      //model.Frm.reloadInst('dat');
+      
+      
+      
+      
+      model.Frm.loadAppFile('cats', "/data/catagories.xml", "0");
+      model.setInstanceIdSrc('diffs', "/fil/ideate/configs/IRB/forms/baseChange.xml");
+      document.MODEL = model;
+      
+      document.MODEL = model; //setTimeout('document.MODEL.Frm.disableControls(["allcontrols"]);document.MODEL.recalculate();', 300);
+      model.recalculate();
+      model.refresh();
+      model.rebuild();
+      model.USA.registerChangeLog('comments', '1X');
+    </script>
+    <script ev:event="xforms-ready">
+      
+      document.MODEL = model; setTimeout('document.MODEL.Frm.disableControls(["m1", "m2", "m3", "m4"]);document.MODEL.recalculate();', 300);
+    </script>
+    
+    
+    <xf:submission instance="dat" id="submitdat" replace="none" method="put">
+      <xf:action ev:event="xforms-submit-done">
+        <xf:message level="ephemeral">Saved</xf:message>
+      </xf:action>
+      <xf:action ev:event="xforms-submit-error">
+        <xf:message level="ephemeral">Problem saving</xf:message>
+      </xf:action>
+    </xf:submission>
+    
+    <xf:bind nodeset="instance('form')/document" type="ix:file"/>
+    <xf:bind nodeset="instance('dat')/*" readonly="true()" relevant="false()"/>  
+    <!--<xf:bind nodeset="instance('dat')//@addcomment" readonly="false()"/>
+    <xf:bind nodeset="instance('dat')//@comment" readonly="false()"/>-->
+    
+  </xf:model>
+
+  <!--<div class="formFrame">
+    <div class="body">
+  <div class="anchor">    
+    <h1 class="title">Test Test</h1>  
+    <br/>
+    <div class="dashboard">
+      
+      <!-\- Modified Document Drop -\->
+      <div style="display:none;">
+      <xf:input id="documentDrop" ref="instance('form')/document">
+        <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+          <script>
+            var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+          </script>
+        </xf:action>
+      </xf:input>
+      </div>
+      <br/>
+      
+
+      <xf:trigger>
+        <xf:label>Add New Document</xf:label>
+        <script ev:event="DOMActivate">
+          model.Frm.addDocument();        
+        </script>
+      </xf:trigger>
+      
+      <xf:trigger>
+        <xf:label>Add An Event to a Document</xf:label>
+        <script ev:event="DOMActivate">
+          //ARCHITA: this is testing the functionality for document events, look inside the protocolRouting/main.js 
+          //at the addDocumentEvent method to see how you can use this in jsHandlers
+          
+          docUID = prompt("doc #");
+          newStatus= prompt("newStatus:");
+          newDecision= prompt("newDecision:");
+          decisionComments= prompt("decisionComments:");
+          
+          var ret = callSharedService("protocolRouting", {"op":"addDocumentEvent", "targetURI":model.Frm.targetURI, "docUID":docUID, "newStatus":newStatus, "newDecision":newDecision, "decisionComments":decisionComments}, "text");
+          alert(ret);
+          
+          //This is not intended to be run inside a form, so you need to synchronize/reload the instance data (cause this operation works on it directly)
+          model.reloadInstanceId('dat');
+          model.activateCase("hide-docs");
+          model.refresh();
+          model.rebuild();
+          model.recalculate();
+          model.activateCase("show-docs");   
+          
+        </script>
+      </xf:trigger>
+      
+      <xf:trigger>
+        <xf:label>Save</xf:label>
+        <script ev:event="DOMActivate">
+          model.submit("submit");
+        </script>
+      </xf:trigger>
+    </div>
+  </div>
+  </div>
+  </div>-->
+  
+  <div id="allcontrols" class="formFrame">
+    
+    
+    <!-- Modified Document Drop -->
+    <div style="display:none;">
+    <xf:input id="documentDrop" ref="instance('form')/document">
+      <xf:action ev:event="xforms-value-changed" exf:if="instance('form')/document != ''">
+        <script>
+          var n = model.getValue(".", contextNode); if(n != ""){ model.Frm.linkFile(n); }
+        </script>
+      </xf:action>
+    </xf:input>    
+    </div>
+    <!--<table class="formMetaLine">
+      <tr>
+        <td class="initiated">Page Initiated: <xf:output value="instance('form')/form/@created"/>,
+            <xf:output value="instance('form')/form/@createdBy"/></td>
+        <td class="updated"><ix:attr
+            value="if(instance('form')/form/@updatedBy != '', '', 'display:none')" name="style"/>
+          Last Saved: <xf:output value="instance('form')/form/@updated"/>, <xf:output
+            value="instance('form')/form/@updatedBy"/></td>
+      </tr>
+    </table>-->
+    
+    
+    
+    <br/>
+    <div class="body">
+      
+      <br/>
+      
+      <table class="basicColLayout">
+        <tr class="box">
+          <td class="component textarea   widenLabel">
+            <xf:textarea class="" ref="instance('dat')/amendmentSummary">
+              <xf:label>Amendment Summary</xf:label>
+            </xf:textarea>
+          </td>
+        </tr>
+        
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 id='m1' ref="instance('dat')/willInform" appearance="full">
+                    <xf:label>Will participants already enrolled be informed of the change?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 id='m2' ref="instance('dat')/willInform" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="options"></td>
+          <td class="errors">
+            <div>
+              <xf:select ref="instance('dat')/willInform/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item>
+                <script ev:event="xforms-value-changed">
+                  cnged = model.getValue("../@changed", contextNode);
+                  com = model.getValue(".", contextNode);
+                  if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                  if(!cnged &amp;&amp; com) model.USA.addChange();
+                  model.recalculate();
+                </script> 
+              </xf:select>
+              <div>
+                <ix:attr name="style" value="if(instance('dat')/willInform/@addcomment='1', 'margin-top:-10px;', 'display:none')"/>
+                <xf:textarea ref="instance('dat')/willInform/@comment"/> 
+              </div>
+            </div>  
+          </td>
+        </tr>
+        
+        <tr class="dropdown"><ix:attr value="if(instance('dat')/willInform ='1', '', 'display:none')"
+          name="style"/>
+          <td class="component  widenLabel">
+            <xf:select1 ref="instance('dat')/willInformMethod">
+              <xf:label>Identify the method of notification</xf:label>
+              <xf:item><xf:label>-Select-</xf:label><xf:value></xf:value></xf:item>
+              <xf:repeat nodeset="instance('cats')/amendNotificationMethods/type">
+                <xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item>
+              </xf:repeat>
+            </xf:select1>
+          </td>
+          <td class="options"></td>
+          <td class="errors"><div>
+            <xf:select ref="instance('dat')/willInformMethod/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item>
+              <script ev:event="xforms-value-changed">
+                cnged = model.getValue("../@changed", contextNode);
+                com = model.getValue(".", contextNode);
+                if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                if(!cnged &amp;&amp; com) model.USA.addChange();
+                model.recalculate();
+              </script> 
+            </xf:select>
+            <div>
+              <ix:attr name="style" value="if(instance('dat')/willInformMethod/@addcomment='1', 'margin-top:-10px;', 'display:none')"/>
+              <xf:textarea ref="instance('dat')/willInformMethod/@comment"/> 
+            </div>
+          </div>
+          </td>
+        </tr>
+        
+
+        <tr class="box">
+          <ix:attr value="if(instance('dat')/willInform ='0', '', 'display:none')"
+            name="style"/>
+          <td class="component textarea   widenLabel">
+            <xf:textarea class="" ref="instance('dat')/noNessReason">
+              <xf:label>Please explain why it is not necessary</xf:label>
+            </xf:textarea>
+          </td>
+          <td class="options"/>
+          <td class="errors"><div>
+            <xf:select ref="instance('dat')/noNessReason/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item>
+              <script ev:event="xforms-value-changed">
+                cnged = model.getValue("../@changed", contextNode);
+                com = model.getValue(".", contextNode);
+                if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                if(!cnged &amp;&amp; com) model.USA.addChange();
+                model.recalculate();
+              </script> 
+            </xf:select>
+            <div>
+              <ix:attr name="style" value="if(instance('dat')/noNessReason/@addcomment='1', 'margin-top:-10px;', 'display:none')"/>
+              <xf:textarea ref="instance('dat')/noNessReason/@comment"/> 
+            </div>
+          </div></td>
+        </tr>
+        <tr class="box">
+          <br/><br/><br/>
+        </tr>
+        <tr class="yesnobuttons">
+          <td class="component  widenLabel">
+            <table class="horizontalSelects">
+              <tr>
+                <td class="yesBox">
+                  <xf:select1 ref="instance('dat')/willInformPast" id="m3" appearance="full">
+                    <xf:label>Will participants who have completed the study be informed of the change?</xf:label>
+                    <xf:item>
+                      <xf:label>Yes</xf:label>
+                      <xf:value>1</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+                <td class="noBox">
+                  <xf:select1 ref="instance('dat')/willInformPast" id="m4" appearance="full">
+                    <xf:label/>
+                    <xf:item>
+                      <xf:label>No</xf:label>
+                      <xf:value>0</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="options"/>
+          <td class="errors"><div>
+            <xf:select ref="instance('dat')/willInformPast/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item>
+              <script ev:event="xforms-value-changed">
+                cnged = model.getValue("../@changed", contextNode);
+                com = model.getValue(".", contextNode);
+                if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                if(!cnged &amp;&amp; com) model.USA.addChange();
+                model.recalculate();
+              </script> 
+            </xf:select>
+            <div>
+              <ix:attr name="style" value="if(instance('dat')/willInformPast/@addcomment='1', 'margin-top:-10px;', 'display:none')"/>
+              <xf:textarea ref="instance('dat')/willInformPast/@comment"/> 
+            </div>
+          </div>
+          </td>
+        </tr>
+        
+        <tr class="dropdown"><ix:attr value="if(instance('dat')/willInformPast ='1', '', 'display:none')"
+          name="style"/>
+          <td class="component  widenLabel">
+            <xf:select1 ref="instance('dat')/willInformPastMethod">
+              <xf:label>Identify the method of notification</xf:label>
+              <xf:item><xf:label>-Select-</xf:label><xf:value></xf:value></xf:item>
+              <xf:repeat nodeset="instance('cats')/amendNotificationMethods/type">
+                <xf:item><xf:label><xf:output value="@name"/></xf:label><xf:value><xf:output value="@id"/></xf:value></xf:item>
+              </xf:repeat>
+            </xf:select1>
+          </td>
+          <td class="options"/>
+          <td class="errors"><div>
+            <xf:select ref="instance('dat')/willInformPastMethod/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item>
+              <script ev:event="xforms-value-changed">
+                cnged = model.getValue("../@changed", contextNode);
+                com = model.getValue(".", contextNode);
+                if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                if(!cnged &amp;&amp; com) model.USA.addChange();
+                model.recalculate();
+              </script> 
+            </xf:select>
+            <div>
+              <ix:attr name="style" value="if(instance('dat')/willInformPastMethod/@addcomment='1', 'margin-top:-10px;', 'display:none')"/>
+              <xf:textarea ref="instance('dat')/willInformPastMethod/@comment"/> 
+            </div>
+          </div>
+          </td>
+        </tr>
+        
+        <tr class="box">
+          <ix:attr value="if(instance('dat')/willInformPast='0', '', 'display:none')"
+            name="style"/>
+          <td class="component textarea   widenLabel">
+            <xf:textarea class="" ref="instance('dat')/noNessReasonPast">
+              <xf:label>Please explain why it is not necessary</xf:label>
+            </xf:textarea>
+          </td>
+          <td class="options"/>
+          <td class="errors"><div>
+            <xf:select ref="instance('dat')/noNessReasonPast/@addcomment"><xf:item><xf:label>Add Comment</xf:label><xf:value>1</xf:value></xf:item>
+              <script ev:event="xforms-value-changed">
+                cnged = model.getValue("../@changed", contextNode);
+                com = model.getValue(".", contextNode);
+                if(!cnged &amp;&amp; !com) model.USA.removeChange();
+                if(!cnged &amp;&amp; com) model.USA.addChange();
+                model.recalculate();
+              </script> 
+            </xf:select>
+            <div>
+              <ix:attr name="style" value="if(instance('dat')/noNessReasonPast/@addcomment='1', 'margin-top:-10px;', 'display:none')"/>
+              <xf:textarea ref="instance('dat')/noNessReasonPast/@comment"/> 
+            </div>
+          </div>
+          </td>
+        </tr>
+      </table>
+      
+      
+      <br/>
+      <br/>
+      <hr/>
+      <br/>
+      <h4>Summary of Changes:</h4>
+      <div>
+        
+        <br/>
+        
+        <!--<exf:variable value="instance('diffs')/form/el[@xml=instance('dat')/DIFFS/d]" name="sec1"/>-->
+        <exf:variable value="instance('dat')/amendment/CALCED/delta/el" name="sec1"/>
+        
+        <div><ix:attr name="style" value="if(count($sec1) &gt; 0, 'display:none', '')"/>
+        
+          <h3 style="color:red">Error: At least 1 change must be made to submit an Amendment.</h3>
+        </div>
+        
+        <table class="fullColLayout" border='0'><ix:attr name="style" value="if(count($sec1) &gt; 0, '', 'display:none')"/>
+        <tr class="top">
+          <th class="out text large left" style="width:200px;text-align:left">Location</th>
+          <th class="in text large left" style="text-align:left">Field</th>
+          <th class="in text large left" style="text-align:left">Original Value</th>
+          <th class="in text large left" style="text-align:left">New Value</th>
+          <th class="in text large left" style="text-align:left">Justification</th>
+        </tr>
+             
+      <xf:switch>
+        
+        
+        
+        
+        <xf:case id="show-docs">
+          <xf:repeat nodeset="$sec1">
+            <exf:variable value="@cmp" name="needle"/>
+            <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+            <tr>
+              
+              
+              <td class="out text alrge left" style="width:250px;">
+                <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                  lnk = model.getValue("@cmp", contextNode);
+                  var target = "xf_0projectTabs_control";
+                  var receiver = model.Frm.formSet.getRoot().getChild(target);
+                  if(receiver){
+                  receiver.model.SF.switchTab(lnk);
+                  }
+                </script><xf:output value="$source/@label"/></u>
+              </td>
+              <td class="out text large left">
+                <xf:output value="@label"/>
+              </td>
+              <td class="out text large left">
+                <xf:output value="@orgVal"/>
+              </td>
+              <td class="out text large left">
+                <xf:output value="if(@action!='none', @sugVal, '')"/>
+              </td>
+              
+              <td class="out text large left"><ix:attr name="style" value="if(@comment!='', '', 'color:red')"></ix:attr>
+                <xf:output value="if(@comment!='', @comment, '-none-')"/>
+              </td>   
+              
+              <!--<td class="out text alrge left" style="width:250px;">
+                <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                  lnk = model.getValue("@cmp", contextNode);
+                  var target = "xf_0projectTabs_control";
+                  var receiver = model.Frm.formSet.getRoot().getChild(target);
+                  if(receiver){
+                  receiver.model.SF.switchTab(lnk);
+                  }
+                </script><xf:output value="$source/@label"/></u>
+              </td>
+              <td class="out text large left">
+                <xf:output value="@label"/>
+              </td>
+              <td class="out text large left">
+                <xf:output value="@orgVal"/>
+              </td>
+              <td class="out text large left">
+                <xf:output value="if(@action!='none', @sugVal, '')"/>
+              </td>-->
+            </tr>
+            
+            
+            
+          </xf:repeat>          
+        </xf:case>
+        
+        <!--<xf:case id="show-docs">
+            <xf:repeat nodeset="$sec1">
+              <exf:variable value="@cmp" name="needle"/>
+              <exf:variable value="instance('diffs')/tab[@id=$needle]" name="source"/>
+              <exf:variable value="@xml" name="xmlNeedle"/>
+              <exf:variable value="instance('dat')/*[local-name()=$xmlNeedle]" name="xmlSrc"/>
+              <exf:variable value="instance('dat')/original/*[@revIndex=$xmlSrc/@revIndex]" name="xmlMatch"/>
+              <tr><ix:attr name="style" value="if($xmlSrc != $xmlMatch, '', 'display:none')"/>
+                <td class="out text alrge left" style="width:250px;">
+                  <xf:output value="$source/@flabel"/> <u style="color:blue;cursor:pointer"><script ev:event="click">
+                    lnk = model.getValue("@cmp", contextNode);
+                    var target = "xf_0projectTabs_control";
+                    var receiver = model.Frm.formSet.getRoot().getChild(target);
+                    if(receiver){
+                      receiver.model.SF.switchTab(lnk);
+                    }
+                  </script><xf:output value="$source/@label"/></u>
+                </td>
+              <td class="out text large left">
+                <xf:output value="."/>
+              </td>
+                <td class="out text large left">
+                  <xf:output value="if($xmlMatch='0', 'no', if($xmlMatch='1', 'yes', $xmlMatch))"/>
+                </td>
+                <td class="out text large left">
+                  <xf:output value="if($xmlSrc='0', 'no', if($xmlSrc='1', 'yes', $xmlSrc))"/>
+                </td>
+                <td class="out text large left">
+                  <xf:output value="if($xmlSrc/@amdcomment!='', $xmlSrc/@amdcomment, '[Pending]')"/>
+                </td>   
+            </tr>
+          </xf:repeat>          
+          </xf:case>-->
+        
+        
+        <xf:case id="hide-docs"/>
+      </xf:switch> 
+      </table>
+      </div>
+        <br/>         
+  </div>             
+  </div>       
+  
+
+  <div class="bottomNav">
+    <table>
+      <tr>
+        <td class="back">
+          <div class="nav" style="float:right">
+            <script ev:event="click"> model.Frm.navigateTo("previousTab"); </script>
+            <div style="float:left" class="command">previous</div>
+            <img style="float:right" src="../fil/system/resources/ideate/imgs/left.png"/>
+          </div>
+        </td>
+        <td class="next">
+          <div class="nav" style="float:left">
+            <script ev:event="click"> model.Frm.navigateTo("nextTab"); </script>
+            <img style="float:left" src="../fil/system/resources/ideate/imgs/right.png"/>
+            <div style="float:right" class="command">next</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align:center; font-size:10px;margin-top:30px;">© Consilience International LLC, 2009</div>
+  </div>
+</form>

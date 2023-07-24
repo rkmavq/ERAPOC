@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs saveOnSwitch="1"> 
+    
+    <tab id="1" label="Summary" form="/home/configs/IRB/forms/irbsummaryRSViewRebuf.xfrm"/>
+    <tab id="2" label="Research Design">
+        <tab id="2a" label="Overview" form="/home/configs/IRB/forms/researchDesignRSViewRebuf.xfrm"/>
+        <tab id="5" label="Risks and Benefits" form="/home/configs/IRB/forms/risksRSViewRebuf.xfrm"/>
+    </tab> 
+    <tab id="4" label="Personnel">
+        <tab id="4b" label="Research Personnel" form="/home/configs/IRB/forms/personnelRSViewRebuf.xfrm"/>
+        <tab id="4c" label="Other Personnel" form="/home/configs/IRB/forms/personnelOtherRSViewRebuf.xfrm"/>
+    </tab>
+    <tab id="6A" label="Protocol Components">
+        <tab id="6" label="Performance Sites" form="/home/configs/IRB/forms/sitesRSViewRebuf.xfrm"/>
+        <tab id="8" label="Drugs" form="/home/configs/IRB/forms/drugsRSViewRebuf.xfrm" when="drugs"/>
+        <tab id="9" label="Devices" form="/home/configs/IRB/forms/devicesRSViewRebuf.xfrm" when="devices"/>
+        <tab id="10" label="Biologics" form="/home/configs/IRB/forms/biologicsRSViewRebuf.xfrm" when="bios"/>
+        <tab id="17" label="Procedures" form="/home/configs/IRB/forms/proceduresRSViewRebuf.xfrm"/>
+    </tab>
+    
+    <tab id="11A" label="Subjects">
+        <tab id="11" label="Populations" form="/home/configs/IRB/forms/subjectsRSViewRebuf.xfrm"/>
+        <tab id="12" label="Eligibility" form="/home/configs/IRB/forms/eligibilityRSViewRebuf.xfrm"/>
+        <tab id="13" label="Enrollment" form="/home/configs/IRB/forms/enrollRSViewRebuf.xfrm"/>
+        <tab id="11X" label="Recruitment" form="/home/configs/IRB/forms/recuitmentRSViewRebuf.xfrm"/>
+        <tab id="14" label="Compensation" form="/home/configs/IRB/forms/compensationRSViewRebuf.xfrm"/>
+        <!--<tab id="15" label="Enrolled" form="/home/configs/IRB/forms/enrolledRSViewRebuf.xfrm"/>-->
+        <tab id="16" label="Consent" form="/home/configs/IRB/forms/consentRSViewRebuf.xfrm"/>
+        <tab id="3" label="PHI" form="/home/configs/IRB/forms/healthrecordsRSViewRebuf.xfrm"/>
+    </tab>
+    <tab id="7" label="Funding" form="/home/configs/IRB/forms/fundingRSViewRebuf.xfrm"/>
+    
+    <tab id="18" label="Attachments" form="/home/configs/IRB/forms/attachmentsRSViewRebuf.xfrm"/>
+    
+    <switches>
+        <mkRS>0</mkRS>
+        <boardrevPending>0</boardrevPending>
+        <updateCase>0</updateCase>
+        <bios>0</bios>
+        <drugs>0</drugs>
+        <devices>0</devices>
+        <board>0</board>
+        <submit>0</submit>
+        <submitproxy>0</submitproxy>
+        <pimatch>0</pimatch>
+        <pipending>0</pipending>
+    </switches>
+</tabs>
